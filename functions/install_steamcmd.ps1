@@ -24,3 +24,4 @@ Function Get-Steam {
         }
         If ($?) { Write-Host " ****   Extracting SteamCMD succeeded    ****" -F Y -B Black }
     }
+}
