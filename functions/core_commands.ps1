@@ -29,7 +29,8 @@ Function Select-Steamer {
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
-        Set-SteamInfoAppID
+        #Set-SteamInfoAppID
+        Read-AppID
         New-CreateVariables
         Get-Finished
     }
@@ -43,7 +44,8 @@ Function Select-Steamer {
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
-        Set-SteamInfoAppID
+        #Set-SteamInfoAppID
+        Read-AppID
         New-CreateVariables
         Get-Finished
     }
@@ -101,7 +103,8 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars    
         Get-CheckServer
-        Get-ServerBuildCheck
+        Get-ServerBuild
+        #Get-ServerBuildCheck
         Select-StartServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -111,7 +114,8 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars   
         Get-CheckServer
-        Get-ServerBuildCheck
+        Get-ServerBuild
+        #Get-ServerBuildCheck
         Select-StartServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -144,7 +148,8 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-StopServer
-        Get-ServerBuildCheck
+        Get-ServerBuild
+        #Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -155,7 +160,8 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-StopServer
-        Get-ServerBuildCheck
+        Get-ServerBuild
+        #Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable  
         Get-ClearVariables

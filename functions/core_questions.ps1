@@ -7,12 +7,14 @@ Function Set-SteamInfo {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
     If ($decision -eq 1) {
         $global:ANON = "yes"
-        Install-Anonserver
+        #Install-Anonserver
+        Install-ServerFiles
         Write-Host 'Entered Y'
     }
     Else {
         $global:ANON = "no"
-        Install-Anonserver
+        #Install-Anonserver
+        Install-ServerFiles
         Write-Host 'Entered N'
     }
 }
@@ -155,53 +157,53 @@ Function Get-UserInput {
         [parameter(Position = 13)]$parm13,
         [parameter(Position = 14)]$parm14,
         [parameter(Position = 15)]$parm15)
-    Write-Host "$global:SMILEY_BLACK Press Enter to Accept default $global:SMILEY_BLACK" -F Y
+    #Write-Host "$global:SMILEY_BLACK Press Enter to Accept default $global:SMILEY_BLACK" -F Y
     If ($parm0 -eq 1) {
-        If ((${global:IP} = Read-Host -P(Write-Host "Input IP [$global:defaultIP]: "-F CY -N )) -eq '') { $global:IP = "$global:defaultIP" }Else { $global:IP }
+        If ((${global:IP} = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$global:defaultIP]: "-F CY -N )) -eq '') { $global:IP = "$global:defaultIP" }Else { $global:IP }
     }
     If ($parm1 -eq 1) {
-        If ((${global:PORT} = Read-Host -P(Write-Host "Input PORT [$global:defaultPORT]: "-F CY -N )) -eq '') { $global:PORT = "$global:defaultPORT" }Else { $global:PORT }
+        If ((${global:PORT} = Read-Host -P(Write-Host "Enter Server PORT, Press Enter to Accept default [$global:defaultPORT]: "-F CY -N )) -eq '') { $global:PORT = "$global:defaultPORT" }Else { $global:PORT }
     }
     If ($parm2 -eq 1) {
-        If ((${global:QUERYPORT} = Read-Host -P(Write-Host "Input QUERYPORT [$global:defaultQUERYPORT]: "-F CY -N )) -eq '') { $global:QUERYPORT = "$global:defaultQUERYPORT" }Else { $global:QUERYPORT }
+        If ((${global:QUERYPORT} = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept default [$global:defaultQUERYPORT]: "-F CY -N )) -eq '') { $global:QUERYPORT = "$global:defaultQUERYPORT" }Else { $global:QUERYPORT }
     }
     If ($parm3 -eq 1) {
-        If ((${global:RCONPORT} = Read-Host -P(Write-Host "Input RCONPORT [$global:defaultRCONPORT]: "-F CY -N )) -eq '') { $global:RCONPORT = "$global:defaultRCONPORT" }Else { $global:RCONPORT }
+        If ((${global:RCONPORT} = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept default [$global:defaultRCONPORT]: "-F CY -N )) -eq '') { $global:RCONPORT = "$global:defaultRCONPORT" }Else { $global:RCONPORT }
     }
     If ($parm4 -eq 1) {
-        If ((${global:RCONPASSWORD} = Read-Host -P(Write-Host "Input RCONPASSWORD [$global:RANDOMPASSWORD]: "-F CY -N )) -eq '') { $global:RCONPASSWORD = "$global:RANDOMPASSWORD" }Else { $global:RCONPASSWORD }
+        If ((${global:RCONPASSWORD} = Read-Host -P(Write-Host "Enter Server RCON PASSWORD, Press Enter to Accept default [$global:RANDOMPASSWORD]: "-F CY -N )) -eq '') { $global:RCONPASSWORD = "$global:RANDOMPASSWORD" }Else { $global:RCONPASSWORD }
     }
     If ($parm5 -eq 1) {
-        If ((${global:HOSTNAME} = Read-Host -P(Write-Host "Input HOSTNAME [$env:USERNAME]: "-F CY -N )) -eq '') { $global:HOSTNAME = "$env:USERNAME" }Else { $global:HOSTNAME }
+        If ((${global:HOSTNAME} = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept default [$env:USERNAME]: "-F CY -N )) -eq '') { $global:HOSTNAME = "$env:USERNAME" }Else { $global:HOSTNAME }
     }
     If ($parm6 -eq 1) {
-        If ((${global:SERVERPASSWORD} = Read-Host -P(Write-Host "Input SERVERPASSWORD [$global:defaultSERVERPASSWORD]: "-F CY -N )) -eq '') { $global:SERVERPASSWORD = "$global:defaultSERVERPASSWORD" }Else { $global:SERVERPASSWORD }
+        If ((${global:SERVERPASSWORD} = Read-Host -P(Write-Host "Enter Server SERVER PASSWORD, Press Enter to Accept default [$global:defaultSERVERPASSWORD]: "-F CY -N )) -eq '') { $global:SERVERPASSWORD = "$global:defaultSERVERPASSWORD" }Else { $global:SERVERPASSWORD }
     }
     If ($parm7 -eq 1) {
-        If ((${global:MAXPLAYERS} = Read-Host -P(Write-Host "Input MAXPLAYERS [$global:defaultMAXPLAYERS]: "-F CY -N )) -eq '') { $global:MAXPLAYERS = "$global:defaultMAXPLAYERS" }Else { $global:MAXPLAYERS }
+        If ((${global:MAXPLAYERS} = Read-Host -P(Write-Host "Enter Server MAX PLAYERS, Press Enter to Accept default [$global:defaultMAXPLAYERS]: "-F CY -N )) -eq '') { $global:MAXPLAYERS = "$global:defaultMAXPLAYERS" }Else { $global:MAXPLAYERS }
     }
     If ($parm8 -eq 1) {
-        If ((${global:GSLT} = Read-Host -P(Write-Host "Input GSLT [$global:defaultGSLT]: "-F CY -N )) -eq '') { $global:GSLT = "$global:defaultGSLT" }Else { $global:GSLT }
+        If ((${global:GSLT} = Read-Host -P(Write-Host "Enter Server GSLT, Press Enter to Accept default [$global:defaultGSLT]: "-F CY -N )) -eq '') { $global:GSLT = "$global:defaultGSLT" }Else { $global:GSLT }
     }
     If ($parm9 -eq 1) {
-        If ((${global:MAP} = Read-Host -P(Write-Host "Input MAP [$global:defaultMAP]: "-F CY -N )) -eq '') { $global:MAP = "$global:defaultMAP" }Else { $global:MAP }
+        If ((${global:MAP} = Read-Host -P(Write-Host "Enter Server MAP, Press Enter to Accept default [$global:defaultMAP]: "-F CY -N )) -eq '') { $global:MAP = "$global:defaultMAP" }Else { $global:MAP }
     }
     If ($parm10 -eq 1) {
-        If ((${global:clientport} = Read-Host -P(Write-Host "Input clientport [$global:defaultclientport]: "-F CY -N )) -eq '') { $global:clientport = "$global:defaultclientport" }Else { $global:clientport }
+        If ((${global:clientport} = Read-Host -P(Write-Host "Enter Server client port, Press Enter to Accept default [$global:defaultclientport]: "-F CY -N )) -eq '') { $global:clientport = "$global:defaultclientport" }Else { $global:clientport }
     }
     If ($parm11 -eq 1) {
-        If ((${global:sourcetvport} = Read-Host -P(Write-Host "Input sourcetvport [$global:defaultsourcetvport]: "-F CY -N )) -eq '') { $global:sourcetvport = "$global:defaultsourcetvport" }Else { $global:sourcetvport }
+        If ((${global:sourcetvport} = Read-Host -P(Write-Host "Enter Server source tv port, Press Enter to Accept default [$global:defaultsourcetvport]: "-F CY -N )) -eq '') { $global:sourcetvport = "$global:defaultsourcetvport" }Else { $global:sourcetvport }
     }
     If ($parm12 -eq 1) {
-        If ((${global:GAMEMODE} = Read-Host -P(Write-Host "Input sourcetvport [$global:defaultGAMEMODE]: "-F CY -N )) -eq '') { $global:GAMEMODE = "$global:defaultGAMEMODE" }Else { $global:GAMEMODE }
+        If ((${global:GAMEMODE} = Read-Host -P(Write-Host "Enter Server GAME MODE, Press Enter to Accept default [$global:defaultGAMEMODE]: "-F CY -N )) -eq '') { $global:GAMEMODE = "$global:defaultGAMEMODE" }Else { $global:GAMEMODE }
     }
     If ($parm13 -eq 1) {
-        If ((${global:DIFF} = Read-Host -P(Write-Host "Input sourcetvport [$global:defaultDIFF]: "-F CY -N )) -eq '') { $global:DIFF = "$global:defaultDIFF" }Else { $global:DIFF }
+        If ((${global:DIFF} = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept default [$global:defaultDIFF]: "-F CY -N )) -eq '') { $global:DIFF = "$global:defaultDIFF" }Else { $global:DIFF }
     }
     If ($parm14 -eq 1) {
-        If ((${global:ADMINPASSWORD} = Read-Host -P(Write-Host "Input sourcetvport [$global:defaultADMINPASSWORD]: "-F CY -N )) -eq '') { $global:ADMINPASSWORD = "$global:defaultADMINPASSWORD" }Else { $global:ADMINPASSWORD }
+        If ((${global:ADMINPASSWORD} = Read-Host -P(Write-Host "Enter Server ADMIN PASSWORD, Press Enter to Accept default [$global:defaultADMINPASSWORD]: "-F CY -N )) -eq '') { $global:ADMINPASSWORD = "$global:defaultADMINPASSWORD" }Else { $global:ADMINPASSWORD }
     }
     If ($parm15 -eq 1) {
-        If ((${global:xx} = Read-Host -P(Write-Host "Input sourcetvport [$global:xx]: "-F CY -N )) -eq '') { $global:xx = "$global:xx" }Else { $global:xx }
+        If ((${global:xx} = Read-Host -P(Write-Host "Enter Server sourcetvport, Press Enter to Accept default [$global:xx]: "-F CY -N )) -eq '') { $global:xx = "$global:xx" }Else { $global:xx }
     }
 }

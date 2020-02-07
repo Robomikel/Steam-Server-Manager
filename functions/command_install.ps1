@@ -1,21 +1,4 @@
-Function Set-SteamInfo {
-    $title = 'Install Steam server with Anonymous login'
-    $question = 'Use Anonymous Login?'
-    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
-    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-    If ($decision -eq 1) {
-        $global:ANON = "yes"
-        Install-Anonserver
-        Write-Host 'Entered Y'
-    }
-    Else {
-        $global:ANON = "no"
-        Install-Anonserver
-        Write-Host 'Entered N'
-    }
-}
+
 Function Install-Anonserver {
     If ($global:ANON -eq "no") {
         Write-Host "Enter Username for Steam install, Steam.exe will prompt for Password and Steam Gaurd" -F Cyan -B Black

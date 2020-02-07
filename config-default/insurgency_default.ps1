@@ -54,15 +54,15 @@ Function New-LaunchScriptInsserverPS {
         $global:COOPPLAYERS = "8"
         $global:WORKSHOP = "1"
         $global:SV_PURE = "0"
-        $global:HOSTNAME = "PS Steamer"
+        $global:HOSTNAME = "$env:USERNAME"
         $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
         #     Add here     /\ /\ /\
 
     }
     ElseIf ( $global:Version -eq "0" ) {
-        #     Get-UserInput 1 1 0
+             Get-UserInput 1 1 0 0 1 1 1 1
     }  
-    
+
     Select-EditSourceCFG
     Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $global:currentdir\$global:server\insurgency\subscribed_file_ids.txt -Force

@@ -29,15 +29,7 @@ Function Get-TestString {
 
 
 
-Function Get-CheckForError {
-    If (!$?) {
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-        Write-Host "      $global:DIAMOND $global:DIAMOND Command $global:command Failed! $global:DIAMOND $global:DIAMOND" -F R -B Black
-        Write-Host "***        Try install command again          ****  " -F Y -B Black
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-        Exit
-    }
-}
+
 Function Set-Console {
     Clear-Host
     $host.ui.RawUi.WindowTitle = "-------- STEAMER ------------"
@@ -75,40 +67,7 @@ Function Set-VariablesPS {
     Write-Host "***  Creating Variables and adding launch params  ***" -F M -B Black
     New-Item $global:currentdir\$global:server\Variables-$global:server.ps1 -Force
 }
-Function Get-ChecktaskUnreg {
-    Get-ScheduledTask -TaskName "$global:server $global:command" >$null 2>&1
-    If ($?) {
-        Write-Host '****   Unregistering scheduled task   ****' -F M -B Black
-        Unregister-ScheduledTask -TaskName "$global:server $global:command" >$null 2>&1
-    }
-    If (!$?) {
-        Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
-    }
-}
-Function Get-ChecktaskDisable {
-    If ($global:DisableChecktask -eq "1") {
-        Get-ScheduledTask -TaskName "$global:server monitor" >$null 2>&1
-    }
-    If ($?) {
-        Write-Host '****   disabling scheduled task   ****' -F M -B Black
-        Disable-ScheduledTask -TaskName "$global:server monitor" >$null 2>&1
-    }
-    If (!$?) {
-        Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
-    }
-}
-Function Get-ChecktaskEnable {
-    if ($global:DisableChecktask -eq "1") {
-        Get-ScheduledTask -TaskName "$global:server monitor" >$null 2>&1
-    }
-    If ($?) {
-        Write-Host '****   Enabling scheduled task   ****' -F M -B Black
-        Enable-ScheduledTask -TaskName "$global:server monitor" >$null 2>&1
-    }
-    If (!$?) {
-        Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
-    }
-}
+
 Function Get-Savelocation {
     If (("" -eq $global:saves) -or ($null -eq $global:saves )) {
         Write-Host "****   No saves located in App Data   ****" -F Y -B Black 
@@ -126,4 +85,21 @@ Function Select-EditSourceCFG {
     Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
     ((Get-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Raw) -replace "\bSERVERNAME\b", "$global:HOSTNAME") | Set-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1
     ((Get-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Raw) -replace "\bADMINPASSWORD\b", "$global:RCONPASSWORD") | Set-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -ea SilentlyContinue
+}
+Function New-ServerFolderq {
+    $title = 'Server Folder Name does not exist!'
+    $question = 'Would you like to to create new Server Folder Name?'
+    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+    If ($decision -eq 0) {
+        Write-Host 'Entered Y'
+        $global:command = "install"
+        Select-Steamer $global:command $global:server
+    }
+    Else {
+        Write-Host 'Entered N'
+        Exit
+    }
 }

@@ -7,10 +7,6 @@ Function Get-Steamtxt {
         Write-Host '****   steamCMD Runscripts .txt Exist   ***' -F Y -B Black
     } 
     Else {  
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-        Write-Host "      $global:DIAMOND $global:DIAMOND Command $global:command Failed! $global:DIAMOND $global:DIAMOND" -F R -B Black
-        Write-Host "***        Try install command again          ****  " -F Y -B Black
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-        Exit
+        Get-commandfailed 
     }
 }

@@ -3,6 +3,22 @@ Function New-CreateVariables {
     New-Item $global:currentdir\$global:server\Variables-$global:server.ps1 -Force
     Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "# WEBHOOK HERE - - \/  \/  \/"
     Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WEBHOOK = `"$global:WEBHOOK`""
+    If ($global:APPID) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  App ID  - - \/  \/  \/"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:APPID = `"$global:APPID`""
+    }
+    If ($global:Branch) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Branch   - - \/  \/  \/"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:Branch = `"$global:Branch`""
+    }
+    If ($global:username) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Steam username - - \/  \/  \/"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:username = $global:username"
+    }
+    If ($global:ANON) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Steam Anonymous user  - - \/  \/  \/"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:ANON = $global:ANON"
+    }
     If ($global:MODDIR) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Mod dir - - \/  \/  \/"
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MODDIR = `"$global:MODDIR`""
@@ -59,6 +75,10 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  server STEAMPORT port- - \/  \/  \/"
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:STEAMPORT = `"$global:STEAMPORT`""
     }
+    If ($global:steamID64) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  server steamID64- - \/  \/  \/"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:steamID64 = `"$global:steamID64`""
+    }
     If ($global:MAP) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  default Map- - \/  \/  \/"
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MAP = `"$global:MAP`""
@@ -94,10 +114,6 @@ Function New-CreateVariables {
     If ($global:SAVES) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  local App Data SAVES folder - - \/  \/  \/"
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:SAVES = `"$global:SAVES`""
-    }
-    If ($global:APPID) {
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  App ID  - - \/  \/  \/"
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:APPID = `"$global:APPID`""
     }
     If ($global:RCONPORT) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Rcon Port  - - \/  \/  \/"

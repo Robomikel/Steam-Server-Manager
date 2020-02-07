@@ -8,11 +8,7 @@ Function Get-CheckForVars {
     }
     Foreach ($global:missingvars in $global:missingvars) {
         If ( "" -eq $global:missingvars) {
-            Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-            Write-Host "$global:DIAMOND $global:DIAMOND Missing Vars ! $global:DIAMOND $global:DIAMOND" -F R -B Black
-            Write-Host "Try install command again or check vars in Variables-$global:server.ps1" -F Y -B Black
-            Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-            Exit
+            Get-varsmessage
         }
     }
 }

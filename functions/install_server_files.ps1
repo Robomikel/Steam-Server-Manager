@@ -1,22 +1,31 @@
 Function Install-ServerFiles {
-    param(
-        # [string]
-        [Parameter(Mandatory = $true, Position = 0)]
-        # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
-        $global:launchParams
-    )
-    Set-Location $global:currentdir\steamcmd\
-  
-        Start-Process steamCMD "@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit"
 
-        Start-Process CMD "/c start $global:launchParams"  -NoNewWindow
+    Set-Location $global:currentdir\steamcmd\
+    If ($global:ANON = "yes") {
+        Start-Process steamCMD "+@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit"
+    }
+    Else {
+        Start-Process steamCMD "+@ShutdownOnFailedCommand 1 +login $global:username +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit"
+    }
+
 
     Set-Location $global:currentdir
 }
-Function Select-StartServer {
-    Write-Host '****   Starting Server   *****' -F Y -B Black  
-    Get-StartServer $global:launchParams
+Function Install-validateServerFiles {
+
+    Set-Location $global:currentdir\steamcmd\
+    If ($global:ANON = "yes") {
+        Start-Process steamCMD "+@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch validate +Exit"
+    }
+    Else {
+        Start-Process steamCMD "+@ShutdownOnFailedCommand 1 +login $global:username +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch validate +Exit"
+    }
+
+
+    Set-Location $global:currentdir
 }
+
+
 Function Read-AppID {
     If ($global:AppID -eq 302200) {
         Set-Console  >$null 2>&1
