@@ -1,12 +1,11 @@
-Function Get-Steamtxt {
-    Write-Host "****   Check $global:server Steam runscripts txt   ****" -F Y -B Black
-    $patha = "$global:currentdir\steamcmd\Validate-$global:server.txt"
-    $pathb = "$global:currentdir\steamcmd\Updates-$global:server.txt"
-    $pathc = "$global:currentdir\steamcmd\Buildcheck-$global:server.txt" 
-    If ((Test-Path $patha) -and (Test-Path $pathb) -and (Test-Path $pathc)) {
-        Write-Host '****   steamCMD Runscripts .txt Exist   ***' -F Y -B Black
+Function Get-Steam{
+    $start_time = Get-Date
+    $path = "$global:currentdir\steamcmd\"
+    $patha = "$global:currentdir\steamcmd\steamcmd.exe" 
+    If ((Test-Path $path) -and (Test-Path $patha)) { 
+        Write-Host '****   steamCMD already downloaded!   ****' -F Y -B Black
     } 
     Else {  
-        Get-commandfailed 
+        Install-Steam
     }
-}
+}    

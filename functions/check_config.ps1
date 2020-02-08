@@ -4,7 +4,7 @@ Function Get-CheckForVars {
         $global:missingvars = $global:RCONPORT, $global:RCONPASSWORD
     }
     Else {
-        $global:missingvars = ${global:QUERYPORT}, ${global:IP}, $global:APPID, $global:PROCESS, ${global:PORT}
+        $global:missingvars = ${global:QUERYPORT}, ${global:IP}, $global:APPID, $global:PROCESS, ${global:PORT},$global:ANON
     }
     Foreach ($global:missingvars in $global:missingvars) {
         If ( "" -eq $global:missingvars) {

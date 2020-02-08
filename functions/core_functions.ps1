@@ -86,20 +86,3 @@ Function Select-EditSourceCFG {
     ((Get-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Raw) -replace "\bSERVERNAME\b", "$global:HOSTNAME") | Set-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1
     ((Get-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Raw) -replace "\bADMINPASSWORD\b", "$global:RCONPASSWORD") | Set-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -ea SilentlyContinue
 }
-Function New-ServerFolderq {
-    $title = 'Server Folder Name does not exist!'
-    $question = 'Would you like to to create new Server Folder Name?'
-    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
-    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
-    If ($decision -eq 0) {
-        Write-Host 'Entered Y'
-        $global:command = "install"
-        Select-Steamer $global:command $global:server
-    }
-    Else {
-        Write-Host 'Entered N'
-        Exit
-    }
-}
