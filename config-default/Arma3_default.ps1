@@ -21,6 +21,8 @@ Function New-LaunchScriptArma3serverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RCONPASSWORD"
     #                       Requieres Steam Login
+    #                       Steam Anonymous user
+    $global:ANON = "no"
     #                       Steam Username
     $global:username        = ""
     ##############################/\##############################
@@ -35,8 +37,7 @@ Function New-LaunchScriptArma3serverPS {
     $global:GAME = "arma3"
     $global:PROCESS = "arma3Server"
     $global:SERVERCFGDIR = "cfg"
-    #         Does not Requiere Steam Login
-    $global:ANON = "no"
+
 
     Get-StopServerInstall
     $global:gamedirname = "Arma3"

@@ -67,6 +67,21 @@ Function New-ServerFolderq {
         Exit
     }
 }
+Function Get-OxideQ {
+    $title = 'Download Oxide'
+    $question = 'Download Oxide and install?'
+    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+    If ($decision -eq 0) {
+        Get-Oxide
+        Write-Host 'Entered Y'
+    } 
+    Else {
+        Write-Host 'Entered N'
+    }
+}
 Function Get-SourceMetMod {
     $title = 'Download MetaMod and SourceMod'
     $question = 'Download MetaMod, SourceMod and install?'
