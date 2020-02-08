@@ -1,29 +1,33 @@
 
 #----------   INS: Sandstorm Server Install Function   -------------------
 Function New-LaunchScriptInssserverPS {
-        # - - - - - - - - - Change Default Variables ------------
-        # Server Scenario 
-        $global:SCENARIO = "Scenario_Outskirts_Checkpoint_Security"
-        # Server Map 
-        $global:MAP = "Compound"
-        # Server max Players 
-        $global:MAXPLAYERS = "8"
-        # Server Port   
-        $global:PORT = "270131"
-        # Server Query Port  
-        $global:QUERYPORT = "64092"
-        # Server Name       
-        $global:HOSTNAME = "$env:USERNAME"
-        # Server Password
-        $global:SERVERPASSWORD = ""
-        # Server Rcon Port
-        $global:RCONPORT = "64094"
-        # Server Rcon Password
-        $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
-        # Server Admin Steam ID 64
-        $global:steamID64 = ""
+        ################## Change Default Variables #################
+        #                       Server Scenario 
+        $global:SCENARIO        = "Scenario_Outskirts_Checkpoint_Security"
+        #                       Server Map 
+        $global:MAP             = "Compound"
+        #                       Server max Players 
+        $global:MAXPLAYERS      = "8"
+        #                       Server Port   
+        $global:PORT            = "270131"
+        #                       Server Query Port  
+        $global:QUERYPORT       = "64092"
+        #                       Server Name       
+        $global:HOSTNAME        = "$env:USERNAME"
+        #                       Server Password
+        $global:SERVERPASSWORD  = ""
+        #                       Server Rcon Port
+        $global:RCONPORT         = "64094"
+        #                       Server Rcon Password
+        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        #                       Server Admin Steam ID 64
+        $global:steamID64       = ""
+        ##############################/\##############################
         
-        # - - - - - - - Do not change below - - - - - - - - -
+        
+        
+        ###################### Do not change below #####################
+
         # $global:MODDIR=""
         $global:EXE = "InsurgencyServer"
         $global:EXEDIR = ""

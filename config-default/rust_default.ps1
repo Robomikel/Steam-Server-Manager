@@ -8,9 +8,9 @@ Function New-LaunchScriptRustPS {
         $global:PORT            = "28015"
         #                       Rcon Port
         $global:RCONPORT        = "28016"
-        #                      Rcon Password
+        #                       Rcon Password
         $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
-        #                      Rcon Web
+        #                       Rcon Web
         $global:RCONWEB         = "1"
         #                       Server Name
         $global:HOSTNAME        = "$env:USERNAME"

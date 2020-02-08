@@ -1,20 +1,20 @@
 #----------   The Forest Server Install Function   -------------------
 Function New-LaunchScriptforestserverPS {
     ################## Change Default Variables #################
-    # Server IP 
-    $global:IP = "${global:IP}"
-    # Server Name 
-    $global:HOSTNAME = "$env:USERNAME"
-    # Steam Port
-    $global:STEAMPORT = "8766"
-    # Server Port
-    $global:PORT = "27015"
-    # Server Query Port
-    $global:QUERYPORT = "27016"
-    # Server Max Players
-    $global:MAXPLAYERS = "8"
-    # Server Difficulty
-    ${global:DIFF} = "Normal"
+    #                   Server IP 
+    $global:IP          = "${global:IP}"
+    #                   Server Name 
+    $global:HOSTNAME    = "$env:USERNAME"
+    #                   Steam Port
+    $global:STEAMPORT   = "8766"
+    #                   Server Port
+    $global:PORT        = "27015"
+    #                   Server Query Port
+    $global:QUERYPORT   = "27016"
+    #                   Server Max Players
+    $global:MAXPLAYERS  = "8"
+    #                   Server Difficulty
+    ${global:DIFF}      = "Normal"
 
     ##############################/\##############################
     
