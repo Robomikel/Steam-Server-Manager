@@ -3,8 +3,19 @@ Function New-LaunchScriptbsserverPS {
     # Blade Symphony Dedicated Server
     # APP ID # 228780
     # WIKI
-    # Requiered Dont change 
-    # # Version 2.0
+        # - - - - - - - - - Change Default Variables ------------
+
+    $global:RCONPORT = "${global:PORT}"
+    $global:ip = "${global:IP}"
+    $global:port = "27015"
+    $global:clientport = "27005"
+    $global:sourcetvport = "27020"
+    $global:map = "duel_winter"
+    $global:maxplayers = "16"
+    $global:gslt = ""
+    
+    
+    # - - - - - - - Do not change below - - - - - - - - -
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
     #--->Exe NOT in root server folder \/\/
@@ -25,19 +36,12 @@ Function New-LaunchScriptbsserverPS {
     $global:gamedirname = "BladeSymphony"
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:ANON = "yes"
+    $global:username = ""
     #--->Get game-server-config \/\/
     Get-Servercfg
-    #--->Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "duel_winter"
-    $global:defaultmaxplayers = "16"
-    $global:defaultgslt = ""
     #--->input questions 
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

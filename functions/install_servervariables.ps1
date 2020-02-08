@@ -17,7 +17,7 @@ Function New-CreateVariables {
     }
     If ($global:ANON) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Steam Anonymous user  - - \/  \/  \/"
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:ANON = $global:ANON"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:ANON = `"$global:ANON`""
     }
     If ($global:MODDIR) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#  Mod dir - - \/  \/  \/"

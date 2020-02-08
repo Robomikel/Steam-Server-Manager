@@ -103,8 +103,8 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars    
         Get-CheckServer
-        Get-ServerBuild
-        #Get-ServerBuildCheck
+        
+        Get-ServerBuildCheck
         Select-StartServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -114,8 +114,8 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars   
         Get-CheckServer
-        Get-ServerBuild
-        #Get-ServerBuildCheck
+        
+        Get-ServerBuildCheck
         Select-StartServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -148,8 +148,8 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-StopServer
-        Get-ServerBuild
-        #Get-ServerBuildCheck
+        
+        Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable
         Get-ClearVariables
@@ -160,8 +160,8 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-StopServer
-        Get-ServerBuild
-        #Get-ServerBuildCheck
+        
+        Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable  
         Get-ClearVariables

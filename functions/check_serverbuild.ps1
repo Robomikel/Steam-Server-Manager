@@ -1,20 +1,18 @@
 Function Get-ServerBuild {
-
     Set-Location $global:currentdir\steamcmd\
-
-    Start-Process steamCMD "+app_info_update 1 +app_info_print $global:APPID +quit"
-
-
-
+    $search = "buildid"
+    $remotebuild = .\steamCMD +app_info_update 1 +app_info_print $global:APPID +quit | select-string $search | Select-Object  -Index 0
     Set-Location $global:currentdir
 }
 Function Get-ServerBuildCheck {
     Get-Steam
-    Get-Steamtxt
+    #Get-Steamtxt
     Set-Location $global:currentdir\SteamCMD\ >$null 2>&1
     $search = "buildid"
     # public 
-    $remotebuild = Get-ServerBuild | select-string $search | Select-Object  -Index 0
+    #$remotebuild = Get-ServerBuild | select-string $search | Select-Object  -Index 0
+    $remotebuild = .\steamCMD +app_info_update 1 +app_info_print $global:APPID +quit | select-string $search | Select-Object  -Index 0
+
     #    # dev
     #    $remotebuild= .\steamcmd +runscript Buildcheck-$global:server.txt  | select-string $search | Select-Object  -Index 1
     #    # experimental

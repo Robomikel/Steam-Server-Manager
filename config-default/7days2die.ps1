@@ -1,12 +1,12 @@
-#----------   7 Days to Die Server Install Function   -------------------
 Function New-LaunchScriptSdtdserverPS {
-    # - - - - - - - - - Change Default Variables ------------
-    # Server Port 
-    $global:PORT = "26900"
-    # Server Name
-    $global:HOSTNAME = "My Game Host"
-
-    # - - - - - - - Do not change below - - - - - - - - -
+    #----------   7 Days to Die Server Install Function   -------
+    ################## Change Default Variables ################# 
+    #                   Server Port 
+    $global:PORT        = "26900"
+    #                   Server Name
+    $global:HOSTNAME    = "My Game Host"
+    ###########################/\#################################
+    ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXE = "startdedicated.bat"
     $global:EXEDIR = ""
@@ -17,6 +17,8 @@ Function New-LaunchScriptSdtdserverPS {
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "serverconfig.xml"
+    $global:ANON = "yes"
+    $global:username = ""
 
 
     ((Get-Content -path $global:currentdir\$global:server\$global:config1 -Raw) -replace "My Game Host", "$global:HOSTNAME") | Set-Content -Path $global:currentdir\$global:server\$global:config1 

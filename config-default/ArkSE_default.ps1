@@ -1,6 +1,16 @@
 Function New-LaunchScriptArkPS {
         # Ark: Survival Evolved Server
         # APP ID # 376030
+        ################## Change Default Variables #################
+        ${global:IP} = "${global:IP}"
+        $global:PORT = "7777"
+        $global:QUERYPORT = "27015"
+        $global:RCONPORT = "27020"
+        $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
+        $global:MAP = "TheIsland"
+        $global:MAXPLAYERS = "70"
+        $global:HOSTNAME = "$env:USERNAME"
+        # - - - - - - - Do not change below - - - - - - - - -
         $global:MODDIR = ""
         $global:EXE = "ShooterGameServer"
         $global:EXEDIR = "ShooterGame\Binaries\Win64"
@@ -10,20 +20,9 @@ Function New-LaunchScriptArkPS {
         Get-StopServerInstall
         $global:gamedirname = "ARKSurvivalEvolved"
         $global:config1 = "GameUserSettings.ini"
+        $global:ANON = "yes"
+        $global:username = ""
         Get-Servercfg
-        # Version 2.0
-        #  First Run Vars \/ \/ Add Here
-        ${global:defaultIP} = "${global:IP}"
-        $global:defaultPORT = "7777"
-        $global:defaultQUERYPORT = "27015"
-        $global:defaultRCONPORT = "27020"
-        $global:defaultRCONPASSWORD = "$global:RANDOMPASSWORD"
-        $global:defaultMAP = "TheIsland"
-        $global:defaultMAXPLAYERS = "70"
-        $global:defaultHOSTNAME = "PS Steamer"
-        #     Add here     /\ /\ /\
-        Get-UserInput 1 1 1 1 1 1 0 1 0 1 0 0
         Select-EditSourceCFG
-        # Version 2.0
         $global:launchParams = '@("$global:EXEDIR\$global:EXE ${global:MAP}?AltSaveDirectoryName=${global:MAP}?listen?MultiHome=${global:IP}?MaxPlayers=${global:MAXPLAYERS}?QueryPort=${global:QUERYPORT}?RCONEnabled=True?RCONPort=${global:RCONPORT}?ServerAdminPassword=${global:RCONPASSWORD}?Port=${global:PORT} -automanagedmods")'
 } 

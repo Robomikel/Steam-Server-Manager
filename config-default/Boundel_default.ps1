@@ -6,6 +6,8 @@ Function New-LaunchScriptboundelserverPS {
     $global:EXEDIR = "Datcha_Server"
     $global:GAME = "protocol-valve"
     $global:PROCESS = "world"
+    $global:ANON = "yes"
+    $global:username = ""
     Get-StopServerInstall
     $global:launchParams = '@("$global:EXEDIR\$global:EXE -batchmode")'
 }

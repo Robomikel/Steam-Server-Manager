@@ -3,8 +3,16 @@ Function New-LaunchScriptBlackMesaserverPS {
     # Black Mesa: Deathmatch
     # APP ID # 346680
     # WIKI
-    # Requiered Dont change
-    # # Version 2.0
+    # - - - - - - - - - Change Default Variables ------------
+
+    $global:RCONPORT = "${global:PORT}"
+    $global:ip = "${global:IP}"
+    $global:port = "27015"
+    $global:clientport = "27005"
+    $global:sourcetvport = "27020"
+    $global:map = "dm_bounce"
+    $global:maxplayers = "16"
+    # - - - - - - - Do not change below - - - - - - - - -
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
     #--->Exe NOT in root server folder \/\/
@@ -26,17 +34,9 @@ Function New-LaunchScriptBlackMesaserverPS {
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
     #--->Get game-server-config \/\/
+    $global:ANON = "yes"
+    $global:username = ""
     Get-Servercfg
-    #--->Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "dm_bounce"
-    $global:defaultmaxplayers = "16"
-    #--->input questions
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 0 0 0 0
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
