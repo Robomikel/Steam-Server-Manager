@@ -1,21 +1,29 @@
 Function New-LaunchScriptbsserverPS {
-    #        * * Add to Read-AppID in fn_Actions.ps1 * *
     # Blade Symphony Dedicated Server
     # APP ID # 228780
     # WIKI
-        # - - - - - - - - - Change Default Variables ------------
-
-    $global:RCONPORT = "${global:PORT}"
-    $global:ip = "${global:IP}"
-    $global:port = "27015"
-    $global:clientport = "27005"
-    $global:sourcetvport = "27020"
-    $global:map = "duel_winter"
-    $global:maxplayers = "16"
-    $global:gslt = ""
+    ################## Change Default Variables #################
+    #                       Server IP
+    $global:ip              = "${global:IP}"
+    #                       Server Port 
+    $global:port            = "27015"
+    #                       Client Port
+    $global:clientport      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Server Map
+    $global:map             = "duel_winter"
+    #                      Max Players
+    $global:maxplayers      = "16"
+    # GSLT used for running a public server.
+    #                       Game Server Token
+    $global:gslt            = ""
+    ##############################/\##############################
     
     
-    # - - - - - - - Do not change below - - - - - - - - -
+    
+    
+    ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
     #--->Exe NOT in root server folder \/\/
@@ -36,6 +44,7 @@ Function New-LaunchScriptbsserverPS {
     $global:gamedirname = "BladeSymphony"
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:RCONPORT = "${global:PORT}"
     $global:ANON = "yes"
     $global:username = ""
     #--->Get game-server-config \/\/

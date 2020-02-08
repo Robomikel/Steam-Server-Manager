@@ -57,7 +57,8 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars
         Get-ChecktaskDisable
-        Get-UpdateServer 
+        Get-ServerBuildCheck
+        #Get-UpdateServer 
         Get-ChecktaskEnable
         Get-Finished
     }
@@ -66,6 +67,30 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars
         Get-ChecktaskDisable
+        Get-ServerBuildCheck
+        #Get-UpdateServer
+        Get-ChecktaskEnable
+        Get-Finished
+    }
+    elseif (($global:command -eq "ForceUpdate") -and ($null -eq $global:server)) {   
+        Write-Host 'Server FolderName for server updates: ' -F C -N
+        $global:server = Read-host
+        Get-TestString
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Get-ChecktaskDisable
+        #Get-ServerBuildCheck
+        Get-UpdateServer 
+        Get-ChecktaskEnable
+        Get-Finished
+    }
+    elseif ($global:command -eq "ForceUpdate") {
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Get-ChecktaskDisable
+        #Get-ServerBuildCheck
         Get-UpdateServer
         Get-ChecktaskEnable
         Get-Finished
@@ -312,6 +337,7 @@ Function Select-Steamer {
         Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
         Write-Host "install"
         Write-Host "update"
+        Write-Host "ForceUpdate"
         Write-Host "validate"
         Write-Host "start"
         Write-Host "stop"

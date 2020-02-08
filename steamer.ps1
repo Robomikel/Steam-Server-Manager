@@ -58,7 +58,7 @@ $global:NOTE1 = ([char]9834)
 $global:NOTE2 = ([char]9835)
 $global:CHECKMARK = ([char]8730) 
 
-
+# Start-Transcript -Path "$global:currentdir\log\Steamer.log" -NoClobber
 Get-ChildItem -Path $global:currentdir\functions -Filter *.ps1 |ForEach-Object {. $_.FullName}
 Get-ChildItem -Path $global:currentdir\config-default -Filter *.ps1 |ForEach-Object {. $_.FullName}
 Set-SteamerSetting

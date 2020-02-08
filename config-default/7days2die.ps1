@@ -6,6 +6,12 @@ Function New-LaunchScriptSdtdserverPS {
     #                   Server Name
     $global:HOSTNAME    = "My Game Host"
     ###########################/\#################################
+    
+    
+    
+    
+    
+    
     ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXE = "startdedicated.bat"

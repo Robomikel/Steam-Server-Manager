@@ -3,7 +3,27 @@ Function New-LaunchScriptSvenCoopserverPS {
     # SvenCoop Dedicated Server
     # APP ID # 276060
     # WIKI
-    # Requiered Dont change 
+    ################## Change Default Variables #################
+    #                       Server IP 
+    ${global:IP}            = "${global:IP}"
+    #                       Server Port
+    $global:PORT            = "28015"
+    #                       Client Port
+    $global:CLIENTPORT      = "27005"
+    #                       Map
+    $global:MAP             = "svencoop1"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "32"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+
+    ##############################/\##############################
+    
+    
+    
+    ###################### Do not change below #####################
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
@@ -27,20 +47,15 @@ Function New-LaunchScriptSvenCoopserverPS {
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
     #--->Get game-server-config \/\/
+    $global:RCONPORT = "${global:PORT}"
     Get-Servercfg
-    #--->Default Vars
-    $global:defaultRCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport="27015"
-    $global:defaultclientport="27005"
-    $global:defaultmap="svencoop1"
-    $global:defaultmaxplayers="16"
+    
     #--->input questions 
-    Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1 0
+    # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1 0
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
-     Select-EditSourceCFG
+    Select-EditSourceCFG
     # --->Launch 
     $global:launchParams = '@("$global:EXE -console -game svencoop -strictportbind +ip ${$global:ip} -port ${$global:port} +clientport ${$global:clientport} +map ${$global:map} +servercfgfile server.cfg +maxplayers ${$global:maxplayers}")'
     # $global:launchParams = '@("$global:EXE -ip ${global:ip} -adminpassword `"${global:adminpassword}`" -servername `"${global:HOSTNAME}`"")'

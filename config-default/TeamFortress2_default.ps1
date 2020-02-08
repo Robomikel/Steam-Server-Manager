@@ -3,7 +3,31 @@ Function New-LaunchScriptTF2serverPS {
     # Team Fortress 2 Dedicated Server
     # APP ID # 232250
     # WIKI
-    # Requiered Dont change 
+    ################## Change Default Variables #################
+    #                       Server IP 
+    ${global:IP}            = "${global:IP}"
+    #                       Server Port
+    $global:PORT            = "27015"
+    #                       Client Port
+    $global:CLIENTPORT      = "27005"
+    #                       Source TV Port
+    $global:SOURCETVPORT    = "27020"
+    #                       Game Server Token
+    $global:GSLT            = ""
+    #                       Map
+    $global:MAP             = "cp_badlands"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+
+    ##############################/\##############################
+    
+    
+    
+    ###################### Do not change below #####################
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
@@ -29,15 +53,9 @@ Function New-LaunchScriptTF2serverPS {
     Get-Servercfg
     #--->Default Vars
     $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "cp_badlands"
-    $global:defaultmaxplayers = "16"
-    $global:gslt = ""
+
     #--->input questions 
-    Get-UserInput 1 1 0 0 0 1 1 1 1 1 1 1
+    # Get-UserInput 1 1 0 0 0 1 1 1 1 1 1 1
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

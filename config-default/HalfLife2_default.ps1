@@ -3,6 +3,27 @@ Function New-LaunchScriptHL2DMserverPS {
     # Half-Life 2: Deathmatch Dedicated Server
     #      232370
     # https://kb.firedaemon.com/support/solutions/articles/4000086964-half-life-2-deathmatch
+    ################## Change Default Variables #################
+    #--->Default Vars
+    #                       Server IP
+    $global:ip              = "${global:IP}"
+    #                       Server Port
+    $global:port            = "27015"
+    #                       Client Port
+    $global:clientport      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Map
+    $global:map             = "dm_lockdown"
+    #                       Maxplayers
+    $global:maxplayers      = "16"
+
+    ###########################/\#################################
+
+    
+    
+    
+    ###################### Do not change below #####################
     # Requiered Dont change
     # Version 2.0
     # Requieres \/ \/ Get-SourceMetMod
@@ -27,16 +48,10 @@ Function New-LaunchScriptHL2DMserverPS {
     $global:config1 = "server.cfg"
     # Get game-server-config  \/\/
     Get-Servercfg
-    # Default Vars
     $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "dm_lockdown"
-    $global:defaultmaxplayers = "16"
+
     # input questions \/\/
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
     # rename srcds.exe \/\/
     Select-RenameSource
     #---- Edit game config \/ SERVERNAME ADMINPASSWORD

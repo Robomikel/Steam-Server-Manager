@@ -15,6 +15,11 @@ Function New-LaunchScriptAoCserverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
+    
+    
+    
+    
+    
     ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXE = "aoc"

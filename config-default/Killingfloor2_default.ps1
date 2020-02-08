@@ -1,7 +1,28 @@
 Function New-LaunchScriptKF2serverPS {
     # Killing Floor 2 Server
     # APP ID # 232130
-    # Requiered Dont change 
+    ################## Change Default Variables #################
+    #                       Server Port
+    $global:PORT            = "7777"
+    #                       Query Port
+    $global:QUERYPORT       = "27015"
+    #                       Map
+    $global:MAP             = "KF-BioticsLab"
+    #                       GameMode
+    $global:GAMEMODE        = "KFGameContent.KFGameInfo_Endless"
+    #                       Difficulty
+    $global:DIFF            = "0"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Admin Password
+    $global:ADMINPASSWORD    = "$global:RANDOMPASSWORD"
+
+    ##############################/\##############################
+    
+    
+    
+    
+    ###################### Do not change below ##################### 
     # # Version 2.0
     # $global:MODDIR=""
     $global:EXE = "KFServer"   
@@ -21,16 +42,8 @@ Function New-LaunchScriptKF2serverPS {
     Set-Location $global:currentdir\$global:server\$global:SERVERCFGDIR
     Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
     Set-Location $global:currentdir\$global:server
-    #  First Run Vars \/ \/ Add Here
-    $global:defaultPORT = "7777"
-    $global:defaultQUERYPORT = "27015"
-    $global:defaultMAP = "KF-BioticsLab"
-    $global:defaultGAMEMODE = "KFGameContent.KFGameInfo_Endless"
-    $global:defaultDIFF = "0"
-    $global:defaultHOSTNAME = "PS Steamer"
-    $global:defaultADMINPASSWORD = "$global:RANDOMPASSWORD"
-    #  Edit Vars here     /\ /\ /\
-    Get-UserInput 0 1 1 0 0 1 0 0 0 1 0 0 1 1 1 0
+
+    # Get-UserInput 0 1 1 0 0 1 0 0 0 1 0 0 1 1 1 0
     # VERSION 2 Requieres  Vars
     Write-Host "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
     .\KF2Server.bat

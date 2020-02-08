@@ -2,17 +2,30 @@ Function New-LaunchScriptceserverPS {
     # Conan: Exiles Dedicated server
     # APP ID # 443030        
     #  http://cdn.funcom.com/downloads/exiles/DedicatedServerLauncher1044.exe
-    # - - - - - - - - - Change Default Variables ------------
+    ################## Change Default Variables ################# 
     #'*** N+1 PORTS 7777,27015 - 7778,27016 - etc.. *****'
-    $global:PORT = "7777"
-    $global:QUERYPORT = "27015"
-    $global:HOSTNAME = "$env:USERNAME"
-    $global:MAXPLAYERS = "50"
-    $global:SERVERPASSWORD = ""
-    $global:ADMINPASSWORD = "$global:RANDOMPASSWORD"
-    $global:RCONPORT = "27103"
-    $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
-    # - - - - - - - Do not change below - - - - - - - - -
+    #                       Server Port
+    $global:PORT            = "7777"
+    #                       Query Port
+    $global:QUERYPORT       = "27015"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "50"
+    #                       Server Password
+    $global:SERVERPASSWORD  = ""
+    #                       Admin Password
+    $global:ADMINPASSWORD   = "$global:RANDOMPASSWORD"
+    #                       Rcon Port
+    $global:RCONPORT        = "27103"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    ###########################/\#################################
+    
+    
+    
+    
+    ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXE = "ConanSandboxServer"
     $global:EXEDIR = ""

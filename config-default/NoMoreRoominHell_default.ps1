@@ -3,7 +3,33 @@ Function New-LaunchScriptNMRIHserverPS {
     # No More Room in Hell Dedicated Server
     # APP ID # 317670
     # WIKI
-    # Requiered Dont change 
+    ################## Change Default Variables #################
+    #                       Server IP 
+    ${global:IP}            = "${global:IP}"
+    #                       Server Port
+    $global:PORT            = "27015"
+    #                       Client Port
+    $global:CLIENTPORT      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Game Server Token
+    $global:GSLT            = ""
+    #                       Map
+    $global:MAP             = "nmo_broadway"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "8"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    
+
+    ##############################/\##############################
+    
+    
+    
+    
+    ###################### Do not change below ##################### 
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
@@ -25,18 +51,13 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:gamedirname = "NoMoreRoominHell"
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:RCONPORT = "${global:PORT}"
     #--->Get game-server-config \/\/
     Get-Servercfg
     #--->Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "nmo_broadway"
-    $global:defaultmaxplayers = "8"
+
     #--->input questions 
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 0
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 0
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

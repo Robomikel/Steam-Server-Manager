@@ -26,7 +26,7 @@ Function Get-ServerBuildCheck {
         Remove-Item $global:currentdir\$global:server\steamapps\appmanifest_$global:APPID.acf -Force  >$null 2>&1
         Write-Host "****   Removing Multiple appmanifest_$global:APPID.acf    ****" -F M -B Black
         Remove-Item $global:currentdir\$global:server\steamapps\appmanifest_*.acf -Force  >$null 2>&1
-        Get-StopServer
+        #Get-StopServer
         Get-UpdateServer  
     }
     Else {

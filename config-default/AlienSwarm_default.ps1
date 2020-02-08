@@ -2,15 +2,19 @@ Function New-LaunchScriptswarmserverPS {
     # Alien Swarm Dedicated Server
     #       635
     # https://developer.valvesoftware.com/wiki/Alien_Swarm_Dedicated_Server
-    # GSLT used for running a public server.
+    
     ################## Change Default Variables #################
     #                       Map
     $global:MAP             = "lobby"
     #                       Maxplayers
     $global:MAXPLAYERS      = "4"
+    # GSLT used for running a public server.
     #                       Game Server Token
     $global:GSLT            = ""
     ##############################/\##############################
+    
+    
+    
     
     ###################### Do not change below #####################
     $global:EXE = "swarm"

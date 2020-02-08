@@ -3,7 +3,21 @@ Function New-LaunchScriptpzserverPS {
     # Project Zomboid Dedicated Server
     # APP ID # 380870
     # WIKI
-    # Requiered Dont change 
+        ################## Change Default Variables #################
+    #                       Server IP 
+    ${global:IP}            = "${global:IP}"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    
+
+    ##############################/\##############################
+    
+    
+    
+    
+    ###################### Do not change below #####################  
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
@@ -30,11 +44,9 @@ Function New-LaunchScriptpzserverPS {
     Get-Servercfg
     #--->Default Vars
     $global:defaultRCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultRCONPASSWORD = "$global:RANDOMPASSWORD"
-    $global:defaultHOSTNAME = "$env:USERNAME"
+
     #--->input questions 
-    Get-UserInput 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
+    # Get-UserInput 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

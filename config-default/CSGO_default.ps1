@@ -11,7 +11,7 @@ Function New-LaunchScriptcsgoserverPS {
         $global:SOURCETVPORT    = "27020"
         #                       Tickrate
         $global:TICKRATE        = "64"
-        #                       Game Server Token
+        #                       Game Server Token required for public servers
         $global:GSLT            = ""
         #                       Map
         $global:MAP             = "de_inferno"

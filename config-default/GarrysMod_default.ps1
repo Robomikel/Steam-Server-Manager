@@ -3,6 +3,40 @@ Function New-LaunchScriptGMODserverPS {
     # Garry's Mod Dedicated Server
     # APP ID # 4020
     # WIKI
+    ################## Change Default Variables #################
+    #--->Default Vars
+    #                       Server IP
+    $global:ip              = "${global:IP}"
+    #                       Server Port
+    $global:port            = "27015"
+    #                       Client Port
+    $global:clientport      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Map
+    $global:map             = "gm_construct"
+    #                       Maxplayers
+    $global:maxplayers      = "16"
+    #                       Gamemode
+    $global:gamemode        = "sandbox"
+    #                       Tickrate     
+    $global:tickrate        = "66"
+    # API key visit - https://steamcommunity.com/dev/apikey
+    $wsapikey               = ""
+    $wscollectionid         = ""
+    # Custom Start Parameters
+    $customparms            = "-disableluarefresh"
+    #                       Game Server Token
+    $gslt                   = ""
+    ###########################/\#################################
+
+    
+    
+    
+    ###################### Do not change below #####################
+
+
+
     # Requiered Dont change 
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
@@ -25,26 +59,12 @@ Function New-LaunchScriptGMODserverPS {
     $global:gamedirname = "GarrysMod"
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:RCONPORT = "${global:PORT}"
     #--->Get game-server-config \/\/
     Get-Servercfg
-    #--->Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "gm_construct"
-    $global:defaultmaxplayers = "16"
-    $global:defaultgamemode = "sandbox"     
-    $global:tickrate = "66"
-    # API key visit - https://steamcommunity.com/dev/apikey
-    $wsapikey = ""
-    $wscollectionid = ""
-    # Custom Start Parameters
-    $customparms = "-disableluarefresh"
-    $gslt = ""
+
     #--->input questions
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 1 
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 1 
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

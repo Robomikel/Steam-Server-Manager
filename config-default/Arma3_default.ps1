@@ -2,25 +2,42 @@ Function New-LaunchScriptArma3serverPS {
     #----------   Arma3 Ask for input for server cfg  -------------------
     # APP ID # 233780
     # requires https://www.microsoft.com/en-us/download/details.aspx?id=35 Direct x
-     # - - - - - - - - - Change Default Variables ------------
-     ${global:IP} = "${global:IP}"
-     # default reserved ports are 2302 - 2306 gameports must be N+100 ie 2402-2406  " 
-     $global:PORT ="2302"
-     $global:HOSTNAME = "$env:USERNAME"
-     $global:MAXPLAYERS = "32"
-     $global:SERVERPASSWORD = ""
-     $global:ADMINPASSWORD = "$global:RANDOMPASSWORD"
-     $global:RCONPORT = "2301"
-     $global:RCONPASSWORD = "$global:RCONPASSWORD"
-     # - - - - - - - Do not change below - - - - - - - - -
+    ################## Change Default Variables #################
+    #                       Server IP
+    ${global:IP}            = "${global:IP}"
+    # default reserved ports are 2302 - 2306 gameports must be N+100 ie 2402-2406  "
+    #                       Server Port 
+    $global:PORT            = "2302"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "32"
+    #                       Server Password
+    $global:SERVERPASSWORD  = ""
+    #                       Admin Password
+    $global:ADMINPASSWORD   = "$global:RANDOMPASSWORD"
+    #                       Rcon Port
+    $global:RCONPORT        = "2301"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RCONPASSWORD"
+    #                       Requieres Steam Login
+    #                       Steam Username
+    $global:username        = ""
+    ##############################/\##############################
+    
+    
+    
+    
+    ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXE = "arma3server"
     $global:EXEDIR = ""
     $global:GAME = "arma3"
     $global:PROCESS = "arma3Server"
     $global:SERVERCFGDIR = "cfg"
+    #         Does not Requiere Steam Login
     $global:ANON = "no"
-    $global:username = ""
+
     Get-StopServerInstall
     $global:gamedirname = "Arma3"
     $global:config1 = "server.cfg"

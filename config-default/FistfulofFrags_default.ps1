@@ -3,6 +3,26 @@ Function New-LaunchScriptFOFserverPS {
     # Fistful of Frags Dedicated Server
     # APP ID # 295230
     # WIKI
+    ################## Change Default Variables #################
+    #                       Server IP
+    $global:ip              = "${global:IP}"
+    #                       Server Port
+    $global:port            = "27015"
+    #                       Client Port
+    $global:clientport      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Map
+    $global:map             = "fof_depot"
+    #                       Maxplayers
+    $global:maxplayers      = "20"
+    ###########################/\#################################
+
+    
+    
+    
+    
+    ###################### Do not change below #####################
     # Requiered Dont change 
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
@@ -25,18 +45,12 @@ Function New-LaunchScriptFOFserverPS {
     $global:gamedirname = "FistfulofFrags"
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:RCONPORT = "${global:PORT}"
     #--->Get game-server-config \/\/
     Get-Servercfg
-    #--->Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:ip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "fof_depot"
-    $global:defaultmaxplayers = "20"
+
     #--->input questions 
-    Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1
+    # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1
     #--->rename srcds.exe \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD

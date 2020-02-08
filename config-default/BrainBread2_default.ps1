@@ -2,20 +2,31 @@ Function New-LaunchScriptBB2serverPS {
     # BrainBread 2 Dedicated Server
     # 475370
     #
-  
-    # - - - - - - - - - Change Default Variables ------------
-
-    ${global:IP} = "${global:IP}"
-    ${global:PORT} = "27015"
-    $global:CLIENTPORT = "27005"
-    $global:SOURCETVPORT = "27020"
+    ################## Change Default Variables ################# 
+    #                       Server IP
+    ${global:IP}            = "${global:IP}"
+    #                       Server Port
+    ${global:PORT}          = "27015"
+    #                       Client Port
+    $global:CLIENTPORT      = "27005"
+    #                       Source TV Port
+    $global:SOURCETVPORT    = "27020"
     # GSLT used for running a public server.
-    $global:GSLT = ""
-    $global:MAP = "bba_barracks"
-    $global:MAXPLAYERS = "20"
-    $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
-    # - - - - - - - Do not change below - - - - - - - - -
-    # Version 2.0
+    #                       Game Server Token
+    $global:GSLT            = ""
+    #                       Map
+    $global:MAP             = "bba_barracks"
+    #                       Maxplayers
+    $global:MAXPLAYERS      = "20"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    ###########################/\#################################
+    
+    
+    
+    
+    
+    ###################### Do not change below #####################
     $global:MODDIR = ""
     $global:EXEDIR = ""
     $global:EXE = "BB2"
@@ -31,8 +42,6 @@ Function New-LaunchScriptBB2serverPS {
     $global:config1 = "server.cfg"
     Get-Servercfg
     $global:RCONPORT = "${global:PORT}"
-
-    #     Add here     /\ /\ /\
     #Get-UserInput 1 1 0 0 1 0 0 1 1 1
     Select-RenameSource
     # game config

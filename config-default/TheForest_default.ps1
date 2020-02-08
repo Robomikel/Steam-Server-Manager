@@ -1,6 +1,6 @@
 #----------   The Forest Server Install Function   -------------------
 Function New-LaunchScriptforestserverPS {
-    # - - - - - - - - - Change Default Variables ------------
+    ################## Change Default Variables #################
     # Server IP 
     $global:IP = "${global:IP}"
     # Server Name 
@@ -16,7 +16,11 @@ Function New-LaunchScriptforestserverPS {
     # Server Difficulty
     ${global:DIFF} = "Normal"
 
-    # - - - - - - - Do not change below - - - - - - - - -
+    ##############################/\##############################
+    
+    
+    
+    ###################### Do not change below #####################
     # The forest dedciated Server
     # 556450
     $global:MODDIR = ""

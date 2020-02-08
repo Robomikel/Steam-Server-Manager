@@ -14,14 +14,6 @@ Function Get-varsmessage {
     Exit
 }
 
-Function Get-commandfailed {
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Write-Host "      $global:DIAMOND $global:DIAMOND Command $global:command Failed! $global:DIAMOND $global:DIAMOND" -F R -B Black
-    Write-Host "***        Try install command again          ****  " -F Y -B Black
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Exit
-}
-
 Function Get-adminMessage {
     Write-Host "----------------------------------------------------------------------------" -F Y -B Black
     Write-Host "                 $global:DIAMOND $global:DIAMOND Do Not Run as an Admin account $global:DIAMOND $global:DIAMOND" -F R -B Black

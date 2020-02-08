@@ -3,8 +3,25 @@ Function New-LaunchScriptDystopiaserverPS {
     # Dystopia Dedicated Server
     #      17585
     # https://steamdb.info/app/17585/
-    # Requiered Dont change
-    # Version 2.0
+    ################## Change Default Variables #################
+    #                       Server IP 
+    $global:ip              = "${global:IP}"
+    #                       Server Port
+    $global:port            = "27015"
+    #                       Client Port
+    $global:clientport      = "27005"
+    #                       Source TV Port
+    $global:sourcetvport    = "27020"
+    #                       Map
+    $global:map             = "dys_broadcast"
+    #                       Maxplayers
+    $global:maxplayers      = "16"
+    ##############################/\##############################
+    
+    
+    
+    
+    ###################### Do not change below #####################
     # Requieres \/ \/ Get-SourceMetMod
     $global:MODDIR = ""
     # Exe NOT in root server folder \/\/
@@ -25,16 +42,9 @@ Function New-LaunchScriptDystopiaserverPS {
     $global:gamedirname = "Dystopia"
     # Game-server-manger config name \/
     $global:config1 = "server.cfg"
+    $global:RCONPORT = "${global:PORT}"
     # Get game-server-config  \/\/
     Get-Servercfg
-    # Default Vars
-    $global:RCONPORT = "${global:PORT}"
-    $global:defaultip = "${global:IP}"
-    $global:defaultport = "27015"
-    $global:defaultclientport = "27005"
-    $global:defaultsourcetvport = "27020"
-    $global:defaultmap = "dys_broadcast"
-    $global:defaultmaxplayers = "16"
     # input questions \/\/
     Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
     # rename srcds.exe \/\/

@@ -2,15 +2,29 @@ Function New-LaunchScriptArkPS {
         # Ark: Survival Evolved Server
         # APP ID # 376030
         ################## Change Default Variables #################
-        ${global:IP} = "${global:IP}"
-        $global:PORT = "7777"
-        $global:QUERYPORT = "27015"
-        $global:RCONPORT = "27020"
-        $global:RCONPASSWORD = "$global:RANDOMPASSWORD"
-        $global:MAP = "TheIsland"
-        $global:MAXPLAYERS = "70"
-        $global:HOSTNAME = "$env:USERNAME"
-        # - - - - - - - Do not change below - - - - - - - - -
+        #                       Server IP
+        ${global:IP}            = "${global:IP}"
+        #                       Server Port
+        $global:PORT            = "7777"
+        #                       Query Port
+        $global:QUERYPORT       = "27015"
+        #                       Rcon Port
+        $global:RCONPORT        = "27020"
+        #                       Rcon Password
+        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        #                       Map
+        $global:MAP             = "TheIsland"
+        #                       Maxplayers
+        $global:MAXPLAYERS      = "70"
+        #                       Server Name
+        $global:HOSTNAME        = "$env:USERNAME"
+        ##############################/\##############################
+        
+        
+        
+        
+        
+        ###################### Do not change below #####################
         $global:MODDIR = ""
         $global:EXE = "ShooterGameServer"
         $global:EXEDIR = "ShooterGame\Binaries\Win64"

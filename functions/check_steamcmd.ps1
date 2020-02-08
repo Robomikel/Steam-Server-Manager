@@ -1,4 +1,4 @@
-Function Get-Steam{
+Function Get-Steam {
     $start_time = Get-Date
     $path = "$global:currentdir\steamcmd\"
     $patha = "$global:currentdir\steamcmd\steamcmd.exe" 

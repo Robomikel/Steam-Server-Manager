@@ -17,10 +17,14 @@ Function New-LaunchScriptAHL2serverPS {
   #                       Maxplayers
   $global:MAXPLAYERS      = "20"
   #                       Requieres Steam Login
-  $global:ANON            = "no"
-  #                       Steamer Username
+  #                       Steam Username
   $global:username        = ""
   ##############################/\##############################
+  
+  
+  
+  
+  
   ###################### Do not change below #####################
   $global:MODDIR = ""
   $global:EXEDIR = ""
@@ -29,8 +33,8 @@ Function New-LaunchScriptAHL2serverPS {
   $global:SAVES = ""
   $global:PROCESS = "ahl2"
   $global:SERVERCFGDIR = "cfg"
-  $global:ANON = "yes"
-  $global:username = ""
+  #         Does not Requiere Steam Login
+  $global:ANON            = "no"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = "ActionSource"
