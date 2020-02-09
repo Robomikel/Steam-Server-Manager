@@ -67,6 +67,7 @@ Install steam server ```>_./ssm install misserver```
    * validate server files 
    * backup server files 
    * monitor server process
+   * sourcemod/metamod and oxide install
    * Rcon to server 
    * Daily AutoRestart server process 
    * send discord alerts - backup - monitor - update 
@@ -86,6 +87,8 @@ Install steam server ```>_./ssm install misserver```
   - ```ForceUpdate <serverFolder>``` - ```>_./ssm ForceUpdate misserver``` - updates App ID, with  Discord alert. Force server stop and update
  - ```backup <serverFolder>``` - ```>_./ssm backup misserver``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
  - ```monitor <serverFolder>``` - ```>_./ssm monitor misserver``` - Creates Scheduled Task to start server if off, with  Discord alert
+  - ```ModInstall <serverFolder>``` - ```>_./ssm ModInstall insserver``` - Install Sourcemod or Oxide for specified servers
+
  - ```discord <serverFolder>``` - ```>_./ssm discord misserver``` -  * Discord Alert * -command will send test alert. requires Discord webhook
  - ```AutoRestart <serverFolder>``` - ```>_./ssm AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
  - ```MCRcon <serverFolder>``` - ```>_./ssm mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
