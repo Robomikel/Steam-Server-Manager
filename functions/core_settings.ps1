@@ -30,6 +30,8 @@ Function Set-SteamerSetting {
     $global:DisableDiscordUpdate = "1"
     # Use private Ip for Gamedig, mcrcon 1
     $global:Useprivate = "0"
+    # Disable  Logging 0
+    $global:log = "1"
 }
 
 

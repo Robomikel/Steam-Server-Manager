@@ -12,7 +12,7 @@ $global:currentdir = Get-Location
 $global:serverdir = "$global:currentdir\$global:server"
 ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip" -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
-$global:Date = get-date -Format yyyyMMdd
+$global:Date = get-date -Format yyyyMMddTHHmmssffff
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
@@ -58,7 +58,7 @@ $global:NOTE1 = ([char]9834)
 $global:NOTE2 = ([char]9835)
 $global:CHECKMARK = ([char]8730) 
 
-# Start-Transcript -Path "$global:currentdir\log\Steamer.log" -NoClobber
+If ($global:log -eq "1") { Start-Transcript -Path "$global:currentdir\log\Steamer-$global:Date.log" -Append -NoClobber}
 Get-ChildItem -Path $global:currentdir\functions -Filter *.ps1 |ForEach-Object {. $_.FullName}
 Get-ChildItem -Path $global:currentdir\config-default -Filter *.ps1 |ForEach-Object {. $_.FullName}
 Set-SteamerSetting
