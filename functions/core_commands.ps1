@@ -328,7 +328,7 @@ Function Select-Steamer {
     elseif ($global:command -eq "exit") {
         exit
     }
-    elseif (($global:command -eq "steamer") -and ($global:server -eq "update")) {
+    elseif (($global:command -eq "ssm") -and ($global:server -eq "update")) {
         Get-UpdateSteamer   
     }
     else {
@@ -351,6 +351,6 @@ Function Select-Steamer {
         Write-Host "AutoRestart"
         Write-Host "discord"
         Write-Host "details"
-        Write-Host "steamer update"
+        Write-Host "ssm update"
     }
 }

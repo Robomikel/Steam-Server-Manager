@@ -6,6 +6,11 @@ Function Get-UpdateSteamer {
     Invoke-WebRequest -Uri $global:steamerurl -OutFile $global:currentdir\Steam-Server-Manger.zip
     Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black 
     Remove-Item  "$global:currentdir\Steam-Server-Manger\*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "$global:currentdir\config-default\*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "$global:currentdir\data\*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "$global:currentdir\functions\*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "$global:currentdir\README.md*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "$global:currentdir\LICENSE*" -Recurse -Force -ea SilentlyContinue
     Expand-Archive "$global:currentdir\Steam-Server-Manger.zip" "$global:currentdir\Steam-Server-Manger" -Force
     Copy-Item  "$global:currentdir\Steam-Server-Manger\Steam-Server-Manger-master\*" -Destination "$global:currentdir\" -Recurse -Force
     Write-Host '****   Steamer github files Updated   ****' -F Y -B Black

@@ -90,7 +90,7 @@ Install steam server ```>_./steamer install misserver```
  - ```AutoRestart <serverFolder>``` - ```>_./steamer AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
  - ```MCRcon <serverFolder>``` - ```>_./steamer mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
  - ```gamedig <serverFolder>``` - ```>_./steamer gamedig sdtdserver``` * not supported for miscreated. although supported by several games. (Downloads  NodeJS and installs Gamedig)
- - ```Update Steamer``` - ```>_./steamer steamer update```  - Downloads and overwrites steamer github files
+ - ```SSM update``` - ```>_./steamer ssm update```  - Downloads and overwrites steamer github files
   - ```details <serverFolder>``` - ```>_./steamer details sdtdserver```  - outputs host and server details. requires gamedig.
 
 # Configure
