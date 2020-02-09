@@ -94,7 +94,7 @@ Install steam server ```>_./steamer install misserver```
   - ```details <serverFolder>``` - ```>_./steamer details sdtdserver```  - outputs host and server details. requires gamedig.
 
 # Configure
-- change default variables in config-default\*_default.ps1
+- change default variables in config-default\\*_default.ps1
 - After install can edit variables-$server.ps1 to change launch vars or edit Launch Params.
 - core_settings.ps1 disable some of the default features. 
 
