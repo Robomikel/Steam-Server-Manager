@@ -87,5 +87,5 @@ Function Select-EditSourceCFG {
     ((Get-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Raw) -replace "\bADMINPASSWORD\b", "$global:RCONPASSWORD") | Set-Content  $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -ea SilentlyContinue
 }
 Function New-ServerLog{
-    If ($global:log -eq "1") {Copy-Item "$global:currentdir\$global:server\server.log" -Destination "$global:currentdir\log\$global:server-$global:date.log"}
+    If ($global:log -eq "1") {Copy-Item "$global:currentdir\$global:server\server.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue}
 }
