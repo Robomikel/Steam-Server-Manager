@@ -88,4 +88,6 @@ Function Select-EditSourceCFG {
 }
 Function New-ServerLog{
     If ($global:log -eq "1") {Copy-Item "$global:currentdir\$global:server\server.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue}
+    Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force 
+    Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like $global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force 
 }

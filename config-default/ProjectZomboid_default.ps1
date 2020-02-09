@@ -24,8 +24,8 @@ Function New-LaunchScriptpzserverPS {
     #--->Exe NOT in root server folder \/\/
     $global:EXEDIR = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "startServer64.bat"
-    #$global:EXE = "ProjectZomboid64"
+    #$global:EXE = "startServer64.bat"
+    $global:EXE = "ProjectZomboid64"
     #--->Requieres \/ \/ game dig 
     $global:GAME = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
@@ -52,7 +52,7 @@ Function New-LaunchScriptpzserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE")'
-    # $global:launchParams = '@("$global:EXE -ip ${global:ip} -adminpassword `"${global:adminpassword}`" -servername `"${global:HOSTNAME}`"")'
+    #$global:launchParams = '@("$global:EXE")'
+    $global:launchParams = '@("$global:EXE -ip ${global:ip} -adminpassword `"${global:adminpassword}`" -servername `"${global:HOSTNAME}`"")'
 
 }

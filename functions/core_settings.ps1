@@ -32,6 +32,8 @@ Function Set-SteamerSetting {
     $global:Useprivate = "0"
     # Disable  Logging 0
     $global:log = "1"
+    #   Log count 
+    $global:logcount = "10"
 }
 
 

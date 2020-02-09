@@ -27,5 +27,5 @@ Function New-LaunchScriptswarmserverPS {
     $global:RCONPORT = "${global:PORT}"
     Get-StopServerInstall
     Select-RenameSource
-    $global:launchParams = '@("$global:EXE -console -game swarm +map ${global:MAP} -maxplayers ${global:MAXPLAYERS} -autoupdate")'
+    $global:launchParams = '@("$global:EXE -console -game swarm +map ${global:MAP} -maxplayers ${global:MAXPLAYERS} -autoupdate -condebug")'
 }

@@ -54,7 +54,7 @@ Function New-LaunchScriptDSTserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # BOTH CAVES AND MASTER
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -cluster ${cluster} -shard ${shard} -backup_logs ;; $global:EXEDIR\$global:EXE -console -cluster ${cluster} -shard ${shard2} -backup_logs")'
+    $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -cluster ${cluster} -shard ${shard} -backup_logs ;; $global:EXEDIR\$global:EXE -console -cluster ${cluster} -shard ${shard2} -backup_logs -condebug")'
     # Master
     #$global:launchParams = '@("$global:EXEDIR\$global:EXE -console -bind_ip ${global:ip} -port ${global:PORT} -players ${global:maxplayers} -persistent_storage_root ${persistentstorageroot} -conf_dir ${global:gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs")'
     # Caves
