@@ -10,8 +10,6 @@ Function New-LaunchScriptAHL2serverPS {
   $global:CLIENTPORT      = "27005"
   #                       Source TV Port
   $global:SOURCETVPORT    = "27020"
-  #                       Game Server Token
-  $global:GSLT            = "GameServerTokenHere"
   #                       Map
   $global:MAP             = "act_airport"
   #                       Maxplayers

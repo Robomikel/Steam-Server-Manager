@@ -12,7 +12,7 @@ Function New-LaunchScriptBB2serverPS {
     #                       Source TV Port
     $global:SOURCETVPORT    = "27020"
     # GSLT used for running a public server.
-    #                       Game Server Token
+    #                       Game Server Token : Optional
     $global:GSLT            = "GameServerTokenHere"
     #                       Map
     $global:MAP             = "bba_barracks"
