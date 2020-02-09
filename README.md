@@ -113,7 +113,7 @@ Install steam server ```>_./steamer install misserver```
  
  
  
-- - - - 
+- - - -  
  When creating a Schedule task to run Monitor script.
 - If using a user windows account. Will need to add user to the "log on as batch job" to run the task under that account
 - - - - 
@@ -125,7 +125,7 @@ Install steam server ```>_./steamer install misserver```
 https://github.com/Tiiffi/mcrcon
 # GameDig
 https://github.com/sonicsnes/node-gamedig
-# Game Server Managers (my inspiration)
+# Game Server Managers
 Game server configs from
 https://github.com/GameServerManagers
  "open source, open mind"
