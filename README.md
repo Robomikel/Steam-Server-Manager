@@ -5,15 +5,15 @@ PowerShell Steam Server Manager
 
 
 Install Any location:
-Download, Extract, and Open PowerShell and Change Directory to steamer.ps1
+Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 
 Run: 
 open PowerShell as user NOT Admin
-Steamer accepts 1 or 2 parameters. first param specifies steamer command and the second is server folder name. if server folder name does not exist it creates it.   ```.\steamer.ps1 install insserver```
+ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```
 
-```>_./steamer <command> <serverFolder>```
+```>_./ssm <command> <serverFolder>```
           
-Install steam server ```>_./steamer install misserver```
+Install steam server ```>_./ssm install misserver```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
  - Downloads and extract steamcmd
  - Asks and uses Steaminfo.db App ID -
@@ -71,27 +71,27 @@ Install steam server ```>_./steamer install misserver```
    * Daily AutoRestart server process 
    * send discord alerts - backup - monitor - update 
    * run gamedig on hosted server 
-   * update steamer PS scripts from github
+   * update ssm PS scripts from github
    * get details from host and server
    
  
    
  # Commands:  
- - ```Start <serverFolder>``` - ```>_./steamer start missesrver```  - Starts miscreated server process          
- - ```Stop <serverFolder>``` - ```>_./steamer stop misserver``` - stop process for miscreated server
- - ```restart <serverFolder>``` - ```>_./steamer restart misserver``` - stops and starts process for miscreated server]
- - ```validate <serverFolder>``` - ```>_./steamer validate misserver``` - Validate App ID files
- - ```check <serverFolder>``` - ```>_./steamer check misserver``` - checks process for miscreated server
- - ```update <serverFolder>``` - ```>_./steamer update misserver``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
-  - ```ForceUpdate <serverFolder>``` - ```>_./steamer ForceUpdate misserver``` - updates App ID, with  Discord alert. Force server stop and update
- - ```backup <serverFolder>``` - ```>_./steamer backup misserver``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
- - ```monitor <serverFolder>``` - ```>_./steamer monitor misserver``` - Creates Scheduled Task to start server if off, with  Discord alert
- - ```discord <serverFolder>``` - ```>_./steamer discord misserver``` -  * Discord Alert * -command will send test alert. requires Discord webhook
- - ```AutoRestart <serverFolder>``` - ```>_./steamer AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
- - ```MCRcon <serverFolder>``` - ```>_./steamer mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
- - ```gamedig <serverFolder>``` - ```>_./steamer gamedig sdtdserver``` * not supported for miscreated. although supported by several games. (Downloads  NodeJS and installs Gamedig)
- - ```SSM update``` - ```>_./steamer ssm update```  - Downloads and overwrites steamer github files
-  - ```details <serverFolder>``` - ```>_./steamer details sdtdserver```  - outputs host and server details. requires gamedig.
+ - ```Start <serverFolder>``` - ```>_./ssm start missesrver```  - Starts miscreated server process          
+ - ```Stop <serverFolder>``` - ```>_./ssm stop misserver``` - stop process for miscreated server
+ - ```restart <serverFolder>``` - ```>_./ssm restart misserver``` - stops and starts process for miscreated server]
+ - ```validate <serverFolder>``` - ```>_./ssm validate misserver``` - Validate App ID files
+ - ```check <serverFolder>``` - ```>_./ssm check misserver``` - checks process for miscreated server
+ - ```update <serverFolder>``` - ```>_./ssm update misserver``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
+  - ```ForceUpdate <serverFolder>``` - ```>_./ssm ForceUpdate misserver``` - updates App ID, with  Discord alert. Force server stop and update
+ - ```backup <serverFolder>``` - ```>_./ssm backup misserver``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
+ - ```monitor <serverFolder>``` - ```>_./ssm monitor misserver``` - Creates Scheduled Task to start server if off, with  Discord alert
+ - ```discord <serverFolder>``` - ```>_./ssm discord misserver``` -  * Discord Alert * -command will send test alert. requires Discord webhook
+ - ```AutoRestart <serverFolder>``` - ```>_./ssm AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
+ - ```MCRcon <serverFolder>``` - ```>_./ssm mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
+ - ```gamedig <serverFolder>``` - ```>_./ssm gamedig sdtdserver``` * not supported for miscreated. although supported by several games. (Downloads  NodeJS and installs Gamedig)
+ - ```SSM update``` - ```>_./ssm ssm update```  - Downloads and overwrites ssm github files
+  - ```details <serverFolder>``` - ```>_./ssm details sdtdserver```  - outputs host and server details. requires gamedig.
 
 # Configure
 - change default variables in config-default\\*_default.ps1
