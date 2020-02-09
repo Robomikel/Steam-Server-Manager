@@ -175,6 +175,10 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         WSAPIKEY   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSAPIKEY         = `"$global:WSAPIKEY`""
     }
+    If ($global:LOGDIR) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         LOGDIR   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:LOGDIR         = `"$global:LOGDIR`""
+    }
     If ($global:launchParams) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                             Server Launch Params "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:launchParams         = $global:launchParams"
