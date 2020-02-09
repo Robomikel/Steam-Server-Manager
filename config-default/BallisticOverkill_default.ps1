@@ -1,13 +1,13 @@
 Function New-LaunchScriptBOserverPS {
     # Ballistic Overkill Dedicated Server
-    # 416880
+    # APP ID # 416880
     # https://steamcommunity.com/app/296300/discussions/1/135508662495143639/
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:defaultIP}     = "${global:IP}"
+    ${global:IP}     = "${global:IP}"
     # GSLT used for running a public server.
     #                       Game Server Token
-    $global:defaultGSLT     = ""
+    $global:GSLT     = "GameServerTokenHere"
     ##############################/\##############################
     
     

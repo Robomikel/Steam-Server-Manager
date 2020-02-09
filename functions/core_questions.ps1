@@ -165,7 +165,20 @@ Function Get-UserInput {
         [parameter(Position = 12)]$parm12,
         [parameter(Position = 13)]$parm13,
         [parameter(Position = 14)]$parm14,
-        [parameter(Position = 15)]$parm15)
+        [parameter(Position = 15)]$parm15,
+        [parameter(Position = 16)]$parm16,
+        [parameter(Position = 17)]$parm17,
+        [parameter(Position = 18)]$parm18,
+        [parameter(Position = 19)]$parm19,
+        [parameter(Position = 20)]$parm20,
+        [parameter(Position = 21)]$parm21,
+        [parameter(Position = 22)]$parm22,
+        [parameter(Position = 23)]$parm23,
+        [parameter(Position = 24)]$parm24,
+        [parameter(Position = 25)]$parm25,
+        [parameter(Position = 26)]$parm26,
+        [parameter(Position = 27)]$parm27,
+        [parameter(Position = 28)]$parm28)
     #Write-Host "$global:SMILEY_BLACK Press Enter to Accept default $global:SMILEY_BLACK" -F Y
     If ($parm0 -eq 1) {
         If ((${global:IP} = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$global:defaultIP]: "-F CY -N )) -eq '') { $global:IP = "$global:defaultIP" }Else { $global:IP }
@@ -213,6 +226,48 @@ Function Get-UserInput {
         If ((${global:ADMINPASSWORD} = Read-Host -P(Write-Host "Enter Server ADMIN PASSWORD, Press Enter to Accept default [$global:defaultADMINPASSWORD]: "-F CY -N )) -eq '') { $global:ADMINPASSWORD = "$global:defaultADMINPASSWORD" }Else { $global:ADMINPASSWORD }
     }
     If ($parm15 -eq 1) {
-        If ((${global:xx} = Read-Host -P(Write-Host "Enter Server sourcetvport, Press Enter to Accept default [$global:xx]: "-F CY -N )) -eq '') { $global:xx = "$global:xx" }Else { $global:xx }
+        If ((${global:TICKRATE} = Read-Host -P(Write-Host "Enter Server TICKRATE, Press Enter to Accept default [$global:TICKRATE]: "-F CY -N )) -eq '') { $global:TICKRATE = "$global:defaultTICKRATE" }Else { $global:TICKRATE }
+    }
+    If ($parm16 -eq 1) {
+        If ((${global:SAVEINTERVAL} = Read-Host -P(Write-Host "Enter Server SAVEINTERVAL, Press Enter to Accept default [$global:SAVEINTERVAL]: "-F CY -N )) -eq '') { $global:SAVEINTERVAL = "$global:defaultSAVEINTERVAL" }Else { $global:SAVEINTERVAL }
+    }
+    If ($parm17 -eq 1) {
+        If ((${global:WORLDSIZE} = Read-Host -P(Write-Host "Enter Server WORLDSIZE, Press Enter to Accept default [$global:WORLDSIZE]: "-F CY -N )) -eq '') { $global:WORLDSIZE = "$global:defaultWORLDSIZE" }Else { $global:WORLDSIZE }
+    }
+    If ($parm18 -eq 1) {
+        If ((${global:SEED} = Read-Host -P(Write-Host "Enter Server SEED, Press Enter to Accept default [$global:SEED]: "-F CY -N )) -eq '') { $global:SEED = "$global:defaultSEED" }Else { $global:SEED }
+    }
+    If ($parm19 -eq 1) {
+        If ((${global:RCONWEB} = Read-Host -P(Write-Host "Enter Server RCONWEB, Press Enter to Accept default [$global:RCONWEB]: "-F CY -N )) -eq '') { $global:RCONWEB = "$global:defaultRCONWEB" }Else { $global:RCONWEB }
+    }
+    If ($parm20 -eq 1) {
+        If ((${global:steamID64} = Read-Host -P(Write-Host "Enter steamID64, Press Enter to Accept default [$global:steamID64]: "-F CY -N )) -eq '') { $global:steamID64 = "$global:defaultsteamID64" }Else { $global:steamID64 }
+    }
+    If ($parm21 -eq 1) {
+        If ((${global:GALAXYNAME} = Read-Host -P(Write-Host "Enter GALAXYNAME, Press Enter to Accept default [$global:GALAXYNAME]: "-F CY -N )) -eq '') { $global:GALAXYNAME = "$global:defaultGALAXYNAME" }Else { $global:GALAXYNAME }
+    }
+    If ($parm22 -eq 1) {
+        If ((${global:MAPGROUP} = Read-Host -P(Write-Host "Enter Server MAPGROUP, Press Enter to Accept default [$global:MAPGROUP]: "-F CY -N )) -eq '') { $global:MAPGROUP = "$global:defaultMAPGROUP" }Else { $global:MAPGROUP }
+    }
+    If ($parm23 -eq 1) {
+        If ((${global:GAMETYPE} = Read-Host -P(Write-Host "Enter Server xx, Press Enter to Accept default [$global:GAMETYPE]: "-F CY -N )) -eq '') { $global:GAMETYPE = "$global:defaultGAMETYPE" }Else { $global:GAMETYPE }
+    }
+    If ($parm24 -eq 1) {
+        If ((${global:COOPPLAYERS} = Read-Host -P(Write-Host "Enter Server COOPPLAYERS, Press Enter to Accept default [$global:COOPPLAYERS]: "-F CY -N )) -eq '') { $global:COOPPLAYERS = "$global:defaultCOOPPLAYERS" }Else { $global:COOPPLAYERS }
+    }
+    If ($parm25 -eq 1) {
+        If ((${global:SV_LAN} = Read-Host -P(Write-Host "Enter Server SV_LAN, Press Enter to Accept default [$global:SV_LAN]: "-F CY -N )) -eq '') { $global:SV_LAN = "$global:defaultSV_LAN" }Else { $global:SV_LAN }
+    }
+    If ($parm26 -eq 1) {
+        If ((${global:WORKSHOP} = Read-Host -P(Write-Host "Enter Server WORKSHOP, Press Enter to Accept default [$global:WORKSHOP]: "-F CY -N )) -eq '') { $global:WORKSHOP = "$global:defaultWORKSHOP" }Else { $global:WORKSHOP }
+    }
+    If ($parm27 -eq 1) {
+        If ((${global:SV_PURE} = Read-Host -P(Write-Host "Enter Server SV_PURE, Press Enter to Accept default [$global:SV_PURE]: "-F CY -N )) -eq '') { $global:SV_PURE = "$global:defaultSV_PURE" }Else { $global:SV_PURE }
+    }
+    If ($parm28 -eq 1) {
+        If ((${global:xx} = Read-Host -P(Write-Host "Enter Server xx, Press Enter to Accept default [$global:xx]: "-F CY -N )) -eq '') { $global:xx = "$global:xx" }Else { $global:xx }
+    }
+    If ($parm29 -eq 1) {
+        If ((${global:xx} = Read-Host -P(Write-Host "Enter Server xx, Press Enter to Accept default [$global:xx]: "-F CY -N )) -eq '') { $global:xx = "$global:xx" }Else { $global:xx }
     }
 }

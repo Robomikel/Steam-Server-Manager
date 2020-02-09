@@ -99,6 +99,10 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         Max Players  "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MAXPLAYERS       = `"$global:MAXPLAYERS`""
     }
+    If ($global:COOPPLAYERS) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         COOPPLAYERS Players  "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:COOPPLAYERS       = `"$global:COOPPLAYERS`""
+    }
     If ($global:WORKSHOP) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         Workshop 1/0 HERE "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WORKSHOP         = `"$global:WORKSHOP`""
@@ -131,6 +135,22 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         Sandstorm SCENARIO   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:SCENARIO         = `"$global:SCENARIO`""
     }
+    If ($global:SAVEINTERVAL) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         SAVEINTERVAL   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:SAVEINTERVAL         = `"$global:SAVEINTERVAL`""
+    }
+    If ($global:WORLDSIZE) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         WORLDSIZE  "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WORLDSIZE         = `"$global:WORLDSIZE`""
+    }
+    If ($global:SEED) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                          SEED   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:SEED         = `"$global:SEED`""
+    }
+    If ($global:RCONWEB) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                          RCONWEB   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:RCONWEB         = `"$global:RCONWEB`""
+    }
     If ($global:GAMETYPE) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         CSGO Gametype   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:GAMETYPE         = `"$global:GAMETYPE`""
@@ -143,16 +163,16 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         CSGO mapgroup   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MAPGROUP         = `"$global:MAPGROUP`""
     }
-    If ($global:AppID -eq 740) {
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                             CSGO WSCOLLECTIONID   "
+    If ($global:WSCOLLECTIONID) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                              WSCOLLECTIONID   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSCOLLECTIONID       = `"$global:WSCOLLECTIONID`""
     }
-    If ($global:AppID -eq 740) {
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         CSGO WSSTARTMAP  "
+    If ($global:WSSTARTMAP) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                          WSSTARTMAP  "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSSTARTMAP       = `"$global:WSSTARTMAP`""
     }
-    If ($global:AppID -eq 740) {
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         CSGO WSAPIKEY   "
+    If ($global:WSAPIKEY) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         WSAPIKEY   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSAPIKEY         = `"$global:WSAPIKEY`""
     }
     If ($global:launchParams) {

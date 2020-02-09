@@ -1,5 +1,6 @@
-#----------   The Forest Server Install Function   -------------------
 Function New-LaunchScriptforestserverPS {
+    #----------   The Forest Server Install Function   -------------------
+    # APP ID # 556450
     ################## Change Default Variables #################
     #                   Server IP 
     $global:IP          = "${global:IP}"
@@ -21,8 +22,6 @@ Function New-LaunchScriptforestserverPS {
     
     
     ###################### Do not change below #####################
-    # The forest dedciated Server
-    # 556450
     $global:MODDIR = ""
     $global:EXE = "TheForestDedicatedServer"
     $global:EXEDIR = ""

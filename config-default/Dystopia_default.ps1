@@ -46,7 +46,7 @@ Function New-LaunchScriptDystopiaserverPS {
     # Get game-server-config  \/\/
     Get-Servercfg
     # input questions \/\/
-    Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
+    #Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
     # rename srcds.exe \/\/
     Select-RenameSource
     #---- Edit game config \/ SERVERNAME ADMINPASSWORD

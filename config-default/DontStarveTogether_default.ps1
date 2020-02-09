@@ -50,7 +50,7 @@ Function New-LaunchScriptDSTserverPS {
     #--->Get game-server-config \/\/
     Get-Servercfg
     #--->input questions 1 1 0 0 0 0 0 1 0 1 1 0 0
-    #Get-UserInput 1 1 0 0 0 1 1 0 0 0 0 0
+    ##Get-UserInput 1 1 0 0 0 1 1 0 0 0 0 0
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # BOTH CAVES AND MASTER

@@ -1,6 +1,6 @@
 Function New-LaunchScriptBB2serverPS {
     # BrainBread 2 Dedicated Server
-    # 475370
+    # APP ID # 475370
     #
     ################## Change Default Variables ################# 
     #                       Server IP
@@ -13,7 +13,7 @@ Function New-LaunchScriptBB2serverPS {
     $global:SOURCETVPORT    = "27020"
     # GSLT used for running a public server.
     #                       Game Server Token
-    $global:GSLT            = ""
+    $global:GSLT            = "GameServerTokenHere"
     #                       Map
     $global:MAP             = "bba_barracks"
     #                       Maxplayers

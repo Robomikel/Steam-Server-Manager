@@ -1,5 +1,6 @@
-#----------   CSGO Server Install Function   -------------------
 Function New-LaunchScriptcsgoserverPS {
+        #----------   CSGO Server Install Function   -------------------
+        # APP ID # 740
         ################## Change Default Variables #################
         #                       Server IP 
         ${global:IP}            = "${global:IP}"
@@ -12,7 +13,7 @@ Function New-LaunchScriptcsgoserverPS {
         #                       Tickrate
         $global:TICKRATE        = "64"
         #                       Game Server Token required for public servers
-        $global:GSLT            = ""
+        $global:GSLT            = "GameServerTokenHere"
         #                       Map
         $global:MAP             = "de_inferno"
         #                       Maxplayers
@@ -70,5 +71,5 @@ Function New-LaunchScriptcsgoserverPS {
         Select-RenameSource
         Select-EditSourceCFG
         $global:launchParams = '@("$global:EXE -game csgo -console -usercon -strictportbind -ip ${global:IP} -port ${global:PORT} +clientport  ${global:CLIENTPORT} +tv_port ${global:SOURCETVPORT} +sv_setsteamaccount ${global:GSLT} -tickrate ${global:TICKRATE} +map ${global:MAP} -maxplayers_override ${global:MAXPLAYERS} +mapgroup ${global:MAPGROUP} +game_type ${global:GAMETYPE} +game_mode ${global:GAMEMODE} +host_workshop_collection ${wscollectionid} +workshop_start_map ${WSSTARTMAP} -authkey ${WSAPIKEY} -nobreakpad +net_public_adr ${global:EXTIP} -condebug")'
-        Get-SourceMetMod
+        #Get-SourceMetMod
 }

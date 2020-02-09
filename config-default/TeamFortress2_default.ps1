@@ -13,7 +13,7 @@ Function New-LaunchScriptTF2serverPS {
     #                       Source TV Port
     $global:SOURCETVPORT    = "27020"
     #                       Game Server Token
-    $global:GSLT            = ""
+    $global:GSLT            = "GameServerTokenHere"
     #                       Map
     $global:MAP             = "cp_badlands"
     #                       Maxplayers

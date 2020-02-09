@@ -254,6 +254,23 @@ Function Select-Steamer {
         Set-MonitorJob
         Get-ClearVariables
     }
+    elseif (($global:command -eq "ModInstall") -and ($null -eq $global:server)) {
+        Write-Host 'Server FolderName for monitor: ' -F C -N
+        $global:server = Read-host
+        Get-TestString
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Get-Modinstall
+        Get-ClearVariables
+    }
+    elseif ($global:command -eq "ModInstall") {
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Get-Modinstall
+        Get-ClearVariables
+    }
     elseif (($global:command -eq "AutoRestart") -and ($null -eq $global:server)) {
         Write-Host 'Server FolderName for AutoRestart: ' -F C -N
         $global:server = Read-host
@@ -347,6 +364,7 @@ Function Select-Steamer {
         Write-Host "exit"
         Write-Host "gamedig"
         Write-Host "monitor"
+        Write-Host "ModInstall"
         Write-Host "mcrcon"
         Write-Host "AutoRestart"
         Write-Host "discord"

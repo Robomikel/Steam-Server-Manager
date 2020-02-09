@@ -1,6 +1,7 @@
 
 Function New-LaunchScriptInsserverPS {
     #----------   INS Server Install Function   -------------------
+    # APP ID # 237410
     ################## Change Default Variables #################
     #                       Server IP 
     ${global:IP}            = "${global:IP}"
@@ -13,7 +14,7 @@ Function New-LaunchScriptInsserverPS {
     #                       Tickrate
     $global:TICKRATE        = "64"
     #                       Game Server Token
-    $global:GSLT            = ""
+    $global:GSLT            = "GameServerTokenHere"
     #                       Map
     $global:MAP             = "buhriz_coop checkpoint"
     #                       Maxplayers
@@ -62,7 +63,7 @@ Function New-LaunchScriptInsserverPS {
     New-Item $global:currentdir\$global:server\insurgency\motd.txt -Force
      
     $global:launchParams = '@("$global:EXE -game insurgency -strictportbind -ip ${global:IP} -port ${global:PORT} +clientport ${global:CLIENTPORT} +tv_port ${global:SOURCETVPORT} -tickrate ${global:TICKRATE} +sv_setsteamaccount ${global:GSLT} +map ${global:MAP} -maxplayers ${global:MAXPLAYERS} +sv_lan $global:SV_LAN +mp_coop_lobbysize ${global:COOPPLAYERS} +sv_workshop_enabled ${global:WORKSHOP} +sv_pure ${global:SV_PURE} -condebug -norestart")'
-    Get-SourceMetMod
+    #Get-SourceMetMod
     Get-Gamemode
 }
 

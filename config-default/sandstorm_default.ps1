@@ -1,6 +1,8 @@
 
-#----------   INS: Sandstorm Server Install Function   -------------------
+
 Function New-LaunchScriptInssserverPS {
+        #----------   INS: Sandstorm Server Install Function   -------------------
+        # APP ID # 581330
         ################## Change Default Variables #################
         #                       Server Scenario 
         $global:SCENARIO        = "Scenario_Outskirts_Checkpoint_Security"

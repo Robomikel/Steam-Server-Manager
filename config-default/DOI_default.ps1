@@ -1,6 +1,6 @@
-# Version 2.5
-#----------   DOI Server Install Function   -------------------
 Function New-LaunchScriptdoiserverPS {
+    #----------   DOI Server Install Function   -------------------
+    # APP ID # 462310
     ################## Change Default Variables #################
     #                       Server IP 
     ${global:IP}            = "${global:IP}"
@@ -62,7 +62,7 @@ Function New-LaunchScriptdoiserverPS {
     Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $global:currentdir\$global:server\doi\motd.txt -Force
     Get-Gamemodedoi
-    Get-SourceMetMod
+    #Get-SourceMetMod
 }
 # not used in DOI 
 #server.cfg		// this is your primary server config file containing global variables

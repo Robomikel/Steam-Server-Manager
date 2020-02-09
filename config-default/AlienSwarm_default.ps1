@@ -10,7 +10,7 @@ Function New-LaunchScriptswarmserverPS {
     $global:MAXPLAYERS      = "4"
     # GSLT used for running a public server.
     #                       Game Server Token
-    $global:GSLT            = ""
+    $global:GSLT            = "GameServerTokenHere"
     ##############################/\##############################
     
     
