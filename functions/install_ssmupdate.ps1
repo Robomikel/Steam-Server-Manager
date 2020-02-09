@@ -7,7 +7,7 @@ Function Get-UpdateSteamer {
     Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black 
     Remove-Item  "$global:currentdir\Steam-Server-Manger\*" -Recurse -Force -ea SilentlyContinue
     Expand-Archive "$global:currentdir\Steam-Server-Manger.zip" "$global:currentdir\Steam-Server-Manger" -Force
-    Copy-Item  "$global:currentdir\Steam-Server-Manger\Steam-Server-Manger\*" -Destination "$global:currentdir\" -Recurse -Force
+    Copy-Item  "$global:currentdir\Steam-Server-Manger\Steam-Server-Manger-master\*" -Destination "$global:currentdir\" -Recurse -Force
     Write-Host '****   Steamer github files Updated   ****' -F Y -B Black
     Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
     Pause  
