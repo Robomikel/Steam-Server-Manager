@@ -4,7 +4,7 @@ Function New-LaunchScriptSdtdserverPS {
     #                   Server Port 
     $global:PORT        = "26900"
     #                   Server Name
-    $global:HOSTNAME    = "My Game Host"
+    $global:HOSTNAME    = "$env:USERNAME"
     ###########################/\#################################
     
     
