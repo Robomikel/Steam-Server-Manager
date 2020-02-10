@@ -22,6 +22,7 @@ Function New-LaunchScriptswarmserverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "swarm"
     $global:SERVERCFGDIR = "swarm\cfg"
+    $global:LOGDIR = "swarm"
     $global:ANON = "yes"
     $global:username = ""
     $global:RCONPORT = "${global:PORT}"

@@ -36,6 +36,7 @@ Function New-LaunchScriptBB2serverPS {
     $global:SAVES = ""
     $global:PROCESS = "BB2"
     $global:SERVERCFGDIR = "brainbread2\cfg"
+    $global:LOGDIR = "brainbread2"
     $global:ANON = "yes"
     $global:username = ""
     $global:LOGDIR = "brainbread2"

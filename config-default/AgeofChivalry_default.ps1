@@ -28,6 +28,7 @@ Function New-LaunchScriptAoCserverPS {
     $global:SAVES = ""
     $global:PROCESS = "aoc"
     $global:SERVERCFGDIR = "ageofchivalry\cfg"
+    $global:LOGDIR = "ageofchivalry"
     $global:ANON = "yes"
     $global:username = ""
     $global:RCONPORT = "${global:PORT}"   

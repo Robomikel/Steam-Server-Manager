@@ -41,6 +41,7 @@ Function New-LaunchScriptBlackMesaserverPS {
     $global:PROCESS = "bmdm"
     #--->game config folder
     $global:SERVERCFGDIR = "bms\cfg"
+    $global:LOGDIR = "bms"
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/

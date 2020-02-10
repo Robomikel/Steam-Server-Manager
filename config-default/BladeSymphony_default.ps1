@@ -42,6 +42,7 @@ Function New-LaunchScriptbsserverPS {
     $global:PROCESS = "BladeSymphony"
     #--->game config folder
     $global:SERVERCFGDIR = "berimbau\cfg"
+    $global:LOGDIR = "berimbau"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

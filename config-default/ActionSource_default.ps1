@@ -36,8 +36,8 @@ Function New-LaunchScriptAHL2serverPS {
   $global:GAME = "protocol-valve"
   $global:SAVES = ""
   $global:PROCESS = "ahl2"
-  $global:SERVERCFGDIR = "cfg"
-
+  $global:SERVERCFGDIR = "ahl2\cfg"
+  $global:LOGDIR = "ahl2"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = "ActionSource"
