@@ -18,6 +18,8 @@ Function New-LaunchScriptBB2serverPS {
     $global:MAP             = "bba_barracks"
     #                       Maxplayers
     $global:MAXPLAYERS      = "20"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ###########################/\#################################
@@ -33,9 +35,10 @@ Function New-LaunchScriptBB2serverPS {
     $global:GAME = "protocol-valve"
     $global:SAVES = ""
     $global:PROCESS = "BB2"
-    $global:SERVERCFGDIR = "cfg"
+    $global:SERVERCFGDIR = "brainbread2\cfg"
     $global:ANON = "yes"
     $global:username = ""
+    $global:LOGDIR = "brainbread2"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "BrainBread2"

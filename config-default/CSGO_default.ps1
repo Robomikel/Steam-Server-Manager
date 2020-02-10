@@ -61,6 +61,7 @@ Function New-LaunchScriptcsgoserverPS {
         $global:GAME = "csgo"
         $global:PROCESS = "csgo"
         $global:SERVERCFGDIR = "csgo\cfg"
+        $global:LOGDIR = "csgo"
         $global:RCONPORT = "$global:PORT"
         $global:ANON = "yes"
         $global:username = ""  

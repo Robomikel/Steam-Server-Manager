@@ -53,6 +53,7 @@ Function New-LaunchScriptGMODserverPS {
     $global:PROCESS = "gmod"
     #--->game config folder
     $global:SERVERCFGDIR = "garrysmod\cfg"
+    $global:LOGDIR = "garrysmod"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -70,7 +71,7 @@ Function New-LaunchScriptGMODserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE -console -game garrysmod -strictportbind -ip ${global:ip} -port ${global:port} -tickrate ${global:tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +gamemode ${global:gamemode} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers} ${customparms}")'
+    $global:launchParams = '@("$global:EXE -console -game garrysmod -strictportbind -ip ${global:ip} -port ${global:port} -tickrate ${global:tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +gamemode ${global:gamemode} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers} ${customparms} -condebug")'
     # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
     #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
 }

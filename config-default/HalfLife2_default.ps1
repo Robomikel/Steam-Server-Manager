@@ -17,6 +17,10 @@ Function New-LaunchScriptHL2DMserverPS {
     $global:map             = "dm_lockdown"
     #                       Maxplayers
     $global:maxplayers      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
 
     ###########################/\#################################
 
@@ -40,6 +44,7 @@ Function New-LaunchScriptHL2DMserverPS {
     $global:PROCESS = "hl2dm"
     #---game config folder \/\/
     $global:SERVERCFGDIR = "hl2mp\cfg"
+    $global:LOGDIR = "hl2mp"
     #---Stop existing process if running          
     Get-StopServerInstall
     # Game-server-manger folder \/
@@ -57,7 +62,7 @@ Function New-LaunchScriptHL2DMserverPS {
     #---- Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # VERSION 2 launch params exe in root \/\/
-    $global:launchParams = '@("$global:EXE -console -game hl2mp -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +servercfgfile server.cfg -maxplayers ${global:maxplayers}")'
+    $global:launchParams = '@("$global:EXE -console -game hl2mp -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +servercfgfile server.cfg -maxplayers ${global:maxplayers} -condebug")'
     # $global:launchParams = '@("$global:EXE -console -game "hl2dm" -secure +map dm_lockdown -autoupdate +log on +maxplayers 32 -port 27015 +ip 1.2.3.4 +exec server.cfg")'
     # OR EXE NOT In ROOT server folder add EXEDIR
     # $global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'

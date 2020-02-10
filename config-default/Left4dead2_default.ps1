@@ -30,6 +30,7 @@ Function New-LaunchScriptLFD2serverPS {
     $global:GAME = "left4dead2"
     $global:PROCESS = "l4d2"
     $global:SERVERCFGDIR = "left4dead2\cfg"
+    $global:LOGDIR = "left4dead2"
     Get-StopServerInstall
     # Game-Server-Configs
     $global:gamedirname = "Left4Dead2"

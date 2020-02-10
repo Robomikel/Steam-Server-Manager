@@ -8,7 +8,18 @@ Function Install-ServerFiles {
     Else {
         .\steamCMD +@ShutdownOnFailedCommand 1 +login $global:username +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit
     }
-
+    If (($?) -or ($LASTEXITCODE -eq 7)) {
+        Write-Host "****   Downloading  Install server succeeded   ****" -F Y
+        If ($global:command -ne "install") { 
+            If ($global:DisableDiscordUpdate -eq "1") {
+                New-DiscordAlert 
+            }
+        }
+    }
+    ElseIf (!$?) {
+        Write-Host "****   Downloading  Install server Failed   ****" -F R
+        New-TryagainNew 
+    }
 
     Set-Location $global:currentdir
 }

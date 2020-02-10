@@ -32,7 +32,8 @@ Function New-LaunchScriptDODSserverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:PROCESS = "dods"
     #--->game config folder
-    $global:SERVERCFGDIR = "dod\cfg"  
+    $global:SERVERCFGDIR = "dod\cfg"
+    $global:LOGDIR = "dod"  
     $global:ANON = "yes"
     $global:username = ""
 

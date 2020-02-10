@@ -39,6 +39,7 @@ Function New-LaunchScriptFOFserverPS {
     $global:PROCESS = "FOF"
     #--->game config folder
     $global:SERVERCFGDIR = "fof\cfg"
+    $global:LOGDIR = "fof"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

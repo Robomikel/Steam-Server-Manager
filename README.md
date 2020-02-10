@@ -39,6 +39,7 @@ Install steam server ```>_./ssm install misserver```
    * Team Fortress 2 Dedicated Server (232250) "tf2server"
    * Avorion - Dedicated Server (565060)
    * Boundel - Dedicated Server (454070)
+   * Dystopia Dedicated Server (17585)
    
    # untested
    * Assetto Corsa Dedicated Server (302550)
@@ -46,7 +47,6 @@ Install steam server ```>_./ssm install misserver```
    * Ballistic Overkill Dedicated Server (416880)
    * Action: Source Dedicated Server (985050)
    * BrainBread 2 Dedicated Server (475370)
-   * Dystopia Dedicated Server (17585)
    * Half-Life 2: Deathmatch Dedicated Server (232370)
    * Black Mesa: Deathmatch Dedicated Server (346680)
    * Day of Defeat Source Dedicated Server (232290)

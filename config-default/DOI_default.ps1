@@ -41,6 +41,7 @@ Function New-LaunchScriptdoiserverPS {
     $global:GAME = "doi"
     $global:PROCESS = "doi"
     $global:SERVERCFGDIR = "doi\cfg"
+    $global:LOGDIR = "doi"
     $global:RCONPORT = "$global:PORT"
     Get-StopServerInstall
     # Game-Server-Configs

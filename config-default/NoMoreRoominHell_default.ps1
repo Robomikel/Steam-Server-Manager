@@ -45,6 +45,7 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:PROCESS = "NMRIH"
     #--->game config folder
     $global:SERVERCFGDIR = "nmrih\cfg"
+    $global:LOGDIR = "nmrih"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -63,7 +64,7 @@ Function New-LaunchScriptNMRIHserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE -game nmrih -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers}")'
+    $global:launchParams = '@("$global:EXE -game nmrih -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers} -condebug")'
     # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
     #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
 }
