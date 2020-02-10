@@ -16,6 +16,10 @@ Function New-LaunchScriptFOFserverPS {
     $global:map             = "fof_depot"
     #                       Maxplayers
     $global:maxplayers      = "20"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ###########################/\#################################
 
     

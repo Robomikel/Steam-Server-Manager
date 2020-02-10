@@ -15,6 +15,10 @@ Function New-LaunchScriptbsserverPS {
     $global:map             = "duel_winter"
     #                      Max Players
     $global:maxplayers      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     # GSLT used for running a public server.
     #                       Game Server Token
     $global:gslt            = ""

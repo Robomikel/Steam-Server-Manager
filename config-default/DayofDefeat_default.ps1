@@ -14,6 +14,10 @@ Function New-LaunchScriptDODSserverPS {
     $global:map             = "dod_Anzio"
     #                       Maxplayers
     $global:maxplayers      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     

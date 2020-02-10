@@ -17,6 +17,10 @@ Function New-LaunchScriptGMODserverPS {
     $global:map             = "gm_construct"
     #                       Maxplayers
     $global:maxplayers      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     #                       Gamemode
     $global:gamemode        = "sandbox"
     #                       Tickrate     

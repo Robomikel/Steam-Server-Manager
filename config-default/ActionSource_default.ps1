@@ -14,6 +14,10 @@ Function New-LaunchScriptAHL2serverPS {
   $global:MAP             = "act_airport"
   #                       Maxplayers
   $global:MAXPLAYERS      = "20"
+  #                       Server Name
+  $global:HOSTNAME        = "$env:USERNAME"
+  #                       Rcon Password
+  $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
   #                       Requieres Steam Login
   #                       Steam Anonymous user
   $global:ANON            = "no"

@@ -16,6 +16,10 @@ Function New-LaunchScriptDystopiaserverPS {
     $global:map             = "dys_broadcast"
     #                       Maxplayers
     $global:maxplayers      = "16"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     

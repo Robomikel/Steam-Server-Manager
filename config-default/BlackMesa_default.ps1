@@ -16,6 +16,10 @@ Function New-LaunchScriptBlackMesaserverPS {
     $global:map             = "dm_bounce"
     #                       Max Players 
     $global:maxplayers      = "16"
+      #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       Rcon Password
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     
