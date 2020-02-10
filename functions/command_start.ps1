@@ -7,6 +7,7 @@ Function Get-StartServer {
     )
     If ($global:log -eq "1") {New-ServerLog}
     Set-Location $global:currentdir\$global:server\
+    If ($global:APPID -eq 343050) {Set-Location $global:currentdir\$global:server\$global:EXEDIR}
     #Start-Process -FilePath CMD -ArgumentList ("/c $global:launchParams") -NoNewWindow
     If (( $global:APPID -eq 258550 ) -or ($global:APPID -eq 294420 ) -or ($global:APPID -eq 302550)) {
         Start-Process CMD "/c start $global:launchParams"

@@ -163,6 +163,22 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         CSGO mapgroup   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MAPGROUP         = `"$global:MAPGROUP`""
     }
+    If ($global:cluster) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         cluster   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:cluster         = `"$global:cluster`""
+    }
+    If ($global:shard) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         shard   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:shard         = `"$global:shard`""
+    }
+    If ($global:persistentstorageroot) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                          persistentstorageroot   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:persistentstorageroot         = `"$global:persistentstorageroot`""
+    }
+    If ($global:gamedirname) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                          gamedirname   "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:gamedirname         = `"$global:gamedirname`""
+    }
     If ($global:WSCOLLECTIONID) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                              WSCOLLECTIONID   "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSCOLLECTIONID       = `"$global:WSCOLLECTIONID`""
