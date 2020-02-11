@@ -66,6 +66,7 @@ Install steam server ```>_./ssm install misserver```
    * validate server files 
    * backup server files 
    * monitor server process
+   * console and steamer logging
    * sourcemod/metamod and oxide install
    * Rcon to server 
    * Daily AutoRestart server process 
