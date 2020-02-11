@@ -13,7 +13,7 @@ Function New-CreateVariables {
     }
     If ($global:username) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                         Steam username "
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:username         = $global:username"
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:username         = `"$global:username`""
     }
     If ($global:ANON) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Steam Anonymous user  "
