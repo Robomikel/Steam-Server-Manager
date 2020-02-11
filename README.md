@@ -48,9 +48,9 @@ Install steam server ```>_./ssm install misserver```
    * Don't Starve Together Dedicated Server (343050)
    * Ballistic Overkill Dedicated Server (416880)
    * Alien Swarm: Reactive Drop Dedicated Server (582400)
+   * Garry's Mod Dedicated Server (4020)
    # untested
    * Assetto Corsa Dedicated Server (302550)
-   * Garry's Mod Dedicated Server (4020)
    * No More Room in Hell Dedicated Server (317670)
    * Blade Symphony Dedicated Server (228780)
    * Fistful of Frags Dedicated Server (295230)

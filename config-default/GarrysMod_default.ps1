@@ -31,7 +31,7 @@ Function New-LaunchScriptGMODserverPS {
     # Custom Start Parameters
     $customparms            = "-disableluarefresh"
     #                       Game Server Token
-    $gslt                   = ""
+    $gslt                   = "GameServerTokenHere"
     ###########################/\#################################
 
     
