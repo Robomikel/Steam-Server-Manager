@@ -30,14 +30,14 @@ Function New-LaunchScriptSvenCoopserverPS {
     #--->Exe NOT in root server folder \/\/
     $global:EXEDIR = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "SvenDS "
+    $global:EXE = "SvenDS"
     #$global:EXE = "ProjectZomboid64"
     #--->Requieres \/ \/ game dig 
     $global:GAME = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
     $global:SAVES = ""
     #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "SvenDS "
+    $global:PROCESS = "SvenDS"
     #--->game config folder
     $global:SERVERCFGDIR = "svencoop"
     #--->Stop existing process if running        
