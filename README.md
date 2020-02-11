@@ -16,10 +16,10 @@ ssm accepts 1 or 2 parameters. first param specifies ssm command and the second 
 Install steam server ```>_./ssm install misserver```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
  - Downloads and extract steamcmd
- - Asks and uses Steaminfo.db App ID -
+ - Asks and uses Steaminfo.db App ID - (optional server folder name gets AppID)
  - uses anon or steam login for install         
- - Server Launch - per App ID, if exists.
- - Creates per instance variables
+ - Server Launch Params- per App ID, if exists.
+ - Creates per instance variables (Found in server folder after install)
  - Creates custom default config for server- if available 
    * Miscreated Server (302200) - "misserver" (optional server folder name) 
    * 7 Days to Die server (294420) - "sdtdserver" (optional server folder name)  
@@ -36,25 +36,25 @@ Install steam server ```>_./ssm install misserver```
    * Counter-Strike Global Offensive - Dedicated Server (740) "csgoserver" (optional server folder name)
    * Left 4 Dead 2 - Dedicated Server (222860) "lfd2server" (optional server folder name)
    * Age of Chivalry Dedicated Server (17515)  "aocserver" (optional server folder name)
-   * Team Fortress 2 Dedicated Server (232250) "tf2server"
-   * Avorion - Dedicated Server (565060)
-   * Boundel - Dedicated Server (454070)
-   * Dystopia Dedicated Server (17585)
-   * BrainBread 2 Dedicated Server (475370)
-   * Half-Life 2: Deathmatch Dedicated Server (232370)
-   * Black Mesa: Deathmatch Dedicated Server (346680)
-   * Action: Source Dedicated Server (985050)
-   * Day of Defeat Source Dedicated Server (232290)
-   * Don't Starve Together Dedicated Server (343050)
-   * Ballistic Overkill Dedicated Server (416880)
-   * Alien Swarm: Reactive Drop Dedicated Server (582400)
-   * Garry's Mod Dedicated Server (4020)
-   * No More Room in Hell Dedicated Server (317670)
-   * Blade Symphony Dedicated Server (228780)
-   * Fistful of Frags Dedicated Server (295230)
-   * Project Zomboid Dedicated Server (380870)
-   * SvenCoop Dedicated Server (276060)
-   * Assetto Corsa Dedicated Server (302550)
+   * Team Fortress 2 Dedicated Server (232250) "tf2server" (optional server folder name)
+   * Avorion - Dedicated Server (565060) "avorionserver" (optional server folder name)
+   * Boundel - Dedicated Server (454070) "boundelserver" (optional server folder name)
+   * Dystopia Dedicated Server (17585) "dysserver" (optional server folder name)
+   * BrainBread 2 Dedicated Server (475370) "bb2server" (optional server folder name)
+   * Half-Life 2: Deathmatch Dedicated Server (232370) "hl2dmserver" (optional server folder name)
+   * Black Mesa: Deathmatch Dedicated Server (346680) "bmdmserver" (optional server folder name)
+   * Action: Source Dedicated Server (985050) "ahl2server" (optional server folder name)
+   * Day of Defeat Source Dedicated Server (232290) "dodserver" (optional server folder name)
+   * Don't Starve Together Dedicated Server (343050) "dstserver" (optional server folder name)
+   * Ballistic Overkill Dedicated Server (416880) "boserver" (optional server folder name)
+   * Alien Swarm: Reactive Drop Dedicated Server (582400) "asrdserver" (optional server folder name)
+   * Garry's Mod Dedicated Server (4020) "gmodserver"  (optional server folder name)
+   * No More Room in Hell Dedicated Server (317670) "nmrihserver" (optional server folder name)
+   * Blade Symphony Dedicated Server (228780) "bsserver" (optional server folder name)
+   * Fistful of Frags Dedicated Server (295230) "fofserver" (optional server folder name)
+   * Project Zomboid Dedicated Server (380870) "pzserver" (optional server folder name)
+   * SvenCoop Dedicated Server (276060) "svenserver" (optional server folder name)
+   * Assetto Corsa Dedicated Server (302550) "acserver" (optional server folder name)
    -----
  - Manage Steam server with features
    * install steam server

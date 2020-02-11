@@ -21,11 +21,8 @@ Function Select-Steamer {
         Write-Host 'Input Server Folder Name make unique to instance [i.e. sdtdserver (No Spaces!)]: ' -F C -N
         $global:server = Read-host
         Get-TestString
-        Write-Host 'Input Steam Server App ID: ' -F C -N 
-        $global:AppID = Read-host
-        Get-TestInterger
-        Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-        $global:Branch = Read-host
+        Get-Appid
+        #Get-TestInterger
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
@@ -36,11 +33,8 @@ Function Select-Steamer {
     }
     elseif ($global:command -eq "install") {
         Get-TestString
-        Write-Host 'Input Steam Server App ID: ' -F C -N 
-        $global:AppID = Read-host
-        Get-TestInterger
-        Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-        $global:Branch = Read-host
+        Get-Appid
+        #Get-TestInterger
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
