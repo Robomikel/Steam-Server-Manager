@@ -12,6 +12,8 @@ Function  New-LaunchScriptavserverPS {
         $global:GALAXYNAME      = ""
         #                       Server Name
         $global:HOSTNAME        = "$env:USERNAME"
+        #                       GameDig port Default
+        #$global:PORT            = "27020"
         ##############################/\##############################
         
         
