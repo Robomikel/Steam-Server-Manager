@@ -14,9 +14,7 @@ PS Commands for install:
 
 ```Expand-Archive "Steam-Server-Manger.zip" "Steam-Server-Manger"```
 
-```set-location Steam-Server-Manger``` 
-
-```set-location Steam-Server-Manger-Master``` 
+```set-location Steam-Server-Manger\Steam-Server-Manger-Master``` 
 
 Configure berfore install (optional):
 Find default config for game you wish to install
