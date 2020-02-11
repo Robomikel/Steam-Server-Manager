@@ -7,6 +7,11 @@ PowerShell Steam Server Manager
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip" -O Steam-Server-Manger.zip```
+```Expand-Archive "Steam-Server-Manger.zip" "Steam-Server-Manger"```
+```set-location Steam-Server-Manger``` 
+
+
 Configure berfore install (optional):
 Find default config for game you wish to install
 Steam-Server-Manger\\config-default\\*_default.ps1
