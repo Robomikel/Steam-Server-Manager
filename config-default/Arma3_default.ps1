@@ -21,10 +21,7 @@ Function New-LaunchScriptArma3serverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RCONPASSWORD"
     #                       Requieres Steam Login
-    #                       Steam Anonymous user
-    $global:ANON            = "no"
-    #                       Steam Username
-    $global:username        = ""
+
     ##############################/\##############################
     
     

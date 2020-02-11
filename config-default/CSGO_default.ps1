@@ -63,8 +63,8 @@ Function New-LaunchScriptcsgoserverPS {
         $global:SERVERCFGDIR = "csgo\cfg"
         $global:LOGDIR = "csgo"
         $global:RCONPORT = "$global:PORT"
-        $global:ANON = "yes"
-        $global:username = ""  
+    
+          
         Get-StopServerInstall
         $global:gamedirname = "CounterStrikeGlobalOffensive"
         $global:config1 = "server.cfg"

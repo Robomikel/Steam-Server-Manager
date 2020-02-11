@@ -25,7 +25,7 @@ Function New-LaunchScriptSdtdserverPS {
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "serverconfig.xml"
-    $global:ANON = "yes"
+
     $global:username = ""
 
     IF (Test-Path $global:currentdir\$global:server\7DaysToDieServer.exe){

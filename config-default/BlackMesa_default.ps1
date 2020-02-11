@@ -49,8 +49,8 @@ Function New-LaunchScriptBlackMesaserverPS {
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
     $global:RCONPORT = "${global:PORT}"
-    $global:ANON = "yes"
-    $global:username = ""
+
+    
     #--->Get game-server-config \/\/
     Get-Servercfg
     #--->rename srcds.exe \/\/

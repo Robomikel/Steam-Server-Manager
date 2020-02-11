@@ -34,7 +34,7 @@ Function New-LaunchScriptArkPS {
         Get-StopServerInstall
         $global:gamedirname = "ARKSurvivalEvolved"
         $global:config1 = "GameUserSettings.ini"
-        $global:ANON = "yes"
+    
         $global:username = ""
         Get-Servercfg
         Select-EditSourceCFG

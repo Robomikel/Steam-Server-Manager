@@ -23,6 +23,9 @@ Function Get-Servercfg {
         If (!$?) { 
             Write-Host "****   Array Failed !! Did NOT Retrieve server config   ****" -F R -B Black ; ; Exit 
         }
+        If ($?) { 
+            Write-Host "****    Retrieved server config   ****" -F M -B Black 
+        }
         New-Item $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:SERVERCFG -Force
         Add-Content $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:SERVERCFG $WebResponse
     }

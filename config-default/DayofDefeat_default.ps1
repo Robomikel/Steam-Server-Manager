@@ -38,8 +38,8 @@ Function New-LaunchScriptDODSserverPS {
     #--->game config folder
     $global:SERVERCFGDIR = "dod\cfg"
     $global:LOGDIR = "dod"  
-    $global:ANON = "yes"
-    $global:username = ""
+
+    
 
     $global:RCONPORT        = "${global:PORT}"
     #--->Stop existing process if running 

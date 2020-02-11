@@ -32,8 +32,8 @@ Function New-LaunchScriptceserverPS {
     $global:GAME = "conanexiles"
     $global:PROCESS = "ConanSandboxServer-Win64-Test"
     $global:SERVERCFGDIR = "ConanSandbox\Saved\Config\WindowsServer"
-    $global:ANON = "yes"
-    $global:username = ""
+
+    
     Get-StopServerInstall
     Write-Host "***  Editing Default Engine.ini   ***" -ForegroundColor Magenta -BackgroundColor Black
     Add-Content -Path $global:currentdir\$global:server\$global:SERVERCFGDIR\Engine.ini -Value "ServerPassword=$global:SERVERPASSWORD"

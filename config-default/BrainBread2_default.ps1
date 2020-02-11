@@ -37,8 +37,8 @@ Function New-LaunchScriptBB2serverPS {
     $global:PROCESS = "BB2"
     $global:SERVERCFGDIR = "brainbread2\cfg"
     $global:LOGDIR = "brainbread2"
-    $global:ANON = "yes"
-    $global:username = ""
+
+    
     $global:LOGDIR = "brainbread2"
     Get-StopServerInstall
     #Game-server-configs \/

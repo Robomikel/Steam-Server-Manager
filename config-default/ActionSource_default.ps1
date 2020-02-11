@@ -19,10 +19,7 @@ Function New-LaunchScriptAHL2serverPS {
   #                       Rcon Password
   $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
   #                       Requieres Steam Login
-  #                       Steam Anonymous user
-  $global:ANON            = "no"
-  #                       Steam Username
-  $global:username        = ""
+
   ##############################/\##############################
   
   

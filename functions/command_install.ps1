@@ -6,6 +6,8 @@ Function Install-ServerFiles {
         .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit
     }
     Else {
+        Write-Host "Enter Username for Steam install" -F Cyan -B Black
+        $global:username = Read-host
         .\steamCMD +@ShutdownOnFailedCommand 1 +login $global:username +force_install_dir $global:currentdir\$global:server +app_update $global:APPID $global:Branch +Exit
     }
     If (($?) -or ($LASTEXITCODE -eq 7)) {

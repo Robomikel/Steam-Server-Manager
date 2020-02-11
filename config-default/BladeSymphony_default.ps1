@@ -50,8 +50,8 @@ Function New-LaunchScriptbsserverPS {
     #--->Game-server-manger config name \/
     $global:config1 = "server.cfg"
     $global:RCONPORT = "${global:PORT}"
-    $global:ANON = "yes"
-    $global:username = ""
+
+    
     #--->Get game-server-config \/\/
     Get-Servercfg
     #--->input questions 

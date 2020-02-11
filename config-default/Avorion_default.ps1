@@ -24,8 +24,8 @@ Function  New-LaunchScriptavserverPS {
         $global:GAME = "protocol-valve"
         $global:SAVES = "Avorion"
         $global:PROCESS = "AvorionServer"
-        $global:ANON = "yes"
-        $global:username = ""
+    
+        
         Get-StopServerInstall
         $global:launchParams = '@("$global:EXEDIR\$global:EXE --server-name `"${global:HOSTNAME}`" --admin ${$global:steamID64} --galaxy-name ${global:GALAXYNAME} --difficulty ${global:DIFF} --max-players ${global:MAXPLAYERS}")'
 }
