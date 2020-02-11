@@ -17,10 +17,11 @@ Install steam server ```>_./ssm install misserver```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
  - Downloads and extract steamcmd
  - Asks and uses Steaminfo.db App ID - (optional server folder name gets AppID)
- - uses anon or steam login for install         
- - Server Launch Params- per App ID, if exists.
+ - Asks anon or steam login for install         
+ - Creates Server Launch Params- per App ID, if exists. (Found in server folder after install)
  - Creates per instance variables (Found in server folder after install)
- - Creates custom default config for server- if available 
+ - Creates custom default config for server - if available
+ # Server List 
    * Miscreated Server (302200) - "misserver" (optional server folder name) 
    * 7 Days to Die server (294420) - "sdtdserver" (optional server folder name)  
    * Insurgency Server (237410) - "insserver" (optional server folder name) 
@@ -61,28 +62,28 @@ Install steam server ```>_./ssm install misserver```
    * starting server 
    * stopping server 
    * restarting server 
-   * check if running 
-   * update server
+   * check if server process running 
+   * update server/App ID
    * validate server files 
-   * backup server files 
+   * backup server files
+   * get details from host and server
    * monitor server process
    * console and steamer logging
    * sourcemod/metamod and oxide install
-   * Rcon to server 
+   * Rcon to server (MCRcon supported servers)
    * Daily AutoRestart server process 
    * send discord alerts - backup - monitor - update 
    * run gamedig on hosted server 
    * update ssm PS scripts from github
-   * get details from host and server
    
  
    
  # Commands:  
- - ```Start <serverFolder>``` - ```>_./ssm start missesrver```  - Starts miscreated server process          
- - ```Stop <serverFolder>``` - ```>_./ssm stop misserver``` - stop process for miscreated server
- - ```restart <serverFolder>``` - ```>_./ssm restart misserver``` - stops and starts process for miscreated server]
+ - ```Start <serverFolder>``` - ```>_./ssm start missesrver```  - Starts  server process          
+ - ```Stop <serverFolder>``` - ```>_./ssm stop misserver``` - stop process server
+ - ```restart <serverFolder>``` - ```>_./ssm restart misserver``` - stops and starts process for server]
  - ```validate <serverFolder>``` - ```>_./ssm validate misserver``` - Validate App ID files
- - ```check <serverFolder>``` - ```>_./ssm check misserver``` - checks process for miscreated server
+ - ```check <serverFolder>``` - ```>_./ssm check misserver``` - checks process server
  - ```update <serverFolder>``` - ```>_./ssm update misserver``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
   - ```ForceUpdate <serverFolder>``` - ```>_./ssm ForceUpdate misserver``` - updates App ID, with  Discord alert. Force server stop and update
  - ```backup <serverFolder>``` - ```>_./ssm backup misserver``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
@@ -92,14 +93,14 @@ Install steam server ```>_./ssm install misserver```
  - ```discord <serverFolder>``` - ```>_./ssm discord misserver``` -  * Discord Alert * -command will send test alert. requires Discord webhook
  - ```AutoRestart <serverFolder>``` - ```>_./ssm AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
  - ```MCRcon <serverFolder>``` - ```>_./ssm mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
- - ```gamedig <serverFolder>``` - ```>_./ssm gamedig sdtdserver``` * not supported for miscreated. although supported by several games. (Downloads  NodeJS and installs Gamedig)
+ - ```gamedig <serverFolder>``` - ```>_./ssm gamedig sdtdserver``` runs gamedig on server (Downloads  NodeJS and installs Gamedig)
  - ```SSM update``` - ```>_./ssm ssm update```  - Downloads and overwrites ssm github files
-  - ```details <serverFolder>``` - ```>_./ssm details sdtdserver```  - outputs host and server details. requires gamedig.
+  - ```details <serverFolder>``` - ```>_./ssm details sdtdserver```  - outputs host and server details.
 
 # Configure
-- change default variables in config-default\\*_default.ps1
-- After install can edit variables-$server.ps1 to change launch vars or edit Launch Params.
-- core_settings.ps1 disable some of the default features. 
+- change default variables in \\config-default\\*_default.ps1
+- After install can edit \\ServerFolder\\variables-$server.ps1 to change launch vars or edit Launch Params.
+- \\functions\\core_settings.ps1 disable some of the default features. 
 
 
 # Mod
