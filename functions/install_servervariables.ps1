@@ -127,6 +127,10 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Rcon Password HERE "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:RCONPASSWORD = `"$global:RCONPASSWORD`""
     }
+    If ($global:adminpassword) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     adminpassword  HERE "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:adminpassword = `"$global:adminpassword`""
+    }
     If ($global:SV_PURE) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Extra Launch Parms "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:SV_PURE      = `"$global:SV_PURE`""

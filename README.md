@@ -52,9 +52,9 @@ Install steam server ```>_./ssm install misserver```
    * No More Room in Hell Dedicated Server (317670)
    * Blade Symphony Dedicated Server (228780)
    * Fistful of Frags Dedicated Server (295230)
+   * Project Zomboid Dedicated Server (380870)
    # untested
    * Assetto Corsa Dedicated Server (302550)
-   * Project Zomboid Dedicated Server (380870)
    * SvenCoop Dedicated Server (276060)
    -----
  - Manage Steam server with features

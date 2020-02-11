@@ -9,7 +9,7 @@ Function New-LaunchScriptpzserverPS {
     #                       Server Name
     $global:HOSTNAME        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    ${global:adminpassword}   = "$global:RANDOMPASSWORD"
     
 
     ##############################/\##############################
