@@ -7,13 +7,20 @@ PowerShell Steam Server Manager
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 
+Configure berfore install (optional):
+Find default config for game you wish to install
+Steam-Server-Manger\\config-default\\*_default.ps1
+Change any vars like port or server name.
+
 Run: 
 open PowerShell as user NOT Admin
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```
+If Optional name is used, will grab APP ID
 
-```>_./ssm <command> <serverFolder>```
-          
-Install steam server ```>_./ssm install misserver```
+Example          
+Install miscreated server ```./ssm install misserver``` 
+
+```./ssm <command> <serverFolder>```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
  - Downloads and extract steamcmd
  - Asks and uses Steaminfo.db App ID - (optional server folder name gets AppID)
@@ -79,23 +86,23 @@ Install steam server ```>_./ssm install misserver```
  
    
  # Commands:  
- - ```Start <serverFolder>``` - ```>_./ssm start missesrver```  - Starts  server process          
- - ```Stop <serverFolder>``` - ```>_./ssm stop misserver``` - stop process server
- - ```restart <serverFolder>``` - ```>_./ssm restart misserver``` - stops and starts process for server]
- - ```validate <serverFolder>``` - ```>_./ssm validate misserver``` - Validate App ID files
- - ```check <serverFolder>``` - ```>_./ssm check misserver``` - checks process server
- - ```update <serverFolder>``` - ```>_./ssm update misserver``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
-  - ```ForceUpdate <serverFolder>``` - ```>_./ssm ForceUpdate misserver``` - updates App ID, with  Discord alert. Force server stop and update
- - ```backup <serverFolder>``` - ```>_./ssm backup misserver``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
- - ```monitor <serverFolder>``` - ```>_./ssm monitor misserver``` - Creates Scheduled Task to start server if off, with  Discord alert
-  - ```ModInstall <serverFolder>``` - ```>_./ssm ModInstall insserver``` - Install Sourcemod or Oxide for specified servers
+ - ```./ssm Start <serverFolder>```  - Starts  server process          
+ - ```./ssm Stop <serverFolder>``` - stop process server
+ - ```./ssm restart <serverFolder>``` - stops and starts process for server]
+ - ```./ssm validate <serverFolder>``` - Validate App ID files
+ - ```./ssm check <serverFolder>``` - checks process server
+ - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
+  - ```./ssm ForceUpdate <serverFolder>``` - updates App ID, with  Discord alert. Force server stop and update
+ - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
+ - ```./ssm monitor <serverFolder>``` - Creates Scheduled Task to start server if off, with  Discord alert
+  - ```./ssm ModInstall <serverFolder>```  - Install Sourcemod or Oxide for specified servers
 
- - ```discord <serverFolder>``` - ```>_./ssm discord misserver``` -  * Discord Alert * -command will send test alert. requires Discord webhook
- - ```AutoRestart <serverFolder>``` - ```>_./ssm AutoRestart misserver``` - Creates Scheduled Task for Daily Auto Restart
- - ```MCRcon <serverFolder>``` - ```>_./ssm mcrcon inssserver``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
- - ```gamedig <serverFolder>``` - ```>_./ssm gamedig sdtdserver``` runs gamedig on server (Downloads  NodeJS and installs Gamedig)
- - ```SSM update``` - ```>_./ssm ssm update```  - Downloads and overwrites ssm github files
-  - ```details <serverFolder>``` - ```>_./ssm details sdtdserver```  - outputs host and server details.
+ - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook
+ - ```./ssm AutoRestart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart
+ - ```./ssm MCRcon <serverFolder>``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
+ - ```./ssm gamedig <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)
+ - ```./ssm SSM update``` -  Downloads and overwrites ssm github files
+  - ```./ssm details <serverFolder>``` - outputs host and server details.
 
 # Configure
 - change default variables in \\config-default\\*_default.ps1
