@@ -61,7 +61,7 @@ Function New-LaunchScriptFOFserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE -game fof -console -strictportbind -ip ${$global:ip} -port ${$global:port} +clientport ${$global:clientport} +tv_port ${$global:sourcetvport} +map ${$global:map} +servercfgfile server.cfg -maxplayers ${$global:maxplayers} -condebug")'
+    $global:launchParams = '@("$global:EXE -game fof -console -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +servercfgfile server.cfg -maxplayers ${global:maxplayers} -condebug")'
     # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
     #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
 }
