@@ -32,7 +32,7 @@ Function Get-TestString {
 
 Function Set-Console {
     Clear-Host
-    $host.ui.RawUi.WindowTitle = "-------- STEAMER ------------"
+    $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
     [console]::ForegroundColor = "Green"
     [console]::BackgroundColor = "Black"
     [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
