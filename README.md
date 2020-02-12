@@ -11,10 +11,14 @@ Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 PS Commands for install:
 
 ```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip" -O Steam-Server-Manger.zip```   
-```Expand-Archive "Steam-Server-Manger.zip" "Steam-Server-Manger"```   
-```Move-Item Steam-Server-Manger\Steam-Server-Manger-master\* Steam-Server-Manger\ ```   
-```Remove-Item Steam-Server-Manger\Steam-Server-Manger-master```   
-```Set-Location Steam-Server-Manger```  
+```Expand-Archive "Steam-Server-Manger.zip" "Steam-Server-Manger" -F```   
+```Move-Item Steam-Server-Manger\Steam-Server-Manger-master\* Steam-Server-Manger\ -F```   
+```Remove-Item Steam-Server-Manger\Steam-Server-Manger-master -F```   
+```Set-Location Steam-Server-Manger```   
+
+Optional if you want to set default location when opening PS   
+```Remove-Variable -Force HOME```    
+```Set-Variable HOME Get-Location ```   
 
 
 Configure berfore install (optional):
