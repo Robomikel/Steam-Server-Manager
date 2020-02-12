@@ -78,6 +78,7 @@ Install miscreated server ```./ssm install misserver```
    * Just Cause 2: Multiplayer - Dedicated Server (261140) (optional server folder name)
    * Just Cause™ 3: Multiplayer - Dedicated Server (619960) (optional server folder name)
    -----
+ # Features
  - Manage Steam server with features
    * install steam server
    * starting server 
@@ -125,13 +126,14 @@ Install miscreated server ```./ssm install misserver```
 
 
 # Mod
-* Insurgency - option for sourcemod and Meta Mod install
+ * Insurgency - option for sourcemod and Meta Mod install
  * Rust - option for Oxide install
  * Counter-Strike Global Offensive - option for sourcemod and Meta Mod install
  * Left 4 Dead 2 - Dedicated Server - option for sourcemod and Meta Mod install
+ * Sourcemod and Oxide for other supported games available
 
  
-  # MCRcon
+# MCRcon
  * MCRcon Download and Install
  * Use used to Rcon to servers.
  
