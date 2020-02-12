@@ -16,7 +16,7 @@ $global:Date = get-date -Format yyyyMMddTHHmmssffff
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-#NodeJs Version
+# NodeJs Version
 $global:nodeversion = "12.13.1"
 $global:nodejsurl = "https://nodejs.org/dist/v$global:nodeversion/node-v$global:nodeversion-win-x64.zip"
 
@@ -33,14 +33,14 @@ $global:sourcemodmversion = "1.10"
 $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/sourcemod-latest-windows" -ErrorAction SilentlyContinue
 $smWebResponse = $smWebResponse.content
 $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/$smWebResponse"
-#7 Zip Portable
+# 7-Zip Portable
 $global:sevenzip = "https://www.7-zip.org/a/7za920.zip"
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 $global:steamoutput = "steamcmd.zip"
 # Steamer url
 $global:steamerurl="https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
-# mcrcon
+# Mcrcon
 $global:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
 
 $global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 11 | ForEach-Object { [char]$_ })
