@@ -20,7 +20,7 @@ Function New-LaunchScriptbsserverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     # GSLT used for running a public server.
-    #                       Game Server Token
+    #                       Game Server Token (required)
     $global:gslt            = "GameServerTokenHere"
     ##############################/\##############################
     

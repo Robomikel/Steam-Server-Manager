@@ -12,7 +12,7 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:CLIENTPORT      = "27005"
     #                       Source TV Port
     $global:sourcetvport    = "27020"
-    #                       Game Server Token
+    #                       Game Server Token (required)
     $global:GSLT            = "GameServerTokenHere"
     #                       Map
     $global:MAP             = "nmo_broadway"

@@ -72,6 +72,7 @@ Install miscreated server ```./ssm install misserver```
    * Project Zomboid Dedicated Server (380870) "pzserver" (optional server folder name)
    * SvenCoop Dedicated Server (276060) "svenserver" (optional server folder name)
    * Assetto Corsa Dedicated Server (302550) "acserver" (optional server folder name)
+   * Battalion 1944 Dedicated Server (805140) "bt1944server" (optional server folder name)
    -----
  - Manage Steam server with features
    * install steam server
