@@ -6,7 +6,7 @@ PowerShell Steam Server Manager
 
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
-
+Server install in the location of ssm. before install change directory to the location you want the server.
 
 PS Commands for install:
 
