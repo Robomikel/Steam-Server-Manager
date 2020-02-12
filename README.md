@@ -16,11 +16,6 @@ PS Commands for install:
 ```Remove-Item Steam-Server-Manger\Steam-Server-Manger-master ```   
 ```Set-Location Steam-Server-Manger```   
 
-Optional if you want to set default location when opening PS   
-```Remove-Variable -Force HOME```    
-```Set-Variable HOME Get-Location ```   
-
-
 Configure berfore install (optional):
 Find default config for game you wish to install
 Steam-Server-Manger\\config-default\\*_default.ps1
