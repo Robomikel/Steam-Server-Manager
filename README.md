@@ -1,4 +1,4 @@
-# Steam-Server-Manger
+# Steam-Server-Manager
 
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
@@ -10,15 +10,15 @@ Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 
 PS Commands for install:
 
-```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip" -O Steam-Server-Manger.zip```   
-```Expand-Archive "Steam-Server-Manger.zip" "Steam-Server-Manger" ```   
-```Move-Item Steam-Server-Manger\Steam-Server-Manger-master\* Steam-Server-Manger\ ```   
-```Remove-Item Steam-Server-Manger\Steam-Server-Manger-master ```   
-```Set-Location Steam-Server-Manger```   
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
+```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
+```Move-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ ```   
+```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master ```   
+```Set-Location Steam-Server-Manager```   
 
 Configure berfore install (optional):
 Find default config for game you wish to install
-Steam-Server-Manger\\config-default\\*_default.ps1
+Steam-Server-Manager\\config-default\\*_default.ps1
 Change any vars like port or server name.
 
 Run: 
