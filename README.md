@@ -6,7 +6,7 @@ PowerShell Steam Server Manager
 
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
-
+Server install in the location of ssm. before install change directory to the location you want the server.
 
 PS Commands for install:
 
@@ -137,9 +137,14 @@ Install miscreated server ```./ssm install misserver```
  When creating a Schedule task to run Monitor script.
 - If using a user windows account. Will need to add user to the "log on as batch job" to run the task under that account
 - - - - 
- Does not install Dependencies like Visual C++ Redistributable or Direct X
+ Does not install Dependencies like Visual C++ Redistributable or Direct X  
+ https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/  
  
- Does not Forward ports or open ports on firewall
+ Does not Forward ports   
+ https://portforward.com/  
+ 
+ Does not open ports on firewall  
+ https://www.tomshardware.com/news/how-to-open-firewall-ports-in-windows-10,36451.html
 - - - - 
  # MCRCON
 https://github.com/Tiiffi/mcrcon
