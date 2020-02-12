@@ -8,8 +8,8 @@ Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 Server install in the location of ssm. before install change directory to the location you want the server.
 
-PS Commands for install:
-
+# Install
+PS Commands 
 ```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
 ```Move-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ ```   
