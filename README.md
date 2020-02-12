@@ -142,7 +142,7 @@ Install miscreated server ```./ssm install misserver```
  
 - - - -  
  When creating a Schedule task to run Monitor script.
-- If using a user windows account. Will need to add user to the "log on as batch job" to run the task under that account
+- If using a user windows account. May need to add user to the "log on as batch job" to run the task under that account
 - - - - 
  Does not install Dependencies like Visual C++ Redistributable or Direct X  
  https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/  
