@@ -24,25 +24,25 @@ Function New-LaunchScriptNS2serverPS {
 
     # Steamer Vars Do Not Edit
     $global:MODDIR = ""
-    $global:EXEDIR = "x64"
-    $global:EXE = "ns2"
+    $global:EXEDIR = ""
+    $global:EXE = "Server"
     $global:GAME = "protocol-valve"
-    $global:PROCESS = "ns2"
-    $global:SERVERCFGDIR = ""
+    $global:PROCESS = "Server"
+    $global:SERVERCFGDIR = "config"
     $global:LOGDIR = ""
     $global:RCONPORT = "$global:PORT"
     Get-StopServerInstall
     # Game-Server-Configs
-    $global:gamedirname = "NaturalSelection"
-    $global:config1 = "server.cfg"
+    $global:gamedirname = "NaturalSelection2"
+    $global:config1 = "server.txt"
 
-    Get-Servercfg
-    Select-RenameSource
+    # Get-Servercfg
+    # Select-RenameSource
     $global:RCONPORT = "${global:PORT}"
 
     
-    Select-EditSourceCFG
+    # Select-EditSourceCFG
     # VERSION 2 Requieres  Vars
-    $global:launchParams = '@("-console -name `"${$global:HOSTNAME}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"admin`" -webport 8080 -map ${map} -limit ${maxplayers} -config_path server.cfg -logdir `"\`" -modstorage `"\Workshop`" -mods `"`" -condebug")'
+    $global:launchParams = '@("$global:EXE -name `"${$global:HOSTNAME}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"$global:RCONPASSWORD`" -webport 8080 -map ${map} -limit ${maxplayers} -config_path $global:SERVERCFGDIR\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
 
 }
