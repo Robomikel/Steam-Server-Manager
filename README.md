@@ -75,8 +75,9 @@ Install miscreated server ```./ssm install misserver```
    * Battalion 1944 Dedicated Server (805140) "bt1944server" (optional server folder name)
    * Barotrauma Dedicated Server (1026340) "btserver" (optional server folder name)
    * Codename CURE Dedicated Server (383410) "ccserver" (optional server folder name)
-   * Just Cause 2: Multiplayer - Dedicated Server (261140) (optional server folder name)
-   * Just Cause™ 3: Multiplayer - Dedicated Server (619960) (optional server folder name)
+   * Just Cause 2: Multiplayer - Dedicated Server (261140) "jc2server" (optional server folder name)
+   * Just Cause™ 3: Multiplayer - Dedicated Server (619960) "jc3server" (optional server folder name)
+   * Natural Selection 2 Dedicated Server (4940) "ns2server" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
