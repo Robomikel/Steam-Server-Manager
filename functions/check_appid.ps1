@@ -195,6 +195,10 @@ Function Read-AppID {
         Set-Console  >$null 2>&1
         New-LaunchScriptCaspaServerPS
     }
+    ElseIf ($global:AppID -eq 460040) {
+        Set-Console  >$null 2>&1
+        New-LaunchScriptemserverPS
+    }
     #    ElseIf ($global:AppID -eq Template) {
     #        Set-Console  >$null 2>&1
     #        New-LaunchScriptTemplateserverPS
