@@ -104,6 +104,7 @@ Install miscreated server ```./ssm install misserver```
  
    
  # Commands:  
+  - ```./ssm install <serverFolder>```  - install server  
  - ```./ssm Start <serverFolder>```  - Starts  server process          
  - ```./ssm Stop <serverFolder>``` - stop process server
  - ```./ssm restart <serverFolder>``` - stops and starts process for server]
