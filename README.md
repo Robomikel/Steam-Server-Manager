@@ -153,7 +153,8 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  
 - - - -  
  When creating a Schedule task to run Monitor script in background.
-- If using a user windows account. May need to add user to the "log on as batch job" to run the task under that account
+ - If using a user windows account. May need to add user to the "log on as batch job" to run the task in background under that account
+ https://danblee.com/log-on-as-batch-job-rights-for-task-scheduler/
 - - - - 
  Does not install Dependencies like Visual C++ Redistributable   
  https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/
