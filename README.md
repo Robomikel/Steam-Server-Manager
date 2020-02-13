@@ -88,6 +88,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Sniper Elite 4 Dedicated Server (568880) "se4server" (optional server folder name)
    * Space Engineers Dedicated Server (298740) "seserver" (optional server folder name)
    * PixARK Dedicated Server (824360)- “pixarkserver" (optional server folder name)
+   * Call of Duty: Modern Warfare 3 - Dedicated Server (42750)- cod3mwserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
