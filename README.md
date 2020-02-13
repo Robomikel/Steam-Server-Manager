@@ -79,6 +79,7 @@ Install miscreated server ```./ssm install misserver```
    * Just Cause™ 3: Multiplayer - Dedicated Server (619960) "jc3server" (optional server folder name)
    * Natural Selection 2 Dedicated Server (4940) "ns2server" (optional server folder name)
    * Project CARS - Dedicated Server (332670) "pcserver" (optional server folder name)
+   * Zombie Panic! Source Dedicated Server (17505) "zpsserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
