@@ -34,7 +34,7 @@ Function New-LaunchScriptSquadserverPS {
     $global:gamedirname = ""
     $global:config1 = "Server.cfg"
 
-    
+    Get-StopServerInstall
     # Get-Servercfg
     # Select-EditSourceCFG
     
