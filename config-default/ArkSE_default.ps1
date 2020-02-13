@@ -35,7 +35,7 @@ Function New-LaunchScriptArkPS {
         $global:gamedirname = "ARKSurvivalEvolved"
         $global:config1 = "GameUserSettings.ini"
     
-        $global:username = ""
+        
         Get-Servercfg
         Select-EditSourceCFG
         $global:launchParams = '@("$global:EXEDIR\$global:EXE ${global:MAP}?AltSaveDirectoryName=${global:MAP}?listen?MultiHome=${global:IP}?MaxPlayers=${global:MAXPLAYERS}?QueryPort=${global:QUERYPORT}?RCONEnabled=True?RCONPort=${global:RCONPORT}?ServerAdminPassword=${global:RCONPASSWORD}?Port=${global:PORT} -automanagedmods")'

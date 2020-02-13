@@ -26,7 +26,7 @@ Function New-LaunchScriptSdtdserverPS {
     $global:gamedirname = ""
     $global:config1 = "serverconfig.xml"
 
-    $global:username = ""
+    
 
     IF (Test-Path $global:currentdir\$global:server\7DaysToDieServer.exe){
     }Else{

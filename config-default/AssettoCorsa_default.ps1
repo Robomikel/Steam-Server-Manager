@@ -17,7 +17,7 @@ Function New-LaunchScriptacserverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "acServer"
 
-    $global:username = ""
+    
     Get-StopServerInstall
     $global:launchParams = '@("$global:EXEDIR\$global:EXE")'
 }

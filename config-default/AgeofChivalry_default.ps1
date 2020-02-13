@@ -30,7 +30,7 @@ Function New-LaunchScriptAoCserverPS {
     $global:SERVERCFGDIR = "ageofchivalry\cfg"
     $global:LOGDIR = "ageofchivalry"
 
-    $global:username = ""
+    
     $global:RCONPORT = "${global:PORT}"   
     Get-StopServerInstall
     $global:gamedirname = "AgeOfChivalry"
