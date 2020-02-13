@@ -9,7 +9,7 @@
 Function Select-Steamer {
     param(
         [string]
-        [Parameter(Mandatory = $true, Position = 0, HelpMessage = " CTL + C and ./steamer ?   ")]
+        [Parameter(Mandatory = $true, Position = 0, HelpMessage = " CTL + C and ./ssm ?   ")]
         #[ValidatePattern('^[a-z,A-Z]$')]
         $global:command,
         [string[]]
@@ -343,8 +343,8 @@ Function Select-Steamer {
         Get-UpdateSteamer   
     }
     else {
-        Write-Host "Format:  ./steamer <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
-        Write-Host "IE:      ./steamer install  insserver" -F Yellow -BackgroundColor Black
+        Write-Host "Format:  ./ssm <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
+        Write-Host "IE:      ./ssm install  insserver" -F Yellow -BackgroundColor Black
         Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
         Write-Host "install"
         Write-Host "update"
