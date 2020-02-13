@@ -11,20 +11,20 @@ Function New-LaunchScriptInssserverPS {
         #                       Server max Players 
         $global:MAXPLAYERS      = "8"
         #                       Server Port   
-        $global:PORT            = "270131"
+        $global:PORT            = "27102"
         #                       Server Query Port  
-        $global:QUERYPORT       = "64092"
+        $global:QUERYPORT       = "27131"
         #                       Server Name       
         $global:HOSTNAME        = "$env:USERNAME"
         #                       Server Password
         $global:SERVERPASSWORD  = ""
         #                       Server Rcon Port
-        $global:RCONPORT         = "64094"
+        $global:RCONPORT         = "27103"
         #                       Server Rcon Password
         $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
         #                       Server Admin Steam ID 64
         $global:steamID64       = ""
-        ##############################/\##############################
+        ##############################/\############################## 
         
         
         
