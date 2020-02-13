@@ -8,7 +8,7 @@ Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 Server install in the location of ssm. before install change directory to the location you want the server.
 
-# Install
+# Install SSM
 PS Commands 
 ```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
@@ -21,13 +21,15 @@ Find default config for game you wish to install
 Steam-Server-Manager\\config-default\\*_default.ps1
 Change any vars like port or server name.
 
-Run: 
+# Install Server
 open PowerShell as user NOT Admin
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```
-If Optional name is used, will grab APP ID
+If Optional name is used, will grab APP ID   
 
 Example          
 Install miscreated server ```./ssm install misserver``` 
+or
+Install miscreated server ```./ssm start misserver``` Start command will install and start server
 
 ```./ssm <command> <serverFolder>```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
