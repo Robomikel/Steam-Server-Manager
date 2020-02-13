@@ -13,7 +13,7 @@ Function Get-UpdateSteamer {
     Remove-Item  "$global:currentdir\LICENSE*" -Recurse -Force -ea SilentlyContinue
     Expand-Archive "$global:currentdir\Steam-Server-Manager.zip" "$global:currentdir\Steam-Server-Manager" -Force
     Copy-Item  "$global:currentdir\Steam-Server-Manager\Steam-Server-Manager-master\*" -Destination "$global:currentdir\" -Recurse -Force
-    Write-Host '****   Steamer github files Updated   ****' -F Y -B Black
+    Write-Host '****   ssm github files Updated   ****' -F Y -B Black
     Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
     Pause  
     Stop-Process -Id $PID

@@ -3,7 +3,7 @@ Function Get-Finished {
     Write-Host "*************************************" -F Y
     Write-Host "***  Server $global:command is done!  $global:CHECKMARK ****" -F Y
     Write-Host "*************************************" -F Y
-    Write-Host "  ./steamer start $global:server  "-F Black -B White
+    Write-Host "  ./ssm start $global:server  "-F Black -B White
 }
 
 Function Get-varsmessage {

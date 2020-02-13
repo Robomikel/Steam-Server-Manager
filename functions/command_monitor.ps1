@@ -1,7 +1,7 @@
 
 Function New-MontiorJob {
     Write-Host "Run Task only when user is logged on"
-    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$global:PROCESS')) {$global:currentdir\steamer.ps1 start $global:server ;; $global:currentdir\steamer.ps1 discord $global:server }`"" -WorkingDirectory "$global:currentdir"
+    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$global:PROCESS')) {$global:currentdir\ssm.ps1 start $global:server ;; $global:currentdir\ssm.ps1 discord $global:server }`"" -WorkingDirectory "$global:currentdir"
     $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
@@ -15,7 +15,7 @@ Function New-MontiorJobBG {
     $SecurePassword = $password = Read-Host "Password:" -AsSecureString
     $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
     $Password = $Credentials.GetNetworkCredential().Password 
-    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$global:PROCESS')) {$global:currentdir\steamer.ps1 start $global:server ;; $global:currentdir\steamer.ps1 discord $global:server }`"" -WorkingDirectory "$global:currentdir"
+    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$global:PROCESS')) {$global:currentdir\ssm.ps1 start $global:server ;; $global:currentdir\ssm.ps1 discord $global:server }`"" -WorkingDirectory "$global:currentdir"
     $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings

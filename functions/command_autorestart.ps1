@@ -7,7 +7,7 @@ Function New-RestartJobBG {
     $SecurePassword = $password = Read-Host "Password:" -AsSecureString
     $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
     $Password = $Credentials.GetNetworkCredential().Password  
-    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "$global:currentdir\steamer.ps1 restart $global:server" -WorkingDirectory "$global:currentdir"
+    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "$global:currentdir\ssm.ps1 restart $global:server" -WorkingDirectory "$global:currentdir"
     #$Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes $restartTime)
     $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
@@ -19,7 +19,7 @@ Function New-RestartJob {
     Write-Host "Run Task only when user is logged on"
     Write-Host "Input AutoRestart Time. ie 3am: " -F Cyan -NoNewline
     $restartTime = Read-Host
-    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "$global:currentdir\steamer.ps1 restart $global:server" -WorkingDirectory "$global:currentdir"
+    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "$global:currentdir\ssm.ps1 restart $global:server" -WorkingDirectory "$global:currentdir"
     #$Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Hours $restartTime)
     $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
