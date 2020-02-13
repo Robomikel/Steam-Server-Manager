@@ -161,7 +161,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/
  
  Does not install Dependencies like Direct X  
- https://www.microsoft.com/en-us/download/details.aspx?id=8109
+ https://www.microsoft.com/en-us/download/details.aspx?id=35
  
  Does not Forward ports   
  https://portforward.com/  
