@@ -8,10 +8,7 @@ Function New-LaunchScriptbedrock_serverPS {
     ###########################/\#################################
 
     
-    # On some systems, when you wish to connect to the server using a client running on the same machine as the server is running on, you will need to exempt the Minecraft client from UWP loopback restrictions:
-    # un-comment below before first run to exempt the Minecraft client from UWP loopback restrictions
-    # CheckNetIsolation.exe LoopbackExempt –a –p=S-1-15-2-1958404141-86561845-1752920682-3514627264-368642714-62675701-733520436
-
+    # 19132 TCP/UDP IPV4
     
     
     ###################### Do not change below #####################

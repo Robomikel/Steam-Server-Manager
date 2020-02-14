@@ -8,7 +8,7 @@ Function New-LaunchScriptboundelserverPS {
     #                       Steam Username
     $global:username        = ""
     ###########################/\#################################
-    
+    # 8002 TCP/UDP
     
     
     ###################### Do not change below #####################

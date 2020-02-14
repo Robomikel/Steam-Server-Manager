@@ -10,7 +10,11 @@ Function New-LaunchScriptBOserverPS {
     # $global:GSLT     = "GameServerTokenHere"
     ##############################/\##############################
     
-    
+    # UDP 8760 - 8790
+    # UDP 7777 - 7778
+    # UDP 4242
+    # TCP/UDP 27015 (or selected ServerPort in config.txt)
+    # TCP/UDP 27016 (or selected QueryPort in config.txt)
     
     
     

@@ -9,7 +9,7 @@ Function New-LaunchScriptjc2serverPS {
 
     ##############################/\##############################
     
-    
+    # 7777 TCP/UDP
     
     
     

@@ -17,7 +17,10 @@ Function  New-LaunchScriptavserverPS {
         ##############################/\##############################
         
         
-        
+        # 27000 - UDP & TCP.
+        # 27003 - UDP.
+        # 27020 - UDP.
+        # 27021 - UDP.
         
         ###################### Do not change below #####################
         $global:MODDIR = ""
