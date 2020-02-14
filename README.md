@@ -91,6 +91,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Call of Duty: Modern Warfare 3 - Dedicated Server (42750)- "cod3mwserver" (optional server folder name)
    * Minecraft Bedrock Edition - Dedicated Server (11421000) - "mcbrserver" (optional server folder name)
    * Minecraft Java Edition - Dedicated Server (11500000) - "mcserver" (optional server folder name)
+   * Stationeers Dedicated Server (600760) - "stationeers" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
