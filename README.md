@@ -41,7 +41,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  - Creates custom default config for server - if available
  # Server List 
    * Miscreated Server (302200) - "misserver" (optional server folder name) 
-   * 7 Days to Die server (294420) - "sdtdserver" (optional server folder name)  
+   * 7 Days to Die server (294420) - "7d2dserver" (optional server folder name)  
    * Insurgency Server (237410) - "insserver" (optional server folder name) 
    * Insurgency: Sandstorm Server (581330) - "inssserver" (optional server folder name) 
    * Rust server (258550) - "rustserver" (optional server folder name) 
@@ -53,7 +53,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Conan Exiles Dedicated Server (443030) "ceserver" (optional server folder name)
    * The Forest Dedicated Server (556450) "forestserver" (optional server folder name)
    * Counter-Strike Global Offensive - Dedicated Server (740) "csgoserver" (optional server folder name)
-   * Left 4 Dead 2 - Dedicated Server (222860) "lfd2server" (optional server folder name)
+   * Left 4 Dead 2 - Dedicated Server (222860) "l4d2server" (optional server folder name)
    * Age of Chivalry Dedicated Server (17515)  "aocserver" (optional server folder name)
    * Team Fortress 2 Dedicated Server (232250) "tf2server" (optional server folder name)
    * Avorion - Dedicated Server (565060) "avorionserver" (optional server folder name)
@@ -91,7 +91,8 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Call of Duty: Modern Warfare 3 - Dedicated Server (42750)- "cod3mwserver" (optional server folder name)
    * Minecraft Bedrock Edition - Dedicated Server (11421000) - "mcbrserver" (optional server folder name)
    * Minecraft Java Edition - Dedicated Server (11500000) - "mcserver" (optional server folder name)
-   * Stationeers Dedicated Server (600760) - "stationeers" (optional server folder name)
+   * caspa Dedicated Server (667230) - "caspaserver" (optional server folder name)
+   * Empires Dedicated Server (460040) - "Empiresserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
