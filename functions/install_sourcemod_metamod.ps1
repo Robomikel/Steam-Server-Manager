@@ -1,4 +1,5 @@
 Function Get-SourceMetaMod {
+    Get-SourceMetaModWebrequest
     $start_time = Get-Date
     Write-Host '****   Downloading Meta Mod   ****' -F M -B Black 
     #(New-Object Net.WebClient).DownloadFile("$global:metamodurl", "$global:currentdir\metamod.zip")

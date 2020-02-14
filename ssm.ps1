@@ -25,14 +25,10 @@ $global:oxiderustlatestlink = "https://umod.org/games/rust/download"
 
 # Metamod
 $global:metamodmversion = "1.10"
-$global:mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/mmsource-latest-windows" -ea SilentlyContinue
-$global:mmWebResponse = $global:mmWebResponse.content
-$global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/$global:mmWebResponse"
+
 # Sourcemod
 $global:sourcemodmversion = "1.10"
-$smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/sourcemod-latest-windows" -ErrorAction SilentlyContinue
-$smWebResponse = $smWebResponse.content
-$global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/$smWebResponse"
+
 # 7-Zip Portable
 $global:sevenzip = "https://www.7-zip.org/a/7za920.zip"
 # Steam

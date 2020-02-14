@@ -24,6 +24,7 @@ Function Select-Steamer {
         Get-Appid
         #Get-TestInterger
         New-ServerFolder
+        Get-CheckNonSteam
         Get-Steam
         Set-SteamInfo
         #Set-SteamInfoAppID
@@ -36,6 +37,7 @@ Function Select-Steamer {
         Get-Appid
         #Get-TestInterger
         New-ServerFolder
+        Get-CheckNonSteam
         Get-Steam
         Set-SteamInfo
         #Set-SteamInfoAppID
@@ -50,6 +52,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         #Get-UpdateServer 
@@ -60,6 +63,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         #Get-UpdateServer
@@ -73,6 +77,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         #Get-ServerBuildCheck
         Get-UpdateServer 
@@ -83,6 +88,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         #Get-ServerBuildCheck
         Get-UpdateServer
@@ -96,6 +102,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-StopServer
         Get-Steam
@@ -107,6 +114,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
+        Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-StopServer
         Get-Steam

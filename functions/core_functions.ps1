@@ -96,17 +96,31 @@ Function New-ServerLog {
 Function Get-Appid {
 
     $searchTerm = "\b$global:server\b"
-    $results = Get-Content -path $global:currentdir\data\serverlist.csv  | Select-String  -Pattern $searchTerm
+    $results = Get-Content -path $global:currentdir\data\serverlist.csv | Select-String  -Pattern $searchTerm
     $results = "`"$results`""
     $results = $results.Split(",")[3]
     $global:AppID = "$results"
     $global:AppID
 
-    If (($null -eq $global:AppID) -or ("" -eq $global:AppID)){
+    If (($null -eq $global:AppID) -or ("" -eq $global:AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
         $global:AppID = Read-host
         Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
         $global:Branch = Read-host
         Get-TestInterger
     }
+}
+
+Function Get-MCBRWebrequest {
+    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/").Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+}
+
+Function Get-SourceMetaModWebrequest {
+    $global:mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/mmsource-latest-windows" -ea SilentlyContinue
+    $global:mmWebResponse = $global:mmWebResponse.content
+    $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/$global:mmWebResponse"
+
+    $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/sourcemod-latest-windows" -ErrorAction SilentlyContinue
+    $smWebResponse = $smWebResponse.content
+    $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/$smWebResponse"
 }
