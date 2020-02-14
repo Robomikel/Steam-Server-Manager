@@ -92,7 +92,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Minecraft Bedrock Edition - Dedicated Server (11421000) - "mcbrserver" (optional server folder name)
    * Minecraft Java Edition - Dedicated Server (11500000) - "mcserver" (optional server folder name)
    * caspa Dedicated Server (667230) - "caspaserver" (optional server folder name)
-   * Empires Dedicated Server (460040) - "Empiresserver" (optional server folder name)
+   * Empires Dedicated Server (460040) - "emserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
