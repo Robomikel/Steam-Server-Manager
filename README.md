@@ -166,8 +166,8 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  Does not install Dependencies like Direct X  
  https://www.microsoft.com/en-us/download/details.aspx?id=35
  
- Does not install Dependencies like Java 
- https://www.java.com/en/download/
+ Does not install Dependencies like Java   
+ https://www.java.com/en/download/   
 
  Does not Forward ports   
  https://portforward.com/  
