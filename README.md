@@ -90,6 +90,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * PixARK Dedicated Server (824360)- “pixarkserver" (optional server folder name)
    * Call of Duty: Modern Warfare 3 - Dedicated Server (42750)- "cod3mwserver" (optional server folder name)
    * Minecraft Bedrock Edition - Dedicated Server (11421000) - "mcbrserver" (optional server folder name)
+   * Minecraft Java Edition - Dedicated Server (11500000) - "mcserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
@@ -165,6 +166,9 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  Does not install Dependencies like Direct X  
  https://www.microsoft.com/en-us/download/details.aspx?id=35
  
+ Does not install Dependencies like Java 
+ https://www.java.com/en/download/
+
  Does not Forward ports   
  https://portforward.com/  
  

@@ -1,5 +1,5 @@
 Function Get-ServerBuildCheck {
-    If ($global:APPID -eq 11421000 ) { }Else {
+    If (($global:APPID -eq 11421000 ) -or ($global:APPID -eq 11500000 )){ }Else {
         Get-Steam
         #Get-Steamtxt
         Set-Location $global:currentdir\SteamCMD\ >$null 2>&1

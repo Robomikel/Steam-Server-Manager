@@ -207,6 +207,10 @@ Function Read-AppID {
         Set-Console  >$null 2>&1
         New-LaunchScriptbedrock_serverPS
     }
+    ElseIf ($global:AppID -eq 11500000) {
+        Set-Console  >$null 2>&1
+        New-LaunchScriptminecraft_serverPS
+    }
     #    ElseIf ($global:AppID -eq Template) {
     #        Set-Console  >$null 2>&1
     #        New-LaunchScriptTemplateserverPS

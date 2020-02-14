@@ -112,9 +112,14 @@ Function Get-Appid {
 }
 
 Function Get-MCBRWebrequest {
+    # get latest download
     $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/").Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
 }
-
+Function Get-MCWebrequest{
+    # check latest version
+    $global:mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" | ConvertFrom-Json
+    $global:mcvWebResponse = $global:mcvWebResponse.Latest.release
+}
 Function Get-SourceMetaModWebrequest {
     $global:mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/mmsource-latest-windows" -ea SilentlyContinue
     $global:mmWebResponse = $global:mmWebResponse.content
