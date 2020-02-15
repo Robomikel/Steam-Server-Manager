@@ -94,6 +94,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * caspa Dedicated Server (667230) - "caspaserver" (optional server folder name)
    * Empires Dedicated Server (460040) - "emserver" (optional server folder name)
    * Stationeers Dedicated Server (600760) - "stationeersserver" (optional server folder name)
+   * rFactor 2 Dedicated Server (400300) - "rFactor2server" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
