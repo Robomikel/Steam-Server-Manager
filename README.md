@@ -18,7 +18,7 @@ PS Commands
 
 Configure berfore install (optional):
 Find default config for game you wish to install
-Steam-Server-Manager\\config-default\\*_default.ps1
+Steam-Server-Manager```\config-default\*_default.ps1```
 Change any vars like port or server name.
 
 # Install Server
@@ -139,9 +139,9 @@ Install miscreated server ```./ssm start misserver``` Start command will install
   - ```./ssm details <serverFolder>``` - outputs host and server details.
 
 # Configure
-- change default variables in \\config-default\\*_default.ps1
-- After install can edit \\ServerFolder\\variables-$server.ps1 to change launch vars or edit Launch Params.
-- \\functions\\core_settings.ps1 disable some of the default features. 
+- change default variables in ```\config-default\*_default.ps1```
+- After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.
+- ```\functions\core_settings.ps1``` disable some of the default features. 
 
 
 # Mod
