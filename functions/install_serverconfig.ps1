@@ -19,7 +19,7 @@ Function Get-Servercfg {
     Else { $global:SERVERCFG = "$global:config1", "$global:config2", "$global:config3", "$global:config4", "$global:config5" }
     Foreach ($global:SERVERCFG in $global:SERVERCFG) {
         Write-Host "****   Retrieve server config GSM   ****" -F M -B Black
-        $WebResponse = Invoke-WebRequest "$global:githuburl/$global:gamedirname/$global:SERVERCFG"
+        $WebResponse = Invoke-WebRequest "$global:githuburl/$global:gamedirname/$global:SERVERCFG -UseBasicParsing"
         If (!$?) { 
             Write-Host "****   Array Failed !! Did NOT Retrieve server config   ****" -F R -B Black ; ; Exit 
         }
