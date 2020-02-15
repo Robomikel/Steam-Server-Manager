@@ -31,18 +31,20 @@ Function Get-TestString {
 
 
 Function Set-Console {
-    Clear-Host
-    $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
-    [console]::ForegroundColor = "Green"
-    [console]::BackgroundColor = "Black"
-    [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
-    #$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(200,5000)
-    If ($global:admincheckmessage -eq "1") {
-        Get-AdminCheck
-        Get-Logo
-    }
-    Else {
-        Get-Logo
+    If ( $global:logo = "0") { }Else {
+        Clear-Host
+        $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
+        [console]::ForegroundColor = "Green"
+        [console]::BackgroundColor = "Black"
+        [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
+        #$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(200,5000)
+        If ($global:admincheckmessage -eq "1") {
+            Get-AdminCheck
+            Get-Logo
+        }
+        Else {
+            Get-Logo
+        }
     }
 }
 Function Get-Logo {
@@ -88,7 +90,8 @@ Function Select-EditSourceCFG {
 }
 Function New-ServerLog {
     $logdirectory = "$global:currentdir\$global:server\$global:LOGDIR"
-    If ($global:log -eq "1") { Copy-Item "$logdirectory\[cs]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If ($global:log -eq "1") { Copy-Item "$logdirectory\[cs]*.log", -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If ($global:backuplogs -eq "1") { Copy-Item "$global:currentdir\7za920\[b]*.log", -Destination "$global:currentdir\log\backup-$global:server-$global:date.log" -ea SilentlyContinue }
     Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
     Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like $global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
 }
@@ -115,7 +118,7 @@ Function Get-MCBRWebrequest {
     # get latest download
     $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/").Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
 }
-Function Get-MCWebrequest{
+Function Get-MCWebrequest {
     # check latest version
     $global:mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" | ConvertFrom-Json
     $global:mcvWebResponse = $global:mcvWebResponse.Latest.release
