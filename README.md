@@ -140,7 +140,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
 
 # Configure
 - change default variables in \\config-default\\*_default.ps1
-- After install can edit \\ServerFolder\\variables-$server.ps1 to change launch vars or edit Launch Params.
+- After install can edit ```\\ServerFolder\\variables-$server.ps1``` to change launch vars or edit Launch Params.
 - \\functions\\core_settings.ps1 disable some of the default features. 
 
 
