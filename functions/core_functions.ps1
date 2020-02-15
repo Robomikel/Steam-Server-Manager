@@ -31,7 +31,7 @@ Function Get-TestString {
 
 
 Function Set-Console {
-    If ( $global:logo = "0") { }Else {
+    If ( $global:logo -eq "0") { }Else {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
