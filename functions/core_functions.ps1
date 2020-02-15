@@ -116,19 +116,19 @@ Function Get-Appid {
 
 Function Get-MCBRWebrequest {
     # get latest download
-    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/").Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
 }
 Function Get-MCWebrequest {
     # check latest version
-    $global:mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" | ConvertFrom-Json
+    $global:mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
     $global:mcvWebResponse = $global:mcvWebResponse.Latest.release
 }
 Function Get-SourceMetaModWebrequest {
-    $global:mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/mmsource-latest-windows" -ea SilentlyContinue
+    $global:mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     $global:mmWebResponse = $global:mmWebResponse.content
     $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$global:metamodmversion/$global:mmWebResponse"
 
-    $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/sourcemod-latest-windows" -ErrorAction SilentlyContinue
+    $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     $smWebResponse = $smWebResponse.content
     $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$global:sourcemodmversion/$smWebResponse"
 }
