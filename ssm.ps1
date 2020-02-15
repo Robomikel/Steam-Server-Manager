@@ -38,6 +38,8 @@ $global:steamoutput = "steamcmd.zip"
 $global:steamerurl="https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
 # Mcrcon
 $global:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
+# Forge
+$global:forgeversion = "1.15.2-31.1.2"
 
 $global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 11 | ForEach-Object { [char]$_ })
 
