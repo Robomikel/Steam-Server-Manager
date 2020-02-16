@@ -84,6 +84,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Zombie Panic! Source Dedicated Server (17505) "zpsserver" (optional server folder name)
    * Day of Dragons - Dedicated Server (1088320) "dayofdragonsserver" (optional server folder name)
    * Days of War Dedicated Server (541790) "dowserver" (optional server folder name)
+   * SCP: Secret Laboratory Dedicated Server (996560) "scpserver" (optional server folder name)
    * Squad Dedicated Server (403240) "squadserver" (optional server folder name)
    * Sniper Elite 4 Dedicated Server (568880) "se4server" (optional server folder name)
    * Space Engineers Dedicated Server (298740) "seserver" (optional server folder name)
