@@ -24,7 +24,7 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     $global:EXEDIR = ""
     $global:EXE = "LocalAdmin"
     $global:GAME = "protocol-valve"
-    $global:SAVES = ""
+    $global:SAVES = "SCP Secret Laboratory"
     $global:PROCESS = "LocalAdmin"
     $global:SERVERCFGDIR = "$env:APPDATA\SCP Secret Laboratory\config\$global:PORT\config_gameplay.txt"
     $global:LOGDIR = ""
