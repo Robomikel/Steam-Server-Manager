@@ -16,8 +16,8 @@ $global:Date = get-date -Format yyyyMMddTHHmmssffff
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-# NodeJs Version
-$global:nodeversion = "12.13.1"
+# NodeJs Version "12.13.1"
+$global:nodeversion = "12.15.0"
 $global:nodejsurl = "https://nodejs.org/dist/v$global:nodeversion/node-v$global:nodeversion-win-x64.zip"
 
 # Oxide
