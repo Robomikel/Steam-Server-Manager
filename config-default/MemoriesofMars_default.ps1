@@ -27,6 +27,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:GAME = ""
     $global:PROCESS = "MemoriesOfMarsServer"
     $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
+    $global:LOGDIR = "Game\Saved\Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "DedicatedServerConfig.cfg"
