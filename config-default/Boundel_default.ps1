@@ -3,10 +3,7 @@ Function New-LaunchScriptboundelserverPS {
     # 454070
     ################## Change Default Variables ################# 
     #                       Requieres Steam Login
-    #                       Steam Anonymous user
-    $global:ANON = "no"
-    #                       Steam Username
-    $global:username        = ""
+
     ###########################/\#################################
     # 8002 TCP/UDP
     
