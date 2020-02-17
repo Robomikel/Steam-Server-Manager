@@ -2,13 +2,18 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     # Memories of Mars - Dedicated Server
     # APP ID # 897590
     ################## Change Default Variables #################
-
+    #                       Server IP
+    ${global:IP}            = "${global:IP}"
     #                       Maxplayers
     $global:MAXPLAYERS      = "2"
     #                       Server Name
     $global:HOSTNAME        = "$env:USERNAME"
     #                       Server Password
     $global:SERVERPASSWORD  = ""
+    #                       Server Port
+    $global:PORT            = "7777"
+    #                       Query Port
+    $global:QUERYPORT       = "27015"
     ##############################/\##############################
     
     
@@ -28,7 +33,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
 
     
     New-servercfgmom
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE")'
+    $global:launchParams = '@("$global:EXEDIR\$global:EXE -MULTIHOME=`"${global:IP}`" -port=$global:PORT -queryport=$global:QUERYPORT -maxplayers=$global:MAXPLAYERS")'
 } 
 Function New-servercfgmom {
     Set-Location 
