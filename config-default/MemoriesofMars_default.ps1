@@ -31,22 +31,24 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:launchParams = '@("$global:EXEDIR\$global:EXE")'
 } 
 Function New-servercfgmom {
-    Rename-Item $global:server\DedicatedServerConfig.cfg $global:server\DedicatedServerConfig.cfg.bak
+    Set-Location 
+    Rename-Item "$global:currentdir\$global:server\DedicatedServerConfig.cfg" "$global:currentdir\$global:server\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
     New-Item $global:server\DedicatedServerConfig.cfg -ItemType File -Force
     
-    Add-Content $global:server\DedicatedServerConfig.cfg "{
-        `"ServerName`": `"$global:HOSTNAME`",
-        `"ServerPassword`": `"$global:SERVERPASSWORD`",
-        `"ServerID`": `"mom_dedicated_01`",
-        `"MapName`": `"Main`",
-        `"MaxPlayers`": $global:MAXPLAYERS,
-        `"EnablePVP`": false,
-        `"EnablePVPAreas`": true,
-        `"EnableEAC`": true,
-        `"DailyRestartUTCHour`": `"12`",
-        `"Headless`": false,
-        `"UserWhitelist`": `"`",
-        `"UserBlacklist`": `"`",
-        `"Admins`" : `"`"
-    }"
+    Add-Content $global:server\DedicatedServerConfig.cfg `
+"{
+    `"ServerName`": `"$global:HOSTNAME`",
+    `"ServerPassword`": `"$global:SERVERPASSWORD`",
+    `"ServerID`": `"mom_dedicated_01`",
+    `"MapName`": `"Main`",
+    `"MaxPlayers`":  $global:MAXPLAYERS,
+    `"EnablePVP`": false,
+    `"EnablePVPAreas`": true,
+    `"EnableEAC`": true,
+    `"DailyRestartUTCHour`": `"12`",
+    `"Headless`": false,
+    `"UserWhitelist`": `"`",
+    `"UserBlacklist`": `"`",
+    `"Admins`" : `"`"
+}"
 }
