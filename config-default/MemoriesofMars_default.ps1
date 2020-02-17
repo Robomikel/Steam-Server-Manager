@@ -24,7 +24,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:MODDIR = ""
     $global:EXE = "MemoriesOfMarsServer"
     $global:EXEDIR = "Game\Binaries\Win64\"
-    $global:GAME = ""
+    $global:GAME = "protocol-valve"
     $global:PROCESS = "MemoriesOfMarsServer"
     $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
     $global:LOGDIR = "Game\Saved\Logs"
