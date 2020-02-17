@@ -9,6 +9,7 @@ Function New-BackupServer {
     If ($global:appdatabackup -eq "1") { 
         Get-Savelocation 
     }
+    New-ServerBackupLog
     If ($global:backuplog -eq "1") { 
         .\backup.log 
     }
