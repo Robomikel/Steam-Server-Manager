@@ -101,6 +101,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Iron Armada Dedicated Server (770340) - "ironarmada" (optional server folder name)
    * Medieval Engineers Dedicated Server (367970) - "meserver" (optional server folder name)
    * Stormworks Dedicated Server (1247090) - "swserver" (optional server folder name)
+   * Memories of Mars - Dedicated Server (897590) - "momserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
