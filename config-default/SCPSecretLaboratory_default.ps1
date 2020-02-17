@@ -25,13 +25,13 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     $global:EXE = "LocalAdmin"
     $global:GAME = "protocol-valve"
     $global:SAVES = "SCP Secret Laboratory"
-    $global:PROCESS = "LocalAdmin"
+    $global:PROCESS = "LocalAdmin|SCPS"
     $global:SERVERCFGDIR = "$env:APPDATA\SCP Secret Laboratory\config\$global:PORT\config_gameplay.txt"
-    $global:LOGDIR = ""
+    $global:LOGDIR = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$global:PORT"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = "config_gameplay.txt"
+    $global:config1 = ""
 
     $global:launchParams = '@("$global:EXE $global:PORT")'
 }   
