@@ -174,6 +174,9 @@ Function Read-AppID {
     ElseIf ($global:AppID -eq 996560) {
         New-LaunchScriptSCPSecretLaboratoryserverPS
     }
+    ElseIf ($global:AppID -eq 770340) {
+        New-LaunchScriptIronArmadaserverPS
+    }
     #    ElseIf ($global:AppID -eq Template) {
     #
     #        New-LaunchScriptTemplateserverPS

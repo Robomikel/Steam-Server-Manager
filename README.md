@@ -98,6 +98,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * rFactor 2 Dedicated Server (400300) - "rFactor2server" (optional server folder name)
    * Vanguard: Normandy 1944 Dedicated Server (1017070) - "vanguardserver" (optional server folder name)
    * Lambda Wars Dedicated Server (319060) - "lambdawarsserver" (optional server folder name)
+   * Iron Armada Dedicated Server (770340) - "lamironarmadabdawarsserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
