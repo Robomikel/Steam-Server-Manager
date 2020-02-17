@@ -45,5 +45,5 @@ Function New-LaunchScriptSEserverPS {
     # Select-RenameSource
     # game config
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE -console -ip ${global:IP} -port ${global:PORT} -maxPlayers $global:MAXPLAYERS")'
+    $global:launchParams = '@(""$global:EXEDIR\$global:EXE -console -ip ${global:IP} -port ${global:PORT} -maxPlayers $global:MAXPLAYERS")'
 }   
