@@ -70,7 +70,8 @@ Function New-LaunchScriptSEserverPS {
 Function New-servercfgse {
     New-Item $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg -ItemType File -Force
     
-    Add-Content $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg "<?xml version=`"1.0`"?>
+    Add-Content $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg `
+"<?xml version=`"1.0`"?>
 <MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
   <SessionSettings>
     <GameMode>Survival</GameMode>
