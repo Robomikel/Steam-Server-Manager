@@ -36,7 +36,7 @@ Function Set-Console {
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
         [console]::BackgroundColor = "Black"
-        [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
+        # [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
         #$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(200,5000)
         If ($global:admincheckmessage -eq "1") {
             Get-AdminCheck

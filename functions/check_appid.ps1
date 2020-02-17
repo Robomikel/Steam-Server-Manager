@@ -1,5 +1,5 @@
 Function Read-AppID {
-    Set-Console  >$null 2>&1
+    # Set-Console  >$null 2>&1
     If ($global:AppID -eq 302200) {
         New-LaunchScriptMiscreatedPS
     }
