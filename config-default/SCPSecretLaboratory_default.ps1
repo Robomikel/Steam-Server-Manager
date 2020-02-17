@@ -12,7 +12,7 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     # 7777
     # config located in "$env:APPDATA\SCP Secret Laboratory\config\$global:PORT\config_gameplay.txt"
     
-    # Requieres admin email for public server or will not run
+    # Requires  admin email for public server or will not run
     # contact_email: default
 
     # Your server won't be visible on the public server list -
