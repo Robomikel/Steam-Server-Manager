@@ -103,6 +103,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Stormworks Dedicated Server (1247090) - "swserver" (optional server folder name)
    * Memories of Mars - Dedicated Server (897590) - "momserver" (optional server folder name)
    * Unturned Dedicated Server (1110390) - "unturnedserver" (optional server folder name)
+   * Serious Sam Classics: Revolution Dedicated Server (299310) - "sscrserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
