@@ -82,7 +82,7 @@ Function Get-OxideQ {
         Write-Host 'Entered N'
     }
 }
-Function Get-SourceMetMod {
+Function Get-SourceMetaModQ {
     $title = 'Download MetaMod and SourceMod'
     $question = 'Download MetaMod, SourceMod and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -91,6 +91,21 @@ Function Get-SourceMetMod {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Get-SourceMetaMod
+        Write-Host 'Entered Y'
+    } 
+    Else {
+        Write-Host 'Entered N'
+    }
+}
+Function Get-InstallForgeQ {
+    $title = 'Download Forge'
+    $question = 'Download Forge and install?'
+    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+    If ($decision -eq 0) {
+        Get-InstallForge
         Write-Host 'Entered Y'
     } 
     Else {
