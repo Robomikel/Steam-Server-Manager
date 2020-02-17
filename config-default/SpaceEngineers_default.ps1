@@ -63,11 +63,14 @@ Function New-LaunchScriptSEserverPS {
     # game config
     # Select-EditSourceCFG
     New-servercfgse
+    Write-Host "Creating Save Dir" -F M
     New-Item "$env:APPDATA\$global:saves\Saves\$global:WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
+    Write-Host "Copying World template to Save Dir" -F M
     copy-item "$global:server\Content\CustomWorlds\$global:CustomWorlds\*" "$env:APPDATA\$global:saves\Saves\$global:WORLDNAME\" -ErrorAction SilentlyContinue
     $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -ip ${global:IP} -port ${global:PORT} -maxPlayers $global:MAXPLAYERS")'
 }   
 Function New-servercfgse {
+    Write-Host "Creating Custom Config" -F M
     New-Item $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg -ItemType File -Force
     
     Add-Content $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg `

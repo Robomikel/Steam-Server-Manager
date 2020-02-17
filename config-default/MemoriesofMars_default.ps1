@@ -37,7 +37,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:launchParams = '@("$global:EXEDIR\$global:EXE -MULTIHOME=`"${global:IP}`" -port=$global:PORT -queryport=$global:QUERYPORT -maxplayers=$global:MAXPLAYERS")'
 } 
 Function New-servercfgmom {
-    Set-Location 
+    Write-Host "Creating Custom Config" -F M
     Rename-Item "$global:currentdir\$global:server\DedicatedServerConfig.cfg" "$global:currentdir\$global:server\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
     New-Item $global:server\DedicatedServerConfig.cfg -ItemType File -Force
     

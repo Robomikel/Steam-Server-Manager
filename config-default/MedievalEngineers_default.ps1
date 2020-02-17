@@ -58,6 +58,7 @@ Function New-LaunchScriptMEserverPS {
 
 
 Function New-servercfgme {
+    Write-Host "Creating Custom Config" -F M
     New-Item $env:APPDATA\$global:saves\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
     
     Add-Content $env:APPDATA\$global:saves\MedievalEngineersDedicated-Dedicated.cfg `
