@@ -11,7 +11,7 @@ Function Get-MCBRBinaries{
 }
 Function Get-MCjavaBinaries{
         
-    #################### MineCraftBedrock Install ################
+    #################### MineCraft Java Install ################
     Get-MCWebrequest 
     $global:mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server").Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
     

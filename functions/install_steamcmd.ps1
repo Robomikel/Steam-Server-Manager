@@ -1,5 +1,6 @@
 Function Install-Steam {
-        
+    
+    $start_time = Get-Date
     #(New-Object Net.WebClient).DownloadFile("$global:steamurl", "steamcmd.zip")
     Write-Host '****   Downloading SteamCMD   ****' -F M -B Black
     #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;  
