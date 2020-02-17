@@ -39,7 +39,7 @@ Function New-TryagainNew {
     }
     Else {
         Write-Host 'Entered N'
-        Set-Locaction $global:currentdir
+        Set-Location $global:currentdir
         Exit
     }
 }
