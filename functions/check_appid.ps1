@@ -200,6 +200,9 @@ Function Read-AppID {
     ElseIf ($global:AppID -eq 299310) {
         New-LaunchScriptSeriousSamserverPS 
     }
+    ElseIf ($global:AppID -eq 748090) {
+        New-LaunchScriptColonySurvivalServerPS 
+    }
     #    ElseIf ($global:AppID -eq Template) {
     #
     #        New-LaunchScriptTemplateserverPS
