@@ -23,7 +23,7 @@ Function Install-SteamWS {
         Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
         If ($global:ANON -eq "yes") {
             Set-Location $global:currentdir\steamcmd\
-            Write-Host "Last Exit Code $LASTEXITCODE"
+            Write-Host "Last Exit Code $LASTEXITCODE"-F Y
             .\steamCMD +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
         }
         Else {
@@ -33,13 +33,14 @@ Function Install-SteamWS {
         $updateMods = Get-Content $global:currentdir\log\ssm\Steamer-*.log
         if ($updateMods -like "Success. Downloaded item $mod to *") {
             # if (($?) -or ($LASTEXITCODE -eq 7)-or ($LASTEXITCODE -ne 10)) {
-            Write-Host "Last Exit Code $LASTEXITCODE" -F M
+            Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Complete." -ForegroundColor Y
             $updateMods = $null
         }
         else {
-            Write-Host "Last Exit Code $LASTEXITCODE" -F M
+            Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
+            Write-Host " OR Try Downloading through steam Client and Copy Manually." -ForegroundColor Magenta
             $updateMods = $null
             If ($StopOnFail -eq $true){$modDownloadsGood = $false
             break}
