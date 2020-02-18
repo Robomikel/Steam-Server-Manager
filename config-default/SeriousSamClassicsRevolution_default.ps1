@@ -25,6 +25,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     $global:SAVES = ""
     $global:PROCESS = "DedicatedServer"
     $global:SERVERCFGDIR = "Scripts\Dedicated\$global:GAMEMODE"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "init.ini"

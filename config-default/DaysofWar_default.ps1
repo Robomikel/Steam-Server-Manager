@@ -23,6 +23,7 @@ Function New-LaunchScriptdowserverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "DaysOfWarServer-Win64-Shipping"
     $global:SERVERCFGDIR = "DaysOfWar\Saved\Config\WindowsServer"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "Game.ini"

@@ -31,6 +31,7 @@ Function New-LaunchScriptArkPS {
         $global:GAME = "arkse"
         $global:PROCESS = "ShooterGameServer"
         $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
+        $global:LOGDIR = ""
         Get-StopServerInstall
         $global:gamedirname = "ARKSurvivalEvolved"
         $global:config1 = "GameUserSettings.ini"

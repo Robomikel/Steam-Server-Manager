@@ -29,6 +29,8 @@ Function  New-LaunchScriptavserverPS {
         $global:GAME = "protocol-valve"
         $global:SAVES = "Avorion"
         $global:PROCESS = "AvorionServer"
+        $global:SERVERCFGDIR = ""
+        $global:LOGDIR = ""
     
         
         Get-StopServerInstall

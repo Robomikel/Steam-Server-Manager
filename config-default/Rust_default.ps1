@@ -37,6 +37,7 @@ Function New-LaunchScriptRustPS {
         $global:GAME = "rust"
         $global:PROCESS = "RustDedicated"
         $global:SERVERCFGDIR = "server\my_server_identity\cfg"
+        $global:LOGDIR = ""
         Get-StopServerInstall
         # Game-server-configs \/
         $global:gamedirname = "Rust"

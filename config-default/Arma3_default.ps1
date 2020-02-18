@@ -34,6 +34,7 @@ Function New-LaunchScriptArma3serverPS {
     $global:GAME = "arma3"
     $global:PROCESS = "arma3Server"
     $global:SERVERCFGDIR = "cfg"
+    $global:LOGDIR = ""
 
 
     Get-StopServerInstall

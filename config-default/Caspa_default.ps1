@@ -32,6 +32,7 @@ Function New-LaunchScriptCaspaServerPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "CapsaServer"
     $global:SERVERCFGDIR = "Capsa\Saved\Config\WindowsServer"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = "Capsa"
     $global:config1 = "Game.ini"

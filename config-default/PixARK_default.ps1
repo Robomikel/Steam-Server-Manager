@@ -33,6 +33,7 @@ Function New-LaunchScriptPixArkPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "PixARKServer"
     $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "GameUserSettings.ini"

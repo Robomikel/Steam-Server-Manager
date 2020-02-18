@@ -32,6 +32,7 @@ Function New-LaunchScriptceserverPS {
     $global:GAME = "conanexiles"
     $global:PROCESS = "ConanSandboxServer-Win64-Test"
     $global:SERVERCFGDIR = "ConanSandbox\Saved\Config\WindowsServer"
+    $global:LOGDIR = ""
 
     
     Get-StopServerInstall

@@ -40,6 +40,8 @@ Function New-LaunchScriptSvenCoopserverPS {
     $global:PROCESS = "SvenDS"
     #--->game config folder
     $global:SERVERCFGDIR = "svencoop"
+    #--->game log folder
+    $global:LOGDIR = ""
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

@@ -19,6 +19,7 @@ Function New-LaunchScriptDofDserverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "DragonsServer"
     $global:SERVERCFGDIR = "Dragons/Saved/Config/WindowsServer/"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "Game.ini"

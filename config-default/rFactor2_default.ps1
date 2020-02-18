@@ -23,6 +23,7 @@ Function New-LaunchScriptrFactor2serverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "rFactor2 Dedicated"
     $global:SERVERCFGDIR = "rFactor2-Dedicated\Saved\Config\WindowsServer"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = ""

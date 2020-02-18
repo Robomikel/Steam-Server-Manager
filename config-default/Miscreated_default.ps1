@@ -23,7 +23,8 @@ Function New-LaunchScriptMiscreatedPS {
         $global:GAME = "protocol-valve"
         # $global:SAVES = ""
         $global:PROCESS = "MiscreatedServer"
-        # $global:SERVERCFGDIR = ""        
+        # $global:SERVERCFGDIR = ""
+        $global:LOGDIR = ""        
         Get-StopServerInstall
         # $global:gamedirname=""
         # $global:config1=""

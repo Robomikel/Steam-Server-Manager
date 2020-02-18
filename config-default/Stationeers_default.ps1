@@ -37,6 +37,7 @@ $global:EXEDIR = ""
 $global:GAME = "protocol-valve"
 $global:PROCESS = "rocketstation_DedicatedServer"
 $global:SERVERCFGDIR = "rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
+$global:LOGDIR = ""
 Get-StopServerInstall
 $global:gamedirname = ""
 $global:config1 = ""

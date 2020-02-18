@@ -28,6 +28,7 @@ Function New-LaunchScriptforestserverPS {
     $global:GAME = "forrest"
     $global:PROCESS = "TheForestDedicatedServer"
     $global:SERVERCFGDIR = "SKS\TheForestDedicatedServer\ds"
+    $global:LOGDIR = ""
     Get-StopServerInstall  
     #   Launch Param
     $global:launchParams = '@("$global:EXE -serverip ${global:IP} -serversteamport ${global:STEAMPORT} -servergameport ${global:PORT} -serverqueryport ${global:QUERYPORT} -servername `"${global:HOSTNAME}`" -serverplayers ${global:MAXPLAYERS} -difficulty ${global:DIFF} -configfilepath $global:currentdir\$global:server\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'

@@ -21,6 +21,7 @@ Function  New-LaunchScriptSE4serverPS {
     $global:SAVES = ""
     $global:PROCESS = "SniperElite4_Dedicated"
     $global:SERVERCFGDIR = ""
+    $global:LOGDIR = ""
 
     $global:gamedirname = ""
     $global:config1 = "server.cfg"

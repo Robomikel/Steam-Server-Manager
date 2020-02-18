@@ -18,6 +18,7 @@ Function New-LaunchScriptempserverPS {
     $global:GAME = "empyrion"
     $global:PROCESS = "EmpyrionDedicated"
     $global:SERVERCFGDIR = ""
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "dedicated.yaml"

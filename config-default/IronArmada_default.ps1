@@ -18,6 +18,7 @@ Function New-LaunchScriptIronArmadaserverPS {
     $global:SAVES = ""
     $global:PROCESS = "ironarmadaserver"
     $global:SERVERCFGDIR = "iron\default-cfg-server\servercfg.toml"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = ""

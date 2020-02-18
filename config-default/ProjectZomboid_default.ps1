@@ -34,6 +34,8 @@ Function New-LaunchScriptpzserverPS {
     $global:PROCESS = "ProjectZomboid64"
     #--->game config folder
     $global:SERVERCFGDIR = "Zomboid\Server"
+    #--->game log folder
+    $global:LOGDIR = ""
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

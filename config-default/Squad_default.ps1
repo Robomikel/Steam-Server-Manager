@@ -30,6 +30,7 @@ Function New-LaunchScriptSquadserverPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "SquadGameServer"
     $global:SERVERCFGDIR = "\squad_server\SquadGame\ServerConfig\"
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "Server.cfg"

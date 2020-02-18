@@ -36,6 +36,7 @@ Function New-LaunchScriptInssserverPS {
         $global:GAME = "insurgencysandstorm"
         $global:PROCESS = "InsurgencyServer-Win64-Shipping"
         $global:SERVERCFGDIR = ""
+        $global:LOGDIR = ""
         Get-StopServerInstall
 
         #  Version 2 Launch Param

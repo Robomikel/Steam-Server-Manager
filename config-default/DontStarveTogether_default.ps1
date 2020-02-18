@@ -29,7 +29,7 @@ Function New-LaunchScriptDSTserverPS {
     $global:GAME = "protocol-valve"
     #--->Requieres \/ \/ maybe same as game exe?
     $global:PROCESS = "dontstarve_dedicated_server_nullrenderer"
-
+    $global:LOGDIR = ""
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/

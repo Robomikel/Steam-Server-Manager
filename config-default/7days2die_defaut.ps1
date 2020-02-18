@@ -22,6 +22,7 @@ Function New-LaunchScriptSdtdserverPS {
     $global:SAVES = "7DaysToDie"
     $global:PROCESS = "7daystodieserver"
     $global:SERVERCFGDIR = ""
+    $global:LOGDIR = ""
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "serverconfig.xml"

@@ -26,7 +26,7 @@ Function New-LaunchScriptBOserverPS {
     $global:SAVES = ""
     $global:PROCESS = "BODS"
     $global:SERVERCFGDIR = ""
-
+    $global:LOGDIR = ""
     
     Get-StopServerInstall
     #Game-server-configs \/
