@@ -38,8 +38,8 @@ Function Install-SteamWS {
         else {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
-            Write-Host " OR Try Downloading through steam Client and Copy Manually." -ForegroundColor Magenta
-            Write-Host "  Try Removing from List." -ForegroundColor Magenta
+            Write-Host " $global:DIAMOND May need to Sign into steamcmd or  Mod may be to large $global:DIAMOND" -ForegroundColor Red
+            Write-Host " $global:DIAMOND Try Downloading through steam Client and Copy Manually. $global:DIAMOND" -ForegroundColor Red
             $updateMods = $null
             If ($StopOnFail -eq $true){$modDownloadsGood = $false
             break}
@@ -75,6 +75,9 @@ Function Install-SteamWS {
         robocopy $contentFolder $dediModsFolder /E /r:0
         # Copy-Item $contentFolder $dediModsFolder -Recurse -Force
         Write-Host "Copying completed." -F Y
-        If ($global:AppID -eq 233780) {get-childitem $global:currentdir\$global:server\$global:WSMODDIR\ | ForEach-Object {"Mods`\"+$_.name+";"}}
+        If ($global:AppID -eq 233780) {
+            Write-Host "Copy text to Mod Var"
+            get-childitem $global:currentdir\$global:server\$global:WSMODDIR\ | ForEach-Object {"Mods`\"+$_.name+";"}}
+            Set-Location $global:currentdir
     }
 }
