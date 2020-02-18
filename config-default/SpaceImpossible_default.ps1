@@ -8,7 +8,7 @@ Function New-LaunchScriptSpacecImpossibleserverPS {
     
     
     # Ports 4545 and 4546 TCP/UDP 
-    
+    # 27015 Query
     
     ###################### Do not change below #####################
     $global:MODDIR = ""
