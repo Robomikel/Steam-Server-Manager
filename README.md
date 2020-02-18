@@ -105,6 +105,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * Unturned Dedicated Server (1110390) - "unturnedserver" (optional server folder name)
    * Serious Sam Classics: Revolution Dedicated Server (299310) - "sscrserver" (optional server folder name)
    * Colony Survival Dedicated Server (748090) - "csserver" (optional server folder name)
+   * Space Impossible (1222650) - "siserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
