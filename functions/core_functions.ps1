@@ -98,8 +98,12 @@ Function Select-EditSourceCFG {
 }
 Function New-ServerLog {
     $logdirectory = "$global:currentdir\$global:server\$global:LOGDIR"
-    If ($global:log -eq "1") { Copy-Item "$logdirectory\[csg]*.log","$logdirectory\[o]*.txt" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
-    # If ($global:backuplogs -eq "1") { Copy-Item "$global:currentdir\7za920\[b]*.log", -Destination "$global:currentdir\log\backup-$global:server-$global:date.log" -ea SilentlyContinue }
+    If ($global:log -eq "1") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[o]*.txt","$logdirectory\[i]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 298740) -and ($global:log -eq "1")) { Copy-Item "$global:LOGDIR\[s]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 367970) -and ($global:log -eq "1")) { Copy-Item "$global:LOGDIR\[m]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 748090) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 299310) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 1110390) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\Server_$global:HOSTNAME.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
     Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like $global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
 }

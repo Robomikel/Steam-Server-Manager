@@ -27,7 +27,7 @@ Function New-LaunchScriptColonySurvivalServerPS {
     $global:GAME = "protocol-valve"
     $global:PROCESS = "colonyserver"
     $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:LOGDIR = "gamedata\logs\server"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = ""

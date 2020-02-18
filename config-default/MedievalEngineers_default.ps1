@@ -43,7 +43,7 @@ Function New-LaunchScriptMEserverPS {
     $global:SAVES = "MedievalEngineersDedicated"
     $global:PROCESS = "MedievalEngineersDedicated"
     $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:LOGDIR = "$env:APPDATA\$global:saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

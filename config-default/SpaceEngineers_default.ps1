@@ -53,7 +53,7 @@ Function New-LaunchScriptSEserverPS {
     $global:SAVES = "SpaceEngineersDedicated"
     $global:PROCESS = "SpaceEngineersDedicated"
     $global:SERVERCFGDIR = "$env:APPDATA\$global:saves\"
-    $global:LOGDIR = ""
+    $global:LOGDIR = "$env:APPDATA\$global:saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

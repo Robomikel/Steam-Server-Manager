@@ -22,6 +22,7 @@ Function New-LaunchScriptunturnedserverPS {
     $global:SAVES = ""
     $global:PROCESS = "Unturned"
     $global:SERVERCFGDIR = "Servers\$global:HOSTNAME\Server"
+    $global:LOGDIR = "Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:config1 = "Commands.dat"
