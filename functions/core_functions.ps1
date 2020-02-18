@@ -99,6 +99,7 @@ Function Select-EditSourceCFG {
 Function New-ServerLog {
     $logdirectory = "$global:currentdir\$global:server\$global:LOGDIR"
     If ($global:log -eq "1") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[o]*.txt","$logdirectory\[i]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
+    If (($global:AppID -eq 233780) -and ($global:log -eq "1")) { Copy-Item "$global:LOGDIR\$global:server_*.rpt" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     If (($global:AppID -eq 298740) -and ($global:log -eq "1")) { Copy-Item "$global:LOGDIR\[s]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     If (($global:AppID -eq 367970) -and ($global:log -eq "1")) { Copy-Item "$global:LOGDIR\[m]*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     If (($global:AppID -eq 748090) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }

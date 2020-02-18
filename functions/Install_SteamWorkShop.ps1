@@ -1,8 +1,7 @@
 Function Install-SteamWS {
     ######    Created by Archimedez   ######
     # https://steamcommunity.com/sharedfiles/filedetails/?id=939668540
-
-
+    ######    Modified by Robomikel for SSM use   ######
     $StopOnFail = $false
     #path to your SteamCMD SE Workshop content folder
     $contentFolder = "$global:currentdir\steamcmd\steamapps\workshop\content\$global:reg_appID\"
@@ -41,8 +40,10 @@ Function Install-SteamWS {
             Write-Host " $global:DIAMOND May need to Sign into steamcmd or  Mod may be to large $global:DIAMOND" -ForegroundColor Red
             Write-Host " $global:DIAMOND Try Downloading through steam Client and Copy Manually. $global:DIAMOND" -ForegroundColor Red
             $updateMods = $null
-            If ($StopOnFail -eq $true){$modDownloadsGood = $false
-            break}
+            If ($StopOnFail -eq $true) {
+                $modDownloadsGood = $false
+                break
+            }
         }
         
         Start-Sleep -Seconds 1
@@ -72,12 +73,14 @@ Function Install-SteamWS {
         Start-Sleep -Seconds 5 
         #copy over mods to the SE dedicated server mods folder from SE workshop content download storage folder
         Write-Host "Copying all mods to $global:currentdir\$global:server\$global:WSMODDIR\" -F Y
-        robocopy $contentFolder $dediModsFolder /E /r:0
+        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$global:currentdir\log\ssm\WScopy-$server-$date.log
         # Copy-Item $contentFolder $dediModsFolder -Recurse -Force
         Write-Host "Copying completed." -F Y
         If ($global:AppID -eq 233780) {
-            Write-Host "Copy text to Mod Var"
-            get-childitem $global:currentdir\$global:server\$global:WSMODDIR\ | ForEach-Object {"Mods`\"+$_.name+";"}}
-            Set-Location $global:currentdir
+            Write-Host "Copy text to Mod Var" -F Y
+            get-childitem $global:currentdir\$global:server\$global:WSMODDIR\ | ForEach-Object { "$global:WSMODDIR`\" + $_.name + ";" }
+        }
+        
     }
+    Set-Location $global:currentdir
 }
