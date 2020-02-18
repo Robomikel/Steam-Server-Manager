@@ -12,7 +12,7 @@ Server install in the location of ssm. before install change directory to the lo
 PS Commands   
 ```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
-```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Force```   
+```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
 ```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
 ```Set-Location Steam-Server-Manager```   
 
