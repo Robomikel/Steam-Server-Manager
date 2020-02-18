@@ -45,7 +45,20 @@ Function New-LaunchScriptSEserverPS {
     
     
     
-    ###################### Do not change below #####################
+    ################### WorkShop Install change below #####################    
+    # steam account username
+    # $global:username = 'SteamUsername'
+    # steam account password
+    # $global:pwd = 'SteamPassword' 
+    
+    # Mod Directory
+    $global:WSMODDIR = "Content\Mods"
+    # steam appID for SE regular game (workshop content tied to this appID)
+    $global:reg_appID = '244850'
+    # list of mods to download and copy to server mod folder
+    $global:wsmods = "@('899070352', '877084878')"
+
+    ###################### Do not change below #############################
     $global:MODDIR = ""
     $global:EXEDIR = "DedicatedServer64"
     $global:EXE = "SpaceEngineersDedicated"

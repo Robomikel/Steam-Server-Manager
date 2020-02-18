@@ -31,6 +31,22 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Mod dir "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:MODDIR       = `"$global:MODDIR`""
     }
+    If ($global:WSMODDIR) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Work Shop Mod dir "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:WSMODDIR       = `"$global:WSMODDIR`""
+    }
+    If ($global:reg_appID) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     REgualr Game App ID "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:reg_appID       = `"$global:reg_appID`""
+    }
+    If ($global:wsmods) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                      WorkShop Mod IDs "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:wsmods       = $global:wsmods"
+    }
+    If ($global:mods) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                       Mods "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:mods       = $global:mods"
+    }
     If ($global:EXE) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Exe "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:EXE          = `"$global:EXE`""

@@ -13,7 +13,7 @@ Function Get-CreatedVaribles {
 }
 Function Get-ClearVariables {
     Write-Host "****   Clearing Variables   *****" -F Y -B Black
-    $global:vars = "PROCESS", "IP", "PORT", "SOURCETVPORT", "CLIENTPORT", "MAP", "TICKRATE", "GSLT", "MAXPLAYERS", "WORKSHOP", "HOSTNAME", "QUERYPORT", "SAVES", "APPID", "RCONPORT", "RCONPASSWORD", "SV_PURE", "SCENARIO", "GAMETYPE", "GAMEMODE", "MAPGROUP", "WSCOLLECTIONID", "WSSTARTMAP", "WSAPIKEY", "WEBHOOK", "EXEDIR", "GAME", "SERVERCFGDIR", "gamedirname", "config1", "config2", "config3", "config4", "config5", "MODDIR", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "COOPPLAYERS", "SV_LAN", "DIFF", "GALAXYNAME", "ADMINPASSWORD", "username", "LOGDIR"
+    $global:vars = "PROCESS", "IP", "PORT", "SOURCETVPORT", "CLIENTPORT", "MAP", "TICKRATE", "GSLT", "MAXPLAYERS", "WORKSHOP", "HOSTNAME", "QUERYPORT", "SAVES", "APPID", "RCONPORT", "RCONPASSWORD", "SV_PURE", "SCENARIO", "GAMETYPE", "GAMEMODE", "MAPGROUP", "WSCOLLECTIONID", "WSSTARTMAP", "WSAPIKEY", "WEBHOOK", "EXEDIR", "GAME", "SERVERCFGDIR", "gamedirname", "config1", "config2", "config3", "config4", "config5", "MODDIR", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "COOPPLAYERS", "SV_LAN", "DIFF", "GALAXYNAME", "ADMINPASSWORD", "username", "LOGDIR","mods","reg_appID","WSMODDIR"
     Foreach ($global:vars in $global:vars) {
         Clear-Variable $global:vars -Scope Global -ea SilentlyContinue
         Remove-Variable $global:vars -Scope Global -ea SilentlyContinue
@@ -104,7 +104,7 @@ Function New-ServerLog {
     If (($global:AppID -eq 748090) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     If (($global:AppID -eq 299310) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\*.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
     If (($global:AppID -eq 1110390) -and ($global:log -eq "1")) { Copy-Item "$logdirectory\Server_$global:HOSTNAME.log" -Destination "$global:currentdir\log\$global:server-$global:date.log" -ea SilentlyContinue }
-    Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem $global:currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
     Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like $global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerBackupLog {
