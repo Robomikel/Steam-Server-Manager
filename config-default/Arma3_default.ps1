@@ -21,11 +21,16 @@ Function New-LaunchScriptArma3serverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RCONPASSWORD"
     #                       Requieres Steam Login
-
+    # $mods="mods\@ace;mods\@acex;mods\@cba_a3"
+    # get-childitem | Foreach {"Mods`\"+$_.name+";"}
     ##############################/\##############################
     
-    
-    
+    # Mod Directory
+    $global:WSMODDIR = "Mods"
+    # steam appID for SE regular game (workshop content tied to this appID)
+    $global:reg_appID = '107410'
+    # list of mods to download and copy to server mod folder
+    $global:wsmods = "@('xxxxxxxxxxxxxx', 'xxxxxxxxxxxx')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""

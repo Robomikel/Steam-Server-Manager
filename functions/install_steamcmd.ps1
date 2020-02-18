@@ -28,3 +28,12 @@ Function Install-Steam {
     If ($?) { Write-Host " ****   Extracting SteamCMD succeeded    ****" -F Y -B Black }
     
 }
+# Success and ERROR! Download item 497660133 failed (Request has been canceled)
+# Last Exit Code 0
+
+# timeout
+# Last Exit Code 10 
+
+
+# FAILED login with result code Service Unavailable
+# Last Exit Code 5
