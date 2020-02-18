@@ -270,6 +270,23 @@ Function Select-Steamer {
         Get-Modinstall
         Get-ClearVariables
     }
+    elseif (($global:command -eq "wsInstall") -and ($null -eq $global:server)) {
+        Write-Host 'Server FolderName for monitor: ' -F C -N
+        $global:server = Read-host
+        Get-TestString
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Install-SteamWS
+        Get-ClearVariables
+    }
+    elseif ($global:command -eq "wsInstall") {
+        Get-FolderNames
+        Get-createdvaribles
+        Get-CheckForVars
+        Install-SteamWS
+        Get-ClearVariables
+    }
     elseif (($global:command -eq "AutoRestart") -and ($null -eq $global:server)) {
         Write-Host 'Server FolderName for AutoRestart: ' -F C -N
         $global:server = Read-host
