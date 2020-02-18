@@ -8,8 +8,6 @@ Function Install-SteamWS {
     $contentFolder = "$global:currentdir\steamcmd\steamapps\workshop\content\$global:reg_appID\"
     #path to your SE dedicated server mods folder
     $dediModsFolder = "$global:currentdir\$global:server\$global:WSMODDIR\"
-    #show / hide the output from SteamCMD
-    $showSteamOutput = $false
 
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
@@ -41,6 +39,7 @@ Function Install-SteamWS {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
             Write-Host " OR Try Downloading through steam Client and Copy Manually." -ForegroundColor Magenta
+            Write-Host "  Try Removing from List." -ForegroundColor Magenta
             $updateMods = $null
             If ($StopOnFail -eq $true){$modDownloadsGood = $false
             break}
@@ -52,7 +51,7 @@ Function Install-SteamWS {
     #if Mod downloads are good, then copy over. If any were bad, we stop.
     if ($modDownloadsGood -eq $true) {
         #rename mods from .bin to .sbm so that SE will recognize and load them
-        $modFolders = Get-ChildItem $contentFolder
+        $modFolders = Get-ChildItem $contentFolder -ErrorAction SilentlyContinue
         $ii = 0
         foreach ($modFolder in $modFolders) {
             $ii += 1
