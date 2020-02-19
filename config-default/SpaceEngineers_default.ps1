@@ -4,17 +4,17 @@ Function New-LaunchScriptSEserverPS {
     # https://www.spaceengineersgame.com/dedicated-servers.html
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:IP} = "${global:IP}"
+    ${global:IP}            = "${global:IP}"
     #                       Server Port
-    ${global:PORT} = "27015"
+    ${global:PORT}          = "27015"
     #                       Maxplayers
-    $global:MAXPLAYERS = "20"
-    #                   Server Name
-    $global:HOSTNAME = "$env:USERNAME"
-    #                   World Name
-    $global:WORLDNAME = "WorldName"
-    #                   World template
-    $global:CustomWorlds = "Alien Planet"
+    $global:MAXPLAYERS      = "20"
+    #                       Server Name
+    $global:HOSTNAME        = "$env:USERNAME"
+    #                       World Name
+    $global:WORLDNAME       = "WorldName"
+    #                       World template
+    $global:CustomWorlds    = "Alien Planet"
     ##############################/\##############################
     ##   World templates ##
     # Alien Planet
@@ -46,11 +46,7 @@ Function New-LaunchScriptSEserverPS {
     
     
     ################### WorkShop Install change below #####################    
-    # steam account username
-    # $global:username = 'SteamUsername'
-    # steam account password
-    # $global:pwd = 'SteamPassword' 
-    
+    # Advanced Steam WorkShop Mods COnfiguration
     # Mod Directory
     $global:WSMODDIR = "Content\Mods"
     # steam appID for SE regular game (workshop content tied to this appID)

@@ -43,10 +43,14 @@ Function New-CreateVariables {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                      WorkShop Mod IDs "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:wsmods       = $global:wsmods"
     }
-    If ($global:mods) {
+    #If ($global:mods) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                       Mods "
-        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:mods       = $global:mods"
-    }
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:mods       = `"$global:mods`""
+    #}
+    #If ($global:servermods) {
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                      Server Mods "
+        Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:servermods       = `"$global:servermods`""
+    #}
     If ($global:EXE) {
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "#                     Exe "
         Add-Content  $global:currentdir\$global:server\Variables-$global:server.ps1  "`$global:EXE          = `"$global:EXE`""

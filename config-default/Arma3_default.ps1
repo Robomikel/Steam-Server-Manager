@@ -3,6 +3,8 @@ Function New-LaunchScriptArma3serverPS {
     # APP ID # 233780
     # requires https://www.microsoft.com/en-us/download/details.aspx?id=35 Direct x
     ################## Change Default Variables #################
+    
+    #                       Requieres Steam Login
     #                       Server IP
     ${global:IP}            = "${global:IP}"
     # default reserved ports are 2302 - 2306 gameports must be N+100 ie 2402-2406  "
@@ -20,17 +22,20 @@ Function New-LaunchScriptArma3serverPS {
     $global:RCONPORT        = "2301"
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RCONPASSWORD"
-    #                       Requieres Steam Login
-    # $mods="mods\@ace;mods\@acex;mods\@cba_a3"
-    # get-childitem | Foreach {"Mods`\"+$_.name+";"}
-    ##############################/\##############################
+    #                       Mods
+    $global:mods            = ""
+    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\450814997;Mods\463939057;"
+    #                       Server Mods
+    $global:servermods      = ""
     
-    # Mod Directory
+    ##############################/\##############################
+    # Advanced Steam WorkShop Mods COnfiguration
+    # WorkShop Mod Directory
     $global:WSMODDIR = "Mods"
     # steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID = '107410'
     # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('xxxxxxxxxxxxxx', 'xxxxxxxxxxxx')"
+    $global:wsmods = "@('463939057','1355481562','1351712613')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""
@@ -39,7 +44,7 @@ Function New-LaunchScriptArma3serverPS {
     $global:GAME = "arma3"
     $global:PROCESS = "arma3Server"
     $global:SERVERCFGDIR = "cfg"
-    $global:LOGDIR = ""
+    $global:LOGDIR = "$global:currentdir\$global:server\SC"
 
 
     Get-StopServerInstall
@@ -56,6 +61,6 @@ Function New-LaunchScriptArma3serverPS {
     ((Get-Content -path $global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg -Raw) -replace '\b32\b', "$global:MAXPLAYERS") | Set-Content -Path $global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg  
     ((Get-Content -path $global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg -Raw) -replace "\barma3pass\b", "$global:SERVERPASSWORD") | Set-Content -Path $global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg
     # -autoinit only for presistant missions
-    $global:launchParams = '@("$global:EXE -ip=${global:IP} -port=${global:PORT} -cfg=$global:currentdir\$global:server\$global:SERVERCFGDIR\network.cfg -config=$global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg -mod= -servermod= -bepath=$global:currentdir\$global:server\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
+    $global:launchParams = '@("$global:EXE -ip=${global:IP} -port=${global:PORT} -cfg=$global:currentdir\$global:server\$global:SERVERCFGDIR\network.cfg -config=$global:currentdir\$global:server\$global:SERVERCFGDIR\server.cfg -mod=$global:mods -servermod=$global:servermods -bepath=$global:currentdir\$global:server\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
 
 }
