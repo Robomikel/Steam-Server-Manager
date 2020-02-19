@@ -23,19 +23,19 @@ Function New-LaunchScriptArma3serverPS {
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     #                       Mods
-    $global:mods            = ""
+    $global:mods            = " "
     # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\1374639840;Mods\1439779114;Mods\333310405;Mods\450814997;Mods\463939057;Mods\549676314;Mods\773125288;Mods\773131200;Mods\843425103;Mods\843577117;Mods\843593391;Mods\497660133"
     #                       Server Mods
-    $global:servermods      = ""
+    $global:servermods      = " "
     
     ##############################/\##############################
     # Advanced Steam WorkShop Mods COnfiguration
-    # WorkShop Mod Directory
-    $global:WSMODDIR = "Mods"
-    # steam appID for SE regular game (workshop content tied to this appID)
-    $global:reg_appID = '107410'
-    # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('450814997','463939057','773125288','773131200','843593391','1439779114','333310405','1374639840')"
+    #                       WorkShop Mod Directory
+    $global:WSMODDIR        = "Mods"
+    #                       steam appID for SE regular game (workshop content tied to this appID)
+    $global:reg_appID       = '107410'
+    #                       list of mods to download and copy to server mod folder
+    $global:wsmods          = "@('450814997','463939057','773125288','773131200','843593391','1439779114','333310405','1374639840')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""
