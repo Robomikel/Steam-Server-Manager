@@ -35,7 +35,7 @@ Function New-LaunchScriptArma3serverPS {
     # steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID = '107410'
     # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('463939057','1355481562','1351712613')"
+    $global:wsmods = "@('450814997','463939057','773125288','773131200','843425103','843577117','843593391','1439779114','333310405','1374639840')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""

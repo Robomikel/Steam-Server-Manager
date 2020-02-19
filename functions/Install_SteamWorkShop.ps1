@@ -21,11 +21,11 @@ Function Install-SteamWS {
         If ($global:ANON -eq "yes") {
             Set-Location $global:currentdir\steamcmd\
             Write-Host "Last Exit Code $LASTEXITCODE"-F Y
-            .\steamCMD +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
+            .\steamCMD +nOutstandingWorkItems 1 +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
         }
         Else {
             Set-Location $global:currentdir\steamcmd\
-            .\steamCMD +login $global:username +workshop_download_item $global:reg_appID $mod validate +quit
+            .\steamCMD +nOutstandingWorkItems 1 +login $global:username +workshop_download_item $global:reg_appID $mod validate +quit
         }
         $updateMods = Get-Content $global:currentdir\log\ssm\Steamer-*.log
         if ($updateMods -like "Success. Downloaded item $mod to *") {
