@@ -9,10 +9,10 @@
 Function Install-Steam {
     
     $start_time = Get-Date
-    #(New-Object Net.WebClient).DownloadFile("$global:steamurl", "steamcmd.zip")
+    #(New-Object Net.WebClient).DownloadFile("$steamurl", "steamcmd.zip")
     Write-Host '****   Downloading SteamCMD   ****' -F M -B Black
     #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;  
-    Invoke-WebRequest -Uri $global:steamurl -OutFile $global:steamoutput
+    Invoke-WebRequest -Uri $steamurl -OutFile $steamoutput
     If (!$?) {
         Write-Host " ****   Downloading  SteamCMD Failed   ****" -F R -B Black 
         New-TryagainNew 
@@ -20,7 +20,7 @@ Function Install-Steam {
     If ($?) { Write-Host " ****   Downloading  SteamCMD succeeded    ****" -F Y -B Black }
     Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
     Write-Host '***   Extracting SteamCMD *****' -F M -B Black 
-    Expand-Archive "$global:currentdir\steamcmd.zip" "$global:currentdir\steamcmd\" -Force 
+    Expand-Archive "$currentdir\steamcmd.zip" "$currentdir\steamcmd\" -Force 
     If (!$?) {
         Write-Host " ****   Extracting SteamCMD Failed    ****" -F Y -B Black 
         New-TryagainNew 

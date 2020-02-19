@@ -9,9 +9,9 @@
 Function Get-UpdateSteamer {
     $start_time = Get-Date
     Write-Host '****   Downloading Steam-Server-Manager github files   ****' -F M -B Black 
-    #(New-Object Net.WebClient).DownloadFile("$global:steamerurl", "$global:currentdir\steamer.zip")
+    #(New-Object Net.WebClient).DownloadFile("$steamerurl", "$currentdir\steamer.zip")
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    Invoke-WebRequest -Uri $global:steamerurl -OutFile Steam-Server-Manager.zip
+    Invoke-WebRequest -Uri $steamerurl -OutFile Steam-Server-Manager.zip
     Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black 
     Remove-Item  "Steam-Server-Manager\*" -Recurse -Force -ea SilentlyContinue
     Remove-Item  "config-default\*" -Recurse -Force -ea SilentlyContinue
@@ -20,7 +20,7 @@ Function Get-UpdateSteamer {
     Remove-Item  "README.md*" -Recurse -Force -ea SilentlyContinue
     Remove-Item  "LICENSE*" -Recurse -Force -ea SilentlyContinue
     Expand-Archive Steam-Server-Manager.zip Steam-Server-Manager -Force
-    Copy-Item  "$global:currentdir\Steam-Server-Manager\Steam-Server-Manager-master\*" -Destination "$global:currentdir\" -Recurse -Force
+    Copy-Item  "$currentdir\Steam-Server-Manager\Steam-Server-Manager-master\*" -Destination "$currentdir\" -Recurse -Force
     Get-CleanUPSteamer
 }
 

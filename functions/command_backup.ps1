@@ -8,27 +8,29 @@
 #
 Function New-BackupServer {
     Write-Host '****   Server Backup Started!   ****' -F M -B Black
-    Set-Location $global:currentdir\7za920\
-    Get-Childitem $global:currentdir\backups\ -Recurse | where-object name -like Backup_$global:server-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $global:backupcount | Remove-Item -Force 
-    #./7za a $global:currentdir\backups\Backup_$global:server-$BackupDate.zip $global:currentdir\$global:server\* -an > backup.log
-    ./7za a $global:currentdir\backups\Backup_$global:server-$global:Date.zip $global:currentdir\$global:server\* > backup.log
+    Set-Location $currentdir\7za920\
+    Get-Childitem $currentdir\backups\ -Recurse | where-object name -like Backup_$server-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $backupcount | Remove-Item -Force 
+    #./7za a $currentdir\backups\Backup_$server-$BackupDate.zip $currentdir\$server\* -an > backup.log
+    ./7za a $currentdir\backups\Backup_$server-$Date.zip $currentdir\$server\* > backup.log
     Write-Host '****   Server Backup is Done!   ****' -F Y -B Black
     Write-Host "****   Checking Save location(appData)   ****" -F Y -B Black
-    If ($global:appdatabackup -eq "1") { 
+    If ($appdatabackup -eq "on") { 
         Get-Savelocation 
     }
     New-ServerBackupLog
-    If ($global:backuplog -eq "1") { 
+    If ($backuplogopen -eq "on") { 
         .\backup.log 
     }
-    Set-Location $global:currentdir
+    $global:alert = "Backup"
+    New-DiscordAlert
+    Set-Location $currentdir
 }
 Function New-backupAppdata {
     Write-Host '****   Server App Data Backup Started!   ****' -F M -B Black
-    Set-Location $global:currentdir\7za920\ 
-    ./7za a $global:currentdir\backups\AppDataBackup_$global:server-$global:Date.zip $env:APPDATA\$global:saves\* > AppDatabackup.log
+    Set-Location $currentdir\7za920\ 
+    ./7za a $currentdir\backups\AppDataBackup_$server-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log
     Write-Host '****   Server App Data Backup is Done!   ****' -F Y -B Black
-    If ($global:appdatabackuplog -eq "1") { 
+    If ($appdatabackuplogopen -eq "on") { 
         .\AppDatabackup.log 
     }
 }

@@ -7,13 +7,13 @@
 #
 #
 Function Get-Modinstall {
-    If (($global:appid -eq 237410) -or ($global:appid -eq 462310) -or ($global:appid -eq 740) -or ($global:appid -eq 222860)) {
+    If (($appid -eq 237410) -or ($appid -eq 462310) -or ($appid -eq 740) -or ($appid -eq 222860)) {
         Get-SourceMetaModQ
     }
-    ElseIF ($global:appid -eq 258550) {
+    ElseIF ($appid -eq 258550) {
         Get-OxideQ
     }
-    ElseIF ($global:appid -eq 11500000) {
+    ElseIF ($appid -eq 11500000) {
         Get-InstallForgeQ
     }
     Else {

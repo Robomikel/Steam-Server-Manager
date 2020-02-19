@@ -11,21 +11,52 @@ Function Get-StartServer {
         # [string]
         [Parameter(Mandatory = $true, Position = 0)]
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
-        $global:launchParams
+        $launchParams
     )
-    If ($global:log -eq "1") {New-ServerLog}
-    Set-Location $global:currentdir\$global:server\
-    If ($global:APPID -eq 343050) {Set-Location $global:currentdir\$global:server\$global:EXEDIR}
-    #Start-Process -FilePath CMD -ArgumentList ("/c $global:launchParams") -NoNewWindow
-    If (( $global:APPID -eq 258550 ) -or ($global:APPID -eq 294420 ) -or ($global:APPID -eq 302550)) {
-        Start-Process CMD "/c start $global:launchParams"
+    If ($log -eq "1") {New-ServerLog}
+    Set-Location $currentdir\$server\
+    If ($APPID -eq 343050) {Set-Location $currentdir\$server\$EXEDIR}
+    #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
+    If (( $APPID -eq 258550 ) -or ($APPID -eq 294420 ) -or ($APPID -eq 302550)) {
+        Start-Process CMD "/c start $launchParams"
     }
     Else {
-        Start-Process CMD "/c start $global:launchParams"  -NoNewWindow
+        Start-Process CMD "/c start $launchParams"  -NoNewWindow
     }
-    Set-Location $global:currentdir
+    Set-Location $currentdir
 }
 Function Select-StartServer {
     Write-Host '****   Starting Server   *****' -F Y -B Black  
-    Get-StartServer $global:launchParams
+    Get-StartServer $launchParams
+}
+Function Get-CheckServer {
+    If ($global:APPID -eq "996560") { 
+        Get-checkMultiple 
+    }
+    Else {
+        Write-Host '****   Check  Server process    *****' -F Y -B Black 
+        If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+            Write-Host "----   NOT RUNNING   ----" -F R -B Black
+        }
+        Else {
+            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$PROCESS"
+            Get-ClearVariables
+            Exit 
+        }
+        Get-CheckForError
+    }
+}
+
+Function Get-checkMultiple {
+    $global:PROCESS = get-process | Where-Object { $_.ProcessName -match $PROCESS } | get-process
+    
+    If ($null -eq $PROCESS) {
+        Write-Host "----   NOT RUNNING   ----" -F R -B Black
+    }
+    Else {
+        Write-Host "****   RUNNING   ****" -F Green -B Black
+        $PROCESS 
+        Get-ClearVariables 
+        Exit
+    }
 }

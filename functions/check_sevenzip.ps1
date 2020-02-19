@@ -6,10 +6,10 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-SevenZip {
-    $path = "$global:currentdir\7za920\"
-    $patha = "$global:currentdir\7za920\7za.exe"
-    $pathb = "$global:currentdir\7za920.zip"
+Function Get-SevenZipCheck {
+    $path = "$currentdir\7za920\"
+    $patha = "$currentdir\7za920\7za.exe"
+    $pathb = "$currentdir\7za920.zip"
     Write-Host '****   Checking for 7ZIP   *****' -F Y -B Black   
     If ((Test-Path $path) -and (Test-Path $patha) -and (Test-Path $pathb)) { 
         Write-Host '****   7Zip already downloaded!   ****' -F Y -B Black

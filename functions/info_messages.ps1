@@ -6,6 +6,14 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
+Function Get-Infomessage {
+    If ($InfoMessage -eq "discord"){
+        Write-infoMessageDiscord
+    }
+}
+Function Write-infoMessageDiscord {
+    Write-Host '****   Sending Discord Alert   ****' -F M -B Black
+}
 Function Get-Finished {
     Get-ClearVariables
     Write-Host "*************************************" -F Y

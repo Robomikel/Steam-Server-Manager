@@ -8,14 +8,14 @@
 #
 Function Get-CheckForVars {
     Write-Host "****   Checking for Vars   ****" -F Y -B Black
-    If ($global:command -eq "mcrcon") {
-        $global:missingvars = $global:RCONPORT, $global:RCONPASSWORD
+    If ($command -eq "mcrcon") {
+        $missingvars = $RCONPORT, $RCONPASSWORD
     }
     Else {
-        $global:missingvars = ${global:QUERYPORT}, ${global:IP}, $global:APPID, $global:PROCESS, ${global:PORT},$global:ANON
+        $missingvars = ${QUERYPORT}, ${IP}, $APPID, $PROCESS, ${PORT},$ANON
     }
-    Foreach ($global:missingvars in $global:missingvars) {
-        If ( "" -eq $global:missingvars) {
+    Foreach ($missingvars in $missingvars) {
+        If ( "" -eq $missingvars) {
             Get-varsmessage
         }
     }

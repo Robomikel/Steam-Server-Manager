@@ -7,37 +7,37 @@
 #
 #
 Function Get-Details {
-    $global:Cpu = (Get-WMIObject win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
+    $Cpu = (Get-WMIObject win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
     $host.UI.RawUI.ForegroundColor = "Cyan"
     #$host.UI.RawUI.BackgroundColor = "Black"
-    $global:CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
-    $global:avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
-    $global:totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
-    If ($Null -ne (Get-Process "$global:PROCESS" -ea SilentlyContinue)) {
-        $global:mem = "{0:N2} GB" -f ((Get-Process $global:PROCESS | Measure-Object Workingset -sum).Sum / 1GB) 
+    $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
+    $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
+    $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
+    If ($Null -ne (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+        $mem = "{0:N2} GB" -f ((Get-Process $PROCESS | Measure-Object Workingset -sum).Sum / 1GB) 
     }
-    $global:os = (Get-WMIObject win32_operatingsystem).caption
-    $global:computername = (Get-WMIObject Win32_OperatingSystem).CSName
-    Set-Location $global:currentdir\node-v$global:nodeversion-win-x64\node-v$global:nodeversion-win-x64
-    If ($null -ne ${global:QUERYPORT}) { 
-        ${global:PORT} = ${global:QUERYPORT} 
+    $os = (Get-WMIObject win32_operatingsystem).caption
+    $computername = (Get-WMIObject Win32_OperatingSystem).CSName
+    Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
+    If ($null -ne ${QUERYPORT}) { 
+        ${PORT} = ${QUERYPORT} 
     }
-    If ($global:Useprivate -eq "0") {
-        $global:gameresponse = (.\gamedig --type $global:GAME ${global:EXTIP}:${global:PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $global:stats = (.\gamedig --type $global:GAME ${global:EXTIP}:${global:PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
+    If ($Useprivate -eq "0") {
+        $gameresponse = (.\gamedig --type $GAME ${EXTIP}:${PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+        $stats = (.\gamedig --type $GAME ${EXTIP}:${PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
     }
     Else {
-        $global:gameresponse = (.\gamedig --type $global:GAME ${global:IP}:${global:PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $global:stats = (.\gamedig --type $global:GAME ${global:IP}:${global:PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
+        $gameresponse = (.\gamedig --type $GAME ${IP}:${PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+        $stats = (.\gamedig --type $GAME ${IP}:${PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
     }
     
     Get-CreatedVaribles
     New-BackupFolder
-    $global:backups = (Get-Childitem  $global:currentdir\backups -recurse | Measure-Object) 
-    $global:backups = $backups.count 
-    $global:backupssize = "{0:N2} GB" -f ((Get-Childitem $global:currentdir\backups | Measure-Object Length -s -ea silentlycontinue ).Sum / 1GB) 
-    If (($global:AppID -eq 302200)) { 
-        $global:gameresponse = "Not supported" 
+    $backups = (Get-Childitem  $currentdir\backups -recurse | Measure-Object) 
+    $backups = $backups.count 
+    $backupssize = "{0:N2} GB" -f ((Get-Childitem $currentdir\backups | Measure-Object Length -s -ea silentlycontinue ).Sum / 1GB) 
+    If (($AppID -eq 302200)) { 
+        $gameresponse = "Not supported" 
     }
     #Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ 2010%'"
     Write-Host "                                "
@@ -51,7 +51,7 @@ Function Get-Details {
     Write-Host "    Game Dig          : $GAME"
     #    Write-Host "    Webhook           : $WEBHOOK"
     Write-Host "    Process           : $PROCESS"
-    Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$global:PROCESS" -ea SilentlyContinue)) { $global:status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $global:status = " **** RUNNING ****"; ; Write-Host $status -F Green }
+    Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = " **** RUNNING ****"; ; Write-Host $status -F Green }
     Write-Host "    CPU Cores         : $CpuCores"
     Write-Host "    CPU %             : $cpu"
     Write-Host "    Total RAM         : $avmem    "
@@ -59,15 +59,15 @@ Function Get-Details {
     Write-Host "    Process RAM Usage : $mem"
     Write-Host "    Backups           : $backups"
     Write-Host "    Backups size GB   : $backupssize"
-    Write-Host "    Status            : "-NoNewline; ; If ($Null -eq $global:stats) { $global:stats = "----Offline----"; ; Write-Host $stats -F R }Else { $global:stats = "**** Online ***"; ; Write-Host $stats -F Green }
+    Write-Host "    Status            : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
     Write-Host "    game replied      : $gameresponse"
     Write-Host "    OS                : $os"
     Write-Host "    hostname          : $computername"
-    Set-Location $global:currentdir
+    Set-Location $currentdir
 }
 Function Get-DriveSpace {
-    $global:disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
-    $global:results = Foreach ($disk in $disks) {
+    $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+    $results = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {
             $size = [math]::round($disk.Size / 1GB, 0)
             $free = [math]::round($disk.FreeSpace / 1GB, 0)
@@ -80,6 +80,6 @@ Function Get-DriveSpace {
         }
     }
     #$results | Out-GridView
-    $global:results | Format-Table -AutoSize
+    $results | Format-Table -AutoSize
     #$results | Export-Csv  .\disks.csv -NoTypeInformation -Encoding ASCII
 }

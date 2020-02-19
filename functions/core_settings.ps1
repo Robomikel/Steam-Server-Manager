@@ -8,18 +8,18 @@
 #
 Function Set-SteamerSetting {
     #####  Steamer Settings #######
-    #   disable backup log open 0
-    $global:backuplog = "1"
+    #   backup log open
+    $global:backuplogopen = "on"
     #   disable backup logs  0
     $global:backuplogs = "1"
-    #   disable app data backup log open 0
-    $global:appdatabackuplog = "1"
-    #   disable app data backup 0
-    $global:appdatabackup = "1"
-    #   disable logo 0
-    $global:logo = "1"
-    #   disable Admin message 0
-    $global:admincheckmessage = "1"
+    #  app data backup log open 
+    $global:appdatabackuplogopen = "on"
+    #   Appdata backup 
+    $global:appdatabackup = "on"
+    #   logo 
+    $global:logo = "on"
+    #   Admin message 0
+    $global:admincheckmessage = "on"
     #   disable Auto update in check 1
     $global:AutoUpdate = "0"
     #   disable  check Task 0
@@ -28,10 +28,10 @@ Function Set-SteamerSetting {
     $global:backupcount = "2"
     #  Version  0 prompt min, 1 prompt max, 2 no prompt
     $global:Version = "1"
-    #  Disable Discord backup 0
-    $global:DisableDiscordBackup = "1"
-    # Disable Discord backup 0
-    $global:DisableDiscordUpdate = "1"
+    #  Discord backup Alert
+    $global:DiscordBackupAlert = "on"
+    #  Discord Update Alert 
+    $global:DiscordUpdateAlert = "on"
     # Use private Ip for Gamedig, mcrcon 1
     $global:Useprivate = "0"
     # Disable  Logging 0

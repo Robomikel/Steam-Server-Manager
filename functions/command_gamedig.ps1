@@ -8,34 +8,28 @@
 #
 Function Get-GamedigServerv2 {
     Write-Host '****   Starting gamedig on Server   ****' -F M -B Black
-    If (( $global:AppID -eq 581330) -or ($global:AppID -eq 376030) -or ($global:AppID -eq 443030)) {
+    Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
+    If (( $AppID -eq 581330) -or ($AppID -eq 376030) -or ($AppID -eq 443030)) {
         Write-Host '****   Using QUERYPORT    ****' -F Y -B Black
-        If (($null -eq ${global:QUERYPORT} ) -or ("" -eq ${global:QUERYPORT} )) {
+        If (($null -eq ${QUERYPORT} ) -or ("" -eq ${QUERYPORT} )) {
             Write-Host '****   Missing QUERYPORT Var!   ****' -F R -B Black
         }
-        ElseIf ($global:command -eq "gamedig") {
-            Set-Location $global:currentdir\node-v$global:nodeversion-win-x64\node-v$global:nodeversion-win-x64
-            .\gamedig --type $global:GAME ${global:EXTIP}:${global:QUERYPORT} --pretty
-            Set-Location $global:currentdir
+        ElseIf ($command -eq "gamedig") {
+            .\gamedig --type $GAME ${EXTIP}:${QUERYPORT} --pretty
         }
-        ElseIf ($global:Useprivate -eq "1") {
-            Set-Location $global:currentdir\node-v$global:nodeversion-win-x64\node-v$global:nodeversion-win-x64  
-            .\gamedig --type $global:GAME ${global:IP}:${global:QUERYPORT} --pretty
-            Set-Location $global:currentdir
+        ElseIf ($Useprivate -eq "1") {
+            .\gamedig --type $GAME ${IP}:${QUERYPORT} --pretty
         }
     }
-    ElseIf (($null -eq ${global:PORT}) -or ("" -eq ${global:PORT} )) {
+    ElseIf (($null -eq ${PORT}) -or ("" -eq ${PORT} )) {
         Write-Host '****   Missing PORT Var!   ****' -F R -B Black
     }
-    ElseIf ($global:Useprivate -eq "1") {
-        Set-Location $global:currentdir\node-v$global:nodeversion-win-x64\node-v$global:nodeversion-win-x64  
-        .\gamedig --type $global:GAME ${global:IP}:${global:PORT} --pretty
-        Set-Location $global:currentdir
+    ElseIf ($Useprivate -eq "1") {
+        .\gamedig --type $GAME ${IP}:${PORT} --pretty
     }
     Else {
-        Set-Location $global:currentdir\node-v$global:nodeversion-win-x64\node-v$global:nodeversion-win-x64
-        .\gamedig --type $global:GAME ${global:EXTIP}:${global:PORT} --pretty
-        Set-Location $global:currentdir
+        .\gamedig --type $GAME ${EXTIP}:${PORT} --pretty
+        
     }
-     
+    Set-Location $currentdir
 }

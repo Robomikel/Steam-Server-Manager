@@ -4,30 +4,30 @@ Function Install-SteamWS {
     ######    Modified by Robomikel for SSM use   ######
     $StopOnFail = $false
     #path to your SteamCMD SE Workshop content folder
-    $contentFolder = "$global:currentdir\steamcmd\steamapps\workshop\content\$global:reg_appID\"
+    $contentFolder = "$currentdir\steamcmd\steamapps\workshop\content\$reg_appID\"
     #path to your SE dedicated server mods folder
-    $dediModsFolder = "$global:currentdir\$global:server\$global:WSMODDIR\"
+    $dediModsFolder = "$currentdir\$server\$WSMODDIR\"
 
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
     # since it's running multiple sessions.
-    $modCount = $global:wsmods.Count
+    $modCount = $wsmods.Count
     $ii = 0
     $modDownloadsGood = $true
     $updateMods = $null
-    foreach ($mod in $global:wsmods) {
+    foreach ($mod in $wsmods) {
         $ii += 1
         Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
-        If ($global:ANON -eq "yes") {
-            Set-Location $global:currentdir\steamcmd\
+        If ($ANON -eq "yes") {
+            Set-Location $currentdir\steamcmd\
             Write-Host "Last Exit Code $LASTEXITCODE"-F Y
-            .\steamCMD +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
+            .\steamCMD +login Anonymous +workshop_download_item $reg_appID $mod validate +quit
         }
         Else {
-            Set-Location $global:currentdir\steamcmd\
-            .\steamCMD +login $global:username +workshop_download_item $global:reg_appID $mod validate +quit
+            Set-Location $currentdir\steamcmd\
+            .\steamCMD +login $username +workshop_download_item $reg_appID $mod validate +quit
         }
-        $updateMods = Get-Content $global:currentdir\log\ssm\Steamer-*.log
+        $updateMods = Get-Content $currentdir\log\ssm\Steamer-*.log
         if ($updateMods -like "Success. Downloaded item $mod to *") {
             # if (($?) -or ($LASTEXITCODE -eq 7)-or ($LASTEXITCODE -ne 10)) {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
@@ -37,8 +37,8 @@ Function Install-SteamWS {
         else {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
-            Write-Host " - - $global:DIAMOND If Workshop Item is over 1 GB will need to - -  $global:DIAMOND" -ForegroundColor Red
-            Write-Host " - - $global:DIAMOND download through steam Client and Copy Manually.- -  $global:DIAMOND" -ForegroundColor Red
+            Write-Host " - - $DIAMOND If Workshop Item is over 1 GB will need to - -  $DIAMOND" -ForegroundColor Red
+            Write-Host " - - $DIAMOND download through steam Client and Copy Manually.- -  $DIAMOND" -ForegroundColor Red
             $updateMods = $null
             If ($StopOnFail -eq $true) {
                 $modDownloadsGood = $false
@@ -72,15 +72,15 @@ Function Install-SteamWS {
         #pause for 5 sec to ensure file operations are done before continuing
         Start-Sleep -Seconds 5 
         #copy over mods to the SE dedicated server mods folder from SE workshop content download storage folder
-        Write-Host "Copying all mods to $global:currentdir\$global:server\$global:WSMODDIR\" -F Y
-        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$global:currentdir\log\ssm\WScopy-$server-$date.log
+        Write-Host "Copying all mods to $currentdir\$server\$WSMODDIR\" -F Y
+        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$currentdir\log\ssm\WScopy-$server-$date.log
         # Copy-Item $contentFolder $dediModsFolder -Recurse -Force
         Write-Host "Copying completed." -F Y
-        If ($global:AppID -eq 233780) {
+        If ($AppID -eq 233780) {
             Write-Host "Copy text to Mod Var" -F Y
-            get-childitem $global:currentdir\$global:server\$global:WSMODDIR\ | ForEach-Object { "$global:WSMODDIR`\" + $_.name + ";" }
+            get-childitem $currentdir\$server\$WSMODDIR\ | ForEach-Object { "$WSMODDIR`\" + $_.name + ";" }
         }
         
     }
-    Set-Location $global:currentdir
+    Set-Location $currentdir
 }
