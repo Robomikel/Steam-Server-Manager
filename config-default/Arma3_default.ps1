@@ -21,7 +21,7 @@ Function New-LaunchScriptArma3serverPS {
     #                       Rcon Port
     $global:RCONPORT        = "2301"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RCONPASSWORD"
+    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     #                       Mods
     $global:mods            = ""
     # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\450814997;Mods\463939057;"
