@@ -22,19 +22,20 @@ Function New-LaunchScriptArma3serverPS {
     $global:RCONPORT        = "2301"
     #                       Rcon Password
     $global:RCONPASSWORD    = "$global:RCONPASSWORD"
-    #                       Launch Params Mods
-    $global:mods                   = ""
-    $global:servermods             = ""
-    # $mods="Mods\450814997;Mods\463939057;"
-    # get-childitem | Foreach {"Mods`\"+$_.name+";"}
-    ##############################/\##############################
+    #                       Mods
+    $global:mods            = ""
+    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\450814997;Mods\463939057;"
+    #                       Server Mods
+    $global:servermods      = ""
     
+    ##############################/\##############################
+    # Advanced Steam WorkShop Mods COnfiguration
     # WorkShop Mod Directory
     $global:WSMODDIR = "Mods"
     # steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID = '107410'
     # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('xxxxxxxxxxxxxx', 'xxxxxxxxxxxx')"
+    $global:wsmods = "@('463939057','1355481562','1351712613')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""
