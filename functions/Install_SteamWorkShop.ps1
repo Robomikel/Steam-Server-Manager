@@ -21,11 +21,11 @@ Function Install-SteamWS {
         If ($global:ANON -eq "yes") {
             Set-Location $global:currentdir\steamcmd\
             Write-Host "Last Exit Code $LASTEXITCODE"-F Y
-            .\steamCMD +nOutstandingWorkItems 1 +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
+            .\steamCMD +login Anonymous +workshop_download_item $global:reg_appID $mod validate +quit
         }
         Else {
             Set-Location $global:currentdir\steamcmd\
-            .\steamCMD +nOutstandingWorkItems 1 +login $global:username +workshop_download_item $global:reg_appID $mod validate +quit
+            .\steamCMD +login $global:username +workshop_download_item $global:reg_appID $mod validate +quit
         }
         $updateMods = Get-Content $global:currentdir\log\ssm\Steamer-*.log
         if ($updateMods -like "Success. Downloaded item $mod to *") {
@@ -37,8 +37,8 @@ Function Install-SteamWS {
         else {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
-            Write-Host " $global:DIAMOND May need to Sign into steamcmd or  Mod may be to large $global:DIAMOND" -ForegroundColor Red
-            Write-Host " $global:DIAMOND Try Downloading through steam Client and Copy Manually. $global:DIAMOND" -ForegroundColor Red
+            Write-Host " - - $global:DIAMOND If Workshop Item is over 1 GB will need to - -  $global:DIAMOND" -ForegroundColor Red
+            Write-Host " - - $global:DIAMOND download through steam Client and Copy Manually.- -  $global:DIAMOND" -ForegroundColor Red
             $updateMods = $null
             If ($StopOnFail -eq $true) {
                 $modDownloadsGood = $false

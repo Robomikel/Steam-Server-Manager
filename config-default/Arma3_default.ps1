@@ -24,7 +24,7 @@ Function New-LaunchScriptArma3serverPS {
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     #                       Mods
     $global:mods            = ""
-    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\450814997;Mods\463939057;"
+    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\1374639840;Mods\1439779114;Mods\333310405;Mods\450814997;Mods\463939057;Mods\549676314;Mods\773125288;Mods\773131200;Mods\843593391;"
     #                       Server Mods
     $global:servermods      = ""
     
@@ -35,7 +35,7 @@ Function New-LaunchScriptArma3serverPS {
     # steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID = '107410'
     # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('450814997','463939057','773125288','773131200','843425103','843577117','843593391','1439779114','333310405','1374639840')"
+    $global:wsmods = "@('450814997','463939057','773125288','773131200','843593391','1439779114','333310405','1374639840')"
     
     ###################### Do not change below #####################
     $global:MODDIR = ""

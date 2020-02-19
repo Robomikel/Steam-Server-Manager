@@ -110,11 +110,11 @@ Function New-ServerLog {
 }
 
 Function Remove-SteamerLogs {
-    Get-Childitem $global:currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem $global:currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$global:logcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerBackupLog {
     If ($global:backuplogs -eq "1") { Copy-Item "$global:currentdir\7za920\[b]*.log", -Destination "$global:currentdir\log\backup_$global:server-$global:date.log" -ea SilentlyContinue }
-    Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like backup_$global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $global:logcount | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem $global:currentdir\log\ -Recurse | where-object name -like backup_$global:server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$global:logcount" | Remove-Item -Force -ea SilentlyContinue
 }
 
 Function Get-Appid {
