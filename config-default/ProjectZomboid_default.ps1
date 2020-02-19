@@ -7,7 +7,7 @@ Function New-LaunchScriptpzserverPS {
     #                       Server IP 
     ${global:IP}            = "${global:IP}"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
     ${global:adminpassword}   = "$global:RANDOMPASSWORD"
     
@@ -20,41 +20,40 @@ Function New-LaunchScriptpzserverPS {
     ###################### Do not change below #####################  
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:systemdir = ""
+    #--->executable NOT in root server folder \/\/
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    #$global:EXE = "startServer64.bat"
-    $global:EXE = "ProjectZomboid64"
+    #$global:executable = "startServer64.bat"
+    $global:executable = "ProjectZomboid64"
     #--->Requieres \/ \/ game dig 
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
-    #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "ProjectZomboid64"
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "ProjectZomboid64"
     #--->game config folder
-    $global:SERVERCFGDIR = "Zomboid\Server"
+    $global:servercfgdir = "Zomboid\Server"
     #--->game log folder
-    $global:LOGDIR = ""
+    $global:logdir = ""
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "ProjectZomboid"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.ini"
+    $global:servercfg = "server.ini"
     #--->Get game-server-config \/\/
     Get-Servercfg
     #--->Default Vars
-    $global:defaultRCONPORT = "${global:PORT}"
 
     #--->input questions 
     # Get-UserInput 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
-    #--->rename srcds.exe \/\/
+    #--->rename srcds.executable \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
     # --->Launch 
-    #$global:launchParams = '@("$global:EXE")'
-    $global:launchParams = '@("$global:EXE -ip ${global:ip} -adminpassword `"${global:adminpassword}`" -servername `"${global:HOSTNAME}`"")'
+    #$global:launchParams = '@("$executable")'
+    $global:launchParams = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
 
 }

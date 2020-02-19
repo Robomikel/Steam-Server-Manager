@@ -5,11 +5,11 @@ Function New-LaunchScriptCOD3MWserverPS {
   ################## Change Default Variables #################
 
   #                       Query Port
-  $global:QUERYPORT       = "27014"
+  $global:queryport       = "27014"
   #                       Server Port
-  $global:PORT            = "27015"
+  $global:port            = "27015"
   #                       Map
-  $global:MAP             = "map_rotation"
+  $global:defaultmap             = "map_rotation"
 
   #                       Requieres Steam Login
   
@@ -39,21 +39,21 @@ Function New-LaunchScriptCOD3MWserverPS {
   #+set net_masterServerPort 27016
     
   ###################### Do not change below #####################
-  $global:MODDIR = ""
-  $global:EXEDIR = ""
-  $global:EXE = "iw5mp_server"
-  $global:GAME = "protocol-valve"
-  $global:SAVES = ""
-  $global:PROCESS = "iw5mp_server"
-  $global:SERVERCFGDIR = "admin"
-  $global:LOGDIR = ""
+  $global:systemdir = ""
+  $global:executabledir = ""
+  $global:executable = "iw5mp_server"
+  $global:querytype = "protocol-valve"
+  $global:saves = ""
+  $global:process = "iw5mp_server"
+  $global:servercfgdir = "admin"
+  $global:logdir = ""
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = ""
-  $global:config1 = "server.cfg"
+  $global:servercfg = "server.cfg"
   # Get-Servercfg
   # Select-RenameSource
   # game config
   # Select-EditSourceCFG
-  $global:launchParams = '@("$global:EXE +start_map_rotate +set sv_maprotation ${global:MAP} +set net_queryPort ${global:QUERYPORT} +set net_port ${global:PORT} +set net_authPort 8766 +set net_masterServerPort 27016 ")'
+  $global:launchParams = '@("$executable +start_map_rotate +set sv_maprotation ${defaultmap} +set net_queryPort ${queryport} +set net_port ${port} +set net_authPort 8766 +set net_masterServerPort 27016 ")'
 }   

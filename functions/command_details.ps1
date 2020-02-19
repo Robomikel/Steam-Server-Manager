@@ -1,4 +1,5 @@
 #.::::::.::::::::::::.,::::::   :::.     .        :   .::::::.:::::::.. :::      .::..        :    .,-:::::/ :::::::..   
+
 #;;;`    `;;;;;;;;'''';;;;''''   ;;`;;    ;;,.    ;;; ;;;`    `;;;;``;;;;';;,   ,;;;' ;;,.    ;;; ,;;-'````'  ;;;;``;;;;  
 #'[==/[[[[,    [[      [[cccc   ,[[ '[[,  [[[[, ,[[[[,'[==/[[[[,[[[,/[[[' \[[  .[[/   [[[[, ,[[[[,[[[   [[[[[[/[[[,/[[['  
 #  '''    $    $$      $$""""  c$$$cc$$$c $$$$$$$$"$$$  '''    $$$$$$$c    Y$c.$$"    $$$$$$$$"$$$"$$c.    "$$ $$$$$$c    
@@ -13,22 +14,22 @@ Function Get-Details {
     $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
     $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
     $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
-    If ($Null -ne (Get-Process "$PROCESS" -ea SilentlyContinue)) {
-        $mem = "{0:N2} GB" -f ((Get-Process $PROCESS | Measure-Object Workingset -sum).Sum / 1GB) 
+    If ($Null -ne (Get-Process "$process" -ea SilentlyContinue)) {
+        $mem = "{0:N2} GB" -f ((Get-Process $process | Measure-Object Workingset -sum).Sum / 1GB) 
     }
     $os = (Get-WMIObject win32_operatingsystem).caption
     $computername = (Get-WMIObject Win32_OperatingSystem).CSName
     Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
-    If ($null -ne ${QUERYPORT}) { 
-        ${PORT} = ${QUERYPORT} 
+    If ($null -ne ${queryport}) { 
+        ${port} = ${queryport} 
     }
     If ($Useprivate -eq "0") {
-        $gameresponse = (.\gamedig --type $GAME ${EXTIP}:${PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $GAME ${EXTIP}:${PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
+        $gameresponse = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+        $stats = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
     }
     Else {
-        $gameresponse = (.\gamedig --type $GAME ${IP}:${PORT} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $GAME ${IP}:${PORT} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
+        $gameresponse = (.\gamedig --type $querytype ${IP}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+        $stats = (.\gamedig --type $querytype ${IP}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
     }
     
     Get-CreatedVaribles
@@ -41,17 +42,17 @@ Function Get-Details {
     }
     #Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ 2010%'"
     Write-Host "                                "
-    Write-Host "    Server Name       : $HOSTNAME"
-    Write-Host "    Public IP         : $EXTIP"
-    Write-Host "    IP                : $IP"
-    Write-Host "    Port              : $PORT"
-    Write-Host "    Query Port        : $QUERYPORT"
-    Write-Host "    Rcon Port         : $RCONPORT"
-    Write-Host "    App ID            : $APPID"
-    Write-Host "    Game Dig          : $GAME"
+    Write-Host "    Server Name       : $hostname"
+    Write-Host "    Public IP         : $extip"
+    Write-Host "    IP                : $ip"
+    Write-Host "    Port              : $port"
+    Write-Host "    Query Port        : $queryport"
+    Write-Host "    Rcon Port         : $rconport"
+    Write-Host "    App ID            : $appid"
+    Write-Host "    Game Dig          : $querytype"
     #    Write-Host "    Webhook           : $WEBHOOK"
-    Write-Host "    Process           : $PROCESS"
-    Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = " **** RUNNING ****"; ; Write-Host $status -F Green }
+    Write-Host "    Process           : $process"
+    Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = " **** RUNNING ****"; ; Write-Host $status -F Green }
     Write-Host "    CPU Cores         : $CpuCores"
     Write-Host "    CPU %             : $cpu"
     Write-Host "    Total RAM         : $avmem    "

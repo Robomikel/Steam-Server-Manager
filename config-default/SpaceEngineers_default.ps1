@@ -4,17 +4,17 @@ Function New-LaunchScriptSEserverPS {
     # https://www.spaceengineersgame.com/dedicated-servers.html
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:IP}            = "${global:IP}"
+    ${global:ip}            = "${global:IP}"
     #                       Server Port
-    ${global:PORT}          = "27015"
+    ${global:port}          = "27015"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "20"
+    $global:maxplayers      = "20"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       World Name
-    $global:WORLDNAME       = "WorldName"
+    $global:worldname       = "WorldName"
     #                       World template
-    $global:CustomWorlds    = "Alien Planet"
+    $global:customworlds    = "Alien Planet"
     ##############################/\##############################
     ##   World templates ##
     # Alien Planet
@@ -30,7 +30,7 @@ Function New-LaunchScriptSEserverPS {
     # Rival Platforms
     # Star System
     ###############
-    # You can run SpaceEngineersDedicated.exe with the following arguments
+    # You can run SpaceEngineersDedicated.executable with the following arguments
     # -console: skips instance selection dialog, dedicated server configuration dialog, and goes directly to console application
     #  -noconsole: will run without black console window
     # -path: will load config and store all files in path specified ("D:\Whatever\Something" in example)
@@ -39,7 +39,7 @@ Function New-LaunchScriptSEserverPS {
     # -ip:  overrides ip address of dedicated server stored in config file
     #  -port: overrides port value stored in config file
 
-    # taskkill /IM SpaceEngineersDedicated.exe
+    # taskkill /IM SpaceEngineersDedicated.executable
     # This will stop the dedicated server correctly, saving the world etc.
     # To stop it immediately add argument "/f", which will kill the server without asking to stop and without saving the world.
     
@@ -48,41 +48,41 @@ Function New-LaunchScriptSEserverPS {
     ################### WorkShop Install change below #####################    
     # Advanced Steam WorkShop Mods COnfiguration
     # Mod Directory
-    $global:WSMODDIR = "Content\Mods"
+    $global:moddir = "$serverfiles\Content\Mods"
     # steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID = '244850'
     # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('899070352', '877084878')"
+    $global:mods = "@('899070352', '877084878')"
 
     ###################### Do not change below #############################
-    $global:MODDIR = ""
-    $global:EXEDIR = "DedicatedServer64"
-    $global:EXE = "SpaceEngineersDedicated"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = "SpaceEngineersDedicated"
-    $global:PROCESS = "SpaceEngineersDedicated"
+    $global:systemdir = ""
+    $global:executabledir = "DedicatedServer64"
+    $global:executable = "SpaceEngineersDedicated"
+    $global:querytype = "protocol-valve"
+    $global:saves = "SpaceEngineersDedicated"
+    $global:process = "SpaceEngineersDedicated"
     $global:SERVERCFGDIR = "$env:APPDATA\$global:saves\"
-    $global:LOGDIR = "$env:APPDATA\$global:saves"
+    $global:logdir = "$env:APPDATA\$global:saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
     # Get-Servercfg
     # Select-RenameSource
     # game config
     # Select-EditSourceCFG
     New-servercfgse
     Write-Host "Creating Save Dir" -F M
-    New-Item "$env:APPDATA\$global:saves\Saves\$global:WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
+    New-Item "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
     Write-Host "Copying World template to Save Dir" -F M
-    copy-item "$global:server\Content\CustomWorlds\$global:CustomWorlds\*" "$env:APPDATA\$global:saves\Saves\$global:WORLDNAME\" -ErrorAction SilentlyContinue
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -ip ${global:IP} -port ${global:PORT} -maxPlayers $global:MAXPLAYERS")'
+    copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
+    $global:launchParams = '@("$executabledir\$executable -console -ip ${IP} -port ${port} -maxPlayers $maxplayers")'
 }   
 Function New-servercfgse {
     Write-Host "Creating Custom Config" -F M
-    New-Item $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg -ItemType File -Force
+    New-Item $env:APPDATA\$saves\SpaceEngineers-Dedicated.cfg -ItemType File -Force
     
-    Add-Content $env:APPDATA\$global:saves\SpaceEngineers-Dedicated.cfg `
+    Add-Content $env:APPDATA\$saves\SpaceEngineers-Dedicated.cfg `
 "<?xml version=`"1.0`"?>
 <MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
   <SessionSettings>
@@ -197,7 +197,7 @@ Function New-servercfgse {
     <StationsDistanceOuterRadiusEnd>30000000</StationsDistanceOuterRadiusEnd>
     <EconomyTickInSeconds>1200</EconomyTickInSeconds>
   </SessionSettings>
-  <LoadWorld>$env:APPDATA\$global:saves\Saves\$global:WORLDNAME</LoadWorld>
+  <LoadWorld>$env:APPDATA\$saves\Saves\$WORLDNAME</LoadWorld>
   <IP>0.0.0.0</IP>
   <SteamPort>8766</SteamPort>
   <ServerPort>27016</ServerPort>
@@ -205,8 +205,8 @@ Function New-servercfgse {
   <Administrators />
   <Banned />
   <GroupID>0</GroupID>
-  <ServerName>$global:HOSTNAME</ServerName>
-  <WorldName>$global:WORLDNAME</WorldName>
+  <ServerName>$hostname</ServerName>
+  <WorldName>$WORLDNAME</WorldName>
   <PauseGameWhenEmpty>false</PauseGameWhenEmpty>
   <MessageOfTheDay />
   <MessageOfTheDayUrl />

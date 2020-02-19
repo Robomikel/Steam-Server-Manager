@@ -7,44 +7,46 @@
 #
 #
 Function Get-ServerBuildCheck {
-    If (($APPID -eq 11421000 ) -or ($APPID -eq 11500000 )){ }Else {
+    If (($appid -eq 11421000 ) -or ($appid -eq 11500000 )) { }Else {
         Get-Steam
         #Get-Steamtxt
         Set-Location $currentdir\SteamCMD\ >$null 2>&1
         $search = "buildid"
         # public 
         #$remotebuild = Get-ServerBuild | select-string $search | Select-Object  -Index 0
-        $remotebuild = .\steamCMD +app_info_update 1 +app_info_print $APPID +quit | select-string $search | Select-Object  -Index 0
+        $remotebuild = .\steamCMD +app_info_update 1 +app_info_print $appid +quit | select-string $search | Select-Object  -Index 0
 
         #    # dev
-        #    $remotebuild= .\steamcmd +runscript Buildcheck-$server.txt  | select-string $search | Select-Object  -Index 1
+        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
         #    # experimental
-        #    $remotebuild= .\steamcmd +runscript Buildcheck-$server.txt  | select-string $search | Select-Object  -Index 2
+        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 2
         #    # hosting
-        #    $remotebuild= .\steamcmd +runscript Buildcheck-$server.txt  | select-string $search | Select-Object  -Index 3
+        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
         $remotebuild = $remotebuild -replace '\s', ''
         #    #$remotebuild
         #  $search="buildid"
-        $localbuild = get-content $currentdir\$server\steamapps\appmanIfest_$APPID.acf | select-string $search
+        $localbuild = get-content $currentdir\$serverfiles\steamapps\appmanIfest_$appid.acf | select-string $search
         $localbuild = $localbuild -replace '\s', ''
         #$localbuild
         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
             Write-Host "****   Avaiable Updates Server   ****" -F Y -B Black
-            If ($AutoUpdate -eq "1") { Exit }
+            If ($updateonstart -eq "off") { 
+                Exit 
+            }
             Get-SteamFix
             #Get-StopServer
             Get-UpdateServer  
         }
         Else {
-            Write-Host "****   No $server Updates found   ****" -F Y -B Black
+            Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
         }
         Set-Location $currentdir
     }
 }
 
 Function Get-SteamFix {
-    Write-Host "****   Removing appmanifest_$APPID.acf   ****" -F M -B Black
-    Remove-Item $currentdir\$server\steamapps\appmanifest_$APPID.acf -Force  >$null 2>&1
-    Write-Host "****   Removing Multiple appmanifest_$APPID.acf    ****" -F M -B Black
-    Remove-Item $currentdir\$server\steamapps\appmanifest_*.acf -Force  >$null 2>&1
+    Write-Host "****   Removing appmanifest_$appid.acf   ****" -F M -B Black
+    Remove-Item $currentdir\$serverfiles\steamapps\appmanifest_$appid.acf -Force  >$null 2>&1
+    Write-Host "****   Removing Multiple appmanifest_$appid.acf    ****" -F M -B Black
+    Remove-Item $currentdir\$serverfiles\steamapps\appmanifest_*.acf -Force  >$null 2>&1
 }

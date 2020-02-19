@@ -1,4 +1,5 @@
 #.::::::.::::::::::::.,::::::   :::.     .        :   .::::::.:::::::.. :::      .::..        :    .,-:::::/ :::::::..   
+
 #;;;`    `;;;;;;;;'''';;;;''''   ;;`;;    ;;,.    ;;; ;;;`    `;;;;``;;;;';;,   ,;;;' ;;,.    ;;; ,;;-'````'  ;;;;``;;;;  
 #'[==/[[[[,    [[      [[cccc   ,[[ '[[,  [[[[, ,[[[[,'[==/[[[[,[[[,/[[[' \[[  .[[/   [[[[, ,[[[[,[[[   [[[[[[/[[[,/[[['  
 #  '''    $    $$      $$""""  c$$$cc$$$c $$$$$$$$"$$$  '''    $$$$$$$c    Y$c.$$"    $$$$$$$$"$$$"$$c.    "$$ $$$$$$c    
@@ -7,33 +8,33 @@
 #
 #
 Function Get-StopServer {
-    If ($APPID -eq "996560") { Get-StopMultiple }Else {
+    If ($appid -eq "996560") { Get-StopMultiple }Else {
         Write-Host '****   Stopping Server process   *****' -F M -B Black 
-        If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-Host "----   NOT RUNNING   ----" -F R -B Black
         }
-        Else { Stop-Process -Name "$PROCESS" -Force }
+        Else { Stop-Process -Name "$process" -Force }
         Get-CheckForError
     }
 }
 Function Get-StopServerInstall {
-    If ($APPID -eq "996560") { Get-StopMultiple }Else {
+    If ($appid -eq "996560") { Get-StopMultiple }Else {
         Write-Host '****   Stopping Server process   *****' -F M -B Black 
-        If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-Host "****   No Process found   ****" -F Y -B Black
         }
         Else {
             Write-Host "****   Stopping Server Process   *****" -F M -B Black
-            Stop-Process -Name "$PROCESS" -Force
+            Stop-Process -Name "$process" -Force
         }
     }
 }   
 
 Function Get-StopMultiple {
 
-    $mPROCESS = get-process | Where-Object { $_.ProcessName -match $PROCESS }
-    If ($null -eq $mPROCESS) { Write-Host "----   NOT RUNNING   ----" -F R -B Black }Else {
+    $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
+    If ($null -eq $mprocess) { Write-Host "----   NOT RUNNING   ----" -F R -B Black }Else {
         Write-Host "****   Stopping Server Process   *****" -F M -B Black
-        get-process | Where-Object { $_.ProcessName -match $PROCESS } | stop-process -force
+        get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
     }
 }

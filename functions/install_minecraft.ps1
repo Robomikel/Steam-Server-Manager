@@ -12,8 +12,8 @@ Function Get-MCBRBinaries{
     Get-MCBRWebrequest 
     Invoke-WebRequest -uri $mcbrWebResponse.href -O bedrock-server.zip
     Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
-    Move-Item bedrock-server\* $server\ -Force -ea SilentlyContinue
-    Add-Content $server\version.txt $mcbrWebResponse.href -Force
+    Move-Item bedrock-server\* $serverfiles\ -Force -ea SilentlyContinue
+    Add-Content $serverfiles\version.txt $mcbrWebResponse.href -Force
     Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
 }
@@ -26,15 +26,15 @@ Function Get-MCjavaBinaries{
     Invoke-WebRequest -uri $mcWebResponse.href -O server.jar
     # $mcWebResponse.outerText
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
-    Move-Item server.jar $server\ -Force -ea SilentlyContinue
-    Add-Content $server\version.txt $mcvWebResponse -Force
-    Set-Location $currentdir\$server
+    Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
+    Add-Content $serverfiles\version.txt $mcvWebResponse -Force
+    Set-Location $currentdir\$serverfiles
     Write-Host "starting server eula"
     Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui"
     Pause
     ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
     Set-Location $currentdir
-    # Add-Content $server\eula.txt 'eula=true' -Force
+    # Add-Content $serverfiles\eula.txt 'eula=true' -Force
     # Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
 }

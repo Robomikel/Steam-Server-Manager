@@ -6,7 +6,7 @@ Function Install-SteamWS {
     #path to your SteamCMD SE Workshop content folder
     $contentFolder = "$currentdir\steamcmd\steamapps\workshop\content\$reg_appID\"
     #path to your SE dedicated server mods folder
-    $dediModsFolder = "$currentdir\$server\$WSMODDIR\"
+    $dediModsFolder = "$currentdir\$serverfiles\$moddir\"
 
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
@@ -72,13 +72,13 @@ Function Install-SteamWS {
         #pause for 5 sec to ensure file operations are done before continuing
         Start-Sleep -Seconds 5 
         #copy over mods to the SE dedicated server mods folder from SE workshop content download storage folder
-        Write-Host "Copying all mods to $currentdir\$server\$WSMODDIR\" -F Y
-        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$currentdir\log\ssm\WScopy-$server-$date.log
+        Write-Host "Copying all mods to $currentdir\$serverfiles\$moddir\" -F Y
+        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$currentdir\log\ssm\WScopy-$serverfiles-$date.log
         # Copy-Item $contentFolder $dediModsFolder -Recurse -Force
         Write-Host "Copying completed." -F Y
         If ($AppID -eq 233780) {
             Write-Host "Copy text to Mod Var" -F Y
-            get-childitem $currentdir\$server\$WSMODDIR\ | ForEach-Object { "$WSMODDIR`\" + $_.name + ";" }
+            get-childitem $currentdir\$serverfiles\$moddir\ | ForEach-Object { "$moddir`\" + $_.name + ";" }
         }
         
     }

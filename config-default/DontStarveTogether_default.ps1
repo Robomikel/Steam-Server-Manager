@@ -9,11 +9,11 @@ Function New-LaunchScriptDSTserverPS {
     #                       Server Port
     $global:port            = "10999"
     #                       RCON Port
-    $global:RCONPORT        = "${global:PORT}"
+    $global:rconport        = "${global:port}"
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
 
     ##############################/\##############################
     
@@ -21,15 +21,16 @@ Function New-LaunchScriptDSTserverPS {
     
     
     ###################### Do not change below #####################
-    #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = "bin"
+    $global:systemdir = ""
+    #--->executable NOT in root server folder \/\/
+    $global:executabledir = "bin"
     #--->rename srcds to this name \/\/
-    $global:EXE = "dontstarve_dedicated_server_nullrenderer"
+    $global:executable = "dontstarve_dedicated_server_nullrenderer"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
-    #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "dontstarve_dedicated_server_nullrenderer"
-    $global:LOGDIR = ""
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "dontstarve_dedicated_server_nullrenderer"
+    $global:logdir = ""
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -41,23 +42,23 @@ Function New-LaunchScriptDSTserverPS {
     $global:persistentstorageroot = "Klei"
     
     #--->Game-server-manger config name \/
-    $global:SERVERCFGDIR = "$global:persistentstorageroot\$global:gamedirname\$global:cluster\$global:shard\"
-    $global:config1 = "server.ini"
+    $global:servercfgdir = "$global:persistentstorageroot\$global:gamedirname\$global:cluster\$global:shard\"
+    $global:servercfg = "server.ini"
     #--->Get game-server-config \/\/
     Get-Servercfg
     
     #--->Game-server-manger config name \/
-    $global:SERVERCFGDIR = "$global:persistentstorageroot\$global:gamedirname\$global:cluster"
-    $global:config1 = "cluster.ini"
+    $global:servercfgdir = "$global:persistentstorageroot\$global:gamedirname\$global:cluster"
+    $global:servercfg = "cluster.ini"
     #--->Get game-server-config \/\/
     Get-Servercfg
     Select-EditSourceCFG
     # BOTH CAVES AND MASTER
-    #$global:launchParams = '@("$global:EXE -console -bind_ip ${global:ip} -port ${global:PORT} -players ${global:maxplayers} -persistent_storage_root $global:currentdir\$global:server\${global:persistentstorageroot} -conf_dir ${global:gamedirname} -cluster ${global:cluster} -shard ${global:shard} -backup_logs ; ; $global:EXE -console -persistent_storage_root $global:currentdir\$global:server\${global:persistentstorageroot} -conf_dir ${global:gamedirname} -cluster ${global:cluster} -shard cave -backup_logs")'
+    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $currentdir\$serverfiles\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs ; ; $executable -console -persistent_storage_root $currentdir\$serverfiles\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard cave -backup_logs")'
     
     # Master
-    $global:launchParams = '@("$global:EXE -console -bind_ip ${global:ip} -port ${global:PORT} -players ${global:maxplayers} -persistent_storage_root $global:currentdir\$global:server\${global:persistentstorageroot} -conf_dir ${global:gamedirname} -cluster ${global:cluster} -shard ${global:shard} -backup_logs")'
+    $global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $currentdir\$serverfiles\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs")'
     
     # Caves
-    #$global:launchParams = '@("$global:EXE -console -bind_ip ${global:ip} -port ${global:PORT} -players ${global:maxplayers} -persistent_storage_root $global:currentdir\$global:server\${global:persistentstorageroot} -conf_dir ${global:gamedirname} -cluster ${global:cluster} -shard ${global:cave} -backup_logs")'
+    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $currentdir\$serverfiles\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${cave} -backup_logs")'
 }

@@ -1,4 +1,5 @@
 #.::::::.::::::::::::.,::::::   :::.     .        :   .::::::.:::::::.. :::      .::..        :    .,-:::::/ :::::::..   
+
 #;;;`    `;;;;;;;;'''';;;;''''   ;;`;;    ;;,.    ;;; ;;;`    `;;;;``;;;;';;,   ,;;;' ;;,.    ;;; ,;;-'````'  ;;;;``;;;;  
 #'[==/[[[[,    [[      [[cccc   ,[[ '[[,  [[[[, ,[[[[,'[==/[[[[,[[[,/[[[' \[[  .[[/   [[[[, ,[[[[,[[[   [[[[[[/[[[,/[[['  
 #  '''    $    $$      $$""""  c$$$cc$$$c $$$$$$$$"$$$  '''    $$$$$$$c    Y$c.$$"    $$$$$$$$"$$$"$$c.    "$$ $$$$$$c    
@@ -9,10 +10,10 @@
 Function Get-CheckForVars {
     Write-Host "****   Checking for Vars   ****" -F Y -B Black
     If ($command -eq "mcrcon") {
-        $missingvars = $RCONPORT, $RCONPASSWORD
+        $missingvars = $rconport, $rconpassword
     }
     Else {
-        $missingvars = ${QUERYPORT}, ${IP}, $APPID, $PROCESS, ${PORT},$ANON
+        $missingvars = ${queryport}, ${ip}, $appid, $process, ${port},$anon
     }
     Foreach ($missingvars in $missingvars) {
         If ( "" -eq $missingvars) {

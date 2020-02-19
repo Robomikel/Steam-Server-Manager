@@ -4,9 +4,9 @@ Function New-LaunchScriptunturnedserverPS {
     # https://steamcommunity.com/sharedfiles/filedetails/?id=876902574
     ################## Change Default Variables ################# 
     #                   Server Port 
-    $global:PORT        = "27018"
+    $global:port        = "27018"
     #                   Server Name
-    $global:HOSTNAME    = "$env:USERNAME"
+    $global:hostname    = "$env:USERNAME"
     ###########################/\#################################
     
     
@@ -15,21 +15,21 @@ Function New-LaunchScriptunturnedserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "Unturned"
-    $global:EXEDIR = ""
-    $global:GAME = "protocol-valve"
-    $global:SAVES = ""
-    $global:PROCESS = "Unturned"
-    $global:SERVERCFGDIR = "Servers\$global:HOSTNAME\Server"
-    $global:LOGDIR = "Logs"
+    $global:systemdir = ""
+    $global:executable = "Unturned"
+    $global:executabledir = ""
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "Unturned"
+    $global:servercfgdir = "Servers\$hostname\Server"
+    $global:logdir = "Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "Commands.dat"
+    $global:servercfg = "Commands.dat"
 
     
 
     
-    $global:launchParams = '@("$global:EXE -batchmode -nographics -Port $global:PORT +InternetServer/$global:HOSTNAME")'
-    #$global:launchParams = '@("$global:EXE")'
+    $global:launchParams = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/$hostname")'
+    #$global:launchParams = '@("$executable")'
 }

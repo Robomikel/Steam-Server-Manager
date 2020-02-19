@@ -5,19 +5,19 @@ Function New-LaunchScriptArkPS {
         #                       Server IP
         ${global:IP}            = "${global:IP}"
         #                       Server Port
-        $global:PORT            = "7777"
+        $global:port            = "7777"
         #                       Query Port
-        $global:QUERYPORT       = "27015"
+        $global:queryport       = "27015"
         #                       Rcon Port
-        $global:RCONPORT        = "27020"
+        $global:rconport        = "27020"
         #                       Rcon Password
-        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Map
-        $global:MAP             = "TheIsland"
+        $global:defaultmap             = "TheIsland"
         #                       Maxplayers
-        $global:MAXPLAYERS      = "70"
+        $global:maxplayers      = "70"
         #                       Server Name
-        $global:HOSTNAME        = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         ##############################/\##############################
         
         
@@ -25,19 +25,19 @@ Function New-LaunchScriptArkPS {
         
         
         ###################### Do not change below #####################
-        $global:MODDIR = ""
-        $global:EXE = "ShooterGameServer"
-        $global:EXEDIR = "ShooterGame\Binaries\Win64"
-        $global:GAME = "arkse"
-        $global:PROCESS = "ShooterGameServer"
-        $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
-        $global:LOGDIR = ""
+        $global:systemdir = ""
+        $global:executable = "ShooterGameServer"
+        $global:executabledir= "ShooterGame\Binaries\Win64"
+        $global:querytype = "arkse"
+        $global:process = "ShooterGameServer"
+        $global:servercfgdir = "ShooterGame\Saved\Config\WindowsServer"
+        $global:logdir = ""
         Get-StopServerInstall
         $global:gamedirname = "ARKSurvivalEvolved"
-        $global:config1 = "GameUserSettings.ini"
+        $global:servercfg = "GameUserSettings.ini"
     
         
         Get-Servercfg
         Select-EditSourceCFG
-        $global:launchParams = '@("$global:EXEDIR\$global:EXE ${global:MAP}?AltSaveDirectoryName=${global:MAP}?listen?MultiHome=${global:IP}?MaxPlayers=${global:MAXPLAYERS}?QueryPort=${global:QUERYPORT}?RCONEnabled=True?RCONPort=${global:RCONPORT}?ServerAdminPassword=${global:RCONPASSWORD}?Port=${global:PORT} -automanagedmods")'
+        $global:launchParams = '@("$global:executabledir\$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
 } 

@@ -13,30 +13,30 @@ Function New-LaunchScriptBTserverPS {
     
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
+    $global:systemdir = ""
     #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:executabledir= ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "DedicatedServer"
+    $global:executable = "DedicatedServer"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
+    $global:saves = ""
     #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "DedicatedServer"
+    $global:process = "DedicatedServer"
     #--->game config folder
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = "ServerLogs"  
+    $global:servercfgdir = ""
+    $global:logdir = "ServerLogs"  
 
     
 
-    # $global:RCONPORT        = "${global:PORT}"
+    # $global:RCONPORT        = "${global:port}"
     #--->Stop existing process if running 
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "Barotrauma"
     #--->Game-server-manger config name \/
-    $global:config1 = "serversettings.xml"
+    $global:servercfg = "serversettings.xml"
     #--->Get game-server-config \/\/
     # Get-Servercfg
 
@@ -47,7 +47,7 @@ Function New-LaunchScriptBTserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     #  Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE ")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$global:executable ")'
+    # OR    EXE NOT In server folder ROOT add executabledir\/ \/
+    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

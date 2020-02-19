@@ -5,15 +5,15 @@ Function New-LaunchScriptAoCserverPS {
     #                       Server IP
     ${global:IP}            = "${global:IP}"
     #                       Server Port
-    ${global:PORT}          = "27015"
+    ${global:port}          = "27015"
     #                       Map
-    $global:MAP             = "aoc_siege"
+    $global:defaultmap             = "aoc_siege"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "32"
+    $global:maxplayers      = "32"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     
@@ -21,22 +21,22 @@ Function New-LaunchScriptAoCserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "aoc"
-    $global:EXEDIR = ""
-    $global:GAME = "ageofchivalry"
-    $global:SAVES = ""
-    $global:PROCESS = "aoc"
-    $global:SERVERCFGDIR = "ageofchivalry\cfg"
-    $global:LOGDIR = "ageofchivalry"
+    $global:systemdir = ""
+    $global:executable = "aoc"
+    $global:executabledir= ""
+    $global:querytype = "ageofchivalry"
+    $global:saves = ""
+    $global:process = "aoc"
+    $global:servercfgdir = "ageofchivalry\cfg"
+    $global:logdir = "ageofchivalry"
 
     
-    $global:RCONPORT = "${global:PORT}"   
+      
     Get-StopServerInstall
     $global:gamedirname = "AgeOfChivalry"
-    $global:config1 = "server.cfg"
+    $global:servercfg = "server.cfg"
     Get-Servercfg
     Select-RenameSource
     Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE -console -game ageofchivalry -secure +map ${global:MAP} -autoupdate +log on +maxplayers ${global:MAXPLAYERS} -port ${global:PORT} +ip ${global:IP} +exec server.cfg -condebug")'
+    $global:launchParams = '@("$executable -console -game ageofchivalry -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port} +ip ${ip} +exec server.cfg -condebug")'
 }

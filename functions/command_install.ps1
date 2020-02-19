@@ -11,12 +11,12 @@ Function Install-ServerFiles {
 
     Set-Location $currentdir\steamcmd\
     If ($ANON -eq "yes") {
-        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $currentdir\$server +app_update $APPID $Branch +Exit
+        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $currentdir\$serverfiles +app_update $APPID $Branch +Exit
     }
     Else {
         Write-Host "Enter Username for Steam install" -F Cyan -B Black
-        $username = Read-host
-        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username +force_install_dir $currentdir\$server +app_update $APPID $Branch +Exit
+        $global:username = Read-host
+        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username +force_install_dir $currentdir\$serverfiles +app_update $APPID $Branch +Exit
     }
     If (($?) -or ($LASTEXITCODE -eq 7)) {
         Write-Host "****   Downloading  Install server succeeded   ****" -F Y

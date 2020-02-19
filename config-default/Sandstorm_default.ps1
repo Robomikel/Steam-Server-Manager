@@ -5,59 +5,59 @@ Function New-LaunchScriptInssserverPS {
         # APP ID # 581330
         ################## Change Default Variables #################
         #                       Server Scenario 
-        $global:SCENARIO        = "Scenario_Outskirts_Checkpoint_Security"
+        $global:scenario        = "Scenario_Outskirts_Checkpoint_Security"
         #                       Server Map 
-        $global:MAP             = "Compound"
+        $global:defaultmap             = "Compound"
         #                       Server max Players 
-        $global:MAXPLAYERS      = "8"
+        $global:maxplayers      = "8"
         #                       Server Port   
-        $global:PORT            = "27102"
+        $global:port            = "27102"
         #                       Server Query Port  
-        $global:QUERYPORT       = "27131"
+        $global:queryport       = "27131"
         #                       Server Name       
-        $global:HOSTNAME        = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       Server Password
-        $global:SERVERPASSWORD  = ""
+        $global:serverpassword  = ""
         #                       Server Rcon Port
-        $global:RCONPORT         = "27103"
+        $global:rconport         = "27103"
         #                       Server Rcon Password
-        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Server Admin Steam ID 64
-        $global:steamID64       = ""
+        $global:steamid64       = ""
         ##############################/\############################## 
         
         
         
         ###################### Do not change below #####################
 
-        # $global:MODDIR=""
-        $global:EXE = "InsurgencyServer"
-        $global:EXEDIR = ""
-        $global:GAME = "insurgencysandstorm"
-        $global:PROCESS = "InsurgencyServer-Win64-Shipping"
-        $global:SERVERCFGDIR = ""
-        $global:LOGDIR = ""
+        # $global:systemdir=""
+        $global:executable = "InsurgencyServer"
+        $global:executabledir = ""
+        $global:querytype = "insurgencysandstorm"
+        $global:process = "InsurgencyServer-Win64-Shipping"
+        $global:servercfgdir = ""
+        $global:logdir = ""
         Get-StopServerInstall
 
         #  Version 2 Launch Param
-        If ($global:SERVERPASSWORD -ne "") {
+        If ($SERVERPASSWORD -ne "") {
     
-                $global:launchParams = '@("$global:EXE ${global:MAP}?Scenario=${global:SCENARIO}?MaxPlayers=${global:MAXPLAYERS}?password=${global:SERVERPASSWORD} -Port=${global:PORT} -QueryPort=${global:QUERYPORT} -log -hostname=`"${global:HOSTNAME}`"")'
+                $launchParams = '@("$executable ${defaultmap}?Scenario=${SCENARIO}?MaxPlayers=${maxplayers}?password=${SERVERPASSWORD} -Port=${port} -QueryPort=${QUERYPORT} -log -hostname=`"${hostname}`"")'
         }
         Else {
-                $global:launchParams = '@("$global:EXE ${global:MAP}?Scenario=${global:SCENARIO}?MaxPlayers=${global:MAXPLAYERS} -Port=${global:PORT} -QueryPort=${global:QUERYPORT} -log -hostname=`"${global:HOSTNAME}`"")'     
+                $launchParams = '@("$executable ${defaultmap}?Scenario=${SCENARIO}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${QUERYPORT} -log -hostname=`"${hostname}`"")'     
         }
 
         # Custom config game based
-        mkdir $global:currentdir\$global:server\Insurgency\Config\Server   >$null 2>&1
-        $MapCyclePath = "$global:currentdir\$global:server\Insurgency\Config\Server"  
-        mkdir $global:currentdir\$global:server\Insurgency\Saved\Config\WindowsServer   >$null 2>&1
-        $GamePath = "$global:currentdir\$global:server\Insurgency\Saved\Config\WindowsServer"
+        mkdir $currentdir\$serverfiles\Insurgency\Config\Server   >$null 2>&1
+        $MapCyclePath = "$currentdir\$serverfiles\Insurgency\Config\Server"  
+        mkdir $currentdir\$serverfiles\Insurgency\Saved\Config\WindowsServer   >$null 2>&1
+        $GamePath = "$currentdir\$serverfiles\Insurgency\Saved\Config\WindowsServer"
 
         # Creates a Default Admins.txt
         Write-Host "***  Creating Admins.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
         New-Item $MapCyclePath\Admins.txt -Force
-        Add-Content  $MapCyclePath\Admins.txt $global:steamID64
+        Add-Content  $MapCyclePath\Admins.txt $steamID64
     
         # Create a Default Mapcycle.txt 
         Write-Host "***  Creating Mapcycle.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
@@ -84,14 +84,14 @@ Function New-LaunchScriptInssserverPS {
         Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Insurgents
         
         
-        # - - - - - - GAME.INI - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
+        # - - - - - - game.INI - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
         Write-Host "***  Creating Game.ini  ***" -ForegroundColor Magenta -BackgroundColor Black
         New-Item $GamePath\Game.ini -Force
         Add-Content   $GamePath\Game.ini ";.........Start Game.ini..................................."
         Add-Content   $GamePath\Game.ini [Rcon]
         Add-Content   $GamePath\Game.ini bEnabled=True
-        Add-Content   $GamePath\Game.ini Password=$global:RCONPASSWORD
-        Add-Content   $GamePath\Game.ini ListenPort=$global:RCONPORT
+        Add-Content   $GamePath\Game.ini Password=$RCONPASSWORD
+        Add-Content   $GamePath\Game.ini ListenPort=$RCONPORT
         Add-Content   $GamePath\Game.ini bUseBroadcastAddress=True
         Add-Content   $GamePath\Game.ini ListenAddressOverride=0.0.0.0
         Add-Content   $GamePath\Game.ini bAllowConsoleCommands=True
@@ -99,7 +99,7 @@ Function New-LaunchScriptInssserverPS {
         Add-Content   $GamePath\Game.ini IncorrectPasswordBanTime=30
         Add-Content   $GamePath\Game.ini " "
         Add-Content   $GamePath\Game.ini [/script/insurgency.insgamemode]
-        Add-Content   $GamePath\Game.ini ServerHostname=`"$global:HOSTNAME`"
+        Add-Content   $GamePath\Game.ini ServerHostname=`"$hostname`"
         Add-Content   $GamePath\Game.ini bKillFeed=False
         Add-Content   $GamePath\Game.ini bKillFeedSpectator=True
         Add-Content   $GamePath\Game.ini bKillerInfo=True

@@ -13,13 +13,13 @@ Function New-LaunchScriptDystopiaserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:map             = "dys_broadcast"
+    $global:defaultmap             = "dys_broadcast"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     
@@ -27,37 +27,36 @@ Function New-LaunchScriptDystopiaserverPS {
     
     ###################### Do not change below #####################
     # Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
-    # Exe NOT in root server folder \/\/
-    $global:EXEDIR = "bin\win32"
+    $global:systemdir = ""
+    # executable NOT in root server folder \/\/
+    $global:executabledir = "bin\win32"
     # rename srcds to this name \/\/
-    $global:EXE = "Dystopia"
+    $global:executable = "Dystopia"
     # Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     # Requieres \/ \/ AppData Roaming save folder
-    $global:SAVES = ""
+    $global:saves = ""
     # Requieres \/ \/ maybe same as game
-    $global:PROCESS = "Dystopia"
+    $global:process = "Dystopia"
     #---game config folder \/\/
-    $global:SERVERCFGDIR = "dystopia\cfg"
-    $global:LOGDIR = "dystopia"
+    $global:servercfgdir = "dystopia\cfg"
+    $global:logdir = "dystopia"
     #---Stop existing process if running
     Get-StopServerInstall
     # Game-server-manger folder \/
     $global:gamedirname = "Dystopia"
     # Game-server-manger config name \/
-    $global:config1 = "server.cfg"
-    $global:RCONPORT = "${global:PORT}"
+    $global:servercfg = "server.cfg"
     # Get game-server-config  \/\/
     Get-Servercfg
     # input questions \/\/
     #Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
-    # rename srcds.exe \/\/
+    # rename srcds.executable \/\/
     Select-RenameSource
     #---- Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
-    # VERSION 2 launch params exe in root \/\/
+    # VERSION 2 launch params executable in root \/\/
     #-game "${serverfiles}/dystopia" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers}
-    # OR EXE NOT In ROOT server folder add EXEDIR
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -game `"$global:currentdir\${global:server}\dystopia`" -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers} -condebug")'      
+    # OR executable NOT In ROOT server folder add executabledir
+    $global:launchParams = '@("$executabledir\$executable -console -game `"$currentdir\${server}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
 }

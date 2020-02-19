@@ -11,43 +11,43 @@ Function New-LaunchScriptDODSserverPS {
     #                       Client Port
     $global:clientport      = "27005"
     #                       Map
-    $global:map             = "dod_Anzio"
+    $global:defaultmap             = "dod_Anzio"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     
     
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
+    $global:systemdir = ""
     #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "dods"
+    $global:executable = "dods"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "dods"
+    $global:querytype = "dods"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
+    $global:saves = ""
     #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "dods"
+    $global:process = "dods"
     #--->game config folder
-    $global:SERVERCFGDIR = "dod\cfg"
-    $global:LOGDIR = "dod"  
+    $global:servercfgdir = "dod\cfg"
+    $global:logdir = "dod"  
 
     
 
-    $global:RCONPORT        = "${global:PORT}"
+    $global:RCONPORT        = "${global:port}"
     #--->Stop existing process if running 
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "DayOfDefeat"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.cfg"
+    $global:servercfg = "server.cfg"
     #--->Get game-server-config \/\/
     Get-Servercfg
 
@@ -58,8 +58,8 @@ Function New-LaunchScriptDODSserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    #$global:launchParams = '@("$global:EXE -console -game `"dods`" -secure +map ${global:map} -autoupdate +log on +maxplayers ${global:maxplayers} -port ${global:port}  +ip ${global:ip} +exec server.cfg")'
-    $global:launchParams = '@("$global:EXE -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    #$global:launchParams = '@("$executable -console -game `"dods`" -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port}  +ip ${ip} +exec server.cfg")'
+    $global:launchParams = '@("$executable -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # OR    EXE NOT In server folder ROOT add executabledir \/ \/
+    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

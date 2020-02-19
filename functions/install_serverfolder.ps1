@@ -8,19 +8,19 @@
 #
 Function New-ServerFolder {   
     ##-- Create Folder for Server -- In current folder
-    If ((!$server) -or ($server -eq " ")) {
+    If ((!$serverfiles) -or ($serverfiles -eq " ")) {
         Write-Host "****   You Enter a null or Empty   ****" -F R -B Black
         Select-Steamer
     }
-    ElseIf (($null -eq $APPID ) -or ($APPID -eq " ")) {
+    ElseIf (($null -eq $appid ) -or ($appid -eq " ")) {
         Write-Host "****   You Enter a space or Empty   ****" -F R -B Black
         Select-Steamer
     }
-    ElseIf (Test-Path "$currentdir\$server\" ) {
+    ElseIf (Test-Path "$currentdir\$serverfiles\" ) {
         Write-Host '****   Server Folder Already Created!   ****' -F Y -B Black
     }
     Else {
         Write-Host '****   Creating Server Folder   ****' -F M -B Black 
-        New-Item  . -Name "$server" -ItemType "directory"
+        New-Item  . -Name "$serverfiles" -ItemType "directory"
     }
 }

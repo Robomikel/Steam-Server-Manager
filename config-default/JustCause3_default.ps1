@@ -4,7 +4,7 @@ Function New-LaunchScriptjc3serverPS {
     ################## Change Default Variables #################
 
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
 
 
     ##############################/\##############################
@@ -14,23 +14,23 @@ Function New-LaunchScriptjc3serverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "Server"
-    $global:GAME = "jc3mp"
+    $global:systemdir = ""
+    $global:executabledir = ""
+    $global:executable = "Server"
+    $global:querytype = "jc3mp"
     #  Default Port for gamedig - change if needed
-    $global:PORT = "4201"
-    $global:SAVES = ""
-    $global:PROCESS = "Server"
-    $global:SERVERCFGDIR = "\"
-    $global:LOGDIR = ""
+    $global:port = "4201"
+    $global:saves = ""
+    $global:process = "Server"
+    $global:servercfgdir = "\"
+    $global:logdir = ""
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "JustCause3"
-    $global:config1 = "config.json"
+    $global:servercfg = "config.json"
     Get-Servercfg
     # Select-RenameSource
     # game config
     Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE")'
+    $global:launchParams = '@("$executable")'
   }   

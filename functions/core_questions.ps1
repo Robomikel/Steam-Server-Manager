@@ -14,13 +14,13 @@ Function Set-SteamInfo {
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
     If ($decision -eq 1) {
-        $ANON = "yes"
+        $global:anon = "yes"
         #Install-Anonserver
         Install-ServerFiles
         Write-Host 'Entered Y'
     }
     Else {
-        $ANON = "no"
+        $global:anon = "no"
         #Install-Anonserver
         Install-ServerFiles
         Write-Host 'Entered N'
@@ -28,14 +28,14 @@ Function Set-SteamInfo {
 }
 Function New-TryagainNew {
     $title = 'Try again?'
-    $question = "$command $server?"
+    $question = "$command $serverfiles?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Select-Steamer $command $server
+        Select-Steamer $command $serverfiles
     }
     Else {
         Write-Host 'Entered N'
@@ -68,8 +68,8 @@ Function New-ServerFolderq {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        $command = "install"
-        Select-Steamer $command $server
+        $global:command = "install"
+        Select-Steamer $command $serverfiles
     }
     Else {
         Write-Host 'Entered N'

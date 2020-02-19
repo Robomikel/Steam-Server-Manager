@@ -4,7 +4,7 @@ Function New-LaunchScriptPCserverPS {
   ################## Change Default Variables #################
     
   #                       Server Name
-  $global:HOSTNAME = "$env:USERNAME"
+  $global:hostname = "$env:USERNAME"
 
   ##############################/\##############################
     
@@ -17,21 +17,21 @@ Function New-LaunchScriptPCserverPS {
     
     
   ###################### Do not change below #####################
-  $global:MODDIR = ""
-  $global:EXEDIR = ""
-  $global:EXE = "DedicatedServerCmd"
-  $global:GAME = "protocol-valve"
-  $global:SAVES = ""
-  $global:PROCESS = "DedicatedServerCmd"
-  $global:SERVERCFGDIR = "\"
-  $global:LOGDIR = "logs"
+  $global:systemdir = ""
+  $global:executabledir = ""
+  $global:executable = "DedicatedServerCmd"
+  $global:querytype = "protocol-valve"
+  $global:saves = ""
+  $global:process = "DedicatedServerCmd"
+  $global:servercfgdir = "\"
+  $global:logdir = "logs"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = "ProjectCars"
-  $global:config1 = "server.cfg"
+  $global:servercfg = "server.cfg"
   Get-Servercfg
   # Select-RenameSource
   # game config
   Select-EditSourceCFG
-  $global:launchParams = '@("$global:EXE --config server.cfg -condebug")'
+  $global:launchParams = '@("$executable --config server.cfg -condebug")'
 }   

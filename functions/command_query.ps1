@@ -9,26 +9,26 @@
 Function Get-GamedigServerv2 {
     Write-Host '****   Starting gamedig on Server   ****' -F M -B Black
     Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
-    If (( $AppID -eq 581330) -or ($AppID -eq 376030) -or ($AppID -eq 443030)) {
-        Write-Host '****   Using QUERYPORT    ****' -F Y -B Black
-        If (($null -eq ${QUERYPORT} ) -or ("" -eq ${QUERYPORT} )) {
-            Write-Host '****   Missing QUERYPORT Var!   ****' -F R -B Black
+    If (( $appid -eq 581330) -or ($appid -eq 376030) -or ($appid -eq 443030)) {
+        Write-Host '****   Using queryport    ****' -F Y -B Black
+        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
+            Write-Host '****   Missing queryport Var!   ****' -F R -B Black
         }
         ElseIf ($command -eq "gamedig") {
-            .\gamedig --type $GAME ${EXTIP}:${QUERYPORT} --pretty
+            .\gamedig --type $querytype ${extip}:${queryport} --pretty
         }
         ElseIf ($Useprivate -eq "1") {
-            .\gamedig --type $GAME ${IP}:${QUERYPORT} --pretty
+            .\gamedig --type $querytype ${ip}:${queryport} --pretty
         }
     }
-    ElseIf (($null -eq ${PORT}) -or ("" -eq ${PORT} )) {
-        Write-Host '****   Missing PORT Var!   ****' -F R -B Black
+    ElseIf (($null -eq ${port}) -or ("" -eq ${port} )) {
+        Write-Host '****   Missing port Var!   ****' -F R -B Black
     }
     ElseIf ($Useprivate -eq "1") {
-        .\gamedig --type $GAME ${IP}:${PORT} --pretty
+        .\gamedig --type $querytype ${ip}:${port} --pretty
     }
     Else {
-        .\gamedig --type $GAME ${EXTIP}:${PORT} --pretty
+        .\gamedig --type $querytype ${extip}:${port} --pretty
         
     }
     Set-Location $currentdir

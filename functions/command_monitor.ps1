@@ -7,18 +7,18 @@
 #
 #
 Function Get-MonitorServer {
-    If ($global:APPID -eq "996560") { 
+    If ($global:appid -eq "996560") { 
         Get-MonitorMultiple 
     }
     Else {
         Write-Host '****   Monitor  Server process    *****' -F Y -B Black 
-        If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-Host "----   NOT RUNNING   ----" -F R -B Black
             $global:alert = "restart"
             New-DiscordAlert
         }
         Else {
-            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$PROCESS"
+            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$process"
             Get-ClearVariables
             Exit 
         }
@@ -27,16 +27,16 @@ Function Get-MonitorServer {
 }
 
 Function Get-MonitorMultiple {
-    $global:PROCESS = get-process | Where-Object { $_.ProcessName -match $PROCESS } | get-process
+    $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     
-    If ($null -eq $PROCESS) {
+    If ($null -eq $process) {
         Write-Host "----   NOT RUNNING   ----" -F R -B Black
         $global:alert = "restart"
         New-DiscordAlert 
     }
     Else {
         Write-Host "****   RUNNING   ****" -F Green -B Black
-        $PROCESS 
+        $process 
         Get-ClearVariables 
         Exit
     }

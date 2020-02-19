@@ -23,7 +23,7 @@ Function Get-Oxide {
     }
 
     Write-Host '****   Copying Oxide *****' -F M -B Black
-    Copy-Item  $currentdir\oxide\$MODDIR\* -Destination $currentdir\$server\$MODDIR\ -Force -Recurse
+    Copy-Item  $currentdir\oxide\$systemdir\* -Destination $currentdir\$serverfiles\$systemdir\ -Force -Recurse
     If (!$?) { 
         Write-Host "****   Copying Oxide Failed !!   ****" -F R -B Black ; ; Exit 
     }

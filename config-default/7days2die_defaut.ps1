@@ -3,9 +3,9 @@ Function New-LaunchScriptSdtdserverPS {
     # APP ID # 294420
     ################## Change Default Variables ################# 
     #                   Server Port 
-    $global:PORT        = "26900"
+    $global:port        = "26900"
     #                   Server Name
-    $global:HOSTNAME    = "$env:USERNAME"
+    $global:hostname    = "$env:USERNAME"
     ###########################/\#################################
     
     
@@ -14,31 +14,31 @@ Function New-LaunchScriptSdtdserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    #$global:EXE = "startdedicated.bat"
-    $global:EXE = "7DaysToDieServer"
-    $global:EXEDIR = ""
-    $global:GAME = "7d2d"
-    $global:SAVES = "7DaysToDie"
-    $global:PROCESS = "7daystodieserver"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    #$global:executable = "startdedicated.bat"
+    $global:executable = "7DaysToDieServer"
+    $global:executabledir= ""
+    $global:querytype = "7d2d"
+    $global:saves = "7DaysToDie"
+    $global:process = "7daystodieserver"
+    $global:servercfgdir = ""
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "serverconfig.xml"
+    $global:servercfg = "serverconfig.xml"
 
     
 
-    IF (Test-Path $global:currentdir\$global:server\7DaysToDieServer.exe){
+    IF (Test-Path $currentdir\$serverfiles\7DaysToDieServer.exe){
     }Else{
-        $global:EXE = "7DaysToDie"
+        $global:executable = "7DaysToDie"
     }
 
-    ((Get-Content -path $global:currentdir\$global:server\$global:config1 -Raw) -replace "My Game Host", "$global:HOSTNAME") | Set-Content -Path $global:currentdir\$global:server\$global:config1 
-    ((Get-Content -path $global:currentdir\$global:server\$global:config1 -Raw) -replace '26900', "$global:PORT") | Set-Content -Path $global:currentdir\$global:server\$global:config1 
-    ((Get-Content -path $global:currentdir\$global:server\startdedicated.bat -Raw) -replace 'pause', 'exit') | Set-Content -Path $global:currentdir\$global:server\startdedicated.bat        
+    ((Get-Content -path $currentdir\$serverfiles\$servercfg -Raw) -replace "My game Host", "$hostname") | Set-Content -Path $currentdir\$serverfiles\$servercfg 
+    ((Get-Content -path $currentdir\$serverfiles\$servercfg -Raw) -replace '26900', "$port") | Set-Content -Path $currentdir\$serverfiles\$servercfg 
+    ((Get-Content -path $currentdir\$serverfiles\startdedicated.bat -Raw) -replace 'pause', 'exit') | Set-Content -Path $currentdir\$serverfiles\startdedicated.bat        
     
     
-    $global:launchParams = '@("$global:EXE -logfile $global:currentdir\$global:server\server.log -quit -batchmode -nographics -configfile=serverconfig.xml -dedicated")'
-    #$global:launchParams = '@("$global:EXE")'
+    $launchParams = '@("$executable -logfile $currentdir\$serverfiles\server.log -quit -batchmode -nographics -configfile=serverconfig.xml -dedicated")'
+    #$launchParams = '@("$executable")'
 }

@@ -5,15 +5,15 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     #                       Server IP
     ${global:IP}            = "${global:IP}"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "2"
+    $global:maxplayers      = "2"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Server Password
-    $global:SERVERPASSWORD  = ""
+    $global:serverpassword  = ""
     #                       Server Port
-    $global:PORT            = "7777"
+    $global:port            = "7777"
     #                       Query Port
-    $global:QUERYPORT       = "27015"
+    $global:queryport       = "27015"
     ##############################/\##############################
     
     
@@ -21,33 +21,33 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "MemoriesOfMarsServer"
-    $global:EXEDIR = "Game\Binaries\Win64\"
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "MemoriesOfMarsServer"
-    $global:SERVERCFGDIR = "ShooterGame\Saved\Config\WindowsServer"
-    $global:LOGDIR = "Game\Saved\Logs"
+    $global:systemdir = ""
+    $global:executable = "MemoriesOfMarsServer"
+    $global:executabledir = "Game\Binaries\Win64\"
+    $global:querytype = "protocol-valve"
+    $global:process = "MemoriesOfMarsServer"
+    $global:servercfgdir = "ShooterGame\Saved\Config\WindowsServer"
+    $global:logdir = "Game\Saved\Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "DedicatedServerConfig.cfg"
+    $global:servercfg = "DedicatedServerConfig.cfg"
 
     
     New-servercfgmom
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE -MULTIHOME=`"${global:IP}`" -port=$global:PORT -queryport=$global:QUERYPORT -maxplayers=$global:MAXPLAYERS")'
+    $global:launchParams = '@("$executabledir\$executable -MULTIHOME=`"${IP}`" -port=$port -queryport=$QUERYPORT -maxplayers=$maxplayers")'
 } 
 Function New-servercfgmom {
     Write-Host "Creating Custom Config" -F M
-    Rename-Item "$global:currentdir\$global:server\DedicatedServerConfig.cfg" "$global:currentdir\$global:server\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
-    New-Item $global:server\DedicatedServerConfig.cfg -ItemType File -Force
+    Rename-Item "$currentdir\$serverfiles\DedicatedServerConfig.cfg" "$currentdir\$serverfiles\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
+    New-Item $serverfiles\DedicatedServerConfig.cfg -ItemType File -Force
     
-    Add-Content $global:server\DedicatedServerConfig.cfg `
+    Add-Content $serverfiles\DedicatedServerConfig.cfg `
 "{
-    `"ServerName`": `"$global:HOSTNAME`",
-    `"ServerPassword`": `"$global:SERVERPASSWORD`",
+    `"ServerName`": `"$hostname`",
+    `"ServerPassword`": `"$SERVERPASSWORD`",
     `"ServerID`": `"mom_dedicated_01`",
     `"MapName`": `"Main`",
-    `"MaxPlayers`":  $global:MAXPLAYERS,
+    `"MaxPlayers`":  $maxplayers,
     `"EnablePVP`": false,
     `"EnablePVPAreas`": true,
     `"EnableEAC`": true,

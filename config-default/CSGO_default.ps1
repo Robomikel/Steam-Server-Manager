@@ -5,29 +5,29 @@ Function New-LaunchScriptcsgoserverPS {
         #                       Server IP 
         ${global:IP}            = "${global:IP}"
         #                       Server Port
-        $global:PORT            = "27015"
+        $global:port            = "27015"
         #                       Client Port
-        $global:CLIENTPORT      = "27005"
+        $global:clientport      = "27005"
         #                       Source TV Port
-        $global:SOURCETVPORT    = "27020"
+        $global:sourcetvport    = "27020"
         #                       Tickrate
-        $global:TICKRATE        = "64"
+        $global:tcikrate        = "64"
         #                       Game Server Token required for public servers
-        $global:GSLT            = "GameServerTokenHere"
+        $global:gslt            = "GameServerTokenHere"
         #                       Map
-        $global:MAP             = "de_inferno"
+        $global:defaultmap             = "de_inferno"
         #                       Maxplayers
-        $global:MAXPLAYERS      = "32"
+        $global:maxplayers      = "32"
         #                       Server Name
-        $global:HOSTNAME        = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       Rcon Password
-        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Game type
-        $global:GAMETYPE        = "0"
+        $global:gametype        = "0"
         #                       Game Mode
-        $global:GAMEMODE        = "0"
+        $global:gamemode        = "0"
         #                       Map Group
-        $global:MAPGROUP        = "mg_active"
+        $global:mapgroup        = "mg_active"
         ##############################/\##############################
         ############################## Notes ##############################
         # "Get Auth Token from this website https://steamcommunity.com/dev/managegameservers Note use App ID 730: 
@@ -55,22 +55,21 @@ Function New-LaunchScriptcsgoserverPS {
         
         ###################### Do not change below #####################
         
-        $global:MODDIR = "csgo"
-        $global:EXEDIR = ""
-        $global:EXE = "csgo"
-        $global:GAME = "csgo"
-        $global:PROCESS = "csgo"
-        $global:SERVERCFGDIR = "csgo\cfg"
-        $global:LOGDIR = "csgo"
-        $global:RCONPORT = "$global:PORT"
+        $global:systemdir = "csgo"
+        $global:executabledir = ""
+        $global:executable = "csgo"
+        $global:querytype = "csgo"
+        $global:process = "csgo"
+        $global:servercfgdir = "csgo\cfg"
+        $global:logdir = "csgo"
     
           
         Get-StopServerInstall
         $global:gamedirname = "CounterStrikeGlobalOffensive"
-        $global:config1 = "server.cfg"
+        $global:servercfg = "server.cfg"
         Get-Servercfg
         Select-RenameSource
         Select-EditSourceCFG
-        $global:launchParams = '@("$global:EXE -game csgo -console -usercon -strictportbind -ip ${global:IP} -port ${global:PORT} +clientport  ${global:CLIENTPORT} +tv_port ${global:SOURCETVPORT} +sv_setsteamaccount ${global:GSLT} -tickrate ${global:TICKRATE} +map ${global:MAP} -maxplayers_override ${global:MAXPLAYERS} +mapgroup ${global:MAPGROUP} +game_type ${global:GAMETYPE} +game_mode ${global:GAMEMODE} +host_workshop_collection ${wscollectionid} +workshop_start_map ${WSSTARTMAP} -authkey ${WSAPIKEY} -nobreakpad +net_public_adr ${global:EXTIP} -condebug")'
+        $global:launchParams = '@("$executable -game csgo -console -usercon -strictportbind -ip ${IP} -port ${port} +clientport  ${CLIENTPORT} +tv_port ${SOURCETVPORT} +sv_setsteamaccount ${GSLT} -tickrate ${TICKRATE} +map ${defaultmap} -maxplayers_override ${maxplayers} +mapgroup ${MAPGROUP} +game_type ${GAMETYPE} +game_mode ${GAMEMODE} +host_workshop_collection ${wscollectionid} +workshop_start_map ${WSSTARTMAP} -authkey ${WSAPIKEY} -nobreakpad +net_public_adr ${EXTIP} -condebug")'
         #Get-SourceMetMod
 }

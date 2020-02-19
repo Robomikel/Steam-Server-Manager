@@ -26,19 +26,19 @@ Function New-LaunchScriptCaspaServerPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "CapsaServer"
-    $global:EXEDIR = ""
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "CapsaServer"
-    $global:SERVERCFGDIR = "Capsa\Saved\Config\WindowsServer"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "CapsaServer"
+    $global:executabledir = ""
+    $global:querytype = "protocol-valve"
+    $global:process = "CapsaServer"
+    $global:servercfgdir = "Capsa\Saved\Config\WindowsServer"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = "Capsa"
-    $global:config1 = "Game.ini"
+    $global:servercfg = "Game.ini"
 
     
     # Get-Servercfg
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE ")'
+    $global:launchParams = '@("$executable ")'
 } 

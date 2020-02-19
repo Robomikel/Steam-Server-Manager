@@ -4,7 +4,7 @@ Function New-LaunchScriptjc2serverPS {
     ################## Change Default Variables #################
 
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
 
 
     ##############################/\##############################
@@ -14,23 +14,23 @@ Function New-LaunchScriptjc2serverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "JcmpServer"
-    $global:GAME = "jc2mp"
+    $global:systemdir = ""
+    $global:executabledir = ""
+    $global:executable = "JcmpServer"
+    $global:querytype = "jc2mp"
     #  Default Port for gamedig - change if needed
-    $global:PORT = "7777"
-    $global:SAVES = ""
-    $global:PROCESS = "JcmpServer"
-    $global:SERVERCFGDIR = "\"
-    $global:LOGDIR = ""
+    $global:port = "7777"
+    $global:saves = ""
+    $global:process = "JcmpServer"
+    $global:servercfgdir = "\"
+    $global:logdir = ""
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "JustCause2"
-    $global:config1 = "config.lua"
+    $global:servercfg = "config.lua"
     Get-Servercfg
     # Select-RenameSource
     # game config
     Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE")'
+    $global:launchParams = '@("$executable")'
   }   

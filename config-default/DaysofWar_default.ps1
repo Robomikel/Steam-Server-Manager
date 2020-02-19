@@ -5,11 +5,11 @@ Function New-LaunchScriptdowserverPS {
     ################## Change Default Variables #################
 
     #                       Server Port
-    $global:PORT            = "7777"
+    $global:port            = "7777"
     #                       Query Port
-    $global:QUERYPORT       = "27015"
+    $global:queryport       = "27015"
     #                       Map
-    $global:MAP             = "dow_kaysersberg"
+    $global:defaultmap             = "dow_kaysersberg"
 
     ##############################/\##############################
     
@@ -17,21 +17,21 @@ Function New-LaunchScriptdowserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "DaysOfWarServer-Win64-Shipping"
-    $global:EXEDIR = "DaysOfWar\Binaries\Win64"
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "DaysOfWarServer-Win64-Shipping"
-    $global:SERVERCFGDIR = "DaysOfWar\Saved\Config\WindowsServer"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "DaysOfWarServer-Win64-Shipping"
+    $global:executabledir = "DaysOfWar\Binaries\Win64"
+    $global:querytype = "protocol-valve"
+    $global:process = "DaysOfWarServer-Win64-Shipping"
+    $global:servercfgdir = "DaysOfWar\Saved\Config\WindowsServer"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "Game.ini"
+    $global:servercfg = "Game.ini"
 
     
     # Get-Servercfg
     # Select-EditSourceCFG
     
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE ${global:MAP} -Port=${global:PORT} -QueryPort=${global:QUERYPORT} -LOG")'
+    $global:launchParams = '@("$executabledir\$executable ${defaultmap} -Port=${port} -QueryPort=${QUERYPORT} -LOG")'
 
 } 

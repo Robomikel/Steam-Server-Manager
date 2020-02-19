@@ -3,7 +3,7 @@ Function New-LaunchScriptVanguard1944serverPS {
   # 1017070
   ################## Change Default Variables #################
   #                       Server Name
-  $global:HOSTNAME = "$env:USERNAME"
+  $global:hostname = "$env:USERNAME"
   
   ##############################/\##############################
     
@@ -14,21 +14,21 @@ Function New-LaunchScriptVanguard1944serverPS {
   # --steamqueryport=64100
     
   ###################### Do not change below #####################
-  $global:MODDIR = ""
-  $global:EXEDIR = "bin\win_x64"
-  $global:EXE = "vanguardserver"
-  $global:GAME = "protocol-valve"
-  $global:SAVES = ""
-  $global:PROCESS = "vanguardserver"
-  $global:SERVERCFGDIR = ""
-  $global:LOGDIR = ""
+  $global:systemdir = ""
+  $global:executabledir = "bin\win_x64"
+  $global:executable = "vanguardserver"
+  $global:querytype = "protocol-valve"
+  $global:saves = ""
+  $global:process = "vanguardserver"
+  $global:servercfgdir = ""
+  $global:logdir = ""
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = ""
-  $global:config1 = "server.cfg"
+  $global:servercfg = "server.cfg"
   # Get-Servercfg
   # Select-RenameSource
   # game config
   # Select-EditSourceCFG
-  $global:launchParams = '@("$global:EXEDIR\$global:EXE -console +sv_servername=`"${global:HOSTNAME}`" -condebug")'
+  $global:launchParams = '@("$executabledir\$executable -console +sv_servername=`"${hostname}`" -condebug")'
 }   

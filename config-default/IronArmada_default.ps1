@@ -1,4 +1,4 @@
-Function New-LaunchScriptIronArmadaserverPS {
+    Function New-LaunchScriptIronArmadaserverPS {
     # Iron Armada Dedicated Server
     # APP ID # 770340
     ################## Change Default Variables ################# 
@@ -11,19 +11,19 @@ Function New-LaunchScriptIronArmadaserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "ironarmadaserver"
-    $global:EXEDIR = ""
-    $global:GAME = ""
-    $global:SAVES = ""
-    $global:PROCESS = "ironarmadaserver"
-    $global:SERVERCFGDIR = "iron\default-cfg-server\servercfg.toml"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "ironarmadaserver"
+    $global:executabledir = ""
+    $global:querytype = ""
+    $global:saves = ""
+    $global:process = "ironarmadaserver"
+    $global:servercfgdir = "iron\default-cfg-server\servercfg.toml"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
     
     
-    $global:launchParams = '@("$global:EXE -c --console")'
+    $global:launchParams = '@("$executable -c --console")'
 }

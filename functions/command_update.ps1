@@ -10,12 +10,12 @@ Function Get-UpdateServer {
     Set-Location $currentdir\SteamCMD\ >$null 2>&1
     #Get-Steamtxt
     Write-Host '****   Updating Server   ****' -F M -B Black
-    #.\steamcmd +runscript Updates-$server.txt
+    #.\steamcmd +runscript Updates-$serverfiles.txt
     If ($ANON -eq "yes") {
-        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $currentdir\$server +app_update $APPID $Branch +Exit
+        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $currentdir\$serverfiles +app_update $appid $branch +Exit
     }
     Else {
-        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username +force_install_dir $currentdir\$server +app_update $APPID $Branch +Exit
+        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username +force_install_dir $currentdir\$serverfiles +app_update $appid $branch +Exit
     }
     
     If (($?) -or ($LASTEXITCODE -eq 7)) {

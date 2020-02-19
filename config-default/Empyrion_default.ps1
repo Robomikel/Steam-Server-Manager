@@ -3,28 +3,28 @@ Function New-LaunchScriptempserverPS {
     # APP ID # 530870
     ################## Change Default Variables #################
     #                       Server Port
-    $global:PORT            = "30000"
+    $global:port            = "30000"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     ###########################/\#################################
     
     
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "EmpyrionLauncher"
-    $global:EXEDIR = ""
-    $global:GAME = "empyrion"
-    $global:PROCESS = "EmpyrionDedicated"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "EmpyrionLauncher"
+    $global:executabledir = ""
+    $global:querytype = "empyrion"
+    $global:process = "EmpyrionDedicated"
+    $global:servercfgdir = ""
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "dedicated.yaml"
+    $global:servercfg = "dedicated.yaml"
     # Get-Servercfg
     Write-Host "***  Editing Default dedicated.yaml  ***" -ForegroundColor Magenta -BackgroundColor Black
-    ((Get-Content -path $global:currentdir\$global:server\$global:config1 -Raw) -replace "\bMy Server\b", "$global:HOSTNAME") | Set-Content -Path $global:currentdir\$global:server\$global:config1
-    ((Get-Content -path $global:currentdir\$global:server\$global:config1 -Raw) -replace "\b30000\b", "$global:PORT") | Set-Content -Path $global:currentdir\$global:server\$global:config1
-    $global:launchParams = '@("$global:EXE -startDedi")'
+    ((Get-Content -path $currentdir\$serverfiles\$servercfg -Raw) -replace "\bMy Server\b", "$hostname") | Set-Content -Path $currentdir\$serverfiles\$servercfg
+    ((Get-Content -path $currentdir\$serverfiles\$servercfg -Raw) -replace "\b30000\b", "$port") | Set-Content -Path $currentdir\$serverfiles\$servercfg
+    $global:launchParams = '@("$executable -startDedi")'
 }

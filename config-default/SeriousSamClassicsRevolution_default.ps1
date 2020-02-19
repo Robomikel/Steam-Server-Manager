@@ -3,7 +3,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     # APP ID # 299310
     ################## Change Default Variables ################# 
     #                       Game Mode
-    $global:GAMEMODE = "DefaultCoop"
+    $global:gamemode = "DefaultCoop"
     ###########################/\#################################
     
     # DefaultCoop
@@ -18,21 +18,21 @@ Function New-LaunchScriptSeriousSamserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "DedicatedServer"
-    $global:EXEDIR = "Bin"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = ""
-    $global:PROCESS = "DedicatedServer"
-    $global:SERVERCFGDIR = "Scripts\Dedicated\$global:GAMEMODE"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "DedicatedServer"
+    $global:executabledir = "Bin"
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "DedicatedServer"
+    $global:servercfgdir = "Scripts\Dedicated\$global:GAMEMODE"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "init.ini"
+    $global:servercfg = "init.ini"
 
     
 
 
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE $global:GAMEMODE")'
+    $global:launchParams = '@("$executabledir\$executable $GAMEMODE")'
 
 }
