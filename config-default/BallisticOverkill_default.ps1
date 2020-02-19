@@ -19,21 +19,22 @@ Function New-LaunchScriptBOserverPS {
     
     
     ##################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "BODS"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = ""
-    $global:PROCESS = "BODS"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executabledir= ""
+    $global:executable = "BODS"
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "BODS"
+    $global:servercfgdir = ""
+    $global:logdir = ""
     
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "BallisticOverkill"
-    $global:config1 = "config.txt"
+    $global:servercfg = "config.txt"
     # Get-Servercfg
     # game config
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE -batchmode -nographics -dedicated ")'
+    $global:launchParams = '@("$executable -batchmode -nographics -dedicated ")'
+    
 }

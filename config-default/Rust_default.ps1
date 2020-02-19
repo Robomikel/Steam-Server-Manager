@@ -5,25 +5,25 @@ Function New-LaunchScriptRustPS {
         #                       Server IP 
         ${global:IP}            = "${global:IP}"
         #                       Server Port
-        $global:PORT            = "28015"
+        $global:port            = "28015"
         #                       Rcon Port
-        $global:RCONPORT        = "28016"
+        $global:rconport        = "28016"
         #                       Rcon Password
-        $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Rcon Web
-        $global:RCONWEB         = "1"
+        $global:rconweb         = "1"
         #                       Server Name
-        $global:HOSTNAME        = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       Maxplayers
-        $global:MAXPLAYERS      = "32"
+        $global:maxplayers      = "32"
         #                       World Seed
-        $global:SEED            = "$global:RANDOMSEED"
+        $global:seed            = "$global:RANDOMSEED"
         #                       World Size
-        $global:WORLDSIZE       = "3000"
+        $global:worldsize       = "3000"
         #                       Save Interval
-        $global:SAVEINTERVAL    = "300"
+        $global:saveinterval    = "300"
         #                       Tickrate
-        $global:TICKRATE        = "30"
+        $global:tickrate        = "30"
     
         ##############################/\##############################
     
@@ -31,17 +31,17 @@ Function New-LaunchScriptRustPS {
     
         ###################### Do not change below #####################
         # # Version 2.0
-        $global:MODDIR = "RustDedicated_Data"
-        $global:EXEDIR = ""
-        $global:EXE = "RustDedicated"
-        $global:GAME = "rust"
-        $global:PROCESS = "RustDedicated"
-        $global:SERVERCFGDIR = "server\my_server_identity\cfg"
-        $global:LOGDIR = ""
+        $global:systemdir = "RustDedicated_Data"
+        $global:executabledir = ""
+        $global:executable = "RustDedicated"
+        $global:querytype = "rust"
+        $global:process = "RustDedicated"
+        $global:servercfgdir = "server\my_server_identity\cfg"
+        $global:logdir = ""
         Get-StopServerInstall
         # Game-server-configs \/
         $global:gamedirname = "Rust"
-        $global:config1 = "server.cfg"
+        $global:servercfg = "server.cfg"
         Get-Servercfg
         # # Version 2.0
         # Game Specific
@@ -49,9 +49,9 @@ Function New-LaunchScriptRustPS {
     
 
         #  Version 2 Launch Param
-        $global:launchParams = '@("$global:EXE -batchmode +server.ip ${global:IP}  +server.port ${global:PORT} +server.tickrate ${global:TICKRATE} +server.hostname `"${global:HOSTNAME}`" +server.maxplayers ${global:MAXPLAYERS} +server.worldsize ${global:WORLDSIZE} +server.saveinterval ${global:SAVEINTERVAL} +rcon.web ${global:RCONWEB} +rcon.ip 0.0.0.0 +rcon.port ${global:RCONPORT} +rcon.password ${global:RCONPASSWORD} -logfile $global:currentdir\$global:server\Serverlog-$date.log")'
+        $global:launchParams = '@("$executable -batchmode +server.ip ${IP}  +server.port ${port} +server.tickrate ${TICKRATE} +server.hostname `"${hostname}`" +server.maxplayers ${maxplayers} +server.worldsize ${WORLDSIZE} +server.saveinterval ${SAVEINTERVAL} +rcon.web ${RCONWEB} +rcon.ip 0.0.0.0 +rcon.port ${RCONPORT} +rcon.password ${RCONPASSWORD} -logfile $currentdir\$serverfiles\Serverlog-$date.log")'
         # adding to server.cfg                   server.hostname "server"
-        #Add-Content -Path $global:currentdir\$global:server\$global:SERVERCFGDIR\$global:config1 -Value "server.hostname `"$global:HOSTNAME`""
+        #Add-Content -Path $currentdir\$serverfiles\$servercfgdir\$servercfg -Value "server.hostname `"$hostname`""
         Get-OxideQ
     
 }

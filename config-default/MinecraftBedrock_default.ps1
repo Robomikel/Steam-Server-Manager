@@ -13,18 +13,18 @@ Function New-LaunchScriptbedrock_serverPS {
     
     ###################### Do not change below #####################
     Get-MCBRBinaries
-    $global:MODDIR = ""
-    $global:EXE = "bedrock_server"
-    $global:EXEDIR = ""
-    $global:GAME = "minecraftbe"
-    $global:SAVES = ""
-    $global:PROCESS = "bedrock_server"
-    $global:SERVERCFGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "bedrock_server"
+    $global:executabledir = ""
+    $global:querytype = "minecraftbe"
+    $global:saves = ""
+    $global:process = "bedrock_server"
+    $global:servercfgdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
     
-    $global:launchParams = '@("$global:EXE ")'
+    $global:launchParams = '@("$executable ")'
 
 }

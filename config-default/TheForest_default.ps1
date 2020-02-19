@@ -3,33 +3,33 @@ Function New-LaunchScriptforestserverPS {
     # APP ID # 556450
     ################## Change Default Variables #################
     #                   Server IP 
-    $global:IP          = "${global:IP}"
+    $global:ip          = "${global:IP}"
     #                   Server Name 
-    $global:HOSTNAME    = "$env:USERNAME"
+    $global:hostname    = "$env:USERNAME"
     #                   Steam Port
-    $global:STEAMPORT   = "8766"
+    $global:steamport   = "8766"
     #                   Server Port
-    $global:PORT        = "27015"
+    $global:port        = "27015"
     #                   Server Query Port
-    $global:QUERYPORT   = "27016"
+    $global:queryport   = "27016"
     #                   Server Max Players
-    $global:MAXPLAYERS  = "8"
+    $global:maxplayers  = "8"
     #                   Server Difficulty
-    ${global:DIFF}      = "Normal"
+    ${global:diff}      = "Normal"
 
     ##############################/\##############################
     
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "TheForestDedicatedServer"
-    $global:EXEDIR = ""
-    $global:GAME = "forrest"
-    $global:PROCESS = "TheForestDedicatedServer"
-    $global:SERVERCFGDIR = "SKS\TheForestDedicatedServer\ds"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "TheForestDedicatedServer"
+    $global:executabledir = ""
+    $global:querytype = "forrest"
+    $global:process = "TheForestDedicatedServer"
+    $global:servercfgdir = "SKS\TheForestDedicatedServer\ds"
+    $global:logdir = ""
     Get-StopServerInstall  
     #   Launch Param
-    $global:launchParams = '@("$global:EXE -serverip ${global:IP} -serversteamport ${global:STEAMPORT} -servergameport ${global:PORT} -serverqueryport ${global:QUERYPORT} -servername `"${global:HOSTNAME}`" -serverplayers ${global:MAXPLAYERS} -difficulty ${global:DIFF} -configfilepath $global:currentdir\$global:server\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
+    $global:launchParams = '@("$executable -serverip ${IP} -serversteamport ${STEAMPORT} -servergameport ${port} -serverqueryport ${QUERYPORT} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${DIFF} -configfilepath $currentdir\$serverfiles\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
 }

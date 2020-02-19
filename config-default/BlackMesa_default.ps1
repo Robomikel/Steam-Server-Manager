@@ -13,13 +13,13 @@ Function New-LaunchScriptBlackMesaserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Server Map 
-    $global:map             = "dm_bounce"
+    $global:defaultmap             = "dm_bounce"
     #                       Max Players 
     $global:maxplayers      = "16"
       #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
     
@@ -28,27 +28,26 @@ Function New-LaunchScriptBlackMesaserverPS {
     
     ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
+    $global:systemdir = ""
     #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "bmdm"
+    $global:executable = "bmdm"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
+    $global:saves = ""
     #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "bmdm"
+    $global:process = "bmdm"
     #--->game config folder
-    $global:SERVERCFGDIR = "bms\cfg"
-    $global:LOGDIR = "bms"
+    $global:servercfgdir = "bms\cfg"
+    $global:logdir = "bms"
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "BlackMesa"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.cfg"
-    $global:RCONPORT = "${global:PORT}"
+    $global:servercfg = "server.cfg"
 
     
     #--->Get game-server-config \/\/
@@ -58,7 +57,7 @@ Function New-LaunchScriptBlackMesaserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch
-    $global:launchParams = '@("$global:EXE -console -game bms -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +sv_setsteamaccount ${global:gslt} +map ${global:defaultmap} +servercfgfile $server.cfg -maxplayers ${global:maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # OR    EXE NOT In server folder ROOT add executabledir \/ \/
+    #$global:launchParams = '@("$global:executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

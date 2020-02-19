@@ -7,14 +7,24 @@
 #
 #
 Function Set-ConnectMCRcon {
-    If ($Useprivate -eq "0") {
+    If ($Useprivate -eq "off") {
         set-location $currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32
-        .\mcrcon.exe -t -H $EXTIP -P $RCONPORT -p $RCONPASSWORD
+        If (($null -eq ${port} ) -or ("" -eq ${port} )) {
+            .\mcrcon.exe -t -H $extip -P $rconport -p $rconpassword
+        }
+        Else {
+            .\mcrcon.exe -t -H $extip -P ${port} -p $rconpassword
+        }
         set-location $currentdir
     }
     Else {
         set-location $currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32
-        .\mcrcon.exe -t -H $IP -P $RCONPORT -p $RCONPASSWORD
+        If (($null -eq ${port} ) -or ("" -eq ${port} )) {
+            .\mcrcon.exe -t -H $ip -P $rconport -p $rconpassword
+        }
+        Else {
+            .\mcrcon.exe -t -H $ip -P ${port} -p $rconpassword
+        }
         set-location $currentdir
     }
 }

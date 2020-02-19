@@ -5,15 +5,15 @@ Function New-LaunchScriptemserverPS {
     #                       Server IP
     ${global:IP}            = "${global:IP}"
     #                       Server Port
-    ${global:PORT}          = "27015"
+    ${global:port}          = "27015"
     #                       Client Port
-    $global:CLIENTPORT      = "27005"
+    $global:clientport      = "27005"
     #                       Source TV Port
-    $global:SOURCETVPORT    = "27020"
+    $global:sourcetvport    = "27020"
     #                       Map
-    $global:MAP             = "emp_streetsoffire"
+    $global:defaultmap             = "emp_streetsoffire"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "62"
+    $global:maxplayers      = "62"
 
 
     ##############################/\##############################
@@ -23,21 +23,21 @@ Function New-LaunchScriptemserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "Empires"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = ""
-    $global:PROCESS = "Empires"
-    $global:SERVERCFGDIR = "empires\cfg"
-    $global:LOGDIR = "empires"
+    $global:systemdir = ""
+    $global:executabledir = ""
+    $global:executable = "Empires"
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "Empires"
+    $global:servercfgdir = "empires\cfg"
+    $global:logdir = "empires"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = "server.cfg"
+    $global:servercfg = "server.cfg"
     #   Get-Servercfg
     Select-RenameSource
     # game config
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE -console -game empires -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${map} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    $global:launchParams = '@("$executable -console -game empires -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
   }   

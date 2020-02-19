@@ -4,11 +4,11 @@ Function New-LaunchScriptStationeersPS {
     ################## Change Default Variables #################
 
     #                       Server Port
-    $global:PORT = "7777"
+    $global:port = "7777"
     #                       Query Port
-    $global:QUERYPORT = "27015"
+    $global:queryport = "27015"
     #                       Server Name
-    $global:HOSTNAME = "$env:USERNAME"
+    $global:hostname = "$env:USERNAME"
     ##############################/\##############################
     
     # parameter	value	etc
@@ -31,21 +31,21 @@ Function New-LaunchScriptStationeersPS {
     
     
 ###################### Do not change below #####################
-$global:MODDIR = ""
-$global:EXE = "rocketstation_DedicatedServer"
-$global:EXEDIR = ""
-$global:GAME = "protocol-valve"
-$global:PROCESS = "rocketstation_DedicatedServer"
-$global:SERVERCFGDIR = "rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
-$global:LOGDIR = ""
+$global:systemdir = ""
+$global:executable = "rocketstation_DedicatedServer"
+$global:executabledir = ""
+$global:querytype = "protocol-valve"
+$global:process = "rocketstation_DedicatedServer"
+$global:servercfgdir = "rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
+$global:logdir = ""
 Get-StopServerInstall
 $global:gamedirname = ""
-$global:config1 = ""
+$global:servercfg = ""
 
     
 # Get-Servercfg
 # Select-EditSourceCFG
-# rocketstation_DedicatedServer.exe -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -basedirectory="C:\Server\User1"
+# rocketstation_DedicatedServer.executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -basedirectory="C:\Server\User1"
 
-$global:launchParams = '@("$global:EXE -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername $global:HOSTNAME -gameport ${global:PORT} -updateport ${global:QUERYPORT} -logfile server.log")'
+$global:launchParams = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername $hostname -gameport ${port} -updateport ${QUERYPORT} -logfile server.log")'
 } 

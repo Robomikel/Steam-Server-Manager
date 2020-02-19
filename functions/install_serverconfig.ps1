@@ -8,33 +8,33 @@
 #
 Function Get-Servercfg {
     Write-Host "****   Retrieve Default Config   ****" -F Y -B Black
-    #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${config1}", "$currentdir\$server\csgo\cfg\server.cfg")
-    If (("" -eq $SERVERCFGDIR) -or ("" -eq $config1)) {
+    #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$currentdir\$serverfiles\csgo\cfg\server.cfg")
+    If (("" -eq $servercfgdir) -or ("" -eq $servercfg)) {
         Exit
     }
     ElseIf ($null -eq $config2) {
-        $SERVERCFG = "$config1"
+        $servercfg = "$servercfg"
     }
     ElseIf ($null -eq $config3) {
-        $SERVERCFG = "$config1", "$config2"
+        $servercfg = "$servercfg", "$config2"
     }
     ElseIf ($null -eq $config4) {
-        $SERVERCFG = "$config1", "$config2", "$config3"
+        $servercfg = "$servercfg", "$config2", "$config3"
     }
     ElseIf ($null -eq $config5) {
-        $SERVERCFG = "$config1", "$config2", "$config3", "$config4"
+        $servercfg = "$servercfg", "$config2", "$config3", "$config4"
     }
-    Else { $SERVERCFG = "$config1", "$config2", "$config3", "$config4", "$config5" }
-    Foreach ($SERVERCFG in $SERVERCFG) {
+    Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
+    Foreach ($servercfg in $servercfg) {
         Write-Host "****   Retrieve server config GSM   ****" -F M -B Black
-        $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$SERVERCFG" -UseBasicParsing
+        $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
         If (!$?) { 
             Write-Host "****   Array Failed !! Did NOT Retrieve server config   ****" -F R -B Black ; ; Exit 
         }
         If ($?) { 
             Write-Host "****    Retrieved server config   ****" -F M -B Black 
         }
-        New-Item $currentdir\$server\$SERVERCFGDIR\$SERVERCFG -Force
-        Add-Content $currentdir\$server\$SERVERCFGDIR\$SERVERCFG $WebResponse
+        New-Item $currentdir\$serverfiles\$servercfgdir\$servercfg -Force
+        Add-Content $currentdir\$serverfiles\$servercfgdir\$servercfg $WebResponse
     }
 }

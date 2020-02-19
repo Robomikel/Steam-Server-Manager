@@ -3,17 +3,17 @@ Function  New-LaunchScriptavserverPS {
         # APP ID # 565060  
         ################## Change Default Variables #################
         #                       Maxplayers
-        $global:MAXPLAYERS      = "10"
+        $global:maxplayers      = "10"
         #                       Server Difficulty
         $global:DIFF            = "0"
         #                       Server Admin Steam64
         $global:steamID64       = ""
         #                       Galaxy Name
-        $global:GALAXYNAME      = ""
+        $global:galaxyname      = ""
         #                       Server Name
-        $global:HOSTNAME        = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       GameDig port Default
-        #$global:PORT            = "27020"
+        #$global:port            = "27020"
         ##############################/\##############################
         
         
@@ -23,16 +23,16 @@ Function  New-LaunchScriptavserverPS {
         # 27021 - UDP.
         
         ###################### Do not change below #####################
-        $global:MODDIR = ""
-        $global:EXE = "AvorionServer"
-        $global:EXEDIR = "bin"
-        $global:GAME = "protocol-valve"
-        $global:SAVES = "Avorion"
-        $global:PROCESS = "AvorionServer"
-        $global:SERVERCFGDIR = ""
-        $global:LOGDIR = ""
+        $global:systemdir = ""
+        $global:executable = "AvorionServer"
+        $global:executabledir= "bin"
+        $global:querytype = "protocol-valve"
+        $global:saves = "Avorion"
+        $global:process = "AvorionServer"
+        $global:servercfgdir = ""
+        $global:logdir = ""
     
         
         Get-StopServerInstall
-        $global:launchParams = '@("$global:EXEDIR\$global:EXE --server-name `"${global:HOSTNAME}`" --admin ${$global:steamID64} --galaxy-name ${global:GALAXYNAME} --difficulty ${global:DIFF} --max-players ${global:MAXPLAYERS}")'
+        $global:launchParams = '@("$executabledir\$executable --server-name `"${hostname}`" --admin ${$steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
 }

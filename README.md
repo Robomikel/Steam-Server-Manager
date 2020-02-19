@@ -121,6 +121,7 @@ Install miscreated server ```./ssm start misserver``` Start command will install
    * monitor server process
    * console and steamer logging
    * sourcemod/metamod and oxide install
+   * Steam Workshop install
    * Rcon to server (MCRcon supported servers)
    * Daily AutoRestart server process 
    * send discord alerts - backup - monitor - update 
@@ -140,12 +141,12 @@ Install miscreated server ```./ssm start misserver``` Start command will install
   - ```./ssm ForceUpdate <serverFolder>``` - updates App ID. Force server stop and update
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
  - ```./ssm monitor <serverFolder>``` - Creates Scheduled Task to start server if off, with  Discord alert
-  - ```./ssm ModInstall <serverFolder>```  - Install Sourcemod or Oxide for specified servers
-
+  - ```./ssm Mod-Install <serverFolder>```  - Install Sourcemod or Oxide for specified servers
+  - ```./ssm ws-Install <serverFolder>```  - Workshop Install
  - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook
  - ```./ssm AutoRestart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart
  - ```./ssm MCRcon <serverFolder>``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
- - ```./ssm gamedig <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)
+ - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)
  - ```./ssm SSM update``` -  Downloads and overwrites ssm github files
   - ```./ssm details <serverFolder>``` - outputs host and server details.
 
@@ -162,6 +163,8 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  * Left 4 Dead 2 - Dedicated Server - option for sourcemod and Meta Mod install
  * Sourcemod and Oxide for other supported games available
 
+# Steam Workshop install
+* advanced configuration in *_default.ps1 (see Space Engineers for example)
  
 # MCRcon
  * MCRcon Download and Install

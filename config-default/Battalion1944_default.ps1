@@ -9,37 +9,34 @@ Function New-LaunchScriptBT1944serverPS {
     #                       Server Port
     $global:port            = "7777"
     #                       Query Port
-    $global:QUERYPORT       = "7780"
+    $global:queryport       = "7780"
     ##############################/\##############################
     
     
     
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
+    $global:systemdir = ""
     #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = "Windows\Battalion\Binaries\Win64"
+    $global:executabledir= "Windows\Battalion\Binaries\Win64"
     #--->rename srcds to this name \/\/
-    $global:EXE = "BattalionServer"
+    $global:executable = "BattalionServer"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
+    $global:saves = ""
     #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "BattalionServer"
+    $global:process = "BattalionServer"
     #--->game config folder
-    $global:SERVERCFGDIR = "Windows"
-    $global:LOGDIR = "Windows\Battalion\Saved\Logs"  
+    $global:servercfgdir = "Windows"
+    $global:logdir = "Windows\Battalion\Saved\Logs"  
 
-    
-
-    $global:RCONPORT        = "${global:PORT}"
     #--->Stop existing process if running 
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "Battalion1944"
     #--->Game-server-manger config name \/
-    $global:config1 = "DefaultGame.ini"
+    $global:servercfg = "DefaultGame.ini"
     #--->Get game-server-config \/\/
     Get-Servercfg
 
@@ -50,7 +47,7 @@ Function New-LaunchScriptBT1944serverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"$EXTIP`" -PORT=7777 -QueryPort=7780 -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executabledir\$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=7777 -QueryPort=7780 -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
+    # OR    EXE NOT In server folder ROOT add executabledir\/ \/
+    #$launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

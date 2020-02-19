@@ -25,7 +25,7 @@ Function Send-DiscordAlert {
     $global:InfoMessage = "discord"
     Get-Infomessage
     # Write-Host '****   Sending Discord Alert   ****' -F M -B Black
-    $webHookUrl = "$WEBHOOK"
+    $webHookUrl = "$discordwebhook"
     [System.Collections.ArrayList]$embedArray = @()
     $title = "$HOSTNAME"
     $description = "$MESSAGE"
@@ -42,9 +42,9 @@ Function Send-DiscordAlert {
     Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
 }
 Function Find-DiscordWebhook {
-    If ( "" -eq $WEBHOOK) {
+    If ( "" -eq $discordwebhook) {
         Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
-        Write-Host "****   Add Discord  WEBHOOK to $currentdir\$server\Variables-$server.ps1   ****" -F Y -B Black  
+        Write-Host "****   Add Discord  WEBHOOK to $currentdir\$serverfiles\Variables-$serverfiles.ps1   ****" -F Y -B Black  
         Get-ClearVariables
         Break  
     }

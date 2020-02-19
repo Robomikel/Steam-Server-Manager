@@ -13,13 +13,13 @@ Function New-LaunchScriptFOFserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:map             = "fof_depot"
+    $global:defaultmap             = "fof_depot"
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ###########################/\#################################
 
     
@@ -30,38 +30,37 @@ Function New-LaunchScriptFOFserverPS {
     # Requiered Dont change 
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:systemdir = ""
+    #--->executable NOT in root server folder \/\/
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "FOF"
+    $global:executable = "FOF"
     #--->Requieres \/ \/ game dig 
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
-    #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "FOF"
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "FOF"
     #--->game config folder
-    $global:SERVERCFGDIR = "fof\cfg"
-    $global:LOGDIR = "fof"
+    $global:servercfgdir = "fof\cfg"
+    $global:logdir = "fof"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "FistfulofFrags"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.cfg"
-    $global:RCONPORT = "${global:PORT}"
+    $global:servercfg = "server.cfg"
     #--->Get game-server-config \/\/
     Get-Servercfg
 
     #--->input questions 
     # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1
-    #--->rename srcds.exe \/\/
+    #--->rename srcds.executable \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE -game fof -console -strictportbind -ip ${global:ip} -port ${global:port} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +map ${global:map} +servercfgfile server.cfg -maxplayers ${global:maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable -game fof -console -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # OR    executable NOT In server folder ROOT add executabledir \/ \/
+    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

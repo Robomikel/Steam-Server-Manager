@@ -6,13 +6,13 @@ Function New-LaunchScriptSquadserverPS {
     #                       Server IP
     # ${global:IP}            = "${global:IP}"
     #                       Server Port
-    $global:PORT            = "7787"
+    $global:port            = "7787"
     #                       Query Port
-    $global:QUERYPORT       = "27165"
+    $global:queryport       = "27165"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "80"
+    $global:maxplayers      = "80"
     #                       Server Name
-    # $global:HOSTNAME        = "$env:USERNAME"
+    # $global:hostname        = "$env:USERNAME"
     ##############################/\##############################
     
     # Need to be open on Windows firewall and router.
@@ -24,22 +24,22 @@ Function New-LaunchScriptSquadserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "SquadGameServer"
-    $global:EXEDIR = ""
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "SquadGameServer"
-    $global:SERVERCFGDIR = "\squad_server\SquadGame\ServerConfig\"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "SquadGameServer"
+    $global:executabledir = ""
+    $global:querytype = "protocol-valve"
+    $global:process = "SquadGameServer"
+    $global:servercfgdir = "\squad_server\SquadGame\ServerConfig\"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "Server.cfg"
+    $global:servercfg = "Server.cfg"
 
     Get-StopServerInstall
     # Get-Servercfg
     # Select-EditSourceCFG
     
-    # $global:launchParams = '@("$global:EXE MULTIHOME=${global:IP} Port=${global:PORT}  QueryPort=${global:QUERYPORT} FIXEDMAXPLAYERS=${global:MAXPLAYERS} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
-    $global:launchParams = '@("$global:EXE Port=${global:PORT} QueryPort=${global:QUERYPORT} FIXEDMAXPLAYERS=${global:MAXPLAYERS} RANDOM=ALWAYS -log")'
+    # $global:launchParams = '@("$executable MULTIHOME=${IP} Port=${port}  QueryPort=${QUERYPORT} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
+    $global:launchParams = '@("$executable Port=${port} QueryPort=${QUERYPORT} FIXEDMAXPLAYERS=${maxplayers} RANDOM=ALWAYS -log")'
 
 } 

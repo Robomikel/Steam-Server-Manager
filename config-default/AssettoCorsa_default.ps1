@@ -2,7 +2,8 @@ Function New-LaunchScriptacserverPS {
     # Assetto Corsa Dedicated Server
     # 	302550
     # https://www.assettocorsa.net/forum/index.php?faq/dedicated-server-manual.28/
-    #$global:MODDIR="Assetto Corsa\Server"
+    #$global:systemdir="Assetto Corsa\Server"
+    
     ################## Change Default Variables #################
     
     ##############################/\##############################
@@ -11,15 +12,15 @@ Function New-LaunchScriptacserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "acServer.bat"
-    $global:EXEDIR = "Assetto Corsa\Server"
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "acServer"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "acServer.bat"
+    $global:executabledir= "Assetto Corsa\Server"
+    $global:querytype = "protocol-valve"
+    $global:process = "acServer"
+    $global:servercfgdir = ""
+    $global:logdir = ""
 
     
     Get-StopServerInstall
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE")'
+    $global:launchParams = '@("$executabledir\$executable")'
 }

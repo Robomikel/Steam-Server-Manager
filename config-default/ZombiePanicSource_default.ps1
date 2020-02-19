@@ -13,15 +13,15 @@ Function New-LaunchScriptZPSserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Server Map 
-    $global:map             = "zps_deadend"
+    $global:defaultmap             = "zps_deadend"
     #                       Max Players 
     $global:maxplayers      = "20"
       #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     #                       Game Server Token required for public servers
-    $global:GSLT            = "GameServerTokenHere"
+    $global:gslt            = "GameServerTokenHere"
     ##############################/\##############################
     
     
@@ -30,37 +30,36 @@ Function New-LaunchScriptZPSserverPS {
     
     ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:systemdir = ""
+    #--->executable NOT in root server folder \/\/
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "zps"
+    $global:executable = "zps"
     #--->Requieres \/ \/ game dig
-    $global:GAME = "protocol-valve"
+    $global:querytype = "protocol-valve"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
-    #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "zps"
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "zps"
     #--->game config folder
-    $global:SERVERCFGDIR = "zps\cfg"
-    $global:LOGDIR = "zps"
+    $global:servercfgdir = "zps\cfg"
+    $global:logdir = "zps"
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/
     $global:gamedirname = "ZombiePanicSource"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.cfg"
-    $global:RCONPORT = "${global:PORT}"
+    $global:servercfg = "server.cfg"
 
     
     #--->Get game-server-config \/\/
     Get-Servercfg
-    #--->rename srcds.exe \/\/
+    #--->rename srcds.executable \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch
-    $global:launchParams = '@("$global:EXE -console -game zps -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${map} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable -console -game zps -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # OR    executable NOT In server folder ROOT add executabledir \/ \/
+    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

@@ -7,37 +7,43 @@
 #
 #
 Function Set-SteamerSetting {
-    #####  Steamer Settings #######
-    #   backup log open
-    $global:backuplogopen = "on"
-    #   disable backup logs  0
-    $global:backuplogs = "1"
-    #  app data backup log open 
-    $global:appdatabackuplogopen = "on"
-    #   Appdata backup 
-    $global:appdatabackup = "on"
-    #   logo 
-    $global:logo = "on"
-    #   Admin message 0
-    $global:admincheckmessage = "on"
-    #   disable Auto update in check 1
-    $global:AutoUpdate = "0"
-    #   disable  check Task 0
-    $global:DisableChecktask = "1"
-    #  max backups   x
-    $global:backupcount = "2"
-    #  Version  0 prompt min, 1 prompt max, 2 no prompt
-    $global:Version = "1"
-    #  Discord backup Alert
-    $global:DiscordBackupAlert = "on"
-    #  Discord Update Alert 
-    $global:DiscordUpdateAlert = "on"
-    # Use private Ip for Gamedig, mcrcon 1
-    $global:Useprivate = "0"
-    # Disable  Logging 0
-    $global:log = "1"
-    #   Log count 
-    $global:logcount = "10"
+    #                               ####  Steamer Settings #######
+    #                               backup log open
+    $global:backuplogopen           = "on"
+    #                               backup logs
+    $global:backuplogs              = "on"
+    #                               app data backup log open 
+    $global:appdatabackuplogopen    = "on"
+    #                               Appdata backup 
+    $global:appdatabackup           = "on"
+    #                               max backups  
+    $global:maxbackups              = "2"
+    #                               Stop On Backup
+    $global:stoponbackup            = "on"
+    #                               logo 
+    $global:logo                    = "on"
+    #                               Admin message
+    $global:admincheckmessage       = "on"
+    #                               Update on start
+    $global:updateonstart           = "off"
+    #                               check scheduled Task
+    $global:Checktask               = "on"
+    #                               Discord backup Alert
+    $global:DiscordBackupAlert      = "on"
+    #                               Discord Update Alert 
+    $global:DiscordUpdateAlert      = "on"
+    #                               Use private IP for Query and mcrcon
+    $global:Useprivate              = "off"
+    #                               consolelogging
+    $global:consolelogging          = "on"
+    #                               consolelogging count 
+    $global:consolelogcount         = "10"
+    #                               ssmlogging
+    $global:ssmlogging              = "on"
+    #                               ssmlogging count 
+    $global:ssmlogcount             = "10"
+    #                               Version  0 prompt min, 1 prompt max, 2 no prompt
+    $global:Version                 = "1"
 }
 
 

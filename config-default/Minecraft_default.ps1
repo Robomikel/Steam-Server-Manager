@@ -13,20 +13,20 @@ Function New-LaunchScriptminecraft_serverPS {
     
     ###################### Do not change below #####################
     Get-MCjavaBinaries
-    $global:MODDIR = ""
-    $global:EXE = "server.jar"
-    # $global:EXE          = "forge-*.jar"
-    $global:EXEDIR = ""
-    $global:GAME = "minecraft"
-    $global:SAVES = ""
-    $global:PROCESS = "java"
-    $global:SERVERCFGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "server.jar"
+    # $global:executable          = "forge-*.jar"
+    $global:executabledir = ""
+    $global:querytype = "minecraft"
+    $global:saves = ""
+    $global:process = "java"
+    $global:servercfgdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
     # java -jar forge-installer.jar --installServer
     # java -Xms1G -Xmx2G     
-    $global:launchParams = '@("java -Xms1024M -Xmx1024M -jar $global:EXE nogui")'
+    $global:launchParams = '@("java -Xms1024M -Xmx1024M -jar $executable nogui")'
 
 }

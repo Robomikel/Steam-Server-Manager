@@ -5,15 +5,15 @@ Function New-LaunchScriptColonySurvivalServerPS {
     #                       Server IP
     ${global:IP}            = "${global:IP}"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "10"
+    $global:maxplayers      = "10"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Server Password
-    $global:SERVERPASSWORD  = ""
+    $global:serverpassword  = ""
     #                       Server Port
-    $global:PORT            = "27004"
+    $global:port            = "27004"
     #                       World Name  
-    $global:GALAXYNAME        = "WorldName"
+    $global:galaxyname        = "WorldName"
     ##############################/\##############################
     
     
@@ -21,18 +21,18 @@ Function New-LaunchScriptColonySurvivalServerPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "colonyserver"
-    $global:EXEDIR = ""
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "colonyserver"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = "gamedata\logs\server"
+    $global:systemdir = ""
+    $global:executable = "colonyserver"
+    $global:executabledir = ""
+    $global:querytype = "protocol-valve"
+    $global:process = "colonyserver"
+    $global:servercfgdir = ""
+    $global:logdir = "gamedata\logs\server"
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
     
     New-servercfgmom
-    $global:launchParams = '@("$global:EXE -batchmode -nographics +server.world $global:GALAXYNAME +server.name `"$global:HOSTNAME`" +server.networktype SteamOnline +server.ip ${global:IP} +server.gameport $global:PORT +server.password `"$global:SERVERPASSWORD`" +server.maxplayers $global:MAXPLAYERS")'
+    $global:launchParams = '@("$executable -batchmode -nographics +server.world ${galaxyname} +server.name `"${hostname}`" +server.networktype SteamOnline +server.ip ${ip} +server.gameport ${port} +server.password `"${serverpassword}`" +server.maxplayers ${maxplayers}")'
 }

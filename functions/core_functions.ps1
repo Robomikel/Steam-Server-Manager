@@ -8,12 +8,12 @@
 #
 Function Get-CreatedVaribles {
     Write-Host "****   Getting Server Variables   *****" -F Y -B Black  
-    .$currentdir\$server\Variables-$server.ps1
+    .$currentdir\$serverfiles\Variables-$serverfiles.ps1
     Get-CheckForError
 }
 Function Get-ClearVariables {
     Write-Host "****   Clearing Variables   *****" -F Y -B Black
-    $vars = "PROCESS", "IP", "PORT", "SOURCETVPORT", "CLIENTPORT", "MAP", "TICKRATE", "GSLT", "MAXPLAYERS", "WORKSHOP", "HOSTNAME", "QUERYPORT", "SAVES", "APPID", "RCONPORT", "RCONPASSWORD", "SV_PURE", "SCENARIO", "GAMETYPE", "GAMEMODE", "MAPGROUP", "WSCOLLECTIONID", "WSSTARTMAP", "WSAPIKEY", "WEBHOOK", "EXEDIR", "GAME", "SERVERCFGDIR", "gamedirname", "config1", "config2", "config3", "config4", "config5", "MODDIR", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "COOPPLAYERS", "SV_LAN", "DIFF", "GALAXYNAME", "ADMINPASSWORD", "username", "LOGDIR","mods","reg_appID","wsmods","servermods","WSMODDIR","MODDIR"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "GAME", "SERVERCFGDIR", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir","mods","reg_appID","wsmods","servermods","wsmoddir","appid","serverfiles"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -28,7 +28,7 @@ Function Get-TestInterger {
     }
 }
 Function Get-TestString {
-    If ( $server -notmatch "[a-z,A-Z]") { 
+    If ( $serverfiles -notmatch "[a-z,A-Z]") { 
         Write-Host "$DIAMOND $DIAMOND Input Alpha Characters only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
@@ -70,12 +70,12 @@ Function Set-Steamer {
         Select-Steamer 
     }
     else {
-        Select-Steamer $global:command $global:server
+        Select-Steamer $command $serverfiles
     }
 }
 Function Set-VariablesPS {
     Write-Host "***  Creating Variables and adding launch params  ***" -F M -B Black
-    New-Item $currentdir\$server\Variables-$server.ps1 -Force
+    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
@@ -88,39 +88,39 @@ Function Get-Savelocation {
     }
 }
 Function Select-RenameSource {
-    Write-Host "***  Renaming srcds.exe to $EXE to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
-    Rename-Item  "$currentdir\$server\$EXEDIR\srcds.exe" -NewName "$currentdir\$server\$EXEDIR\$EXE.exe" >$null 2>&1
-    Rename-Item  "$currentdir\$server\$EXEDIR\srcds_x64.exe" -NewName "$currentdir\$server\$EXEDIR\$EXE-x64.exe" >$null 2>&1
+    Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
+    Rename-Item  "$currentdir\$serverfiles\$executabledir\srcds.exe" -NewName "$currentdir\$serverfiles\$executabledir\$executable.exe" >$null 2>&1
+    Rename-Item  "$currentdir\$serverfiles\$executabledir\srcds_x64.exe" -NewName "$currentdir\$serverfiles\$executabledir\$executable-x64.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
     Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-    ((Get-Content  $currentdir\$server\$SERVERCFGDIR\$config1 -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $currentdir\$server\$SERVERCFGDIR\$config1
-    ((Get-Content  $currentdir\$server\$SERVERCFGDIR\$config1 -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $currentdir\$server\$SERVERCFGDIR\$config1 -ea SilentlyContinue
+    ((Get-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg
+    ((Get-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -ea SilentlyContinue
 }
 Function New-ServerLog {
-    $logdirectory = "$currentdir\$server\$LOGDIR"
-    If ($log -eq "1") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[o]*.txt","$logdirectory\[i]*.log" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 233780) -and ($log -eq "1")) { Copy-Item "$LOGDIR\$server_*.rpt" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 298740) -and ($log -eq "1")) { Copy-Item "$LOGDIR\[s]*.log" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 367970) -and ($log -eq "1")) { Copy-Item "$LOGDIR\[m]*.log" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 748090) -and ($log -eq "1")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 299310) -and ($log -eq "1")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 1110390) -and ($log -eq "1")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$server-$date.log" -ea SilentlyContinue }
-    # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $logcount | Remove-Item -Force -ea SilentlyContinue
-    Get-Childitem $currentdir\log\ -Recurse | where-object name -like $server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $logcount | Remove-Item -Force -ea SilentlyContinue
+    $logdirectory = "$currentdir\$serverfiles\$logdir"
+    If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[o]*.txt","$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdir\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdir\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 367970) -and ($consolelogging -eq "on")) { Copy-Item "$logdir\[m]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 748090) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
+    If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue}
 }
 
 Function Remove-SteamerLogs {
-    Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$logcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerBackupLog {
-    If ($backuplogs -eq "1") { Copy-Item "$currentdir\7za920\[b]*.log", -Destination "$currentdir\log\backup_$server-$date.log" -ea SilentlyContinue }
-    Get-Childitem $currentdir\log\ -Recurse | where-object name -like backup_$server-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$logcount" | Remove-Item -Force -ea SilentlyContinue
+    If ($backuplogs -eq "on") { Copy-Item "$currentdir\7za920\[b]*.log", -Destination "$currentdir\log\backup_$serverfiles-$date.log" -ea SilentlyContinue }
+    Get-Childitem $currentdir\log\ -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 
 Function Get-Appid {
 
-    $searchTerm = "\b$server\b"
+    $searchTerm = "\b$serverfiles\b"
     $results = Get-Content -path $currentdir\data\serverlist.csv | Select-String  -Pattern $searchTerm
     $results = "`"$results`""
     $results = $results.Split(",")[3]
@@ -129,9 +129,9 @@ Function Get-Appid {
 
     If (($null -eq $AppID) -or ("" -eq $AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
-        $global:AppID = Read-host
+        $AppID = Read-host
         Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-        $global:Branch = Read-host
+        $Branch = Read-host
         Get-TestInterger
     }
 }

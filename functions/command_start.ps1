@@ -14,10 +14,10 @@ Function Get-StartServer {
         $launchParams
     )
     If ($log -eq "1") {New-ServerLog}
-    Set-Location $currentdir\$server\
-    If ($APPID -eq 343050) {Set-Location $currentdir\$server\$EXEDIR}
+    Set-Location $currentdir\$serverfiles\
+    If ($appid -eq 343050) {Set-Location $currentdir\$serverfiles\$executabledir}
     #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
-    If (( $APPID -eq 258550 ) -or ($APPID -eq 294420 ) -or ($APPID -eq 302550)) {
+    If (( $appid -eq 258550 ) -or ($appid -eq 294420 ) -or ($appid -eq 302550)) {
         Start-Process CMD "/c start $launchParams"
     }
     Else {
@@ -30,16 +30,16 @@ Function Select-StartServer {
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
-    If ($global:APPID -eq "996560") { 
+    If ($global:appid -eq "996560") { 
         Get-checkMultiple 
     }
     Else {
         Write-Host '****   Check  Server process    *****' -F Y -B Black 
-        If ($Null -eq (Get-Process "$PROCESS" -ea SilentlyContinue)) {
+        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-Host "----   NOT RUNNING   ----" -F R -B Black
         }
         Else {
-            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$PROCESS"
+            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$process"
             Get-ClearVariables
             Exit 
         }
@@ -48,14 +48,14 @@ Function Get-CheckServer {
 }
 
 Function Get-checkMultiple {
-    $global:PROCESS = get-process | Where-Object { $_.ProcessName -match $PROCESS } | get-process
+    $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     
-    If ($null -eq $PROCESS) {
+    If ($null -eq $process) {
         Write-Host "----   NOT RUNNING   ----" -F R -B Black
     }
     Else {
         Write-Host "****   RUNNING   ****" -F Green -B Black
-        $PROCESS 
+        $process 
         Get-ClearVariables 
         Exit
     }

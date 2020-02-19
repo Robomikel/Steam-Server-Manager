@@ -4,18 +4,18 @@ Function New-LaunchScriptMEserverPS {
     # https://www.medievalengineerswiki.com/index.php?title=Keen:Dedicated_Server_Configuration
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:IP} = "${global:IP}"
+    ${global:ip} = "${global:IP}"
     #                       Server Port
-    ${global:PORT} = "27015"
+    ${global:port} = "27015"
     #                       Maxplayers
-    $global:MAXPLAYERS = "20"
+    $global:maxplayers = "20"
     #                   Server Name
-    $global:HOSTNAME    = "$env:USERNAME"
+    $global:hostname    = "$env:USERNAME"
     #                   World Name
-    $global:WORLDNAME    = "WorldName"
+    $global:worldname    = "WorldName"
     ##############################/\##############################
     
-    # You can run MedievalEngineersDedicated.exe with the following arguments
+    # You can run MedievalEngineersDedicated.executable with the following arguments
 
     # console
     # skips instance selection dialog, dedicated server configuration dialog, and goes directly to console application
@@ -31,37 +31,37 @@ Function New-LaunchScriptMEserverPS {
     # overrides ip address of dedicated server stored in config file
     # port
     # overrides port value stored in config file
-    # taskkill /IM MedievalEngineersDedicated.exe
+    # taskkill /IM MedievalEngineersDedicated.executable
     # this will stop dedicated server correctly, saving the world etc
     # To stop it immediately add argument “/f”, that will kill server without asking to stop and without saving the world
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = "DedicatedServer64"
-    $global:EXE = "MedievalEngineersDedicated"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = "MedievalEngineersDedicated"
-    $global:PROCESS = "MedievalEngineersDedicated"
-    $global:SERVERCFGDIR = ""
-    $global:LOGDIR = "$env:APPDATA\$global:saves"
+    $global:systemdir = ""
+    $global:executabledir = "DedicatedServer64"
+    $global:executable = "MedievalEngineersDedicated"
+    $global:querytype = "protocol-valve"
+    $global:saves = "MedievalEngineersDedicated"
+    $global:process = "MedievalEngineersDedicated"
+    $global:servercfgdir = ""
+    $global:logdir = "$env:APPDATA\$global:saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
     # Get-Servercfg
     # Select-RenameSource
     # game config
     # Select-EditSourceCFG
     New-servercfgme
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE -console -ip ${global:IP} -port ${global:PORT} -maxPlayers $global:MAXPLAYERS")'
+    $global:launchParams = '@("$executabledir\$executable -console -ip ${IP} -port ${port} -maxPlayers $maxplayers")'
 }   
 
 
 Function New-servercfgme {
     Write-Host "Creating Custom Config" -F M
-    New-Item $env:APPDATA\$global:saves\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
+    New-Item $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
     
-    Add-Content $env:APPDATA\$global:saves\MedievalEngineersDedicated-Dedicated.cfg `
+    Add-Content $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg `
 "<?xml version=`"1.0`"?>
     <MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
       <SessionSettings>
@@ -104,8 +104,8 @@ Function New-servercfgme {
       <Banned />
       <Mods />
       <GroupID>0</GroupID>
-      <ServerName>$global:HOSTNAME</ServerName>
-      <WorldName>$global:WORLDNAME</WorldName>
+      <ServerName>$hostname</ServerName>
+      <WorldName>$WORLDNAME</WorldName>
       <PauseGameWhenEmpty>false</PauseGameWhenEmpty>
       <IgnoreLastSession>false</IgnoreLastSession>
       <RemoteApiEnabled>true</RemoteApiEnabled>

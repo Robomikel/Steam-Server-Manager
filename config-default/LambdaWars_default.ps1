@@ -5,11 +5,11 @@ Function New-LaunchScriptLambdaWarsserverPS {
     ################## Change Default Variables #################
  
     #                       Server Port
-    ${global:PORT}          = "27015"
+    ${global:port}          = "27015"
     #                       Map
-    $global:MAP             = "gamelobby"
+    $global:defaultmap       = "gamelobby"
     #                       Maxplayers
-    $global:MAXPLAYERS      = "8"
+    $global:maxplayers      = "8"
     #                       Requieres Steam Login
 
   
@@ -20,21 +20,21 @@ Function New-LaunchScriptLambdaWarsserverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "lambdawars"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = ""
-    $global:PROCESS = "lambdawars"
-    $global:SERVERCFGDIR = "lambdawars\cfg"
-    $global:LOGDIR = "lambdawars"
+    $global:systemdir = ""
+    $global:executabledir = ""
+    $global:executable = "lambdawars"
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "lambdawars"
+    $global:servercfgdir = "lambdawars\cfg"
+    $global:logdir = "lambdawars"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = "server.cfg"
+    $global:servercfg = "server.cfg"
     # Get-Servercfg
     Select-RenameSource
     # game config
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXE -console --game lambdawars +maxplayers ${global:MAXPLAYERS} +map ${global:MAP} -port ${global:PORT} -condebug")'
+    $global:launchParams = '@("$executable -console --game lambdawars +maxplayers ${maxplayers} +map ${MAP} -port ${PORT} -condebug")'
   }   

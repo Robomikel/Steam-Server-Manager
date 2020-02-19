@@ -8,227 +8,231 @@
 #
 Function New-CreateVariables {
     Write-Host '*** Creating Variables Script ****' -F M -B Black
-    New-Item $currentdir\$server\Variables-$server.ps1 -Force
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     WEBHOOK HERE "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WEBHOOK      = `"$global:WEBHOOK`""
-    If ($APPID) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     App ID  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:APPID        = `"$global:APPID`""
+    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                            Discord Webhook "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:discordwebhook      = `"$global:discordwebhook`""
+    If ($appid) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     App ID  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:appid        = `"$global:appid`""
     }
-    If ($Branch) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Branch   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:Branch       = `"$global:Branch`""
+    If ($branch) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     branch   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:branch       = `"$global:branch`""
     }
     If ($username) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Steam username "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:username     = `"$global:username`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Steam username "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:username     = `"$global:username`""
     }
-    If ($ANON) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Steam Anonymous user  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:ANON         = `"$global:ANON`""
+    If ($anon) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Steam Anonymous user  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:anon         = `"$global:anon`""
     }
-    If ($MODDIR) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Mod dir "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:MODDIR       = `"$global:MODDIR`""
+    If ($moddir) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Mod dir "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:moddir       = `"$global:moddir`""
     }
-    If ($WSMODDIR) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Work Shop Mod dir "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WSMODDIR       = `"$global:WSMODDIR`""
+    If ($serverfiles) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     serverfiles dir "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:serverfiles  = `"$global:serverfiles`""
+    }
+    If ($moddir) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Work Shop Mod dir "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:moddir     = `"$global:moddir`""
     }
     If ($reg_appID) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     REgualr Game App ID "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:reg_appID       = `"$global:reg_appID`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Regular Game App ID "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:reg_appID    = `"$global:reg_appID`""
     }
     If ($wsmods) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                      WorkShop Mod IDs "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:wsmods       = $global:wsmods"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     WorkShop Mod IDs "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:wsmods       = $global:wsmods"
     }
     If ($mods) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                       Mods "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:mods       = `"$global:mods`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Mods "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:mods         = `"$global:mods`""
     }
     If ($servermods) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                      Server Mods "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:servermods       = `"$global:servermods`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server Mods "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:servermods   = `"$global:servermods`""
     }
-    If ($EXE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Exe "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:EXE          = `"$global:EXE`""
+    If ($executable) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Exe "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:executable   = `"$global:executable`""
     }
-    If ($EXEDIR) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Exe dir "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:EXEDIR       = `"$global:EXEDIR`""
+    If ($executabledir) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                      Exe dir "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:executabledir = `"$global:executabledir`""
     }
-    If ($SERVERCFGDIR) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     SERVERCFGDIR dir "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SERVERCFGDIR = `"$global:SERVERCFGDIR`""
+    If ($servercfgdir) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                      servercfgdir dir "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:servercfgdir  = `"$global:servercfgdir`""
     }
-    If ($GAME) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Game name used by Gamedig "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:game         = `"$global:GAME`""
+    If ($game) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Game name used by Gamedig "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:game         = `"$global:game`""
     }
-    If ($PROCESS) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     PROCESS name "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:PROCESS      = `"$global:PROCESS`""
+    If ($process) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     process name "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:process      = `"$global:process`""
     }
-    If (${IP}) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server IP "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`${global:IP}         = `"${global:IP}`""
+    If (${ip}) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server ip "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`${global:ip}         = `"${global:ip}`""
     }
-    If (${EXTIP}) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server EXT IP "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`${global:EXTIP}      = `"${global:EXTIP}`""
+    If (${extip}) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server EXT ip "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`${global:extip}      = `"${global:extip}`""
     }
-    If (${PORT}) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server PORT "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`${global:PORT}       = `"${global:PORT}`""
+    If (${port}) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server port "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`${global:port}       = `"${global:port}`""
     }
-    If (${DIFF}) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server Difficulty "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`${global:DIFF}       = `"${global:DIFF}`""
+    If (${diff}) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server Difficulty "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`${global:diff}       = `"${global:diff}`""
     }
-    If ($SOURCETVPORT) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server Source TV Port "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SOURCETVPORT = `"$global:SOURCETVPORT`""
+    If ($sourcetvport) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server Source TV Port "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:sourcetvport = `"$global:sourcetvport`""
     }
-    If ($SV_LAN) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server SV_LAN "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SV_LAN       = `"$global:SV_LAN`""
+    If ($sv_lan) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server sv_lan "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:sv_lan       = `"$global:sv_lan`""
     }
-    If ($CLIENTPORT) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     server client port"
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:CLIENTPORT   = `"$global:CLIENTPORT`""
+    If ($clientport) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     server client port"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:clientport   = `"$global:clientport`""
     }
-    If ($STEAMPORT) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     server STEAMPORT port"
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:STEAMPORT    = `"$global:STEAMPORT`""
+    If ($steamport) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     server steamport port"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:steamport    = `"$global:steamport`""
     }
-    If ($steamID64) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     server steamID64"
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:steamID64    = `"$global:steamID64`""
+    If ($steamid64) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     server steamid64"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:steamid64    = `"$global:steamid64`""
     }
-    If ($MAP) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     default Map"
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:MAP          = `"$global:MAP`""
+    If ($defaultmap) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     default Map"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:defaultmap   = `"$global:defaultmap`""
     }
-    If ($GALAXYNAME) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     default GALAXYNAME"
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:GALAXYNAME   = `"$global:GALAXYNAME`""
+    If ($galaxyname) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     default galaxyname"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:galaxyname   = `"$global:galaxyname`""
     }
-    If ($TICKRATE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     server tick rate "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:TICKRATE     = `"$global:TICKRATE`""
+    If ($tickrate) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     server tick rate "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:tickrate     = `"$global:tickrate`""
     } 
-    If ($GSLT) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Gamer Server token "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:GSLT         = `"$global:GSLT`""
+    If ($gslt) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Gamer Server token "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:gslt         = `"$global:gslt`""
     }
-    If ($MAXPLAYERS) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Max Players  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:MAXPLAYERS   = `"$global:MAXPLAYERS`""
+    If ($maxplayers) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Max Players  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:maxplayers   = `"$global:maxplayers`""
     }
-    If ($COOPPLAYERS) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     COOPPLAYERS Players  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:COOPPLAYERS  = `"$global:COOPPLAYERS`""
+    If ($coopplayers) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     coopplayers Players  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:coopplayers  = `"$global:coopplayers`""
     }
-    If ($WORKSHOP) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Workshop 1/0 HERE "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WORKSHOP     = `"$global:WORKSHOP`""
+    If ($workshop) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Workshop 1/0 HERE "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:workshop     = `"$global:workshop`""
     }
-    If ($HOSTNAME) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server Name "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:HOSTNAME     = `"$global:HOSTNAME`""
+    If ($hostname) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server Name "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:hostname     = `"$global:hostname`""
     }
-    If (${QUERYPORT}) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     query port "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`${global:QUERYPORT}  = `"${global:QUERYPORT}`""
+    If (${queryport}) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     query port "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`${global:queryport}  = `"${global:queryport}`""
     }
-    If ($SAVES) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     local App Data SAVES folder "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SAVES        = `"$global:SAVES`""
+    If ($saves) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     local App Data saves folder "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:saves        = `"$global:saves`""
     }
-    If ($RCONPORT) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Rcon Port  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:RCONPORT     = `"$global:RCONPORT`""
+    If ($rconport) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Rcon Port  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:rconport     = `"$global:rconport`""
     }
-    If ($RCONPASSWORD) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Rcon Password HERE "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:RCONPASSWORD = `"$global:RCONPASSWORD`""
+    If ($rconpassword) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Rcon Password HERE "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:RCONPASSWORD = `"$global:RCONPASSWORD`""
     }
     If ($adminpassword) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     adminpassword  HERE "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:adminpassword = `"$global:adminpassword`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     adminpassword  HERE "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:adminpassword = `"$global:adminpassword`""
     }
-    If ($SV_PURE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Extra Launch Parms "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SV_PURE      = `"$global:SV_PURE`""
+    If ($sv_pure) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Extra Launch Parms "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:sv_pure      = `"$global:sv_pure`""
     }
-    If ($SCENARIO) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Sandstorm SCENARIO   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SCENARIO     = `"$global:SCENARIO`""
+    If ($scenario) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Sandstorm scenario   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:scenario     = `"$global:scenario`""
     }
-    If ($SAVEINTERVAL) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     SAVEINTERVAL   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SAVEINTERVAL = `"$global:SAVEINTERVAL`""
+    If ($saveinterval) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     saveinterval   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:saveinterval = `"$global:saveinterval`""
     }
-    If ($WORLDSIZE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     WORLDSIZE  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WORLDSIZE    = `"$global:WORLDSIZE`""
+    If ($worldsize) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     worldsize  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:worldsize    = `"$global:worldsize`""
     }
-    If ($SEED) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     SEED   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:SEED         = `"$global:SEED`""
+    If ($seed) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     seed   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:seed         = `"$global:seed`""
     }
-    If ($RCONWEB) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     RCONWEB   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:RCONWEB      = `"$global:RCONWEB`""
+    If ($rconweb) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     rconweb   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:rconweb      = `"$global:rconweb`""
     }
-    If ($GAMETYPE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     CSGO Gametype   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:GAMETYPE     = `"$global:GAMETYPE`""
+    If ($gametype) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     CSGO Gametype   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:gametype     = `"$global:gametype`""
     }
-    If ($GAMEMODE) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     CSGO Gamemode   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:GAMEMODE     = `"$global:GAMEMODE`""
+    If ($gamemode) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     CSGO Gamemode   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:gamemode     = `"$global:gamemode`""
     }
-    If ($MAPGROUP) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     CSGO mapgroup   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:MAPGROUP     = `"$global:MAPGROUP`""
+    If ($mapgroup) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     CSGO mapgroup   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:mapgroup     = `"$global:mapgroup`""
     }
     If ($cluster) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     cluster   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:cluster      = `"$global:cluster`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     cluster   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:cluster      = `"$global:cluster`""
     }
     If ($shard) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     shard   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:shard        = `"$global:shard`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     shard   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:shard        = `"$global:shard`""
     }
     If ($persistentstorageroot) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                              persistentstorageroot   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:persistentstorageroot = `"$global:persistentstorageroot`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                              persistentstorageroot   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:persistentstorageroot = `"$global:persistentstorageroot`""
     }
     If ($gamedirname) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     gamedirname   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:gamedirname  = `"$global:gamedirname`""
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     gamedirname   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:gamedirname  = `"$global:gamedirname`""
     }
-    If ($WSCOLLECTIONID) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                       WSCOLLECTIONID   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WSCOLLECTIONID = `"$global:WSCOLLECTIONID`""
+    If ($wscollectionid) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                       wscollectionid   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:wscollectionid = `"$global:wscollectionid`""
     }
-    If ($WSSTARTMAP) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     WSSTARTMAP  "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WSSTARTMAP   = `"$global:WSSTARTMAP`""
+    If ($wsstartmap) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     wsstartmap  "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:wsstartmap   = `"$global:wsstartmap`""
     }
-    If ($WSAPIKEY) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     WSAPIKEY   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:WSAPIKEY     = `"$global:WSAPIKEY`""
+    If ($wsapikey) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     wsapikey   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:wsapikey     = `"$global:wsapikey`""
     }
-    If ($LOGDIR) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     LOGDIR   "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:LOGDIR       = `"$global:LOGDIR`""
+    If ($logdir) {
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     logdir   "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:logdir       = `"$global:logdir`""
     }
     If ($launchParams) {
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "#                     Server Launch Params "
-        Add-Content  $currentdir\$server\Variables-$server.ps1  "`$global:launchParams = $global:launchParams"
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                     Server Launch Params "
+        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:launchParams = $global:launchParams"
     }
 }

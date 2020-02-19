@@ -3,13 +3,13 @@ Function New-LaunchScriptStormworksserverPS {
     # APP ID # 1247090
     ################## Change Default Variables ################# 
     #                   Server Port 
-    $global:PORT        = "25564"
+    $global:port        = "25564"
     #                   Server Name
-    $global:HOSTNAME    = "$env:USERNAME"
+    $global:hostname    = "$env:USERNAME"
     #                       Maxplayers
-    $global:MAXPLAYERS = "20"
+    $global:maxplayers = "20"
     #                       Server Password
-    $global:SERVERPASSWORD  = ""
+    $global:serverpassword  = ""
     ###########################/\#################################
     
     # port="25564" set the game and query ports that will be used for the server 
@@ -22,20 +22,20 @@ Function New-LaunchScriptStormworksserverPS {
     # base_island="" set what player base will be owned on start (empty is start base)
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "server"
-    $global:EXEDIR = ""
-    $global:GAME = ""
-    $global:SAVES = "Stormworks"
-    $global:PROCESS = "server"
-    $global:SERVERCFGDIR = "$env:APPDATA\$global:saves\"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "server"
+    $global:executabledir = ""
+    $global:querytype = ""
+    $global:saves = "Stormworks"
+    $global:process = "server"
+    $global:servercfgdir = "$env:APPDATA\$global:saves\"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = "server_config.xml"
+    $global:servercfg = "server_config.xml"
 
     
 
-    $global:launchParams = '@("$global:EXE")'
+    $global:launchParams = '@("$executable")'
 
 }

@@ -5,17 +5,17 @@ Function New-LaunchScriptAHL2serverPS {
   #                       Server IP
   ${global:IP}            = "${global:IP}"
   #                       Server Port
-  ${global:PORT}          = "27015"
+  ${global:port}          = "27015"
   #                       Client Port
-  $global:CLIENTPORT      = "27005"
+  $global:clientport      = "27005"
   #                       Source TV Port
-  $global:SOURCETVPORT    = "27020"
+  $global:sourcetvport    = "27020"
   #                       Map
-  $global:MAP             = "act_airport"
+  $global:defaultmap             = "act_airport"
   #                       Maxplayers
-  $global:MAXPLAYERS      = "20"
+  $global:maxplayers      = "20"
   #                       Server Name
-  $global:HOSTNAME        = "$env:USERNAME"
+  $global:hostname        = "$env:USERNAME"
   #                       Rcon Password
   $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
   #                       Requieres Steam Login
@@ -27,21 +27,21 @@ Function New-LaunchScriptAHL2serverPS {
   
   
   ###################### Do not change below #####################
-  $global:MODDIR = ""
-  $global:EXEDIR = ""
-  $global:EXE = "ahl2"
-  $global:GAME = "protocol-valve"
-  $global:SAVES = ""
-  $global:PROCESS = "ahl2"
-  $global:SERVERCFGDIR = "ahl2\cfg"
-  $global:LOGDIR = "ahl2"
+  $global:systemdir = ""
+  $global:executabledir = ""
+  $global:executable = "ahl2"
+  $global:querytype = "protocol-valve"
+  $global:saves = ""
+  $global:process = "ahl2"
+  $global:servercfgdir = "ahl2\cfg"
+  $global:logdir = "ahl2"
   Get-StopServerInstall
-  #Game-server-configs \/
+  #game-server-configs \/
   $global:gamedirname = "ActionSource"
-  $global:config1 = "server.cfg"
+  $global:servercfg = "server.cfg"
   Get-Servercfg
   Select-RenameSource
   # game config
   Select-EditSourceCFG
-  $global:launchParams = '@("$global:EXE -console -game ahl2 -strictportbind -ip ${global:IP} -port ${global:PORT} +clientport ${global:CLIENTPORT} +tv_port ${global:SOURCETVPORT} +map ${global:MAP} -maxplayers ${global:MAXPLAYERS} -condebug")'
+  $global:launchParams = '@("$executable -console -game ahl2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} -maxplayers ${maxplayers} -condebug")'
 }   

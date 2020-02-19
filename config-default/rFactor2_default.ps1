@@ -17,19 +17,19 @@ Function New-LaunchScriptrFactor2serverPS {
     
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXE = "rFactor2 Dedicated"
-    $global:EXEDIR = "rFactor2-Dedicated\Bin64"
-    $global:GAME = "protocol-valve"
-    $global:PROCESS = "rFactor2 Dedicated"
-    $global:SERVERCFGDIR = "rFactor2-Dedicated\Saved\Config\WindowsServer"
-    $global:LOGDIR = ""
+    $global:systemdir = ""
+    $global:executable = "rFactor2 Dedicated"
+    $global:executabledir = "rFactor2-Dedicated\Bin64"
+    $global:querytype = "protocol-valve"
+    $global:process = "rFactor2 Dedicated"
+    $global:servercfgdir = "rFactor2-Dedicated\Saved\Config\WindowsServer"
+    $global:logdir = ""
     Get-StopServerInstall
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
     
     # Get-Servercfg
     # Select-EditSourceCFG
-    $global:launchParams = '@("$global:EXEDIR\$global:EXE +path=".."")'
+    $global:launchParams = '@("$executabledir\$executable +path=".."")'
 } 

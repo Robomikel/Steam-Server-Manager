@@ -14,13 +14,13 @@ Function New-LaunchScriptGMODserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:map             = "gm_construct"
+    $global:defaultmap             = "gm_construct"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:HOSTNAME        = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     #                       Gamemode
     $global:gamemode        = "sandbox"
     #                       Tickrate     
@@ -44,17 +44,17 @@ Function New-LaunchScriptGMODserverPS {
     # Requiered Dont change 
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
-    $global:MODDIR = "garrysmod"
-    #--->Exe NOT in root server folder \/\/
-    $global:EXEDIR = ""
+    $global:systemdir = "garrysmod"
+    #--->executable NOT in root server folder \/\/
+    $global:executabledir = ""
     #--->rename srcds to this name \/\/
-    $global:EXE = "gmod"
+    $global:executable = "gmod"
     #--->Requieres \/ \/ game dig 
-    $global:GAME = "garrysmod"
+    $global:querytype = "garrysmod"
     #--->Requieres \/ \/ AppData Roaming save
-    $global:SAVES = ""
-    #--->Requieres \/ \/ maybe same as game exe?
-    $global:PROCESS = "gmod"
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "gmod"
     #--->game config folder
     $global:SERVERCFGDIR = "garrysmod\cfg"
     $global:LOGDIR = "garrysmod"
@@ -63,19 +63,18 @@ Function New-LaunchScriptGMODserverPS {
     #--->Game-server-manger folder \/
     $global:gamedirname = "GarrysMod"
     #--->Game-server-manger config name \/
-    $global:config1 = "server.cfg"
-    $global:RCONPORT = "${global:PORT}"
+    $global:servercfg = "server.cfg"
     #--->Get game-server-config \/\/
     Get-Servercfg
 
     #--->input questions
     # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 1 
-    #--->rename srcds.exe \/\/
+    #--->rename srcds.executable \/\/
     Select-RenameSource
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:EXE -console -game garrysmod -strictportbind -ip ${global:ip} -port ${global:port} -tickrate ${global:tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${global:clientport} +tv_port ${global:sourcetvport} +gamemode ${global:gamemode} +map ${global:map} +sv_setsteamaccount ${global:gslt} +servercfgfile server.cfg -maxplayers ${global:maxplayers} ${customparms} -condebug")'
-    # OR    EXE NOT In server folder ROOT add EXEDIR \/ \/
-    #$global:launchParams = '@("$global:EXEDIR\$global:EXE -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} ${customparms} -condebug")'
+    # OR    executable NOT In server folder ROOT add executabledir \/ \/
+    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

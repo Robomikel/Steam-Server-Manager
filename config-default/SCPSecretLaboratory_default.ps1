@@ -4,13 +4,13 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     ################## Change Default Variables #################
 
     #                   Server Port 
-    $global:PORT = "7777"
+    $global:port = "7777"
 
     ##############################/\##############################
     
     
     # 7777
-    # config located in "$env:APPDATA\SCP Secret Laboratory\config\$global:PORT\config_gameplay.txt"
+    # config located in "$env:APPDATA\SCP Secret Laboratory\config\$global:port\config_gameplay.txt"
     
     # Requires  admin email for public server or will not run
     # contact_email: default
@@ -20,18 +20,18 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     # and YOU WANT TO MAKE IT PUBLIC, please set up your email in configuration file ("contact_email" value) and restart the server.
     
     ###################### Do not change below #####################
-    $global:MODDIR = ""
-    $global:EXEDIR = ""
-    $global:EXE = "LocalAdmin"
-    $global:GAME = "protocol-valve"
-    $global:SAVES = "SCP Secret Laboratory"
-    $global:PROCESS = "LocalAdmin|SCPS"
-    $global:SERVERCFGDIR = "$env:APPDATA\SCP Secret Laboratory\config\$global:PORT\config_gameplay.txt"
-    $global:LOGDIR = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$global:PORT"
+    $global:systemdir = ""
+    $global:executabledir = ""
+    $global:executable = "LocalAdmin"
+    $global:querytype = "protocol-valve"
+    $global:saves = "SCP Secret Laboratory"
+    $global:process = "LocalAdmin|SCPS"
+    $global:servercfgdir = "$env:APPDATA\SCP Secret Laboratory\config\$port\config_gameplay.txt"
+    $global:logdir = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
-    $global:config1 = ""
+    $global:servercfg = ""
 
-    $global:launchParams = '@("$global:EXE $global:PORT")'
+    $global:launchParams = '@("$executable $port")'
 }   
