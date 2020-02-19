@@ -24,7 +24,7 @@ Function New-LaunchScriptArma3serverPS {
     $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
     #                       Mods
     $global:mods            = ""
-    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\1374639840;Mods\1439779114;Mods\333310405;Mods\450814997;Mods\463939057;Mods\549676314;Mods\773125288;Mods\773131200;Mods\843593391;"
+    # $mods                 ="Mods\1351712613;Mods\1355481562;Mods\1374639840;Mods\1439779114;Mods\333310405;Mods\450814997;Mods\463939057;Mods\549676314;Mods\773125288;Mods\773131200;Mods\843425103;Mods\843577117;Mods\843593391;Mods\497660133"
     #                       Server Mods
     $global:servermods      = ""
     
