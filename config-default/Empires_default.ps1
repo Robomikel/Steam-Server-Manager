@@ -11,7 +11,7 @@ Function New-LaunchScriptemserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "emp_streetsoffire"
+    $global:defaultmap      = "emp_streetsoffire"
     #                       Maxplayers
     $global:maxplayers      = "62"
 

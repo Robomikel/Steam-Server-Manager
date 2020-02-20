@@ -14,7 +14,7 @@ Function New-LaunchScriptHL2DMserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "dm_lockdown"
+    $global:defaultmap      = "dm_lockdown"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name

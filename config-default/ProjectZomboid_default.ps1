@@ -4,11 +4,11 @@ Function New-LaunchScriptpzserverPS {
     # APP ID # 380870
     # WIKI
         ################## Change Default Variables #################
-    #                       Server IP 
-    ${global:IP}            = "${global:IP}"
-    #                       Server Name
-    $global:hostname        = "$env:USERNAME"
-    #                       Rcon Password
+    #                         Server IP 
+    ${global:IP}              = "${global:IP}"
+    #                         Server Name
+    $global:hostname          = "$env:USERNAME"
+    #                         Rcon Password
     ${global:adminpassword}   = "$global:RANDOMPASSWORD"
     
 

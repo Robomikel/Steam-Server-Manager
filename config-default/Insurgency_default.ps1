@@ -16,7 +16,7 @@ Function New-LaunchScriptInsserverPS {
     #                       Game Server Token
     $global:gslt            = "GameServerTokenHere"
     #                       Map
-    $global:defaultmap             = "buhriz_coop checkpoint"
+    $global:defaultmap      = "buhriz_coop checkpoint"
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       SV_LAN

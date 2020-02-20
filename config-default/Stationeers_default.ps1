@@ -4,11 +4,11 @@ Function New-LaunchScriptStationeersPS {
     ################## Change Default Variables #################
 
     #                       Server Port
-    $global:port = "7777"
+    $global:port            = "7777"
     #                       Query Port
-    $global:queryport = "27015"
+    $global:queryport       = "27015"
     #                       Server Name
-    $global:hostname = "$env:USERNAME"
+    $global:hostname        = "$env:USERNAME"
     ##############################/\##############################
     
     # parameter	value	etc

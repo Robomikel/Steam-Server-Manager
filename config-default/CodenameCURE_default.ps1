@@ -11,7 +11,7 @@ Function New-LaunchScriptCCserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "cbe_bunker"
+    $global:defaultmap      = "cbe_bunker"
     #                       Maxplayers
     $global:maxplayers      = "6"
     #                       Server Name

@@ -7,7 +7,7 @@ Function New-LaunchScriptLambdaWarsserverPS {
     #                       Server Port
     ${global:port}          = "27015"
     #                       Map
-    $global:defaultmap       = "gamelobby"
+    $global:defaultmap      = "gamelobby"
     #                       Maxplayers
     $global:maxplayers      = "8"
     #                       Requieres Steam Login

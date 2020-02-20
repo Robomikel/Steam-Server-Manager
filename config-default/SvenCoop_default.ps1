@@ -11,7 +11,7 @@ Function New-LaunchScriptSvenCoopserverPS {
     #                       Client Port
     $global:clientport      = "27005"
     #                       Map
-    $global:defaultmap             = "svencoop1"
+    $global:defaultmap      = "svencoop1"
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name

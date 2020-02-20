@@ -7,7 +7,7 @@ Function New-LaunchScriptKF2serverPS {
     #                       Query Port
     $global:queryport       = "27015"
     #                       Map
-    $global:defaultmap             = "KF-BioticsLab"
+    $global:defaultmap      = "KF-BioticsLab"
     #                       GameMode
     $global:gamemode        = "KFGameContent.KFGameInfo_Endless"
     #                       Difficulty
@@ -15,7 +15,7 @@ Function New-LaunchScriptKF2serverPS {
     #                       Server Name
     $global:hostname        = "$env:USERNAME"
     #                       Admin Password
-    $global:adminpassword    = "$global:RANDOMPASSWORD"
+    $global:adminpassword   = "$global:RANDOMPASSWORD"
 
     ##############################/\##############################
     

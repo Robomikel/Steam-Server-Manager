@@ -3,7 +3,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     # APP ID # 299310
     ################## Change Default Variables ################# 
     #                       Game Mode
-    $global:gamemode = "DefaultCoop"
+    $global:gamemode        = "DefaultCoop"
     ###########################/\#################################
     
     # DefaultCoop

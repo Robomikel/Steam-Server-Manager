@@ -15,7 +15,7 @@ Function New-LaunchScriptPixArkPS {
     #                       Rcon Password
     $global:rconpassword    = "$global:RANDOMPASSWORD"
     #                       Map
-    $global:defaultmap             = "CubeWorld_Light"
+    $global:defaultmap      = "CubeWorld_Light"
     #                       Maxplayers
     $global:maxplayers      = "70"
     #                       Server Name

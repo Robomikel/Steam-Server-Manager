@@ -9,7 +9,7 @@ Function New-LaunchScriptdowserverPS {
     #                       Query Port
     $global:queryport       = "27015"
     #                       Map
-    $global:defaultmap             = "dow_kaysersberg"
+    $global:defaultmap      = "dow_kaysersberg"
 
     ##############################/\##############################
     

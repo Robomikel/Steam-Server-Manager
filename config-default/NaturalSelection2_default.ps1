@@ -7,7 +7,7 @@ Function New-LaunchScriptNS2serverPS {
     #                       Server Port
     $global:port            = "27015"
     #                       Map
-    $global:defaultmap             = "ns2_summit"
+    $global:defaultmap      = "ns2_summit"
     #                       Maxplayers
     $global:maxplayers      = "24"
     #                       Server Name

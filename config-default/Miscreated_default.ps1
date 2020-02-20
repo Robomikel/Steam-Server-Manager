@@ -11,7 +11,7 @@ Function New-LaunchScriptMiscreatedPS {
         #                       Maxplayers
         $global:maxplayers      = "32"
         #                       Server Name
-        $global:hostname         = "$env:USERNAME"
+        $global:hostname        = "$env:USERNAME"
         ##############################/\##############################
         
         

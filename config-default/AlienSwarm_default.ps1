@@ -13,7 +13,7 @@ Function New-LaunchScriptasrdserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-     $global:defaultmap             = "lobby"
+     $global:defaultmap     = "lobby"
     #                       Maxplayers
      $global:maxplayers      = "10"
 

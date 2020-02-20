@@ -7,7 +7,7 @@ Function New-LaunchScriptAoCserverPS {
     #                       Server Port
     ${global:port}          = "27015"
     #                       Map
-    $global:defaultmap             = "aoc_siege"
+    $global:defaultmap      = "aoc_siege"
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name

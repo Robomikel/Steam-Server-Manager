@@ -4,7 +4,7 @@ Function New-LaunchScriptPCserverPS {
   ################## Change Default Variables #################
     
   #                       Server Name
-  $global:hostname = "$env:USERNAME"
+  $global:hostname        = "$env:USERNAME"
 
   ##############################/\##############################
     

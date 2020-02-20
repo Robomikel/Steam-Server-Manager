@@ -13,7 +13,7 @@ Function New-LaunchScriptDystopiaserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "dys_broadcast"
+    $global:defaultmap      = "dys_broadcast"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name

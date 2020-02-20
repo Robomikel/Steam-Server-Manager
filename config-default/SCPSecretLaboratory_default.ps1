@@ -4,7 +4,7 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     ################## Change Default Variables #################
 
     #                   Server Port 
-    $global:port = "7777"
+    $global:port        = "7777"
 
     ##############################/\##############################
     

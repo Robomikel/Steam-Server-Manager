@@ -14,7 +14,7 @@ Function New-LaunchScriptGMODserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "gm_construct"
+    $global:defaultmap      = "gm_construct"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name

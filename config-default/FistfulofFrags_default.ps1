@@ -13,7 +13,7 @@ Function New-LaunchScriptFOFserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Map
-    $global:defaultmap             = "fof_depot"
+    $global:defaultmap      = "fof_depot"
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name

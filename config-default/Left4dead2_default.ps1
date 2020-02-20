@@ -9,7 +9,7 @@ Function New-LaunchScriptLFD2serverPS {
     #                       Client Port
     $global:clientport      = "27005"
     #                       Map
-    $global:defaultmap             = "c1m1_hotel"
+    $global:defaultmap      = "c1m1_hotel"
     #                       Maxplayers
     $global:maxplayers      = "8"
     #                       Server Name

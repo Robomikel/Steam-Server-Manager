@@ -13,7 +13,7 @@ Function New-LaunchScriptArkPS {
         #                       Rcon Password
         $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Map
-        $global:defaultmap             = "TheIsland"
+        $global:defaultmap      = "TheIsland"
         #                       Maxplayers
         $global:maxplayers      = "70"
         #                       Server Name

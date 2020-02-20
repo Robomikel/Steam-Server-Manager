@@ -3,7 +3,7 @@ Function New-LaunchScriptVanguard1944serverPS {
   # 1017070
   ################## Change Default Variables #################
   #                       Server Name
-  $global:hostname = "$env:USERNAME"
+  $global:hostname        = "$env:USERNAME"
   
   ##############################/\##############################
     

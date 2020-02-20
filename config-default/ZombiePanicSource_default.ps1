@@ -13,7 +13,7 @@ Function New-LaunchScriptZPSserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Server Map 
-    $global:defaultmap             = "zps_deadend"
+    $global:defaultmap      = "zps_deadend"
     #                       Max Players 
     $global:maxplayers      = "20"
       #                       Server Name

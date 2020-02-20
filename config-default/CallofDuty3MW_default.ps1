@@ -9,7 +9,7 @@ Function New-LaunchScriptCOD3MWserverPS {
   #                       Server Port
   $global:port            = "27015"
   #                       Map
-  $global:defaultmap             = "map_rotation"
+  $global:defaultmap      = "map_rotation"
 
   #                       Requieres Steam Login
   

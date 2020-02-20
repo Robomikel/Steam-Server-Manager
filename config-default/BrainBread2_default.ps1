@@ -16,7 +16,7 @@ Function New-LaunchScriptBB2serverPS {
     #                       Game Server Token : Optional
     $global:GSLT            = "GameServerTokenHere"
     #                       Map
-    $global:defaultmap             = "bba_barracks"
+    $global:defaultmap      = "bba_barracks"
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name

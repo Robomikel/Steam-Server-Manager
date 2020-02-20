@@ -7,7 +7,7 @@ Function New-LaunchScriptInssserverPS {
         #                       Server Scenario 
         $global:scenario        = "Scenario_Outskirts_Checkpoint_Security"
         #                       Server Map 
-        $global:defaultmap             = "Compound"
+        $global:defaultmap      = "Compound"
         #                       Server max Players 
         $global:maxplayers      = "8"
         #                       Server Port   

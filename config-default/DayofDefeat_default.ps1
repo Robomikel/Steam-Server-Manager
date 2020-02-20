@@ -11,7 +11,7 @@ Function New-LaunchScriptDODSserverPS {
     #                       Client Port
     $global:clientport      = "27005"
     #                       Map
-    $global:defaultmap             = "dod_Anzio"
+    $global:defaultmap      = "dod_Anzio"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name

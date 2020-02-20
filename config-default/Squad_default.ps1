@@ -12,7 +12,7 @@ Function New-LaunchScriptSquadserverPS {
     #                       Maxplayers
     $global:maxplayers      = "80"
     #                       Server Name
-    # $global:hostname        = "$env:USERNAME"
+    # $global:hostname      = "$env:USERNAME"
     ##############################/\##############################
     
     # Need to be open on Windows firewall and router.

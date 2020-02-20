@@ -4,15 +4,15 @@ Function New-LaunchScriptMEserverPS {
     # https://www.medievalengineerswiki.com/index.php?title=Keen:Dedicated_Server_Configuration
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:ip} = "${global:IP}"
+    ${global:ip}            = "${global:IP}"
     #                       Server Port
-    ${global:port} = "27015"
+    ${global:port}          = "27015"
     #                       Maxplayers
-    $global:maxplayers = "20"
-    #                   Server Name
-    $global:hostname    = "$env:USERNAME"
-    #                   World Name
-    $global:worldname    = "WorldName"
+    $global:maxplayers      = "20"
+    #                       Server Name
+    $global:hostname        = "$env:USERNAME"
+    #                       World Name
+    $global:worldname       = "WorldName"
     ##############################/\##############################
     
     # You can run MedievalEngineersDedicated.executable with the following arguments

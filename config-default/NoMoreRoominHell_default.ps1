@@ -15,7 +15,7 @@ Function New-LaunchScriptNMRIHserverPS {
     #                       Game Server Token (required)
     $global:gslt            = "GameServerTokenHere"
     #                       Map
-    $global:defaultmap             = "nmo_broadway"
+    $global:defaultmap      = "nmo_broadway"
     #                       Maxplayers
     $global:maxplayers      = "8"
     #                       Server Name

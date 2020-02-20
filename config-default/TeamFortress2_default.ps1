@@ -15,7 +15,7 @@ Function New-LaunchScriptTF2serverPS {
     #                       Game Server Token
     $global:gslt            = "GameServerTokenHere"
     #                       Map
-    $global:defaultmap             = "cp_badlands"
+    $global:defaultmap      = "cp_badlands"
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name

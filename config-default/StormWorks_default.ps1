@@ -2,12 +2,12 @@ Function New-LaunchScriptStormworksserverPS {
     # Stormworks Dedicated Server
     # APP ID # 1247090
     ################## Change Default Variables ################# 
-    #                   Server Port 
-    $global:port        = "25564"
-    #                   Server Name
-    $global:hostname    = "$env:USERNAME"
+    #                       Server Port 
+    $global:port            = "25564"
+    #                       Server Name
+    $global:hostname        = "$env:USERNAME"
     #                       Maxplayers
-    $global:maxplayers = "20"
+    $global:maxplayers      = "20"
     #                       Server Password
     $global:serverpassword  = ""
     ###########################/\#################################

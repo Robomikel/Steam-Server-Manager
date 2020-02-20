@@ -13,7 +13,7 @@ Function New-LaunchScriptColonySurvivalServerPS {
     #                       Server Port
     $global:port            = "27004"
     #                       World Name  
-    $global:galaxyname        = "WorldName"
+    $global:galaxyname      = "WorldName"
     ##############################/\##############################
     
     

@@ -15,7 +15,7 @@ Function New-LaunchScriptcsgoserverPS {
         #                       Game Server Token required for public servers
         $global:gslt            = "GameServerTokenHere"
         #                       Map
-        $global:defaultmap             = "de_inferno"
+        $global:defaultmap      = "de_inferno"
         #                       Maxplayers
         $global:maxplayers      = "32"
         #                       Server Name

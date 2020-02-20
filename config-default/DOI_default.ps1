@@ -13,7 +13,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       Tickrate
     $global:tickrate        = "64"
     #                       Map
-    $global:defaultmap             = "bastogne stronghold"
+    $global:defaultmap      = "bastogne stronghold"
     #                       SV_LAN
     $global:sv_lan          = "0"
     #                       Maxplayers

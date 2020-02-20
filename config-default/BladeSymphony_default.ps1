@@ -12,7 +12,7 @@ Function New-LaunchScriptbsserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Server Map
-    $global:defaultmap             = "duel_winter"
+    $global:defaultmap      = "duel_winter"
     #                      Max Players
     $global:maxplayers      = "16"
     #                       Server Name

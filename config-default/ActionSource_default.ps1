@@ -11,7 +11,7 @@ Function New-LaunchScriptAHL2serverPS {
   #                       Source TV Port
   $global:sourcetvport    = "27020"
   #                       Map
-  $global:defaultmap             = "act_airport"
+  $global:defaultmap      = "act_airport"
   #                       Maxplayers
   $global:maxplayers      = "20"
   #                       Server Name
