@@ -16,7 +16,7 @@ Function New-LaunchScriptZPSserverPS {
     $global:defaultmap      = "zps_deadend"
     #                       Max Players 
     $global:maxplayers      = "20"
-      #                       Server Name
+      #                     Server Name
     $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
     $global:rconpassword    = "$global:RANDOMPASSWORD"
