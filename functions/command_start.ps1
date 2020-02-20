@@ -28,7 +28,7 @@ Function Get-StartServer {
     Set-Location $currentdir
 }
 Function Select-StartServer {
-    Write-Host '****   Starting Server   *****' -F Y -B Black  
+    Write-Host '****   Starting Server   *****' -F Magenta -B Black  
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
