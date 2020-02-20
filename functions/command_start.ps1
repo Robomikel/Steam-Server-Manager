@@ -13,9 +13,9 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
-    If ($log -eq "1") {New-ServerLog}
+    If ($log -eq "1") { New-ServerLog }
     Set-Location $currentdir\$serverfiles\
-    If ($appid -eq 343050) {Set-Location $currentdir\$serverfiles\$executabledir}
+    If ($appid -eq 343050) { Set-Location $currentdir\$serverfiles\$executabledir }
     #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
     If (( $appid -eq 258550 ) -or ($appid -eq 294420 ) -or ($appid -eq 302550)) {
         Start-Process CMD "/c start $launchParams"
@@ -36,10 +36,13 @@ Function Get-CheckServer {
     Else {
         Write-Host '****   Check  Server process    *****' -F Y -B Black 
         If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-Host "----   NOT RUNNING   ----" -F R -B Black
+            Write-infoMessageNotRunning 
+            # Write-Host "----   NOT RUNNING   ----" -F R -B Black
         }
         Else {
-            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$process"
+            Write-infoMessageRunning
+            # Write-Host "****   RUNNING   ****" -F Green -B Black 
+            Get-Process "$process"
             Get-ClearVariables
             Exit 
         }
@@ -51,10 +54,12 @@ Function Get-checkMultiple {
     $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     
     If ($null -eq $process) {
-        Write-Host "----   NOT RUNNING   ----" -F R -B Black
+        Write-infoMessageNotRunning 
+        # Write-Host "----   NOT RUNNING   ----" -F R -B Black
     }
     Else {
-        Write-Host "****   RUNNING   ****" -F Green -B Black
+        Write-infoMessageRunning
+        # Write-Host "****   RUNNING   ****" -F Green -B Black
         $process 
         Get-ClearVariables 
         Exit

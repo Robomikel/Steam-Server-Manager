@@ -18,6 +18,9 @@ Function New-DiscordAlert {
     ElseIf ($alert -eq "restart") {
         Get-AlertRestart
     }
+    Else{
+        Get-AlertTest
+    }
     Send-DiscordAlert                              
     # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
 }   
@@ -25,6 +28,9 @@ Function Send-DiscordAlert {
     $global:InfoMessage = "discord"
     Get-Infomessage
     # Write-Host '****   Sending Discord Alert   ****' -F M -B Black
+    $thumbnailObject = [PSCustomObject]@{
+        url = "https://i.imgur.com/tTrtYMe.png"
+    }
     $webHookUrl = "$discordwebhook"
     [System.Collections.ArrayList]$embedArray = @()
     $title = "$HOSTNAME"
@@ -34,6 +40,7 @@ Function Send-DiscordAlert {
         title       = $title       
         description = $description  
         color       = $color
+        thumbnail = $thumbnailObject
     }                              
     $embedArray.Add($embedObject) | Out-Null
     $payload = [PSCustomObject]@{
@@ -75,4 +82,11 @@ Function Get-AlertRestart {
     $global:MESSAGE = " Server not Running, Starting Server "
     # RED
     $global:MESSAGECOLOR = '16711680'
+}
+
+Function Get-AlertTest {
+    # BACKUP
+    $global:MESSAGE = ' Test Alert'
+    # GREEN
+    $global:MESSAGECOLOR = '026255'
 }

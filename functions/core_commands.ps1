@@ -19,7 +19,7 @@ Function Select-Steamer {
         $serverfiles)
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
-        Write-Host 'Input Server Folder Name make unique to instance [i.e. sdtdserver (No Spaces!)]: ' -F C -N
+        Write-Host 'Input Server Folder Name: ' -F C -N
         $global:serverfiles = Read-host
         Get-TestString
         Get-Appid

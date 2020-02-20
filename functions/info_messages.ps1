@@ -14,6 +14,16 @@ Function Get-Infomessage {
 Function Write-infoMessageDiscord {
     Write-Host '****   Sending Discord Alert   ****' -F M -B Black
 }
+Function Write-infoMessageStopping {
+    Write-Host '****   Stopping Server process   *****' -F M -B Black 
+}
+
+Function Write-infoMessageNotRunning {
+    Write-Host "----   Server not running   ----" -F R -B Black
+}
+Function Write-infoMessageRunning {
+    Write-Host "****   Server Running   ****" -F Green -B Black
+}
 Function Get-Finished {
     Get-ClearVariables
     Write-Host "*************************************" -F Y

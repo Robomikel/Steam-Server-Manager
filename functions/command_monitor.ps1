@@ -13,12 +13,15 @@ Function Get-MonitorServer {
     Else {
         Write-Host '****   Monitor  Server process    *****' -F Y -B Black 
         If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-Host "----   NOT RUNNING   ----" -F R -B Black
+            Write-infoMessageNotRunning 
+            # Write-Host "----   NOT RUNNING   ----" -F R -B Black
             $global:alert = "restart"
             New-DiscordAlert
         }
         Else {
-            Write-Host "****   RUNNING   ****" -F Green -B Black ; ; Get-Process "$process"
+            Write-infoMessageRunning
+            # Write-Host "****   RUNNING   ****" -F Green -B Black
+             Get-Process "$process"
             Get-ClearVariables
             Exit 
         }
@@ -30,12 +33,14 @@ Function Get-MonitorMultiple {
     $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     
     If ($null -eq $process) {
-        Write-Host "----   NOT RUNNING   ----" -F R -B Black
+        Write-infoMessageNotRunning 
+        # Write-Host "----   NOT RUNNING   ----" -F R -B Black
         $global:alert = "restart"
         New-DiscordAlert 
     }
     Else {
-        Write-Host "****   RUNNING   ****" -F Green -B Black
+        Write-infoMessageRunning
+        # Write-Host "****   RUNNING   ****" -F Green -B Black
         $process 
         Get-ClearVariables 
         Exit
