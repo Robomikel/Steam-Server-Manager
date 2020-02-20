@@ -98,7 +98,7 @@ Function Select-EditSourceCFG {
     ((Get-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -ea SilentlyContinue
 }
 Function New-ServerLog {
-    $logdirectoryectory = "$currentdir\$serverfiles\$logdir"
+    $logdirectory = "$currentdir\$serverfiles\$logdir"
     If ($consolelogging -eq "on") { Copy-Item "$logdirectoryectory\[csg]*.log", "$logdirectoryectory\[o]*.txt", "$logdirectoryectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
