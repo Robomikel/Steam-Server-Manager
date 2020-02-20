@@ -33,13 +33,6 @@ Function New-LaunchScriptInsserverPS {
     $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
-    # Advanced Steam WorkShop Mods Configuration
-    # Mod Directory
-    $global:moddir = "$serverfiles\insurgency\custom"
-    # steam appID for SE regular game (workshop content tied to this appID)
-    $global:reg_appID = '222880'
-    # list of mods to download and copy to server mod folder
-    $global:wsmods = "@('419248680', '907595211')"
     
     
     ###################### Do not change below #####################
