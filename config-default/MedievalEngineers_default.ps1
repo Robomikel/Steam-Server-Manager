@@ -62,55 +62,56 @@ Function New-servercfgme {
     New-Item $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
     
     Add-Content $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg `
-"<?xml version=`"1.0`"?>
-    <MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
-      <SessionSettings>
-        <GameMode>Creative</GameMode>
-        <InventorySizeMultiplier>1</InventorySizeMultiplier>
-        <OnlineMode>PUBLIC</OnlineMode>
-        <MaxPlayers>4</MaxPlayers>
-        <MaxFloatingObjects>64</MaxFloatingObjects>
-        <MaxBackupSaves>5</MaxBackupSaves>
-        <EnableSpectator>false</EnableSpectator>
-        <EnableCopyPaste>true</EnableCopyPaste>
-        <ShowPlayerNamesOnHud>true</ShowPlayerNamesOnHud>
-        <AutoSaveInMinutes>0</AutoSaveInMinutes>
-        <ProceduralSeed>0</ProceduralSeed>
-        <DestructibleBlocks>true</DestructibleBlocks>
-        <ViewDistance>2600</ViewDistance>
-        <Enable3rdPersonView>true</Enable3rdPersonView>
-        <EnableSunRotation>true</EnableSunRotation>
-        <PhysicsIterations>4</PhysicsIterations>
-        <SunRotationIntervalMinutes>120</SunRotationIntervalMinutes>
-        <DaysPerSeason>4</DaysPerSeason>
-        <MaxSolarAltitude>0.41</MaxSolarAltitude>
-        <EnableVoxelDestruction>true</EnableVoxelDestruction>
-        <EnableStructuralSimulation>true</EnableStructuralSimulation>
-        <MessageOfTheDay />
-        <ServerSideChatLogging>true</ServerSideChatLogging>
-        <EnableLargeDynamicGridDecay>true</EnableLargeDynamicGridDecay>
-        <MaximumBots>3</MaximumBots>
-        <EnableHostileAI>true</EnableHostileAI>
-        <EnableFastTravel>true</EnableFastTravel>
-        <EnableTravelReachability>true</EnableTravelReachability>
-        <MaxActiveFracturePieces>50</MaxActiveFracturePieces>
-      </SessionSettings>
-      <Scenario Type=`"ScenarioDefinition`" Subtype=`"ArenaStart`" />
-      <LoadWorld />
-      <IP>0.0.0.0</IP>
-      <SteamPort>8766</SteamPort>
-      <ServerPort>27016</ServerPort>
-      <Administrators />
-      <Banned />
-      <Mods />
-      <GroupID>0</GroupID>
-      <ServerName>$hostname</ServerName>
-      <WorldName>$WORLDNAME</WorldName>
-      <PauseGameWhenEmpty>false</PauseGameWhenEmpty>
-      <IgnoreLastSession>false</IgnoreLastSession>
-      <RemoteApiEnabled>true</RemoteApiEnabled>
-      <PublicRemoteApiEnabled>true</PublicRemoteApiEnabled>
-      <RemoteSecurityKey>&lt;Click Generate&gt;</RemoteSecurityKey>
-      <RemoteApiPort>8080</RemoteApiPort>
-    </MyConfigDedicated>"
+"
+<?xml version=`"1.0`"?>
+<MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
+  <SessionSettings>
+    <GameMode>Creative</GameMode>
+    <InventorySizeMultiplier>1</InventorySizeMultiplier>
+    <OnlineMode>PUBLIC</OnlineMode>
+    <MaxPlayers>4</MaxPlayers>
+    <MaxFloatingObjects>64</MaxFloatingObjects>
+    <MaxBackupSaves>5</MaxBackupSaves>
+    <EnableSpectator>false</EnableSpectator>
+    <EnableCopyPaste>true</EnableCopyPaste>
+    <ShowPlayerNamesOnHud>true</ShowPlayerNamesOnHud>
+    <AutoSaveInMinutes>0</AutoSaveInMinutes>
+    <ProceduralSeed>0</ProceduralSeed>
+    <DestructibleBlocks>true</DestructibleBlocks>
+    <ViewDistance>2600</ViewDistance>
+    <Enable3rdPersonView>true</Enable3rdPersonView>
+    <EnableSunRotation>true</EnableSunRotation>
+    <PhysicsIterations>4</PhysicsIterations>
+    <SunRotationIntervalMinutes>120</SunRotationIntervalMinutes>
+    <DaysPerSeason>4</DaysPerSeason>
+    <MaxSolarAltitude>0.41</MaxSolarAltitude>
+    <EnableVoxelDestruction>true</EnableVoxelDestruction>
+    <EnableStructuralSimulation>true</EnableStructuralSimulation>
+    <MessageOfTheDay />
+    <ServerSideChatLogging>true</ServerSideChatLogging>
+    <EnableLargeDynamicGridDecay>true</EnableLargeDynamicGridDecay>
+    <MaximumBots>3</MaximumBots>
+    <EnableHostileAI>true</EnableHostileAI>
+    <EnableFastTravel>true</EnableFastTravel>
+    <EnableTravelReachability>true</EnableTravelReachability>
+    <MaxActiveFracturePieces>50</MaxActiveFracturePieces>
+  </SessionSettings>
+  <Scenario Type=`"ScenarioDefinition`" Subtype=`"ArenaStart`" />
+  <LoadWorld />
+  <IP>0.0.0.0</IP>
+  <SteamPort>8766</SteamPort>
+  <ServerPort>27016</ServerPort>
+  <Administrators />
+  <Banned />
+  <Mods />
+  <GroupID>0</GroupID>
+  <ServerName>$hostname</ServerName>
+  <WorldName>$WORLDNAME</WorldName>
+  <PauseGameWhenEmpty>false</PauseGameWhenEmpty>
+  <IgnoreLastSession>false</IgnoreLastSession>
+  <RemoteApiEnabled>true</RemoteApiEnabled>
+  <PublicRemoteApiEnabled>true</PublicRemoteApiEnabled>
+  <RemoteSecurityKey>&lt;Click Generate&gt;</RemoteSecurityKey>
+  <RemoteApiPort>8080</RemoteApiPort>
+</MyConfigDedicated>"
     }
