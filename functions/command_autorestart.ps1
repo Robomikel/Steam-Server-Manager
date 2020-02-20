@@ -21,7 +21,7 @@ Function New-RestartJobBG {
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
     Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles AutoRestart" -InputObject $Task -User "$UserName" -Password "$Password" -ea SilentlyContinue
+    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" -ea SilentlyContinue
 }
 Function New-RestartJob {
     Write-Host "Run Task only when user is logged on"
@@ -33,5 +33,5 @@ Function New-RestartJob {
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
     Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles AutoRestart" -InputObject $Task
+    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task
 }

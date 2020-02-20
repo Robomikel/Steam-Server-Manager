@@ -14,7 +14,7 @@ Function New-MontiorJob {
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
     Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles monitor" -InputObject $Task
+    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task
 }
 Function New-MontiorJobBG {  
     $UserName = "$env:COMPUTERNAME\$env:UserName"
@@ -28,5 +28,5 @@ Function New-MontiorJobBG {
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
     Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles monitor" -InputObject $Task -User "$UserName" -Password "$Password"
+    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password"
 }
