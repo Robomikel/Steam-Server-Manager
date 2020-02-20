@@ -39,6 +39,6 @@ Function New-LaunchScriptSdtdserverPS {
     ((Get-Content -path $currentdir\$serverfiles\startdedicated.bat -Raw) -replace 'pause', 'exit') | Set-Content -Path $currentdir\$serverfiles\startdedicated.bat        
     
     
-    $launchParams = '@("$executable -logfile $currentdir\$serverfiles\server.log -quit -batchmode -nographics -configfile=serverconfig.xml -dedicated")'
+    $global:launchParams = '@("$executable -logfile $currentdir\$serverfiles\server.log -quit -batchmode -nographics -configfile=serverconfig.xml -dedicated")'
     #$launchParams = '@("$executable")'
 }
