@@ -33,8 +33,8 @@ Function Send-DiscordAlert {
     }
     $webHookUrl = "$discordwebhook"
     [System.Collections.ArrayList]$embedArray = @()
-    $title = "$HOSTNAME"
-    $description = "$MESSAGE"
+    $title = "Server Name:  $HOSTNAME   "
+    $description = "Alert:  $MESSAGE    "
     $color = "$MESSAGECOLOR"
     $embedObject = [PSCustomObject]@{
         title       = $title       
