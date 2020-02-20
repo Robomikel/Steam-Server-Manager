@@ -21,7 +21,7 @@ Function Get-MonitorServer {
         Else {
             Write-infoMessageRunning
             # Write-Host "****   RUNNING   ****" -F Green -B Black
-             Get-Process "$process"
+            Get-Process "$process"
             Get-ClearVariables
             Exit 
         }

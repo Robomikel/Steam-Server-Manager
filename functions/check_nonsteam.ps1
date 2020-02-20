@@ -7,26 +7,30 @@
 #
 #
 Function Get-CheckNonSteam {
-    If (($APPID -eq 11421000 ) -or ($APPID -eq 11500000 )){
+    If (($APPID -eq 11421000 ) -or ($APPID -eq 11500000 )) {
         If ($command -eq "install" ) {
             Read-AppID
             New-CreateVariables
             Get-Finished
             Exit
-        }ElseIf($command -eq "Update" ){
-            If ($APPID -eq 11500000 ){
+        }
+        ElseIf ($command -eq "Update" ) {
+            If ($APPID -eq 11500000 ) {
                 Get-MCversion
                 Exit
-            }Else{
-            Get-MCbrversion
-            Exit
             }
-        }ElseIf($command -eq "ForceUpdate" ){
+            Else {
+                Get-MCbrversion
+                Exit
+            }
+        }
+        ElseIf ($command -eq "ForceUpdate" ) {
             Write-Host "ForceUpdate not available for this server" -F Y
             Write-Host "Try Install Command to download and overwrite files" -F Y
             Pause
             Exit
-        }ElseIf($command -eq "validate" ){
+        }
+        ElseIf ($command -eq "validate" ) {
             Write-Host "validate not available for this server" -F Y
             Write-Host "Try Install Command to download and overwrite files" -F Y
             Pause

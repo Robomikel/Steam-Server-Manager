@@ -124,7 +124,7 @@ Function Select-Steamer {
         Get-Finished
     }
     elseif (($command -eq "start") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server launch, warning stops running process!: ' -F C -N
+        Write-Host 'Server FolderName for start: ' -F C -N
         $global:serverfiles = Read-host
         Get-TestString
         Get-FolderNames
@@ -147,7 +147,7 @@ Function Select-Steamer {
         Get-ClearVariables
     }
     elseif (($command -eq "stop") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server stop, warning stops running process!: ' -F C -N
+        Write-Host 'Server FolderName for server stop: ' -F C -N
         $global:serverfiles = Read-host
         Get-TestString
         Get-FolderNames
@@ -166,7 +166,7 @@ Function Select-Steamer {
         Get-ClearVariables 
     }
     elseif (($command -eq "restart") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server restart, warning stops running process!: ' -F C -N
+        Write-Host 'Server FolderName for server restart: ' -F C -N
         $global:serverfiles = Read-host
         Get-TestString
         Get-FolderNames

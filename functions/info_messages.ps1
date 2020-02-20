@@ -7,7 +7,7 @@
 #
 #
 Function Get-Infomessage {
-    If ($InfoMessage -eq "discord"){
+    If ($InfoMessage -eq "discord") {
         Write-infoMessageDiscord
     }
 }

@@ -6,7 +6,7 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-MCBRBinaries{
+Function Get-MCBRBinaries {
         
     #################### MineCraftBedrock Install ################
     Get-MCBRWebrequest 
@@ -17,7 +17,7 @@ Function Get-MCBRBinaries{
     Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
 }
-Function Get-MCjavaBinaries{
+Function Get-MCjavaBinaries {
         
     #################### MineCraft Java Install ################
     Get-MCWebrequest 

@@ -87,6 +87,6 @@ Function Get-AlertRestart {
 Function Get-AlertTest {
     # BACKUP
     $global:MESSAGE = ' Test Alert'
-    # GREEN
+    # Cyan
     $global:MESSAGECOLOR = '026255'
 }

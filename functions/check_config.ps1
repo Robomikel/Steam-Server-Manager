@@ -13,7 +13,7 @@ Function Get-CheckForVars {
         $missingvars = $rconport, $rconpassword
     }
     Else {
-        $missingvars = ${queryport}, ${ip}, $appid, $process, ${port},$anon
+        $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
     }
     Foreach ($missingvars in $missingvars) {
         If ( "" -eq $missingvars) {

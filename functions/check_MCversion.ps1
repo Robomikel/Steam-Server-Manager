@@ -6,26 +6,28 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-MCbrversion{
+Function Get-MCbrversion {
     $localbuild = Get-Content $serverfiles\version.txt
     Get-MCBRWebrequest
     $remotebuild = $mcbrWebResponse.href
     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
         Write-Host "****   Avaiable Updates Server   ****" -F Green -B Black
         Write-Host "****   Try Install command to update files  ****" -F Y -B Black
-    }Else{
+    }
+    Else {
         Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
     }
 }
 
-Function Get-MCversion{
+Function Get-MCversion {
     $localbuild = Get-Content $serverfiles\version.txt
     Get-MCWebrequest
     $remotebuild = $mcvWebResponse
     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
         Write-Host "****   Avaiable Updates Server   ****" -F Green -B Black
         Write-Host "****   Try Install command to update files  ****" -F Y -B Black
-    }Else{
+    }
+    Else {
         Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
     }
 }
