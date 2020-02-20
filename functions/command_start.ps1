@@ -13,7 +13,7 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
-    If ($log -eq "1") { 
+    If ($consolelogging -eq "on") { 
         New-ServerLog 
     }
     Set-Location $currentdir\$serverfiles\
