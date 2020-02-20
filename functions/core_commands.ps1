@@ -196,15 +196,15 @@ Function Select-Steamer {
         Get-TestString
         Get-FolderNames
         Get-createdvaribles
-        Get-CheckForVars 
-        Get-CheckServer
+        Get-CheckForVars
+        Get-MonitorServer
         Get-ClearVariables
     }
     elseif ($command -eq "monitor") {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-CheckServer
+        Get-MonitorServer
         Get-ClearVariables
     }
     elseif (($command -eq "backup") -and ($null -eq $serverfiles)) {

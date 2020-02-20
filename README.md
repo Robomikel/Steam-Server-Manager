@@ -136,11 +136,11 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  - ```./ssm Stop <serverFolder>``` - stop process server
  - ```./ssm restart <serverFolder>``` - stops and starts process for server]
  - ```./ssm validate <serverFolder>``` - Validate App ID files
- - ```./ssm check <serverFolder>``` - checks process server
+ - ```./ssm monitor <serverFolder>``` - checks process server and starts if need with Discord Alert
  - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
   - ```./ssm ForceUpdate <serverFolder>``` - updates App ID. Force server stop and update
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
- - ```./ssm monitor <serverFolder>``` - Creates Scheduled Task to start server if off, with  Discord alert
+ - ```./ssm monitor-job <serverFolder>``` - Creates Scheduled Task to monitor server
   - ```./ssm Mod-Install <serverFolder>```  - Install Sourcemod or Oxide for specified servers
   - ```./ssm ws-Install <serverFolder>```  - Workshop Install
  - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook

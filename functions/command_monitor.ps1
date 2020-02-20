@@ -15,6 +15,7 @@ Function Get-MonitorServer {
         If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-infoMessageNotRunning 
             # Write-Host "----   NOT RUNNING   ----" -F R -B Black
+            Select-StartServer
             $global:alert = "restart"
             New-DiscordAlert
         }
@@ -35,6 +36,7 @@ Function Get-MonitorMultiple {
     If ($null -eq $process) {
         Write-infoMessageNotRunning 
         # Write-Host "----   NOT RUNNING   ----" -F R -B Black
+        Select-StartServer
         $global:alert = "restart"
         New-DiscordAlert 
     }
