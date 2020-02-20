@@ -31,5 +31,5 @@ Function New-LaunchScriptforestserverPS {
     $global:logdir = ""
     Get-StopServerInstall  
     #   Launch Param
-    $global:launchParams = '@("$executable -serverip ${IP} -serversteamport ${STEAMPORT} -servergameport ${port} -serverqueryport ${QUERYPORT} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${DIFF} -configfilepath $currentdir\$serverfiles\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
+    $global:launchParams = '@("$executable -serverip ${ip} -serversteamport ${steamport} -servergameport ${port} -serverqueryport ${queryport} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${diff} -configfilepath $currentdir\$serverfiles\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
 }

@@ -58,7 +58,7 @@ Function New-LaunchScriptSvenCoopserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$executable -console -game svencoop -strictportbind +ip ${$ip} -port ${$port} +clientport ${$clientport} +map ${$defaultmap} +servercfgfile server.cfg +maxplayers ${$maxplayers} -condebug")'
+    $global:launchParams = '@("$executable -console -game svencoop -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg +maxplayers ${maxplayers} -condebug")'
     # $global:launchParams = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
 
 }

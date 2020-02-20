@@ -53,7 +53,7 @@ Function New-LaunchScriptMEserverPS {
     # game config
     # Select-EditSourceCFG
     New-servercfgme
-    $global:launchParams = '@("$executabledir\$executable -console -ip ${IP} -port ${port} -maxPlayers $maxplayers")'
+    $global:launchParams = '@("$executabledir\$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 
 

@@ -42,10 +42,10 @@ Function New-LaunchScriptInssserverPS {
         #  Version 2 Launch Param
         If ($SERVERPASSWORD -ne "") {
     
-                $launchParams = '@("$executable ${defaultmap}?Scenario=${SCENARIO}?MaxPlayers=${maxplayers}?password=${SERVERPASSWORD} -Port=${port} -QueryPort=${QUERYPORT} -log -hostname=`"${hostname}`"")'
+                $launchParams = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
         }
         Else {
-                $launchParams = '@("$executable ${defaultmap}?Scenario=${SCENARIO}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${QUERYPORT} -log -hostname=`"${hostname}`"")'     
+                $launchParams = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
         }
 
         # Custom config game based

@@ -28,9 +28,6 @@ Function New-LaunchScriptBTserverPS {
     $global:servercfgdir = ""
     $global:logdir = "ServerLogs"  
 
-    
-
-    # $global:RCONPORT        = "${global:port}"
     #--->Stop existing process if running 
     Get-StopServerInstall
     #--->Game-server-manger folder \/

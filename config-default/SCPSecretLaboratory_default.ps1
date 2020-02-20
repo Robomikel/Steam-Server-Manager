@@ -33,5 +33,5 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     $global:gamedirname = ""
     $global:servercfg = ""
 
-    $global:launchParams = '@("$executable $port")'
+    $global:launchParams = '@("$executable ${port}")'
 }   

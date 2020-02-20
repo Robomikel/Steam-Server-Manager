@@ -41,6 +41,6 @@ Function New-LaunchScriptNS2serverPS {
     
     # Select-EditSourceCFG
     # VERSION 2 Requieres  Vars
-    $global:launchParams = '@("$executable -name `"${$hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"$RCONPASSWORD`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
+    $global:launchParams = '@("$executable -name `"${$hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
 
 }

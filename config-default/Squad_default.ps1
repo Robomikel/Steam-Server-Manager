@@ -40,6 +40,6 @@ Function New-LaunchScriptSquadserverPS {
     # Select-EditSourceCFG
     
     # $global:launchParams = '@("$executable MULTIHOME=${IP} Port=${port}  QueryPort=${QUERYPORT} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
-    $global:launchParams = '@("$executable Port=${port} QueryPort=${QUERYPORT} FIXEDMAXPLAYERS=${maxplayers} RANDOM=ALWAYS -log")'
+    $global:launchParams = '@("$executable Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} RANDOM=ALWAYS -log")'
 
 } 

@@ -54,7 +54,7 @@ Function New-LaunchScriptdoiserverPS {
     
     Select-EditSourceCFG
     # VERSION 2 Requieres  Vars
-    $global:launchParams = '@("$executable -game doi -strictportbind -usercon -ip ${IP} -port ${port} +clientport ${CLIENTPORT} +tv_port ${SOURCETVPORT} -tickrate ${TICKRATE} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${SV_LAN }+mp_coop_lobbysize ${COOPPLAYERS} +sv_workshop_enabled ${WORKSHOP} +sv_pure ${SV_PURE} -condebug")'
+    $global:launchParams = '@("$executable -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
     # -game doi -strictportbind           -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -workshop"
     #start srcds.exe -usercon +maxplayers 24 +sv_lan 0 +map "bastogne offensive"              
     Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black

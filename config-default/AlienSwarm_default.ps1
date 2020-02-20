@@ -32,7 +32,6 @@ Function New-LaunchScriptasrdserverPS {
     $global:servercfgdir = "reactivedrop\cfg"
     $global:logdir = "reactivedrop"
 
-    $global:RCONPORT = "${global:port}"
     Get-StopServerInstall
     Select-RenameSource
     $global:launchParams = '@("$executable -console -game reactivedrop -ip ${ip} -port ${port} +map ${defaultmap} -maxplayers ${maxplayers} +clientport ${clientport} +tv_port ${sourcetvport} +exec server.cfg -condebug")'

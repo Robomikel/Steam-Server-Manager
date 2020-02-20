@@ -70,6 +70,6 @@ Function New-LaunchScriptcsgoserverPS {
         Get-Servercfg
         Select-RenameSource
         Select-EditSourceCFG
-        $global:launchParams = '@("$executable -game csgo -console -usercon -strictportbind -ip ${IP} -port ${port} +clientport  ${CLIENTPORT} +tv_port ${SOURCETVPORT} +sv_setsteamaccount ${GSLT} -tickrate ${TICKRATE} +map ${defaultmap} -maxplayers_override ${maxplayers} +mapgroup ${MAPGROUP} +game_type ${GAMETYPE} +game_mode ${GAMEMODE} +host_workshop_collection ${wscollectionid} +workshop_start_map ${WSSTARTMAP} -authkey ${WSAPIKEY} -nobreakpad +net_public_adr ${EXTIP} -condebug")'
+        $global:launchParams = '@("$executable -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +clientport  ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} -tickrate ${TICKRATE} +map ${defaultmap} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
         #Get-SourceMetMod
 }

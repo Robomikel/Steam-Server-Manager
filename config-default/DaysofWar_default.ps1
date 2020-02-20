@@ -32,6 +32,6 @@ Function New-LaunchScriptdowserverPS {
     # Get-Servercfg
     # Select-EditSourceCFG
     
-    $global:launchParams = '@("$executabledir\$executable ${defaultmap} -Port=${port} -QueryPort=${QUERYPORT} -LOG")'
+    $global:launchParams = '@("$executabledir\$executable ${defaultmap} -Port=${port} -QueryPort=${queryport} -LOG")'
 
 } 

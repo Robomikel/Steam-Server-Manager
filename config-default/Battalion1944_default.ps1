@@ -47,7 +47,7 @@ Function New-LaunchScriptBT1944serverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$executabledir\$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=7777 -QueryPort=7780 -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
+    $global:launchParams = '@("$executabledir\$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=${port} -QueryPort=${queryport} -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
     # OR    EXE NOT In server folder ROOT add executabledir\/ \/
     #$launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

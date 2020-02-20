@@ -61,6 +61,6 @@ Function New-LaunchScriptArma3serverPS {
     ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\server.cfg -Raw) -replace '\b32\b', "$maxplayers") | Set-Content -Path $currentdir\$serverfiles\$servercfgdir\server.cfg  
     ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\server.cfg -Raw) -replace "\barma3pass\b", "$SERVERPASSWORD") | Set-Content -Path $currentdir\$serverfiles\$servercfgdir\server.cfg
     # -autoinit only for presistant missions
-    $global:launchParams = '@("$executable -ip=${IP} -port=${port} -cfg=$currentdir\$serverfiles\$servercfgdir\network.cfg -config=$currentdir\$serverfiles\$servercfgdir\server.cfg -mod=$mods -servermod=$servermods -bepath=$currentdir\$serverfiles\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
+    $global:launchParams = '@("$executable -ip=${ip} -port=${port} -cfg=$currentdir\$serverfiles\$servercfgdir\network.cfg -config=$currentdir\$serverfiles\$servercfgdir\server.cfg -mod=$mods -servermod=$servermods -bepath=$currentdir\$serverfiles\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
 
 }

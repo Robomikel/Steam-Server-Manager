@@ -36,5 +36,5 @@ Function New-LaunchScriptLambdaWarsserverPS {
     Select-RenameSource
     # game config
     # Select-EditSourceCFG
-    $global:launchParams = '@("$executable -console --game lambdawars +maxplayers ${maxplayers} +map ${MAP} -port ${PORT} -condebug")'
+    $global:launchParams = '@("$executable -console --game lambdawars +maxplayers ${maxplayers} +map ${defaultmap} -port ${port} -condebug")'
   }   

@@ -32,7 +32,7 @@ Function New-LaunchScriptMiscreatedPS {
         $global:RCONPORT = "$global:port"
         $global:RCONPORT += "4"  
         #VERSION 2 Requieres  Vars
-        $global:launchParams = '@("$executabledir\$executable +sv_bind ${IP} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
+        $global:launchParams = '@("$executabledir\$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
 
         # Custom config game based         
         Write-Host '*** Creating HOSTING.CFG *****' -ForegroundColor Magenta -BackgroundColor Black 

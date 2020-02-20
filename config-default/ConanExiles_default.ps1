@@ -41,5 +41,5 @@ Function New-LaunchScriptceserverPS {
     Add-Content -Path $currentdir\$serverfiles\$servercfgdir\Engine.ini -Value "ServerName=$hostname"
     Write-Host "***  Editing Default ServerSettings.ini   ***" -ForegroundColor Magenta -BackgroundColor Black
     Add-Content -Path $currentdir\$serverfiles\$servercfgdir\ServerSettings.ini -Value "AdminPassword=$ADMINPASSWORD"
-    $global:launchParams = '@("$executable -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${QUERYPORT} -RconEnabled=1 -RconPassword=${RCONPASSWORD} -RconPort=${RCONPORT}")'
+    $global:launchParams = '@("$executable -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -RconEnabled=1 -RconPassword=${rconpassword} -RconPort=${rconport}")'
 }

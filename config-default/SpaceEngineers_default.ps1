@@ -76,7 +76,7 @@ Function New-LaunchScriptSEserverPS {
     New-Item "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
     Write-Host "Copying World template to Save Dir" -F M
     copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
-    $global:launchParams = '@("$executabledir\$executable -console -ip ${IP} -port ${port} -maxPlayers $maxplayers")'
+    $global:launchParams = '@("$executabledir\$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 Function New-servercfgse {
     Write-Host "Creating Custom Config" -F M

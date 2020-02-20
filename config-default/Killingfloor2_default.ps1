@@ -59,6 +59,6 @@ Function New-LaunchScriptKF2serverPS {
     ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\KFWeb.ini
     Write-Host "***  Disabling Takeover PCServer-KFEngine.ini ***" -ForegroundColor Magenta -BackgroundColor Black
     ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\PCServer-KFEngine.ini
-    $global:launchParams = '@("$executabledir\$executable ${defaultmap}?Game=${GAMEMODE}?Difficulty=${DIFF}? -Port=${port} -QueryPort=${QUERYPORT}")'  
+    $global:launchParams = '@("$executabledir\$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'  
     Set-Location $currentdir
 }

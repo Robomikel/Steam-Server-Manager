@@ -58,5 +58,5 @@ Function New-LaunchScriptDystopiaserverPS {
     # VERSION 2 launch params executable in root \/\/
     #-game "${serverfiles}/dystopia" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers}
     # OR executable NOT In ROOT server folder add executabledir
-    $global:launchParams = '@("$executabledir\$executable -console -game `"$currentdir\${server}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
+    $global:launchParams = '@("$executabledir\$executable -console -game `"$currentdir\${serverfiles}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
 }

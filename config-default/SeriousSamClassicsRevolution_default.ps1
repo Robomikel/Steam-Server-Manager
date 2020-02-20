@@ -33,6 +33,6 @@ Function New-LaunchScriptSeriousSamserverPS {
     
 
 
-    $global:launchParams = '@("$executabledir\$executable $GAMEMODE")'
+    $global:launchParams = '@("$executabledir\$executable ${gamemode}")'
 
 }

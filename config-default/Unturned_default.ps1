@@ -30,6 +30,6 @@ Function New-LaunchScriptunturnedserverPS {
     
 
     
-    $global:launchParams = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/$hostname")'
+    $global:launchParams = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/${hostname}")'
     #$global:launchParams = '@("$executable")'
 }

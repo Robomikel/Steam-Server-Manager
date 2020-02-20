@@ -47,5 +47,5 @@ $global:servercfg = ""
 # Select-EditSourceCFG
 # rocketstation_DedicatedServer.executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -basedirectory="C:\Server\User1"
 
-$global:launchParams = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername $hostname -gameport ${port} -updateport ${QUERYPORT} -logfile server.log")'
+$global:launchParams = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername `"${hostname}`" -gameport ${port} -updateport ${queryport} -logfile server.log")'
 } 
