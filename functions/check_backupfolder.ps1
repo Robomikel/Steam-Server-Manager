@@ -13,6 +13,6 @@ Function New-BackupFolder {
     } 
     Else {  
         Write-Host '****   Creating backup folder   ****' -F M -B Black
-        New-Item  "$currentdir\" -Name "backups" -ItemType "directory"
+        New-Item  "$currentdir" -Name "backups" -ItemType "directory"
     }
 }

@@ -7,8 +7,8 @@
 #
 #
 Function Get-NodeJSCheck {
-    $path = "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64"
-    $patha = "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\node.exe"
+    $path = "$nodejsdirectory"
+    $patha = "$nodejsdirectory\node.exe"
     $pathb = "node-v$nodeversion-win-x64.zip"
     Write-Host "****   Checking for Nodejs   ****" -F M -B Black     
     If ((Test-Path $path) -and (Test-Path $pathb) -and (Test-Path $patha)) { 
