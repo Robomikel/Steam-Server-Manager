@@ -68,8 +68,7 @@ Function New-ServerFolderq {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        $global:command = "install"
-        Select-Steamer $command $serverfiles
+        Select-Steamer install $serverfiles
     }
     Else {
         Write-Host 'Entered N'
