@@ -89,8 +89,8 @@ Function Get-Savelocation {
 }
 Function Select-RenameSource {
     Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
-    Rename-Item  "$serverdir\$executabledir\srcds.exe" -NewName "$serverdir\$executabledir\$executable.exe" >$null 2>&1
-    Rename-Item  "$serverdir\$executabledir\srcds_x64.exe" -NewName "$serverdir\$executabledir\$executable-x64.exe" >$null 2>&1
+    Rename-Item  "$executabledir\srcds.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
+    Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable-x64.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
     Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
