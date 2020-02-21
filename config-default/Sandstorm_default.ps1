@@ -36,7 +36,7 @@ Function New-LaunchScriptInssserverPS {
         $global:querytype = "insurgencysandstorm"
         $global:process = "InsurgencyServer-Win64-Shipping"
         $global:servercfgdir = "$serverdir\Insurgency\Saved\Config\WindowsServer"
-        $global:logdirectory = "$serverdir"
+        $global:logdirectory = "$serverdir\Insurgency\Saved\Logs"
         Get-StopServerInstall
 
         #  Version 2 Launch Param
