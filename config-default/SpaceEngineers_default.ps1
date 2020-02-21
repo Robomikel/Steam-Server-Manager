@@ -56,7 +56,7 @@ Function New-LaunchScriptSEserverPS {
 
     ###################### Do not change below #############################
     $global:systemdir = ""
-    $global:executabledir = "DedicatedServer64"
+    $global:executabledir = "$serverdir\DedicatedServer64"
     $global:executable = "SpaceEngineersDedicated"
     $global:querytype = "protocol-valve"
     $global:saves = "SpaceEngineersDedicated"
