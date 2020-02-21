@@ -24,8 +24,8 @@ Function  New-LaunchScriptavserverPS {
         
         ###################### Do not change below #####################
         $global:systemdir = ""
-        $global:executable = "AvorionServer"
-        $global:executabledir= "$serverdir\bin"
+        $global:executable = "bin\AvorionServer"
+        $global:executabledir= "$serverdir"
         $global:querytype = "protocol-valve"
         $global:saves = "Avorion"
         $global:process = "AvorionServer"
