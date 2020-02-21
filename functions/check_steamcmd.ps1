@@ -8,8 +8,8 @@
 #
 Function Get-Steam {
     
-    $path = "$currentdir\steamcmd\"
-    $patha = "$currentdir\steamcmd\steamcmd.exe" 
+    $path = "$steamdirectory"
+    $patha = "$steamdirectory\steamcmd.exe" 
     If ((Test-Path $path) -and (Test-Path $patha)) { 
         Write-Host '****   steamCMD already downloaded!   ****' -F Y -B Black
     } 

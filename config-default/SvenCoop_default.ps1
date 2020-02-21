@@ -27,8 +27,8 @@ Function New-LaunchScriptSvenCoopserverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "SvenDS"
     #$global:executable = "ProjectZomboid64"
@@ -39,9 +39,9 @@ Function New-LaunchScriptSvenCoopserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "SvenDS"
     #--->game config folder
-    $global:servercfgdir = "svencoop"
+    $global:servercfgdir = "$serverdir\svencoop"
     #--->game log folder
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

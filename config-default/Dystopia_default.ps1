@@ -28,8 +28,8 @@ Function New-LaunchScriptDystopiaserverPS {
     ###################### Do not change below #####################
     # Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    # executable NOT in root server folder \/\/
-    $global:executabledir = "bin\win32"
+    # executable Directory \/\/
+    $global:executabledir = "$serverdir\bin\win32"
     # rename srcds to this name \/\/
     $global:executable = "Dystopia"
     # Requieres \/ \/ game dig
@@ -39,8 +39,8 @@ Function New-LaunchScriptDystopiaserverPS {
     # Requieres \/ \/ maybe same as game
     $global:process = "Dystopia"
     #---game config folder \/\/
-    $global:servercfgdir = "dystopia\cfg"
-    $global:logdir = "dystopia"
+    $global:servercfgdir = "$serverdir\dystopia\cfg"
+    $global:logdir = "$serverdir\dystopia"
     #---Stop existing process if running
     Get-StopServerInstall
     # Game-server-manger folder \/
@@ -57,6 +57,6 @@ Function New-LaunchScriptDystopiaserverPS {
     Select-EditSourceCFG
     # VERSION 2 launch params executable in root \/\/
     #-game "${serverfiles}/dystopia" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers}
-    # OR executable NOT In ROOT server folder add executabledir
-    $global:launchParams = '@("$executabledir\$executable -console -game `"$currentdir\${serverfiles}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
+
+    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
 }

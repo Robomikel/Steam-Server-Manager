@@ -26,11 +26,11 @@ Function New-LaunchScriptasrdserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "asrd"
-    $global:executabledir= ""
+    $global:executabledir= "$serverdir"
     $global:querytype = "protocol-valve"
     $global:process = "asrd"
-    $global:servercfgdir = "reactivedrop\cfg"
-    $global:logdir = "reactivedrop"
+    $global:servercfgdir = "$serverdir\reactivedrop\cfg"
+    $global:logdirectory = "$serverdir\reactivedrop"
 
     Get-StopServerInstall
     Select-RenameSource

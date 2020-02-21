@@ -18,13 +18,13 @@ Function New-LaunchScriptPCserverPS {
     
   ###################### Do not change below #####################
   $global:systemdir = ""
-  $global:executabledir = ""
+  $global:executabledir = "$serverdir"
   $global:executable = "DedicatedServerCmd"
   $global:querytype = "protocol-valve"
   $global:saves = ""
   $global:process = "DedicatedServerCmd"
-  $global:servercfgdir = "\"
-  $global:logdir = "logs"
+  $global:servercfgdir = "$serverdir"
+  $global:logdirectory = "$serverdir\logs"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = "ProjectCars"

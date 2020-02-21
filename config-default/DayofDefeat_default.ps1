@@ -25,8 +25,8 @@ Function New-LaunchScriptDODSserverPS {
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "dods"
     #--->Requieres \/ \/ game dig
@@ -36,8 +36,8 @@ Function New-LaunchScriptDODSserverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:process = "dods"
     #--->game config folder
-    $global:servercfgdir = "dod\cfg"
-    $global:logdir = "dod"  
+    $global:servercfgdir = "$serverdir\dod\cfg"
+    $global:logdirectory = "$serverdir\dod"  
 
     
     #--->Stop existing process if running 
@@ -58,6 +58,5 @@ Function New-LaunchScriptDODSserverPS {
     # --->Launch 
     #$global:launchParams = '@("$executable -console -game `"dods`" -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port}  +ip ${ip} +exec server.cfg")'
     $global:launchParams = '@("$executable -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+
 }

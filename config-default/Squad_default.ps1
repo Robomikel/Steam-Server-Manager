@@ -26,11 +26,11 @@ Function New-LaunchScriptSquadserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "SquadGameServer"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "protocol-valve"
     $global:process = "SquadGameServer"
-    $global:servercfgdir = "\squad_server\SquadGame\ServerConfig\"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\squad_server\SquadGame\ServerConfig\"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "Server.cfg"

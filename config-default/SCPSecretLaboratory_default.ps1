@@ -21,13 +21,13 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "LocalAdmin"
     $global:querytype = "protocol-valve"
     $global:saves = "SCP Secret Laboratory"
     $global:process = "LocalAdmin|SCPS"
     $global:servercfgdir = "$env:APPDATA\SCP Secret Laboratory\config\$port\config_gameplay.txt"
-    $global:logdir = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
+    $global:logdirectory = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

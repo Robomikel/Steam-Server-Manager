@@ -15,11 +15,11 @@ Function New-LaunchScriptDofDserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "DragonsServer"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "protocol-valve"
     $global:process = "DragonsServer"
-    $global:servercfgdir = "Dragons/Saved/Config/WindowsServer/"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\Dragons\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "Game.ini"

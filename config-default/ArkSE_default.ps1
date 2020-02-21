@@ -27,11 +27,11 @@ Function New-LaunchScriptArkPS {
         ###################### Do not change below #####################
         $global:systemdir = ""
         $global:executable = "ShooterGameServer"
-        $global:executabledir= "ShooterGame\Binaries\Win64"
+        $global:executabledir= "$serverdir\ShooterGame\Binaries\Win64"
         $global:querytype = "arkse"
         $global:process = "ShooterGameServer"
-        $global:servercfgdir = "ShooterGame\Saved\Config\WindowsServer"
-        $global:logdir = ""
+        $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
+        $global:logdirectory = "$serverdir"
         Get-StopServerInstall
         $global:gamedirname = "ARKSurvivalEvolved"
         $global:servercfg = "GameUserSettings.ini"
@@ -39,5 +39,5 @@ Function New-LaunchScriptArkPS {
         
         Get-Servercfg
         Select-EditSourceCFG
-        $global:launchParams = '@("$global:executabledir\$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
+        $global:launchParams = '@("$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
 } 

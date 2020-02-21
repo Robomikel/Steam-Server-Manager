@@ -8,7 +8,7 @@
 #
 Function Get-FolderNames {
     Write-Host "****   Checking Folder Names   ****" -F Y -B Black
-    If (Test-Path "$currentdir\$serverfiles\") {
+    If (Test-Path "$serverdir\") {
     }
     Else {
         New-ServerFolderq

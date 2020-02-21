@@ -23,7 +23,7 @@ Function Get-SourceMetaMod {
         Write-Host "****   Extracting Meta Mod Failed !!   ****" -F R -B Black ; ; Exit 
     }
     Write-Host '****   Copying/installing Meta Mod   ****' -F M -B Black 
-    Copy-Item  $currentdir\metamod\* -Destination $currentdir\$serverfiles\$systemdir -Force -Recurse
+    Copy-Item  $currentdir\metamod\* -Destination $systemdir -Force -Recurse
     If (!$?) { 
         Write-Host "****   Copying Meta Mod Failed !!   ****" -F R -B Black ; ; Exit 
     }
@@ -42,7 +42,7 @@ Function Get-SourceMetaMod {
         Write-Host "****   Extracting SourceMod Failed !!   ****" -F R -B Black ; ; Exit 
     }
     Write-Host '****   Copying/installing SourceMod   ****' -F M -B Black
-    Copy-Item  $currentdir\sourcemod\* -Destination $currentdir\$serverfiles\$systemdir -Force -Recurse
+    Copy-Item  $currentdir\sourcemod\* -Destination $systemdir -Force -Recurse
     If (!$?) { 
         Write-Host "****   Copying SourceMod Failed !!   ****" -F R -B Black ; ; Exit 
     }

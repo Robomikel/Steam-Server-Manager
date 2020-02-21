@@ -10,7 +10,7 @@ Function Get-ServerBuildCheck {
     If (($appid -eq 11421000 ) -or ($appid -eq 11500000 )) { }Else {
         Get-Steam
         #Get-Steamtxt
-        Set-Location $currentdir\SteamCMD\ >$null 2>&1
+        Set-Location $steamdirectory >$null 2>&1
         $search = "buildid"
         # public 
         #$remotebuild = Get-ServerBuild | select-string $search | Select-Object  -Index 0
@@ -25,7 +25,7 @@ Function Get-ServerBuildCheck {
         $remotebuild = $remotebuild -replace '\s', ''
         #    #$remotebuild
         #  $search="buildid"
-        $localbuild = get-content $currentdir\$serverfiles\steamapps\appmanIfest_$appid.acf | select-string $search
+        $localbuild = get-content $serverdir\steamapps\appmanIfest_$appid.acf | select-string $search
         $localbuild = $localbuild -replace '\s', ''
         #$localbuild
         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
@@ -46,7 +46,7 @@ Function Get-ServerBuildCheck {
 
 Function Get-SteamFix {
     Write-Host "****   Removing appmanifest_$appid.acf   ****" -F M -B Black
-    Remove-Item $currentdir\$serverfiles\steamapps\appmanifest_$appid.acf -Force  >$null 2>&1
+    Remove-Item $serverdir\steamapps\appmanifest_$appid.acf -Force  >$null 2>&1
     Write-Host "****   Removing Multiple appmanifest_$appid.acf    ****" -F M -B Black
-    Remove-Item $currentdir\$serverfiles\steamapps\appmanifest_*.acf -Force  >$null 2>&1
+    Remove-Item $serverdir\steamapps\appmanifest_*.acf -Force  >$null 2>&1
 }

@@ -51,7 +51,7 @@ Function Send-DiscordAlert {
 Function Find-DiscordWebhook {
     If ( "" -eq $discordwebhook) {
         Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
-        Write-Host "****   Add Discord  WEBHOOK to $currentdir\$serverfiles\Variables-$serverfiles.ps1   ****" -F Y -B Black  
+        Write-Host "****   Add Discord  WEBHOOK to $serverdir\Variables-$serverfiles.ps1   ****" -F Y -B Black  
         Get-ClearVariables
         Break  
     }

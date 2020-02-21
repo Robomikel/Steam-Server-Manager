@@ -15,11 +15,11 @@ Function New-LaunchScriptbedrock_serverPS {
     Get-MCBRBinaries
     $global:systemdir = ""
     $global:executable = "bedrock_server"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "minecraftbe"
     $global:saves = ""
     $global:process = "bedrock_server"
-    $global:servercfgdir = ""
+    $global:servercfgdir = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = ""

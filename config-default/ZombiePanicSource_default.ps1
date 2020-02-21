@@ -31,8 +31,8 @@ Function New-LaunchScriptZPSserverPS {
     ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "zps"
     #--->Requieres \/ \/ game dig
@@ -42,8 +42,8 @@ Function New-LaunchScriptZPSserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "zps"
     #--->game config folder
-    $global:servercfgdir = "zps\cfg"
-    $global:logdir = "zps"
+    $global:servercfgdir = "$serverdir\zps\cfg"
+    $global:logdirectory = "$serverdir\zps"
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -60,6 +60,5 @@ Function New-LaunchScriptZPSserverPS {
     Select-EditSourceCFG
     # --->Launch
     $global:launchParams = '@("$executable -console -game zps -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    executable NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+
 }

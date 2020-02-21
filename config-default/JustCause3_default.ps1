@@ -15,7 +15,7 @@ Function New-LaunchScriptjc3serverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "Server"
     $global:querytype = "jc3mp"
     #  Default Port for gamedig - change if needed
@@ -23,7 +23,7 @@ Function New-LaunchScriptjc3serverPS {
     $global:saves = ""
     $global:process = "Server"
     $global:servercfgdir = "\"
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "JustCause3"

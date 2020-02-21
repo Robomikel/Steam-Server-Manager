@@ -28,13 +28,13 @@ Function New-LaunchScriptAHL2serverPS {
   
   ###################### Do not change below #####################
   $global:systemdir = ""
-  $global:executabledir = ""
+  $global:executabledir = "$serverdir"
   $global:executable = "ahl2"
   $global:querytype = "protocol-valve"
   $global:saves = ""
   $global:process = "ahl2"
-  $global:servercfgdir = "ahl2\cfg"
-  $global:logdir = "ahl2"
+  $global:servercfgdir = "$serverdir\ahl2\cfg"
+  $global:logdirectory = "$serverdir\ahl2"
   Get-StopServerInstall
   #game-server-configs \/
   $global:gamedirname = "ActionSource"

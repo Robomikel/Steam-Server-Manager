@@ -29,7 +29,7 @@ Function Add-NodeJS {
     If ($?) { 
         Write-Host "****   Extracting Nodejs succeeded   ****" -F Y -B Black 
     }
-    Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
+    Set-Location $nodejsdirectory
     Write-Host '****   Installing gamedig in Nodejs   ****' -F M -B Black
     Write-Host '****   Do not stop or cancel! Will need to delete nodejs files and start over!   ****' -F Y -B Black  
     .\npm install gamedig

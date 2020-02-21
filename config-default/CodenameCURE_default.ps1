@@ -27,11 +27,11 @@ Function New-LaunchScriptCCserverPS {
     # # Version 2.0
     $global:systemdir = ""
     $global:executable = "cure"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "insurgency"
     $global:process = "cure"
-    $global:servercfgdir = "cure\cfg"
-    $global:logdir = "cure"
+    $global:servercfgdir = "$serverdir\cure\cfg"
+    $global:logdirectory = "$serverdir\cure"
     
     Get-StopServerInstall
     # Game-server-configs \/

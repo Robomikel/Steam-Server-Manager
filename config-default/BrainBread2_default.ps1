@@ -31,16 +31,14 @@ Function New-LaunchScriptBB2serverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "BB2"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "BB2"
-    $global:servercfgdir = "brainbread2\cfg"
-    $global:logdir = "brainbread2"
+    $global:servercfgdir = "$serverdir\brainbread2\cfg"
+    $global:logdir = "$serverdir\brainbread2"
 
-    
-    $global:logdir = "brainbread2"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "BrainBread2"

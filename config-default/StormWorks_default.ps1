@@ -24,12 +24,12 @@ Function New-LaunchScriptStormworksserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "server"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = ""
     $global:saves = "Stormworks"
     $global:process = "server"
     $global:servercfgdir = "$env:APPDATA\$global:saves\"
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "server_config.xml"

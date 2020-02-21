@@ -40,11 +40,11 @@ Function New-LaunchScriptArma3serverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "arma3server"
-    $global:executabledir= ""
+    $global:executabledir= "$serverdir"
     $global:querytype = "arma3"
     $global:process = "arma3Server"
-    $global:servercfgdir = "cfg"
-    $global:logdir = "$currentdir\$serverfiles\SC"
+    $global:servercfgdir = "$serverdir\cfg"
+    $global:logdirectory = "$serverdir\SC"
 
 
     Get-StopServerInstall
@@ -53,14 +53,14 @@ Function New-LaunchScriptArma3serverPS {
     $global:config2 = "network.cfg"
     Get-Servercfg    
     Write-Host "***  Creating BEserver.cfg ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $currentdir\$serverfiles\battleye\BEServer.cfg -Force
-    Add-Content   $currentdir\$serverfiles\battleye\BEServer.cfg "RConPassword $RCONPASSWORD"
-    Add-Content   $currentdir\$serverfiles\battleye\BEServer.cfg "RConIP 127.0.0.1"
-    Add-Content   $currentdir\$serverfiles\battleye\BEServer.cfg "RConPort $RCONPORT"
+    New-Item $serverdir\battleye\BEServer.cfg -Force
+    Add-Content   $serverdir\battleye\BEServer.cfg "RConPassword $RCONPASSWORD"
+    Add-Content   $serverdir\battleye\BEServer.cfg "RConIP 127.0.0.1"
+    Add-Content   $serverdir\battleye\BEServer.cfg "RConPort $RCONPORT"
     Select-EditSourceCFG
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\server.cfg -Raw) -replace '\b32\b', "$maxplayers") | Set-Content -Path $currentdir\$serverfiles\$servercfgdir\server.cfg  
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\server.cfg -Raw) -replace "\barma3pass\b", "$SERVERPASSWORD") | Set-Content -Path $currentdir\$serverfiles\$servercfgdir\server.cfg
+    ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace '\b32\b', "$maxplayers") | Set-Content -Path $servercfgdir\server.cfg  
+    ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "\barma3pass\b", "$SERVERPASSWORD") | Set-Content -Path $servercfgdir\server.cfg
     # -autoinit only for presistant missions
-    $global:launchParams = '@("$executable -ip=${ip} -port=${port} -cfg=$currentdir\$serverfiles\$servercfgdir\network.cfg -config=$currentdir\$serverfiles\$servercfgdir\server.cfg -mod=$mods -servermod=$servermods -bepath=$currentdir\$serverfiles\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
+    $global:launchParams = '@("$executable -ip=${ip} -port=${port} -cfg=$servercfgdir\network.cfg -config=$servercfgdir\server.cfg -mod=$mods -servermod=$servermods -bepath=$serverdir\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
 
 }

@@ -24,13 +24,13 @@ Function New-LaunchScriptemserverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "Empires"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "Empires"
-    $global:servercfgdir = "empires\cfg"
-    $global:logdir = "empires"
+    $global:servercfgdir = "$serverdir\empires\cfg"
+    $global:logdirectory = "$serverdir\empires"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

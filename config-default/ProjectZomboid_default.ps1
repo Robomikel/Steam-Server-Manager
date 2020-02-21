@@ -21,8 +21,8 @@ Function New-LaunchScriptpzserverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     #$global:executable = "startServer64.bat"
     $global:executable = "ProjectZomboid64"
@@ -33,9 +33,9 @@ Function New-LaunchScriptpzserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "ProjectZomboid64"
     #--->game config folder
-    $global:servercfgdir = "Zomboid\Server"
+    $global:servercfgdir = "$serverdir\Zomboid\Server"
     #--->game log folder
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

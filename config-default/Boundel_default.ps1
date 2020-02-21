@@ -11,10 +11,10 @@ Function New-LaunchScriptboundelserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "world"
-    $global:executabledir = "Datcha_Server"
+    $global:executabledir = "$serverdir\Datcha_Server"
     $global:querytype = "protocol-valve"
     $global:process = "world"
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
-    $global:launchParams = '@("$executabledir\$executable -batchmode")'
+    $global:launchParams = '@("$executable -batchmode")'
 }

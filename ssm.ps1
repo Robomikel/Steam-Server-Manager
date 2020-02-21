@@ -9,7 +9,7 @@
 $global:command = $($args[0])
 $global:serverfiles = $($args[1])
 $global:currentdir = Get-Location
-$global:serverdir = "$global:currentdir\$global:serverfiles"
+$global:serverdir = "$currentdir\$serverfiles"
 ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
@@ -18,8 +18,8 @@ $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-S
 
 # NodeJs Version "12.13.1"
 $global:nodeversion = "12.15.0"
-$global:nodejsurl = "https://nodejs.org/dist/v$global:nodeversion/node-v$global:nodeversion-win-x64.zip"
-
+$global:nodejsurl = "https://nodejs.org/dist/v$nodeversion/node-v$nodeversion-win-x64.zip"
+$global:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64"
 # Oxide
 $global:oxiderustlatestlink = "https://umod.org/games/rust/download"
 
@@ -31,13 +31,18 @@ $global:sourcemodmversion = "1.10"
 
 # 7-Zip Portable
 $global:sevenzip = "https://www.7-zip.org/a/7za920.zip"
+$global:sevenzipversion = "7za920"
+$global:sevenzipdirectory = "$currentdir\$serverversion"
+
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 $global:steamoutput = "steamcmd.zip"
+$global:steamdirectory = "$currentdir\SteamCMD\"
 # Steamer url
 $global:steamerurl="https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
 # Mcrcon
 $global:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
+$global:mcrcondirectory = "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32"
 # Forge
 $global:forgeversion = "1.15.2-31.1.2"
 
@@ -59,7 +64,7 @@ Get-ChildItem -Path $currentdir\functions -Filter *.ps1 |ForEach-Object {. $_.Fu
 Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 |ForEach-Object {. $_.FullName}
 Remove-SteamerLogs
 Set-SteamerSetting
-If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$global:Date.log" -Append -NoClobber}
+If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################

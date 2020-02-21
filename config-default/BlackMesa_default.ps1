@@ -29,8 +29,8 @@ Function New-LaunchScriptBlackMesaserverPS {
     ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "bmdm"
     #--->Requieres \/ \/ game dig
@@ -40,8 +40,8 @@ Function New-LaunchScriptBlackMesaserverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:process = "bmdm"
     #--->game config folder
-    $global:servercfgdir = "bms\cfg"
-    $global:logdir = "bms"
+    $global:servercfgdir = "$serverdir\bms\cfg"
+    $global:logdirectory = "$serverdir\bms"
     #--->Stop existing process if running
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -58,6 +58,4 @@ Function New-LaunchScriptBlackMesaserverPS {
     Select-EditSourceCFG
     # --->Launch
     $global:launchParams = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$global:executabledir\$executable -< LAUNCH PARAMS HERE >-")'
 }

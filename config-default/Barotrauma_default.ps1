@@ -14,8 +14,8 @@ Function New-LaunchScriptBTserverPS {
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:executabledir= ""
+    #--->Exe Directory \/\/
+    $global:executabledir= "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "DedicatedServer"
     #--->Requieres \/ \/ game dig
@@ -25,8 +25,8 @@ Function New-LaunchScriptBTserverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:process = "DedicatedServer"
     #--->game config folder
-    $global:servercfgdir = ""
-    $global:logdir = "ServerLogs"  
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir\ServerLogs"  
 
     #--->Stop existing process if running 
     Get-StopServerInstall
@@ -44,7 +44,6 @@ Function New-LaunchScriptBTserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     #  Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$global:executable ")'
-    # OR    EXE NOT In server folder ROOT add executabledir\/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable")'
+
 }

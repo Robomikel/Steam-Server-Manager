@@ -15,13 +15,13 @@ Function New-LaunchScriptVanguard1944serverPS {
     
   ###################### Do not change below #####################
   $global:systemdir = ""
-  $global:executabledir = "bin\win_x64"
+  $global:executabledir = "$serverdir\bin\win_x64"
   $global:executable = "vanguardserver"
   $global:querytype = "protocol-valve"
   $global:saves = ""
   $global:process = "vanguardserver"
-  $global:servercfgdir = ""
-  $global:logdir = ""
+  $global:servercfgdir = "$serverdir"
+  $global:logdirectory = "$serverdir"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = ""
@@ -30,5 +30,5 @@ Function New-LaunchScriptVanguard1944serverPS {
   # Select-RenameSource
   # game config
   # Select-EditSourceCFG
-  $global:launchParams = '@("$executabledir\$executable -console +sv_servername=`"${hostname}`" -condebug")'
+  $global:launchParams = '@("$executable -console +sv_servername=`"${hostname}`" -condebug")'
 }   

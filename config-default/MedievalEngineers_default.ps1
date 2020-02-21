@@ -37,13 +37,13 @@ Function New-LaunchScriptMEserverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = "DedicatedServer64"
+    $global:executabledir = "$serverdir\DedicatedServer64"
     $global:executable = "MedievalEngineersDedicated"
     $global:querytype = "protocol-valve"
     $global:saves = "MedievalEngineersDedicated"
     $global:process = "MedievalEngineersDedicated"
-    $global:servercfgdir = ""
-    $global:logdir = "$env:APPDATA\$global:saves"
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$env:APPDATA\$global:saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
@@ -53,7 +53,7 @@ Function New-LaunchScriptMEserverPS {
     # game config
     # Select-EditSourceCFG
     New-servercfgme
-    $global:launchParams = '@("$executabledir\$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
+    $global:launchParams = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 
 

@@ -25,12 +25,12 @@ Function New-LaunchScriptLFD2serverPS {
     ###################### Do not change below ##################### 
     # Steamer Vars Do Not Edit
     $global:systemdir = "left4dead2"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "l4d2"
     $global:querytype = "left4dead2"
     $global:process = "l4d2"
-    $global:servercfgdir = "left4dead2\cfg"
-    $global:logdir = "left4dead2"
+    $global:servercfgdir = "$serverdir\left4dead2\cfg"
+    $global:logdirectory = "$serverdir\left4dead2"
     Get-StopServerInstall
     # Game-Server-Configs
     $global:gamedirname = "Left4Dead2"

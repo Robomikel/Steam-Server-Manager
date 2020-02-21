@@ -6,7 +6,7 @@ Function Install-SteamWS {
     #path to your SteamCMD SE Workshop content folder
     $contentFolder = "$currentdir\steamcmd\steamapps\workshop\content\$reg_appID\"
     #path to your SE dedicated server mods folder
-    $dediModsFolder = "$currentdir\$serverfiles\$moddir\"
+    $dediModsFolder = "$serverdir\$moddir\"
 
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
@@ -19,15 +19,15 @@ Function Install-SteamWS {
         $ii += 1
         Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
         If ($ANON -eq "yes") {
-            Set-Location $currentdir\steamcmd\
+            Set-Location $steamdirectory
             Write-Host "Last Exit Code $LASTEXITCODE"-F Y
             .\steamCMD +login Anonymous +workshop_download_item $reg_appID $mod validate +quit
         }
         Else {
-            Set-Location $currentdir\steamcmd\
+            Set-Location $steamdirectory
             .\steamCMD +login $username +workshop_download_item $reg_appID $mod validate +quit
         }
-        $updateMods = Get-Content $currentdir\log\ssm\Steamer-*.log
+        $updateMods = Get-Content $ssmlogdir\Steamer-*.log
         if ($updateMods -like "Success. Downloaded item $mod to *") {
             # if (($?) -or ($LASTEXITCODE -eq 7)-or ($LASTEXITCODE -ne 10)) {
             Write-Host "Last Exit Code $LASTEXITCODE" -F Y
@@ -72,13 +72,13 @@ Function Install-SteamWS {
         #pause for 5 sec to ensure file operations are done before continuing
         Start-Sleep -Seconds 5 
         #copy over mods to the SE dedicated server mods folder from SE workshop content download storage folder
-        Write-Host "Copying all mods to $currentdir\$serverfiles\$moddir\" -F Y
-        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$currentdir\log\ssm\WScopy-$serverfiles-$date.log
+        Write-Host "Copying all mods to $serverdir\$moddir\" -F Y
+        robocopy $contentFolder $dediModsFolder /E /r:0 /log:$ssmlogdir\WScopy-$serverfiles-$date.log
         # Copy-Item $contentFolder $dediModsFolder -Recurse -Force
         Write-Host "Copying completed." -F Y
         If ($AppID -eq 233780) {
             Write-Host "Copy text to Mod Var" -F Y
-            get-childitem $currentdir\$serverfiles\$moddir\ | ForEach-Object { "$moddir`\" + $_.name + ";" }
+            get-childitem $serverdir\$moddir\ | ForEach-Object { "$moddir`\" + $_.name + ";" }
         }
         
     }

@@ -26,11 +26,11 @@ Function New-LaunchScriptKF2serverPS {
     # # Version 2.0
     # $global:systemdir=""
     $global:executable = "KFServer"   
-    $global:executabledir = "Binaries\Win64"
+    $global:executabledir = "$serverdir\Binaries\Win64"
     $global:querytype = "killingfloor2"
     $global:process = "KFserver"
-    $global:servercfgdir = "\KFGame\Config"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\KFGame\Config"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = "KillingFloor2"
     $global:servercfg = "KFWeb.ini"
@@ -38,11 +38,11 @@ Function New-LaunchScriptKF2serverPS {
     $global:config3 = "LinuxServer-KFGame.ini"
     $global:config4 = "LinuxServer-KFInput.ini"
     $global:config5 = "LinuxServer-KFSystemSettings.ini"
-    Remove-item $currentdir\$serverfiles\$servercfgdir\PCServer-*.ini -Force  >$null 2>&1
+    Remove-item $servercfgdir\PCServer-*.ini -Force  >$null 2>&1
     Get-Servercfg
-    Set-Location $currentdir\$serverfiles\$servercfgdir
+    Set-Location $servercfgdir
     Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
-    Set-Location $currentdir\$serverfiles
+    Set-Location $serverdir
 
     # Get-UserInput 0 1 1 0 0 1 0 0 0 1 0 0 1 1 1 0
     # VERSION 2 Requieres  Vars
@@ -52,13 +52,13 @@ Function New-LaunchScriptKF2serverPS {
     Write-Host "***  stopping Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
     Get-StopServer
     Write-Host "***  Editing Default Server Name PCServer-KFGame.ini ***" -ForegroundColor Magenta -BackgroundColor Black
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\PCServer-KFGame.ini -Raw) -replace "\bKilling Floor 2 Server\b", "$hostname") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\PCServer-KFGame.ini
+    ((Get-Content -path $servercfgdir\PCServer-KFGame.ini -Raw) -replace "\bKilling Floor 2 Server\b", "$hostname") | Set-Content -Path $servercfgdir\PCServer-KFGame.ini
     Write-Host "***  Adding ADMIN PASSWORD PCServer-KFGame.ini ***" -ForegroundColor Magenta -BackgroundColor Black
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\PCServer-KFGame.ini -Raw) -replace "AdminPassword=", "AdminPassword=$ADMINPASSWORD") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\PCServer-KFGame.ini
+    ((Get-Content -path $servercfgdir\PCServer-KFGame.ini -Raw) -replace "AdminPassword=", "AdminPassword=$ADMINPASSWORD") | Set-Content -Path $servercfgdir\PCServer-KFGame.ini
     Write-Host "***  Enabling Webmin in KFWeb.ini ***" -ForegroundColor Magenta -BackgroundColor Black
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\KFWeb.ini
+    ((Get-Content -path $servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $servercfgdir\KFWeb.ini
     Write-Host "***  Disabling Takeover PCServer-KFEngine.ini ***" -ForegroundColor Magenta -BackgroundColor Black
-    ((Get-Content -path $currentdir\$serverfiles\$servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $currentdir\$serverfiles\KFGame\Config\PCServer-KFEngine.ini
-    $global:launchParams = '@("$executabledir\$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'  
+    ((Get-Content -path $servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $servercfgdir\PCServer-KFEngine.ini
+    $global:launchParams = '@("$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'  
     Set-Location $currentdir
 }

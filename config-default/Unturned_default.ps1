@@ -17,12 +17,12 @@ Function New-LaunchScriptunturnedserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "Unturned"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "Unturned"
-    $global:servercfgdir = "Servers\$hostname\Server"
-    $global:logdir = "Logs"
+    $global:servercfgdir = "$serverdir\Servers\$hostname\Server"
+    $global:logdirectory = "$serverdir\Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "Commands.dat"

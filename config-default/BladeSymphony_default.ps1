@@ -30,8 +30,8 @@ Function New-LaunchScriptbsserverPS {
     ##################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:executabledir = "bin\win64"
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir\bin\win64"
     #--->rename srcds to this name \/\/
     $global:executable = "BladeSymphony"
     #--->Requieres \/ \/ game dig 
@@ -41,8 +41,8 @@ Function New-LaunchScriptbsserverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:process = "BladeSymphony"
     #--->game config folder
-    $global:servercfgdir = "berimbau\cfg"
-    $global:logdir = "berimbau"
+    $global:servercfgdir = "$serverdir\berimbau\cfg"
+    $global:logdirectory = "$serverdir\berimbau"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -60,7 +60,6 @@ Function New-LaunchScriptbsserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$executabledir\$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${$ip} -port ${$port} +clientport ${$clientport} +tv_port ${$sourcetvport} +sv_setsteamaccount ${$gslt} +map ${$defaultmap} +servercfgfile server.cfg -maxplayers ${$maxplayers} -condebug")'
-    # OR    EXE NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$global:executabledir\$global:executable -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${$ip} -port ${$port} +clientport ${$clientport} +tv_port ${$sourcetvport} +sv_setsteamaccount ${$gslt} +map ${$defaultmap} +servercfgfile server.cfg -maxplayers ${$maxplayers} -condebug")'
+
 }

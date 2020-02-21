@@ -8,7 +8,7 @@
 #
 Function Get-CreatedVaribles {
     Write-Host "****   Getting Server Variables   *****" -F Y -B Black  
-    .$currentdir\$serverfiles\Variables-$serverfiles.ps1
+    .$serverdir\Variables-$serverfiles.ps1
     Get-CheckForError
 }
 Function Get-ClearVariables {
@@ -75,7 +75,7 @@ Function Set-Steamer {
 }
 Function Set-VariablesPS {
     Write-Host "***  Creating Variables and adding launch params  ***" -F M -B Black
-    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
+    New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
@@ -89,16 +89,15 @@ Function Get-Savelocation {
 }
 Function Select-RenameSource {
     Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
-    Rename-Item  "$currentdir\$serverfiles\$executabledir\srcds.exe" -NewName "$currentdir\$serverfiles\$executabledir\$executable.exe" >$null 2>&1
-    Rename-Item  "$currentdir\$serverfiles\$executabledir\srcds_x64.exe" -NewName "$currentdir\$serverfiles\$executabledir\$executable-x64.exe" >$null 2>&1
+    Rename-Item  "$serverdir\$executabledir\srcds.exe" -NewName "$serverdir\$executabledir\$executable.exe" >$null 2>&1
+    Rename-Item  "$serverdir\$executabledir\srcds_x64.exe" -NewName "$serverdir\$executabledir\$executable-x64.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
     Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-    ((Get-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg
-    ((Get-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $currentdir\$serverfiles\$SERVERCFGDIR\$servercfg -ea SilentlyContinue
+    ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+    ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg -ea SilentlyContinue
 }
 Function New-ServerLog {
-    $logdirectory = "$currentdir\$serverfiles\$logdir"
     If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[o]*.txt", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
@@ -111,17 +110,17 @@ Function New-ServerLog {
 }
 
 Function Remove-SteamerLogs {
-    Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem $ssmlogdir -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerBackupLog {
-    If ($backuplogs -eq "on") { Copy-Item "$currentdir\7za920\[b]*.log", -Destination "$currentdir\log\backup_$serverfiles-$date.log" -ea SilentlyContinue }
-    Get-Childitem $currentdir\log\ -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
+    Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 
 Function Get-Appid {
 
     $searchTerm = "\b$serverfiles\b"
-    $results = Get-Content -path $currentdir\data\serverlist.csv | Select-String  -Pattern $searchTerm
+    $results = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern $searchTerm
     $results = "`"$results`""
     $results = $results.Split(",")[3]
     $global:AppID = "$results"

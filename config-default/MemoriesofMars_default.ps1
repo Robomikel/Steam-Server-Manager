@@ -23,25 +23,25 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "MemoriesOfMarsServer"
-    $global:executabledir = "Game\Binaries\Win64\"
+    $global:executabledir = "$serverdir\Game\Binaries\Win64\"
     $global:querytype = "protocol-valve"
     $global:process = "MemoriesOfMarsServer"
-    $global:servercfgdir = "ShooterGame\Saved\Config\WindowsServer"
-    $global:logdir = "Game\Saved\Logs"
+    $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir\Game\Saved\Logs"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "DedicatedServerConfig.cfg"
 
     
     New-servercfgmom
-    $global:launchParams = '@("$executabledir\$executable -MULTIHOME=`"${ip}`" -port=$port -queryport=${queryport} -maxplayers=${maxplayers}")'
+    $global:launchParams = '@("$executable -MULTIHOME=`"${ip}`" -port=$port -queryport=${queryport} -maxplayers=${maxplayers}")'
 } 
 Function New-servercfgmom {
     Write-Host "Creating Custom Config" -F M
-    Rename-Item "$currentdir\$serverfiles\DedicatedServerConfig.cfg" "$currentdir\$serverfiles\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
-    New-Item $serverfiles\DedicatedServerConfig.cfg -ItemType File -Force
+    Rename-Item "$servercfgdir\DedicatedServerConfig.cfg" "$servercfgdir\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
+    New-Item $servercfgdir\DedicatedServerConfig.cfg -ItemType File -Force
     
-    Add-Content $serverfiles\DedicatedServerConfig.cfg `
+    Add-Content $servercfgdir\DedicatedServerConfig.cfg `
 "{
     `"ServerName`": `"$hostname`",
     `"ServerPassword`": `"$SERVERPASSWORD`",

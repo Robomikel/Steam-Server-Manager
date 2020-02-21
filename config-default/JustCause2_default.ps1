@@ -15,15 +15,15 @@ Function New-LaunchScriptjc2serverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "JcmpServer"
     $global:querytype = "jc2mp"
     #  Default Port for gamedig - change if needed
     $global:port = "7777"
     $global:saves = ""
     $global:process = "JcmpServer"
-    $global:servercfgdir = "\"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = "JustCause2"

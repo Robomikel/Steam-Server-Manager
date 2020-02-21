@@ -40,13 +40,13 @@ Function New-LaunchScriptCOD3MWserverPS {
     
   ###################### Do not change below #####################
   $global:systemdir = ""
-  $global:executabledir = ""
+  $global:executabledir = "$serverdir"
   $global:executable = "iw5mp_server"
   $global:querytype = "protocol-valve"
   $global:saves = ""
   $global:process = "iw5mp_server"
-  $global:servercfgdir = "admin"
-  $global:logdir = ""
+  $global:servercfgdir = "$serverdir\admin"
+  $global:logdirectory = "$serverdir"
   Get-StopServerInstall
   #Game-server-configs \/
   $global:gamedirname = ""

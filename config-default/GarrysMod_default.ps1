@@ -45,8 +45,8 @@ Function New-LaunchScriptGMODserverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = "garrysmod"
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "gmod"
     #--->Requieres \/ \/ game dig 
@@ -56,8 +56,8 @@ Function New-LaunchScriptGMODserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "gmod"
     #--->game config folder
-    $global:SERVERCFGDIR = "garrysmod\cfg"
-    $global:LOGDIR = "garrysmod"
+    $global:servercfgdir = "$serverdir\garrysmod\cfg"
+    $global:logdirectory = "$serverdir\garrysmod"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -75,6 +75,5 @@ Function New-LaunchScriptGMODserverPS {
     Select-EditSourceCFG
     # --->Launch 
     $global:launchParams = '@("$executable -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} ${customparms} -condebug")'
-    # OR    executable NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+
 }

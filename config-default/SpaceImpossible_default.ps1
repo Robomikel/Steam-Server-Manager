@@ -12,13 +12,13 @@ Function New-LaunchScriptSpacecImpossibleserverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "SIDedicatedServer"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "SIDedicatedServer"
-    $global:servercfgdir = ""
-    $global:logdir = "SIDedicatedServer_Data"
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir\SIDedicatedServer_Data"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

@@ -31,8 +31,8 @@ Function New-LaunchScriptFOFserverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "FOF"
     #--->Requieres \/ \/ game dig 
@@ -42,8 +42,8 @@ Function New-LaunchScriptFOFserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "FOF"
     #--->game config folder
-    $global:servercfgdir = "fof\cfg"
-    $global:logdir = "fof"
+    $global:servercfgdir = "$serverdir\fof\cfg"
+    $global:logdirectory = "$serverdir\fof"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/
@@ -61,6 +61,5 @@ Function New-LaunchScriptFOFserverPS {
     Select-EditSourceCFG
     # --->Launch 
     $global:launchParams = '@("$executable -game fof -console -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    executable NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+
 }

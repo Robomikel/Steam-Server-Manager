@@ -7,14 +7,14 @@
 #
 #
 Function New-BackupServer {
-    If ($global:stoponbackup = "on") { 
+    If ($stoponbackup = "on") { 
         Get-StopServer 
     }
     
     Write-Host '****   Server Backup Started!   ****' -F M -B Black
-    Set-Location $currentdir\7za920\
+    Set-Location $sevenzipdirectory
     #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
-    ./7za a $currentdir\backups\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup.log
+    ./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup.log
     Write-Host '****   Server Backup is Done!   ****' -F Y -B Black
     Write-Host "****   Checking Save location(appData)   ****" -F Y -B Black
     If ($appdatabackup -eq "on") { 
@@ -32,8 +32,8 @@ Function New-BackupServer {
 }
 Function New-backupAppdata {
     Write-Host '****   Server App Data Backup Started!   ****' -F M -B Black
-    Set-Location $currentdir\7za920\ 
-    ./7za a $currentdir\backups\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log
+    Set-Location $sevenzipdirectory
+    ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log
     Write-Host '****   Server App Data Backup is Done!   ****' -F Y -B Black
     If ($appdatabackuplogopen -eq "on") { 
         .\AppDatabackup.log 
@@ -44,14 +44,14 @@ Function New-backupAppdata {
 
 Function Limit-Backups {
     Write-Host '****   Purging Backups   ****' -F M -B Black
-    Set-Location $currentdir\7za920\
-    Get-Childitem $currentdir\backups\ -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+    Set-Location $sevenzipdirectory
+    Get-Childitem $backupdir\ -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
     Set-Location $currentdir
 }
 
 Function Limit-AppdataBackups {
     Write-Host '****   Purging AppData Backups   ****' -F M -B Black
-    Set-Location $currentdir\7za920\
-    Get-Childitem $currentdir\backups\ -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+    Set-Location $sevenzipdirectory
+    Get-Childitem $backupdir\ -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
     Set-Location $currentdir
 }

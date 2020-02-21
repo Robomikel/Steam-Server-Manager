@@ -8,7 +8,7 @@
 #
 Function Get-GamedigServerv2 {
     Write-Host '****   Starting gamedig on Server   ****' -F M -B Black
-    Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
+    Set-Location $nodejsdirectory
     If (( $appid -eq 581330) -or ($appid -eq 376030) -or ($appid -eq 443030)) {
         Write-Host '****   Using queryport    ****' -F Y -B Black
         If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {

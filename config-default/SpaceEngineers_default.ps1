@@ -61,8 +61,8 @@ Function New-LaunchScriptSEserverPS {
     $global:querytype = "protocol-valve"
     $global:saves = "SpaceEngineersDedicated"
     $global:process = "SpaceEngineersDedicated"
-    $global:SERVERCFGDIR = "$env:APPDATA\$global:saves\"
-    $global:logdir = "$env:APPDATA\$global:saves"
+    $global:servercfgdir = "$env:APPDATA\$saves"
+    $global:logdirectory = "$env:APPDATA\$saves"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
@@ -73,14 +73,14 @@ Function New-LaunchScriptSEserverPS {
     # Select-EditSourceCFG
     New-servercfgse
     Write-Host "Creating Save Dir" -F M
-    New-Item "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
+    New-Item "$servercfgdir\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
     Write-Host "Copying World template to Save Dir" -F M
-    copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$env:APPDATA\$saves\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
+    copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$servercfgdir\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
     $global:launchParams = '@("$executabledir\$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 Function New-servercfgse {
     Write-Host "Creating Custom Config" -F M
-    New-Item $env:APPDATA\$saves\SpaceEngineers-Dedicated.cfg -ItemType File -Force
+    New-Item $servercfgdir\SpaceEngineers-Dedicated.cfg -ItemType File -Force
     
     Add-Content SpaceEngineers-Dedicated.cfg `
 "
@@ -198,7 +198,7 @@ Function New-servercfgse {
     <StationsDistanceOuterRadiusEnd>30000000</StationsDistanceOuterRadiusEnd>
     <EconomyTickInSeconds>1200</EconomyTickInSeconds>
   </SessionSettings>
-  <LoadWorld>$env:APPDATA\$saves\Saves\$WORLDNAME</LoadWorld>
+  <LoadWorld>$servercfgdir\Saves\$WORLDNAME</LoadWorld>
   <IP>0.0.0.0</IP>
   <SteamPort>8766</SteamPort>
   <ServerPort>27016</ServerPort>

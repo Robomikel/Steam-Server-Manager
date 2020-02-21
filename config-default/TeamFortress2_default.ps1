@@ -31,8 +31,8 @@ Function New-LaunchScriptTF2serverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "tf2"
     #--->Requieres \/ \/ game dig 
@@ -42,8 +42,8 @@ Function New-LaunchScriptTF2serverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "tf2"
     #--->game config folder
-    $global:servercfgdir = "tf\cfg"
-    $global:logdir = "tf"
+    $global:servercfgdir = "$serverdir\tf\cfg"
+    $global:logdirectory = "$serverdir\tf"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

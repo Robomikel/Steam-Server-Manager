@@ -33,8 +33,8 @@ Function New-LaunchScriptNMRIHserverPS {
     # # Version 2.0
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
     #--->rename srcds to this name \/\/
     $global:executable = "NMRIH"
     #--->Requieres \/ \/ game dig 
@@ -44,8 +44,8 @@ Function New-LaunchScriptNMRIHserverPS {
     #--->Requieres \/ \/ maybe same as game executable?
     $global:process = "NMRIH"
     #--->game config folder
-    $global:servercfgdir = "nmrih\cfg"
-    $global:logdir = "nmrih"
+    $global:servercfgdir = "$serverdir\nmrih\cfg"
+    $global:logdirectory = "$serverdir\nmrih"
     #--->Stop existing process if running        
     Get-StopServerInstall
     #--->Game-server-manger folder \/

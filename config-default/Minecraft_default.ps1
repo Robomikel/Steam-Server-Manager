@@ -16,11 +16,11 @@ Function New-LaunchScriptminecraft_serverPS {
     $global:systemdir = ""
     $global:executable = "server.jar"
     # $global:executable          = "forge-*.jar"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "minecraft"
     $global:saves = ""
     $global:process = "java"
-    $global:servercfgdir = ""
+    $global:servercfgdir = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = ""

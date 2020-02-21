@@ -23,12 +23,12 @@ Function New-LaunchScriptAoCserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "aoc"
-    $global:executabledir= ""
+    $global:executabledir= "$serverdir"
     $global:querytype = "ageofchivalry"
     $global:saves = ""
     $global:process = "aoc"
-    $global:servercfgdir = "ageofchivalry\cfg"
-    $global:logdir = "ageofchivalry"
+    $global:servercfgdir = "$serverdir\ageofchivalry\cfg"
+    $global:logdirectory = "$serverdir\ageofchivalry"
 
     
       

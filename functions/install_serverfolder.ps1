@@ -16,7 +16,7 @@ Function New-ServerFolder {
         Write-Host "****   You Enter a space or Empty   ****" -F R -B Black
         Select-Steamer
     }
-    ElseIf (Test-Path "$currentdir\$serverfiles\" ) {
+    ElseIf (Test-Path "$serverdir\" ) {
         Write-Host '****   Server Folder Already Created!   ****' -F Y -B Black
     }
     Else {

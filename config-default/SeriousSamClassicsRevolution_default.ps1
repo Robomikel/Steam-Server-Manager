@@ -20,12 +20,12 @@ Function New-LaunchScriptSeriousSamserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "DedicatedServer"
-    $global:executabledir = "Bin"
+    $global:executabledir = "$serverdir\Bin"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "DedicatedServer"
-    $global:servercfgdir = "Scripts\Dedicated\$global:GAMEMODE"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\Scripts\Dedicated\$global:GAMEMODE"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "init.ini"
@@ -33,6 +33,6 @@ Function New-LaunchScriptSeriousSamserverPS {
     
 
 
-    $global:launchParams = '@("$executabledir\$executable ${gamemode}")'
+    $global:launchParams = '@("$executable ${gamemode}")'
 
 }

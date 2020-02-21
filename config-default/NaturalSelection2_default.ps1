@@ -24,12 +24,12 @@ Function New-LaunchScriptNS2serverPS {
 
     # Steamer Vars Do Not Edit
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "Server"
     $global:querytype = "protocol-valve"
     $global:process = "Server"
-    $global:servercfgdir = "config"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\config"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     # Game-Server-Configs
     $global:gamedirname = "NaturalSelection2"

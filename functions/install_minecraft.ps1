@@ -28,7 +28,7 @@ Function Get-MCjavaBinaries {
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
     Add-Content $serverfiles\version.txt $mcvWebResponse -Force
-    Set-Location $currentdir\$serverfiles
+    Set-Location $serverdir
     Write-Host "starting server eula"
     Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui"
     Pause

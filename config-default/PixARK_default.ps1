@@ -29,11 +29,11 @@ Function New-LaunchScriptPixArkPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "PixARKServer"
-    $global:executabledir = "ShooterGame\Binaries\Win64"
+    $global:executabledir = "$serverdir\ShooterGame\Binaries\Win64"
     $global:querytype = "protocol-valve"
     $global:process = "PixARKServer"
-    $global:servercfgdir = "ShooterGame\Saved\Config\WindowsServer"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "GameUserSettings.ini"
@@ -42,5 +42,5 @@ Function New-LaunchScriptPixArkPS {
     Get-Servercfg
     Select-EditSourceCFG
     # "CubeWorld_Light?listen?MaxPlayers={maxplayers}?SessionName={SERVERNAME}?Port=27015?QueryPort=27016?RCONPort=27017?ServerPassword={SERVERPASSWORD}?ServerAdminPassword={YOURADMINPASSWORD}?CULTUREFORCOOKING=en" -NoBattlEye -CubePort=15000 -cubeworld=world -nosteamclient -NoHangDetection -game -server -log
-    $global:launchParams = '@("$executabledir\$executable ${defaultmap}?listen?MaxPlayers=${maxplayers}?Port=${port}?QueryPort=${queryport}?RCONPort=${rconport}?SessionName=`"${hostname}`"?ServerAdminPassword=${rconpassword} -game -server -log")'
+    $global:launchParams = '@("$executable ${defaultmap}?listen?MaxPlayers=${maxplayers}?Port=${port}?QueryPort=${queryport}?RCONPort=${rconport}?SessionName=`"${hostname}`"?ServerAdminPassword=${rconpassword} -game -server -log")'
 } 

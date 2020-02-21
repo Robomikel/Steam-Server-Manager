@@ -56,12 +56,12 @@ Function New-LaunchScriptcsgoserverPS {
         ###################### Do not change below #####################
         
         $global:systemdir = "csgo"
-        $global:executabledir = ""
+        $global:executabledir = "$serverdir"
         $global:executable = "csgo"
         $global:querytype = "csgo"
         $global:process = "csgo"
-        $global:servercfgdir = "csgo\cfg"
-        $global:logdir = "csgo"
+        $global:servercfgdir = "$serverdir\csgo\cfg"
+        $global:logdirectory = "$serverdir\csgo"
     
           
         Get-StopServerInstall

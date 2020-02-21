@@ -32,8 +32,8 @@ Function New-LaunchScriptHL2DMserverPS {
     # Version 2.0
     # Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = "hl2mp"
-    # executable NOT in root server folder \/\/
-    $global:executabledir = ""
+    # executable Directory \/\/
+    $global:executabledir = "$serverdir"
     # rename srcds to this name \/\/
     $global:executable = "HL2DM"
     # Requieres \/ \/ game dig
@@ -43,8 +43,8 @@ Function New-LaunchScriptHL2DMserverPS {
     # Requieres \/ \/ maybe same as game
     $global:process = "hl2dm"
     #---game config folder \/\/
-    $global:servercfgdir = "hl2mp\cfg"
-    $global:logdir = "hl2mp"
+    $global:servercfgdir = "$serverdir\hl2mp\cfg"
+    $global:logdirectory = "$serverdir\hl2mp"
     #---Stop existing process if running          
     Get-StopServerInstall
     # Game-server-manger folder \/
@@ -63,6 +63,5 @@ Function New-LaunchScriptHL2DMserverPS {
     # VERSION 2 launch params executable in root \/\/
     $global:launchParams = '@("$executable -console -game hl2mp -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
     # $global:launchParams = '@("$executable -console -game "hl2dm" -secure +map dm_lockdown -autoupdate +log on +maxplayers 32 -port 27015 +ip 1.2.3.4 +exec server.cfg")'
-    # OR executable NOT In ROOT server folder add executabledir
-    # $global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+
 }

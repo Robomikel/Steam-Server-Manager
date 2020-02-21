@@ -17,8 +17,8 @@ Function New-LaunchScriptBT1944serverPS {
     ###################### Do not change below #####################
     #--->Requieres \/ \/ Get-SourceMetMod
     $global:systemdir = ""
-    #--->Exe NOT in root server folder \/\/
-    $global:executabledir= "Windows\Battalion\Binaries\Win64"
+    #--->Exe Directory \/\/
+    $global:executabledir= "$serverdir\Windows\Battalion\Binaries\Win64"
     #--->rename srcds to this name \/\/
     $global:executable = "BattalionServer"
     #--->Requieres \/ \/ game dig
@@ -28,8 +28,8 @@ Function New-LaunchScriptBT1944serverPS {
     #--->Requieres \/ \/ maybe same as game exe?
     $global:process = "BattalionServer"
     #--->game config folder
-    $global:servercfgdir = "Windows"
-    $global:logdir = "Windows\Battalion\Saved\Logs"  
+    $global:servercfgdir = "$serverdir\Windows"
+    $global:logdirectory = "$serverdir\Windows\Battalion\Saved\Logs"  
 
     #--->Stop existing process if running 
     Get-StopServerInstall
@@ -47,7 +47,6 @@ Function New-LaunchScriptBT1944serverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$executabledir\$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=${port} -QueryPort=${queryport} -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
-    # OR    EXE NOT In server folder ROOT add executabledir\/ \/
-    #$launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+    $global:launchParams = '@("$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=${port} -QueryPort=${queryport} -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
+
 }

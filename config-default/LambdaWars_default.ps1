@@ -21,13 +21,13 @@ Function New-LaunchScriptLambdaWarsserverPS {
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:executable = "lambdawars"
     $global:querytype = "protocol-valve"
     $global:saves = ""
     $global:process = "lambdawars"
-    $global:servercfgdir = "lambdawars\cfg"
-    $global:logdir = "lambdawars"
+    $global:servercfgdir = "$serverdir\lambdawars\cfg"
+    $global:logdirectory = "$serverdir\lambdawars"
     Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""

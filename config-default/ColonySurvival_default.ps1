@@ -23,11 +23,11 @@ Function New-LaunchScriptColonySurvivalServerPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "colonyserver"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "protocol-valve"
     $global:process = "colonyserver"
-    $global:servercfgdir = ""
-    $global:logdir = "gamedata\logs\server"
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir\gamedata\logs\server"
     Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = ""

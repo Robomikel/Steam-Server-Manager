@@ -28,18 +28,18 @@ Function New-LaunchScriptceserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "ConanSandboxServer"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "conanexiles"
     $global:process = "ConanSandboxServer-Win64-Test"
-    $global:servercfgdir = "ConanSandbox\Saved\Config\WindowsServer"
-    $global:logdir = ""
+    $global:servercfgdir = "$serverdir\ConanSandbox\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir"
 
     
     Get-StopServerInstall
     Write-Host "***  Editing Default Engine.ini   ***" -ForegroundColor Magenta -BackgroundColor Black
-    Add-Content -Path $currentdir\$serverfiles\$servercfgdir\Engine.ini -Value "ServerPassword=$SERVERPASSWORD"
-    Add-Content -Path $currentdir\$serverfiles\$servercfgdir\Engine.ini -Value "ServerName=$hostname"
+    Add-Content -Path $servercfgdir\Engine.ini -Value "ServerPassword=$SERVERPASSWORD"
+    Add-Content -Path $servercfgdir\Engine.ini -Value "ServerName=$hostname"
     Write-Host "***  Editing Default ServerSettings.ini   ***" -ForegroundColor Magenta -BackgroundColor Black
-    Add-Content -Path $currentdir\$serverfiles\$servercfgdir\ServerSettings.ini -Value "AdminPassword=$ADMINPASSWORD"
+    Add-Content -Path $servercfgdir\ServerSettings.ini -Value "AdminPassword=$ADMINPASSWORD"
     $global:launchParams = '@("$executable -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -RconEnabled=1 -RconPassword=${rconpassword} -RconPort=${rconport}")'
 }

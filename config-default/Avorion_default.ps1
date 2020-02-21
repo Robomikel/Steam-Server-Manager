@@ -25,14 +25,14 @@ Function  New-LaunchScriptavserverPS {
         ###################### Do not change below #####################
         $global:systemdir = ""
         $global:executable = "AvorionServer"
-        $global:executabledir= "bin"
+        $global:executabledir= "$serverdir\bin"
         $global:querytype = "protocol-valve"
         $global:saves = "Avorion"
         $global:process = "AvorionServer"
-        $global:servercfgdir = ""
-        $global:logdir = ""
+        $global:servercfgdir = "$env:APPDATA\$global:saves"
+        $global:logdirectory = "$serverdir"
     
         
         Get-StopServerInstall
-        $global:launchParams = '@("$executabledir\$executable --server-name `"${hostname}`" --admin ${$steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
+        $global:launchParams = '@("$executable --server-name `"${hostname}`" --admin ${$steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
 }

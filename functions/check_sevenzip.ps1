@@ -7,9 +7,9 @@
 #
 #
 Function Get-SevenZipCheck {
-    $path = "$currentdir\7za920\"
-    $patha = "$currentdir\7za920\7za.exe"
-    $pathb = "$currentdir\7za920.zip"
+    $path = "$sevenzipdirectory"
+    $patha = "$sevenzipdirectory\7za.exe"
+    $pathb = "$sevenzipdirectory.zip"
     Write-Host '****   Checking for 7ZIP   *****' -F Y -B Black   
     If ((Test-Path $path) -and (Test-Path $patha) -and (Test-Path $pathb)) { 
         Write-Host '****   7Zip already downloaded!   ****' -F Y -B Black

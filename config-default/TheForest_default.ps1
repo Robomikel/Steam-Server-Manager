@@ -24,12 +24,13 @@ Function New-LaunchScriptforestserverPS {
     ###################### Do not change below #####################
     $global:systemdir = ""
     $global:executable = "TheForestDedicatedServer"
-    $global:executabledir = ""
+    $global:executabledir = "$serverdir"
     $global:querytype = "forrest"
     $global:process = "TheForestDedicatedServer"
-    $global:servercfgdir = "SKS\TheForestDedicatedServer\ds"
-    $global:logdir = ""
+    # $global:servercfgdir = "$serverdir\SKS\TheForestDedicatedServer\ds"
+    $global:servercfgdir = "$serverdir\cfg"
+    $global:logdirectory = "$serverdir"
     Get-StopServerInstall  
     #   Launch Param
-    $global:launchParams = '@("$executable -serverip ${ip} -serversteamport ${steamport} -servergameport ${port} -serverqueryport ${queryport} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${diff} -configfilepath $currentdir\$serverfiles\cfg\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
+    $global:launchParams = '@("$executable -serverip ${ip} -serversteamport ${steamport} -servergameport ${port} -serverqueryport ${queryport} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${diff} -configfilepath $servercfgdir\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
 }

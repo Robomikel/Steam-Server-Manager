@@ -33,11 +33,11 @@ Function New-LaunchScriptStationeersPS {
 ###################### Do not change below #####################
 $global:systemdir = ""
 $global:executable = "rocketstation_DedicatedServer"
-$global:executabledir = ""
+$global:executabledir = "$serverdir"
 $global:querytype = "protocol-valve"
 $global:process = "rocketstation_DedicatedServer"
-$global:servercfgdir = "rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
-$global:logdir = ""
+$global:servercfgdir = "$serverdir\rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
+$global:logdirectory = "$serverdir"
 Get-StopServerInstall
 $global:gamedirname = ""
 $global:servercfg = ""

@@ -19,7 +19,7 @@ Function Get-Details {
     }
     $os = (Get-WMIObject win32_operatingsystem).caption
     $computername = (Get-WMIObject Win32_OperatingSystem).CSName
-    Set-Location $currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64
+    Set-Location $nodejsdirectory
     If ($null -ne ${queryport}) { 
         ${port} = ${queryport} 
     }
@@ -34,9 +34,9 @@ Function Get-Details {
     
     Get-CreatedVaribles
     New-BackupFolder
-    $backups = (Get-Childitem  $currentdir\backups -recurse | Measure-Object) 
+    $backups = (Get-Childitem  $backupdir -recurse | Measure-Object) 
     $backups = $backups.count 
-    $backupssize = "{0:N2} GB" -f ((Get-Childitem $currentdir\backups | Measure-Object Length -s -ea silentlycontinue ).Sum / 1GB) 
+    $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -s -ea silentlycontinue ).Sum / 1GB) 
     If (($AppID -eq 302200)) { 
         $gameresponse = "Not supported" 
     }

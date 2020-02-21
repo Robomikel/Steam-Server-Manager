@@ -18,9 +18,9 @@ Function New-LaunchScriptacserverPS {
     $global:querytype = "protocol-valve"
     $global:process = "acServer"
     $global:servercfgdir = ""
-    $global:logdir = ""
+    $global:logdirectory = "$serverdir"
 
     
     Get-StopServerInstall
-    $global:launchParams = '@("$executabledir\$executable")'
+    $global:launchParams = '@("$executable")'
 }
