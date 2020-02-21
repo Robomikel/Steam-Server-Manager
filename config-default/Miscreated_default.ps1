@@ -13,7 +13,10 @@ Function New-LaunchScriptMiscreatedPS {
         #                       Server Name
         $global:hostname        = "$env:USERNAME"
         ##############################/\##############################
-        
+        # Port + 1  = Client 
+        # port + 2  = Query Port
+        # port + 3  = 
+        # port + 4  = rcon port
         
         ###################### Do not change below #####################
 

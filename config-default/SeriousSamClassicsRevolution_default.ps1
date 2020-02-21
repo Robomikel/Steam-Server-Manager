@@ -10,12 +10,14 @@ Function New-LaunchScriptSeriousSamserverPS {
     # DefaultFragmatchSE
     # DefaultScorematchSE
     
-    # init.ini
+    ### init.ini #####
     # change server name
     # gam_strSessionName = "Dedicated Coop Game";
     # change port
     # net_iPort = 27015;
     
+    ### Dedicated_startup.ini ###
+    # net_strLocalHost = "10.1.10.200";
     
     ###################### Do not change below #####################
     $global:systemdir = ""
