@@ -176,9 +176,6 @@ Function Read-AppID {
     ElseIf ($AppID -eq 1017070) {
         New-LaunchScriptVanguard1944serverPS
     }
-    ElseIf ($AppID -eq 319060) {
-        New-LaunchScriptLambdaWarsserverPS
-    }
     ElseIf ($AppID -eq 996560) {
         New-LaunchScriptSCPSecretLaboratoryserverPS
     }

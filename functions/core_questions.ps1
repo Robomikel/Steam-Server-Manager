@@ -69,6 +69,7 @@ Function New-ServerFolderq {
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
         Select-Steamer install $serverfiles
+        Get-createdvaribles
     }
     Else {
         Write-Host 'Entered N'
