@@ -43,7 +43,7 @@ Function New-LaunchScriptInsserverPS {
     $global:querytype = "insurgency"
     $global:process = "srcds"
     $global:servercfgdir = "$serverdir\insurgency\cfg"
-    $global:logdirectory = "$serverdir\insurgency"
+    $global:logdirectory = "$serverdir\Insurgency\Saved\Logs"
     
     Get-StopServerInstall
     # Game-server-configs \/
