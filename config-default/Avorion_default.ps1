@@ -9,7 +9,7 @@ Function  New-LaunchScriptavserverPS {
         #                       Server Admin Steam64
         $global:steamID64       = ""
         #                       Galaxy Name
-        $global:galaxyname      = ""
+        $global:galaxyname      = "avorion_galaxy"
         #                       Server Name
         $global:hostname        = "$env:USERNAME"
         #                       GameDig port Default
@@ -30,7 +30,7 @@ Function  New-LaunchScriptavserverPS {
         $global:saves = "Avorion"
         $global:process = "AvorionServer"
         $global:servercfgdir = "$env:APPDATA\$global:saves"
-        $global:logdirectory = "$serverdir"
+        $global:logdirectory = "$env:APPDATA\$global:saves\galaxies\avorion_galaxy"
     
         
         Get-StopServerInstall
