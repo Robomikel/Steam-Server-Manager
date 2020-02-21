@@ -31,8 +31,9 @@ Function Get-ServerBuildCheck {
         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
             Write-Host "****   Avaiable Updates Server   ****" -F Y -B Black
             If ($updateonstart -eq "off") { 
-                Exit
-                Set-Location $currentdir 
+                Write-Host "****   Updates On start off   ****" -F Red -B Black
+                Set-Location $currentdir
+                Exit 
             }
             Get-SteamFix
             #Get-StopServer

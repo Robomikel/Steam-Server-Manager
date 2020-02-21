@@ -60,6 +60,6 @@ Function New-LaunchScriptbsserverPS {
     #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     Select-EditSourceCFG
     # --->Launch 
-    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${$ip} -port ${$port} +clientport ${$clientport} +tv_port ${$sourcetvport} +sv_setsteamaccount ${$gslt} +map ${$defaultmap} +servercfgfile server.cfg -maxplayers ${$maxplayers} -condebug")'
+    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
 
 }

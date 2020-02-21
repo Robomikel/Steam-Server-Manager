@@ -34,5 +34,5 @@ Function  New-LaunchScriptavserverPS {
     
         
         Get-StopServerInstall
-        $global:launchParams = '@("$executable --server-name `"${hostname}`" --admin ${$steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
+        $global:launchParams = '@("$executable --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
 }
