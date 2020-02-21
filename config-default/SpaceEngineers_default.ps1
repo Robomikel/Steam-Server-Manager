@@ -72,10 +72,10 @@ Function New-LaunchScriptSEserverPS {
     # game config
     # Select-EditSourceCFG
     New-servercfgse
-    Write-Host "Creating Save Dir" -F M
-    New-Item "$servercfgdir\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
-    Write-Host "Copying World template to Save Dir" -F M
-    copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$servercfgdir\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
+    # Write-Host "Creating Save Dir" -F M
+    # New-Item "$servercfgdir\Saves\$WORLDNAME\" -ItemType directory -ErrorAction SilentlyContinue
+    # Write-Host "Copying World template to Save Dir" -F M
+    # copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$servercfgdir\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
     $global:launchParams = '@("$executabledir\$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 Function New-servercfgse {

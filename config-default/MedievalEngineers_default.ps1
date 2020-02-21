@@ -62,10 +62,10 @@ Function New-LaunchScriptMEserverPS {
   # game config
   # Select-EditSourceCFG
   New-servercfgme
-  Write-Host "Creating Save Dir" -F M
-  New-Item "$servercfgdir\Saves\$worldname\" -ItemType directory 
-  Write-Host "Copying World template to Save Dir" -F M
-  copy-item "$serverfiles\Content\Scenarios\$scenario\*" "$servercfgdir\Saves\$worldname\" 
+  # Write-Host "Creating Save Dir" -F M
+  # New-Item "$servercfgdir\Saves\$worldname\" -ItemType directory 
+  # Write-Host "Copying World template to Save Dir" -F M
+  # copy-item "$serverfiles\Content\Scenarios\$scenario\*" "$servercfgdir\Saves\$worldname\" 
   $global:launchParams = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 
