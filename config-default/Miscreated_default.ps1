@@ -5,7 +5,7 @@ Function New-LaunchScriptMiscreatedPS {
         #                       Server IP 
         ${global:IP}            = "${global:IP}"
         #                       Server Port
-        $global:port            = "64090"
+        $global:port            = 64090
         #                       Rcon Password
         $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Maxplayers
@@ -29,8 +29,8 @@ Function New-LaunchScriptMiscreatedPS {
         # $global:gamedirname=""
         $global:servercfg="HOSTING.CFG"
         # Get-Servercfg
-        $global:RCONPORT = "$global:port"
-        $global:RCONPORT += "4"  
+        
+        $global:RCONPORT = $global:port + 4
         #VERSION 2 Requieres  Vars
         $global:launchParams = '@("$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
 
