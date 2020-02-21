@@ -34,7 +34,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
 
     
     New-servercfgmom
-    $global:launchParams = '@("$executable -MULTIHOME=`"${ip}`" -port=$port -queryport=${queryport} -maxplayers=${maxplayers}")'
+    $global:launchParams = '@("$executable -MULTIHOME=`"${ip}`" -port=${port} -queryport=${queryport} -maxplayers=${maxplayers}")'
 } 
 Function New-servercfgmom {
     Write-Host "Creating Custom Config" -F M
