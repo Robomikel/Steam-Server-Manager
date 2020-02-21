@@ -37,7 +37,7 @@ Function New-LaunchScriptBB2serverPS {
     $global:saves = ""
     $global:process = "BB2"
     $global:servercfgdir = "$serverdir\brainbread2\cfg"
-    $global:logdir = "$serverdir\brainbread2"
+    $global:logdirectory = "$serverdir\brainbread2"
 
     Get-StopServerInstall
     #Game-server-configs \/

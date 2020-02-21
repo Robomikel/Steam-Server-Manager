@@ -26,12 +26,12 @@ Function New-LaunchScriptGMODserverPS {
     #                       Tickrate     
     $global:tickrate        = "66"
     # API key visit - https://steamcommunity.com/dev/apikey
-    $wsapikey               = ""
-    $wscollectionid         = ""
+    $global:wsapikey               = ""
+    $global:wscollectionid         = ""
     # Custom Start Parameters
-    $customparms            = "-disableluarefresh"
+    $global:customparms            = "-disableluarefresh"
     #                       Game Server Token
-    $gslt                   = "GameServerTokenHere"
+    $global:gslt                   = "GameServerTokenHere"
     ###########################/\#################################
 
     

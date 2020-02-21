@@ -40,7 +40,7 @@ Function New-LaunchScriptDystopiaserverPS {
     $global:process = "Dystopia"
     #---game config folder \/\/
     $global:servercfgdir = "$serverdir\dystopia\cfg"
-    $global:logdir = "$serverdir\dystopia"
+    $global:logdirectory = "$serverdir\dystopia"
     #---Stop existing process if running
     Get-StopServerInstall
     # Game-server-manger folder \/
