@@ -23,7 +23,7 @@ Function New-LaunchScriptPixArkPS {
     $global:hostname        = "$env:USERNAME"
     #                       Server Password
     $global:serverpassword  = ""
-    #                       World Seed
+    #                       World and Ore Seed
     $global:seed            = "$global:RANDOMSEED"
     ##############################/\##############################
     
@@ -46,6 +46,6 @@ Function New-LaunchScriptPixArkPS {
     
     # Get-Servercfg
     # Select-EditSourceCFG
-    # $global:launchParams= @("$executable ?DelayRegisterServer=True?bRawSockets=True?SessionName=`"${hostname}`"?AltSaveDirectoryName=Trevoria?ServerPassword=${serverpassword}?ServerAdminPassword=${rconpassword}?MaxPlayers=${maxplayers}?RCONEnabled=True?RCONPort=${rconport}? -Seed=${RANDOMSEED} -OreSeed=${RANDOMSEED} -ConfigsUseAltDir -server -gameplaylogging -log -CULTUREFORCOOKING=en -NoBattlEye -QueryPort=27016 -Port=27015 -CubePort=27018 -cubeworld=MyPixarkServer")
-    $global:launchParams = '@("$executable ${defaultmap}?DelayRegisterServer=True?bRawSockets=True?SessionName=`"${hostname}`"?AltSaveDirectoryName=Trevoria?ServerPassword=${serverpassword}?ServerAdminPassword=${rconpassword}?MaxPlayers=${maxplayers}?RCONEnabled=True?RCONPort=${rconport}? -Seed=${RANDOMSEED} -OreSeed=${RANDOMSEED} -ConfigsUseAltDir -server -gameplaylogging -log -CULTUREFORCOOKING=en -NoBattlEye -QueryPort=${queryport} -Port=${port} -CubePort=${clientport} -cubeworld=${hostname}")'
+    # $global:launchParams= @("$executable ?DelayRegisterServer=True?bRawSockets=True?SessionName=`"${hostname}`"?AltSaveDirectoryName=Trevoria?ServerPassword=${serverpassword}?ServerAdminPassword=${rconpassword}?MaxPlayers=${maxplayers}?RCONEnabled=True?RCONPort=${rconport}? -Seed=${seed} -OreSeed=${seed} -ConfigsUseAltDir -server -gameplaylogging -log -CULTUREFORCOOKING=en -NoBattlEye -QueryPort=27016 -Port=27015 -CubePort=27018 -cubeworld=MyPixarkServer")
+    $global:launchParams = '@("$executable ${defaultmap}?DelayRegisterServer=True?bRawSockets=True?SessionName=`"${hostname}`"?AltSaveDirectoryName=Trevoria?ServerPassword=${serverpassword}?ServerAdminPassword=${rconpassword}?MaxPlayers=${maxplayers}?RCONEnabled=True?RCONPort=${rconport}? -Seed=${seed} -OreSeed=${seed} -ConfigsUseAltDir -server -gameplaylogging -log -CULTUREFORCOOKING=en -NoBattlEye -QueryPort=${queryport} -Port=${port} -CubePort=${clientport} -cubeworld=${hostname}")'
 } 
