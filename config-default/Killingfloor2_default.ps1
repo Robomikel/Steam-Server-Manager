@@ -13,9 +13,9 @@ Function New-LaunchScriptKF2serverPS {
     #                       Difficulty
     $global:diff            = "0"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Admin Password
-    $global:adminpassword   = "$global:RANDOMPASSWORD"
+    $global:adminpassword   = "$RANDOMPASSWORD"
 
     ##############################/\##############################
     
@@ -23,29 +23,37 @@ Function New-LaunchScriptKF2serverPS {
     
     
     ###################### Do not change below ##################### 
-    # # Version 2.0
-    # $global:systemdir=""
-    $global:executable = "KFServer"   
-    $global:executabledir = "$serverdir\Binaries\Win64"
-    $global:querytype = "killingfloor2"
-    $global:process = "KFserver"
-    $global:servercfgdir = "$serverdir\KFGame\Config"
-    $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
-    $global:gamedirname = "KillingFloor2"
-    $global:servercfg = "KFWeb.ini"
-    $global:config2 = "LinuxServer-KFEngine.ini"
-    $global:config3 = "LinuxServer-KFGame.ini"
-    $global:config4 = "LinuxServer-KFInput.ini"
-    $global:config5 = "LinuxServer-KFSystemSettings.ini"
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\KFGame\Config"   
+    #                       Server Executable
+    $global:executable      = "KFServer"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir\Binaries\Win64"
+    #                       Gamedig Query
+    $global:querytype       = "killingfloor2"
+    #                       Game Process
+    $global:process         = "KFserver"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "KillingFloor2"
+    #                       Game-Server-Config
+    $global:servercfg       = "KFWeb.ini"
+    $global:config2         = "LinuxServer-KFEngine.ini"
+    $global:config3         = "LinuxServer-KFGame.ini"
+    $global:config4         = "LinuxServer-KFInput.ini"
+    $global:config5         = "LinuxServer-KFSystemSettings.ini"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'
+
+    # Install Adjustment
     Remove-item $servercfgdir\PCServer-*.ini -Force  >$null 2>&1
     Get-Servercfg
     Set-Location $servercfgdir
     Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
     Set-Location $serverdir
-
-    # Get-UserInput 0 1 1 0 0 1 0 0 0 1 0 0 1 1 1 0
-    # VERSION 2 Requieres  Vars
     Write-Host "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
     .\KF2Server.bat
     timeout 5
@@ -59,6 +67,5 @@ Function New-LaunchScriptKF2serverPS {
     ((Get-Content -path $servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $servercfgdir\KFWeb.ini
     Write-Host "***  Disabling Takeover PCServer-KFEngine.ini ***" -ForegroundColor Magenta -BackgroundColor Black
     ((Get-Content -path $servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $servercfgdir\PCServer-KFEngine.ini
-    $global:launchParams = '@("$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'  
     Set-Location $currentdir
 }

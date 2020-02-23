@@ -39,21 +39,24 @@ Function New-LaunchScriptCOD3MWserverPS {
   #+set net_masterServerPort 27016
     
   ###################### Do not change below #####################
-  $global:systemdir = ""
-  $global:executabledir = "$serverdir"
-  $global:executable = "iw5mp_server"
-  $global:querytype = "protocol-valve"
-  $global:saves = ""
-  $global:process = "iw5mp_server"
-  $global:servercfgdir = "$serverdir\admin"
-  $global:logdirectory = "$serverdir"
-  Get-StopServerInstall
-  #Game-server-configs \/
-  $global:gamedirname = ""
-  $global:servercfg = "server.cfg"
-  # Get-Servercfg
-  # Select-RenameSource
-  # game config
-  # Select-EditSourceCFG
-  $global:launchParams = '@("$executable +start_map_rotate +set sv_maprotation ${defaultmap} +set net_queryPort ${queryport} +set net_port ${port} +set net_authPort 8766 +set net_masterServerPort 27016 ")'
+  #                           System Directory
+  $global:systemdir           = "$serverdir"
+  #                           Server Config Directory
+  $global:servercfgdir        = "$serverdir\admin"
+  #                           Server Executable
+  $global:executable          = "iw5mp_server"
+  #                           Server Executable Directory
+  $global:executabledir       = "$serverdir"
+  #                           Gamedig Query
+  $global:querytype           = "protocol-valve"
+  #                           Game Process
+  $global:process             = "iw5mp_server"
+  #                           Log Directory
+  $global:logdirectory        = "$serverdir"
+  #                           Game-Server-Config Directory
+  $global:gamedirname         = ""
+  #                           Game-Server-Config
+  $global:servercfg           = "server.cfg"
+  #                           Server Launch Command
+  $global:launchParams        = '@("$executable +start_map_rotate +set sv_maprotation ${defaultmap} +set net_queryPort ${queryport} +set net_port ${port} +set net_authPort 8766 +set net_masterServerPort 27016 ")'
 }   

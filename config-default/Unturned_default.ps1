@@ -6,30 +6,28 @@ Function New-LaunchScriptunturnedserverPS {
     #                   Server Port 
     $global:port        = "27018"
     #                   Server Name
-    $global:hostname    = "$env:USERNAME"
+    $global:hostname    = "SERVERNAME"
     ###########################/\#################################
     
-    
-    
-    
-    
-    
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "Unturned"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "protocol-valve"
-    $global:saves = ""
-    $global:process = "Unturned"
-    $global:servercfgdir = "$serverdir\Servers\$hostname\Server"
-    $global:logdirectory = "$serverdir\Logs"
-    Get-StopServerInstall
-    $global:gamedirname = ""
-    $global:servercfg = "Commands.dat"
-
-    
-
-    
-    $global:launchParams = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/${hostname}")'
-    #$global:launchParams = '@("$executable")'
+    #                           System Directory 
+    $global:systemdir           = "$serverdir"
+    #                           Server Config Directory
+    $global:servercfgdir        = "$serverdir\Servers\$hostname\Server"
+    #                           Server Executable 
+    $global:executable          = "Unturned"
+    #                           Server Executable Directory
+    $global:executabledir       = "$serverdir"
+    #                           Gamedig Query
+    $global:querytype           = "protocol-valve"
+    #                           Game Process
+    $global:process             = "Unturned"
+    #                           Log Directory
+    $global:logdirectory        = "$serverdir\Logs"
+    #                           Game-Server-Config Directory
+    $global:gamedirname         = ""
+    #                           Game-Server-Config
+    $global:servercfg           = "Commands.dat"
+    #                           Server Launch Command
+    $global:launchParams        = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/${hostname}")'
 }

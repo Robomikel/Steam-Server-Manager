@@ -5,7 +5,7 @@ Function New-LaunchScriptNMRIHserverPS {
     # WIKI
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:ip}            = "${global:IP}"
+    ${global:ip}            = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -19,51 +19,32 @@ Function New-LaunchScriptNMRIHserverPS {
     #                       Maxplayers
     $global:maxplayers      = "8"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     
 
     ##############################/\##############################
     
-    
-    
-    
     ###################### Do not change below ##################### 
-    # # Version 2.0
-    #--->Requieres \/ \/ Get-SourceMetMod
-    $global:systemdir = ""
-    #--->executable Directory \/\/
-    $global:executabledir = "$serverdir"
-    #--->rename srcds to this name \/\/
-    $global:executable = "NMRIH"
-    #--->Requieres \/ \/ game dig 
-    $global:querytype = "nmrih"
-    #--->Requieres \/ \/ AppData Roaming save
-    $global:saves = ""
-    #--->Requieres \/ \/ maybe same as game executable?
-    $global:process = "NMRIH"
-    #--->game config folder
-    $global:servercfgdir = "$serverdir\nmrih\cfg"
-    $global:logdirectory = "$serverdir\nmrih"
-    #--->Stop existing process if running        
-    Get-StopServerInstall
-    #--->Game-server-manger folder \/
-    $global:gamedirname = "NoMoreRoominHell"
-    #--->Game-server-manger config name \/
-    $global:servercfg = "server.cfg"
-    #--->Get game-server-config \/\/
-    Get-Servercfg
-    #--->Default Vars
-
-    #--->input questions 
-    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 0
-    #--->rename srcds.executable \/\/
-    Select-RenameSource
-    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
-    Select-EditSourceCFG
-    # --->Launch 
-    $global:launchParams = '@("$executable -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # OR    executable NOT In server folder ROOT add executabledir \/ \/
-    #$global:launchParams = '@("$executabledir\$executable -< LAUNCH PARAMS HERE >-")'
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\nmrih\cfg"
+    #                       Server Executable
+    $global:executable      = "NMRIH"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "nmrih"
+    #                       Game Process
+    $global:process         = "NMRIH"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\nmrih"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "NoMoreRoominHell"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
 }

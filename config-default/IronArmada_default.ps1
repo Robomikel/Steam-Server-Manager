@@ -12,18 +12,15 @@
     
     ###################### Do not change below #####################
     $global:systemdir = ""
-    $global:executable = "ironarmadaserver"
+    $global:servercfgdir = "$serverdir\iron\default-cfg-server\servercfg.toml"
     $global:executabledir = "$serverdir"
+    $global:executable = "ironarmadaserver"
     $global:querytype = ""
     $global:saves = ""
     $global:process = "ironarmadaserver"
-    $global:servercfgdir = "$serverdir\iron\default-cfg-server\servercfg.toml"
     $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = ""
-
-    
-    
+    # Server Launch Command
     $global:launchParams = '@("$executable -c --console")'
 }

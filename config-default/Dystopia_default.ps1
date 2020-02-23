@@ -5,7 +5,7 @@ Function New-LaunchScriptDystopiaserverPS {
     # https://steamdb.info/app/17585/
     ################## Change Default Variables #################
     #                       Server IP 
-    $global:ip              = "${global:IP}"
+    $global:ip              = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -17,46 +17,36 @@ Function New-LaunchScriptDystopiaserverPS {
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     ##############################/\##############################
     
-    
-    
-    
     ###################### Do not change below #####################
-    # Requieres \/ \/ Get-SourceMetMod
-    $global:systemdir = ""
-    # executable Directory \/\/
-    $global:executabledir = "$serverdir\bin\win32"
-    # rename srcds to this name \/\/
-    $global:executable = "Dystopia"
-    # Requieres \/ \/ game dig
-    $global:querytype = "protocol-valve"
-    # Requieres \/ \/ AppData Roaming save folder
-    $global:saves = ""
-    # Requieres \/ \/ maybe same as game
-    $global:process = "Dystopia"
-    #---game config folder \/\/
-    $global:servercfgdir = "$serverdir\dystopia\cfg"
-    $global:logdirectory = "$serverdir\dystopia"
-    #---Stop existing process if running
-    Get-StopServerInstall
-    # Game-server-manger folder \/
-    $global:gamedirname = "Dystopia"
-    # Game-server-manger config name \/
-    $global:servercfg = "server.cfg"
-    # Get game-server-config  \/\/
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\dystopia\cfg"
+    #                       Server Executable
+    $global:executable      = "Dystopia"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir\bin\win32"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "Dystopia"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\dystopia"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "Dystopia"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -console -game `"$currentdir\${serverfiles}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # Download Game-Server-Config
     Get-Servercfg
-    # input questions \/\/
-    #Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
-    # rename srcds.executable \/\/
-    Select-RenameSource
-    #---- Edit game config \/ SERVERNAME ADMINPASSWORD
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
-    # VERSION 2 launch params executable in root \/\/
-    #-game "${serverfiles}/dystopia" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers}
-
-    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\dystopia`" -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'      
+    # Rename Source $executable.exe
+    Select-RenameSource
 }

@@ -3,7 +3,7 @@ Function New-LaunchScriptNS2serverPS {
     # APP ID # 4940
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${global:IP}"
+    ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Map
@@ -11,9 +11,9 @@ Function New-LaunchScriptNS2serverPS {
     #                       Maxplayers
     $global:maxplayers      = "24"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     #                       Requieres Steam Login
 
     ##############################/\##############################
@@ -30,17 +30,11 @@ Function New-LaunchScriptNS2serverPS {
     $global:process = "Server"
     $global:servercfgdir = "$serverdir\config"
     $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
+    
     # Game-Server-Configs
     $global:gamedirname = "NaturalSelection2"
     $global:servercfg = "server.txt"
 
-    # Get-Servercfg
-    # Select-RenameSource
-
-    
-    # Select-EditSourceCFG
-    # VERSION 2 Requieres  Vars
     $global:launchParams = '@("$executable -name `"${hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
 
 }
