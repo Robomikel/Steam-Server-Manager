@@ -19,6 +19,7 @@ Function Get-Forgeforge {
 Function Get-InstallForge {
 
     $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
+    Write-Host '****   Downloading  Minecraft Forge   ****' -F M -B Black
     Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
     Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
     Set-Location $serverdir
