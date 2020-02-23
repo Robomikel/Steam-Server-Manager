@@ -7,24 +7,26 @@ Function New-LaunchScriptbedrock_serverPS {
 
     ###########################/\#################################
 
-    
     # 19132 TCP/UDP IPV4
     
-    
     ###################### Do not change below #####################
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir"
+    #                       Server Executable
+    $global:executable      = "bedrock_server"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "minecraftbe"
+    #                       Game Process
+    $global:process         = "bedrock_server"
+    #                        Game-Server-Config Directory
+    $global:gamedirname     = ""
+    #                       Game-Server-Config
+    $global:servercfg       = "server.properites"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable ")'
     Get-MCBRBinaries
-    $global:systemdir = ""
-    $global:executable = "bedrock_server"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "minecraftbe"
-    $global:saves = ""
-    $global:process = "bedrock_server"
-    $global:servercfgdir = "$serverdir"
-    
-    $global:gamedirname = ""
-    $global:servercfg = ""
-
-    
-    $global:launchParams = '@("$executable ")'
-
 }

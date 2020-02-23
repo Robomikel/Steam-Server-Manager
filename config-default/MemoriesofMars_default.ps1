@@ -16,25 +16,28 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:queryport       = "27015"
     ##############################/\##############################
     
-    
-    
-    
-    
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "MemoriesOfMarsServer"
-    $global:executabledir = "$serverdir\Game\Binaries\Win64\"
-    $global:querytype = "protocol-valve"
-    $global:process = "MemoriesOfMarsServer"
-    $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
-    $global:logdirectory = "$serverdir\Game\Saved\Logs"
-    
-    $global:gamedirname = ""
-    $global:servercfg = "DedicatedServerConfig.cfg"
-
-    
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
+    #                       Server Executable
+    $global:executable      = "MemoriesOfMarsServer"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir\Game\Binaries\Win64\"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "MemoriesOfMarsServer"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\Game\Saved\Logs"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = ""
+    #                       Game-Server-Config
+    $global:servercfg       = "DedicatedServerConfig.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -MULTIHOME=`"${ip}`" -port=${port} -queryport=${queryport} -maxplayers=${maxplayers}")'
     New-servercfgmom
-    $global:launchParams = '@("$executable -MULTIHOME=`"${ip}`" -port=${port} -queryport=${queryport} -maxplayers=${maxplayers}")'
 } 
 Function New-servercfgmom {
     Write-Host "Creating Custom Config" -F M

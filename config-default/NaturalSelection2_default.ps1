@@ -18,23 +18,26 @@ Function New-LaunchScriptNS2serverPS {
 
     ##############################/\##############################
     
-    
-    
     ###################### Do not change below #####################
-
-    # Steamer Vars Do Not Edit
-    $global:systemdir = ""
-    $global:executabledir = "$serverdir"
-    $global:executable = "Server"
-    $global:querytype = "protocol-valve"
-    $global:process = "Server"
-    $global:servercfgdir = "$serverdir\config"
-    $global:logdirectory = "$serverdir"
-    
-    # Game-Server-Configs
-    $global:gamedirname = "NaturalSelection2"
-    $global:servercfg = "server.txt"
-
-    $global:launchParams = '@("$executable -name `"${hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\config"
+    #                       Server Executable
+    $global:executable      = "Server"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "Server"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "NaturalSelection2"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.txt"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -name `"${hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
 
 }

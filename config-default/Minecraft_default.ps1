@@ -7,26 +7,26 @@ Function New-LaunchScriptminecraft_serverPS {
 
     ###########################/\#################################
 
-    
     # 25565 TCP/UDP IPV4
     
-    
     ###################### Do not change below #####################
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir"
+    #                       Server Executable Directory
+    $global:executable      = "server.jar"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "minecraft"
+    #                       Game Process
+    $global:process         = "java"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = ""
+    #                       Game-Server-Config
+    $global:servercfg       = "server.properites"
+    #                       Server Launch Command
+    $global:launchParams    = '@("java -Xms1024M -Xmx1024M -jar $executable nogui")'
     Get-MCjavaBinaries
-    $global:systemdir = ""
-    $global:executable = "server.jar"
-    # $global:executable          = "forge-*.jar"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "minecraft"
-    $global:saves = ""
-    $global:process = "java"
-    $global:servercfgdir = "$serverdir"
-    
-    $global:gamedirname = ""
-    $global:servercfg = ""
-
-    # java -jar forge-installer.jar --installServer
-    # java -Xms1G -Xmx2G     
-    $global:launchParams = '@("java -Xms1024M -Xmx1024M -jar $executable nogui")'
-
 }
