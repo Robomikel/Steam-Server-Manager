@@ -5,11 +5,11 @@ Function New-LaunchScriptpzserverPS {
     # WIKI
         ################## Change Default Variables #################
     #                         Server IP 
-    ${global:IP}              = "${global:IP}"
+    ${global:IP}              = "${ip}"
     #                         Server Name
-    $global:hostname          = "$env:USERNAME"
+    $global:hostname          = "SERVERNAME"
     #                         Rcon Password
-    ${global:adminpassword}   = "$global:RANDOMPASSWORD"
+    ${global:adminpassword}   = "$RANDOMPASSWORD"
     
 
     ##############################/\##############################
@@ -18,42 +18,28 @@ Function New-LaunchScriptpzserverPS {
     # Port/s 16261+1 per player
     
     ###################### Do not change below #####################  
-    # # Version 2.0
-    #--->Requieres \/ \/ Get-SourceMetMod
-    $global:systemdir = ""
-    #--->executable Directory \/\/
-    $global:executabledir = "$serverdir"
-    #--->rename srcds to this name \/\/
-    #$global:executable = "startServer64.bat"
-    $global:executable = "ProjectZomboid64"
-    #--->Requieres \/ \/ game dig 
-    $global:querytype = "protocol-valve"
-    #--->Requieres \/ \/ AppData Roaming save
-    $global:saves = ""
-    #--->Requieres \/ \/ maybe same as game executable?
-    $global:process = "ProjectZomboid64"
-    #--->game config folder
-    $global:servercfgdir = "$serverdir\Zomboid\Server"
-    #--->game log folder
-    $global:logdirectory = "$serverdir"
-    #--->Stop existing process if running        
-    Get-StopServerInstall
-    #--->Game-server-manger folder \/
-    $global:gamedirname = "ProjectZomboid"
-    #--->Game-server-manger config name \/
-    $global:servercfg = "server.ini"
-    #--->Get game-server-config \/\/
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\Zomboid\Server"
+    #                       Server Executable
+    $global:executable      = "ProjectZomboid64"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "ProjectZomboid64"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "ProjectZomboid"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.ini"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
+    # Download Game-Server-Config
     Get-Servercfg
-    #--->Default Vars
-
-    #--->input questions 
-    # Get-UserInput 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0
-    #--->rename srcds.executable \/\/
+    # Rename Source $executable.exe
     Select-RenameSource
-    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
-    # Select-EditSourceCFG
-    # --->Launch 
-    #$global:launchParams = '@("$executable")'
-    $global:launchParams = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
-
 }

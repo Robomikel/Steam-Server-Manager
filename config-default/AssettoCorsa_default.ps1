@@ -12,15 +12,13 @@ Function New-LaunchScriptacserverPS {
     
     
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "acServer.bat"
-    $global:executabledir= "Assetto Corsa\Server"
-    $global:querytype = "protocol-valve"
-    $global:process = "acServer"
-    $global:servercfgdir = ""
-    $global:logdirectory = "$serverdir"
+    $global:systemdir           = "$serverdir"
+    $global:executable          = "acServer.bat"
+    $global:executabledir       = "Assetto Corsa\Server"
+    $global:querytype           = "protocol-valve"
+    $global:process             = "acServer"
+    $global:servercfgdir        = ""
+    $global:logdirectory        = "$serverdir"
 
-    
-    Get-StopServerInstall
-    $global:launchParams = '@("$executable")'
+    $global:launchParams        = '@("$executable")'
 }

@@ -5,7 +5,7 @@ Function New-LaunchScriptStormworksserverPS {
     #                       Server Port 
     $global:port            = "25564"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Password
@@ -22,20 +22,26 @@ Function New-LaunchScriptStormworksserverPS {
     # base_island="" set what player base will be owned on start (empty is start base)
     
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "server"
-    $global:executabledir = "$serverdir"
-    $global:querytype = ""
-    $global:saves = "Stormworks"
-    $global:process = "server"
-    $global:servercfgdir = "$env:APPDATA\$global:saves\"
-    $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
-    $global:gamedirname = ""
-    $global:servercfg = "server_config.xml"
-
-    
-
-    $global:launchParams = '@("$executable")'
-
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$env:APPDATA\$global:saves\"
+    #                       Server Executable
+    $global:executable      = "server"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Appdata\Roaming Directory
+    $global:saves           = "Stormworks"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "server"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = ""
+    #                       Game-Server-Config
+    $global:servercfg       = "server_config.xml"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable")'
 }

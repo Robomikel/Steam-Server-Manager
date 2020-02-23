@@ -20,21 +20,24 @@ Function New-LaunchScriptSeriousSamserverPS {
     # net_strLocalHost = "10.1.10.200";
     
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "DedicatedServer"
-    $global:executabledir = "$serverdir\Bin"
-    $global:querytype = "protocol-valve"
-    $global:saves = ""
-    $global:process = "DedicatedServer"
-    $global:servercfgdir = "$serverdir\Scripts\Dedicated\$global:GAMEMODE"
-    $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
-    $global:gamedirname = ""
-    $global:servercfg = "init.ini"
-
-    
-
-
-    $global:launchParams = '@("$executable ${gamemode}")'
-
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\Scripts\Dedicated\$global:GAMEMODE"
+    #                       Server Executable
+    $global:executable      = "DedicatedServer"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir\Bin"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "DedicatedServer"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = ""
+    #                       Game-Server-Config
+    $global:servercfg       = "init.ini"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable ${gamemode}")'
 }

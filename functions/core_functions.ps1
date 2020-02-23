@@ -129,10 +129,14 @@ Function Get-Appid {
 
     If (($null -eq $AppID) -or ("" -eq $AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
-        $AppID = Read-host
+        $global:AppID = Read-host
         Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-        $Branch = Read-host
+        $global:Branch = Read-host
         Get-TestInterger
+    }
+
+    If (( $AppID -eq 985050) -or ($AppID -eq 233780)){
+        Write-Host "****   Requires Steam Login    *****" -F Cyan
     }
 }
 
@@ -153,4 +157,13 @@ Function Get-SourceMetaModWebrequest {
     $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     $smWebResponse = $smWebResponse.content
     $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
+}
+
+Function Get-PreviousInstall {
+    $check = (Get-Childitem $currentdir\$serverfiles\ | Where-Object {$_.Name -like 'Variables-*'})
+    If ($null -ne $check ){
+        Get-createdvaribles
+        Get-StopServerInstall
+        Get-ClearVariables
+    }
 }

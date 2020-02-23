@@ -38,11 +38,14 @@ $global:sevenzipdirectory = "$currentdir\$sevenzipversion"
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 $global:steamoutput = "steamcmd.zip"
 $global:steamdirectory = "$currentdir\SteamCMD\"
+
 # Steamer url
 $global:steamerurl="https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
+
 # Mcrcon
 $global:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
 $global:mcrcondirectory = "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32"
+
 # Forge
 $global:forgeversion = "1.15.2-31.1.2"
 

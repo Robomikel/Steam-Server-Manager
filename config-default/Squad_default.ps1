@@ -4,7 +4,7 @@ Function New-LaunchScriptSquadserverPS {
     # https://squad.gamepedia.com/Server_Configuration
     ################## Change Default Variables #################
     #                       Server IP
-    # ${global:IP}            = "${global:IP}"
+    ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "7787"
     #                       Query Port
@@ -12,7 +12,7 @@ Function New-LaunchScriptSquadserverPS {
     #                       Maxplayers
     $global:maxplayers      = "80"
     #                       Server Name
-    # $global:hostname      = "$env:USERNAME"
+    # $global:hostname      = "SERVERNAME"
     ##############################/\##############################
     
     # Need to be open on Windows firewall and router.
@@ -24,22 +24,24 @@ Function New-LaunchScriptSquadserverPS {
     
     
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "SquadGameServer"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "protocol-valve"
-    $global:process = "SquadGameServer"
-    $global:servercfgdir = "$serverdir\squad_server\SquadGame\ServerConfig\"
-    $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
-    $global:gamedirname = ""
-    $global:servercfg = "Server.cfg"
-
-    Get-StopServerInstall
-    # Get-Servercfg
-    # Select-EditSourceCFG
-    
-    # $global:launchParams = '@("$executable MULTIHOME=${IP} Port=${port}  QueryPort=${QUERYPORT} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
-    $global:launchParams = '@("$executable Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} RANDOM=ALWAYS -log")'
-
+    #                               System Directory
+    $global:systemdir               = "$serverdir"
+    #                               Server Config Directory
+    $global:servercfgdir            = "$serverdir\squad_server\SquadGame\ServerConfig\"
+    #                               Server Executable
+    $global:executable              = "SquadGameServer"
+    #                               Server Executable Directory
+    $global:executabledir           = "$serverdir"
+    #                               Gamedig Query
+    $global:querytype               = "protocol-valve"
+    #                               Game Process
+    $global:process                 = "SquadGameServer"
+    #                               Log Directory
+    $global:logdirectory            = "$serverdir"
+    #                               Game-Server-Config Directory
+    $global:gamedirname             = ""
+    #                               Game-Server-Config
+    $global:servercfg               = "Server.cfg"
+    #                               Server Launch Command
+    $global:launchParams            = '@("$executable MULTIHOME=${IP} Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
 } 
