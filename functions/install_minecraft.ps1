@@ -10,7 +10,7 @@ Function Get-MCBRBinaries {
         
     #################### MineCraftBedrock Install ################
     Get-MCBRWebrequest 
-    Invoke-WebRequest -uri $mcbrWebResponse.href -O bedrock-server.zip -UseBasicParsing
+    Invoke-WebRequest -uri $mcbrWebResponse.href -O bedrock-server.zip
     Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item bedrock-server\* $serverfiles\ -Force -ea SilentlyContinue
     Add-Content $serverfiles\version.txt $mcbrWebResponse.href -Force
@@ -21,9 +21,9 @@ Function Get-MCjavaBinaries {
         
     #################### MineCraft Java Install ################
     Get-MCWebrequest 
-    $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server").Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
+    $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server" -UseBasicParsing ).Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
     
-    Invoke-WebRequest -uri $mcWebResponse.href -O server.jar -UseBasicParsing
+    Invoke-WebRequest -uri $mcWebResponse.href -O server.jar 
     # $mcWebResponse.outerText
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
