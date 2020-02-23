@@ -8,7 +8,7 @@
 #
 Function Get-Forgeforge {
     $forgeversion = "*"
-    $forgeWebResponse = ((Invoke-WebRequest "http://files.minecraftforge.net/").Links | Where-Object { $_.href -like "https://adfoc.us/serve/sitelinks/?id=271228&amp;url=https:///maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar" })
+    $forgeWebResponse = ((Invoke-WebRequest "http://files.minecraftforge.net/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://adfoc.us/serve/sitelinks/?id=271228&amp;url=https:///maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar" })
     $forgeWebResponse = $forgeWebResponse.href | Get-Unique
     $forgeWebResponse = $forgeWebResponse -replace ".*;url="
     $forgeWebResponse = $forgeWebResponse -replace 'https:///', 'https://files.minecraftforge.net/'
