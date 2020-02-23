@@ -37,9 +37,6 @@ Function Get-Details {
     $backups = (Get-Childitem  $backupdir -recurse | Measure-Object) 
     $backups = $backups.count 
     $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -s -ea silentlycontinue ).Sum / 1GB) 
-    If (($AppID -eq 302200)) { 
-        $gameresponse = "Not supported" 
-    }
     #Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ 2010%'"
     Write-Host "                                "
     Write-Host "    Server Name       : $hostname"
