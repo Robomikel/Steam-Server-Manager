@@ -192,7 +192,11 @@ Install miscreated server ```./ssm start misserver``` Start command will install
  Does not open ports on firewall  
  https://www.tomshardware.com/news/how-to-open-firewall-ports-in-windows-10,36451.html
 - - - - 
- # MCRCON
+# Rust Admin
+https://www.rustadmin.com/
+# Miscreated Rcon Tool
+https://github.com/csprance/MisRCON/releases
+# MCRCON
 https://github.com/Tiiffi/mcrcon
 # GameDig
 https://github.com/sonicsnes/node-gamedig
