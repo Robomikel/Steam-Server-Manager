@@ -18,10 +18,10 @@ Function Get-ChecktaskUnreg {
 }
 Function Get-ChecktaskDisable {
     If ($Checktask -eq "on") {
-        Get-ScheduledTask -TaskName "$serverfiles monitor" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         If ($?) {
             Write-Host '****   disabling scheduled task   ****' -F M -B Black
-            Disable-ScheduledTask -TaskName "$serverfiles monitor" >$null 2>&1
+            Disable-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         }
         If (!$?) {
             Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
@@ -33,11 +33,11 @@ Function Get-ChecktaskDisable {
 }
 Function Get-ChecktaskEnable {
     if ($Checktask -eq "on") {
-        Get-ScheduledTask -TaskName "$serverfiles monitor" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
     
         If ($?) {
             Write-Host '****   Enabling scheduled task   ****' -F M -B Black
-            Enable-ScheduledTask -TaskName "$serverfiles monitor" >$null 2>&1
+            Enable-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         }
         If (!$?) {
             Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
