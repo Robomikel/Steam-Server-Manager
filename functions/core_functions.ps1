@@ -99,6 +99,7 @@ Function Select-EditSourceCFG {
 }
 Function New-ServerLog {
     If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[so]*.txt", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 367970) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[m]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
