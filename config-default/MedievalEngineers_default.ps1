@@ -4,13 +4,13 @@ Function New-LaunchScriptMEserverPS {
   # https://www.medievalengineerswiki.com/index.php?title=Keen:Dedicated_Server_Configuration
   ################## Change Default Variables #################
   #                       Server IP
-  ${global:ip}            = "${global:IP}"
+  ${global:ip}            = "${ip}"
   #                       Server Port
   ${global:port}          = "27015"
   #                       Maxplayers
   $global:maxplayers      = "20"
   #                       Server Name
-  $global:hostname        = "$env:USERNAME"
+  $global:hostname        = "SERVERNAME"
   #                       World Name
   $global:worldname       = "WorldName"
   #                       scenario
@@ -53,7 +53,7 @@ Function New-LaunchScriptMEserverPS {
   $global:process = "MedievalEngineersDedicated"
   $global:servercfgdir = "$env:APPDATA\$saves"
   $global:logdirectory = "$env:APPDATA\$saves"
-  Get-StopServerInstall
+  
   #Game-server-configs \/
   $global:gamedirname = ""
   $global:servercfg = ""

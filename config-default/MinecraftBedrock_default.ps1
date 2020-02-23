@@ -20,7 +20,7 @@ Function New-LaunchScriptbedrock_serverPS {
     $global:saves = ""
     $global:process = "bedrock_server"
     $global:servercfgdir = "$serverdir"
-    Get-StopServerInstall
+    
     $global:gamedirname = ""
     $global:servercfg = ""
 

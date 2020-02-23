@@ -4,7 +4,7 @@ Function New-LaunchScriptInsserverPS {
     # APP ID # 237410
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${global:IP}"
+    ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -28,46 +28,49 @@ Function New-LaunchScriptInsserverPS {
     #                       SV_Pure
     $global:sv_pure         = "0"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     ##############################/\##############################
     
-    
-    
     ###################### Do not change below #####################
-    # # Version 2.0
-    $global:systemdir = "$serverdir\insurgency"
-    $global:executable = "srcds"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "insurgency"
-    $global:process = "srcds"
-    $global:servercfgdir = "$serverdir\insurgency\cfg"
-    $global:logdirectory = "$serverdir\insurgency"
-    
-    Get-StopServerInstall
-    # Game-server-configs \/
-    $global:gamedirname = "Insurgency"
-    $global:servercfg = "server.cfg"
+    #                       System Directory
+    $global:systemdir       = "$serverdir\insurgency"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\insurgency\cfg"
+    #                       Server Executable
+    $global:executable      = "srcds"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "insurgency"
+    #                       Game Process
+    $global:process         = "srcds"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\insurgency"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "Insurgency"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    # Download Game-Server-Config
     Get-Servercfg
-    # - - - - - - - - - - - - -
-
-    # Get-UserInput 1 1 0 0 1 1 1 1
-    
-
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
+    # Install Adjustment
+    Get-InstallChangesINS
+    Get-Gamemode
+}
+
+
+Function Get-InstallChangesINS {
     Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $serverdir\insurgency\subscribed_file_ids.txt -Force
     Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $serverdir\insurgency\motd.txt -Force
      
-    $global:launchParams = '@("$executable -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
-    #Get-SourceMetMod
-    Get-Gamemode
 }
-
-
-
 Function Get-Playlist {
     Write-Host "Checking playlist" -ForegroundColor Yellow
     if ($playlist -eq "comp") {

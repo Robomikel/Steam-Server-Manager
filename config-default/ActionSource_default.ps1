@@ -2,8 +2,9 @@ Function New-LaunchScriptAHL2serverPS {
   # Action: Source Dedicated Server
   # 985050
   ################## Change Default Variables #################
+  #                       Requires Steam Login
   #                       Server IP
-  ${global:IP}            = "${global:IP}"
+  ${global:IP}            = "${ip}"
   #                       Server Port
   ${global:port}          = "27015"
   #                       Client Port
@@ -15,33 +16,35 @@ Function New-LaunchScriptAHL2serverPS {
   #                       Maxplayers
   $global:maxplayers      = "20"
   #                       Server Name
-  $global:hostname        = "$env:USERNAME"
+  $global:hostname        = "SERVERNAME"
   #                       Rcon Password
-  $global:RCONPASSWORD    = "$global:RANDOMPASSWORD"
-  #                       Requieres Steam Login
-
+  $global:RCONPASSWORD    = "$RANDOMPASSWORD"
   ##############################/\##############################
-  
-  
-  
-  
-  
-  ###################### Do not change below #####################
-  $global:systemdir = ""
-  $global:executabledir = "$serverdir"
-  $global:executable = "ahl2"
-  $global:querytype = "protocol-valve"
-  $global:saves = ""
-  $global:process = "ahl2"
-  $global:servercfgdir = "$serverdir\ahl2\cfg"
-  $global:logdirectory = "$serverdir\ahl2"
-  Get-StopServerInstall
-  #game-server-configs \/
-  $global:gamedirname = "ActionSource"
-  $global:servercfg = "server.cfg"
+  ###################### Do not change below ###################
+  #                       System Directory 
+  $global:systemdir       = "$serverdir"
+  #                       Server Config Directory
+  $global:servercfgdir    = "$serverdir\ahl2\cfg"
+  #                       Server Executable
+  $global:executable      = "ahl2"
+  #                       Server Executable Directory
+  $global:executabledir   = "$serverdir"
+  #                       Gamedig Query
+  $global:querytype       = "protocol-valve"
+  #                       Game Process
+  $global:process         = "ahl2"
+  #                       Log Directory
+  $global:logdirectory    = "$serverdir\ahl2"
+  #                       Game-Server-Config Directory 
+  $global:gamedirname     = "ActionSource"
+  #                       Game-Server-Config
+  $global:servercfg       = "server.cfg"
+  #                       Server Launch Command
+  $global:launchParams    = '@("$executable -console -game ahl2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} -maxplayers ${maxplayers} -condebug")'
+  # Download Game-Server-Config
   Get-Servercfg
-  Select-RenameSource
-  # game config
+  # Edit Server Game-Server-Config
   Select-EditSourceCFG
-  $global:launchParams = '@("$executable -console -game ahl2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} -maxplayers ${maxplayers} -condebug")'
+  # Rename Source $executable.exe
+  Select-RenameSource
 }   

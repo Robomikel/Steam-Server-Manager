@@ -3,7 +3,7 @@ Function New-LaunchScriptdoiserverPS {
     # APP ID # 462310
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${global:IP}"
+    ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -25,51 +25,48 @@ Function New-LaunchScriptdoiserverPS {
     #                       SV_Pure
     $global:sv_pure         = "0"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     ##############################/\##############################
     
-    
-    
     ###################### Do not change below #####################
-
-    # Steamer Vars Do Not Edit
-    $global:systemdir = "$serverdir\doi"
-    $global:executabledir = "$serverdir"
-    $global:executable = "doi"
-    $global:querytype = "doi"
-    $global:process = "doi"
-    $global:servercfgdir = "doi\cfg"
-    $global:logdirectory = "$serverdir\doi"
-    Get-StopServerInstall
-    # Game-Server-Configs
-    $global:gamedirname = "DayOfInfamy"
-    $global:servercfg = "server.cfg"
-
+    #                       System Directory
+    $global:systemdir       = "$serverdir\doi"
+    #                       Server Config Directory
+    $global:servercfgdir    = "doi\cfg"
+    #                       Server Executable
+    $global:executable      = "doi"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "doi"
+    #                       Game Process
+    $global:process         = "doi"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\doi"
+    #                       Game-Server-Configs
+    $global:gamedirname     = "DayOfInfamy"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
+    # Download Game-Server-Config
     Get-Servercfg
-    Select-RenameSource
-    $global:RCONPORT = "${global:port}"
-
-    
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
-    # VERSION 2 Requieres  Vars
-    $global:launchParams = '@("$executable -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
-    # -game doi -strictportbind           -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -workshop"
-    #start srcds.exe -usercon +maxplayers 24 +sv_lan 0 +map "bastogne offensive"              
+    # Rename Source $executable.exe
+    Select-RenameSource
+    # Install Adjustment
+    Get-InstallChangesdoi
+}
+Function Get-InstallChangesdoi {
     Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $servercfgdir\subscribed_file_ids.txt -Force
     Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     New-Item $servercfgdir\motd.txt -Force
     Get-Gamemodedoi
-    #Get-SourceMetMod
 }
-# not used in DOI 
-#server.cfg		// this is your primary server config file containing global variables
-#default_server_<mode>.cfg		// default file which contains settings for specific mode
-#server_<mode>.cfg         // non-default config, overrides default, use this for custom servers
-#server_<map>.cfg		// optional file for settings per-map
-#server_<map>_<mode>.cfg		// optional file for settings per-map-gamemode
 Function Get-Playlistdoi {
     Write-Host "Checking playlist" -ForegroundColor Yellow
     if ($playlist -eq "coop_commando") {

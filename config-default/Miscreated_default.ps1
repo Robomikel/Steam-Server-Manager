@@ -1,17 +1,18 @@
 Function New-LaunchScriptMiscreatedPS {
         #----------   Miscreated Server Install Function   -------------------
         # APP ID # 302200
+        # 
         ################## Change Default Variables #################
         #                       Server IP 
-        ${global:IP}            = "${global:IP}"
+        ${global:IP}            = "${ip}"
         #                       Server Port
         $global:port            = 64090
         #                       Rcon Password
-        $global:rconpassword    = "$global:RANDOMPASSWORD"
+        $global:rconpassword    = "$RANDOMPASSWORD"
         #                       Maxplayers
         $global:maxplayers      = "32"
         #                       Server Name
-        $global:hostname        = "$env:USERNAME"
+        $global:hostname        = "SERVERNAME"
         ##############################/\##############################
         # Port + 1  = Client 
         # port + 2  = Query Port
@@ -19,25 +20,30 @@ Function New-LaunchScriptMiscreatedPS {
         # port + 4  = rcon port
         
         ###################### Do not change below #####################
-
-        # $global:systemdir=""
-        $global:executabledir = "$serverdir\Bin64_dedicated"
-        $global:executable = "MiscreatedServer"
-        $global:querytype = "protocol-valve"
-        # $global:saves = ""
-        $global:process = "MiscreatedServer"
-        $global:servercfgdir = "$serverdir"
-        $global:logdirectory = "$serverdir"        
-        Get-StopServerInstall
-        # $global:gamedirname=""
-        $global:servercfg="HOSTING.CFG"
-        # Get-Servercfg
-        
-        $global:RCONPORT = $global:port + 4
-        #VERSION 2 Requieres  Vars
-        $global:launchParams = '@("$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
-
-        # Custom config game based         
+        #                       System Directory
+        $global:systemdir       = "$serverdir"
+        #                       Server Config Directory
+        $global:servercfgdir    = "$serverdir"
+        #                       Server Executable
+        $global:executable      = "MiscreatedServer"
+        #                       Server Executable Directory
+        $global:executabledir   = "$serverdir\Bin64_dedicated"
+        #                       Gamedig Query
+        $global:querytype       = "protocol-valve"
+        #                       Gamedig Query Port
+        $global:queryport       = $global:port + 2
+        # $global:RCONPORT      = $global:port + 4
+        #                       Game Process
+        $global:process         = "MiscreatedServer"
+        #                       Log Directory
+        $global:logdirectory    = "$serverdir"        
+        #                       Game-Server-Config Directory
+        $global:gamedirname     = ""
+        #                       Game-Server-Config
+        $global:servercfg       = "HOSTING.CFG"
+        #                       Server Launch Command
+        $global:launchParams    = '@("$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
+        # Install Adjustment         
         Write-Host '*** Creating HOSTING.CFG *****' -ForegroundColor Magenta -BackgroundColor Black 
         New-Item $servercfgdir\HOSTING.CFG -Force
         Add-Content -Path $servercfgdir\HOSTING.CFG -Value "sv_servername=`"$hostname`""

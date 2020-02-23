@@ -11,7 +11,7 @@ Function  New-LaunchScriptavserverPS {
         #                       Galaxy Name
         $global:galaxyname      = "avorion_galaxy"
         #                       Server Name
-        $global:hostname        = "$env:USERNAME"
+        $global:hostname        = "SERVERNAME"
         #                       GameDig port Default
         #$global:port            = "27020"
         ##############################/\##############################
@@ -23,16 +23,22 @@ Function  New-LaunchScriptavserverPS {
         # 27021 - UDP.
         
         ###################### Do not change below #####################
-        $global:systemdir = ""
-        $global:executable = "bin\AvorionServer"
-        $global:executabledir= "$serverdir"
-        $global:querytype = "protocol-valve"
-        $global:saves = "Avorion"
-        $global:process = "AvorionServer"
-        $global:servercfgdir = "$env:APPDATA\$global:saves"
-        $global:logdirectory = "$env:APPDATA\$global:saves\galaxies\avorion_galaxy"
-    
-        
-        Get-StopServerInstall
-        $global:launchParams = '@("$executable --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
+        #                               System Directory
+        $global:systemdir               = "$serverdir"
+        #                               Server Config Directory
+        $global:servercfgdir            = "$env:APPDATA\$global:saves"
+        #                               Server Executable
+        $global:executable              = "bin\AvorionServer"
+        #                               Server Executable Directory
+        $global:executabledir           = "$serverdir"
+        #                               Appdata\Roaming Directory
+        $global:saves                   = "Avorion"
+        #                               Gamedig Query
+        $global:querytype               = "protocol-valve"
+        #                               Game Process
+        $global:process                 = "AvorionServer"
+        #                               Log Directory
+        $global:logdirectory            = "$env:APPDATA\$global:saves\galaxies\avorion_galaxy"
+        #                               Server Launch Command
+        $global:launchParams            = '@("$executable --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
 }

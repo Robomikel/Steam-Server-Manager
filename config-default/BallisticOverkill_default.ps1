@@ -4,7 +4,7 @@ Function New-LaunchScriptBOserverPS {
     # https://steamcommunity.com/app/296300/discussions/1/135508662495143639/
     ################## Change Default Variables #################
     #                       Server IP 
-    # ${global:IP}     = "${global:IP}"
+     ${global:IP}           = "${ip}"
     # GSLT used for running a public server.
     #                       Game Server Token
     # $global:GSLT     = "GameServerTokenHere"
@@ -16,25 +16,29 @@ Function New-LaunchScriptBOserverPS {
     # TCP/UDP 27015 (or selected ServerPort in config.txt)
     # TCP/UDP 27016 (or selected QueryPort in config.txt)
     
-    
-    
     ##################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executabledir= "$serverdir"
-    $global:executable = "BODS"
-    $global:querytype = "protocol-valve"
-    $global:saves = ""
-    $global:process = "BODS"
-    $global:servercfgdir = "$serverdir"
-    $global:logdirectory = "$serverdir"
-    
-    Get-StopServerInstall
-    #Game-server-configs \/
-    $global:gamedirname = "BallisticOverkill"
-    $global:servercfg = "config.txt"
+    #                               Server Directory
+    $global:systemdir               = "$serverdir"
+    #                               Server Config Directory
+    $global:servercfgdir            = "$serverdir"
+    #                               Server Executable
+    $global:executable              = "BODS"
+    #                               Server Executable Directory
+    $global:executabledir           = "$serverdir"
+    #                               Gamedig Query
+    $global:querytype               = "protocol-valve"
+    #                               Game Process
+    $global:process                 = "BODS"
+    #                               Log Directory
+    $global:logdirectory            = "$serverdir"
+    #                               Game-Server-Config Directory
+    $global:gamedirname             = "BallisticOverkill"
+    #                               Game-Server-Config
+    $global:servercfg               = "config.txt"
+    # Server Launch Command
+    $global:launchParams            = '@("$executable -batchmode -nographics -dedicated ")'  
+    # Download Game-Server-Config
     # Get-Servercfg
-    # game config
-    # Select-EditSourceCFG
-    $global:launchParams = '@("$executable -batchmode -nographics -dedicated ")'
-    
+    # Edit Server Game-Server-Config
+    # Select-EditSourceCFG                                Server Launch Command
 }

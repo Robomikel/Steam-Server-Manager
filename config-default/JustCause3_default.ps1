@@ -4,33 +4,38 @@ Function New-LaunchScriptjc3serverPS {
     ################## Change Default Variables #################
 
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
 
 
     ##############################/\##############################
     
-    
     #  4200 TCP/UDP
-    
-    
+  
     ###################### Do not change below #####################
-    $global:systemdir = ""
+    #                     System Directory
+    $global:systemdir     = "$serverdir"
+    #                     Server Config Directory
+    $global:servercfgdir  = "$serverdir"
+    #                     Server Executable
+    $global:executable    = "Server"
+    #                     Server Executable Directory
     $global:executabledir = "$serverdir"
-    $global:executable = "Server"
-    $global:querytype = "jc3mp"
-    #  Default Port for gamedig - change if needed
-    $global:port = "4201"
-    $global:saves = ""
-    $global:process = "Server"
-    $global:servercfgdir = "\"
-    $global:logdirectory = "$serverdir"
-    Get-StopServerInstall
-    #Game-server-configs \/
-    $global:gamedirname = "JustCause3"
-    $global:servercfg = "config.json"
+    #                     Gamedig Query
+    $global:querytype     = "jc3mp"
+    #                     Default Port for gamedig - change if needed
+    $global:port          = "4201"
+    #                     Game Process
+    $global:process       = "Server"
+    #                     Log Directory
+    $global:logdirectory  = "$serverdir"
+    #                     Game-Server-Config Directory
+    $global:gamedirname   = "JustCause3"
+    #                     Game-Server-Config
+    $global:servercfg     = "config.json"
+    #                     Server Launch Command
+    $global:launchParams  = '@("$executable")'
+    # Download Game-Server-Config
     Get-Servercfg
-    # Select-RenameSource
-    # game config
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
-    $global:launchParams = '@("$executable")'
   }   

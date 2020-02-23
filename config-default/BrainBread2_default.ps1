@@ -4,8 +4,7 @@ Function New-LaunchScriptBB2serverPS {
     #
     ################## Change Default Variables ################# 
     #                       Server IP
-    ${global:IP}            = "${global:IP}"
-    
+    ${global:IP}            = "${ip}"
     #                       Server Port
     ${global:port}          = "27015"
     #                       Client Port
@@ -20,33 +19,36 @@ Function New-LaunchScriptBB2serverPS {
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     ###########################/\#################################
     
-    
-    
-    
-    
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executabledir = "$serverdir"
-    $global:executable = "BB2"
-    $global:querytype = "protocol-valve"
-    $global:saves = ""
-    $global:process = "BB2"
-    $global:servercfgdir = "$serverdir\brainbread2\cfg"
-    $global:logdirectory = "$serverdir\brainbread2"
-
-    Get-StopServerInstall
-    #Game-server-configs \/
-    $global:gamedirname = "BrainBread2"
-    $global:servercfg = "server.cfg"
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\brainbread2\cfg"
+    #                       Server Executable
+    $global:executable      = "BB2"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "BB2"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\brainbread2"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "BrainBread2"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -console -game brainbread2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} -maxplayers ${maxplayers} -condebug")'
+    # Download Game-Server-Config
     Get-Servercfg
-    #Get-UserInput 1 1 0 0 1 0 0 1 1 1
-    Select-RenameSource
-    # game config
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
-    $global:launchParams = '@("$executable -console -game brainbread2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} -maxplayers ${maxplayers} -condebug")'
+    # Rename Source $executable.exe
+    Select-RenameSource
 }

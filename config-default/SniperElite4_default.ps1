@@ -14,18 +14,24 @@ Function  New-LaunchScriptSE4serverPS {
     
     
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:executable = "SniperElite4_Dedicated"
-    $global:executabledir = "$serverdir\bin"
-    $global:querytype = "protocol-valve"
-    $global:saves = ""
-    $global:process = "SniperElite4_Dedicated"
-    $global:servercfgdir = "$serverdir"
-    $global:logdirectory = "$serverdir"
-
-    $global:gamedirname = ""
-    $global:servercfg = "server.cfg"
-
-    Get-StopServerInstall
-    $global:launchParams = '@("$executable exec $servercfgdir\Server.cfg")'
+    #                           System Directory
+    $global:systemdir           = "$serverdir"
+    #                           Server Config Directory
+    $global:servercfgdir        = "$serverdir"
+    #                           Server Executable
+    $global:executable          = "SniperElite4_Dedicated"
+    #                           Server Executable Directory
+    $global:executabledir       = "$serverdir\bin"
+    #                           Gamedig Query
+    $global:querytype           = "protocol-valve"
+    #                           Game Process
+    $global:process             = "SniperElite4_Dedicated"
+    #                           Log Directory
+    $global:logdirectory        = "$serverdir"
+    #                           Game-Server-Config Directory
+    $global:gamedirname         = ""
+    #                           Game-Server-Config
+    $global:servercfg           = "server.cfg"
+    #                           Server Launch Command
+    $global:launchParams        = '@("$executable exec $servercfgdir\Server.cfg")'
 }

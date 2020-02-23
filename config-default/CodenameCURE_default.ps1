@@ -3,7 +3,7 @@ Function New-LaunchScriptCCserverPS {
     # APP ID # 383410
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${global:IP}"
+    ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -15,37 +15,36 @@ Function New-LaunchScriptCCserverPS {
     #                       Maxplayers
     $global:maxplayers      = "6"
     #                       Server Name
-    $global:hostname        = "$env:USERNAME"
+    $global:hostname        = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$global:RANDOMPASSWORD"
+    $global:rconpassword    = "$RANDOMPASSWORD"
     ##############################/\##############################
     
-    
-    
-    
     ###################### Do not change below #####################
-    # # Version 2.0
-    $global:systemdir = ""
-    $global:executable = "cure"
-    $global:executabledir = "$serverdir"
-    $global:querytype = "insurgency"
-    $global:process = "cure"
-    $global:servercfgdir = "$serverdir\cure\cfg"
-    $global:logdirectory = "$serverdir\cure"
-    
-    Get-StopServerInstall
-    # Game-server-configs \/
-    $global:gamedirname = "CodenameCURE"
-    $global:servercfg = "server.cfg"
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\cure\cfg"
+    #                       Server Executable
+    $global:executable      = "cure"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "insurgency"
+    #                       Game Process
+    $global:process         = "cure"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir\cure"
+    #                       Game-Server-Config Directory
+    $global:gamedirname     = "CodenameCURE"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -console -game cure -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # Download Game-Server-Config
     Get-Servercfg
-    # - - - - - - - - - - - - -
-
-    # Get-UserInput 1 1 0 0 1 1 1 1
-    
-    Select-RenameSource
+    # Edit Server Game-Server-Config
     Select-EditSourceCFG
-
-    $global:launchParams = '@("$executable -console -game cure -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    #Get-SourceMetMod
-
+    # Rename Source $executable.exe
+    Select-RenameSource
 }
