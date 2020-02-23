@@ -1,6 +1,7 @@
 Function New-LaunchScriptRustPS { 
         #----------   Rust Server Install Function   -------------------
         # APP ID # 258550
+        # Tested 2/22/20
         ################## Change Default Variables #################
         #                       Server IP 
         ${global:IP}            = "${ip}"
