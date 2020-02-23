@@ -45,28 +45,34 @@ Function New-LaunchScriptMEserverPS {
   # To stop it immediately add argument “/f”, that will kill server without asking to stop and without saving the world
   
   ###################### Do not change below #####################
-  $global:systemdir = ""
-  $global:executabledir = "$serverdir\DedicatedServer64"
-  $global:executable = "MedievalEngineersDedicated"
-  $global:querytype = "protocol-valve"
-  $global:saves = "MedievalEngineersDedicated"
-  $global:process = "MedievalEngineersDedicated"
-  $global:servercfgdir = "$env:APPDATA\$saves"
-  $global:logdirectory = "$env:APPDATA\$saves"
-  
-  #Game-server-configs \/
-  $global:gamedirname = ""
-  $global:servercfg = ""
-  # Get-Servercfg
-  # Select-RenameSource
-  # game config
-  # Select-EditSourceCFG
-  New-servercfgme
+  #                       System Directory
+  $global:systemdir       = "$serverdir"
+  #                       Server Config Directory
+  $global:servercfgdir    = "$env:APPDATA\$saves"
+  #                       Server Executable
+  $global:executable      = "MedievalEngineersDedicated"
+  #                       Server Executable Directory
+  $global:executabledir   = "$serverdir\DedicatedServer64"
+  #                       Appdata\Roaming Directory
+  $global:saves           = "MedievalEngineersDedicated"
+  #                       Gamedig Query
+  $global:querytype       = "protocol-valve"
+  #                       Game Process
+  $global:process         = "MedievalEngineersDedicated"
+  #                       Log Directory
+  $global:logdirectory    = "$env:APPDATA\$saves"
+  #                       Game-Server-Config Directory
+  $global:gamedirname     = ""
+  #                       Game-Server-Config
+  $global:servercfg       = ""
+  #                       Server Launch Command
+  $global:launchParams    = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
+
   # Write-Host "Creating Save Dir" -F M
   # New-Item "$servercfgdir\Saves\$worldname\" -ItemType directory 
   # Write-Host "Copying World template to Save Dir" -F M
   # copy-item "$serverfiles\Content\Scenarios\$scenario\*" "$servercfgdir\Saves\$worldname\" 
-  $global:launchParams = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
+  New-servercfgme
 }   
 
 

@@ -72,7 +72,7 @@ Function Get-AlertUpdate {
 
 Function Get-AlertBackup {
     # BACKUP
-    $global:MESSAGE = ' Server Backed UP'
+    $global:MESSAGE = ' New Server Backup'
     # GREEN
     $global:MESSAGECOLOR = '3334680'
 }
