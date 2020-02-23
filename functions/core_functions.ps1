@@ -13,7 +13,7 @@ Function Get-CreatedVaribles {
 }
 Function Get-ClearVariables {
     Write-Host "****   Clearing Variables   *****" -F Y -B Black
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles","logdirectory","executable"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -135,7 +135,7 @@ Function Get-Appid {
         Get-TestInterger
     }
 
-    If (( $AppID -eq 985050) -or ($AppID -eq 233780)){
+    If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
         Write-Host "****   Requires Steam Login    *****" -F Cyan
     }
 }
@@ -160,10 +160,12 @@ Function Get-SourceMetaModWebrequest {
 }
 
 Function Get-PreviousInstall {
-    $check = (Get-Childitem $currentdir\$serverfiles\ | Where-Object {$_.Name -like 'Variables-*'})
-    If ($null -ne $check ){
-        Get-createdvaribles
-        Get-StopServerInstall
-        Get-ClearVariables
+    If (!(Test-Path $currentdir\$serverfiles\Variables-*.ps1)) { }Else {
+        $check = (Get-Childitem $currentdir\$serverfiles\ | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+        If ($null -ne $check ) {
+            Get-createdvaribles
+            Get-StopServerInstall
+            Get-ClearVariables
+        }
     }
 }
