@@ -5,35 +5,48 @@ Function New-LaunchScriptBT1944serverPS {
     # 
     ################## Change Default Variables #################
     #                       Server IP 
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port
     $global:port            = "7777"
     #                       Query Port
     $global:queryport       = "7780"
     ##############################/\##############################
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdi"
-    #                       Server Config Directory
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir= "$serverdir\Windows\Battalion\Binaries\Win64"
+    #--->rename srcds to this name \/\/
+    $global:executable = "BattalionServer"
+    #--->Requieres \/ \/ game dig
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game exe?
+    $global:process = "BattalionServer"
+    #--->game config folder
     $global:servercfgdir = "$serverdir\Windows"
-    #                       Server Executable 
-    $global:executable      = "BattalionServer"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir\Windows\Battalion\Binaries\Win64"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "BattalionServer"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\Windows\Battalion\Saved\Logs"  
-    #                       Game-Server-Config Directory 
-    $global:gamedirname     = "Battalion1944"
-    #                       Game-Server-Config
-    $global:servercfg       = "DefaultGame.ini"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=${port} -QueryPort=${queryport} -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
-    # Download Game-Server-Config
+    $global:logdirectory = "$serverdir\Windows\Battalion\Saved\Logs"  
+
+    #--->Stop existing process if running 
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "Battalion1944"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "DefaultGame.ini"
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
+
+    #--->input questions 1 1 0 0 0 0 0 1 0 1 1 0 0
+    #Get-UserInput 1 1 0 0 0 0 0 1 0 1 0 0 0
+    #--->rename srcds.exe \/\/
+    # Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
     # Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable  /Game/Maps/Final_Maps/Derailed?Game=/Script/ShooterGame.WartideGameMode?listen -broadcastip=`"${extip}`" -PORT=${port} -QueryPort=${queryport} -log -defgameini=`"..\..\..\DefaultGame.ini`"")'
+
 }

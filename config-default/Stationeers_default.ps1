@@ -8,7 +8,7 @@ Function New-LaunchScriptStationeersPS {
     #                       Query Port
     $global:queryport       = "27015"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     ##############################/\##############################
     
     # parameter	value	etc
@@ -31,24 +31,21 @@ Function New-LaunchScriptStationeersPS {
     
     
 ###################### Do not change below #####################
-#                           System Directory
-$global:systemdir           = "$serverdir"
-#                           Server Config Directory
-$global:servercfgdir        = "$serverdir\rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
-#                           Server Executable
-$global:executable          = "rocketstation_DedicatedServer"
-#                           Server Executable Directory
-$global:executabledir       = "$serverdir"
-#                           Gamedig Query
-$global:querytype           = "protocol-valve"
-#                           Game Process
-$global:process             = "rocketstation_DedicatedServer"
-#                           Log Directory
-$global:logdirectory        = "$serverdir"
-#                           Game-Server-Config Directory
-$global:gamedirname         = ""
-#                           Game-Server-Config
-$global:servercfg           = ""
-#                           Server Launch Command
-$global:launchParams        = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername `"${hostname}`" -gameport ${port} -updateport ${queryport} -logfile server.log")'
+$global:systemdir = ""
+$global:executable = "rocketstation_DedicatedServer"
+$global:executabledir = "$serverdir"
+$global:querytype = "protocol-valve"
+$global:process = "rocketstation_DedicatedServer"
+$global:servercfgdir = "$serverdir\rocketstation_DedicatedServer_Data\Saved\Config\WindowsServer"
+$global:logdirectory = "$serverdir"
+Get-StopServerInstall
+$global:gamedirname = ""
+$global:servercfg = ""
+
+    
+# Get-Servercfg
+# Select-EditSourceCFG
+# rocketstation_DedicatedServer.executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -basedirectory="C:\Server\User1"
+
+$global:launchParams = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername `"${hostname}`" -gameport ${port} -updateport ${queryport} -logfile server.log")'
 } 

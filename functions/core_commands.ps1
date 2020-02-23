@@ -21,25 +21,27 @@ Function Select-Steamer {
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
         Write-Host 'Input Server Folder Name: ' -F C -N
         $global:serverfiles = Read-host
-        Get-PreviousInstall
         Get-TestString
         Get-Appid
+        #Get-TestInterger
         New-ServerFolder
         Get-CheckNonSteam
         Get-Steam
         Set-SteamInfo
+        #Set-SteamInfoAppID
         Read-AppID
         New-CreateVariables
         Get-Finished
     }
     elseif ($command -eq "install") {
-        Get-PreviousInstall
         Get-TestString
         Get-Appid
+        #Get-TestInterger
         New-ServerFolder
         Get-CheckNonSteam
         Get-Steam
         Set-SteamInfo
+        #Set-SteamInfoAppID
         Read-AppID
         New-CreateVariables
         Get-Finished
@@ -54,6 +56,7 @@ Function Select-Steamer {
         Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-ServerBuildCheck
+        #Get-UpdateServer 
         Get-ChecktaskEnable
         Get-Finished
     }
@@ -64,6 +67,7 @@ Function Select-Steamer {
         Get-CheckNonSteam
         Get-ChecktaskDisable
         Get-ServerBuildCheck
+        #Get-UpdateServer
         Get-ChecktaskEnable
         Get-Finished
     }
@@ -76,6 +80,7 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-CheckNonSteam
         Get-ChecktaskDisable
+        #Get-ServerBuildCheck
         Get-UpdateServer 
         Get-ChecktaskEnable
         Get-Finished
@@ -86,6 +91,7 @@ Function Select-Steamer {
         Get-CheckForVars
         Get-CheckNonSteam
         Get-ChecktaskDisable
+        #Get-ServerBuildCheck
         Get-UpdateServer
         Get-ChecktaskEnable
         Get-Finished

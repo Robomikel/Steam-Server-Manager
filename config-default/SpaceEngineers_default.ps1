@@ -4,13 +4,13 @@ Function New-LaunchScriptSEserverPS {
     # https://www.spaceengineersgame.com/dedicated-servers.html
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:ip}            = "${ip}"
+    ${global:ip}            = "${global:IP}"
     #                       Server Port
     ${global:port}          = "27015"
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       World Name
     $global:worldname       = "WorldName"
     #                       World template
@@ -63,7 +63,7 @@ Function New-LaunchScriptSEserverPS {
     $global:process = "SpaceEngineersDedicated"
     $global:servercfgdir = "$env:APPDATA\$saves"
     $global:logdirectory = "$env:APPDATA\$saves"
-    
+    Get-StopServerInstall
     #Game-server-configs \/
     $global:gamedirname = ""
     $global:servercfg = ""

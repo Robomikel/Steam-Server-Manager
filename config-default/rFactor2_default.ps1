@@ -14,25 +14,22 @@ Function New-LaunchScriptrFactor2serverPS {
     # UDP 64298
     # UDP 64299
     
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = ""
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\rFactor2-Dedicated\Saved\Config\WindowsServer"
-    #                       Server Executable
-    $global:executable      = "rFactor2 Dedicated"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir\rFactor2-Dedicated\Bin64"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "rFactor2 Dedicated"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = ""
-    #                       Game-Server-Config
-    $global:servercfg       = ""
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable +path=".."")'
+    $global:systemdir = ""
+    $global:executable = "rFactor2 Dedicated"
+    $global:executabledir = "$serverdir\rFactor2-Dedicated\Bin64"
+    $global:querytype = "protocol-valve"
+    $global:process = "rFactor2 Dedicated"
+    $global:servercfgdir = "$serverdir\rFactor2-Dedicated\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir"
+    Get-StopServerInstall
+    $global:gamedirname = ""
+    $global:servercfg = ""
+
+    
+    # Get-Servercfg
+    # Select-EditSourceCFG
+    $global:launchParams = '@("$executable +path=".."")'
 } 

@@ -5,7 +5,7 @@ Function New-LaunchScriptDODSserverPS {
     # https://kb.firedaemon.com/support/solutions/articles/4000086944-day-of-defeat-source
     ################## Change Default Variables #################
     #                       Server IP 
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -15,36 +15,48 @@ Function New-LaunchScriptDODSserverPS {
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\dod\cfg"
-    #                       Server Executable
-    $global:executable      = "dods"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "dods"
-    #                       Game Process
-    $global:process         = "dods"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\dod"  
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "DayOfDefeat"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # Download Game-Server-Config
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "dods"
+    #--->Requieres \/ \/ game dig
+    $global:querytype = "dods"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game exe?
+    $global:process = "dods"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\dod\cfg"
+    $global:logdirectory = "$serverdir\dod"  
+
+    
+    #--->Stop existing process if running 
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "DayOfDefeat"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+
+    #--->input questions 1 1 0 0 0 0 0 1 0 1 1 0 0
+    #Get-UserInput 1 1 0 0 0 0 0 1 0 1 0 0 0
+    #--->rename srcds.exe \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch 
+    #$global:launchParams = '@("$executable -console -game `"dods`" -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port}  +ip ${ip} +exec server.cfg")'
+    $global:launchParams = '@("$executable -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+
 }

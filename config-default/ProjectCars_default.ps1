@@ -4,38 +4,34 @@ Function New-LaunchScriptPCserverPS {
   ################## Change Default Variables #################
     
   #                       Server Name
-  $global:hostname        = "SERVERNAME"
+  $global:hostname        = "$env:USERNAME"
 
   ##############################/\##############################
+    
     
   # steamPort : 8766
   # hostPort : 27015
   # queryPort : 27016
-  # UDP / TCP 
 
+  # UDP / TCP 
+    
+    
   ###################### Do not change below #####################
-  #                     System Directory
-  $global:systemdir     = "$serverdir"
-  #                     Server Config Directory
-  $global:servercfgdir  = "$serverdir"
-  #                     Server Executable
-  $global:executable    = "DedicatedServerCmd"
-  #                     Server Executable Directory
+  $global:systemdir = ""
   $global:executabledir = "$serverdir"
-  #                     Gamedig Query
-  $global:querytype     = "protocol-valve"
-  #                     Game Process
-  $global:process       = "DedicatedServerCmd"
-  #                     Log Directory
-  $global:logdirectory  = "$serverdir\logs"
-  #                     Game-Server-Config Directory
-  $global:gamedirname   = "ProjectCars"
-  #                     Game-Server-Config
-  $global:servercfg     = "server.cfg"
-  #                     Server Launch Command
-  $global:launchParams  = '@("$executable --config server.cfg -condebug")'
-  # Download Game-Server-Config
+  $global:executable = "DedicatedServerCmd"
+  $global:querytype = "protocol-valve"
+  $global:saves = ""
+  $global:process = "DedicatedServerCmd"
+  $global:servercfgdir = "$serverdir"
+  $global:logdirectory = "$serverdir\logs"
+  Get-StopServerInstall
+  #Game-server-configs \/
+  $global:gamedirname = "ProjectCars"
+  $global:servercfg = "server.cfg"
   Get-Servercfg
-  # Edit Server Game-Server-Config
+  # Select-RenameSource
+  # game config
   Select-EditSourceCFG
+  $global:launchParams = '@("$executable --config server.cfg -condebug")'
 }   

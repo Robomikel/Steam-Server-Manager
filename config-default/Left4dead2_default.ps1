@@ -3,7 +3,7 @@ Function New-LaunchScriptLFD2serverPS {
     # APP ID # 222860
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${ip}"
+    ${global:IP}            = "${global:IP}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -13,37 +13,37 @@ Function New-LaunchScriptLFD2serverPS {
     #                       Maxplayers
     $global:maxplayers      = "8"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
 
     ##############################/\##############################
     
+    
+    
+    
     ###################### Do not change below ##################### 
-    #                       System Directory
-    $global:systemdir       = "left4dead2"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\left4dead2\cfg"
-    #                       Server Executable
-    $global:executable      = "l4d2"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "left4dead2"
-    #                       Game Process
-    $global:process         = "l4d2"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\left4dead2"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "Left4Dead2"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game left4dead2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +hostip ${extip} +maxplayers ${maxplayers} +map `"${defaultmap}`" -condebug ")'
-    # Download Game-Server-Config
+    # Steamer Vars Do Not Edit
+    $global:systemdir = "left4dead2"
+    $global:executabledir = "$serverdir"
+    $global:executable = "l4d2"
+    $global:querytype = "left4dead2"
+    $global:process = "l4d2"
+    $global:servercfgdir = "$serverdir\left4dead2\cfg"
+    $global:logdirectory = "$serverdir\left4dead2"
+    Get-StopServerInstall
+    # Game-Server-Configs
+    $global:gamedirname = "Left4Dead2"
+    $global:servercfg = "server.cfg"
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+    # - - - - - - - - - - - - -
     Select-RenameSource
+    # Version 2.0
+
+    # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1
+    #if(($global:workshop = Read-Host -Prompt (Write-Host "Input 1 to enable workshop, Press enter to accept default value [0]: "-ForegroundColor Cyan -NoNewline)) -eq ''){$global:workshop="0"}else{$global:workshop}
+    #if(($global:sv_pure = Read-Host -Prompt (Write-Host "Input addtional launch params ie. +sv_pure 0, Press enter to accept default value []: "-ForegroundColor Cyan -NoNewline)) -eq ''){}else{$global:sv_pure}
+    Select-EditSourceCFG
+    $global:launchParams = '@("$executable -console -game left4dead2 -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +hostip ${extip} +maxplayers ${maxplayers} +map `"${defaultmap}`" -condebug ")'
+    #Get-SourceMetMod
 }

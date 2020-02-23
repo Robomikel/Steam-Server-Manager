@@ -6,7 +6,7 @@ Function New-LaunchScriptGMODserverPS {
     ################## Change Default Variables #################
     #--->Default Vars
     #                       Server IP
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -18,9 +18,9 @@ Function New-LaunchScriptGMODserverPS {
     #                       Maxplayers
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     #                       Gamemode
     $global:gamemode        = "sandbox"
     #                       Tickrate     
@@ -34,31 +34,46 @@ Function New-LaunchScriptGMODserverPS {
     $global:gslt                   = "GameServerTokenHere"
     ###########################/\#################################
 
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "garrysmod"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\garrysmod\cfg"
-    #                       Server Executable
-    $global:executable      = "gmod"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "garrysmod"
-    #                       Game Process
-    $global:process         = "gmod"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\garrysmod"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "GarrysMod"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} ${customparms} -condebug")'
-    # Download Game-Server-Config
+
+
+
+    # Requiered Dont change 
+    # # Version 2.0
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = "garrysmod"
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "gmod"
+    #--->Requieres \/ \/ game dig 
+    $global:querytype = "garrysmod"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "gmod"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\garrysmod\cfg"
+    $global:logdirectory = "$serverdir\garrysmod"
+    #--->Stop existing process if running        
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "GarrysMod"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+
+    #--->input questions
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1 1 
+    #--->rename srcds.executable \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} ${customparms} -condebug")'
+
 }

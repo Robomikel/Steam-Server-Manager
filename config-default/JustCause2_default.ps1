@@ -4,38 +4,33 @@ Function New-LaunchScriptjc2serverPS {
     ################## Change Default Variables #################
 
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
 
 
     ##############################/\##############################
     
     # 7777 TCP/UDP
-
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir"
-    #                       Server Executable
-    $global:executable      = "JcmpServer"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "jc2mp"
-    #                       Default Port for gamedig - change if needed
-    $global:port            = "7777"
-    #                       Game Process
-    $global:process         = "JcmpServer"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "JustCause2"
-    #                       Game-Server-Config
-    $global:servercfg       = "config.lua"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable")'
-    # Download Game-Server-Config
+    $global:systemdir = ""
+    $global:executabledir = "$serverdir"
+    $global:executable = "JcmpServer"
+    $global:querytype = "jc2mp"
+    #  Default Port for gamedig - change if needed
+    $global:port = "7777"
+    $global:saves = ""
+    $global:process = "JcmpServer"
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir"
+    Get-StopServerInstall
+    #Game-server-configs \/
+    $global:gamedirname = "JustCause2"
+    $global:servercfg = "config.lua"
     Get-Servercfg
-    # Edit Server Game-Server-Config
+    # Select-RenameSource
+    # game config
     Select-EditSourceCFG
+    $global:launchParams = '@("$executable")'
   }   

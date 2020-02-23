@@ -5,7 +5,7 @@ Function New-LaunchScriptBlackMesaserverPS {
     # WIKI
     ################## Change Default Variables #################
     #                       Server IP 
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port 
     $global:port            = "27015"
     #                       Client Port
@@ -13,40 +13,49 @@ Function New-LaunchScriptBlackMesaserverPS {
     #                       Source TV Port
     $global:sourcetvport    = "27020"
     #                       Server Map 
-    $global:defaultmap      = "dm_bounce"
+    $global:defaultmap             = "dm_bounce"
     #                       Max Players 
     $global:maxplayers      = "16"
-      #                     Server Name
-    $global:hostname        = "SERVERNAME"
+      #                       Server Name
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
     
+    
+    
+    
+    
     ##################### Do not change below #####################
-    #                       System Directory 
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\bms\cfg"
-    #                       Server Executable 
-    $global:executable      = "bmdm"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "bmdm"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\bms"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "BlackMesa"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # Download Game-Server-Config
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "bmdm"
+    #--->Requieres \/ \/ game dig
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game exe?
+    $global:process = "bmdm"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\bms\cfg"
+    $global:logdirectory = "$serverdir\bms"
+    #--->Stop existing process if running
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "BlackMesa"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+
+    
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+    #--->rename srcds.exe \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch
+    $global:launchParams = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
 }

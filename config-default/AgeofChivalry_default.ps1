@@ -3,7 +3,7 @@ Function New-LaunchScriptAoCserverPS {
     # 17515
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:IP}            = "${ip}"
+    ${global:IP}            = "${global:IP}"
     #                       Server Port
     ${global:port}          = "27015"
     #                       Map
@@ -11,35 +11,32 @@ Function New-LaunchScriptAoCserverPS {
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ##############################/\##############################
-    ###################### Do not change below ###################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\ageofchivalry\cfg"
-    #                       Server Executable
-    $global:executable      = "aoc"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "ageofchivalry"
-    #                       Game Process
-    $global:process         = "aoc"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\ageofchivalry"
-    #                       Game-Server-Config Directory 
-    $global:gamedirname     = "AgeOfChivalry"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"    
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game ageofchivalry -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port} +ip ${ip} +exec server.cfg -condebug")'
-    # Download Game-Server-Config
+    
+    
+    
+    
+    
+    ###################### Do not change below #####################
+    $global:systemdir = ""
+    $global:executable = "aoc"
+    $global:executabledir= "$serverdir"
+    $global:querytype = "ageofchivalry"
+    $global:saves = ""
+    $global:process = "aoc"
+    $global:servercfgdir = "$serverdir\ageofchivalry\cfg"
+    $global:logdirectory = "$serverdir\ageofchivalry"
+
+    
+      
+    Get-StopServerInstall
+    $global:gamedirname = "AgeOfChivalry"
+    $global:servercfg = "server.cfg"
     Get-Servercfg
-    # Edit Server Game-Server-Config
     Select-RenameSource
-    # Rename Source $executable.exe
     Select-EditSourceCFG
+    $global:launchParams = '@("$executable -console -game ageofchivalry -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port} +ip ${ip} +exec server.cfg -condebug")'
 }
