@@ -28,7 +28,7 @@ Function Get-TestInterger {
     }
 }
 Function Get-TestString {
-    If ( $serverfiles -notmatch "[a-z,A-Z]") { 
+    If ( $global:serverfiles -notmatch "[a-z,A-Z]") { 
         Write-Host "$DIAMOND $DIAMOND Input Alpha Characters only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
