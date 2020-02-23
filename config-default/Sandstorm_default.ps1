@@ -15,43 +15,40 @@ Function New-LaunchScriptInssserverPS {
         #                       Server Query Port  
         $global:queryport       = "27131"
         #                       Server Name       
-        $global:hostname        = "SERVERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       Server Password
         $global:serverpassword  = ""
         #                       Server Rcon Port
         $global:rconport         = "27103"
         #                       Server Rcon Password
-        $global:rconpassword    = "$RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Server Admin Steam ID 64
         $global:steamid64       = ""
         ##############################/\############################## 
-        ###################### Do not change below #####################
-        #                               System Directory
-        $global:systemdir               = "$serverdir"
-        #                               Server Config Directory
-        $global:servercfgdir            = "$serverdir\Insurgency\Saved\Config\WindowsServer"
-        #                               Server Executable
-        $global:executable              = "InsurgencyServer"
-        #                               Server Executable Directory
-        $global:executabledir           = "$serverdir"
-        #                               Gamedig Query
-        $global:querytype               = "insurgencysandstorm"
-        #                               Game Process
-        $global:process                 = "InsurgencyServer-Win64-Shipping"
-        #                               Log Directory
-        $global:logdirectory            = "$serverdir\Insurgency\Saved\Logs"
         
+        
+        
+        ###################### Do not change below #####################
 
-        #                               Server Launch Command
+        # $global:systemdir=""
+        $global:executable = "InsurgencyServer"
+        $global:executabledir = "$serverdir"
+        $global:querytype = "insurgencysandstorm"
+        $global:process = "InsurgencyServer-Win64-Shipping"
+        $global:servercfgdir = "$serverdir\Insurgency\Saved\Config\WindowsServer"
+        $global:logdirectory = "$serverdir\Insurgency\Saved\Logs"
+        Get-StopServerInstall
+
+        #  Version 2 Launch Param
         If ($SERVERPASSWORD -ne "") {
     
-                $global:launchParams    = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                $global:launchParams = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
         }
         Else {
-                $global:launchParams    = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
+                $global:launchParams = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
         }
 
-        # Custom config 
+        # Custom config game based
         mkdir $serverdir\Insurgency\Config\Server   >$null 2>&1
         $MapCyclePath = "$serverdir\Insurgency\Config\Server"  
         mkdir $servercfgdir   >$null 2>&1
@@ -86,7 +83,7 @@ Function New-LaunchScriptInssserverPS {
         Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Insurgents
         
         
-        # - - - - - - Game.ini - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
+        # - - - - - - game.INI - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
         Write-Host "***  Creating Game.ini  ***" -ForegroundColor Magenta -BackgroundColor Black
         New-Item $servercfgdir\Game.ini -Force
         Add-Content   $servercfgdir\Game.ini ";.........Start Game.ini..................................."

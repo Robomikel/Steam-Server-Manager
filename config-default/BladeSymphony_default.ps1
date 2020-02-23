@@ -4,7 +4,7 @@ Function New-LaunchScriptbsserverPS {
     # WIKI
     ################## Change Default Variables #################
     #                       Server IP
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port 
     $global:port            = "27015"
     #                       Client Port
@@ -16,39 +16,50 @@ Function New-LaunchScriptbsserverPS {
     #                      Max Players
     $global:maxplayers      = "16"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     # GSLT used for running a public server.
     #                       Game Server Token (required)
     $global:gslt            = "GameServerTokenHere"
     ##############################/\##############################
     
+    
+    
+    
     ##################### Do not change below #####################
-    #                       System Directory 
-    $global:systemdir       = ""
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\berimbau\cfg"
-    #                       Server Executable
-    $global:executable      = "BladeSymphony"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir\bin\win64"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "BladeSymphony"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\berimbau"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "BladeSymphony"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # Download Game-Server-Config
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir = "$serverdir\bin\win64"
+    #--->rename srcds to this name \/\/
+    $global:executable = "BladeSymphony"
+    #--->Requieres \/ \/ game dig 
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game exe?
+    $global:process = "BladeSymphony"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\berimbau\cfg"
+    $global:logdirectory = "$serverdir\berimbau"
+    #--->Stop existing process if running        
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "BladeSymphony"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+
+    
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+    #--->input questions 
+    # Get-UserInput 1 1 0 0 1 1 0 1 1 1 1 1
+    #--->rename srcds.exe \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable -console -game `"$currentdir\${serverfiles}\berimbau`" -autoupdate -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+
 }

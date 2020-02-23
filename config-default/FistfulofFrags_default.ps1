@@ -5,7 +5,7 @@ Function New-LaunchScriptFOFserverPS {
     # WIKI
     ################## Change Default Variables #################
     #                       Server IP
-    $global:ip              = "${ip}"
+    $global:ip              = "${global:IP}"
     #                       Server Port
     $global:port            = "27015"
     #                       Client Port
@@ -17,36 +17,49 @@ Function New-LaunchScriptFOFserverPS {
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
     ###########################/\#################################
 
+    
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\fof\cfg"
-    #                       Server Executable
-    $global:executable      = "FOF"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "FOF"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\fof"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "FistfulofFrags"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -game fof -console -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    # Download Game-Server-Config
+    # Requiered Dont change 
+    # # Version 2.0
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "FOF"
+    #--->Requieres \/ \/ game dig 
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "FOF"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\fof\cfg"
+    $global:logdirectory = "$serverdir\fof"
+    #--->Stop existing process if running        
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "FistfulofFrags"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+
+    #--->input questions 
+    # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1
+    #--->rename srcds.executable \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable -game fof -console -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+
 }

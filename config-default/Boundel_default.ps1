@@ -6,22 +6,15 @@ Function New-LaunchScriptboundelserverPS {
 
     ###########################/\#################################
     # 8002 TCP/UDP
-
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory 
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir"
-    #                       Server Executable
-    $global:executable      = "world"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir\Datcha_Server"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "world"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -batchmode")'
+    $global:systemdir = ""
+    $global:executable = "world"
+    $global:executabledir = "$serverdir\Datcha_Server"
+    $global:querytype = "protocol-valve"
+    $global:process = "world"
+    $global:logdirectory = "$serverdir"
+    Get-StopServerInstall
+    $global:launchParams = '@("$executable -batchmode")'
 }

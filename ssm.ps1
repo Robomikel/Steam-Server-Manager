@@ -32,7 +32,7 @@ $global:sourcemodmversion = "1.10"
 # 7-Zip Portable
 $global:sevenzip = "https://www.7-zip.org/a/7za920.zip"
 $global:sevenzipversion = "7za920"
-$global:sevenzipdirectory = "$currentdir\$serverversion"
+$global:sevenzipdirectory = "$currentdir\$sevenzipversion"
 
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"

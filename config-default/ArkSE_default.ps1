@@ -3,7 +3,7 @@ Function New-LaunchScriptArkPS {
         # APP ID # 376030
         ################## Change Default Variables #################
         #                       Server IP
-        ${global:IP}            = "${ip}"
+        ${global:IP}            = "${global:IP}"
         #                       Server Port
         $global:port            = "7777"
         #                       Query Port
@@ -11,37 +11,33 @@ Function New-LaunchScriptArkPS {
         #                       Rcon Port
         $global:rconport        = "27020"
         #                       Rcon Password
-        $global:rconpassword    = "$RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Map
         $global:defaultmap      = "TheIsland"
         #                       Maxplayers
         $global:maxplayers      = "70"
         #                       Server Name
-        $global:hostname        = "SERVERNAME"
+        $global:hostname        = "$env:USERNAME"
         ##############################/\##############################
+        
+        
+        
+        
+        
         ###################### Do not change below #####################
-        #                       System Directory
-        $global:systemdir       = "$serverdir"
-        #                       Server Config Directory
-        $global:servercfgdir    = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
-        #                       Server Executable
-        $global:executable      = "ShooterGameServer"
-        #                       Server Executable Directory
-        $global:executabledir   = "$serverdir\ShooterGame\Binaries\Win64"
-        #                       Gamedig Query
-        $global:querytype       = "arkse"
-        #                       Game Process
-        $global:process         = "ShooterGameServer"
-        #                       Log Directory
-        $global:logdirectory    = "$serverdir"
-        #                       Game-Server-Config Directory
-        $global:gamedirname     = "ARKSurvivalEvolved"
-        #                       Game-Server-Config
-        $global:servercfg       = "GameUserSettings.ini"
-        #                       Server Launch Command
-        $global:launchParams    = '@("$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
-        # Download Game-Server-Config
+        $global:systemdir = ""
+        $global:executable = "ShooterGameServer"
+        $global:executabledir= "$serverdir\ShooterGame\Binaries\Win64"
+        $global:querytype = "arkse"
+        $global:process = "ShooterGameServer"
+        $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
+        $global:logdirectory = "$serverdir"
+        Get-StopServerInstall
+        $global:gamedirname = "ARKSurvivalEvolved"
+        $global:servercfg = "GameUserSettings.ini"
+    
+        
         Get-Servercfg
-        # Edit Server Game-Server-Config
         Select-EditSourceCFG
+        $global:launchParams = '@("$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
 } 

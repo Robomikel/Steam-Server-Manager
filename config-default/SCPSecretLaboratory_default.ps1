@@ -20,26 +20,18 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     # and YOU WANT TO MAKE IT PUBLIC, please set up your email in configuration file ("contact_email" value) and restart the server.
     
     ###################### Do not change below #####################
-    #                           System Directory
-    $global:systemdir           = "$serverdir"
-    #                           Server Config Directory
-    $global:servercfgdir        = "$env:APPDATA\SCP Secret Laboratory\config\$port\config_gameplay.txt"
-    #                           Server Executable
-    $global:executable          = "LocalAdmin"
-    #                           Server Executable Directory
-    $global:executabledir       = "$serverdir"
-    #                           Appdata\Roaming Directory
-    $global:saves               = "SCP Secret Laboratory"
-    #                           Gamedig Query
-    $global:querytype           = "protocol-valve"
-    #                           Game Process
-    $global:process             = "LocalAdmin|SCPS"
-    #                           Log Directory
-    $global:logdirectory        = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
-    #                           Game-Server-Config Directory
-    $global:gamedirname         = ""
-    #                           Game-Server-Config
-    $global:servercfg           = ""
-    #                           Server Launch Command
-    $global:launchParams        = '@("$executable ${port}")'
+    $global:systemdir = ""
+    $global:executabledir = "$serverdir"
+    $global:executable = "LocalAdmin"
+    $global:querytype = "protocol-valve"
+    $global:saves = "SCP Secret Laboratory"
+    $global:process = "LocalAdmin|SCPS"
+    $global:servercfgdir = "$env:APPDATA\SCP Secret Laboratory\config\$port\config_gameplay.txt"
+    $global:logdirectory = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
+    Get-StopServerInstall
+    #Game-server-configs \/
+    $global:gamedirname = ""
+    $global:servercfg = ""
+
+    $global:launchParams = '@("$executable ${port}")'
 }   

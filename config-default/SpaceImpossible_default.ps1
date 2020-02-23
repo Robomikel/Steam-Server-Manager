@@ -11,24 +11,18 @@ Function New-LaunchScriptSpacecImpossibleserverPS {
     # 27015 Query
     
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir"
-    #                       Server Executable
-    $global:executable      = "SIDedicatedServer"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "SIDedicatedServer"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir\SIDedicatedServer_Data"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = ""
-    #                       Game-Server-Config
-    $global:servercfg       = "serverconfig.txt"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -config serverconfig.txt -console -batchmode -nographics -LOG")'
+    $global:systemdir = ""
+    $global:executabledir = "$serverdir"
+    $global:executable = "SIDedicatedServer"
+    $global:querytype = "protocol-valve"
+    $global:saves = ""
+    $global:process = "SIDedicatedServer"
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir\SIDedicatedServer_Data"
+    Get-StopServerInstall
+    #Game-server-configs \/
+    $global:gamedirname = ""
+    $global:servercfg = "serverconfig.txt"
+
+    $global:launchParams = '@("$executable -config serverconfig.txt -console -batchmode -nographics -LOG")'
   }   

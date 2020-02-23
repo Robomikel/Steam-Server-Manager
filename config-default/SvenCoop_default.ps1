@@ -5,7 +5,7 @@ Function New-LaunchScriptSvenCoopserverPS {
     # WIKI
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:ip}            = "${ip}"
+    ${global:ip}            = "${global:IP}"
     #                       Server Port
     $global:port            = "28015"
     #                       Client Port
@@ -15,37 +15,50 @@ Function New-LaunchScriptSvenCoopserverPS {
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword    = "$global:RANDOMPASSWORD"
 
     ##############################/\##############################
-
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\svencoop"
-    #                       Server Executable
-    $global:executable      = "SvenDS"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "SvenDS"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = "SvenCoop"
-    #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game svencoop -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg +maxplayers ${maxplayers} -condebug")'
-    # Download Game-Server-Config
+    # # Version 2.0
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->executable Directory \/\/
+    $global:executabledir = "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "SvenDS"
+    #$global:executable = "ProjectZomboid64"
+    #--->Requieres \/ \/ game dig 
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game executable?
+    $global:process = "SvenDS"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir\svencoop"
+    #--->game log folder
+    $global:logdirectory = "$serverdir"
+    #--->Stop existing process if running        
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "SvenCoop"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "server.cfg"
+    #--->Get game-server-config \/\/
     Get-Servercfg
-    # Edit Server Game-Server-Config
-    Select-EditSourceCFG
-    # Rename Source $executable.exe
+    
+    #--->input questions 
+    # Get-UserInput 1 1 0 0 1 1 0 1 0 1 1 1 0
+    #--->rename srcds.executable \/\/
     Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable -console -game svencoop -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg +maxplayers ${maxplayers} -condebug")'
+    # $global:launchParams = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
+
 }

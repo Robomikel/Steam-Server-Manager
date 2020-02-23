@@ -99,6 +99,7 @@ Function Select-EditSourceCFG {
 }
 Function New-ServerLog {
     If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[so]*.txt", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 367970) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[m]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
@@ -128,14 +129,10 @@ Function Get-Appid {
 
     If (($null -eq $AppID) -or ("" -eq $AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
-        $global:AppID = Read-host
+        $AppID = Read-host
         Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-        $global:Branch = Read-host
+        $Branch = Read-host
         Get-TestInterger
-    }
-
-    If (( $AppID -eq 985050) -or ($AppID -eq 233780)){
-        Write-Host "****   Requires Steam Login    *****" -F Cyan
     }
 }
 
@@ -156,13 +153,4 @@ Function Get-SourceMetaModWebrequest {
     $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     $smWebResponse = $smWebResponse.content
     $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
-}
-
-Function Get-PreviousInstall {
-    $check = (Get-Childitem $currentdir\$serverfiles\ | Where-Object {$_.Name -like 'Variables-*'})
-    If ($null -ne $check ){
-        Get-createdvaribles
-        Get-StopServerInstall
-        Get-ClearVariables
-    }
 }

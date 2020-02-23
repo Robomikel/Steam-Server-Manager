@@ -13,25 +13,25 @@ Function New-LaunchScriptdowserverPS {
 
     ##############################/\##############################
     
+    
+    
+    
     ###################### Do not change below #####################
-    #                       System Directory
-    $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\DaysOfWar\Saved\Config\WindowsServer"
-    #                       Server Executable
-    $global:executable      = "DaysOfWarServer-Win64-Shipping"
-    #                       Server Executable Directory
-    $global:executabledir   = "$serverdir\DaysOfWar\Binaries\Win64"
-    #                       Gamedig Query
-    $global:querytype       = "protocol-valve"
-    #                       Game Process
-    $global:process         = "DaysOfWarServer-Win64-Shipping"
-    #                       Log Directory
-    $global:logdirectory    = "$serverdir"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = ""
-    #                       Game-Server-Config
-    $global:servercfg       = "Game.ini"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable ${defaultmap} -Port=${port} -QueryPort=${queryport} -LOG")'
+    $global:systemdir = ""
+    $global:executable = "DaysOfWarServer-Win64-Shipping"
+    $global:executabledir = "$serverdir\DaysOfWar\Binaries\Win64"
+    $global:querytype = "protocol-valve"
+    $global:process = "DaysOfWarServer-Win64-Shipping"
+    $global:servercfgdir = "$serverdir\DaysOfWar\Saved\Config\WindowsServer"
+    $global:logdirectory = "$serverdir"
+    Get-StopServerInstall
+    $global:gamedirname = ""
+    $global:servercfg = "Game.ini"
+
+    
+    # Get-Servercfg
+    # Select-EditSourceCFG
+    
+    $global:launchParams = '@("$executable ${defaultmap} -Port=${port} -QueryPort=${queryport} -LOG")'
+
 } 

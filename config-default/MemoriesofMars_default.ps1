@@ -3,11 +3,11 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     # APP ID # 897590
     ################## Change Default Variables #################
     #                       Server IP
-    ${global:IP}            = "${ip}"
+    ${global:IP}            = "${global:IP}"
     #                       Maxplayers
     $global:maxplayers      = "2"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname        = "$env:USERNAME"
     #                       Server Password
     $global:serverpassword  = ""
     #                       Server Port
@@ -28,7 +28,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:process = "MemoriesOfMarsServer"
     $global:servercfgdir = "$serverdir\ShooterGame\Saved\Config\WindowsServer"
     $global:logdirectory = "$serverdir\Game\Saved\Logs"
-    
+    Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = "DedicatedServerConfig.cfg"
 

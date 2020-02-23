@@ -21,7 +21,7 @@ Function New-LaunchScriptminecraft_serverPS {
     $global:saves = ""
     $global:process = "java"
     $global:servercfgdir = "$serverdir"
-    
+    Get-StopServerInstall
     $global:gamedirname = ""
     $global:servercfg = ""
 

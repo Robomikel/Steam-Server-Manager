@@ -3,7 +3,7 @@ Function New-LaunchScriptcsgoserverPS {
         # APP ID # 740
         ################## Change Default Variables #################
         #                       Server IP 
-        ${global:IP}            = "${ip}"
+        ${global:IP}            = "${global:IP}"
         #                       Server Port
         $global:port            = "27015"
         #                       Client Port
@@ -19,9 +19,9 @@ Function New-LaunchScriptcsgoserverPS {
         #                       Maxplayers
         $global:maxplayers      = "32"
         #                       Server Name
-        $global:hostname        = "SERVERNAME"
+        $global:hostname        = "$env:USERNAME"
         #                       Rcon Password
-        $global:rconpassword    = "$RANDOMPASSWORD"
+        $global:rconpassword    = "$global:RANDOMPASSWORD"
         #                       Game type
         $global:gametype        = "0"
         #                       Game Mode
@@ -54,30 +54,22 @@ Function New-LaunchScriptcsgoserverPS {
         #       * mg_armsrace                           * mg_op_op08
         
         ###################### Do not change below #####################
-        #                       System Directory
-        $global:systemdir       = "csgo"
-        #                       Server Config Directory
-        $global:servercfgdir    = "$serverdir\csgo\cfg"
-        #                       Server Executable
-        $global:executable      = "csgo"
-        #                       Server Executable Directory
-        $global:executabledir   = "$serverdir"
-        #                       Gamedig Query
-        $global:querytype       = "csgo"
-        #                       Game Process
-        $global:process         = "csgo"
-        #                       Log Directory
-        $global:logdirectory    = "$serverdir\csgo"
-        #                       Game-Server-Config Directory
-        $global:gamedirname     = "CounterStrikeGlobalOffensive"
-        #                       Game-Server-Config
-        $global:servercfg       = "server.cfg"
-        #                       Server Launch Command
-        $global:launchParams    = '@("$executable -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +clientport  ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} -tickrate ${TICKRATE} +map ${defaultmap} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
+        
+        $global:systemdir = "csgo"
+        $global:executabledir = "$serverdir"
+        $global:executable = "csgo"
+        $global:querytype = "csgo"
+        $global:process = "csgo"
+        $global:servercfgdir = "$serverdir\csgo\cfg"
+        $global:logdirectory = "$serverdir\csgo"
+    
+          
+        Get-StopServerInstall
+        $global:gamedirname = "CounterStrikeGlobalOffensive"
+        $global:servercfg = "server.cfg"
         Get-Servercfg
-        # Edit Server Game-Server-Config
-        Select-EditSourceCFG
-        # Rename Source $executable.exe
         Select-RenameSource
-        # Install Adjustment
+        Select-EditSourceCFG
+        $global:launchParams = '@("$executable -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +clientport  ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} -tickrate ${TICKRATE} +map ${defaultmap} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
+        #Get-SourceMetMod
 }

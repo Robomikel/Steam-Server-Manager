@@ -5,36 +5,45 @@ Function New-LaunchScriptBTserverPS {
     # 
     ################## Change Default Variables #################
    
+
     ##############################/\##############################
-   
     # 27015/UDP
     # 27016/UDP
     
+    
     ###################### Do not change below #####################
-    #                           Server Directory 
-    $global:systemdir           = "$serverdir"
-    #                           Server Config Directory
-    $global:servercfgdir        = "$serverdir"
-    #                           Server Executable
-    $global:executable          = "DedicatedServer"
-    #                           Server Executable Directory
-    $global:executabledir       = "$serverdir"
-    #                           Gamedig Query
-    $global:querytype           = "protocol-valve"
-    #                           Game Process
-    $global:process             = "DedicatedServer"
-    #                           Log Directory
-    $global:logdirectory        = "$serverdir\ServerLogs"  
-    #                           Game-Server-Config Directory
-    $global:gamedirname         = "Barotrauma"
-    #                           Game-Server-Config
-    $global:servercfg           = "serversettings.xml"
-    #                           Server Launch Command 
-    $global:launchParams        = '@("$executable")'
-    # Download Game-Server-Config
-    #Get-Servercfg
-    # Edit Server Game-Server-Config
-    #Select-EditSourceCFG
-    # Rename Source $executable.exe
-    #Select-RenameSource
+    #--->Requieres \/ \/ Get-SourceMetMod
+    $global:systemdir = ""
+    #--->Exe Directory \/\/
+    $global:executabledir= "$serverdir"
+    #--->rename srcds to this name \/\/
+    $global:executable = "DedicatedServer"
+    #--->Requieres \/ \/ game dig
+    $global:querytype = "protocol-valve"
+    #--->Requieres \/ \/ AppData Roaming save
+    $global:saves = ""
+    #--->Requieres \/ \/ maybe same as game exe?
+    $global:process = "DedicatedServer"
+    #--->game config folder
+    $global:servercfgdir = "$serverdir"
+    $global:logdirectory = "$serverdir\ServerLogs"  
+
+    #--->Stop existing process if running 
+    Get-StopServerInstall
+    #--->Game-server-manger folder \/
+    $global:gamedirname = "Barotrauma"
+    #--->Game-server-manger config name \/
+    $global:servercfg = "serversettings.xml"
+    #--->Get game-server-config \/\/
+    # Get-Servercfg
+
+    #--->input questions 1 1 0 0 0 0 0 1 0 1 1 0 0
+    #Get-UserInput 1 1 0 0 0 0 0 1 0 1 0 0 0
+    #--->rename srcds.exe \/\/
+    # Select-RenameSource
+    #--->Edit game config \/ SERVERNAME ADMINPASSWORD
+    #  Select-EditSourceCFG
+    # --->Launch 
+    $global:launchParams = '@("$executable")'
+
 }
