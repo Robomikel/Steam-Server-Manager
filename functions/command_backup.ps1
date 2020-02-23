@@ -39,7 +39,6 @@ Function New-backupAppdata {
         .\AppDatabackup.log 
     }
     Limit-AppdataBackups
-    Set-Location $currentdir
 }
 
 Function Limit-Backups {
