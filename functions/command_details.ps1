@@ -20,16 +20,24 @@ Function Get-Details {
     $os = (Get-WMIObject win32_operatingsystem).caption
     $computername = (Get-WMIObject Win32_OperatingSystem).CSName
     Set-Location $nodejsdirectory
-    If ($null -ne ${queryport}) { 
-        ${port} = ${queryport} 
-    }
-    If ($Useprivate -eq "0") {
+    If ($Useprivate -eq "off") {
+        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
         $gameresponse = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
         $stats = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
+        }Else{
+            $gameresponse = (.\gamedig --type $querytype ${extip}:${queryport} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+            $stats = (.\gamedig --type $querytype ${extip}:${queryport} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
+        }
+    
     }
     Else {
+        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
         $gameresponse = (.\gamedig --type $querytype ${IP}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $querytype ${IP}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
+        $stats = (.\gamedig --type $querytype ${ip}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
+        }else{
+        $gameresponse = (.\gamedig --type $querytype ${IP}:${queryport} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
+        $stats = (.\gamedig --type $querytype ${ip}:${queryport} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
+        }
     }
     
     Get-CreatedVaribles
