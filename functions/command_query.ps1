@@ -6,7 +6,7 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-GamedigServerv2 {
+Function Get-GamedigServerv2_OLD {
     Write-Host '****   Starting gamedig on Server   ****' -F M -B Black
     Set-Location $nodejsdirectory
     If (( $appid -eq 581330) -or ($appid -eq 376030) -or ($appid -eq 443030)) {
@@ -32,4 +32,30 @@ Function Get-GamedigServerv2 {
         
     }
     Set-Location $currentdir
+}
+
+Function Get-GamedigServerv2 {
+    Write-Host '****   Starting gamedig on Server   ****' -F M -B Black
+    If ($Useprivate -eq "off") {
+        set-location $nodejsdirectory
+        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
+            .\gamedig --type $querytype ${extip}:${port} --pretty
+        }
+        Else {
+            Write-Host '****   Using queryport    ****' -F Y -B Black
+            .\gamedig --type $querytype ${extip}:${queryport} --pretty
+        }
+        set-location $currentdir
+    }
+    Else {
+        set-location $nodejsdirectory
+        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
+            .\gamedig --type $querytype ${ip}:${port} --pretty
+        }
+        Else {
+            Write-Host '****   Using queryport    ****' -F Y -B Black
+            .\gamedig --type $querytype ${ip}:${queryport} --pretty
+        }
+        set-location $currentdir
+    }
 }
