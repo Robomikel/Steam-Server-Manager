@@ -28,7 +28,7 @@ Function Set-SteamInfo {
 }
 Function New-TryagainNew {
     $title = 'Try again?'
-    $question = "$command $serverfiles?"
+    $question = "$command $serverfiles ?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
@@ -36,27 +36,12 @@ Function New-TryagainNew {
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
         Select-Steamer $command $serverfiles
+        Exit
     }
     Else {
         Write-Host 'Entered N'
         Set-Location $currentdir
         Exit
-    }
-}
-Function New-TryagainSteam {
-    $title = 'Was the Install Successful?'
-    $question = "Try Again, $command $serverfiles ?"
-    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
-    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
-    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
-    If ($decision -eq 0) {
-        Write-Host 'Entered Y'
-        Set-Location $currentdir
-    }
-    Else {
-        Write-Host 'Entered N'
-        Select-Steamer $command $serverfiles
     }
 }
 Function Set-SteamInfoAppID {
