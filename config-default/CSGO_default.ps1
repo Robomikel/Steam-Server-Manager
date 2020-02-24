@@ -55,7 +55,7 @@ Function New-LaunchScriptcsgoserverPS {
         
         ###################### Do not change below #####################
         #                       System Directory
-        $global:systemdir       = "csgo"
+        $global:systemdir       = "$serverdir\csgo"
         #                       Server Config Directory
         $global:servercfgdir    = "$serverdir\csgo\cfg"
         #                       Server Executable
