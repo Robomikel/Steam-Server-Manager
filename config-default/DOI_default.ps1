@@ -106,7 +106,7 @@ Function Set-Gamemodedoi {
     #nwi/mp_first_deployment
     #nwi/mp_special_assignments *
     # for coop gamemodes are the folllowing
-    # , , 
+    # raid, entrenchment, stronghold 
     # with 2 ruleset playlist commando & infantry
     Write-Host "Enter one of the listed modes" -ForegroundColor Yellow
     Write-Host "coop_commando" -ForegroundColor Yellow
