@@ -7,7 +7,7 @@
 #
 #
 Function Get-Servercfg {
-    Write-Host "****   Retrieve Default Config   ****" -F Y -B Black
+    # Write-Host "****   Retrieve Default Config   ****" -F Y -B Black
     #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$serverdir\csgo\cfg\server.cfg")
     If (("" -eq $servercfgdir) -or ("" -eq $servercfg)) {
         Exit

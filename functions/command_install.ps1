@@ -57,11 +57,13 @@ Function Install-ServerFiles {
         Write-Host "Enter Username for Steam install" -F Cyan -B Black
         $global:username = Read-host
         Write-Host "Enter steam password" -F Cyan -B Black
-        $SecurePassword = Read-Host -AsSecureString
+        $securedpassword = Read-Host -AsSecureString
+        $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
+        $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
         Write-Host "Please Wait: " -F Y
         # .\steamcmd +login $username +force_install_dir $serverdir +app_update $APPID $Branch +Exit
         # Success! App '1110390' fully installed.
-        .\steamCMD +login $username $SecurePassword +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -Variable 'appinstalllog' 
+        .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -Variable 'appinstalllog' 
         # .\steamCMD +@ShutdownOnFailedCommand 1 +login $username $SecurePassword +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -FilePath $steamdirectory\logs\steamcmd.log 
         #$global:appinstalllog = Get-Content $steamdirectory\logs\steamcmd.log | Select -Last 10
         # $global:appinstalllog = [IO.File]::ReadAllText("$steamdirectory\logs\steamcmd.log")
