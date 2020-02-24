@@ -17,7 +17,9 @@ Function Get-StopServer {
         }
         Else { Stop-Process -Name "$process" -Force 
         Write-infoMessageStopping
-        New-ServerLog
+        If ($consolelogging -eq "on") { 
+            New-ServerLog
+        }
     }
         Get-CheckForError
     }

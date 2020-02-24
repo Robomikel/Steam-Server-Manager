@@ -13,9 +13,6 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
-    If ($consolelogging -eq "on") { 
-        # New-ServerLog 
-    }
     Set-Location $executabledir
     # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
     #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
