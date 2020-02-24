@@ -34,7 +34,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       System Directory
     $global:systemdir       = "$serverdir\doi"
     #                       Server Config Directory
-    $global:servercfgdir    = "doi\cfg"
+    $global:servercfgdir    = "$serverdir\doi\cfg"
     #                       Server Executable
     $global:executable      = "doi"
     #                       Server Executable Directory
