@@ -45,7 +45,7 @@ Function New-TryagainNew {
 }
 Function New-TryagainSteam {
     $title = 'Was the Install Successful?'
-    $question = "Try Again, $command $serverfiles?"
+    $question = "Try Again, $command $serverfiles ?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
