@@ -21,7 +21,7 @@ Function Get-ClearVariables {
 }
 
 Function Get-TestInterger {
-    If ( $global:APPID -notmatch '^[0-9]+$') { 
+    If ( $APPID -notmatch '^[0-9]+$') { 
         Write-Host "$DIAMOND $DIAMOND Input App ID Valid Numbers only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
