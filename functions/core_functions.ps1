@@ -21,14 +21,14 @@ Function Get-ClearVariables {
 }
 
 Function Get-TestInterger {
-    If ( $APPID -notmatch '^[0-9]+$') { 
+    If ( $global:APPID -notmatch '^[0-9]+$') { 
         Write-Host "$DIAMOND $DIAMOND Input App ID Valid Numbers only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
     }
 }
 Function Get-TestString {
-    If ( $global:serverfiles -notmatch "[a-z,A-Z]") { 
+    If ( $serverfiles -notmatch "[a-z,A-Z]") { 
         Write-Host "$DIAMOND $DIAMOND Input Alpha Characters only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
@@ -106,6 +106,8 @@ Function New-ServerLog {
     If (($AppID -eq 748090) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 1222650) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[o]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
     # If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }
@@ -126,8 +128,6 @@ Function Get-Appid {
     $results = "`"$results`""
     $results = $results.Split(",")[3]
     $global:AppID = "$results"
-    Write-Host "App ID: $AppID" -F Y
-
     If (($null -eq $AppID) -or ("" -eq $AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
         $global:AppID = Read-host
@@ -135,9 +135,11 @@ Function Get-Appid {
         $global:Branch = Read-host
         Get-TestInterger
     }
-
+    Else { 
+        Write-Host "        App ID: $AppID" -F Y
+    }
     If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
-        Write-Host "****   Requires Steam Login    *****" -F Cyan
+        Write-Host "****   Requires Steam Login    *****" -F Y
     }
 }
 

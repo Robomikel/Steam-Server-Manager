@@ -28,3 +28,56 @@ Function Install-ServerFiles {
 
     Set-Location $currentdir
 }
+Function Install-ServerFiles {
+    Set-Location $steamdirectory
+    If ($ANON -eq "yes") {
+        Write-Host "Please Wait: Writing Steam output to $steamdirectory\logs\steamcmd.log" -F Y
+        #  .\steamcmd +login anonymous +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -FilePath $steamdirectory\logs\steamcmd.log
+        # $appinstalllog = Get-Content $steamdirectory\logs\steamcmd.log -last 10 | Where-Object {$_ -like "* Failed *"}
+        $appinstalllog = [IO.File]::ReadAllText("$steamdirectory\logs\steamcmd.log")
+        Write-Host "checking log $steamdirectory\logs\steamcmd.log" -F Y
+        If ($appinstalllog -Like "*No subscription*") {
+            Write-Host "****  No subscription, Requires steamcmd login   ****" -F R
+            New-TryagainNew 
+        }
+        ElseIf ($appinstalllog -Like "* Failed *") {
+            Write-Host "****   Downloading  Install server Failed   ****" -F R
+            New-TryagainNew 
+        }
+        ElseIf ($appinstalllog -Like "*Success*") {
+            Write-Host "****   Downloading  Install server succeeded   ****" -F Y
+        }           
+        Else {
+            New-TryagainSteam
+        }
+    }
+    Else {
+        Write-Host "Enter Username for Steam install" -F Cyan -B Black
+        $global:username = Read-host
+        Write-Host "Enter steam password" -F Cyan -B Black
+        $SecurePassword = Read-Host -AsSecureString
+        Write-Host "Please Wait: Writing Steam output to $steamdirectory\logs\steamcmd.log" -F Y
+        # .\steamcmd +login $username +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+        # Success! App '1110390' fully installed.
+        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username $SecurePassword +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -FilePath $steamdirectory\logs\steamcmd.log 
+        # appinstalllog = Get-Content $steamdirectory\logs\steamcmd.log -last 10 | Where-Object {$_ -like "* Failed *"}
+        Write-Host "checking log $steamdirectory\logs\steamcmd.log" -F Y
+        $appinstalllog = [IO.File]::ReadAllText("$steamdirectory\logs\steamcmd.log")
+        If ($appinstalllog -Like "*Invalid Password*") {
+            Write-Host "****   Failed Password   ****" -F R
+            New-TryagainNew 
+        }
+        ElseIf ($appinstalllog -Like "* Failed *") {
+            Write-Host "****   Downloading  Install server Failed   ****" -F R
+            New-TryagainNew 
+        }
+        ElseIf ($appinstalllog -Like "*Success*") {
+            Write-Host "****   Downloading  Install server succeeded   ****" -F Y
+        }    
+        Else {
+            New-TryagainSteam
+        }
+    }
+    Set-Location $currentdir
+}
