@@ -14,7 +14,7 @@ Function Get-StartServer {
         $launchParams
     )
     If ($consolelogging -eq "on") { 
-        New-ServerLog 
+        # New-ServerLog 
     }
     Set-Location $executabledir
     # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }

@@ -9,13 +9,16 @@
 #
 Function Get-StopServer {
     If ($appid -eq "996560") { Get-StopMultiple }Else {
-        Write-infoMessageStopping
+        # Write-infoMessageStopping
         # Write-Host '****   Stopping Server process   *****' -F M -B Black 
         If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
             Write-infoMessageNotRunning 
             # Write-Host "----   NOT RUNNING   ----" -F R -B Black
         }
-        Else { Stop-Process -Name "$process" -Force }
+        Else { Stop-Process -Name "$process" -Force 
+        Write-infoMessageStopping
+        New-ServerLog
+    }
         Get-CheckForError
     }
 }
@@ -31,6 +34,7 @@ Function Get-StopServerInstall {
             Write-infoMessageStopping
             #Write-Host "****   Stopping Server Process   *****" -F M -B Black
             Stop-Process -Name "$process" -Force
+            New-ServerLog
         }
     }
 }   
@@ -45,5 +49,6 @@ Function Get-StopMultiple {
         Write-infoMessageStopping
         # Write-Host "****   Stopping Server Process   *****" -F M -B Black
         get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
+        New-ServerLog
     }
 }
