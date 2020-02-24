@@ -98,7 +98,7 @@ Function Select-EditSourceCFG {
     ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg -ea SilentlyContinue
 }
 Function New-ServerLog {
-    If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[so]*.txt", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
@@ -107,7 +107,8 @@ Function New-ServerLog {
     If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
-    If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }
+    # "$logdirectory\[so]*.txt",
+    # If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }
 }
 
 Function Remove-SteamerLogs {
