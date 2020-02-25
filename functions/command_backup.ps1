@@ -21,7 +21,8 @@ Function New-BackupServer {
         Get-Savelocation 
     }
     New-ServerBackupLog
-    If ($backuplogopen -eq "on") { 
+    If ($backuplogopen -eq "on") {
+        Set-Location $sevenzipdirectory 
         .\backup.log 
     }
     Limit-Backups
