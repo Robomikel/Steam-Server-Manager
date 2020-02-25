@@ -18,7 +18,8 @@ Function New-LaunchScriptforestserverPS {
     ${global:diff}      = "Normal"
 
     ##############################/\##############################
-    
+    # In server.cfg
+    # showLogs on to view console
     ###################### Do not change below #####################
     #                       System Directory     
     $global:systemdir       = ""
