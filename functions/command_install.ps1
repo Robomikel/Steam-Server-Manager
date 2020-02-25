@@ -7,7 +7,7 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Install-ServerFiles {
+Function Install-ServerFiles_old {  
 
     Set-Location $steamdirectory
     If ($ANON -eq "yes") {
