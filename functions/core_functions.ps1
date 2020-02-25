@@ -13,7 +13,7 @@ Function Get-CreatedVaribles {
 }
 Function Get-ClearVariables {
     Write-Host "****   Clearing Variables   *****" -F Y -B Black
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable","password"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable","password","persistentstorageroot","shard","cluster","moddir"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -98,17 +98,19 @@ Function Select-EditSourceCFG {
     ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg -ea SilentlyContinue
 }
 Function New-ServerLog {
-    If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 367970) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[m]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 748090) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 1222650) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[o]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 565060) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
-    If (($AppID -eq 343050) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\server_*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 298740) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 367970) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[m]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 748090) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 1222650) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[o]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 565060) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 343050) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\server_*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 232130) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Launch.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 996560) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
     # If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }

@@ -36,7 +36,7 @@ Function New-LaunchScriptKF2serverPS {
     #                       Game Process
     $global:process         = "KFserver"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir"
+    $global:logdirectory    = "$serverdir\KFGame\Logs"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "KillingFloor2"
     #                       Game-Server-Config
