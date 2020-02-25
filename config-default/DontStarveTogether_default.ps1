@@ -33,6 +33,8 @@ Function New-LaunchScriptDSTserverPS {
     $global:querytype       = "protocol-valve"
     #                       Game Process
     $global:process         = "dontstarve_dedicated_server_nullrenderer"
+    ######                  Moved Klei to Server Root  ####### 
+    $global:persistentstorageroot = "$serverdir\Klei"
     #                       Log Directory
     $global:logdirectory    = "$persistentstorageroot\$gamedirname\$cluster\$shard"
     #                       Game-Server-Config Directory
@@ -40,8 +42,7 @@ Function New-LaunchScriptDSTserverPS {
 
     $global:shard = "Master"
     $global:cluster = "Cluster_1"
-    # Moved Klei to Server Root 
-    $global:persistentstorageroot = "$serverdir\Klei"
+
     
     #                       Server Config Directory
     $global:servercfgdir    = "$persistentstorageroot\$gamedirname\$cluster\$shard\"

@@ -25,8 +25,6 @@ Function  New-LaunchScriptavserverPS {
         ###################### Do not change below #####################
         #                               System Directory
         $global:systemdir               = "$serverdir"
-        #                               Server Config Directory
-        $global:servercfgdir            = "$env:APPDATA\$global:saves"
         #                               Server Executable
         $global:executable              = "bin\AvorionServer"
         #                               Server Executable Directory
@@ -37,6 +35,8 @@ Function  New-LaunchScriptavserverPS {
         $global:querytype               = "protocol-valve"
         #                               Game Process
         $global:process                 = "AvorionServer"
+        #                               Server Config Directory
+        $global:servercfgdir            = "$env:APPDATA\$saves"
         #                               Log Directory
         $global:logdirectory            = "$env:APPDATA\$global:saves\galaxies\avorion_galaxy"
         #                               Server Launch Command

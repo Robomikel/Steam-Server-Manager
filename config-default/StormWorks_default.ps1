@@ -24,14 +24,15 @@ Function New-LaunchScriptStormworksserverPS {
     ###################### Do not change below #####################
     #                       System Directory
     $global:systemdir       = "$serverdir"
-    #                       Server Config Directory
-    $global:servercfgdir    = "$env:APPDATA\$global:saves\"
+
     #                       Server Executable
     $global:executable      = "server"
     #                       Server Executable Directory
     $global:executabledir   = "$serverdir"
     #                       Appdata\Roaming Directory
     $global:saves           = "Stormworks"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$env:APPDATA\$saves\"
     #                       Gamedig Query
     $global:querytype       = "protocol-valve"
     #                       Game Process
