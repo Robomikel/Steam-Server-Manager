@@ -60,14 +60,20 @@ Function Install-ServerFiles {
         $securedpassword = Read-Host -AsSecureString
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
         $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-        Write-Host "Please Wait: " -F Y
+        Write-Host "Please Wait for login confirmation." -F Y
+        Write-Host "If needed Press enter if steamcmd Requires Steam Guard code" -F Y
         # .\steamcmd +login $username +force_install_dir $serverdir +app_update $APPID $Branch +Exit
         # Success! App '1110390' fully installed.
-        .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -Variable 'appinstalllog' 
+        .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -Variable 'appinstalllog'
         # .\steamCMD +@ShutdownOnFailedCommand 1 +login $username $SecurePassword +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -FilePath $steamdirectory\logs\steamcmd.log 
         #$global:appinstalllog = Get-Content $steamdirectory\logs\steamcmd.log | Select -Last 10
         # $global:appinstalllog = [IO.File]::ReadAllText("$steamdirectory\logs\steamcmd.log")
         # Write-Host "checking log $steamdirectory\logs\steamcmd.log" -F Y
+        If ($appinstalllog -Like "Steam Guard code:FAILED*") {
+            Write-Host "****   Failed Logon Requires set_steam_guard_code ****" -F R
+            .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+            New-TryagainSteam
+        }
         If ($appinstalllog -Like "*Invalid Password*") {
             Write-Host "****   Failed Password   ****" -F R
             New-TryagainNew 
