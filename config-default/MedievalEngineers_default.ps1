@@ -47,8 +47,6 @@ Function New-LaunchScriptMEserverPS {
   ###################### Do not change below #####################
   #                       System Directory
   $global:systemdir       = "$serverdir"
-  #                       Server Config Directory
-  $global:servercfgdir    = "$env:APPDATA\$saves"
   #                       Server Executable
   $global:executable      = "MedievalEngineersDedicated"
   #                       Server Executable Directory
@@ -65,6 +63,8 @@ Function New-LaunchScriptMEserverPS {
   $global:gamedirname     = ""
   #                       Game-Server-Config
   $global:servercfg       = ""
+  #                       Server Config Directory
+  $global:servercfgdir    = "$env:APPDATA\$saves"
   #                       Server Launch Command
   $global:launchParams    = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 
@@ -78,9 +78,9 @@ Function New-LaunchScriptMEserverPS {
 
 Function New-servercfgme {
   Write-Host "Creating Custom Config" -F M
-  New-Item $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
+  New-Item $servercfgdir\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
   
-  Add-Content $env:APPDATA\$saves\MedievalEngineersDedicated-Dedicated.cfg `
+  Add-Content $servercfgdir\MedievalEngineersDedicated-Dedicated.cfg `
 "<?xml version=`"1.0`"?>
 <MyConfigDedicated xmlns:xsd=`"http://www.w3.org/2001/XMLSchema`" xmlns:xsi=`"http://www.w3.org/2001/XMLSchema-instance`">
 <SessionSettings>
