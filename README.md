@@ -18,7 +18,7 @@ PS Commands
 
 Configure berfore install (optional):
 Find default config for game you wish to install
-Steam-Server-Manager```\config-default\*_default.ps1```
+```\Steam-Server-Manager\config-default\*_default.ps1```
 Change any vars like port or server name.
 
 # Install Server
