@@ -32,7 +32,7 @@ Function New-LaunchScriptDSTserverPS {
     #                       Game Process
     $global:process         = "dontstarve_dedicated_server_nullrenderer"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir"
+    $global:logdirectory    = "$persistentstorageroot\$gamedirname\$cluster\$shard"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "DontStarveTogether"
 
