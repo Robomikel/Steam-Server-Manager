@@ -15,7 +15,7 @@ Function New-LaunchScriptBT1944serverPS {
     #                       System Directory
     $global:systemdir       = "$serverdi"
     #                       Server Config Directory
-    $global:servercfgdir = "$serverdir\Windows"
+    $global:servercfgdir    = "$serverdir\Windows"
     #                       Server Executable 
     $global:executable      = "BattalionServer"
     #                       Server Executable Directory
