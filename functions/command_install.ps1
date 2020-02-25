@@ -31,7 +31,7 @@ Function Install-ServerFiles {
 Function Install-ServerFiles {
     Set-Location $steamdirectory
     If ($ANON -eq "yes") {
-        Write-Host "Please Wait:" -F Y
+        Write-Host "Please Wait: Will Display console in a moment" -F Y
         #  .\steamcmd +login anonymous +force_install_dir $serverdir +app_update $APPID $Branch +Exit
         .\steamCMD +@NoPromptForPassword 1 +login anonymous +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -Variable 'appinstalllog'
         # .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $serverdir +app_update $APPID $Branch +Exit | Tee-Object -FilePath $steamdirectory\logs\steamcmd.log
