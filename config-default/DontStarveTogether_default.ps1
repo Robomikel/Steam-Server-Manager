@@ -8,15 +8,17 @@ Function New-LaunchScriptDSTserverPS {
     ${global:IP}            = "${ip}"
     #                       Server Port
     $global:port            = "10999"
-    #                       RCON Port
-    $global:rconport        = "${port}"
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name
     $global:hostname        = "SERVERNAME"
 
     ##############################/\##############################
-    
+    # See Default Lanuch Params. 
+    #  To start Master and caves servers may need to adjust params
+    # to start both
+    # May need to configure Ports in .ini
+    # storage save and config folder moved to serverfiles root (Klei)
     
     
     
@@ -38,7 +40,7 @@ Function New-LaunchScriptDSTserverPS {
 
     $global:shard = "Master"
     $global:cluster = "Cluster_1"
-    # moved to server folder root
+    # Moved Klei to Server Root 
     $global:persistentstorageroot = "$serverdir\Klei"
     
     #                       Server Config Directory
@@ -59,8 +61,8 @@ Function New-LaunchScriptDSTserverPS {
     $global:launchParams    = '@("$executable -console_enabled -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root ${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_log_count 10")'
 
     # BOTH CAVES AND MASTER
-    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs ; ; $executable -console -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard cave -backup_logs")'
+    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root ${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs ; ; $executable -console -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard cave -backup_logs")'
 
     # Caves
-    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${cave} -backup_logs")'
+    #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root ${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${cave} -backup_logs")'
 }
