@@ -28,7 +28,7 @@ Function New-LaunchScriptNMRIHserverPS {
     
     ###################### Do not change below ##################### 
     #                       System Directory
-    $global:systemdir       = "$serverdir"
+    $global:systemdir       = "$serverdir\nmrih"
     #                       Server Config Directory
     $global:servercfgdir    = "$serverdir\nmrih\cfg"
     #                       Server Executable
@@ -47,4 +47,10 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # Download Game-Server-Config
+    Get-Servercfg
+    # Edit Server Game-Server-Config
+    Select-EditSourceCFG
+    # Rename Source $executable.exe
+    Select-RenameSource
 }
