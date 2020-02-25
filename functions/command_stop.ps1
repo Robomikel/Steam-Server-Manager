@@ -8,7 +8,10 @@
 #
 #
 Function Get-StopServer {
-    If ($appid -eq "996560") { Get-StopMultiple }Else {
+    If ($appid -eq "996560") { 
+        Get-StopMultiple 
+    }
+    Else {
         # Write-infoMessageStopping
         # Write-Host '****   Stopping Server process   *****' -F M -B Black 
         If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
@@ -20,7 +23,9 @@ Function Get-StopServer {
                 $process = Get-process "$process"
                 $processID = $process.Id
                 Stop-Process -id $processID -Force
-                New-ServerLog
+                If ($consolelogging -eq "on") {   
+                    New-ServerLog
+                }
             }
             Else {
                 Stop-Process -Name "$process" -Force 
