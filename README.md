@@ -28,8 +28,7 @@ If Optional name is used, will grab APP ID
 
 Example          
 Install miscreated server ```./ssm install misserver```   
-or  
-Install miscreated server ```./ssm start misserver``` Start command will install and start server  
+
 
 ```./ssm <command> <serverFolder>```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
