@@ -36,7 +36,7 @@ Function New-LaunchScriptBOserverPS {
     #                               Game-Server-Config
     $global:servercfg               = "config.txt"
     # Server Launch Command
-    $global:launchParams            = '@("$executable -batchmode -nographics -dedicated ")'  
+    $global:launchParams            = '@("$executable -batchmode -nographics -dedicated -logfile console.log")'  
     # Download Game-Server-Config
     # Get-Servercfg
     # Edit Server Game-Server-Config
