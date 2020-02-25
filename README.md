@@ -18,7 +18,7 @@ PS Commands
 
 Configure berfore install (optional):
 Find default config for game you wish to install
-Steam-Server-Manager```\config-default\*_default.ps1```
+```\Steam-Server-Manager\config-default\*_default.ps1```
 Change any vars like port or server name.
 
 # Install Server
@@ -28,8 +28,7 @@ If Optional name is used, will grab APP ID
 
 Example          
 Install miscreated server ```./ssm install misserver```   
-or  
-Install miscreated server ```./ssm start misserver``` Start command will install and start server  
+
 
 ```./ssm <command> <serverFolder>```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
