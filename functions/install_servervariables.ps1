@@ -200,6 +200,10 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            mapgroup   "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:mapgroup            = `"$global:mapgroup`""
     }
+    If ($gamedirname) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            gamedirname   "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:gamedirname         = `"$global:gamedirname`""
+    }
     If ($cluster) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            cluster   "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:cluster             = `"$global:cluster`""

@@ -39,7 +39,7 @@ Function New-LaunchScriptDSTserverPS {
     $global:shard = "Master"
     $global:cluster = "Cluster_1"
     # moved to server folder root
-    $global:persistentstorageroot = "Klei"
+    $global:persistentstorageroot = "$serverdir\Klei"
     
     #                       Server Config Directory
     $global:servercfgdir    = "$persistentstorageroot\$gamedirname\$cluster\$shard\"
@@ -56,7 +56,7 @@ Function New-LaunchScriptDSTserverPS {
     # Edit Server Game-Server-Config
     Select-EditSourceCFG
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs")'
+    $global:launchParams    = '@("$executable -console_enabled -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root ${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_log_count 10")'
 
     # BOTH CAVES AND MASTER
     #$global:launchParams = '@("$executable -console -bind_ip ${ip} -port ${port} -players ${maxplayers} -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard ${shard} -backup_logs ; ; $executable -console -persistent_storage_root $serverdir\${persistentstorageroot} -conf_dir ${gamedirname} -cluster ${cluster} -shard cave -backup_logs")'
