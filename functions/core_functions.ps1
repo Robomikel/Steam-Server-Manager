@@ -13,7 +13,7 @@ Function Get-CreatedVaribles {
 }
 Function Get-ClearVariables {
     Write-Host "****   Clearing Variables   *****" -F Y -B Black
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable","password"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -28,7 +28,7 @@ Function Get-TestInterger {
     }
 }
 Function Get-TestString {
-    If ( $global:serverfiles -notmatch "[a-z,A-Z]") { 
+    If ( $serverfiles -notmatch "[a-z,A-Z]") { 
         Write-Host "$DIAMOND $DIAMOND Input Alpha Characters only! $DIAMOND $DIAMOND" -F R -B Black
         pause
         Exit
@@ -106,6 +106,8 @@ Function New-ServerLog {
     If (($AppID -eq 748090) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[1-9]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 299310) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 1110390) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Server_$HOSTNAME.log" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 1222650) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[o]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
+    If (($AppID -eq 565060) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     If (($AppID -eq 343050) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\server_*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -ea SilentlyContinue }
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
@@ -117,6 +119,7 @@ Function Remove-SteamerLogs {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
+
 Function New-ServerBackupLog {
     If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
@@ -129,8 +132,6 @@ Function Get-Appid {
     $results = "`"$results`""
     $results = $results.Split(",")[3]
     $global:AppID = "$results"
-    Write-Host "App ID: $AppID" -F Y
-
     If (($null -eq $AppID) -or ("" -eq $AppID)) {
         Write-Host 'Input Steam Server App ID: ' -F C -N 
         $global:AppID = Read-host
@@ -138,9 +139,11 @@ Function Get-Appid {
         $global:Branch = Read-host
         Get-TestInterger
     }
-
+    Else { 
+        Write-Host "        App ID: $AppID" -F Y
+    }
     If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
-        Write-Host "****   Requires Steam Login    *****" -F Cyan
+        Write-Host "****   Requires Steam Login    *****" -F Y
     }
 }
 
