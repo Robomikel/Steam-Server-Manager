@@ -33,13 +33,13 @@ Function New-LaunchScriptArkPS {
         #                       Game Process
         $global:process         = "ShooterGameServer"
         #                       Log Directory
-        $global:logdirectory    = "$serverdir"
+        $global:logdirectory    = "$serverdir\ShooterGame\Saved\Logs"
         #                       Game-Server-Config Directory
         $global:gamedirname     = "ARKSurvivalEvolved"
         #                       Game-Server-Config
         $global:servercfg       = "GameUserSettings.ini"
         #                       Server Launch Command
-        $global:launchParams    = '@("$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods")'
+        $global:launchParams    = '@("$executable ${defaultmap}?AltSaveDirectoryName=${defaultmap}?listen?MultiHome=${ip}?MaxPlayers=${maxplayers}?QueryPort=${queryport}?RCONEnabled=True?RCONPort=${rconport}?ServerAdminPassword=${rconpassword}?Port=${port} -automanagedmods -servergamelog")'
         # Download Game-Server-Config
         Get-Servercfg
         # Edit Server Game-Server-Config

@@ -36,10 +36,28 @@ Function New-TryagainNew {
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
         Select-Steamer $command $serverfiles
+        exit
     }
     Else {
         Write-Host 'Entered N'
         Set-Location $currentdir
+        Exit
+    }
+}
+Function New-TryagainSteam {
+    $title = ' Install Successful?'
+    $question = "Was the Install Successful?"
+    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+    If ($decision -eq 0) {
+        Write-Host 'Entered Y'
+        Set-Location $currentdir
+    }
+    Else {
+        Write-Host 'Entered N'
+        Select-Steamer $command $serverfiles
         Exit
     }
 }
