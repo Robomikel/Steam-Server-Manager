@@ -37,7 +37,7 @@ $global:sevenzipdirectory = "$currentdir\$sevenzipversion"
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 $global:steamoutput = "steamcmd.zip"
-$global:steamdirectory = "$currentdir\SteamCMD\"
+$global:steamdirectory = "$currentdir\SteamCMD"
 
 # Steamer url
 $global:steamerurl="https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
