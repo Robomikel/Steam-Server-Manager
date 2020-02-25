@@ -15,13 +15,22 @@ Function Get-StopServer {
             Write-infoMessageNotRunning 
             # Write-Host "----   NOT RUNNING   ----" -F R -B Black
         }
-        Else { Stop-Process -Name "$process" -Force 
-        Write-infoMessageStopping
-        If ($consolelogging -eq "on") { 
-            New-ServerLog
+        Else { 
+            If ($appid -eq "996560") {
+                $process = Get-process "$process"
+                $processID = $process.Id
+                Stop-Process -id $processID -Force
+                New-ServerLog
+            }
+            Else {
+                Stop-Process -Name "$process" -Force 
+                Write-infoMessageStopping
+                If ($consolelogging -eq "on") { 
+                    New-ServerLog
+                }
+            }
+            Get-CheckForError
         }
-    }
-        Get-CheckForError
     }
 }
 Function Get-StopServerInstall {
