@@ -23,7 +23,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     #                       System Directory
     $global:systemdir       = "$serverdir"
     #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\Scripts\Dedicated\$global:GAMEMODE"
+    $global:servercfgdir    = "$serverdir\Scripts\Dedicated\$GAMEMODE"
     #                       Server Executable
     $global:executable      = "DedicatedServer"
     #                       Server Executable Directory

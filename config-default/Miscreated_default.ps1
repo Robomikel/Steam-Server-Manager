@@ -31,8 +31,8 @@ Function New-LaunchScriptMiscreatedPS {
         #                       Gamedig Query
         $global:querytype       = "protocol-valve"
         #                       Gamedig Query Port
-        $global:queryport       = $global:port + 2
-        $global:RCONPORT        = $global:port + 4
+        $global:queryport       = $port + 2
+        $global:RCONPORT        = $port + 4
         #                       Game Process
         $global:process         = "MiscreatedServer"
         #                       Log Directory
