@@ -39,7 +39,7 @@ Function New-LaunchScriptCaspaServerPS {
     #                       Game Process
     $global:process         = "CapsaServer-Win64-Shipping"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir"
+    $global:logdirectory    = "$serverdir\Capsa\Saved\Logs"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "Capsa"
     #                       Game-Server-Config
