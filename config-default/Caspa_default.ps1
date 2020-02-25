@@ -37,7 +37,7 @@ Function New-LaunchScriptCaspaServerPS {
     #                       Gamedig Query
     $global:querytype       = "protocol-valve"
     #                       Game Process
-    $global:process         = "CapsaServer"
+    $global:process         = "CapsaServer-Win64-Shipping"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
     #                       Game-Server-Config Directory
