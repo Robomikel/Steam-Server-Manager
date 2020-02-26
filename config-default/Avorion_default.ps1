@@ -38,7 +38,7 @@ Function  New-LaunchScriptavserverPS {
         #                               Server Config Directory
         $global:servercfgdir            = "$env:APPDATA\$saves"
         #                               Log Directory
-        $global:logdirectory            = "$env:APPDATA\$global:saves\galaxies\avorion_galaxy"
+        $global:logdirectory            = "$env:APPDATA\$saves\galaxies\avorion_galaxy"
         #                               Server Launch Command
         $global:launchParams            = '@("$executable --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
 }
