@@ -48,11 +48,11 @@ Function New-LaunchScriptSEserverPS {
   ################### WorkShop Install change below #####################    
   # Advanced Steam WorkShop Mods COnfiguration
   # Mod Directory
-  $global:moddir = "$serverfiles\Content\Mods"
+  $global:moddir = "Content\Mods"
   # steam appID for SE regular game (workshop content tied to this appID)
   $global:reg_appID = '244850'
   # list of mods to download and copy to server mod folder
-  $global:mods = "@('899070352', '877084878')"
+  $global:wsmods = "@('899070352', '877084878')"
 
   ###################### Do not change below #############################
   #                       System Directory

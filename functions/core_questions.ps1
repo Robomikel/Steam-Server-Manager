@@ -61,6 +61,23 @@ Function New-TryagainSteam {
         Exit
     }
 }
+Function New-TryagainSteamLogin {
+    $title = ' Login Successful?'
+    $question = "Was the Login Successful?"
+    $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+    $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+    If ($decision -eq 0) {
+        Write-Host 'Entered Y'
+        Set-Location $currentdir
+    }
+    Else {
+        Write-Host 'Entered N'
+        Set-Location $currentdir
+        Exit
+    }
+}
 Function Set-SteamInfoAppID {
     $title = 'Launch Script create'
     $question = 'Create Launch Script?'
