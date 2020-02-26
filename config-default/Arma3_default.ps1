@@ -29,7 +29,7 @@ Function New-LaunchScriptArma3serverPS {
     ##############################/\##############################
     #               Advanced Steam WorkShop Mods COnfiguration
     #                       WorkShop Mod Directory
-    $global:moddir        = "$serverfiles\Mods"
+    $global:moddir        = "$serverdir\Mods"
     #                       steam appID for SE regular game (workshop content tied to this appID)
     $global:reg_appID       = '107410'
     #                       list of mods to download and copy to server mod folder
