@@ -43,13 +43,13 @@ Function Set-SteamerSetting {
     #                               ssmlogging count 
     $global:ssmlogcount             = "10"
     #                               Version  0 prompt min, 1 prompt max, 2 no prompt
-    $global:Version                 = "1"
+    #$global:Version                 = "1"
     #                               Server List Directory
-    $global:serverlistdir                = "$currentdir\data"
+    $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory
-    $global:backupdir                = "$currentdir\backups"
+    $global:backupdir               = "$currentdir\backups"
     #                               ssm log Directory
-    $global:ssmlogdir                = "$currentdir\log\ssm"
+    $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
     $global:logdir                  = "$currentdir\log"
     
