@@ -32,8 +32,8 @@ Function Get-MCjavaBinaries {
     Add-Content $serverfiles\version.txt $mcvWebResponse -Force
     Set-Location $serverdir
     Write-Host '****   Starting server to create and edit eula   ****' -F M -B Black
-    Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui"
-    Start-Sleep 3
+    Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
+    Start-Sleep 7
     ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
     Set-Location $currentdir
     # Add-Content $serverfiles\eula.txt 'eula=true' -Force
