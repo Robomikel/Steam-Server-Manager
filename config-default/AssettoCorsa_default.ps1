@@ -12,13 +12,20 @@ Function New-LaunchScriptacserverPS {
     
     
     ###################### Do not change below #####################
+    #                           System Directory
     $global:systemdir           = "$serverdir"
+    #                           Server Executable
     $global:executable          = "acServer.bat"
+    #                           Server Executable Directory
     $global:executabledir       = "Assetto Corsa\Server"
+    #                           Gamedig Query
     $global:querytype           = "protocol-valve"
+    #                           Game Process
     $global:process             = "acServer"
-    $global:servercfgdir        = ""
+    #                           Log Directory
     $global:logdirectory        = "$serverdir"
-
+    #                           Server Config Directory
+    $global:servercfgdir        = ""
+    #                           Server Launch Command
     $global:launchParams        = '@("$executable")'
 }

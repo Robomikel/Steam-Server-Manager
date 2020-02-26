@@ -55,28 +55,31 @@ Function New-LaunchScriptSEserverPS {
   $global:mods = "@('899070352', '877084878')"
 
   ###################### Do not change below #############################
-  $global:systemdir = ""
-  $global:executabledir = "$serverdir\DedicatedServer64"
-  $global:executable = "SpaceEngineersDedicated"
-  $global:querytype = "protocol-valve"
-  $global:saves = "SpaceEngineersDedicated"
-  $global:process = "SpaceEngineersDedicated"
-  $global:servercfgdir = "$env:APPDATA\$saves"
-  $global:logdirectory = "$env:APPDATA\$saves"
-  
-  #Game-server-configs \/
-  $global:gamedirname = ""
-  $global:servercfg = ""
-  # Get-Servercfg
-  # Select-RenameSource
-  # game config
-  # Select-EditSourceCFG
+  #                       System Directory
+  $global:systemdir       = "$serverdir"
+  #                       Server Executable
+  $global:executable      = "SpaceEngineersDedicated"
+  #                       Server Executable Directory
+  $global:executabledir   = "$serverdir\DedicatedServer64"
+  #                       Appdata\Roaming Directory
+  $global:saves           = "SpaceEngineersDedicated"
+  #                       Gamedig Query
+  $global:querytype       = "protocol-valve"
+  #                       Game Process
+  $global:process         = "SpaceEngineersDedicated"
+  #                       Log Directory
+  $global:logdirectory    = "$env:APPDATA\$saves"
+  #                       Server Config Directory
+  $global:servercfgdir    = "$env:APPDATA\$saves"
+  #                       Server Launch Command
+  $global:launchParams    = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
+
+  # Install Adjustment
   New-servercfgse
-   Write-Host "Creating Save Dir" -F M
-   New-Item "$servercfgdir\Saves\$WORLDNAME\" -ItemType directory -Force -ErrorAction SilentlyContinue
-   Write-Host "Copying World template to Save Dir" -F M
+  Write-Host "Creating Save Dir" -F M
+  New-Item "$servercfgdir\Saves\$WORLDNAME\" -ItemType directory -Force -ErrorAction SilentlyContinue
+  Write-Host "Copying World template to Save Dir" -F M
   copy-item "$serverfiles\Content\CustomWorlds\$CustomWorlds\*" "$servercfgdir\Saves\$WORLDNAME\" -ErrorAction SilentlyContinue
-  $global:launchParams = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
 }   
 Function New-servercfgse {
   Write-Host "Creating Custom Config" -F M

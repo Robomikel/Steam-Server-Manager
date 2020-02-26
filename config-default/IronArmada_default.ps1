@@ -5,22 +5,21 @@
 
     ###########################/\#################################
     
-    
-    
-    
-    
-    
     ###################### Do not change below #####################
-    $global:systemdir = ""
-    $global:servercfgdir = "$serverdir\iron\default-cfg-server\servercfg.toml"
-    $global:executabledir = "$serverdir"
-    $global:executable = "ironarmadaserver"
-    $global:querytype = ""
-    $global:saves = ""
-    $global:process = "ironarmadaserver"
-    $global:logdirectory = "$serverdir"
-    $global:gamedirname = ""
-    $global:servercfg = ""
-    # Server Launch Command
-    $global:launchParams = '@("$executable -c --console")'
+    #                       System Directory
+    $global:systemdir       = "$serverdir"
+    #                       Server Executable
+    $global:executable      = "ironarmadaserver"
+    #                       Server Executable Directory
+    $global:executabledir   = "$serverdir"
+    #                       Gamedig Query
+    $global:querytype       = "protocol-valve"
+    #                       Game Process
+    $global:process         = "ironarmadaserver"
+    #                       Log Directory
+    $global:logdirectory    = "$serverdir"
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\iron\default-cfg-server\servercfg.toml"
+    #                       Server Launch Command
+    $global:launchParams    = '@("$executable -c --console")'
 }
