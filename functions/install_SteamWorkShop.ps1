@@ -6,11 +6,6 @@ Function Install-SteamWS {
     $StopOnFail = $false
     # path to your SteamCMD SE Workshop content folder
     $contentFolder = "$currentdir\steamcmd\steamapps\workshop\content\$reg_appID\"
-<<<<<<< HEAD
-=======
-    #path to your SE dedicated server mods folder
-    $dediModsFolder = "$serverdir\$moddir\"
->>>>>>> bd0f50894aeddebd1b2bb8ef1d5e4ab040ac6a24
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
     # since it's running multiple sessions.
