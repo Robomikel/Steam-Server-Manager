@@ -111,6 +111,7 @@ Function New-ServerLog {
     If (($AppID -eq 343050) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\server_*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 232130) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Launch.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 996560) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If ($pastebinconsolelog -eq "on") {Send-Paste}
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
     # If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }
@@ -121,7 +122,13 @@ Function Remove-SteamerLogs {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
+Function Send-Paste {
+    If (Test-Path $logdir\*.log){
+        $paste = Get-Childitem $logdir -Recurse | Sort-Object | Select-Object -First 1 | Get-Content -Raw
+        Out-Pastebin  -InputObject $paste -PasteTitle "$hostname" -ExpiresIn 10M -Visibility Unlisted
 
+    }
+}
 Function New-ServerBackupLog {
     If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
