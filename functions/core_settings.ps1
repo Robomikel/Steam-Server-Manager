@@ -52,9 +52,12 @@ Function Set-SteamerSetting {
     $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
     $global:logdir                  = "$currentdir\log"
-    
-}
+    #                               Test Connection to Steam Master
+    $global:steammastercheck        = "on"
+    #                               Server Console log to Pastebin
+    $global:pastebinconsolelog      = "off"
 
+}
 
 
 
