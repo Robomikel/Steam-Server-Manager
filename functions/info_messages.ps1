@@ -33,11 +33,13 @@ Function Get-Finished {
 }
 
 Function Get-varsmessage {
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Write-Host "$DIAMOND $DIAMOND Missing Vars ! $DIAMOND $DIAMOND" -F R -B Black
-    Write-Host "Try install command again or check vars in Variables-$serverfiles.ps1" -F Y -B Black
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Exit
+    # Write-Host "----------------------------------------------------------------------------
+    # $DIAMOND $DIAMOND Missing Vars ! $DIAMOND $DIAMOND
+    # Try install command again or check vars in Variables-$serverfiles.ps1
+    # ----------------------------------------------------------------------------" -F Y -B Black
+    Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] $DIAMOND $DIAMOND Missing Vars ! $DIAMOND $DIAMOND
+    Try install command again or check vars in Variables-$serverfiles.ps1"
+    Break
 }
 
 Function Get-adminMessage {

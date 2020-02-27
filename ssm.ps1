@@ -13,6 +13,8 @@ $global:serverdir = "$currentdir\$serverfiles"
 ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
+$global:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
+$global:logDate = Get-Date -Format MM-dd-yyyy
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 

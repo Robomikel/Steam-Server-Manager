@@ -8,16 +8,21 @@
 #
 #
 Function Get-CheckForVars {
-    Write-Host "****   Checking for Vars   ****" -F Y -B Black
-    If ($command -eq "mcrcon") {
-        $missingvars = $rconport, $rconpassword
+    If ($command) {
+        # Write-Host "****   Checking for Vars   ****" -F Y -B Black
+        If ($command -eq "mcrcon") {
+            $missingvars = $rconport, $rconpassword
+        }
     }
     Else {
         $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
     }
     Foreach ($missingvars in $missingvars) {
-        If ( "" -eq $missingvars) {
+        If ( !($missingvars)) {
             Get-varsmessage
         }
+    }
+    ElseIf (!($command)) {
+        Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] fn_Get-CheckForVars Missing $command"
     }
 }

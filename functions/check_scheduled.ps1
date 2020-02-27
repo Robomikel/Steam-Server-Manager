@@ -26,24 +26,17 @@ Function Get-ChecktaskDisable {
         If (!$?) {
             Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
         }
-        Else {
-        
-        }
     }
 }
 Function Get-ChecktaskEnable {
     if ($Checktask -eq "on") {
         Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
-    
         If ($?) {
             Write-Host '****   Enabling scheduled task   ****' -F M -B Black
             Enable-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         }
         If (!$?) {
             Write-Host "****   Scheduled Task does not exist   ****" -F Y -B Black
-        }
-        Else {
-
         }
     }
 }

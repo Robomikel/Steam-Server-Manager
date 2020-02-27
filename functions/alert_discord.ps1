@@ -7,23 +7,38 @@
 #
 #
 Function New-DiscordAlert { 
-    Get-DiscordSetting
-    Find-DiscordWebhook
-    If ($alert -eq "Backup") {
-        Get-AlertBackup
+    If ($DiscordBackupAlert) {
+        If ($DiscordBackupAlert -eq "on") { 
+            # Get-DiscordSetting
+            # Find-DiscordWebhook
+            If (($discordwebhook)) {
+                If ($alert -eq "Backup") {
+                    Get-AlertBackup
+                }
+                ElseIf ($alert -eq "update") {
+                    Get-AlertUpdate
+                }
+                ElseIf ($alert -eq "restart") {
+                    Get-AlertRestart
+                }
+                Else {
+                    Get-AlertTest
+                }
+                Send-DiscordAlert                              
+                # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
+            }
+            ElseIf (!($discordwebhook)) {
+                # Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
+                Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate]$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND "
+                # Write-Warning 'Missing Discord Webhook'
+            }
+        }
+        ElseIf ($DiscordBackupAlert -eq "off") {
+            #  Write-Host "Discord alerts not enabled" -F Y
+            Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] Discord alerts not enabled "
+        }
     }
-    ElseIf ($alert -eq "update") {
-        Get-AlertUpdate
-    }
-    ElseIf ($alert -eq "restart") {
-        Get-AlertRestart
-    }
-    Else{
-        Get-AlertTest
-    }
-    Send-DiscordAlert                              
-    # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
-}   
+}
 Function Send-DiscordAlert {
     $global:InfoMessage = "discord"
     Get-Infomessage
@@ -40,16 +55,19 @@ Function Send-DiscordAlert {
         title       = $title       
         description = $description  
         color       = $color
-        thumbnail = $thumbnailObject
+        thumbnail   = $thumbnailObject
     }                              
     $embedArray.Add($embedObject) | Out-Null
     $payload = [PSCustomObject]@{
         embeds = $embedArray
     }
-    Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
+    Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json' 3>&1 2>&1 >>  $ssmlogdir\ssm-$logDate.log
+    If (!$?) {
+        Write-Warning 'Discord Alert Failed'
+    }
 }
 Function Find-DiscordWebhook {
-    If ( "" -eq $discordwebhook) {
+    If ( !($discordwebhook)) {
         Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
         Write-Host "****   Add Discord  WEBHOOK to $serverdir\Variables-$serverfiles.ps1   ****" -F Y -B Black  
         Get-ClearVariables
