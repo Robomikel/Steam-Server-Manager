@@ -28,6 +28,8 @@ Function Get-ServerBuildCheck {
         $localbuild = get-content $serverdir\steamapps\appmanIfest_$appid.acf | select-string $search
         $localbuild = $localbuild -replace '\s', ''
         #$localbuild
+        Write-Host "---> LocalBuild: $localbuild <---" -F Gray
+        Write-Host "---> RemoteBuild: $remotebuild <---" -F Gray
         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
             Write-Host "****   Avaiable Updates Server   ****" -F Y -B Black
             If ($updateonstart -eq "off") { 
