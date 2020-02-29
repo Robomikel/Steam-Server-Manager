@@ -7,21 +7,29 @@
 #
 #
 Function Get-ValidateServer {
-    Set-Location $steamdirectory >$null 2>&1
-    Write-Warning 'Validate May Overwrite some config files'
-    Write-Host 'Press any key to continue...';
-    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-    $infomessage -eq "validating"
-    Get-Infomessage
-    If ($anon -eq "yes") {
-        $steamcmdparams = @( "+@NoPromptForPassword 1","+login", "anonymous","+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
-        & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
-        compare-SteamExit
+    If ($steamexecutable) {
+        Set-Location $steamdirectory
+        Write-Warning 'Validate May Overwrite some config files'
+        Write-Host 'Press any key to continue...';
+        $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+        $infomessage -eq "validating"
+        Get-Infomessage
+        If ($anon -eq "yes") {
+            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
+            & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+            compare-SteamExit
+        }
+        Else {
+            Write-Host "Enter Username for Steam install" -F Cyan -B Black
+            $username = Read-host
+            Write-Host "Enter steam password" -F Cyan -B Black
+            $securedpassword = Read-Host -AsSecureString
+            $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
+            $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
+            & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+            compare-SteamExit
+        }
+        Set-Location $currentdir
     }
-    Else {
-        $steamcmdparams = @( "+login", "$username","$password","+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
-        & $steamexecutable $steamcmdparams| Tee-Object -Variable 'appinstalllog'
-        compare-SteamExit
-    }
-    Set-Location $currentdir
 }
