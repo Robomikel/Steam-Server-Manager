@@ -17,6 +17,7 @@ Function Select-Steamer {
         [Parameter(Mandatory = $false, Position = 1)]
         #[ValidatePattern('^[a-z,A-Z]$')]
         $serverfiles)
+        Add-Content $ssmlog "[$loggingdate] command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
         Write-Host 'Input Server Folder Name: ' -F C -N
@@ -25,11 +26,12 @@ Function Select-Steamer {
         Get-TestString
         Get-Appid
         New-ServerFolder
-        Get-CheckNonSteam
+        
         Get-Steam
         Set-SteamInfo
         Read-AppID
         New-CreateVariables
+        Get-ClearVariables
         Get-Finished
     }
     elseif ($command -eq "install") {
@@ -37,11 +39,12 @@ Function Select-Steamer {
         Get-TestString
         Get-Appid
         New-ServerFolder
-        Get-CheckNonSteam
+        
         Get-Steam
         Set-SteamInfo
         Read-AppID
         New-CreateVariables
+        Get-ClearVariables
         Get-Finished
     }
     elseif (($command -eq "update") -and ($null -eq $serverfiles)) {   
@@ -51,20 +54,22 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-CheckNonSteam
+        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif ($command -eq "update") {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-CheckNonSteam
+        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif (($command -eq "ForceUpdate") -and ($null -eq $serverfiles)) {   
@@ -78,6 +83,7 @@ Function Select-Steamer {
         Get-ChecktaskDisable
         Get-UpdateServer 
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif ($command -eq "ForceUpdate") {
@@ -88,6 +94,7 @@ Function Select-Steamer {
         Get-ChecktaskDisable
         Get-UpdateServer
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif (($command -eq "validate") -and ($null -eq $serverfiles)) {
@@ -103,6 +110,7 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif ($command -eq "validate") {
@@ -115,6 +123,7 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif (($command -eq "start") -and ($null -eq $serverfiles)) {
@@ -213,6 +222,7 @@ Function Select-Steamer {
         New-BackupFolder
         New-BackupServer
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished
     }
     elseif ($command -eq "backup") {
@@ -224,6 +234,7 @@ Function Select-Steamer {
         New-BackupFolder  
         New-BackupServer
         Get-ChecktaskEnable
+        Get-ClearVariables
         Get-Finished  
     }
     elseif (($command -eq "monitor-job") -and ($null -eq $serverfiles)) {
@@ -343,7 +354,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-NodeJSCheck
+        # Get-NodeJSCheck
         Get-details
         Get-DriveSpace
         Get-ClearVariables

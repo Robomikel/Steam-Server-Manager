@@ -10,12 +10,15 @@ Function Get-MCbrversion {
     $localbuild = Get-Content $serverfiles\version.txt
     Get-MCBRWebrequest
     $remotebuild = $mcbrWebResponse.href
+    Write-Information "RemoteBuild: $remotebuild"
+    Write-Information "LocalBuild: $localbuild"
     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-        Write-Host "****   Avaiable Updates Server   ****" -F Green -B Black
-        Write-Host "****   Try Install command to update files  ****" -F Y -B Black
+        $global:infomessage = "availableupdates"
+        Get-Infomessage
     }
     Else {
-        Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
+        $global:infomessage = "noupdates"
+        Get-Infomessage
     }
 }
 
@@ -23,11 +26,14 @@ Function Get-MCversion {
     $localbuild = Get-Content $serverfiles\version.txt
     Get-MCWebrequest
     $remotebuild = $mcvWebResponse
+    Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+    Write-Information "LocalBuild: $localbuild" -InformationAction Continue
     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-        Write-Host "****   Avaiable Updates Server   ****" -F Green -B Black
-        Write-Host "****   Try Install command to update files  ****" -F Y -B Black
+        $global:infomessage = "availableupdates"
+        Get-Infomessage
     }
     Else {
-        Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
+        $global:infomessage = "noupdates"
+        Get-Infomessage
     }
 }

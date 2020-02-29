@@ -7,51 +7,210 @@
 #
 #
 Function Get-Infomessage {
-    If ($InfoMessage -eq "discord") {
-        Write-infoMessageDiscord
+    $global:info = "[info]" | Receive-Information
+    If ($infomessage) {
+        If ($infomessage -eq "discord") {
+            $global:message = ' Sending Discord Alert' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "stop") {
+            $global:message = ' Stopping Server process' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "stopped") {
+            $global:message = ' Server process Stopped' | Receive-Message
+        }       
+        ElseIf ($infomessage -eq "notrunning") {
+            $global:message = ' Server not running' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "running") {
+            $global:message = ' Server Running' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "Starting") {
+            $global:message = ' Starting Server' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "stopping") {
+            $global:message = ' Stopping Server' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "done") {
+            $global:message = 'Server Install is done' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "backupstart") {
+            $global:message = ' Server Backup Started ' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "backupdone") {
+            $global:message = ' Server Backup is Done ' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "savecheck") {
+            $global:message = ' Checking Save location(appData)' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "appdatabackupstart") {
+            $global:message = ' Server App Data Backup Started' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "appdatabackupdone") {
+            $global:message = ' Server App Data Backup is Done' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "purgebackup") {
+            $global:message = ' Purging Backups' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "purgeappdatabackup") {
+            $global:message = ' Purging AppData Backups' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "finished") {
+            $global:message = " Server $command is done ./ssm start $serverfiles " | Receive-Message
+        }
+        ElseIf ($infomessage -eq "Downloading") {
+            $global:message = " Downloading $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "Downloaded") {
+            $global:message = " Downloaded $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "Extracting") {
+            $global:message = " Extracting $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "Extracted") {
+            $global:message = " Extracted $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "copying-installing") {
+            $global:message = " copying-installing $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "copied-installed") {
+            $global:message = " copied-installed $package" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "getting") {
+            $global:message = ' Getting Server Variables' | Receive-Message
+        }
+        ElseIf ($infomessage -eq "clearing") {
+            $global:message = " Clearing Variables" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "creating") {
+            $global:message = " Creating Variables and adding launch params" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "downloadtime") {
+            $global:message = " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) " | Receive-Message
+        }
+        ElseIf ($infomessage -eq "validating") {
+            $global:message = " Validating Server $serverfiles" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "updating") {
+            $global:message = " updating Server $serverfiles" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "installing") {
+            $global:message = " installing Server $serverfiles" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "availableupdates") {
+            $global:message = " Avaiable Updates on $serverfiles" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "noupdates") {
+            $global:message = " no Updates found on $serverfiles" | Receive-Message
+        }
+        Start-Sleep 0.3
+        # Write-Information "[info]" -InformationAction Continue
+        Write-Information "$message" -InformationAction Continue
+        Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
     }
 }
-Function Write-infoMessageDiscord {
-    Write-Host '****   Sending Discord Alert   ****' -F M -B Black
-}
-Function Write-infoMessageStopping {
-    Write-Host '****   Stopping Server process   *****' -F M -B Black 
-}
-
-Function Write-infoMessageNotRunning {
-    Write-Host "----   Server not running   ----" -F R -B Black
-}
-Function Write-infoMessageRunning {
-    Write-Host "****   Server Running   ****" -F Green -B Black
-}
-Function Get-Finished {
-    Get-ClearVariables
-    Write-Host "*************************************" -F Y
-    Write-Host "***  Server $command is done!  $CHECKMARK ****" -F Y
-    Write-Host "*************************************" -F Y
-    Write-Host "  ./ssm start $serverfiles  "-F Black -B White
-}
-
-Function Get-varsmessage {
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Write-Host "$DIAMOND $DIAMOND Missing Vars ! $DIAMOND $DIAMOND" -F R -B Black
-    Write-Host "Try install command again or check vars in Variables-$serverfiles.ps1" -F Y -B Black
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Exit
-}
-
-Function Get-adminMessage {
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-    Write-Host "                 $DIAMOND $DIAMOND Do Not Run as an Admin account $DIAMOND $DIAMOND" -F R -B Black
-    Write-Host "***  Please Create a Non Admin Account to run script and game server  ******" -F Y -B Black
-    Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-}
-Function Get-CheckForError {
-    If (!$?) {
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
-        Write-Host "      $DIAMOND $DIAMOND Command $command Failed! $DIAMOND $DIAMOND" -F R -B Black
-        Write-Host "***        Try install command again          ****  " -F Y -B Black
-        Write-Host "----------------------------------------------------------------------------" -F Y -B Black
+Function Get-WarnMessage {
+    
+Add-Content $ssmlog "[$loggingdate]getting warning "
+    If ($warnmessage) {
+        
+        If ($warnmessage -eq 'missingwebhook') {
+            $global:message = 'Missing Discord Webhook'
+        }
+        ElseIf ($warnmessage -eq 'AlertFailed') {
+            $global:message = 'Discord Alert Failed'
+        }
+        ElseIf ($warnmessage -eq 'createfolderfailed') {
+            $global:message = 'Creating backup folder Failed'
+        }
+        ElseIf ($warnmessage -eq 'backupfnfailed') {
+            $global:message = 'Fn_New-BackupFolder Failed'
+        }
+        ElseIf ($warnmessage -eq 'backupfailed') {
+            $global:message = "Server Backup Failed: :  $LASTEXITCODE"
+        }
+        ElseIf ($warnmessage -eq 'limitbackupfailed') {
+            $global:message = "Limit-Backups Failed:  $backupdir $maxbackups"
+        }
+        ElseIf ($warnmessage -eq 'missingvars') {
+            $global:message = 'Missing Variables'
+        }
+        ElseIf ($warnmessage -eq 'missingVariables') {
+            $global:message = "Missing $serverdir\Variables-$serverfiles.ps1"
+        }
+        ElseIf ($warnmessage -eq 'chkvarsfailed') {
+            $global:message = 'fn_Get-CheckForVars Failed'
+        }
+        ElseIf ($warnmessage -eq 'fnmcrconfailed') {
+            $global:message = 'fn_Get-MCRconCheck Failed'
+        }
+        ElseIf ($warnmessage -eq 'stoppedfailed') {
+            $global:message = 'Process stopping Failed'
+        }
+        ElseIf ($warnmessage -eq 'invalidnumbers') {
+            $global:message = 'Input Valid AppID  Numbers only'
+        }
+        ElseIf ($warnmessage -eq 'invalidCharacters') {
+            $global:message = 'Input Alpha Characters only'
+        }
+        ElseIf ($warnmessage -eq 'readappidfailed') {
+            $global:message = 'Read-AppID Failed'
+        }
+        ElseIf ($warnmessage -eq 'fnnodejsfailed') {
+            $global:message = 'Fn_Get-NodeJSCheck Failed'
+        }
+        ElseIf ($warnmessage -eq 'fngetfoldersfailed') {
+            $global:message = 'fn_Get-FolderNames Failed'
+        }
+        ElseIf ($warnmessage -eq 'fnssevenzipfailed') {
+            $global:message = 'fn_Get-SevenZipCheck Failed'
+        }
+        ElseIf ($warnmessage -eq 'fngetsteamfailed') {
+            $global:message = 'Fn_Get-Steam Failed'
+        }
+        ElseIf ($warnmessage -eq 'fn_InstallServerFiles') {
+            $global:message = 'Failed: Install-ServerFiles '
+        }
+        ElseIf ($warnmessage -eq 'fn_Set-ConnectMCRcon') {
+            $global:message = "Set-ConnectMCRcon Failed: $serverdir"
+        }
+        ElseIf ($warnmessage -eq 'fn_Get-StopServer') {
+            $global:message = "Failed: Get-StopServer null $process"
+        }
+        ElseIf ($warnmessage -eq 'fn_Get-StopServerintall') {
+            $global:message = "Failed: Get-StopServerIntall null $process"
+        }
+        ElseIf ($warnmessage -eq 'Downloadfailed') {
+            $global:message = "Downloading  $package Failed"
+        }
+        ElseIf ($warnmessage -eq 'ExtractFailed') {
+            $global:message = "Extracting $package Failed"
+        }
+        ElseIf ($warnmessage -eq 'nolaunchscript') {
+            $global:message = 'No Launch Script Found for this server'
+        }
+        ElseIf ($warnmessage -eq 'discordnotenabled') {
+            $global:message = 'Discord alerts not enabled'
+        }
+        Start-Sleep 0.3
+        Write-Warning "$global:message"
+        Add-Content $ssmlog "[$loggingdate] Warning: $warnmessage"
+        Set-Location $currentdir
         Exit
     }
 }
+
+Function Get-adminMessage {
+    Write-warning "Running with an Adminstrator account"
+}
+Function Get-CheckForError {
+    If (!$?) {
+        Write-Warning "$command Failed"
+        Exit
+    }
+}
+
+Function Get-Finished {
+    $global:infomessage = "finished"
+    Get-Infomessage
+}
+

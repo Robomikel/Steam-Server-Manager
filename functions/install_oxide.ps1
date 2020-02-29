@@ -7,24 +7,39 @@
 #
 #
 Function Get-Oxide {
-    $start_time = Get-Date
-    Write-Host '****   Downloading Oxide   ****' -F M -B Black
-    #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $currentdir\oxide.zip
-    If (!$?) { 
-        Write-Host "****   Downloading Oxide Failed !!   ****" -F R -B Black ; ; Exit 
-    } 
-    Write-Host "Download Time: $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
-    Write-Host '****   Extracting Oxide    ****' -F M -B Black
-    Expand-Archive "$currentdir\oxide.zip" "$currentdir\oxide\" -Force
-    If (!$?) { 
-        Write-Host "****   Extracting Oxide Failed !!   ****" -F R -B Black ; ; Exit 
-    }
+    If (($oxiderustlatestlink) -and ($oxideoutput)) {
+        $start_time = Get-Date
+        $global:package = 'Oxide'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        # Write-Host '****   Downloading Oxide   ****' -F M -B Black
+        #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
+        If (!$?) {
+            $global:warnmessage = 'Downloadfailed'
+            Get-WarnMessage 
+            # Write-Host "****   Downloading Oxide Failed !!   ****" -F R -B Black
+            New-TryagainNew
+        } 
+        Write-Host "Download Time: $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "Extracting"
+        Get-Infomessage
+        # Write-Host '****   Extracting Oxide    ****' -F M -B Black
+        Expand-Archive $oxideoutput $oxidedirectory -Force
+        If (!$?) { 
+            $global:warnmessage = 'ExtractFailed'
+            Get-WarnMessage
+            New-TryagainNew
+        }
 
-    Write-Host '****   Copying Oxide *****' -F M -B Black
-    Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
-    If (!$?) { 
-        Write-Host "****   Copying Oxide Failed !!   ****" -F R -B Black ; ; Exit 
+        # Write-Host '****   Copying Oxide *****' -F M -B Black
+        Add-Content $ssmlog "[$loggingdate] Copying Oxide"
+        Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
+        If (!$?) { 
+            # Write-Host "****   Copying Oxide Failed !!   ****" -F R -B Black
+            Add-Content $ssmlog "[$loggingdate] Copying Oxide Failed"
+            New-TryagainNew
+        }
     }
 }

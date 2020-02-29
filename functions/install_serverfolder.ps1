@@ -9,18 +9,22 @@
 Function New-ServerFolder {   
     ##-- Create Folder for Server -- In current folder
     If ((!$serverfiles) -or ($serverfiles -eq " ")) {
-        Write-Host "****   You Enter a null or Empty   ****" -F R -B Black
+        # Write-Host "****   You Enter a null or Empty   ****" -F R -B Black
+        Write-Warning ' You Enter a null or Empty '
         Select-Steamer
     }
     ElseIf (($null -eq $appid ) -or ($appid -eq " ")) {
-        Write-Host "****   You Enter a space or Empty   ****" -F R -B Black
+        # Write-Host "****   You Enter a space or Empty   ****" -F R -B Black
+        Write-Warning ' You Enter a space or Empty  '
         Select-Steamer
     }
     ElseIf (Test-Path "$serverdir" ) {
-        Write-Host '****   Server Folder Already Created!   ****' -F Y -B Black
+        # Write-Host '****   Server Folder Already Created!   ****' -F Y -B Black
+        Add-Content $ssmlog "[$loggingdate] Server Folder Already Created!   "
     }
     Else {
-        Write-Host '****   Creating Server Folder   ****' -F M -B Black 
-        New-Item  . -Name "$serverfiles" -ItemType "directory"
+       #  Write-Host '****   Creating Server Folder   ****' -F M -B Black 
+        Add-Content $ssmlog "[$loggingdate] Creating Server Folder  "
+        New-Item  . -Name "$serverfiles" -ItemType "directory" 3>&1 2>&1 > $ssmlog
     }
 }

@@ -8,42 +8,72 @@
 #
 Function Get-SourceMetaMod {
     Get-SourceMetaModWebrequest
-    $start_time = Get-Date
-    Write-Host '****   Downloading Meta Mod   ****' -F M -B Black 
-    #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
-    #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    Invoke-WebRequest -Uri $metamodurl -OutFile $currentdir\metamod.zip
-    If (!$?) { 
-        Write-Host "****   Downloading Meta Mod Failed !!   ****" -F R -B Black ; ; Exit 
-    } 
-    Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
-    Write-Host '****   Extracting Meta Mod   ****' -F M -B Black
-    Expand-Archive "$currentdir\metamod.zip" "$currentdir\metamod\" -Force
-    If (!$?) { 
-        Write-Host "****   Extracting Meta Mod Failed !!   ****" -F R -B Black ; ; Exit 
-    }
-    Write-Host '****   Copying/installing Meta Mod   ****' -F M -B Black 
-    Copy-Item  $currentdir\metamod\* -Destination $systemdir -Force -Recurse
-    If (!$?) { 
-        Write-Host "****   Copying Meta Mod Failed !!   ****" -F R -B Black ; ; Exit 
-    }
-    $start_time = Get-Date
-    Write-Host '****   Downloading SourceMod   ****' -F M -B Black
-    #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
-    #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    Invoke-WebRequest -Uri $sourcemodurl -OutFile $currentdir\sourcemod.zip
-    If (!$?) { 
-        Write-Host "****   Downloading SourceMod Failed !!   ****" -F R -B Black ; ; Exit 
-    } 
-    Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
-    Write-Host '****   Extracting SourceMod   ****' -F M -B Black 
-    Expand-Archive "$currentdir\sourcemod.zip" "$currentdir\sourcemod\" -Force
-    If (!$?) { 
-        Write-Host "****   Extracting SourceMod Failed !!   ****" -F R -B Black ; ; Exit 
-    }
-    Write-Host '****   Copying/installing SourceMod   ****' -F M -B Black
-    Copy-Item  $currentdir\sourcemod\* -Destination $systemdir -Force -Recurse
-    If (!$?) { 
-        Write-Host "****   Copying SourceMod Failed !!   ****" -F R -B Black ; ; Exit 
+    If (($metamodurl) -and ($metamodoutput) -and ($sourcemodoutput) -and ($sourcemoddirectory)) {
+        
+        $start_time = Get-Date
+        $global:package = 'MetaMod'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        Invoke-WebRequest -Uri $metamodurl -OutFile $metamodoutput
+        If (!$?) { 
+            $global:warnmessage = 'Downloadfailed'
+            Get-WarnMessage
+        }
+        ElseIf ($?) {
+            $global:infomessage = "Downloaded"
+            Get-Infomessage
+        } 
+        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "Extracting"
+        Get-Infomessage
+        Expand-Archive $metamodoutput $metamoddirectory -Force >$null 2>&1
+        If (!$?) { 
+            $global:warnmessage = 'ExtractFailed'
+            Get-WarnMessage
+            New-TryagainNew
+        }
+        # Write-Host '****   Copying/installing Meta Mod   ****' -F M -B Black
+        Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod" 
+        Copy-Item  $metamoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        If (!$?) { 
+            #  Write-Host "****   Copying Meta Mod Failed !!   ****" -F R -B Black
+            Add-Content $ssmlog "[$loggingdate] Copying Meta Mod Failed"
+            New-TryagainNew 
+        }
+        $start_time = Get-Date
+        $global:package = 'SourceMod'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        # Write-Host '****   Downloading SourceMod   ****' -F M -B Black
+        #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput
+        If (!$?) { 
+            $global:warnmessage = 'Downloadfailed'
+            Get-WarnMessage
+            # Write-Host "****   Downloading SourceMod Failed !!   ****" -F R -B Black
+            New-TryagainNew 
+        } 
+        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "Extracting"
+        Get-Infomessage
+        # Write-Host '****   Extracting SourceMod   ****' -F M -B Black 
+        Expand-Archive $sourcemodoutput $sourcemoddirectory -Force >$null 2>&1
+        If (!$?) {
+            $global:warnmessage = 'ExtractFailed'
+            Get-WarnMessage 
+            # Write-Host "****   Extracting SourceMod Failed !!   ****" -F R -B Black
+            New-TryagainNew 
+        }
+        # Write-Host '****   Copying/installing SourceMod   ****' -F M -B Black
+        Add-Content $ssmlog "[$loggingdate] Copying/installing SourceMod"
+        Copy-Item  $sourcemoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        If (!$?) { 
+            # Write-Host "****   Copying SourceMod Failed !!   ****" -F R -B Black
+            Add-Content $ssmlog "[$loggingdate] Copying SourceMod Faileds "
+            New-TryagainNew 
+        }
     }
 }

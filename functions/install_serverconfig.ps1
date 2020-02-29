@@ -9,32 +9,35 @@
 Function Get-Servercfg {
     # Write-Host "****   Retrieve Default Config   ****" -F Y -B Black
     #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$serverdir\csgo\cfg\server.cfg")
-    If (("" -eq $servercfgdir) -or ("" -eq $servercfg)) {
-        Exit
-    }
-    ElseIf ($null -eq $config2) {
-        $servercfg = "$servercfg"
-    }
-    ElseIf ($null -eq $config3) {
-        $servercfg = "$servercfg", "$config2"
-    }
-    ElseIf ($null -eq $config4) {
-        $servercfg = "$servercfg", "$config2", "$config3"
-    }
-    ElseIf ($null -eq $config5) {
-        $servercfg = "$servercfg", "$config2", "$config3", "$config4"
-    }
-    Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
-    Foreach ($servercfg in $servercfg) {
-        Write-Host "****   Retrieve server config GSM   ****" -F M -B Black
-        $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
-        If (!$?) { 
-            Write-Host "****   Array Failed !! Did NOT Retrieve server config   ****" -F R -B Black ; ; Exit 
+    If (($servercfgdir) -or ($servercfg)) {
+        If ($null -eq $config2) {
+            $servercfg = "$servercfg"
         }
-        If ($?) { 
-            Write-Host "****    Retrieved server config   ****" -F M -B Black 
+        ElseIf ($null -eq $config3) {
+            $servercfg = "$servercfg", "$config2"
         }
-        New-Item $servercfgdir\$servercfg -Force
-        Add-Content $servercfgdir\$servercfg $WebResponse
+        ElseIf ($null -eq $config4) {
+            $servercfg = "$servercfg", "$config2", "$config3"
+        }
+        ElseIf ($null -eq $config5) {
+            $servercfg = "$servercfg", "$config2", "$config3", "$config4"
+        }
+        Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
+        Foreach ($servercfg in $servercfg) {
+            # Write-Host "****   Retrieve server config GSM   ****" -F M -B Black
+            Add-Content $ssmlog "[$loggingdate] Retrieve server config GSM "
+            $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
+            If (!$?) { 
+                # Write-Host "****   Array Failed !! Did NOT Retrieve server config   ****" -F R -B Black
+                Add-Content $ssmlog "[$loggingdate] Array Failed !! Did NOT Retrieve server config"
+                Exit 
+            }
+            If ($?) { 
+                # Write-Host "****    Retrieved server config   ****" -F M -B Black
+                Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
+            }
+            New-Item $servercfgdir\$servercfg -Force
+            Add-Content $servercfgdir\$servercfg $WebResponse
+        }
     }
 }

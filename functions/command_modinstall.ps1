@@ -18,5 +18,7 @@ Function Get-Modinstall {
     }
     Else {
         Write-Host "***** No Mods Available *****" -F R -B Black
+        
+        Add-Content $ssmlog "[$loggingdate] No Mods Available"
     }
 }

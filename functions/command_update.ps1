@@ -7,27 +7,20 @@
 #
 #
 Function Get-UpdateServer {
-    Set-Location $steamdirectory >$null 2>&1
-    #Get-Steamtxt
-    Write-Host '****   Updating Server   ****' -F M -B Black
-    #.\steamcmd +runscript Updates-$serverfiles.txt
-    If ($ANON -eq "yes") {
-        .\steamCMD +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir $serverdir +app_update $appid $branch +Exit
-    }
-    Else {
-        .\steamCMD +@ShutdownOnFailedCommand 1 +login $username +force_install_dir $serverdir +app_update $appid $branch +Exit
-    }
-    
-    If (($?) -or ($LASTEXITCODE -eq 7)) {
-        Write-Host "****   Downloading Update server succeeded   ****" -F Y
-        If ($DiscordUpdateAlert -eq "on") {
-            $global:alert = "update"
-            New-DiscordAlert 
+    If ($steamdirectory) {
+        Set-Location $steamdirectory
+        $infomessage = "updating"
+        Get-Infomessage
+        If ($ANON -eq "yes") {
+            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
+            & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+            compare-SteamExit
         }
+        Else {
+            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
+            & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+            compare-SteamExit
+        }
+        Set-Location $currentdir
     }
-    ElseIf (!$?) {
-        Write-Host "****   Downloading  Update server Failed   ****" -F R
-        New-TryagainNew 
-    }
-    Set-Location $currentdir
 }

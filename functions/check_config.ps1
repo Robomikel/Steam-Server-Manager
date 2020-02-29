@@ -8,16 +8,24 @@
 #
 #
 Function Get-CheckForVars {
-    Write-Host "****   Checking for Vars   ****" -F Y -B Black
-    If ($command -eq "mcrcon") {
-        $missingvars = $rconport, $rconpassword
-    }
-    Else {
-        $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
-    }
-    Foreach ($missingvars in $missingvars) {
-        If ( "" -eq $missingvars) {
-            Get-varsmessage
+    Add-Content $ssmlog "[$loggingdate] checking Server Variables"
+    If ($command) {
+        If ($command -eq "mcrcon") {
+            $missingvars = $port, $rconpassword
         }
+        Else {
+            $missingvars = $appid, $process, $anon, $launchParams
+        }
+        Foreach ($missingvars in $missingvars) {
+            If ( !$missingvars) {
+                $global:warnmessage = "missingvars"
+                Get-warnmessage
+            }
+        }   
+    }
+    ElseIf (!$command) {
+        $global:warnmessage = "chkvarsfailed"
+        Get-warnmessage
+        Exit
     }
 }
