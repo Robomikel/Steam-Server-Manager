@@ -15,7 +15,8 @@ Function Get-MCBRBinaries {
     Write-Host '****   Extracting  Minecraft Bedrock   ****' -F M -B Black
     Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item bedrock-server\* $serverfiles\ -Force -ea SilentlyContinue
-    New-Item $serverfiles\version.txt $mcbrWebResponse.href -Force
+    New-Item $serverfiles\version.txt -Force
+    Add-Content $serverfiles\version.txt $mcbrWebResponse.href -Force
     Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
 }
@@ -24,14 +25,15 @@ Function Get-MCjavaBinaries {
     #################### MineCraft Java Install ################
     Get-MCWebrequest 
     $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server" -UseBasicParsing ).Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
-    # Write-Host '****   Downloading  Minecraft Java   ****' -F M -B Black
+    Write-Host '****   Downloading  Minecraft Java   ****' -F M -B Black
     $global:package = 'Minecraft Java'
     $global:infomessage = "Downloading"  
     Invoke-WebRequest -uri $mcWebResponse.href -O server.jar 
     # $mcWebResponse.outerText
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
-    New-Item $serverfiles\version.txt $mcvWebResponse -Force
+    New-Item $serverfiles\version.txt -Force
+    Add-Content $serverfiles\version.txt $mcvWebResponse -Force
     Set-Location $serverdir
     # Write-Host '****   Starting server to create and edit eula   ****' -F M -B Black
     If (!(Test-Path eula.txt )) {

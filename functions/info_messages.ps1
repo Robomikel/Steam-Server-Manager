@@ -209,4 +209,8 @@ Function Get-CheckForError {
     }
 }
 
+Function Get-Finished {
+    $global:infomessage = "finished"
+    Get-Infomessage
+}
 
