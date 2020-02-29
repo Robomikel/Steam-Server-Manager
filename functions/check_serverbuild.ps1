@@ -32,7 +32,7 @@ Function Get-ServerBuildCheck {
             $localbuild = get-content $serverdir\steamapps\appmanIfest_$appid.acf | select-string $search
             $localbuild = $localbuild -replace '\s', ''
             #$localbuild
-            If ($checkupdateonstart -eq "on") {
+            If (($checkupdateonstart -eq "on") -or ($command -eq 'update')){
                 if (!$remotebuild ) {
                     Write-Warning 'Failed to retrieve remote build'
                     Add-Content $ssmlog "[$loggingdate] Failed to retrieve remote build"
@@ -41,9 +41,9 @@ Function Get-ServerBuildCheck {
                     Write-Warning 'Failed to retrieve Local build'
                     Add-Content $ssmlog "[$loggingdate] Failed to retrieve Local build"
                 }
+                Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+                Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                 If (($updateonstart -eq "on") -or ($command -eq 'update')) {
-                    Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
-                    Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                         # Write-Host "****   Avaiable Updates Server   ****" -F Y -B Black
                         $global:infomessage = "availableupdates"
@@ -63,6 +63,7 @@ Function Get-ServerBuildCheck {
             }
             #  Write-Host "****   Updates on start off ****" -F Y -B Black
             Add-Content $ssmlog "[$loggingdate]  Updates on start off"
+            Set-Location $currentdir
         }
     }
     Else {

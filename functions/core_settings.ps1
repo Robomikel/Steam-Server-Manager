@@ -29,7 +29,7 @@ Function Set-SteamerSetting {
     #                               Update on start
     $global:updateonstart           = "on"
     #                               Check Update on start
-    $global:checkupdateonstart      = "off"
+    $global:checkupdateonstart      = "on"
     #                               check scheduled Task
     $global:Checktask               = "on"
     #                               Discord backup Alert

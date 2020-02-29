@@ -7,7 +7,7 @@
 #
 #
 Function Get-UpdateServer {
-    If ($steamdirectory) {
+    If ($steamexecutable) {
         Set-Location $steamdirectory
         $infomessage = "updating"
         Get-Infomessage
@@ -17,6 +17,12 @@ Function Get-UpdateServer {
             compare-SteamExit
         }
         Else {
+            Write-Host "Enter Username for Steam install" -F Cyan -B Black
+            $username = Read-host
+            Write-Host "Enter steam password" -F Cyan -B Black
+            $securedpassword = Read-Host -AsSecureString
+            $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
+            $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
             $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
             & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
             compare-SteamExit
