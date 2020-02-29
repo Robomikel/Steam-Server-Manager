@@ -8,6 +8,8 @@
 #
 Function Set-SteamerSetting {
     #                               ####  Steamer Settings #######
+    #                               Show Backup Console
+    $global:Showbackupconsole       = "off"
     #                               backup log open
     $global:backuplogopen           = "on"
     #                               backup logs
@@ -25,7 +27,9 @@ Function Set-SteamerSetting {
     #                               Admin message
     $global:admincheckmessage       = "on"
     #                               Update on start
-    $global:updateonstart           = "off"
+    $global:updateonstart           = "on"
+    #                               Check Update on start
+    $global:checkupdateonstart      = "off"
     #                               check scheduled Task
     $global:Checktask               = "on"
     #                               Discord backup Alert
@@ -52,6 +56,8 @@ Function Set-SteamerSetting {
     $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
     $global:logdir                  = "$currentdir\log"
+    #                               SSM Log
+    $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
     #                               Test Connection to Steam Master
     $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin

@@ -19,28 +19,10 @@ Function Get-Details {
     }
     $os = (Get-WMIObject win32_operatingsystem).caption
     $computername = (Get-WMIObject Win32_OperatingSystem).CSName
-    Set-Location $nodejsdirectory
-    If ($Useprivate -eq "off") {
-        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
-        $gameresponse = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $querytype ${extip}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
-        }Else{
-            $gameresponse = (.\gamedig --type $querytype ${extip}:${queryport} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-            $stats = (.\gamedig --type $querytype ${extip}:${queryport} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)
-        }
-    
-    }
-    Else {
-        If (($null -eq ${queryport} ) -or ("" -eq ${queryport} )) {
-        $gameresponse = (.\gamedig --type $querytype ${IP}:${port} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $querytype ${ip}:${port} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
-        }else{
-        $gameresponse = (.\gamedig --type $querytype ${IP}:${queryport} --pretty | Select-String -Pattern 'game' -CaseSensitive -SimpleMatch)
-        $stats = (.\gamedig --type $querytype ${ip}:${queryport} --pretty | Select-String -Pattern 'ping' -CaseSensitive -SimpleMatch)    
-        }
-    }
-    
+    Test-SteamMaster
     Get-CreatedVaribles
+    $stats = $masterserver
+    # $masterserver = $masterserver.addr
     New-BackupFolder
     $backups = (Get-Childitem  $backupdir -recurse | Measure-Object) 
     $backups = $backups.count 
@@ -55,7 +37,6 @@ Function Get-Details {
     Write-Host "    Rcon Port         : $rconport"
     Write-Host "    App ID            : $appid"
     Write-Host "    Game Dig          : $querytype"
-    #    Write-Host "    Webhook           : $WEBHOOK"
     Write-Host "    Process           : $process"
     Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = " **** RUNNING ****"; ; Write-Host $status -F Green }
     Write-Host "    CPU Cores         : $CpuCores"
@@ -66,7 +47,7 @@ Function Get-Details {
     Write-Host "    Backups           : $backups"
     Write-Host "    Backups size GB   : $backupssize"
     Write-Host "    Status            : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
-    Write-Host "    game replied      : $gameresponse"
+    Write-Host "    Steam Master      : $masterserver"
     Write-Host "    OS                : $os"
     Write-Host "    hostname          : $computername"
     Set-Location $currentdir

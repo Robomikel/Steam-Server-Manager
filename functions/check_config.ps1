@@ -8,21 +8,28 @@
 #
 #
 Function Get-CheckForVars {
+    Add-Content $ssmlog "[$loggingdate] checking Server Variables"
     If ($command) {
-        # Write-Host "****   Checking for Vars   ****" -F Y -B Black
         If ($command -eq "mcrcon") {
             $missingvars = $rconport, $rconpassword
         }
-    }
-    Else {
-        $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
-    }
-    Foreach ($missingvars in $missingvars) {
-        If ( !($missingvars)) {
-            Get-varsmessage
+        Elseif(!${queryport}) {
+            $missingvars = ${ip}, $appid, $process, ${port}, $anon
         }
+        Else{
+            $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
+        }
+        Foreach ($missingvars in $missingvars) {
+            If ( !$missingvars) {
+                $global:warnmessage = "missingvars"
+                Get-warnmessage
+                Exit
+            }
+        }   
     }
-    ElseIf (!($command)) {
-        Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] fn_Get-CheckForVars Missing $command"
+    ElseIf (!$command) {
+        $global:warnmessage = "chkvarsfailed"
+        Get-warnmessage
+        Exit
     }
 }

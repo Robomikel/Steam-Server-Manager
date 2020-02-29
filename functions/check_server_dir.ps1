@@ -7,10 +7,18 @@
 #
 #
 Function Get-FolderNames {
-    Write-Host "****   Checking Folder Names   ****" -F Y -B Black
-    If (Test-Path "$serverdir") {
+    Add-Content $ssmlog "[$loggingdate] Checking Folder Names "
+    If ($serverdir) {
+        If (Test-Path "$serverdir") {
+            Add-Content $ssmlog "[$loggingdate] Folder Name Exists   $serverdir "
+        }
+        ElseIf (!(Test-Path "$serverdir")){
+            New-ServerFolderq
+        }
     }
-    Else {
-        New-ServerFolderq
+    ElseIf(!$serverdir){
+        $global:warnmessage = "fngetfoldersfailed"
+        Get-warnmessage
+        Exit
     }
 }

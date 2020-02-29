@@ -7,24 +7,31 @@
 #
 #
 Function Set-ConnectMCRcon {
-    If ($Useprivate -eq "off") {
-        set-location $mcrcondirectory
-        If (($null -eq ${rconport} ) -or ("" -eq ${rconport} )) {
-            .\mcrcon.exe -t -H ${extip} -P ${port} -p $rconpassword
+    If ($mcrconexecutable) {
+        If ($Useprivate -eq "off") {
+            set-location $mcrcondirectory
+            If (!( ${rconport} )) {
+                .\$mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
+            }
+            Else {
+                .\$mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
+            }
+            set-location $currentdir
         }
         Else {
-            .\mcrcon.exe -t -H ${extip} -P ${rconport} -p $rconpassword
+            set-location $mcrcondirectory
+            If (!( ${rconport} )) {
+                .\$mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
+            }
+            Else {
+                .\$mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
+            }
+            set-location $currentdir
         }
-        set-location $currentdir
     }
-    Else {
-        set-location $mcrcondirectory
-        If (($null -eq ${rconport} ) -or ("" -eq ${rconport} )) {
-            .\mcrcon.exe -t -H ${ip} -P ${port} -p $rconpassword
-        }
-        Else {
-            .\mcrcon.exe -t -H ${ip} -P ${rconport} -p $rconpassword
-        }
-        set-location $currentdir
+    ElseIf(!$mcrconexecutable){
+        $global:warnmessage = "fn_Set-ConnectMCRcon"
+        Get-warnmessage
+        Exit
     }
 }

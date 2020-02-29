@@ -25,41 +25,44 @@ Function Get-StartServer {
     Set-Location $currentdir
 }
 Function Select-StartServer {
-    Write-Host '****   Starting Server   *****' -F Magenta -B Black  
+    $global:infomessage = "starting"
+    Get-Infomessage
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
-    If ($global:appid -eq "996560") { 
-        Get-checkMultiple 
-    }
-    Else {
-        Write-Host '****   Check  Server process    *****' -F Y -B Black 
-        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-infoMessageNotRunning 
-            # Write-Host "----   NOT RUNNING   ----" -F R -B Black
+    Add-Content $ssmlog "[$loggingdate] Check Server process "
+    If ($process) {
+        If ($global:appid -eq "996560") { 
+            Get-checkMultiple 
         }
         Else {
-            Write-infoMessageRunning
-            # Write-Host "****   RUNNING   ****" -F Green -B Black 
-            Get-Process "$process"
-            Get-ClearVariables
-            Exit 
+            # Write-Host '****   Check  Server process    *****' -F Y -B Black 
+            If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                $global:infomessage = "notrunning"
+                Get-Infomessage
+            }
+            Else {
+                $global:infomessage = "running"
+                Get-Infomessage
+                $process
+                Get-ClearVariables
+                Exit 
+            }
+            Get-CheckForError
         }
-        Get-CheckForError
     }
 }
 
 Function Get-checkMultiple {
     $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
-    
-    If ($null -eq $process) {
-        Write-infoMessageNotRunning 
-        # Write-Host "----   NOT RUNNING   ----" -F R -B Black
+    If (!($process)) {
+        $global:infomessage = "notrunning"
+        Get-Infomessage
     }
     Else {
-        Write-infoMessageRunning
-        # Write-Host "****   RUNNING   ****" -F Green -B Black
-        $process 
+        $global:infomessage = "running"
+        Get-Infomessage
+         $process
         Get-ClearVariables 
         Exit
     }

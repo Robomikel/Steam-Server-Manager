@@ -7,26 +7,37 @@
 #
 #
 Function Install-Steam {
-    
-    $start_time = Get-Date
-    #(New-Object Net.WebClient).DownloadFile("$steamurl", "steamcmd.zip")
-    Write-Host '****   Downloading SteamCMD   ****' -F M -B Black
-    #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;  
-    Invoke-WebRequest -Uri $steamurl -OutFile $steamoutput
-    If (!$?) {
-        Write-Host " ****   Downloading  SteamCMD Failed   ****" -F R -B Black 
-        New-TryagainNew 
+    If (($steamurl) -and ($steamoutput)) {
+        $start_time = Get-Date
+        $global:package = 'SteamCMD'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        #(New-Object Net.WebClient).DownloadFile("$steamurl", "steamcmd.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;  
+        Invoke-WebRequest -Uri $steamurl -OutFile $steamoutput
+        If (!$?) {
+            $global:warnmessage = 'Downloadfailed'
+            Get-WarnMessage
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            $global:infomessage = "Downloaded"
+            Get-Infomessage
+        }
+        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "Extracting"
+        Get-Infomessage
+        Expand-Archive $steamoutput $steamdirectory -Force
+        If (!$?) {
+            $global:warnmessage = 'ExtractFailed'
+            Get-WarnMessage
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            $global:infomessage = "Extracted"
+            Get-Infomessage
+        }
     }
-    If ($?) { Write-Host " ****   Downloading  SteamCMD succeeded    ****" -F Y -B Black }
-    Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
-    Write-Host '***   Extracting SteamCMD *****' -F M -B Black 
-    Expand-Archive "$currentdir\steamcmd.zip" "$currentdir\steamcmd\" -Force 
-    If (!$?) {
-        Write-Host " ****   Extracting SteamCMD Failed    ****" -F Y -B Black 
-        New-TryagainNew 
-    }
-    If ($?) { Write-Host " ****   Extracting SteamCMD succeeded    ****" -F Y -B Black }
-    
 }
 # Success and ERROR! Download item 497660133 failed (Request has been canceled)
 # Last Exit Code 0

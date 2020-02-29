@@ -17,15 +17,18 @@ Function Get-Forgeforge {
     java -jar forge-$forgeversion-installer.jar --installServer
 }
 Function Get-InstallForge {
-
-    $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
-    Write-Host '****   Downloading  Minecraft Forge   ****' -F M -B Black
-    Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
-    Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
-    Set-Location $serverdir
-    java -jar forge-$forgeversion-installer.jar --installServer
-    Remove-Item forge-$forgeversion-installer.jar
-    Rename-Item server.jar server.jar.bak
-    Rename-Item forge-$forgeversion.jar server.jar
-    Set-Location $currentdir
+    If ($forgeversion) {
+        $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
+        $global:package = 'Minecraft Forge'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
+        Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
+        Set-Location $serverdir
+        java -jar forge-$forgeversion-installer.jar --installServer
+        Remove-Item forge-$forgeversion-installer.jar
+        Rename-Item server.jar server.jar.bak
+        Rename-Item forge-$forgeversion.jar server.jar
+        Set-Location $currentdir
+    }
 }

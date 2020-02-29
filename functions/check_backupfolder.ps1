@@ -7,24 +7,23 @@
 #
 #
 Function New-BackupFolder {
-    If (($backupdir) -and ($currentdir)) {
-        If ((Test-Path $backupdir)) { 
-            # Write-Host '****   Backup folder exists!   ****' -F Y -B Black  
-            Add-Content $ssmlogdir\ssm-$logDate.log "[$loggingDate]****   Backup folder exists!   ****"
+    If ($backupdir) {
+        If (Test-Path $backupdir) { 
+            Add-Content $ssmlog "[$loggingDate] Backup folder exists! "
         } 
         ElseIf (!(Test-Path $backupdir)) {  
-            # Write-Host '****   Creating backup folder   ****' -F M -B Black
-            Add-Content $ssmlogdir\ssm-$logDate.log "[$loggingDate]****   Creating backup folder   ****"
-            New-Item  "$currentdir" -Name "backups" -ItemType "directory" 3>&1 2>&1 >>  $ssmlogdir\ssm-$logDate.log
+            Add-Content $ssmlog "[$loggingDate] Creating backup folder "
+            New-Item  "$currentdir" -Name "backups" -ItemType "directory" 3>&1 2>&1 >>  $ssmlog
             If (!$?) {
-                Write-Warning 'Creating backup folder Failed'
-                Break
+                $global:warnmessage = "createfolderfailed"
+                Get-warnmessage
+                Exit
             }
         }
     }
-    ElseIf (!$?) {
-        Add-Content $ssmlogdir\ssm-$logDate.log "[$loggingDate]**** fn_New-BackupFolder failed missing $currentdir, $backupdir ****"
-        # Write-Warning 'Fn - New-BackupFolder Failed'
-        Break
+    ElseIf (!($backupdir)){
+        $global:warnmessage = "backupfnfailed"
+        Get-warnmessage
+        Exit
     }
 }

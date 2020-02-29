@@ -7,43 +7,44 @@
 #
 #
 Function Get-MonitorServer {
-    If ($global:appid -eq "996560") { 
-        Get-MonitorMultiple 
-    }
-    Else {
-        Write-Host '****   Monitor  Server process    *****' -F Y -B Black 
-        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-infoMessageNotRunning 
-            # Write-Host "----   NOT RUNNING   ----" -F R -B Black
-            Select-StartServer
-            $global:alert = "restart"
-            New-DiscordAlert
+    If ($process) {
+        If ($global:appid -eq "996560") { 
+            Get-MonitorMultiple 
         }
         Else {
-            Write-infoMessageRunning
-            # Write-Host "****   RUNNING   ****" -F Green -B Black
-            Get-Process "$process"
-            Get-ClearVariables
-            Exit 
+            Add-Content $ssmlog "[$loggingdate] Monitor  Server process" 
+            If (!(Get-Process $process -ea SilentlyContinue)) {
+                # $infomessage = "notrunning"
+                # Get-Infomessage
+                Select-StartServer
+                $global:alert = "restart"
+                New-DiscordAlert
+            }
+            Else {
+                $infomessage = "running"
+                Get-Infomessage
+                get-process $process
+                Get-ClearVariables
+                Exit 
+            }
+            Get-CheckForError
         }
-        Get-CheckForError
     }
 }
 
 Function Get-MonitorMultiple {
-    $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
-    
-    If ($null -eq $process) {
-        Write-infoMessageNotRunning 
-        # Write-Host "----   NOT RUNNING   ----" -F R -B Black
+    $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 
+    If (!($process)) {
+        # $infomessage -eq "notrunning"
+        # Get-Infomessage
         Select-StartServer
         $global:alert = "restart"
         New-DiscordAlert 
     }
     Else {
-        Write-infoMessageRunning
-        # Write-Host "****   RUNNING   ****" -F Green -B Black
-        $process 
+        $infomessage -eq "running"
+        Get-Infomessage
+        get-process $process 
         Get-ClearVariables 
         Exit
     }

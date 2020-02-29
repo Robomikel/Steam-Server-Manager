@@ -9,48 +9,57 @@
 Function New-DiscordAlert { 
     If ($DiscordBackupAlert) {
         If ($DiscordBackupAlert -eq "on") { 
-            # Get-DiscordSetting
-            # Find-DiscordWebhook
             If (($discordwebhook)) {
                 If ($alert -eq "Backup") {
-                    Get-AlertBackup
+                    # BACKUP
+                    $global:alertmessage = ' New Server Backup'
+                    # GREEN
+                    $global:alertmessagecolor = '3334680'
+                    
                 }
                 ElseIf ($alert -eq "update") {
-                    Get-AlertUpdate
+                    # UDPATE
+                    $global:alertmessage = ' Server Updated '
+                    # BLUE
+                    $global:alertmessagecolor = '385734'
                 }
                 ElseIf ($alert -eq "restart") {
-                    Get-AlertRestart
+                    # RESTART
+                    $global:alertmessage = " Server not Running, Starting Server "
+                    # RED
+                    $global:alertmessagecolor = '16711680'
                 }
-                Else {
-                    Get-AlertTest
+                ElseIf ($command -eq "discord") {
+                    # BACKUP
+                    $global:alertmessage = ' Test Alert'
+                    # Cyan
+                    $global:alertmessagecolor = '026255'
                 }
                 Send-DiscordAlert                              
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
             }
-            ElseIf (!($discordwebhook)) {
-                # Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
-                Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate]$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND "
-                # Write-Warning 'Missing Discord Webhook'
+            ElseIf (!$discordwebhook) {
+                $global:warnmessage = "missingwebhook"
+                Get-warnmessage
             }
         }
         ElseIf ($DiscordBackupAlert -eq "off") {
-            #  Write-Host "Discord alerts not enabled" -F Y
-            Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] Discord alerts not enabled "
+            $global:warnmessage = "discordnotenabled"
+            Get-warnmessage
         }
     }
 }
 Function Send-DiscordAlert {
     $global:InfoMessage = "discord"
     Get-Infomessage
-    # Write-Host '****   Sending Discord Alert   ****' -F M -B Black
     $thumbnailObject = [PSCustomObject]@{
         url = "https://i.imgur.com/tTrtYMe.png"
     }
     $webHookUrl = "$discordwebhook"
     [System.Collections.ArrayList]$embedArray = @()
     $title = "Server Name:  $HOSTNAME   "
-    $description = "Alert:  $MESSAGE    "
-    $color = "$MESSAGECOLOR"
+    $description = "Alert:  $alertmessage    "
+    $color = "$alertmessagecolor"
     $embedObject = [PSCustomObject]@{
         title       = $title       
         description = $description  
@@ -61,50 +70,9 @@ Function Send-DiscordAlert {
     $payload = [PSCustomObject]@{
         embeds = $embedArray
     }
-    Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json' 3>&1 2>&1 >>  $ssmlogdir\ssm-$logDate.log
+    Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
     If (!$?) {
-        Write-Warning 'Discord Alert Failed'
+        $global:warnmessage = "AlertFailed"
+        Get-warnmessage
     }
-}
-Function Find-DiscordWebhook {
-    If ( !($discordwebhook)) {
-        Write-Host "$DIAMOND $DIAMOND Missing WEBHOOK ! $DIAMOND $DIAMOND"-F R -B Black
-        Write-Host "****   Add Discord  WEBHOOK to $serverdir\Variables-$serverfiles.ps1   ****" -F Y -B Black  
-        Get-ClearVariables
-        Break  
-    }
-}
-
-Function Get-DiscordSetting {
-    If ($DiscordBackupAlert -eq "off") {    
-        Write-Host "Discord alerts not enabled" -F Y
-    }
-}
-
-Function Get-AlertUpdate {
-    # UDPATE
-    $global:MESSAGE = ' Server Updated '
-    # BLUE
-    $global:MESSAGECOLOR = '385734'
-}
-
-Function Get-AlertBackup {
-    # BACKUP
-    $global:MESSAGE = ' New Server Backup'
-    # GREEN
-    $global:MESSAGECOLOR = '3334680'
-}
-
-Function Get-AlertRestart {
-    # RESTART
-    $global:MESSAGE = " Server not Running, Starting Server "
-    # RED
-    $global:MESSAGECOLOR = '16711680'
-}
-
-Function Get-AlertTest {
-    # BACKUP
-    $global:MESSAGE = ' Test Alert'
-    # Cyan
-    $global:MESSAGECOLOR = '026255'
 }

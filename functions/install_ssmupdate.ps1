@@ -20,7 +20,7 @@ Function Get-UpdateSteamer {
     Remove-Item  "README.md*" -Recurse -Force -ea SilentlyContinue
     Remove-Item  "LICENSE*" -Recurse -Force -ea SilentlyContinue
     Expand-Archive Steam-Server-Manager.zip Steam-Server-Manager -Force
-    Copy-Item  "$currentdir\Steam-Server-Manager\Steam-Server-Manager-master\*" -Destination "$currentdir\" -Recurse -Force
+    Copy-Item  "$currentdir\Steam-Server-Manager\Steam-Server-Manager-master\*" -Destination "$currentdir" -Recurse -Force
     Get-CleanUPSteamer
 }
 

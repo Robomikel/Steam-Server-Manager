@@ -7,15 +7,18 @@
 #
 #
 Function Get-SevenZipCheck {
-    $path = "$sevenzipdirectory"
-    $patha = "$sevenzipdirectory\7za.exe"
-    $pathb = "$sevenzipversion.zip"
-    Write-Host '****   Checking for 7ZIP   *****' -F Y -B Black   
-    If ((Test-Path $path) -and (Test-Path $patha) -and (Test-Path $pathb)) { 
-        Write-Host '****   7Zip already downloaded!   ****' -F Y -B Black
+    Add-Content $ssmlog "[$loggingdate] Checking for 7ZIP "
+    If ($sevenzipexecutable) {   
+        If (Test-Path $sevenzipexecutable ) { 
+            Add-Content $ssmlog "[$loggingdate] 7Zip already downloaded! "
+        }
+        ElseIf (!(Test-Path $sevenzipexecutable)) {
+            Add-Content $ssmlog "[$loggingdate]  7Zip not found! $sevenzipexecutable "
+            Add-Sevenzip
+        }
     }
-    Else {
-        Write-Host "****   7Zip not found!   ****" -F Y -B Black
-        Add-Sevenzip
-    }  
+    ElseIf (!$sevenzipexecutable) {
+        $global:warnmessage = "fnssevenzipfailed"
+        Get-warnmessage
+    }
 }

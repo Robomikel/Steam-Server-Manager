@@ -7,15 +7,19 @@
 #
 #
 Function Get-NodeJSCheck {
-    $path = "$nodejsdirectory"
-    $patha = "$nodejsdirectory\node.exe"
-    $pathb = "node-v$nodeversion-win-x64.zip"
-    Write-Host "****   Checking for Nodejs   ****" -F M -B Black     
-    If ((Test-Path $path) -and (Test-Path $pathb) -and (Test-Path $patha)) { 
-        Write-Host '****   NodeJS already downloaded!   ****' -F Y -B Black
+    Add-Content $ssmlog "[$loggingdate] Checking NodeJS "
+    If ($nodejsexecutable) {     
+        If (Test-Path $nodejsexecutable) { 
+            Add-Content $ssmlog "[$loggingdate]  NodeJS already downloaded "
+        }
+        ElseIf (!(Test-Path $nodejsexecutable)) {
+            Add-Content $ssmlog "[$loggingdate]  NodeJS not found "
+            Add-NodeJS
+        }
     }
-    Else {
-        Write-Host "****   NodeJS not found   ****" -F Y -B Black
-        Add-NodeJS
+    ElseIf (!$nodejsexecutable) {
+        $global:warnmessage = "fnnodejsfailed"
+        Get-warnmessage
+        Exit
     }
 }

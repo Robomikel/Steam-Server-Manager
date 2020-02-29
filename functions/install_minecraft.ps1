@@ -24,16 +24,18 @@ Function Get-MCjavaBinaries {
     #################### MineCraft Java Install ################
     Get-MCWebrequest 
     $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server" -UseBasicParsing ).Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
-    Write-Host '****   Downloading  Minecraft Java   ****' -F M -B Black  
+    # Write-Host '****   Downloading  Minecraft Java   ****' -F M -B Black
+    $global:package = 'Minecraft Java'
+    $global:infomessage = "Downloading"  
     Invoke-WebRequest -uri $mcWebResponse.href -O server.jar 
     # $mcWebResponse.outerText
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
     Add-Content $serverfiles\version.txt $mcvWebResponse -Force
     Set-Location $serverdir
-    Write-Host '****   Starting server to create and edit eula   ****' -F M -B Black
+    # Write-Host '****   Starting server to create and edit eula   ****' -F M -B Black
     Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
-    Start-Sleep 7
+    Start-Sleep 3
     ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
     Set-Location $currentdir
     # Add-Content $serverfiles\eula.txt 'eula=true' -Force

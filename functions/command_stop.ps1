@@ -12,24 +12,81 @@ Function Get-StopServer {
         Get-StopMultiple 
     }
     Else {
-        # Write-infoMessageStopping
-        # Write-Host '****   Stopping Server process   *****' -F M -B Black 
-        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-infoMessageNotRunning 
-            # Write-Host "----   NOT RUNNING   ----" -F R -B Black
-        }
-        Else { 
-            If ($appid -eq "996560") {
-                $process = Get-process "$process"
-                $processID = $process.Id
-                Stop-Process -id $processID -Force
-                If ($consolelogging -eq "on") {   
-                    New-ServerLog
+        If ($process) {
+            If ( !(Get-Process $process -ea SilentlyContinue)) {
+                $global:infomessage = "notrunning"
+                Get-Infomessage
+            }
+            Else { 
+                If ($appid -eq "996560") {
+                    $process = Get-Process $process -ea SilentlyContinue
+                    $processID = $process.Id
+                    $global:warnmessage = "stop"
+                    Get-warnmessage
+                    Stop-Process -id $processID -Force
+                    Start-Sleep 3
+                    $processstatus = Get-Process $process -ea SilentlyContinue 
+                    If ($processstatus) {
+                        $global:warnmessage = "stoppedfailed"
+                        Get-warnmessage
+                        Exit
+                    }
+                    If ($consolelogging -eq "on") {   
+                        New-ServerLog
+                    }
                 }
+                Else {
+                    Stop-Process -Name $process -Force 
+                    Start-Sleep 3
+                    $processstatus = Get-Process $process -ea SilentlyContinue
+                    If ($processstatus) {
+                        $global:warnmessage = "stoppedfailed"
+                        Get-warnmessage
+                        Exit
+                    }
+                    Elseif (!$processstatus) {
+                        $global:infomessage = "stopped"
+                        Get-Infomessage
+                    }
+                    If ($consolelogging -eq "on") { 
+                        New-ServerLog
+                    }
+                   
+                }
+                Get-CheckForError
+            }
+        }
+        Else {
+            $global:warnmessage = "fn_Get-StopServer"
+            Get-warnmessage
+        }
+    }
+}
+Function Get-StopServerInstall {
+    If ($appid -eq "996560") { 
+        Get-StopMultiple 
+    }
+    Else {
+        If ($process) {
+            If (! (Get-Process $process -ea SilentlyContinue)) {
+                $global:infomessage = "notrunning"
+                Get-Infomessage
             }
             Else {
-                Stop-Process -Name "$process" -Force 
-                Write-infoMessageStopping
+                $global:infomessage = "stopping"
+                Get-Infomessage
+                Stop-Process -Name "$process" -Force
+                Start-Sleep 3
+                $processstatus = Get-Process $process -ea SilentlyContinue
+                If ($processstatus) {
+                    $global:warnmessage = "stoppedfailed"
+                    Get-warnmessage
+                    Exit
+                }
+                Elseif (!$processstatus) {
+                    $global:infomessage = "stopped"
+                    Get-Infomessage
+                }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
                 }
@@ -37,34 +94,38 @@ Function Get-StopServer {
             Get-CheckForError
         }
     }
-}
-Function Get-StopServerInstall {
-    If ($appid -eq "996560") { Get-StopMultiple }Else {
-        # Write-infoMessageStopping
-        # Write-Host '****   Stopping Server process   *****' -F M -B Black 
-        If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) {
-            Write-infoMessageNotRunning 
-            # Write-Host "****   No Process found   ****" -F Y -B Black
-        }
-        Else {
-            Write-infoMessageStopping
-            #Write-Host "****   Stopping Server Process   *****" -F M -B Black
-            Stop-Process -Name "$process" -Force
-            New-ServerLog
-        }
-    }
 }   
 
 Function Get-StopMultiple {
-    $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
-    If ($null -eq $mprocess) {
-        Write-infoMessageNotRunning 
-        # Write-Host "----   NOT RUNNING   ----" -F R -B Black 
+    If ($process ) {
+        $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
+        If (!($mprocess)) {
+            $global:infomessage = "notrunning"
+            Get-Infomessage
+        }
+        Else {
+            $global:infomessage = "stopping"
+            Get-Infomessage
+            get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
+            Start-Sleep 3
+            $processstatus = Get-process $mprocess -ea SilentlyContinue
+            If ($processstatus) {
+                $global:warnmessage = "stoppedfailed"
+                Get-warnmessage
+                Exit
+            }
+            Elseif (!$processstatus) {
+                $global:infomessage = "stopped"
+                Get-Infomessage
+            }
+            If ($consolelogging -eq "on") { 
+                New-ServerLog
+            }
+            Get-CheckForError
+        }
     }
     Else {
-        Write-infoMessageStopping
-        # Write-Host "****   Stopping Server Process   *****" -F M -B Black
-        get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
-        New-ServerLog
+        $global:warnmessage = "fn_Get-StopServerintall"
+        Get-warnmessage
     }
 }

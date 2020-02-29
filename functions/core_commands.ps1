@@ -17,6 +17,7 @@ Function Select-Steamer {
         [Parameter(Mandatory = $false, Position = 1)]
         #[ValidatePattern('^[a-z,A-Z]$')]
         $serverfiles)
+        Add-Content $ssmlog "[$loggingdate] command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
         Write-Host 'Input Server Folder Name: ' -F C -N
@@ -25,24 +26,26 @@ Function Select-Steamer {
         Get-TestString
         Get-Appid
         New-ServerFolder
-        Get-CheckNonSteam
+        
         Get-Steam
         Set-SteamInfo
         Read-AppID
         New-CreateVariables
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif ($command -eq "install") {
         Get-PreviousInstall
         Get-TestString
         Get-Appid
         New-ServerFolder
-        Get-CheckNonSteam
+        
         Get-Steam
         Set-SteamInfo
         Read-AppID
         New-CreateVariables
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif (($command -eq "update") -and ($null -eq $serverfiles)) {   
         Write-Host 'Server FolderName for server updates: ' -F C -N
@@ -51,21 +54,23 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-CheckNonSteam
+        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif ($command -eq "update") {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-CheckNonSteam
+        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif (($command -eq "ForceUpdate") -and ($null -eq $serverfiles)) {   
         Write-Host 'Server FolderName for server updates: ' -F C -N
@@ -78,7 +83,8 @@ Function Select-Steamer {
         Get-ChecktaskDisable
         Get-UpdateServer 
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif ($command -eq "ForceUpdate") {
         Get-FolderNames
@@ -88,7 +94,8 @@ Function Select-Steamer {
         Get-ChecktaskDisable
         Get-UpdateServer
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif (($command -eq "validate") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server validate: ' -F C -N
@@ -103,7 +110,8 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif ($command -eq "validate") {
         Get-FolderNames
@@ -115,7 +123,8 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif (($command -eq "start") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for start: ' -F C -N
@@ -213,7 +222,8 @@ Function Select-Steamer {
         New-BackupFolder
         New-BackupServer
         Get-ChecktaskEnable
-        Get-Finished
+        Get-ClearVariables
+        # Get-Finished
     }
     elseif ($command -eq "backup") {
         Get-FolderNames
@@ -224,7 +234,8 @@ Function Select-Steamer {
         New-BackupFolder  
         New-BackupServer
         Get-ChecktaskEnable
-        Get-Finished  
+        Get-ClearVariables
+        # Get-Finished  
     }
     elseif (($command -eq "monitor-job") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for monitor: ' -F C -N
@@ -343,7 +354,7 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        Get-NodeJSCheck
+        # Get-NodeJSCheck
         Get-details
         Get-DriveSpace
         Get-ClearVariables

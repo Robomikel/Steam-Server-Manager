@@ -7,51 +7,136 @@
 #
 #
 Function New-BackupServer {
-    If ($stoponbackup = "on") { 
-        Get-StopServer 
-    }
+    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir)) { 
+        If ($stoponbackup -eq "on") { 
+            Get-StopServer 
+        }
+        If ($Showbackupconsole -eq "on") {
+            $global:infomessage = "backupstart"
+            Get-Infomessage
+            Set-Location $sevenzipdirectory
+            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$date.log") -Wait
+            If (!$?) {
+                $global:warnmessage = "backupfailed"
+                Get-warnmessage
     
-    Write-Host '****   Server Backup Started!   ****' -F M -B Black
-    Set-Location $sevenzipdirectory
-    #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
-    ./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup.log
-    Write-Host '****   Server Backup is Done!   ****' -F Y -B Black
-    Write-Host "****   Checking Save location(appData)   ****" -F Y -B Black
-    If ($appdatabackup -eq "on") { 
-        Get-Savelocation 
-    }
-    New-ServerBackupLog
-    If ($backuplogopen -eq "on") {
-        Set-Location $sevenzipdirectory 
-        .\backup.log 
-    }
-    Limit-Backups
-    $global:alert = "Backup"
-    New-DiscordAlert
-    Set-Location $currentdir
+            }
+        }
+        ElseIf (($Showbackupconsole -eq "off")) {
+            $global:infomessage = "backupstart"
+            Get-Infomessage
+            Set-Location $sevenzipdirectory
+            #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
+            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $serverdir\* > $logDate-backup.log
+            If (!$?) {
+                $global:warnmessage = "backupfailed"
+                Get-warnmessage
     
+            }
+        }
+        $global:infomessage = "backupdone"
+        Get-Infomessage
+        $global:infomessage = "savecheck"
+        Get-Infomessage
+        If ($appdatabackup -eq "on") { 
+            Get-Savelocation 
+        }
+        New-ServerBackupLog
+        If ($backuplogopen -eq "on") {
+            Set-Location $sevenzipdirectory 
+            .\*-backup.log
+            If (!$?) {
+                $global:warnmessage = "backupfailed"
+                Get-warnmessage
+    
+            } 
+        }
+        Limit-Backups
+        $global:alert = "Backup"
+        New-DiscordAlert
+        Set-Location $currentdir
+    }
+    ElseIf (!($sevenzipdirectory) -and ($serverfiles) -and ($backupdir)) {
+        $global:warnmessage = "backupfailed"
+        Get-warnmessage
+        Exit
+    }
 }
 Function New-backupAppdata {
-    Write-Host '****   Server App Data Backup Started!   ****' -F M -B Black
-    Set-Location $sevenzipdirectory
-    ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log
-    Write-Host '****   Server App Data Backup is Done!   ****' -F Y -B Black
-    If ($appdatabackuplogopen -eq "on") { 
-        .\AppDatabackup.log 
+    If ($Showbackupconsole -eq "on") {
+        $global:infomessage = "appdatabackupstart"
+        Get-Infomessage
+        Set-Location $sevenzipdirectory
+        Start-Process 7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log") -Wait
+        If (!$?) {
+            $global:warnmessage = "backupfailed"
+            Get-warnmessage
+
+        }
+    }
+    ElseIf ($Showbackupconsole -eq "Off") {
+        $global:infomessage = "appdatabackupstart"
+        Get-Infomessage
+        Set-Location $sevenzipdirectory
+        ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logDate-AppDatabackup.log
+        If (!$?) {
+            $global:warnmessage = "backupfailed"
+            Get-warnmessage
+
+        }
+    }   
+    $global:infomessage = "appdatabackupdone"
+    Get-Infomessage
+    If ($appdatabackuplogopen -eq "on") {
+        Set-Location $sevenzipdirectory 
+        .\*-AppDatabackup.log
+        If (!$?) {
+            $global:warnmessage = "backupfailed"
+            Get-warnmessage
+
+        }  
     }
     Limit-AppdataBackups
 }
 
 Function Limit-Backups {
-    Write-Host '****   Purging Backups   ****' -F M -B Black
-    Set-Location $sevenzipdirectory
-    Get-Childitem $backupdir\ -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
-    Set-Location $currentdir
+    If ($backupdir -and $maxbackups ) {
+        $global:infomessage = "purgebackup"
+        Get-Infomessage
+        Set-Location $sevenzipdirectory
+        Get-Childitem $backupdir -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        If (!$?) {
+            $global:warnmessage = "limitbackupfailed"
+            Get-warnmessage
+
+        }
+        Set-Location $currentdir
+    }
+    ElseIf (!($backupdir -and $maxbackups )) {
+        $global:warnmessage = "limitbackupfailed"
+        Get-warnmessage
+        Exit
+
+    }
 }
 
 Function Limit-AppdataBackups {
-    Write-Host '****   Purging AppData Backups   ****' -F M -B Black
-    Set-Location $sevenzipdirectory
-    Get-Childitem $backupdir\ -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
-    Set-Location $currentdir
+    If (($backupdir -and $maxbackups )) {
+        $global:infomessage = "purgeappdatabackup"
+        Get-Infomessage
+        Set-Location $sevenzipdirectory
+        Get-Childitem $backupdir -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        If (!$?) {
+            $global:warnmessage = "limitbackupfailed"
+            Get-warnmessage
+
+        }
+        Set-Location $currentdir
+    }
+    ElseIf (!($backupdir -and $maxbackups )) {
+        $global:warnmessage = "limitbackupfailed"
+        Get-warnmessage
+        Exit
+
+    }
 }

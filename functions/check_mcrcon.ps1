@@ -7,14 +7,17 @@
 #
 #
 Function Get-MCRconCheck {
-    If ((Test-Path "$mcrcondirectory") -and (Test-Path "$mcrcondirectory\mcrcon.exe")) { 
-        # Write-Host '****   mcrcon already downloaded!   ****' -F Y -B Black
-        Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate]****   mcrcon already downloaded!   **** "
-    } 
-    ElseIf (!(Test-Path "$mcrcondirectory") -or (Test-Path "$mcrcondirectory\mcrcon.exe")) {  
-        install-mcrcon
+    If ($mcrconexecutable) {
+        If (Test-Path $mcrconexecutable) { 
+            Add-Content $ssmlog "[$loggingdate] mcrcon already downloaded! "
+        } 
+        ElseIf (!(Test-Path $mcrconexecutable)) {  
+            install-mcrcon
+        }
     }
-    Else { 
-        Add-Content $ssmlogdir\ssm-$datelog-.log "[$logdate] fn_Get-MCRconCheck failed"
+    ElseIf (!$mcrconexecutable) {
+        $global:warnmessage = "fnmcrconfailed"
+        Get-warnmessage
+        Exit
     }
 }
