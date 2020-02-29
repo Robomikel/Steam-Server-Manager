@@ -26,8 +26,8 @@ Function Get-MCversion {
     $localbuild = Get-Content $serverfiles\version.txt
     Get-MCWebrequest
     $remotebuild = $mcvWebResponse
-    Write-Information "RemoteBuild: $remotebuild"
-    Write-Information "LocalBuild: $localbuild"
+    Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+    Write-Information "LocalBuild: $localbuild" -InformationAction Continue
     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
         $global:infomessage = "availableupdates"
         Get-Infomessage

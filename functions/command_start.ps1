@@ -62,7 +62,7 @@ Function Get-checkMultiple {
     Else {
         $global:infomessage = "running"
         Get-Infomessage
-         $process
+         Get-process $process
         Get-ClearVariables 
         Exit
     }

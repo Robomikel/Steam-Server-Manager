@@ -13,17 +13,13 @@ Function Get-CheckForVars {
         If ($command -eq "mcrcon") {
             $missingvars = $rconport, $rconpassword
         }
-        Elseif(!${queryport}) {
-            $missingvars = ${ip}, $appid, $process, ${port}, $anon
-        }
-        Else{
-            $missingvars = ${queryport}, ${ip}, $appid, $process, ${port}, $anon
+        Else {
+            $missingvars = $appid, $process, $anon, $launchParams
         }
         Foreach ($missingvars in $missingvars) {
             If ( !$missingvars) {
                 $global:warnmessage = "missingvars"
                 Get-warnmessage
-                Exit
             }
         }   
     }

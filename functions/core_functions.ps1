@@ -27,7 +27,7 @@ Function Get-ClearVariables {
     # $global:infomessage = "clearing"
     # Get-Infomessage
     Add-Content $ssmlog "[$loggingdate] Clearing Variables"  
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog","steamport"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -182,6 +182,7 @@ Function Get-Appid {
         }
         If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
             Write-Host "****   Requires Steam Login    *****" -F Y
+            Add-Content $ssmlog "[$loggingdate] Requires Steam Login"
         }
     }
 }
@@ -238,17 +239,21 @@ Function compare-SteamExit {
         }
         ElseIf ($appinstalllog -Like "*Invalid Password*") {
             Write-Host "****   Failed Password   ****" -F R
+            Add-Content $ssmlog "[$loggingdate] Failed Password"
             New-TryagainNew 
         }
         ElseIf ($appinstalllog -Like "*No subscription*") {
             Write-Host "****  No subscription, Requires steamcmd login   ****" -F R
+            Add-Content $ssmlog "[$loggingdate] No subscription, Requires steamcmd login"
             New-TryagainNew 
         }
         ElseIf ($appinstalllog -Like "*Success*") {
             Write-Host "****   Downloading  server succeeded   ****" -F Y
+            Add-Content $ssmlog "[$loggingdate] Downloading  server succeeded"
         }   
         ElseIf (($appinstalllog -Like "* Failed *") -or ($appinstalllog -Like "*FAILED*")) {
             Write-Host "****   Downloading  server Failed   ****" -F R
+            Add-Content $ssmlog "[$loggingdate] Downloading  server Failed"
             New-TryagainNew 
         }
         Else {
