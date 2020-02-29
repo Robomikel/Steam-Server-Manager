@@ -9,10 +9,10 @@
 #
 Function Install-ServerFiles {
     If ($APPID -eq 11421000) {
-        New-LaunchScriptbedrock_serverPS
+        $true
     }
     ElseIf ($APPID -eq 11500000) {
-        New-LaunchScriptminecraft_serverPS
+        $true
     }
     Else {
         If ($anon) {

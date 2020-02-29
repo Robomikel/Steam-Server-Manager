@@ -11,7 +11,7 @@ Function Get-CheckForVars {
     Add-Content $ssmlog "[$loggingdate] checking Server Variables"
     If ($command) {
         If ($command -eq "mcrcon") {
-            $missingvars = $rconport, $rconpassword
+            $missingvars = $port, $rconpassword
         }
         Else {
             $missingvars = $appid, $process, $anon, $launchParams

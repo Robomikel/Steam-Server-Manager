@@ -11,20 +11,20 @@ Function Set-ConnectMCRcon {
         If ($Useprivate -eq "off") {
             set-location $mcrcondirectory
             If (!( ${rconport} )) {
-                .\$mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
+                & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
             }
             Else {
-                .\$mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
+                & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
             }
             set-location $currentdir
         }
         Else {
             set-location $mcrcondirectory
             If (!( ${rconport} )) {
-                .\$mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
+                & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
             }
             Else {
-                .\$mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
+                & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
             }
             set-location $currentdir
         }

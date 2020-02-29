@@ -7,8 +7,9 @@
 #
 #
 Function Get-SourceMetaMod {
+    Get-SourceMetaModWebrequest
     If (($metamodurl) -and ($metamodoutput) -and ($sourcemodoutput) -and ($sourcemoddirectory)) {
-        Get-SourceMetaModWebrequest
+        
         $start_time = Get-Date
         $global:package = 'MetaMod'
         $global:infomessage = "Downloading"
@@ -42,7 +43,10 @@ Function Get-SourceMetaMod {
             New-TryagainNew 
         }
         $start_time = Get-Date
-        Write-Host '****   Downloading SourceMod   ****' -F M -B Black
+        $global:package = 'SourceMod'
+        $global:infomessage = "Downloading"
+        Get-Infomessage
+        # Write-Host '****   Downloading SourceMod   ****' -F M -B Black
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput

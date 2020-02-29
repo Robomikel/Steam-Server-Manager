@@ -212,7 +212,7 @@ Function Get-PreviousInstall {
         If ($null -ne $check ) {
             Get-createdvaribles
             Get-StopServerInstall
-            Get-ClearVariables
+            # Get-ClearVariables
         }
     }
 }
