@@ -22,7 +22,8 @@ $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-S
 # NodeJs Version "12.13.1"
 $global:nodeversion = "12.15.0"
 $global:nodejsurl = "https://nodejs.org/dist/v$nodeversion/node-v$nodeversion-win-x64.zip"
-$global:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64"
+$global:nodejsoutput = "node-v$nodeversion-win-x64.zip"
+$global:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
 # Oxide

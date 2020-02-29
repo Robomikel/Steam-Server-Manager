@@ -36,7 +36,6 @@ Function Get-CheckServer {
             Get-checkMultiple 
         }
         Else {
-            # Write-Host '****   Check  Server process    *****' -F Y -B Black 
             If (!(Get-Process "$process" -ea SilentlyContinue)) {
                 $global:infomessage = "notrunning"
                 Get-Infomessage
