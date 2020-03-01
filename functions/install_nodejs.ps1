@@ -24,7 +24,8 @@ Function Add-NodeJS {
             $global:infomessage = "Downloaded"
             Get-Infomessage 
         }
-        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "downloadtime"
+        Get-Infomessage
         $global:infomessage = "Extracting"
         Get-Infomessage 
         Expand-Archive "$currentdir\node-v$nodeversion-win-x64.zip" "$currentdir\node-v$nodeversion-win-x64\" -Force

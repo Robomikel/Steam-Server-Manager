@@ -46,6 +46,8 @@ Function Set-SteamerSetting {
     $global:ssmlogging              = "on"
     #                               ssmlogging count 
     $global:ssmlogcount             = "10"
+    #                               Message Text Color 
+    $global:textcolor               = "Blue" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt min, 1 prompt max, 2 no prompt
     #$global:Version                 = "1"
     #                               Server List Directory
@@ -64,7 +66,4 @@ Function Set-SteamerSetting {
     $global:pastebinconsolelog      = "off"
 
 }
-
-
-
 

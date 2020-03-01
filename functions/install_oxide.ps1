@@ -19,8 +19,9 @@ Function Get-Oxide {
             $global:warnmessage = 'Downloadfailed'
             Get-WarnMessage 
             New-TryagainNew
-        } 
-        Write-Host "Download Time: $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        }
+        $global:infomessage = "downloadtime"
+        Get-Infomessage 
         $global:infomessage = "Extracting"
         Get-Infomessage
         Expand-Archive $oxideoutput $oxidedirectory -Force

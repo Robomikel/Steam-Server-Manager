@@ -7,13 +7,16 @@
 #
 #
 Function Set-ConnectMCRcon {
+    Add-Content $ssmlog "[$loggingdate] Starting McRcon"
     If ($mcrconexecutable) {
         If ($Useprivate -eq "off") {
             set-location $mcrcondirectory
             If (!( ${rconport} )) {
+                Add-Content $ssmlog "[$loggingdate] Using Port ${extip} -P ${port} -p $rconpassword"
                 & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
             }
             Else {
+                Add-Content $ssmlog "[$loggingdate] Using RconPort ${extip} -P ${port} -p $rconpassword"
                 & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
             }
             set-location $currentdir
@@ -21,9 +24,11 @@ Function Set-ConnectMCRcon {
         Else {
             set-location $mcrcondirectory
             If (!( ${rconport} )) {
+                Add-Content $ssmlog "[$loggingdate] Using Port ${ip} -P ${port} -p $rconpassword"
                 & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
             }
             Else {
+                Add-Content $ssmlog "[$loggingdate] Using Port ${ip} -P ${rconport} -p $rconpassword"
                 & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
             }
             set-location $currentdir

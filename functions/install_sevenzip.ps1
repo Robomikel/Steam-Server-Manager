@@ -24,7 +24,8 @@ Function Add-Sevenzip {
             $global:infomessage = "Downloaded"
             Get-Infomessage
         }
-        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "downloadtime"
+        Get-Infomessage
         Expand-Archive $sevenzipoutput $sevenzipdirectory -Force
         $global:infomessage = "Extracting"
         Get-Infomessage

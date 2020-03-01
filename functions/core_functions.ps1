@@ -17,7 +17,7 @@ Function Get-CreatedVaribles {
 
         } 
     }
-    Else{
+    Else {
         $global:warnmessage = "fn_InstallServerFiles"
         Get-warnmessage
         
@@ -27,7 +27,7 @@ Function Get-ClearVariables {
     # $global:infomessage = "clearing"
     # Get-Infomessage
     Add-Content $ssmlog "[$loggingdate] Clearing Variables"  
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog","steamport"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog", "steamport", "RANDOMPASSWORD", "discordwebhook", "rconweb", "worldsize"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -138,6 +138,7 @@ Function New-ServerLog {
     If (($AppID -eq 343050) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\server_*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 232130) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Launch.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 996560) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 541790) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\DaysOfWar.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If ($pastebinconsolelog -eq "on") { Send-Paste }
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
@@ -151,9 +152,9 @@ Function Remove-SteamerLogs {
 }
 Function Send-Paste {
     If (Test-Path $logdir\*.log) {
-        If ($hostname) {
+        If ($serverfiles) {
             $paste = Get-Childitem $logdir -Recurse | Sort-Object | Select-Object -First 1 | Get-Content -Raw
-            Out-Pastebin  -InputObject $paste -PasteTitle "$hostname" -ExpiresIn 10M -Visibility Unlisted
+            Out-Pastebin  -InputObject $paste -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
         }
 
     }
@@ -165,12 +166,8 @@ Function New-ServerBackupLog {
 
 Function Get-Appid {
     If ($serverfiles) {
-        $searchTerm = "\b$serverfiles\b"
-        $results = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern $searchTerm
-        $results = "`"$results`""
-        $results = $results.Split(",")[3]
-        $global:AppID = "$results"
-        If (($null -eq $AppID) -or ("" -eq $AppID)) {
+        $global:AppID = (Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b").Line.Split(",")[3]
+        If (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
             $global:AppID = Read-host
             Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
@@ -207,27 +204,23 @@ Function Get-SourceMetaModWebrequest {
 }
 
 Function Get-PreviousInstall {
-    If (Test-Path $currentdir\$serverfiles\Variables-*.ps1) {
-        $check = (Get-Childitem $currentdir\$serverfiles\ | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
-        If ($null -ne $check ) {
-            Get-createdvaribles
-            Get-StopServerInstall
-            # Get-ClearVariables
+    If (Test-Path $serverdir\Variables-*.ps1) {
+        $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+        If ($process) {
+            If ( !$check ) {
+                Get-createdvaribles
+                Get-StopServerInstall
+                # Get-ClearVariables
+            }
         }
     }
 }
 
-function Receive-Success {
-    process { Write-Host $_ -ForegroundColor Green -NoNewline }
-}
 function Receive-Information {
     process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
 }
-function Receive-sky {
-    process { Write-Host $_ -ForegroundColor Magenta -NoNewline }
-}
 function Receive-Message {
-    process { Write-Host $_ -ForegroundColor Blue -NoNewline }
+    process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
 }
 Function compare-SteamExit {
     If ($appinstalllog) {

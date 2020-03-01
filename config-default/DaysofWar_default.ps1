@@ -27,7 +27,7 @@ Function New-LaunchScriptdowserverPS {
     #                       Game Process
     $global:process         = "DaysOfWarServer-Win64-Shipping"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir"
+    $global:logdirectory    = "$serverdir\DaysOfWar\Saved\Logs"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

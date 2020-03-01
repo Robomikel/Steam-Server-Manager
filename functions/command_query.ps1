@@ -12,10 +12,11 @@ Function Get-GamedigServerv2 {
         If ($Useprivate -eq "off") {
             set-location $nodejsdirectory
             If (!(${queryport} )) {
+                Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${extip}:${port} "
                 .\gamedig --type $querytype ${extip}:${port} --pretty
             }
             Else {
-                Add-Content $ssmlog "[$loggingdate]  Using queryport "
+                Add-Content $ssmlog "[$loggingdate]  Using queryport $querytype ${extip}:${queryport}"
                 .\gamedig --type $querytype ${extip}:${queryport} --pretty
             }
             set-location $currentdir
@@ -23,10 +24,11 @@ Function Get-GamedigServerv2 {
         Else {
             set-location $nodejsdirectory
             If (!(${queryport} )) {
+                Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${ip}:${port} "
                 .\gamedig --type $querytype ${ip}:${port} --pretty
             }
             Else {
-                Add-Content $ssmlog "[$loggingdate] Using queryport"
+                Add-Content $ssmlog "[$loggingdate] Using queryport $querytype ${ip}:${queryport}"
                 .\gamedig --type $querytype ${ip}:${queryport} --pretty
             }
             set-location $currentdir
