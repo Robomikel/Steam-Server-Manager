@@ -222,9 +222,9 @@ Function Get-SourceMetaModWebrequest {
 Function Get-PreviousInstall {
     If (Test-Path $serverdir\Variables-*.ps1) {
         $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
-        If ($process) {
-            If ( !$check ) {
-                Get-createdvaribles
+        If ($check) {
+            Get-createdvaribles
+            If ( $process ) {
                 Get-StopServerInstall
                 # Get-ClearVariables
             }
