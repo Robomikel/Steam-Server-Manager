@@ -24,7 +24,8 @@ Function Install-Steam {
             $global:infomessage = "Downloaded"
             Get-Infomessage
         }
-        Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
+        $global:infomessage = "downloadtime"
+        Get-Infomessage
         $global:infomessage = "Extracting"
         Get-Infomessage
         Expand-Archive $steamoutput $steamdirectory -Force

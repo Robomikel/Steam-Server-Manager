@@ -47,6 +47,8 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

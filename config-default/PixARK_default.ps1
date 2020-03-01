@@ -50,6 +50,8 @@ Function New-LaunchScriptPixArkPS {
     $global:gamedirname     = ""
     #                       Game-Server-Config
     $global:servercfg       = "GameUserSettings.ini"
-    #                       Server Launch Command
+    #                       Server Launch Command    
     $global:launchParams    = '@("$executable ${defaultmap}?DelayRegisterServer=True?bRawSockets=True?SessionName=`"${hostname}`"?AltSaveDirectoryName=Trevoria?ServerPassword=${serverpassword}?ServerAdminPassword=${rconpassword}?MaxPlayers=${maxplayers}?RCONEnabled=True?RCONPort=${rconport}? -Seed=${seed} -OreSeed=${seed} -ConfigsUseAltDir -server -gameplaylogging -log -CULTUREFORCOOKING=en -NoBattlEye -QueryPort=${queryport} -Port=${port} -CubePort=${clientport} -cubeworld=${hostname}")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 } 

@@ -31,6 +31,8 @@ Function New-LaunchScriptBTserverPS {
     $global:servercfg           = "serversettings.xml"
     #                           Server Launch Command 
     $global:launchParams        = '@("$executable")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     #Get-Servercfg
     # Edit Server Game-Server-Config

@@ -59,4 +59,6 @@ Function New-LaunchScriptCOD3MWserverPS {
   $global:servercfg           = "server.cfg"
   #                           Server Launch Command
   $global:launchParams        = '@("$executable +start_map_rotate +set sv_maprotation ${defaultmap} +set net_queryPort ${queryport} +set net_port ${port} +set net_authPort 8766 +set net_masterServerPort 27016 ")'
+  # Get User Input version must be set to 0
+  Get-UserInput
 }   

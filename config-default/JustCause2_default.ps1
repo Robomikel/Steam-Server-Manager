@@ -33,7 +33,9 @@ Function New-LaunchScriptjc2serverPS {
     #                       Game-Server-Config
     $global:servercfg       = "config.lua"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable")'
+    # Get User Input version must be set to 0
+    Get-UserInput$global:launchParams    = '@("$executable")'
+    
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

@@ -20,7 +20,7 @@ Function New-MontiorJobBG {
     $UserName = "$env:COMPUTERNAME\$env:UserName"
     Write-Host "Run Task Whether user is logged on or not"
     Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
-    $SecurePassword = $password = Read-Host "Password:" -AsSecureString
+    $SecurePassword = $password = Read-Host "Password " -AsSecureString
     $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
     $Password = $Credentials.GetNetworkCredential().Password 
     $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles  }`"" -WorkingDirectory "$currentdir"

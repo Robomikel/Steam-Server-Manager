@@ -42,6 +42,8 @@ Function New-LaunchScriptSvenCoopserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -console -game svencoop -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg +maxplayers ${maxplayers} -condebug")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

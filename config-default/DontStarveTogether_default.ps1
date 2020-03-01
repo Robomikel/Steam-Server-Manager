@@ -56,6 +56,8 @@ Function New-LaunchScriptDSTserverPS {
     $global:servercfg       = "cluster.ini"
     # Download Game-Server-Config
     Get-Servercfg
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Edit Server Game-Server-Config
     Select-EditSourceCFG
     #                       Server Launch Command

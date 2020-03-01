@@ -29,7 +29,7 @@ Function Get-Servercfg {
                 Add-Content $ssmlog "[$loggingdate] Array Failed !! Did NOT Retrieve server config"
                 Exit 
             }
-            If ($?) { 
+            ElseIf ($?) { 
                 Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
             }
             New-Item $servercfgdir\$servercfg -Force

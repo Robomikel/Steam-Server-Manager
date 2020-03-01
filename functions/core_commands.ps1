@@ -8,15 +8,17 @@
 #
 #
 Function Select-Steamer {
-    param(
-        [string]
-        [Parameter(Mandatory = $true, Position = 0, HelpMessage = " CTL + C and ./ssm ?   ")]
+    Param(
+        [Parameter(Mandatory=$true,Position = 0,HelpMessage = " CTL + C and ./ssm ?   ")]
         #[ValidatePattern('^[a-z,A-Z]$')]
+        [String[]]
         $command,
-        [string[]]
-        [Parameter(Mandatory = $false, Position = 1)]
+        [Parameter(Mandatory=$false,Position = 1)]
         #[ValidatePattern('^[a-z,A-Z]$')]
+        [string[]]
+        [Int[]]
         $serverfiles)
+        
         Add-Content $ssmlog "[$loggingdate] command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     

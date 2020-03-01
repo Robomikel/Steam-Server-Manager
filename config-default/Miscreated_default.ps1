@@ -43,6 +43,8 @@ Function New-LaunchScriptMiscreatedPS {
         $global:servercfg       = "HOSTING.CFG"
         #                       Server Launch Command
         $global:launchParams    = '@("$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
+        # Get User Input version must be set to 0
+        Get-UserInput
         # Install Adjustment         
         Write-Host '*** Creating HOSTING.CFG *****' -ForegroundColor Magenta -BackgroundColor Black 
         New-Item $servercfgdir\HOSTING.CFG -Force

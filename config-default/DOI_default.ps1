@@ -51,6 +51,8 @@ Function New-LaunchScriptdoiserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

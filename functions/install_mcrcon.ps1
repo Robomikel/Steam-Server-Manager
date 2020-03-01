@@ -9,6 +9,7 @@
 Function install-mcrcon {
     If (($mcrconurl) -and ($mcrconoutput)) {
         $start_time = Get-Date
+        $global:package = 'MCRCon'
         $global:infomessage = "downloading"
         Get-Infomessage
         Add-Content $ssmlog "[$loggingdate] Downloading MCRCon from github" 
@@ -20,14 +21,13 @@ Function install-mcrcon {
             Add-Content $ssmlog "[$loggingdate] Downloading  MCRCon Failed"
             New-TryagainNew 
         }
-        If ($?) {
+        ElseIf ($?) {
             $global:infomessage = "downloaded"
             Get-Infomessage
             Add-Content $ssmlog "[$loggingdate] MCRCon succeeded " 
         }
         $global:infomessage = "downloadtime"
         Get-Infomessage
-        # Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
         $global:infomessage = "Extracting"
         Get-Infomessage
         Expand-Archive "$mcrconoutput" "$mcrcondirectory" -Force 3>&1 2>&1 >>  $ssmlog
@@ -38,7 +38,7 @@ Function install-mcrcon {
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon Failed " 
             New-TryagainNew 
         }
-        If ($?) { 
+        ElseIf ($?) { 
             $global:infomessage = "Extracted"
             Get-Infomessage
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon succeeded  "  
