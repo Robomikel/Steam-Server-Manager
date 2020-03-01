@@ -45,4 +45,6 @@ Function New-LaunchScriptStormworksserverPS {
     $global:servercfg       = "server_config.xml"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 }

@@ -28,5 +28,7 @@ Function New-LaunchScriptminecraft_serverPS {
     $global:servercfg       = "server.properites"
     #                       Server Launch Command
     $global:launchParams    = '@("java -Xms1024M -Xmx1024M -jar $executable nogui")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     Get-MCjavaBinaries
 }

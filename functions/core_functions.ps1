@@ -27,7 +27,7 @@ Function Get-ClearVariables {
     # $global:infomessage = "clearing"
     # Get-Infomessage
     Add-Content $ssmlog "[$loggingdate] Clearing Variables"  
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog", "steamport", "RANDOMPASSWORD", "discordwebhook", "rconweb", "worldsize"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog", "steamport", "RANDOMPASSWORD", "discordwebhook", "rconweb", "worldsize","SAVEINTERVAL"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
@@ -139,13 +139,29 @@ Function New-ServerLog {
     If (($AppID -eq 232130) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\Launch.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 996560) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\*.txt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 541790) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\DaysOfWar.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
+    If (($AppID -eq 403240) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\SquadGame.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If ($pastebinconsolelog -eq "on") { Send-Paste }
     # Get-Childitem $currentdir\log\ssm\ -Recurse | where-object name -like Steamer-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $consolelogcount | Remove-Item -Force -ea SilentlyContinue
     # "$logdirectory\[so]*.txt",
     # If ($ssmlogging -eq "on") { Get-Childitem $currentdir\log\ -Recurse | where-object name -like $serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip $ssmlogcount | Remove-Item -Force -ea SilentlyContinue }
+    Remove-SteamerLogs
+    Remove-ServerconsoleLogs
+    Remove-backupLogs
 }
-
+Function Remove-backupLogs {
+    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount backup_$serverfiles-*.log"
+    If (Test-Path $logdir\backup_$serverfiles-*.log) {
+        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    }
+}
+Function Remove-ServerconsoleLogs {
+    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount $serverfiles-*.log"
+    If (Test-Path $logdir\$serverfiles-*.log) {
+        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    }
+}
 Function Remove-SteamerLogs {
+    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }

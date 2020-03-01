@@ -21,7 +21,7 @@ Function install-mcrcon {
             Add-Content $ssmlog "[$loggingdate] Downloading  MCRCon Failed"
             New-TryagainNew 
         }
-        If ($?) {
+        ElseIf ($?) {
             $global:infomessage = "downloaded"
             Get-Infomessage
             Add-Content $ssmlog "[$loggingdate] MCRCon succeeded " 
@@ -38,7 +38,7 @@ Function install-mcrcon {
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon Failed " 
             New-TryagainNew 
         }
-        If ($?) { 
+        ElseIf ($?) { 
             $global:infomessage = "Extracted"
             Get-Infomessage
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon succeeded  "  

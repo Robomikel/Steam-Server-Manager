@@ -9,7 +9,7 @@
 Function Get-MCRconCheck {
     If ($mcrconexecutable) {
         If (Test-Path $mcrconexecutable) { 
-            Add-Content $ssmlog "[$loggingdate] mcrcon already downloaded! "
+            Add-Content $ssmlog "[$loggingdate] McRcon already downloaded "
         } 
         ElseIf (!(Test-Path $mcrconexecutable)) {  
             install-mcrcon

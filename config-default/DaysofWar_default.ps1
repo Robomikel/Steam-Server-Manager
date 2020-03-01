@@ -34,4 +34,6 @@ Function New-LaunchScriptdowserverPS {
     $global:servercfg       = "Game.ini"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable ${defaultmap} -Port=${port} -QueryPort=${queryport} -LOG")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 } 

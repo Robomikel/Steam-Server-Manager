@@ -40,4 +40,6 @@ Function New-LaunchScriptSeriousSamserverPS {
     $global:servercfg       = "init.ini"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable ${gamemode}")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 }

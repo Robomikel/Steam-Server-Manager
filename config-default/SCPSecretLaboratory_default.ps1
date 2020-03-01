@@ -42,4 +42,6 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     $global:servercfg           = ""
     #                           Server Launch Command
     $global:launchParams        = '@("$executable ${port}")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 }   

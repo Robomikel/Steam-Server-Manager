@@ -48,6 +48,8 @@ Function New-LaunchScriptRustPS {
         $global:servercfg               = "server.cfg"
         #                               Server Launch Command
         $global:launchParams            = '@("$executable -batchmode +server.ip ${ip}  +server.port ${port} +server.tickrate ${TICKRATE} +server.hostname `"${hostname}`" +server.maxplayers ${maxplayers} +server.worldsize ${worldsize} +server.saveinterval ${saveinterval} +rcon.web ${rconweb} +rcon.ip 0.0.0.0 +rcon.port ${rconport} +rcon.password ${rconpassword} -logfile $logdirectory\Serverlog-$date.log")'
+        # Get User Input version must be set to 0
+        Get-UserInput
         # Download Game-Server-Config
         Get-Servercfg
 }

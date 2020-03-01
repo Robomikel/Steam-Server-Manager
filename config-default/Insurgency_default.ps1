@@ -54,6 +54,8 @@ Function New-LaunchScriptInsserverPS {
     $global:gamedirname     = "Insurgency"
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

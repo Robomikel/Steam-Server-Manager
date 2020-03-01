@@ -18,10 +18,10 @@ Function Get-ChecktaskUnreg {
 }
 Function Get-ChecktaskDisable {
     If ($Checktask -eq "on") {
-        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
         If ($?) {
-            Add-Content $ssmlog "[$loggingdate] disabling scheduled task "
-            Disable-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+            Add-Content $ssmlog "[$loggingdate] Disabling scheduled task "
+            Disable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
         }
         ElseIf (!$?) {
             Add-Content $ssmlog "[$loggingdate]  Scheduled Task does not exist "
@@ -30,10 +30,10 @@ Function Get-ChecktaskDisable {
 }
 Function Get-ChecktaskEnable {
     if ($Checktask -eq "on") {
-        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
         If ($?) {
             Add-Content $ssmlog "[$loggingdate] Enabling scheduled task "
-            Enable-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+            Enable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
         }
         ElseIf (!$?) {
             Add-Content $ssmlog "[$loggingdate] Scheduled Task does not exist "

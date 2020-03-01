@@ -9,7 +9,7 @@
 Function Get-Steam {
     If ($steamexecutable) {
         If (Test-Path $steamexecutable) { 
-            Add-Content $ssmlog "[$loggingdate]  steamCMD already downloaded! "
+            Add-Content $ssmlog "[$loggingdate] steamCMD already downloaded! "
         } 
         ElseIf (!(Test-Path $steamexecutable)) {  
             Install-Steam

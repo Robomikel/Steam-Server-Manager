@@ -24,4 +24,6 @@ Function New-LaunchScriptboundelserverPS {
     $global:logdirectory    = "$serverdir"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -batchmode")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 }

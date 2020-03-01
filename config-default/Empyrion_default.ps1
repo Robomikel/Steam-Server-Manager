@@ -29,6 +29,8 @@ Function New-LaunchScriptempserverPS {
     $global:servercfg       = "dedicated.yaml"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -startDedi")'
+    # Get User Input version must be set to 0
+    Get-UserInput
     # Install Adjustment
     Write-Host "***  Editing Default dedicated.yaml  ***" -ForegroundColor Magenta -BackgroundColor Black
     ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "\bMy Server\b", "$hostname") | Set-Content -Path $servercfgdir\$servercfg

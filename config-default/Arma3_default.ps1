@@ -59,6 +59,8 @@ Function New-LaunchScriptArma3serverPS {
     $global:config2         = "network.cfg"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -ip=${ip} -port=${port} -cfg=$servercfgdir\network.cfg -config=$servercfgdir\server.cfg -mod=$mods -servermod=$servermods -bepath=$serverdir\battleye\ -profiles=SC -name=SC -loadmissiontomemory")'
+      # Get User Input version must be set to 0
+    Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg    
     # Edit Server Game-Server-Config
@@ -68,8 +70,8 @@ Function New-LaunchScriptArma3serverPS {
 }
 
 Function Get-InstallChangesArma3 {
-    Write-Host "***  Creating BEserver.cfg ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $serverdir\battleye\BEServer.cfg -Force
+    Add-Content $ssmlog "[$logdate] Creating BEserver.cfg" 
+    New-Item $serverdir\battleye\BEServer.cfg -Force 3>&1 2>&1 >> $ssmlog
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPassword $RCONPASSWORD"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConIP 127.0.0.1"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPort $RCONPORT"

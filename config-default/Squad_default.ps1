@@ -37,11 +37,13 @@ Function New-LaunchScriptSquadserverPS {
     #                               Game Process
     $global:process                 = "SquadGameServer"
     #                               Log Directory
-    $global:logdirectory            = "$serverdir"
+    $global:logdirectory            = "$serverdir\SquadGame\Saved\Logs"
     #                               Game-Server-Config Directory
     $global:gamedirname             = ""
     #                               Game-Server-Config
     $global:servercfg               = "Server.cfg"
     #                               Server Launch Command
     $global:launchParams            = '@("$executable MULTIHOME=${IP} Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 } 

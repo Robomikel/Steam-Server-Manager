@@ -46,4 +46,6 @@ Function New-LaunchScriptCaspaServerPS {
     $global:servercfg       = "Game.ini"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable")'
+    # Get User Input version must be set to 0
+    Get-UserInput
 } 

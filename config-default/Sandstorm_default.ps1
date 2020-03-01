@@ -51,7 +51,8 @@ Function New-LaunchScriptInssserverPS {
         Else {
                 $global:launchParams    = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
         }
-
+        # Get User Input version must be set to 0
+        Get-UserInput
         # Custom config 
         mkdir $serverdir\Insurgency\Config\Server   >$null 2>&1
         $MapCyclePath = "$serverdir\Insurgency\Config\Server"  
