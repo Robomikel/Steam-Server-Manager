@@ -7,15 +7,15 @@
 #
 #
 Function Get-Steam {
-    If ($steamdirectory) {
+    If ($steamexecutable) {
         If (Test-Path $steamexecutable) { 
             Add-Content $ssmlog "[$loggingdate]  steamCMD already downloaded! "
         } 
-        ElseIf (!(Test-Path $steamdirectory)) {  
+        ElseIf (!(Test-Path $steamexecutable)) {  
             Install-Steam
         }
     }
-    ElseIf (!($steamdirectory)) {
+    ElseIf (!($steamexecutable)) {
         $global:warnmessage = "fngetsteamfailed"
         Get-warnmessage
         Exit

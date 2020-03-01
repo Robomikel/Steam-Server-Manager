@@ -45,7 +45,6 @@ Function Get-ServerBuildCheck {
                 Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                 If (($updateonstart -eq "on") -or ($command -eq 'update')) {
                     If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-                        # Write-Host "****   Avaiable Updates Server   ****" -F Y -B Black
                         $global:infomessage = "availableupdates"
                         Get-Infomessage
                         Get-SteamFix
@@ -53,7 +52,6 @@ Function Get-ServerBuildCheck {
                         Get-UpdateServer  
                     }
                     Else {
-                        # Write-Host "****   No $serverfiles Updates found   ****" -F Y -B Black
                         Add-Content $ssmlog "[$loggingdate] No $serverfiles Updates found"
                         $global:infomessage = "noupdates"
                         Get-Infomessage
@@ -61,7 +59,6 @@ Function Get-ServerBuildCheck {
                 }
                 Set-Location $currentdir
             }
-            #  Write-Host "****   Updates on start off ****" -F Y -B Black
             Add-Content $ssmlog "[$loggingdate]  Updates on start off"
             Set-Location $currentdir
         }
@@ -73,10 +70,8 @@ Function Get-ServerBuildCheck {
 
 
 Function Get-SteamFix {
-    # Write-Host "****   Removing appmanifest_$appid.acf   ****" -F M -B Black
     Add-Content $ssmlog "[$loggingdate] Removing appmanifest_$appid.acf "
     Remove-Item $serverdir\steamapps\appmanifest_$appid.acf -Force  >$null 2>&1
-    # Write-Host "****   Removing Multiple appmanifest_$appid.acf    ****" -F M -B Black
     Add-Content $ssmlog "[$loggingdate] Removing Multiple appmanifest_$appid.acf "
     Remove-Item $serverdir\steamapps\appmanifest_*.acf -Force  >$null 2>&1
 }

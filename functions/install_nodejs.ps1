@@ -12,12 +12,10 @@ Function Add-NodeJS {
         $global:package = 'Nodejs'
         $global:infomessage = "Downloading"
         Get-Infomessage
-        # Write-Host '****   Downloading  Nodejs   ****' -F M -B Black  
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\node-v$nodeversion-win-x64.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\node-v$nodeversion-win-x64.zip
+        Invoke-WebRequest -Uri $nodejsurl -OutFile $nodejsoutput
         If (!$?) {
-            # sWrite-Host "****   Downloading  Nodejs Failed    ****" -F R -B Black
             $global:warnmessage = 'Downloadfailed'
             Get-WarnMessage 
             New-TryagainNew
@@ -25,26 +23,23 @@ Function Add-NodeJS {
         ElseIf ($?) {
             $global:infomessage = "Downloaded"
             Get-Infomessage 
-            # Write-Host "****   Downloading  Nodejs succeeded   ****" -F Y -B Black 
         }
         Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
         $global:infomessage = "Extracting"
         Get-Infomessage 
         Expand-Archive "$currentdir\node-v$nodeversion-win-x64.zip" "$currentdir\node-v$nodeversion-win-x64\" -Force
+        Copy-Item  "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\*" -Destination $nodejsdirectory-Recurse -Force 3>&1 2>&1 >>  $ssmlog
+        Remove-Item "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64" -Recurse -Force 3>&1 2>&1 >>  $ssmlog
         If (!$?) {
             $global:warnmessage = 'ExtractFailed'
             Get-WarnMessage
-            # Write-Host "****   Extracting Nodejs Failed   ****" -F Y -B Black 
             New-TryagainNew
         }
         ElseIf ($?) { 
-            # Write-Host "****   Extracting Nodejs succeeded   ****" -F Y -B Black
             $global:infomessage = "Extracted"
             Get-Infomessage 
         }
-        Set-Location $nodejsdirectory
-        $global:infomessage = "copying-installing"
-        Get-Infomessage   
+        Set-Location $nodejsdirectory  
         .\npm install gamedig
         .\npm install gamedig -g
         Set-Location $currentdir

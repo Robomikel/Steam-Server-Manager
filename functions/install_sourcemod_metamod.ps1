@@ -34,11 +34,9 @@ Function Get-SourceMetaMod {
             Get-WarnMessage
             New-TryagainNew
         }
-        # Write-Host '****   Copying/installing Meta Mod   ****' -F M -B Black
         Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod" 
         Copy-Item  $metamoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
         If (!$?) { 
-            #  Write-Host "****   Copying Meta Mod Failed !!   ****" -F R -B Black
             Add-Content $ssmlog "[$loggingdate] Copying Meta Mod Failed"
             New-TryagainNew 
         }
@@ -46,32 +44,27 @@ Function Get-SourceMetaMod {
         $global:package = 'SourceMod'
         $global:infomessage = "Downloading"
         Get-Infomessage
-        # Write-Host '****   Downloading SourceMod   ****' -F M -B Black
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput
         If (!$?) { 
             $global:warnmessage = 'Downloadfailed'
             Get-WarnMessage
-            # Write-Host "****   Downloading SourceMod Failed !!   ****" -F R -B Black
             New-TryagainNew 
         } 
         Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
         $global:infomessage = "Extracting"
         Get-Infomessage
-        # Write-Host '****   Extracting SourceMod   ****' -F M -B Black 
         Expand-Archive $sourcemodoutput $sourcemoddirectory -Force >$null 2>&1
         If (!$?) {
             $global:warnmessage = 'ExtractFailed'
             Get-WarnMessage 
-            # Write-Host "****   Extracting SourceMod Failed !!   ****" -F R -B Black
             New-TryagainNew 
         }
-        # Write-Host '****   Copying/installing SourceMod   ****' -F M -B Black
-        Add-Content $ssmlog "[$loggingdate] Copying/installing SourceMod"
+        $global:infomessage = "copying-installing"
+        Get-Infomessage 
         Copy-Item  $sourcemoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
         If (!$?) { 
-            # Write-Host "****   Copying SourceMod Failed !!   ****" -F R -B Black
             Add-Content $ssmlog "[$loggingdate] Copying SourceMod Faileds "
             New-TryagainNew 
         }
