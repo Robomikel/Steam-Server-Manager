@@ -71,7 +71,7 @@ Function New-LaunchScriptArma3serverPS {
 
 Function Get-InstallChangesArma3 {
     Add-Content $ssmlog "[$logdate] Creating BEserver.cfg" 
-    New-Item $serverdir\battleye\BEServer.cfg -Force 3>&1 2>&1 >> $ssmlog
+    New-Item $serverdir\battleye\BEServer.cfg -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPassword $RCONPASSWORD"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConIP 127.0.0.1"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPort $RCONPORT"

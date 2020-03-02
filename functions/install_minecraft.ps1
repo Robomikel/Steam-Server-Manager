@@ -18,7 +18,7 @@ Function Get-MCBRBinaries {
     Get-Infomessage
     Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item bedrock-server\* $serverfiles\ -Force -ea SilentlyContinue
-    New-Item $serverfiles\version.txt -Force 3>&1 2>&1 >> $ssmlog
+    New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content $serverfiles\version.txt $mcbrWebResponse.href -Force
     Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
@@ -34,7 +34,7 @@ Function Get-MCjavaBinaries {
     # $mcWebResponse.outerText
     # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
     Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
-    New-Item $serverfiles\version.txt -Force 3>&1 2>&1 >> $ssmlog
+    New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content $serverfiles\version.txt $mcvWebResponse -Force
     Set-Location $serverdir
     If (!(Test-Path eula.txt )) {
