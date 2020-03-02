@@ -156,19 +156,19 @@ Function New-ServerLog {
     Remove-backupLogs
 }
 Function Remove-backupLogs {
-    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount backup_$serverfiles-*.log"
+    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
         Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
-    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount $serverfiles-*.log"
+    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
         Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
-    Add-Content $ssmlog "[$logdate] Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
+    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
