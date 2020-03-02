@@ -168,7 +168,7 @@ Add-Content $ssmlog "[$loggingdate] Getting Warning "
             $global:message = ' Fn_Get-Steam Failed'
         }
         ElseIf ($warnmessage -eq 'Fn_InstallServerFiles') {
-            $global:message = ' Failed: Install-ServerFiles '
+            $global:message = ' Failed: Install-ServerFiles: Try Install command'
         }
         ElseIf ($warnmessage -eq 'Fn_Set-ConnectMCRcon') {
             $global:message = " Set-ConnectMCRcon Failed: $serverdir"
