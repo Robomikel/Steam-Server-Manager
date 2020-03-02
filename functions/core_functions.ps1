@@ -189,21 +189,24 @@ Function New-ServerBackupLog {
 
 Function Get-Appid {
     If ($serverfiles) {
-        $global:AppID = (Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b").Line.Split(",")[3]
-        If (!$AppID) {
+        $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
+        If ($Appid) {
+            $global:appid = $appid.Line.Split(",")[3]
+        }
+        ElseIf (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
             $global:AppID = Read-host
             Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
             $global:Branch = Read-host
             Get-TestInterger
         }
-        Else { 
-            Write-Host "        App ID: $AppID" -F Y
-        }
         If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
             Write-Host "****   Requires Steam Login    *****" -F Y
             Add-Content $ssmlog "[$loggingdate] Requires Steam Login"
         }
+        Else { 
+            Write-Host "        App ID: $AppID" -F Y
+        }        
     }
 }
 
