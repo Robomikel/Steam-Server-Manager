@@ -176,8 +176,10 @@ Function Remove-SteamerLogs {
 Function Send-Paste {
     If (Test-Path $logdir\*.log) {
         If ($serverfiles) {
-            $paste = Get-Childitem $logdir -Recurse | Sort-Object | Select-Object -First 1 | Get-Content -Raw
-            Out-Pastebin  -InputObject $paste -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
+            Set-Location $logdir
+            $paste = Get-Childitem $logdir -Filter $serverfiles-*.log  | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+            Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
+             Set-Location $currentdir
         }
 
     }
