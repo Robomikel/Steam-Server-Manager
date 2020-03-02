@@ -23,15 +23,22 @@ Function Get-CreatedVaribles {
         
     }
 }
-Function Get-ClearVariables {
+Function Get-ClearVariables_old {
     # $global:infomessage = "clearing"
     # Get-Infomessage
     Add-Content $ssmlog "[$loggingdate] Clearing Variables"  
-    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog", "steamport", "RANDOMPASSWORD", "discordwebhook", "rconweb", "worldsize","SAVEINTERVAL"
+    $vars = "process", "ip", "port", "sourcetvport", "clientport", "defaultmap", "tickrate", "gslt", "maxplayers", "workshop", "hostname", "queryport", "saves", "appid", "rconport", "rconpassword", "sv_pure", "scenario", "gametype", "gamemode", "mapgroup", "wscollectionid", "wsstartmap", "wsapikey", "webhook", "executabledir", "querytype", "servercfgdir", "gamedirname", "servercfg", "config2", "config3", "config4", "config5", "systemdir", "status", "CpuCores", "cpu", "avmem", "totalmem", "mem", "backups", "backupssize", "stats", "gameresponse", "os", "results,", "disks", "computername", "ANON", "ALERT", "launchParams", "coopplayers", "sv_lan", "diff", "galaxyname", "adminpassword", "username", "logdir", "mods", "reg_appID", "wsmods", "servermods", "wsmoddir", "appid", "serverfiles", "logdirectory", "executable", "username", "password", "persistentstorageroot", "shard", "cluster", "moddir", "infomessage", "message", "appinstalllog", "steamport", "RANDOMPASSWORD", "discordwebhook", "rconweb", "worldsize", "SAVEINTERVAL"
     Foreach ($vars in $vars) {
         Clear-Variable $vars -Scope Global -ea SilentlyContinue
         Remove-Variable $vars -Scope Global -ea SilentlyContinue
     }
+}
+Function Get-ClearVariables {
+    $var = (Get-Variable * -scope global).Name
+    Add-Content $ssmlog "[$loggingdate] Removing Variables $var" 
+    Remove-Variable * -Scope Global -ea SilentlyContinue -Force
+    # Add-Content $ssmlog "[$loggingdate]  Variables $var"
+    
 }
 
 Function Get-TestInterger { 
