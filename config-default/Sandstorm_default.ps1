@@ -39,7 +39,7 @@ Function New-LaunchScriptInssserverPS {
         $global:querytype               = "insurgencysandstorm"
         #                               Game Process
         $global:process                 = "InsurgencyServer-Win64-Shipping"
-        #                               Log Directory Insurgency.log
+        #                               Log Directory
         $global:logdirectory            = "$serverdir\Insurgency\Saved\Logs"
         #                               Server Log
         $global:consolelog                     = "Insurgency.log"

@@ -57,7 +57,7 @@ Function New-LaunchScriptMEserverPS {
   $global:querytype       = "protocol-valve"
   #                       Game Process
   $global:process         = "MedievalEngineersDedicated"
-  #                       Log Directory MedievalEngineersDedicated
+  #                       Log Directory
   $global:logdirectory    = "$env:APPDATA\$saves"
   #                       Server Log
   $global:consolelog             = "MedievalEngineersDedicated.log"

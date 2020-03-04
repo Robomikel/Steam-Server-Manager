@@ -164,8 +164,12 @@ Function New-ServerLog {
             If ($?) {
                 If ($pastebinconsolelog -eq "on") { 
                     Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
+                    Add-Content $ssmlog "[$loggingdate] Sent Pastebin"
                 }
-                rename-Item $logdirectory\$log $consolelog-backup-$date
+                Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $log)
+                If (!$?) {
+                    Add-Content $ssmlog "[$loggingdate] Rename-Item Failed"
+                }
             }
         }
     }
