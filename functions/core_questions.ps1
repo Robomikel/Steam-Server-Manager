@@ -371,7 +371,7 @@ Function Get-UserInput {
         }
         If ($defaultmap) {
             $defaultdefaultmap = "$defaultmap"
-            If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server defaultmap, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
+            If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server default map, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
         }
         If ($clientport) {
             $defaultclientport = "$clientport"
@@ -427,11 +427,11 @@ Function Get-UserInput {
         }
         If ($gametype) {
             $defaultgametype = "$gametype"
-            If (($global:gametype = Read-Host -P(Write-Host "Enter Server gametype, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $global:gametype = "$defaultgametype" }Else { $gametype }
+            If (($global:gametype = Read-Host -P(Write-Host "Enter Server game type, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $global:gametype = "$defaultgametype" }Else { $gametype }
         }
         If ($coopplayers) {
             $defaultcoopplayers = "$coopplayers"
-            If (($global:coopplayers = Read-Host -P(Write-Host "Enter Server COOPPLAYERS, Press Enter to Accept  [$coopplayers]: "-F CY -N )) -eq '') { $global:coopplayers = "$defaultcoopplayers" }Else { $coopplayers }
+            If (($global:coopplayers = Read-Host -P(Write-Host "Enter Server COOP PLAYERS, Press Enter to Accept  [$coopplayers]: "-F CY -N )) -eq '') { $global:coopplayers = "$defaultcoopplayers" }Else { $coopplayers }
         }
         If ($sv_lan) {
             $defaultsv_lan = "$sv_lan"

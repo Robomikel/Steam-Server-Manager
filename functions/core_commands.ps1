@@ -15,8 +15,6 @@ Function Select-Steamer {
         $command,
         [Parameter(Mandatory=$false,Position = 1)]
         #[ValidatePattern('^[a-z,A-Z]$')]
-        [string[]]
-        [Int[]]
         $serverfiles)
         
         Add-Content $ssmlog "[$loggingdate] command:  $command $serverfiles"
