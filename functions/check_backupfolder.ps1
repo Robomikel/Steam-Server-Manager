@@ -13,7 +13,7 @@ Function New-BackupFolder {
         } 
         ElseIf (!(Test-Path $backupdir)) {  
             Add-Content $ssmlog "[$loggingDate] Creating backup folder "
-            New-Item  "$currentdir" -Name "backups" -ItemType "directory" 3>&1 2>&1 >>  $ssmlog
+            New-Item  "$currentdir" -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
                 $global:warnmessage = "createfolderfailed"
                 Get-warnmessage

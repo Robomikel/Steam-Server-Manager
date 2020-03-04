@@ -29,8 +29,8 @@ Function Add-NodeJS {
         $global:infomessage = "Extracting"
         Get-Infomessage 
         Expand-Archive "$currentdir\node-v$nodeversion-win-x64.zip" "$currentdir\node-v$nodeversion-win-x64\" -Force
-        Copy-Item  "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\*" -Destination $nodejsdirectory -Recurse -Force 3>&1 2>&1 >>  $ssmlog
-        Remove-Item "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64" -Recurse -Force 3>&1 2>&1 >>  $ssmlog
+        Copy-Item  "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\*" -Destination $nodejsdirectory -Recurse -Force 
+        Remove-Item "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64" -Recurse -Force 
         If (!$?) {
             $global:warnmessage = 'ExtractFailed'
             Get-WarnMessage

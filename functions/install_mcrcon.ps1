@@ -30,9 +30,9 @@ Function install-mcrcon {
         Get-Infomessage
         $global:infomessage = "Extracting"
         Get-Infomessage
-        Expand-Archive "$mcrconoutput" "$mcrcondirectory" -Force 3>&1 2>&1 >>  $ssmlog
-        Copy-Item  "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32\*" -Destination $mcrcondirectory -Recurse -Force 3>&1 2>&1 >>  $ssmlog
-        Remove-Item "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32" -Recurse -Force 3>&1 2>&1 >>  $ssmlog
+        Expand-Archive "$mcrconoutput" "$mcrcondirectory" -Force 
+        Copy-Item  "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32\*" -Destination $mcrcondirectory -Recurse -Force 
+        Remove-Item "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32" -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting MCRCon Failed'
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon Failed " 
