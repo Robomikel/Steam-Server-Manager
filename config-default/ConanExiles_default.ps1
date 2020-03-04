@@ -35,16 +35,23 @@ Function New-LaunchScriptceserverPS {
     $global:querytype       = "conanexiles"
     #                       Game Process
     $global:process         = "ConanSandboxServer-Win64-Test"
-    #                       Log Directory
+    #                       Log Directory 
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "ConanSandbox.log"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -RconEnabled=1 -RconPassword=${rconpassword} -RconPort=${rconport}")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustment
+    Set-Location $serverdir
+    Start-Process cmd "/c StartServer.bat"
+    Start-Sleep 3
+    Get-StopServer
     Add-Content $ssmlog "[$logdate] Editing Default Engine.ini "
     Add-Content -Path $servercfgdir\Engine.ini -Value "ServerPassword=$SERVERPASSWORD"
     Add-Content -Path $servercfgdir\Engine.ini -Value "ServerName=$hostname"
     Add-Content $ssmlog "[$logdate] Editing Default ServerSettings.ini"
     Add-Content -Path $servercfgdir\ServerSettings.ini -Value "AdminPassword=$ADMINPASSWORD"
+    Set-Location $currentdir
 }

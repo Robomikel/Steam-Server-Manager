@@ -30,6 +30,8 @@ Function New-LaunchScriptAoCserverPS {
     $global:process         = "aoc"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\ageofchivalry"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory 
     $global:gamedirname     = "AgeOfChivalry"
     #                       Game-Server-Config

@@ -53,6 +53,8 @@ Function New-LaunchScriptCOD3MWserverPS {
   $global:process             = "iw5mp_server"
   #                           Log Directory
   $global:logdirectory        = "$serverdir"
+  #                           Server Log
+  $global:consolelog                 = ""
   #                           Game-Server-Config Directory
   $global:gamedirname         = ""
   #                           Game-Server-Config

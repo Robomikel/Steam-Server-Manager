@@ -51,6 +51,8 @@ Function New-LaunchScriptArma3serverPS {
     $global:process         = "arma3Server"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\SC"
+    #                       Server Log
+    $global:consolelog             = "arma3server_*.rpt"
     #                       Game-Server-Config Directory 
     $global:gamedirname     = "Arma3"
     #                       Game-Server-Config

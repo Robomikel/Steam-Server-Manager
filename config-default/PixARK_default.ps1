@@ -46,6 +46,8 @@ Function New-LaunchScriptPixArkPS {
     $global:process         = "PixARKServer"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\ShooterGame\Saved\Logs"
+    #                       Server Log
+    $global:consolelog             = "ShooterGame.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

@@ -41,6 +41,8 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:process         = "NMRIH"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\nmrih"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "NoMoreRoominHell"
     #                       Game-Server-Config

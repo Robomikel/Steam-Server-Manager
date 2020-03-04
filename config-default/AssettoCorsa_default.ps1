@@ -24,6 +24,8 @@ Function New-LaunchScriptacserverPS {
     $global:process             = "acServer"
     #                           Log Directory
     $global:logdirectory        = "$serverdir"
+    #                           Server Log
+    $global:consolelog                 = ""
     #                           Server Config Directory
     $global:servercfgdir        = ""
     #                           Server Launch Command

@@ -25,7 +25,9 @@ Function New-LaunchScriptBT1944serverPS {
     #                       Game Process
     $global:process         = "BattalionServer"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir\Windows\Battalion\Saved\Logs"  
+    $global:logdirectory    = "$serverdir\Windows\Battalion\Saved\Logs"
+    #                       Server Log
+    $global:consolelog             = ""  
     #                       Game-Server-Config Directory 
     $global:gamedirname     = "Battalion1944"
     #                       Game-Server-Config

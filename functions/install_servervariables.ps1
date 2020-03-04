@@ -232,6 +232,10 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            log directory   "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:logdirectory         = `"$global:logdirectory`""
     }
+    If ($consolelog) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            consolelog directory   "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:consolelog         = `"$global:consolelog`""
+    }
     If ($launchParams) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Server Launch Params "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:launchParams        = $global:launchParams"

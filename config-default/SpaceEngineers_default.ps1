@@ -69,6 +69,8 @@ Function New-LaunchScriptSEserverPS {
   $global:process         = "SpaceEngineersDedicated"
   #                       Log Directory
   $global:logdirectory    = "$env:APPDATA\$saves"
+  #                       Server Log
+  $global:consolelog             = "SpaceEngineersDedicated_*.log"
   #                       Server Config Directory
   $global:servercfgdir    = "$env:APPDATA\$saves"
   #                       Server Launch Command

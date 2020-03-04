@@ -32,6 +32,8 @@ Function New-LaunchScriptemserverPS {
     $global:process         = "Empires"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\empires"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

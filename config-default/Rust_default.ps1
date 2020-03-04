@@ -42,6 +42,8 @@ Function New-LaunchScriptRustPS {
         $global:process                 = "RustDedicated"
         #                               Log Directory
         $global:logdirectory            = "$serverdir"
+        #                               Server Log
+        $global:consolelog                     = "Serverlog-*.log"
         #                               Game-Server-Config Directory
         $global:gamedirname             = "Rust"
         #                               Game-Server-Config

@@ -131,7 +131,7 @@ Function Select-EditSourceCFG {
         }    
     }
 }
-Function New-ServerLog {
+Function New-ServerLog_Old {
     If ($consolelogging -eq "on") { Copy-Item "$logdirectory\[csg]*.log", "$logdirectory\[i]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 294420) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\[s]*.log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
     If (($AppID -eq 233780) -and ($consolelogging -eq "on")) { Copy-Item "$logdirectory\$server_*.rpt" -Destination "$currentdir\log\$serverfiles-$date.log" -Force -ea SilentlyContinue }
@@ -155,6 +155,24 @@ Function New-ServerLog {
     Remove-ServerconsoleLogs
     Remove-backupLogs
 }
+Function New-ServerLog {
+    If ($consolelogging -eq "on") { 
+        If ($consolelog  ) {
+            Add-Content $ssmlog "[$loggingdate] Found $consolelog"
+            $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
+            Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
+            If ($?) {
+                If ($pastebinconsolelog -eq "on") { 
+                    Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
+                }
+                rename-Item $logdirectory\$log $consolelog-backup-$date
+            }
+        }
+    }
+    Remove-SteamerLogs
+    Remove-ServerconsoleLogs
+    Remove-backupLogs
+}
 Function Remove-backupLogs {
     Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
@@ -173,9 +191,9 @@ Function Remove-SteamerLogs {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
-Function Send-Paste {
-    If (Test-Path $logdir\*.log) {
-        If ($serverfiles) {
+Function Send-Paste_OLD{
+    If ($serverfiles) {
+    If (Test-Path $currentdir\log\$serverfiles-*.log) {
             Set-Location $logdir
             $paste = Get-Childitem $logdir -Filter $serverfiles-*.log  | Sort-Object LastWriteTime -Descending | Select-Object -First 1
             Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted

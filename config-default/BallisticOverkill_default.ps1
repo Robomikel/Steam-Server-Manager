@@ -31,6 +31,8 @@ Function New-LaunchScriptBOserverPS {
     $global:process                 = "BODS"
     #                               Log Directory
     $global:logdirectory            = "$serverdir"
+    #                               Server Log
+    $global:consolelog                     = "console.log"
     #                               Game-Server-Config Directory
     $global:gamedirname             = "BallisticOverkill"
     #                               Game-Server-Config

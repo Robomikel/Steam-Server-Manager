@@ -40,6 +40,8 @@ Function New-LaunchScriptTF2serverPS {
     $global:process         = "tf2"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\tf"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "TeamFortress2"
     #                       Game-Server-Config
