@@ -216,19 +216,22 @@ Function Get-Appid {
         $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
         If ($Appid) {
             $global:appid = $appid.Line.Split(",")[3]
+            # $global:appid = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty AppID
+            $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty Game
         }
         ElseIf (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
             $global:AppID = Read-host
             Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-            $global:Branch = Read-host
+            $global:Branch = Read-host  
             Get-TestInterger
         }
         If (( $AppID -eq 985050) -or ($AppID -eq 233780)) {
             Write-Host "****   Requires Steam Login    *****" -F Y
             Add-Content $ssmlog "[$loggingdate] Requires Steam Login"
         }
-        Else { 
+        Else {
+            Write-Host "        App Name: $game" -F Y 
             Write-Host "        App ID: $AppID" -F Y
         }        
     }
