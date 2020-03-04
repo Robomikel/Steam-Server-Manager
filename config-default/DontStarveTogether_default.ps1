@@ -35,8 +35,10 @@ Function New-LaunchScriptDSTserverPS {
     $global:process         = "dontstarve_dedicated_server_nullrenderer"
     ######                  Moved Klei to Server Root  ####### 
     $global:persistentstorageroot = "$serverdir\Klei"
-    #                       Log Directory
+    #                       Log Directory 
     $global:logdirectory    = "$persistentstorageroot\$gamedirname\$cluster\$shard"
+    #                       Server Log
+    $global:consolelog      = "server_log.txt"    
     #                       Game-Server-Config Directory
     $global:gamedirname     = "DontStarveTogether"
 

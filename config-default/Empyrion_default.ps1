@@ -23,6 +23,8 @@ Function New-LaunchScriptempserverPS {
     $global:process         = "EmpyrionDedicated"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = ""
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

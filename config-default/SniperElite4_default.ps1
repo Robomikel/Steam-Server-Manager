@@ -28,6 +28,8 @@ Function  New-LaunchScriptSE4serverPS {
     $global:process             = "SniperElite4_Dedicated"
     #                           Log Directory
     $global:logdirectory        = "$serverdir"
+    #                           Server Log
+    $global:consolelog                 = "dedicated_console.txt"
     #                           Game-Server-Config Directory
     $global:gamedirname         = ""
     #                           Game-Server-Config

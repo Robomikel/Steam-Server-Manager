@@ -34,6 +34,8 @@ Function New-LaunchScriptSeriousSamserverPS {
     $global:process         = "DedicatedServer"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "Dedicated_DefaultCoop.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

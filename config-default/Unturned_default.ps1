@@ -24,6 +24,8 @@ Function New-LaunchScriptunturnedserverPS {
     $global:process             = "Unturned"
     #                           Log Directory
     $global:logdirectory        = "$serverdir\Logs"
+    #                           Server Log
+    $global:consolelog                 = "Server_$hostname.log"
     #                           Game-Server-Config Directory
     $global:gamedirname         = ""
     #                           Game-Server-Config

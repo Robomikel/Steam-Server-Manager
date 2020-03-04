@@ -29,6 +29,8 @@ Function New-LaunchScriptrFactor2serverPS {
     $global:process         = "rFactor2 Dedicated"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = ""
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

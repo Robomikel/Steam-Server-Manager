@@ -22,6 +22,10 @@ Function New-LaunchScriptminecraft_serverPS {
     $global:querytype       = "minecraft"
     #                       Game Process
     $global:process         = "java"
+    #                       Log Directory
+    $global:logdirectory    = ""
+    #                       Server Log
+    $global:consolelog             = ""
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

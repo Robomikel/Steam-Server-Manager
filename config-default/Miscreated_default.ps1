@@ -35,8 +35,10 @@ Function New-LaunchScriptMiscreatedPS {
         $global:RCONPORT        = $port + 4
         #                       Game Process
         $global:process         = "MiscreatedServer"
-        #                       Log Directory
-        $global:logdirectory    = "$serverdir"        
+        #                       Log Directory 
+        $global:logdirectory    = "$serverdir"
+        #                       Server Log
+        $global:consolelog             = "server.log"        
         #                       Game-Server-Config Directory
         $global:gamedirname     = ""
         #                       Game-Server-Config

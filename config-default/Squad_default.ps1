@@ -38,6 +38,8 @@ Function New-LaunchScriptSquadserverPS {
     $global:process                 = "SquadGameServer"
     #                               Log Directory
     $global:logdirectory            = "$serverdir\SquadGame\Saved\Logs"
+    #                               Server Log
+    $global:consolelog                     = "SquadGame.log"
     #                               Game-Server-Config Directory
     $global:gamedirname             = ""
     #                               Game-Server-Config

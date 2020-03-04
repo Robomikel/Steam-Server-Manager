@@ -18,6 +18,8 @@
     $global:process         = "ironarmadaserver"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "ia-server.log"
     #                       Server Config Directory
     $global:servercfgdir    = "$serverdir\iron\default-cfg-server\servercfg.toml"
     #                       Server Launch Command

@@ -48,6 +48,8 @@ Function New-LaunchScriptInsserverPS {
     $global:process         = "srcds"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\insurgency"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
     #                       Game-Server-Config Directory

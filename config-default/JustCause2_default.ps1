@@ -26,15 +26,18 @@ Function New-LaunchScriptjc2serverPS {
     $global:port            = "7777"
     #                       Game Process
     $global:process         = "JcmpServer"
-    #                       Log Directory
+    #                       Log Directory 
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "server.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "JustCause2"
     #                       Game-Server-Config
     $global:servercfg       = "config.lua"
     #                       Server Launch Command
+    $global:launchParams    = '@("$executable")'
     # Get User Input version must be set to 0
-    Get-UserInput$global:launchParams    = '@("$executable")'
+    Get-UserInput
     
     # Download Game-Server-Config
     Get-Servercfg

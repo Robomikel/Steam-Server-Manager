@@ -24,7 +24,9 @@ Function New-LaunchScriptBTserverPS {
     #                           Game Process
     $global:process             = "DedicatedServer"
     #                           Log Directory
-    $global:logdirectory        = "$serverdir\ServerLogs"  
+    $global:logdirectory        = "$serverdir\ServerLogs"
+    #                           Server Log
+    $global:consolelog                 = ""  
     #                           Game-Server-Config Directory
     $global:gamedirname         = "Barotrauma"
     #                           Game-Server-Config

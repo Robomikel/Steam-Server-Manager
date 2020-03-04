@@ -59,6 +59,8 @@ Function New-LaunchScriptMEserverPS {
   $global:process         = "MedievalEngineersDedicated"
   #                       Log Directory
   $global:logdirectory    = "$env:APPDATA\$saves"
+  #                       Server Log
+  $global:consolelog             = "MedievalEngineersDedicated.log"
   #                       Game-Server-Config Directory
   $global:gamedirname     = ""
   #                       Game-Server-Config

@@ -24,6 +24,8 @@ Function New-LaunchScriptSdtdserverPS {
     $global:process         = "7daystodieserver"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog      = "server.log"
     #                       Game-Server-Config Directory 
     $global:gamedirname     = "7DaysToDie"
     #                       Game-Server-Config

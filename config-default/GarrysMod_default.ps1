@@ -49,6 +49,8 @@ Function New-LaunchScriptGMODserverPS {
     $global:process         = "gmod"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\garrysmod"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "GarrysMod"
     #                       Game-Server-Config

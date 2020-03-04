@@ -22,9 +22,11 @@ Function New-LaunchScriptDofDserverPS {
     #                       Gamedig Query
     $global:querytype       = "protocol-valve"
     #                       Game Process
-    $global:process         = "DragonsServer"
+    $global:process         = "DragonsServer-Win64-Shipping"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "Dragons.log"  
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

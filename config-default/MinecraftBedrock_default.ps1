@@ -22,6 +22,10 @@ Function New-LaunchScriptbedrock_serverPS {
     $global:querytype       = "minecraftbe"
     #                       Game Process
     $global:process         = "bedrock_server"
+    #                       Log Directory
+    $global:logdirectory    = ""
+    #                       Server Log
+    $global:consolelog             = ""
     #                        Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

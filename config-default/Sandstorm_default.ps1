@@ -41,6 +41,8 @@ Function New-LaunchScriptInssserverPS {
         $global:process                 = "InsurgencyServer-Win64-Shipping"
         #                               Log Directory
         $global:logdirectory            = "$serverdir\Insurgency\Saved\Logs"
+        #                               Server Log
+        $global:consolelog                     = "Insurgency.log"
         
 
         #                               Server Launch Command

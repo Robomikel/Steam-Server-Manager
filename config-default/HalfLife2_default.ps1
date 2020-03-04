@@ -39,6 +39,8 @@ Function New-LaunchScriptHL2DMserverPS {
     $global:process         = "hl2dm"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\hl2mp"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "HalfLife2Deathmatch"
     #                       Game-Server-Config

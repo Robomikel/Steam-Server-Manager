@@ -39,6 +39,8 @@ Function New-LaunchScriptStormworksserverPS {
     $global:process         = "server"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = ""
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

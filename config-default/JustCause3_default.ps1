@@ -27,7 +27,9 @@ Function New-LaunchScriptjc3serverPS {
     #                     Game Process
     $global:process       = "Server"
     #                     Log Directory
-    $global:logdirectory  = "$serverdir"
+    $global:logdirectory  = "$serverdir\logs"
+    #                       Server Log
+    $global:consolelog             = "Server.log"
     #                     Game-Server-Config Directory
     $global:gamedirname   = "JustCause3"
     #                     Game-Server-Config

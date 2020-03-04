@@ -37,6 +37,8 @@ Function New-LaunchScriptBlackMesaserverPS {
     $global:process         = "bmdm"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\bms"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "BlackMesa"
     #                       Game-Server-Config

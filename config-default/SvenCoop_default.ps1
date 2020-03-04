@@ -36,6 +36,8 @@ Function New-LaunchScriptSvenCoopserverPS {
     $global:process         = "SvenDS"
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
+    #                       Server Log
+    $global:consolelog             = "console-*.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "SvenCoop"
     #                       Game-Server-Config

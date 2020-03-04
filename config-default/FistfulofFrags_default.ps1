@@ -37,6 +37,8 @@ Function New-LaunchScriptFOFserverPS {
     $global:process         = "FOF"
     #                       Log Directory
     $global:logdirectory    = "$serverdir\fof"
+    #                       Server Log
+    $global:consolelog             = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "FistfulofFrags"
     #                       Game-Server-Config
