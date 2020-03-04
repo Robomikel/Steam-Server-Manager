@@ -166,7 +166,7 @@ Function New-ServerLog {
                     Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
                     Add-Content $ssmlog "[$loggingdate] Sent Pastebin"
                 }
-                Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $log)
+                Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $date + " - " + $log)
                 If (!$?) {
                     Add-Content $ssmlog "[$loggingdate] Rename-Item Failed"
                 }
