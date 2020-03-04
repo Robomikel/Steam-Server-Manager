@@ -211,7 +211,7 @@ Function Read-AppID {
         Else {
             $global:warnmessage = "nolaunchscript"
             Get-warnmessage
-            Exit
+            
         }
     }
     Else {

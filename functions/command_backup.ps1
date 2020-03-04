@@ -59,7 +59,7 @@ Function New-BackupServer {
     ElseIf (!($sevenzipdirectory) -and ($serverfiles) -and ($backupdir)) {
         $global:warnmessage = "backupfailed"
         Get-warnmessage
-        Exit
+        
     }
 }
 Function New-backupAppdata {
@@ -115,7 +115,7 @@ Function Limit-Backups {
     ElseIf (!($backupdir -and $maxbackups )) {
         $global:warnmessage = "limitbackupfailed"
         Get-warnmessage
-        Exit
+        
 
     }
 }
@@ -136,7 +136,7 @@ Function Limit-AppdataBackups {
     ElseIf (!($backupdir -and $maxbackups )) {
         $global:warnmessage = "limitbackupfailed"
         Get-warnmessage
-        Exit
+        
 
     }
 }

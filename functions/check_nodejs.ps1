@@ -20,6 +20,6 @@ Function Get-NodeJSCheck {
     ElseIf (!$nodejsexecutable) {
         $global:warnmessage = "fnnodejsfailed"
         Get-warnmessage
-        Exit
+        
     }
 }

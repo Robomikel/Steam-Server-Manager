@@ -17,13 +17,13 @@ Function New-BackupFolder {
             If (!$?) {
                 $global:warnmessage = "createfolderfailed"
                 Get-warnmessage
-                Exit
+                
             }
         }
     }
     ElseIf (!($backupdir)){
         $global:warnmessage = "backupfnfailed"
         Get-warnmessage
-        Exit
+        
     }
 }

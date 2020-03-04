@@ -18,6 +18,6 @@ Function Get-MCRconCheck {
     ElseIf (!$mcrconexecutable) {
         $global:warnmessage = "fnmcrconfailed"
         Get-warnmessage
-        Exit
+        
     }
 }

@@ -37,6 +37,6 @@ Function Set-ConnectMCRcon {
     ElseIf(!$mcrconexecutable){
         $global:warnmessage = "fn_Set-ConnectMCRcon"
         Get-warnmessage
-        Exit
+        
     }
 }

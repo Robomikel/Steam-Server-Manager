@@ -29,6 +29,6 @@ Function Get-CheckForVars {
     ElseIf (!$command) {
         $global:warnmessage = "chkvarsfailed"
         Get-warnmessage
-        Exit
+        
     }
 }

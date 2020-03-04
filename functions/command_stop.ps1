@@ -29,7 +29,7 @@ Function Get-StopServer {
                     If ($processstatus) {
                         $global:warnmessage = "stoppedfailed"
                         Get-warnmessage
-                        Exit
+                        
                     }
                     If ($consolelogging -eq "on") {   
                         New-ServerLog
@@ -42,7 +42,7 @@ Function Get-StopServer {
                     If ($processstatus) {
                         $global:warnmessage = "stoppedfailed"
                         Get-warnmessage
-                        Exit
+                        
                     }
                     Elseif (!$processstatus) {
                         $global:infomessage = "stopped"
@@ -81,7 +81,7 @@ Function Get-StopServerInstall {
                 If ($processstatus) {
                     $global:warnmessage = "stoppedfailed"
                     Get-warnmessage
-                    Exit
+                    
                 }
                 Elseif (!$processstatus) {
                     $global:infomessage = "stopped"
@@ -112,7 +112,7 @@ Function Get-StopMultiple {
             If ($processstatus) {
                 $global:warnmessage = "stoppedfailed"
                 Get-warnmessage
-                Exit
+                
             }
             Elseif (!$processstatus) {
                 $global:infomessage = "stopped"

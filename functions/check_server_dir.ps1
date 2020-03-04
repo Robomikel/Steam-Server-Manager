@@ -19,6 +19,6 @@ Function Get-FolderNames {
     ElseIf(!$serverdir){
         $global:warnmessage = "fngetfoldersfailed"
         Get-warnmessage
-        Exit
+        
     }
 }
