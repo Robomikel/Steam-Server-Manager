@@ -46,7 +46,7 @@ Function Set-SteamerSetting {
     $global:ssmlogging              = "on"
     #                               ssmlogging count 
     $global:ssmlogcount             = "10"
-    #                               Message Text Color 
+    #                               Console Text Color 
     $global:textcolor               = "Blue" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt for input, 1 no prompt during install
     $global:Version                 = "1"

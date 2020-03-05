@@ -21,7 +21,7 @@ Function New-LaunchScriptpzserverPS {
     #                       System Directory
     $global:systemdir       = "$serverdir"
     #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\Zomboid\Server"
+    $global:servercfgdir    = "$env:userprofile\Zomboid\Server"
     #                       Server Executable
     $global:executable      = "ProjectZomboid64"
     #                       Server Executable Directory
@@ -31,9 +31,9 @@ Function New-LaunchScriptpzserverPS {
     #                       Game Process
     $global:process         = "ProjectZomboid64"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir"
+    $global:logdirectory    = "$env:userprofile\Zomboid"
     #                       Server Log
-    $global:consolelog             = "ShooterGame.log"
+    $global:consolelog      = "server-console.txt"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "ProjectZomboid"
     #                       Game-Server-Config
