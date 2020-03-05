@@ -36,7 +36,8 @@ Function Install-SteamWS {
         else {
             Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
             Write-Host " - - $DIAMOND The Workshop Item may be too large for steamcmd - -  $DIAMOND" -ForegroundColor Red
-            Write-Host " - - $DIAMOND download through steam Client and Copy Manually - -  $DIAMOND" -ForegroundColor Red
+            Add-Content $ssmlog "[$loggingdate] Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again."
+            Add-Content $ssmlog "[$loggingdate] download through steam Client and Copy Manually"
             $updateMods = $null
             If ($StopOnFail -eq $true) {
                 $modDownloadsGood = $false
