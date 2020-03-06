@@ -49,7 +49,7 @@ Function New-DiscordAlert {
         }
     }
 }
-Function Send-DiscordAlert {
+Function Send-DiscordAlert_old {
     $global:InfoMessage = "discord"
     Get-Infomessage
     $thumbnailObject = [PSCustomObject]@{
@@ -75,4 +75,18 @@ Function Send-DiscordAlert {
         $global:warnmessage = "AlertFailed"
         Get-warnmessage
     }
+}
+
+
+Function Send-DiscordAlert {
+    $global:InfoMessage = "discord"
+    Get-Infomessage
+    # https://github.com/EvotecIT/PSDiscord
+    $global:Uri = "$discordwebhook"
+    $global:Author = New-DiscordAuthor -Name 'Steam-Server-Manager' -IconUrl "https://i.imgur.com/tTrtYMe.png"
+    $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $false
+    $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/tTrtYMe.png"
+    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+    # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+    Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
 }
