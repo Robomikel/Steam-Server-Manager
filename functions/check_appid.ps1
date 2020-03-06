@@ -204,10 +204,13 @@ Function Read-AppID {
         ElseIf ($AppID -eq 1222650) {
             New-LaunchScriptSpacecImpossibleserverPS 
         }
+        ElseIf ($AppID -eq 336400) {
+            New-LaunchScriptPrimalCarnagePS 
+        }
         #    ElseIf ($AppID -eq Template) {
         #
         #        New-LaunchScriptTemplateserverPS
-        #    }
+        #    } 336400
         Else {
             $global:warnmessage = "nolaunchscript"
             Get-warnmessage

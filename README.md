@@ -104,6 +104,7 @@ Install miscreated server ```./ssm install misserver```
    * Serious Sam Classics: Revolution Dedicated Server (299310) - "sscrserver" (optional server folder name)
    * Colony Survival Dedicated Server (748090) - "csserver" (optional server folder name)
    * Space Impossible (1222650) - "siserver" (optional server folder name)
+   * Primal Carnage: Extinction Dedicated Server (336400) - "pcedserver" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
@@ -203,4 +204,8 @@ https://github.com/sonicsnes/node-gamedig
 Game server configs from
 https://github.com/GameServerManagers
  "open source, open mind"
+# PS Discord
+https://github.com/EvotecIT/PSDiscord
+# PS SharedGoods
+https://github.com/EvotecIT/PSSharedGoods 
 
