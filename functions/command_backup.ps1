@@ -15,7 +15,7 @@ Function New-BackupServer {
             $global:infomessage = "backupstart"
             Get-Infomessage
             Set-Location $sevenzipdirectory
-            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$date.log") -Wait
+            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$logDate.log") -Wait
             If (!$?) {
                 $global:warnmessage = "backupfailed"
                 Get-warnmessage
@@ -27,7 +27,7 @@ Function New-BackupServer {
             Get-Infomessage
             Set-Location $sevenzipdirectory
             #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
-            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $serverdir\* > $logDate-backup.log
+            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $serverdir\* > backup_$logDate.log
             If (!$?) {
                 $global:warnmessage = "backupfailed"
                 Get-warnmessage
@@ -44,7 +44,7 @@ Function New-BackupServer {
         New-ServerBackupLog
         If ($backuplogopen -eq "on") {
             Set-Location $sevenzipdirectory 
-            .\*-backup.log
+            .\backup_*.log
             If (!$?) {
                 $global:warnmessage = "backupfailed"
                 Get-warnmessage
@@ -67,7 +67,7 @@ Function New-backupAppdata {
         $global:infomessage = "appdatabackupstart"
         Get-Infomessage
         Set-Location $sevenzipdirectory
-        Start-Process 7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup.log") -Wait
+        Start-Process 7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
         If (!$?) {
             $global:warnmessage = "backupfailed"
             Get-warnmessage
@@ -78,7 +78,7 @@ Function New-backupAppdata {
         $global:infomessage = "appdatabackupstart"
         Get-Infomessage
         Set-Location $sevenzipdirectory
-        ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logDate-AppDatabackup.log
+        ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
         If (!$?) {
             $global:warnmessage = "backupfailed"
             Get-warnmessage
@@ -89,7 +89,7 @@ Function New-backupAppdata {
     Get-Infomessage
     If ($appdatabackuplogopen -eq "on") {
         Set-Location $sevenzipdirectory 
-        .\*-AppDatabackup.log
+        .\AppDatabackup_*.log
         If (!$?) {
             $global:warnmessage = "backupfailed"
             Get-warnmessage
