@@ -44,6 +44,8 @@ Function New-LaunchScriptpzserverPS {
     Get-UserInput
     # Download Game-Server-Config
     Get-Servercfg
+    # Edit Server Game-Server-Config
+    Select-EditSourceCFG
     # Rename Source $executable.exe
     Select-RenameSource
 }
