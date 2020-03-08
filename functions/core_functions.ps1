@@ -26,7 +26,7 @@ Function Get-CreatedVaribles {
 Function Get-ClearVariables {
     $var = (Get-Variable * -scope global).Name
     Add-Content $ssmlog "[$loggingdate] Removing Variables $var" 
-    Remove-Variable * -Scope Script  -ea SilentlyContinue -Force
+    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
     # Add-Content $ssmlog "[$loggingdate]  Variables $var"
     
 }
