@@ -14,26 +14,26 @@ Function New-DiscordAlert {
                     # BACKUP
                     $global:alertmessage = ' New Server Backup'
                     # GREEN
-                    $global:alertmessagecolor = '3334680'
+                    $global:alertmessagecolor = 'ForestGreen'
                     
                 }
                 ElseIf ($alert -eq "update") {
                     # UDPATE
                     $global:alertmessage = ' Server Updated '
                     # BLUE
-                    $global:alertmessagecolor = '385734'
+                    $global:alertmessagecolor = 'DarkBlue'
                 }
                 ElseIf ($alert -eq "restart") {
                     # RESTART
                     $global:alertmessage = " Server not Running, Starting Server "
                     # RED
-                    $global:alertmessagecolor = '16711680'
+                    $global:alertmessagecolor = 'FireBrick'
                 }
                 ElseIf ($command -eq "discord") {
                     # BACKUP
                     $global:alertmessage = ' Test Alert'
                     # Cyan
-                    $global:alertmessagecolor = '026255'
+                    $global:alertmessagecolor = 'DeepSkyBlue'
                 }
                 Send-DiscordAlert                              
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
@@ -79,14 +79,16 @@ Function Send-DiscordAlert_old {
 
 
 Function Send-DiscordAlert {
+    If ($hostname -and $alertmessage -and $alertmessagecolor){
     $global:InfoMessage = "discord"
     Get-Infomessage
     # https://github.com/EvotecIT/PSDiscord
     $global:Uri = "$discordwebhook"
-    $global:Author = New-DiscordAuthor -Name 'Steam-Server-Manager' -IconUrl "https://i.imgur.com/tTrtYMe.png"
+    $global:Author = New-DiscordAuthor -Name 'SSM Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
     $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $false
     $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/tTrtYMe.png"
-    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
     # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
     Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
+    }
 }

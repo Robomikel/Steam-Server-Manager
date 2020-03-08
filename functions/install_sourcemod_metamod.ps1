@@ -8,7 +8,7 @@
 #
 Function Get-SourceMetaMod {
     Get-SourceMetaModWebrequest
-    If (($metamodurl) -and ($metamodoutput) -and ($sourcemodoutput) -and ($sourcemoddirectory)) {
+    If ($metamodurl -and $metamodoutput -and $sourcemodoutput -and $sourcemoddirectory) {
         
         $start_time = Get-Date
         $global:package = 'MetaMod'
@@ -28,14 +28,18 @@ Function Get-SourceMetaMod {
         Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black
         $global:infomessage = "Extracting"
         Get-Infomessage
+        If ($metamodoutput -and $metamoddirectory){
         Expand-Archive $metamodoutput $metamoddirectory -Force >$null 2>&1
+        }
         If (!$?) { 
             $global:warnmessage = 'ExtractFailed'
             Get-WarnMessage
             New-TryagainNew
         }
-        Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod" 
+        Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod"
+        If ($metamoddirectory -and $systemdir){ 
         Copy-Item  $metamoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        }
         If (!$?) { 
             Add-Content $ssmlog "[$loggingdate] Copying Meta Mod Failed"
             New-TryagainNew 
@@ -46,11 +50,17 @@ Function Get-SourceMetaMod {
         Get-Infomessage
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        If ($sourcemodurl -and $sourcemodoutput){
         Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput
+        }
         If (!$?) { 
             $global:warnmessage = 'Downloadfailed'
             Get-WarnMessage
             New-TryagainNew 
+        }
+        ElseIf ($?) {
+            $global:infomessage = "Downloaded"
+            Get-Infomessage
         }
         $global:infomessage = "downloadtime"
         Get-Infomessage 
@@ -62,9 +72,15 @@ Function Get-SourceMetaMod {
             Get-WarnMessage 
             New-TryagainNew 
         }
+        ElseIf ($?) {
+            $global:infomessage = "Extracted"
+            Get-Infomessage
+        }
         $global:infomessage = "copying-installing"
-        Get-Infomessage 
+        Get-Infomessage
+        If ($sourcemoddirectory -and $systemdir){ 
         Copy-Item  $sourcemoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        }
         If (!$?) { 
             Add-Content $ssmlog "[$loggingdate] Copying SourceMod Faileds "
             New-TryagainNew 

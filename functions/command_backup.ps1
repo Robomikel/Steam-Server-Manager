@@ -7,7 +7,7 @@
 #
 #
 Function New-BackupServer {
-    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir)) { 
+    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ($serverdir) -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
@@ -22,7 +22,7 @@ Function New-BackupServer {
     
             }
         }
-        ElseIf (($Showbackupconsole -eq "off")) {
+        ElseIf ($Showbackupconsole -eq "off") {
             $global:infomessage = "backupstart"
             Get-Infomessage
             Set-Location $sevenzipdirectory
@@ -56,7 +56,7 @@ Function New-BackupServer {
         New-DiscordAlert
         Set-Location $currentdir
     }
-    ElseIf (!($sevenzipdirectory) -and ($serverfiles) -and ($backupdir)) {
+    ElseIf (!($sevenzipdirectory) -or !($serverfiles) -or !($backupdir)) {
         $global:warnmessage = "backupfailed"
         Get-warnmessage
         
@@ -112,7 +112,7 @@ Function Limit-Backups {
         }
         Set-Location $currentdir
     }
-    ElseIf (!($backupdir -and $maxbackups )) {
+    ElseIf (!($backupdir) -and !($maxbackups )) {
         $global:warnmessage = "limitbackupfailed"
         Get-warnmessage
         

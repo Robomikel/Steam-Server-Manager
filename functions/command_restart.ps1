@@ -10,8 +10,10 @@ Function Get-RestartsServer {
     Clear-Host
     Start-Countdown -Seconds 5 -Message "Restarting server"
     Get-Logo
+    Get-StopServer
     Select-StartServer
     Get-CheckForError
+
 }
 Function Start-Countdown {
     Param(

@@ -7,18 +7,20 @@
 #
 #
 Function Get-FolderNames {
-    Add-Content $ssmlog "[$loggingdate] Checking Folder Names "
-    If ($serverdir) {
-        If (Test-Path "$serverdir") {
-            Add-Content $ssmlog "[$loggingdate] Folder Name Exists   $serverdir "
+    If ($ssmlog -and $loggingdate) {
+        Add-Content $ssmlog "[$loggingdate] Checking Folder Names "
+        If ($serverdir) {
+            If (Test-Path "$serverdir") {
+                Add-Content $ssmlog "[$loggingdate] Folder Name Exists   $serverdir "
+            }
+            ElseIf (!(Test-Path "$serverdir")) {
+                New-ServerFolderq
+            }
         }
-        ElseIf (!(Test-Path "$serverdir")){
-            New-ServerFolderq
-        }
-    }
-    ElseIf(!$serverdir){
-        $global:warnmessage = "fngetfoldersfailed"
-        Get-warnmessage
+        ElseIf (!$serverdir) {
+            $global:warnmessage = "fngetfoldersfailed"
+            Get-warnmessage
         
+        }
     }
 }

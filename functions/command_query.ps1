@@ -7,31 +7,33 @@
 #
 #
 Function Get-GamedigServerv2 {
-    If (($nodejsdirectory)) {
-        Add-Content $ssmlog "[$loggingdate] Starting gamedig on Server  "
-        If ($Useprivate -eq "off") {
-            set-location $nodejsdirectory
-            If (!(${queryport} )) {
-                Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${extip}:${port} "
-                .\gamedig --type $querytype ${extip}:${port} --pretty
+    If ($ssmlog -and $loggingdate) {
+        If ($nodejsdirectory) {
+            Add-Content $ssmlog "[$loggingdate] Starting gamedig on Server  "
+            If ($Useprivate -eq "off") {
+                set-location $nodejsdirectory
+                If (!${queryport}) {
+                    Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${extip}:${port} "
+                    .\gamedig --type $querytype ${extip}:${port} --pretty
+                }
+                Else {
+                    Add-Content $ssmlog "[$loggingdate]  Using queryport $querytype ${extip}:${queryport}"
+                    .\gamedig --type $querytype ${extip}:${queryport} --pretty
+                }
+                set-location $currentdir
             }
             Else {
-                Add-Content $ssmlog "[$loggingdate]  Using queryport $querytype ${extip}:${queryport}"
-                .\gamedig --type $querytype ${extip}:${queryport} --pretty
+                set-location $nodejsdirectory
+                If (!${queryport}) {
+                    Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${ip}:${port} "
+                    .\gamedig --type $querytype ${ip}:${port} --pretty
+                }
+                Else {
+                    Add-Content $ssmlog "[$loggingdate] Using queryport $querytype ${ip}:${queryport}"
+                    .\gamedig --type $querytype ${ip}:${queryport} --pretty
+                }
+                set-location $currentdir
             }
-            set-location $currentdir
-        }
-        Else {
-            set-location $nodejsdirectory
-            If (!(${queryport} )) {
-                Add-Content $ssmlog "[$loggingdate]  Using port $querytype ${ip}:${port} "
-                .\gamedig --type $querytype ${ip}:${port} --pretty
-            }
-            Else {
-                Add-Content $ssmlog "[$loggingdate] Using queryport $querytype ${ip}:${queryport}"
-                .\gamedig --type $querytype ${ip}:${queryport} --pretty
-            }
-            set-location $currentdir
         }
     }
 }

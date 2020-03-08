@@ -7,7 +7,7 @@
 #
 #
 Function Get-Modinstall {
-    If (($appid -eq 237410) -or ($appid -eq 462310) -or ($appid -eq 740) -or ($appid -eq 222860)) {
+    If ($appid -eq 237410 -or $appid -eq 462310 -or $appid -eq 740 -or $appid -eq 222860) {
         Get-SourceMetaModQ
     }
     ElseIF ($appid -eq 258550) {

@@ -7,7 +7,7 @@
 #
 #
 Function Get-CheckNonSteam {
-    If (($APPID -eq 11421000 ) -or ($APPID -eq 11500000 )) {
+    If ($APPID -eq 11421000 -or $APPID -eq 11500000 ) {
         If ($command -eq "ForceUpdate" ) {
             Write-Host "ForceUpdate not available for this server" -F Y
             Write-Host "Try Install Command to download and overwrite files" -F Y

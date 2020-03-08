@@ -34,7 +34,7 @@ $PastebinPassword = ""
  
 $Authenticate = "api_dev_key=$PastebinDeveloperKey&api_user_name=$PastebinUsername&api_user_password=$PastebinPassword"
  
-Function Script:EncodeForPost ( [Hashtable]$KeyValues )
+Function global:EncodeForPost ( [Hashtable]$KeyValues )
 {
     @(  
         ForEach ( $KV in $KeyValues.GetEnumerator() )
@@ -86,7 +86,7 @@ Function Out-Pastebin
     {
         Add-Type -AssemblyName System.Web
  
-        $script:s = Invoke-RestMethod -Uri $PastebinLoginUri -Body $Authenticate -Method Post
+        $global:s = Invoke-RestMethod -Uri $PastebinLoginUri -Body $Authenticate -Method Post
        
         $Post = [System.Net.HttpWebRequest]::Create( $PastebinPasteURI )
         $Post.Method = "POST"
@@ -106,7 +106,7 @@ Function Out-Pastebin
     End
     {
         $Parameters = @{
-            api_user_key   = $script:s;
+            api_user_key   = $global:s;
             api_dev_key    = $PastebinDeveloperKey;
             api_option     = 'paste';
             api_paste_code  = $InputText -join "`r`n";

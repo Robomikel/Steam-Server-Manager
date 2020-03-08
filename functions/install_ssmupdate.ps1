@@ -18,12 +18,12 @@ Function Get-UpdateSteamer {
     $global:infomessage = "downloadtime"
     Get-Infomessage
     # Write-Host "Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s)" -F Y -B Black 
-    Remove-Item  "Steam-Server-Manager\*" -Recurse -Force -ea SilentlyContinue
-    Remove-Item  "config-default\*" -Recurse -Force -ea SilentlyContinue
-    Remove-Item  "data\*" -Recurse -Force -ea SilentlyContinue
-    Remove-Item  "functions\*" -Recurse -Force -ea SilentlyContinue
-    Remove-Item  "README.md*" -Recurse -Force -ea SilentlyContinue
-    Remove-Item  "LICENSE*" -Recurse -Force -ea SilentlyContinue
+    Remove-Item  "Steam-Server-Manager\*", "config-default\*", "data\*", "functions\*", "README.md*", "LICENSE*"  -Recurse -Force -ea SilentlyContinue
+    # Remove-Item  "config-default\*" -Recurse -Force -ea SilentlyContinue
+    # Remove-Item  "data\*" -Recurse -Force -ea SilentlyContinue
+    # Remove-Item  "functions\*" -Recurse -Force -ea SilentlyContinue
+    # Remove-Item  "README.md*" -Recurse -Force -ea SilentlyContinue
+    # Remove-Item  "LICENSE*" -Recurse -Force -ea SilentlyContinue
     $global:infomessage = "Extracting"
     Get-Infomessage 
     Expand-Archive Steam-Server-Manager.zip Steam-Server-Manager -Force

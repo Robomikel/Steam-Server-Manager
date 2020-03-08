@@ -7,7 +7,7 @@
 #
 #
 Function Install-Steam {
-    If (($steamurl) -and ($steamoutput)) {
+    If ($steamurl -and $steamoutput) {
         $start_time = Get-Date
         $global:package = 'SteamCMD'
         $global:infomessage = "Downloading"
@@ -28,7 +28,9 @@ Function Install-Steam {
         Get-Infomessage
         $global:infomessage = "Extracting"
         Get-Infomessage
+        If ($steamoutput -and $steamdirectory){
         Expand-Archive $steamoutput $steamdirectory -Force
+        }
         If (!$?) {
             $global:warnmessage = 'ExtractFailed'
             Get-WarnMessage

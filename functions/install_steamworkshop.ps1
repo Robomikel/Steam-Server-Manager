@@ -20,32 +20,39 @@ Function Install-SteamWS {
     $securedpassword = Read-Host -AsSecureString
     $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
     $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-    Set-Location $steamdirectory
-    .\steamCMD +login $username $password +quit
-    New-TryagainSteamLogin
-    foreach ($mod in $wsmods) {
-        $ii += 1
-        Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
+    If ($steamdirectory -and $username -and $password) {
         Set-Location $steamdirectory
-        .\steamCMD +login $username $password +workshop_download_item $reg_appID $mod validate +quit | Out-File $ssmlogdir\wsmod.log
-        $updateMods = Get-Content $ssmlogdir\wsmod.log
-        if ($updateMods -like "Success. Downloaded item $mod to *") {
-            Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Complete." -ForegroundColor Y
-            $updateMods = $null
-        }
-        else {
-            Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
-            Write-Host " - - $DIAMOND The Workshop Item may be too large for steamcmd - -  $DIAMOND" -ForegroundColor Red
-            Add-Content $ssmlog "[$loggingdate] Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again."
-            Add-Content $ssmlog "[$loggingdate] download through steam Client and Copy Manually"
-            $updateMods = $null
-            If ($StopOnFail -eq $true) {
-                $modDownloadsGood = $false
-                break
-            }
-        }
-        Start-Sleep -Seconds 1
+        .\steamCMD +login $username $password +quit
+        New-TryagainSteamLogin
     }
+    Else {
+        Exit
+    }
+    If ($moddir -and $reg_appID -and $wsmods) {
+        foreach ($mod in $wsmods) {
+            $ii += 1
+            Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
+            Set-Location $steamdirectory
+            .\steamCMD +login $username $password +workshop_download_item $reg_appID $mod validate +quit | Out-File $ssmlogdir\wsmod.log
+            $updateMods = Get-Content $ssmlogdir\wsmod.log
+            if ($updateMods -like "Success. Downloaded item $mod to *") {
+                Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Complete." -ForegroundColor Y
+                $updateMods = $null
+            }
+            else {
+                Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
+                Write-Host " - - $DIAMOND The Workshop Item may be too large for steamcmd - -  $DIAMOND" -ForegroundColor Red
+                Add-Content $ssmlog "[$loggingdate] Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again."
+                Add-Content $ssmlog "[$loggingdate] download through steam Client and Copy Manually"
+                $updateMods = $null
+                If ($StopOnFail -eq $true) {
+                    $modDownloadsGood = $false
+                    break
+                }
+            }
+            Start-Sleep -Seconds 1
+        }
+    }Else{Exit}
     #if Mod downloads are good, then copy over. If any were bad, we stop.
     if ($modDownloadsGood -eq $true) {
         #rename mods from .bin to .sbm so that SE will recognize and load them

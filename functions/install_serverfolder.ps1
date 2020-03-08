@@ -8,11 +8,11 @@
 #
 Function New-ServerFolder {   
     ##-- Create Folder for Server -- In current folder
-    If ((!$serverfiles) -or ($serverfiles -eq " ")) {
+    If (!$serverfiles -or $serverfiles -eq " ") {
         Write-Warning ' You Enter a null or Empty '
         Select-Steamer
     }
-    ElseIf (($null -eq $appid ) -or ($appid -eq " ")) {
+    ElseIf (!$appid -or $appid -eq " ") {
         Write-Warning ' You Enter a space or Empty  '
         Select-Steamer
     }

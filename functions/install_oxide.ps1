@@ -7,7 +7,7 @@
 #
 #
 Function Get-Oxide {
-    If (($oxiderustlatestlink) -and ($oxideoutput)) {
+    If ($oxiderustlatestlink -and $oxideoutput) {
         $start_time = Get-Date
         $global:package = 'Oxide'
         $global:infomessage = "Downloading"
@@ -20,6 +20,10 @@ Function Get-Oxide {
             Get-WarnMessage 
             New-TryagainNew
         }
+        ElseIf ($?) {
+            $global:infomessage = "Downloaded"
+            Get-Infomessage
+        }
         $global:infomessage = "downloadtime"
         Get-Infomessage 
         $global:infomessage = "Extracting"
@@ -30,7 +34,10 @@ Function Get-Oxide {
             Get-WarnMessage
             New-TryagainNew
         }
-
+        ElseIf ($?) {
+            $global:infomessage = "Extracted"
+            Get-Infomessage
+        }
         $global:infomessage = "copying-installing"
         Get-Infomessage 
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse

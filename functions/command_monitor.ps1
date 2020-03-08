@@ -34,7 +34,7 @@ Function Get-MonitorServer {
 
 Function Get-MonitorMultiple {
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 
-    If (!($process)) {
+    If (!$process) {
         # $infomessage -eq "notrunning"
         # Get-Infomessage
         Select-StartServer

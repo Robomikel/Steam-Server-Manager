@@ -14,7 +14,7 @@ Function Get-Details {
     $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
     $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
     $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
-    If ($Null -ne (Get-Process "$process" -ea SilentlyContinue)) {
+    If (!(Get-Process "$process" -ea SilentlyContinue)) {
         $mem = "{0:N2} GB" -f ((Get-Process $process | Measure-Object Workingset -sum).Sum / 1GB) 
     }
     $os = (Get-WMIObject win32_operatingsystem).caption

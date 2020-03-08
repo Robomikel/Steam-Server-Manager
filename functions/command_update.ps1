@@ -21,11 +21,13 @@ Function Get-UpdateServer {
             $username = Read-host
             Write-Host "Enter steam password" -F Cyan -B Black
             $securedpassword = Read-Host -AsSecureString
-            $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
-            $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
-            & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
-            compare-SteamExit
+            If ($username -and $securedpassword) {
+                $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
+                $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
+                & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+                compare-SteamExit
+            }
         }
         Set-Location $currentdir
     }

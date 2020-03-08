@@ -25,10 +25,12 @@ Function Select-Steamer {
         Get-PreviousInstall
         Get-TestString
         Get-Appid
+        Get-defaultconfig
         New-ServerFolder
         
         Get-Steam
         Set-SteamInfo
+        Get-defaultconfig
         Read-AppID
         New-CreateVariables
         Get-Finished
@@ -38,10 +40,12 @@ Function Select-Steamer {
         Get-PreviousInstall
         Get-TestString
         Get-Appid
+        Get-defaultconfig
         New-ServerFolder
         
         Get-Steam
         Set-SteamInfo
+        Get-defaultconfig
         Read-AppID
         New-CreateVariables
         
@@ -183,7 +187,7 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars
         Get-ChecktaskDisable
-        Get-StopServer 
+        # Get-StopServer 
         Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable
@@ -194,7 +198,7 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars
         Get-ChecktaskDisable
-        Get-StopServer
+        # Get-StopServer
         Get-ServerBuildCheck
         Get-RestartsServer
         Get-ChecktaskEnable  

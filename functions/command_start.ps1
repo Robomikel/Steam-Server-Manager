@@ -13,16 +13,18 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
-    Set-Location $executabledir
-    # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
-    #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
-    If (( $appid -eq 258550 ) -or ($appid -eq 294420 ) -or ($appid -eq 302550)) {
-        Start-Process CMD "/c start $launchParams"
+    If ($launchParams -and $appid -and $executabledir) {
+        Set-Location $executabledir
+        # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
+        #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
+        If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550) {
+            Start-Process CMD "/c start $launchParams"
+        }
+        Else {
+            Start-Process CMD "/c start $launchParams"  -NoNewWindow
+        }
+        Set-Location $currentdir
     }
-    Else {
-        Start-Process CMD "/c start $launchParams"  -NoNewWindow
-    }
-    Set-Location $currentdir
 }
 Function Select-StartServer {
     $global:infomessage = "starting"
@@ -30,31 +32,33 @@ Function Select-StartServer {
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
-    Add-Content $ssmlog "[$loggingdate] Check Server process "
-    If ($process) {
-        If ($global:appid -eq "996560") { 
-            Get-checkMultiple 
-        }
-        Else {
-            If (!(Get-Process "$process" -ea SilentlyContinue)) {
-                $global:infomessage = "notrunning"
-                Get-Infomessage
+    If ($ssmlog -and $loggingdate) {
+        Add-Content $ssmlog "[$loggingdate] Check Server process "
+        If ($process) {
+            If ($global:appid -eq "996560") { 
+                Get-checkMultiple 
             }
             Else {
-                $global:infomessage = "running"
-                Get-Infomessage
-                $process
-                Get-ClearVariables
-                Exit 
+                If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                    $global:infomessage = "notrunning"
+                    Get-Infomessage
+                }
+                Else {
+                    $global:infomessage = "running"
+                    Get-Infomessage
+                    $process
+                    Get-ClearVariables
+                    Exit 
+                }
+                Get-CheckForError
             }
-            Get-CheckForError
         }
     }
 }
 
 Function Get-checkMultiple {
     $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
-    If (!($process)) {
+    If (!$process) {
         $global:infomessage = "notrunning"
         Get-Infomessage
     }
