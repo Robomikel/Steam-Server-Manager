@@ -23,11 +23,6 @@ Function Get-CreatedVaribles {
         
     }
 }
-
-Function Get-defaultconfigs {
-    Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
-
-}
 Function Get-ClearVariables {
     $var = (Get-Variable * -scope global).Name
     Add-Content $ssmlog "[$loggingdate] Removing Variables $var" 

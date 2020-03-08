@@ -16,10 +16,6 @@ $script:Date = get-date -Format yyyyMMddTHHmmssffff
 $script:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
 $script:logDate = Get-Date -Format MM-dd-yyyy
 
-# Default-config
-$script:defaultconfigurl = "https://raw.githubusercontent.com/Robomikel/config-default/master"
-$script:defaultconfigdirectory = "$currentdir\config-default"
-
 # Game-Server-configs
 $script:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
@@ -86,7 +82,7 @@ $script:NOTE2 = ([char]9835)
 $script:CHECKMARK = ([char]8730) 
 
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
-# Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
+Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
