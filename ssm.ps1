@@ -86,7 +86,7 @@ $script:NOTE2 = ([char]9835)
 $script:CHECKMARK = ([char]8730) 
 
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
-Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
+# Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}

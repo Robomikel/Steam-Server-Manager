@@ -31,10 +31,11 @@ Function Install-defaultconfig {
         Add-Content $ssmlog "[$loggingdate]Failed: Add-Content default config "
         Exit 
     }
+    Start-Sleep .3
     If (Test-Path $defaultconfigdirectory\$defaultcfg ) {
         . { 
             Invoke-Expression $defaultconfigdirectory\$defaultcfg
-
+            Add-Content $ssmlog "[$loggingdate] dotsource $defaultconfigdirectory\$defaultcfg "
         } 
     }Else{
         Add-Content $ssmlog "[$loggingdate]Failed: Dot source Install-defaultconfig "

@@ -29,6 +29,7 @@ Function Select-Steamer {
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
+        Get-defaultconfigs
         Read-AppID
         New-CreateVariables
         Get-Finished
@@ -42,6 +43,7 @@ Function Select-Steamer {
         New-ServerFolder
         Get-Steam
         Set-SteamInfo
+        Get-defaultconfigs
         Read-AppID
         New-CreateVariables
         Get-Finished
