@@ -27,10 +27,8 @@ Function Select-Steamer {
         Get-Appid
         Get-defaultconfig
         New-ServerFolder
-        
         Get-Steam
         Set-SteamInfo
-        Get-defaultconfig
         Read-AppID
         New-CreateVariables
         Get-Finished
@@ -42,13 +40,10 @@ Function Select-Steamer {
         Get-Appid
         Get-defaultconfig
         New-ServerFolder
-        
         Get-Steam
         Set-SteamInfo
-        Get-defaultconfig
         Read-AppID
         New-CreateVariables
-        
         Get-Finished
         Get-ClearVariables
     }
