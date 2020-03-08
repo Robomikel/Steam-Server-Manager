@@ -33,7 +33,7 @@ Function New-DiscordAlert {
                     # BACKUP
                     $global:alertmessage = ' Test Alert'
                     # Cyan
-                    $global:alertmessagecolor = 'DeepSkyBlue'
+                    $global:alertmessagecolor = 'RoyalBlue'
                 }
                 Send-DiscordAlert                              
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
@@ -85,9 +85,9 @@ Function Send-DiscordAlert {
     # https://github.com/EvotecIT/PSDiscord
     $global:Uri = "$discordwebhook"
     $global:Author = New-DiscordAuthor -Name 'SSM Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
-    $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $false
-    $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/tTrtYMe.png"
-    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+    $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $true
+    $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/t3WKCW1.png"
+    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
     # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
     Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
     }
