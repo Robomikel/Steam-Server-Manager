@@ -22,5 +22,8 @@ Function New-ServerFolder {
     Else {
         Add-Content $ssmlog "[$loggingdate] Creating Server Folder  "
         New-Item  . -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        If(!$?){
+            Add-Content $ssmlog "[$loggingdate] Failed: Creating Server Folder  "
+        }
     }
 }

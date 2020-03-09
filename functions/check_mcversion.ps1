@@ -7,42 +7,47 @@
 #
 #
 Function Get-MCbrversion {
-    $localbuild = Get-Content $serverfiles\version.txt
-    Get-MCBRWebrequest
-    $remotebuild = $mcbrWebResponse.href
-    If ($localbuild -and $remotebuild) {
-        Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
-        Write-Information "LocalBuild: $localbuild" -InformationAction Continue
-        If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-            $global:infomessage = "availableupdates"
-            Get-Infomessage
+    If (Test-Path $mcversion) {
+        $localbuild = Get-Content $mcversion
+        Get-MCBRWebrequest
+        $remotebuild = $mcbrWebResponse.href
+        If ($localbuild -and $remotebuild) {
+            Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+            Write-Information "LocalBuild: $localbuild" -InformationAction Continue
+            If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
+                $global:infomessage = "availableupdates"
+                Get-Infomessage
+            }
+            Else {
+                $global:infomessage = "noupdates"
+                Get-Infomessage
+            }
         }
         Else {
-            $global:infomessage = "noupdates"
-            Get-Infomessage
+            Add-Content $ssmlog "[$loggingdate] Failed: Get-MCbrversion "
         }
-    }
-    Else {
-        Add-Content $ssmlog "[$loggingdate] Failed: Get-MCbrversion "
     }
 }
 
 Function Get-MCversion {
-    $localbuild = Get-Content $serverfiles\version.txt
-    Get-MCWebrequest
-    $remotebuild = $mcvWebResponse
-    If ($localbuild -and $remotebuild) {
-        Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
-        Write-Information "LocalBuild: $localbuild" -InformationAction Continue
-        If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-            $global:infomessage = "availableupdates"
-            Get-Infomessage
+    If (Test-Path $mcversion) {
+        $localbuild = Get-Content $mcversion
+        Get-MCWebrequest
+        $remotebuild = $mcvWebResponse
+        If ($localbuild -and $remotebuild) {
+            Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+            Write-Information "LocalBuild: $localbuild" -InformationAction Continue
+            If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
+                $global:infomessage = "availableupdates"
+                Get-Infomessage
+            }
+            Else {
+                $global:infomessage = "noupdates"
+                Get-Infomessage
+            }
         }
         Else {
-            $global:infomessage = "noupdates"
-            Get-Infomessage
+            Add-Content $ssmlog "[$loggingdate] Failed: Get-MCversion "
         }
-    }Else{
-        Add-Content $ssmlog "[$loggingdate] Failed: Get-MCversion "
     }
 }

@@ -44,7 +44,7 @@ Function New-BackupServer {
         New-ServerBackupLog
         If ($backuplogopen -eq "on") {
             Set-Location $sevenzipdirectory 
-            .\backup_*.log
+            .\backup_*.log >$null 2>&1
             If (!$?) {
                 $global:warnmessage = "backupfailed"
                 Get-warnmessage
@@ -56,7 +56,7 @@ Function New-BackupServer {
         New-DiscordAlert
         Set-Location $currentdir
     }
-    ElseIf (!($sevenzipdirectory) -or !($serverfiles) -or !($backupdir)) {
+    ElseIf (!$sevenzipdirectory -or !$serverfiles -or !$backupdir) {
         $global:warnmessage = "backupfailed"
         Get-warnmessage
         
@@ -89,7 +89,7 @@ Function New-backupAppdata {
     Get-Infomessage
     If ($appdatabackuplogopen -eq "on") {
         Set-Location $sevenzipdirectory 
-        .\AppDatabackup_*.log
+        .\AppDatabackup_*.log >$null 2>&1
         If (!$?) {
             $global:warnmessage = "backupfailed"
             Get-warnmessage
@@ -112,7 +112,7 @@ Function Limit-Backups {
         }
         Set-Location $currentdir
     }
-    ElseIf (!($backupdir) -and !($maxbackups )) {
+    ElseIf (!$backupdir -and !$maxbackups ) {
         $global:warnmessage = "limitbackupfailed"
         Get-warnmessage
         
@@ -121,7 +121,7 @@ Function Limit-Backups {
 }
 
 Function Limit-AppdataBackups {
-    If (($backupdir -and $maxbackups )) {
+    If ($backupdir -and $maxbackups ) {
         $global:infomessage = "purgeappdatabackup"
         Get-Infomessage
         Set-Location $sevenzipdirectory
@@ -133,7 +133,7 @@ Function Limit-AppdataBackups {
         }
         Set-Location $currentdir
     }
-    ElseIf (!($backupdir -and $maxbackups )) {
+    ElseIf (!$backupdir -and !$maxbackups ) {
         $global:warnmessage = "limitbackupfailed"
         Get-warnmessage
         

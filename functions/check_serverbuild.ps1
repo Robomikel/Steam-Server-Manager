@@ -19,21 +19,31 @@ Function Get-ServerBuildCheck {
             }
             Else {
                 Get-Steam
-                Set-Location $steamdirectory
-                $search = "buildid"
-                # public 
-                $remotebuild = .\steamCMD +app_info_update 1 +app_info_print $appid +quit | select-string $search | Select-Object  -Index 0
-                #    # dev
-                #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
-                #    # experimental
-                #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 2
-                #    # hosting
-                #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
-                $remotebuild = $remotebuild -replace '\s', ''
-                $localbuild = get-content $serverdir\steamapps\appmanIfest_$appid.acf | select-string $search
-                $localbuild = $localbuild -replace '\s', ''
+                If ($steamdirectory) {
+                    Set-Location $steamdirectory
+                    $search = "buildid"
+                    # public
+                    If ($sevenzipexecutable) {
+                        $steamcmdparams = @("+app_info_update 1 +app_info_print $appid +quit")
+ 
+                        $remotebuild = & $steamexecutable $steamcmdparams  | select-string $search | Select-Object  -Index 0
+                        #    # dev
+                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
+                        #    # experimental
+                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 2
+                        #    # hosting
+                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
+                        $remotebuild = $remotebuild -replace '\s', ''
+                        If (Test-Path $appmanifest) {
+                            $localbuild = get-content $appmanifest | select-string $search
+                            $localbuild = $localbuild -replace '\s', ''
+                        }Else{
+                            $localbuild = $false
+                        }
+                    }
+                }
                 #$localbuild
-                If (($checkupdateonstart -eq "on") -or ($command -eq 'update')) {
+                If (($command -eq 'update') -or ($checkupdateonstart -eq "on")) {
                     if (!$remotebuild ) {
                         Write-Warning 'Failed to retrieve remote build'
                         Add-Content $ssmlog "[$loggingdate] Failed to retrieve remote build"
@@ -44,7 +54,7 @@ Function Get-ServerBuildCheck {
                     }
                     Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
-                    If (($updateonstart -eq "on") -or ($command -eq 'update')) {
+                    If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                             $global:infomessage = "availableupdates"
                             Get-Infomessage
@@ -60,8 +70,10 @@ Function Get-ServerBuildCheck {
                     }
                     Set-Location $currentdir
                 }
-                Add-Content $ssmlog "[$loggingdate]  Updates on start off"
-                Set-Location $currentdir
+                Else {
+                    Add-Content $ssmlog "[$loggingdate]  Updates on start off"
+                    Set-Location $currentdir
+                }
             }
         }
         Else {
@@ -73,9 +85,11 @@ Function Get-ServerBuildCheck {
 
 Function Get-SteamFix {
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {
-        Add-Content $ssmlog "[$loggingdate] Removing appmanifest_$appid.acf "
-        Remove-Item $serverdir\steamapps\appmanifest_$appid.acf -Force  >$null 2>&1
-        Add-Content $ssmlog "[$loggingdate] Removing Multiple appmanifest_$appid.acf "
-        Remove-Item $serverdir\steamapps\appmanifest_*.acf -Force  >$null 2>&1
+        If (Test-Path $appmanifest) {
+            Add-Content $ssmlog "[$loggingdate] Removing appmanifest_$appid.acf "
+            Remove-Item $appmanifest -Force
+            Add-Content $ssmlog "[$loggingdate] Removing Multiple appmanifest_$appid.acf "
+            Remove-Item $appmanifest -Force
+        }
     }
 }

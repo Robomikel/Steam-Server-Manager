@@ -44,7 +44,7 @@ Function install-mcrcon {
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon succeeded  "  
         }
     }
-    ElseIf (!$mcrconurl -and $mcrconoutput) {
+    ElseIf (!$mcrconurl -and !$mcrconoutput) {
         Add-Content $ssmlog "[$loggingdate] install-mcrcon Failed: $mcrconurl $mcrconoutput"
         Write-Warning 'fn_install-mcrcon Failed'
         Exit

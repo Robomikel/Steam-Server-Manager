@@ -9,31 +9,35 @@
 Function Get-Servercfg {
     #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$serverdir\csgo\cfg\server.cfg")
     If ($servercfgdir -or $servercfg) {
-        If ($null -eq $config2) {
+        If (!$config2) {
             $servercfg = "$servercfg"
         }
-        ElseIf ($null -eq $config3) {
+        ElseIf (!$config3) {
             $servercfg = "$servercfg", "$config2"
         }
-        ElseIf ($null -eq $config4) {
+        ElseIf (!$config4) {
             $servercfg = "$servercfg", "$config2", "$config3"
         }
-        ElseIf ($null -eq $config5) {
+        ElseIf (!$config5) {
             $servercfg = "$servercfg", "$config2", "$config3", "$config4"
         }
         Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
         Foreach ($servercfg in $servercfg) {
             Add-Content $ssmlog "[$loggingdate] Retrieve server config GSM "
-            $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
-            If (!$?) { 
-                Add-Content $ssmlog "[$loggingdate] Array Failed !! Did NOT Retrieve server config"
-                Exit 
+            If ($githuburl -and $gamedirname) {
+                $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
+                If (!$?) { 
+                    Add-Content $ssmlog "[$loggingdate] Array Failed !! Did NOT Retrieve server config"
+                    Exit 
+                }
+                ElseIf ($?) { 
+                    Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
+                }
+                New-Item $servercfgdir\$servercfg -Force
+                If ($WebResponse) {
+                    Add-Content $servercfgdir\$servercfg $WebResponse
+                }
             }
-            ElseIf ($?) { 
-                Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
-            }
-            New-Item $servercfgdir\$servercfg -Force
-            Add-Content $servercfgdir\$servercfg $WebResponse
         }
     }
 }

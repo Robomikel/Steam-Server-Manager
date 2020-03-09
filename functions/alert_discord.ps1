@@ -79,16 +79,20 @@ Function Send-DiscordAlert_old {
 
 
 Function Send-DiscordAlert {
-    If ($hostname -and $alertmessage -and $alertmessagecolor){
+    If ($alertmessage -and $alertmessagecolor){
     $global:InfoMessage = "discord"
     Get-Infomessage
     # https://github.com/EvotecIT/PSDiscord
     $global:Uri = "$discordwebhook"
-    $global:Author = New-DiscordAuthor -Name 'SSM Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
+    $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
     $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $true
     $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/t3WKCW1.png"
     $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
     # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
     Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
-    }
+    If (!$?) {
+        $global:warnmessage = "AlertFailed"
+        Get-warnmessage
+    }    
+}
 }

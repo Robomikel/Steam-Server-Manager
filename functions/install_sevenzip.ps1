@@ -7,7 +7,7 @@
 #
 #
 Function Add-Sevenzip {
-    If (($sevenzipurl) -and ($sevenzipoutput)) {
+    If ($sevenzipurl -and $sevenzipoutput) {
         $start_time = Get-Date
         $global:package = '7ZIP'
         $global:infomessage = "Downloading"

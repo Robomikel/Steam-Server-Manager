@@ -14,19 +14,23 @@ Function New-MontiorJob {
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
     Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task
+    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
 }
-Function New-MontiorJobBG {  
-    $UserName = "$env:COMPUTERNAME\$env:UserName"
-    Write-Host "Run Task Whether user is logged on or not"
-    Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
-    $SecurePassword = $password = Read-Host "Password " -AsSecureString
-    $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
-    $Password = $Credentials.GetNetworkCredential().Password 
-    $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles  }`"" -WorkingDirectory "$currentdir"
-    $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
-    $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
-    $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
-    Write-Host "Creating Task........" -F M -B Black
-    Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password"
+Function New-MontiorJobBG {
+    If ($env:UserName -and $env:COMPUTERNAME) {  
+        $UserName = "$env:COMPUTERNAME\$env:UserName"
+        Write-Host "Run Task Whether user is logged on or not"
+        Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
+        $SecurePassword = $password = Read-Host "Password " -AsSecureString
+        If ($UserName -and $SecurePassword) {
+            $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
+            $Password = $Credentials.GetNetworkCredential().Password 
+            $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles  }`"" -WorkingDirectory "$currentdir"
+            $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
+            $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
+            $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
+            Write-Host "Creating Task........" -F M -B Black
+            Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" | Out-File -Append -Encoding Default  $ssmlog
+        }
+    }
 }

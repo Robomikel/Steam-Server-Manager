@@ -219,6 +219,10 @@ Function Read-AppID {
             Get-warnmessage
             
         }
+        If(!$?){
+            $global:warnmessage = "readappidfailed"
+            Get-warnmessage
+        }
     }
     Else {
         $global:warnmessage = "readappidfailed"

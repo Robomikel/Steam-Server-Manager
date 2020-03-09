@@ -9,8 +9,8 @@
 Function New-CreateVariables {
     Add-Content $ssmlog "[$loggingdate] Creating Variables Script"
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force | Out-File -Append -Encoding Default  $ssmlog
-        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Discord Webhook "
-        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:discordwebhook      = `"$global:discordwebhook`""
+#        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Discord Webhook "
+#        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:discordwebhook      = `"$global:discordwebhook`""
     If ($appid) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            App ID  "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:appid               = `"$global:appid`""
