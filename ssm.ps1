@@ -6,80 +6,80 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-$script:command = $($args[0])
-$script:serverfiles = $($args[1])
-$script:currentdir = Get-Location
-$script:serverdir = "$currentdir\$serverfiles"
-${script:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
-${script:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
-$script:Date = get-date -Format yyyyMMddTHHmmssffff
-$script:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
-$script:logDate = Get-Date -Format MM-dd-yyyy
+$global:command = $($args[0])
+$global:serverfiles = $($args[1])
+$global:currentdir = Get-Location
+$global:serverdir = "$currentdir\$serverfiles"
+${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
+${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
+$global:Date = get-date -Format yyyyMMddTHHmmssffff
+$global:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
+$global:logDate = Get-Date -Format MM-dd-yyyy
 
 # Game-Server-configs
-$script:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
+$global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
 # NodeJs Version "12.13.1"
-$script:nodeversion = "12.15.0"
-$script:nodejsurl = "https://nodejs.org/dist/v$nodeversion/node-v$nodeversion-win-x64.zip"
-$script:nodejsoutput = "node-v$nodeversion-win-x64.zip"
-$script:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64"
-$script:nodejsexecutable = "$nodejsdirectory\node.exe"
+$global:nodeversion = "12.15.0"
+$global:nodejsurl = "https://nodejs.org/dist/v$nodeversion/node-v$nodeversion-win-x64.zip"
+$global:nodejsoutput = "node-v$nodeversion-win-x64.zip"
+$global:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64"
+$global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
 # Oxide
-$script:oxiderustlatestlink = "https://umod.org/games/rust/download"
-$script:oxideoutput = "$currentdir\oxide.zip"
-$script:oxidedirectory = "$currentdir\oxide"
+$global:oxiderustlatestlink = "https://umod.org/games/rust/download"
+$global:oxideoutput = "$currentdir\oxide.zip"
+$global:oxidedirectory = "$currentdir\oxide"
 
 # Metamod
-$script:metamodmversion = "1.10"
-$script:metamodoutput = "$currentdir\metamod.zip"
-$script:metamoddirectory = "$currentdir\metamod"
+$global:metamodmversion = "1.10"
+$global:metamodoutput = "$currentdir\metamod.zip"
+$global:metamoddirectory = "$currentdir\metamod"
 
 # Sourcemod
-$script:sourcemodmversion = "1.10"
-$script:sourcemodoutput = "$currentdir\sourcemod.zip"
-$script:sourcemoddirectory = "$currentdir\sourcemod"
+$global:sourcemodmversion = "1.10"
+$global:sourcemodoutput = "$currentdir\sourcemod.zip"
+$global:sourcemoddirectory = "$currentdir\sourcemod"
 
 # 7-Zip Portable
-$script:sevenzipurl = "https://www.7-zip.org/a/7za920.zip"
-$script:sevenzipoutput = "$currentdir\7za920.zip"
-$script:sevenzipversion = "7za920"
-$script:sevenzipdirectory = "$currentdir\$sevenzipversion"
-$script:sevenzipexecutable = "$sevenzipdirectory\7za.exe"
+$global:sevenzipurl = "https://www.7-zip.org/a/7za920.zip"
+$global:sevenzipoutput = "$currentdir\7za920.zip"
+$global:sevenzipversion = "7za920"
+$global:sevenzipdirectory = "$currentdir\$sevenzipversion"
+$global:sevenzipexecutable = "$sevenzipdirectory\7za.exe"
 
 # Steam
-$script:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
-$script:steamoutput = "steamcmd.zip"
-$script:steamdirectory = "$currentdir\SteamCMD"
-$script:steamexecutable = "$steamdirectory\steamCMD.exe"
-$script:steamcmdparmas = @("+@ShutdownOnFailedCommand 1", "+@NoPromptForPassword 1", "+login", "anonymous","$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+app_update $appid $branch validate", "+Exit")
+$global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
+$global:steamoutput = "steamcmd.zip"
+$global:steamdirectory = "$currentdir\SteamCMD"
+$global:steamexecutable = "$steamdirectory\steamCMD.exe"
+$global:steamcmdparmas = @("+@ShutdownOnFailedCommand 1", "+@NoPromptForPassword 1", "+login", "anonymous","$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+app_update $appid $branch validate", "+Exit")
 
 # Steamer url
-$script:steamerurl = "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
+$global:steamerurl = "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
 
 # Mcrcon
-$script:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
-$script:mcrconoutput = "mcrcon.zip"
-$script:mcrcondirectory = "$currentdir\mcrcon"
-$script:mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
+$global:mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
+$global:mcrconoutput = "mcrcon.zip"
+$global:mcrcondirectory = "$currentdir\mcrcon"
+$global:mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 
 # Forge
-$script:forgeversion = "1.15.2-31.1.2"
+$global:forgeversion = "1.15.2-31.1.2"
 
-$script:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 11 | ForEach-Object { [char]$_ })
+$global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 11 | ForEach-Object { [char]$_ })
 
-$script:SMILEY_WHITE = ([char]9786)
-$script:SMILEY_BLACK = ([char]9787)
-$script:GEAR = ([char]9788)
-$script:HEART = ([char]9829)
-$script:DIAMOND = ([char]9830)
-$script:CLUB = ([char]9827)
-$script:SPADE = ([char]9824)
-$script:CIRCLE = ([char]8226)
-$script:NOTE1 = ([char]9834)
-$script:NOTE2 = ([char]9835)
-$script:CHECKMARK = ([char]8730) 
+$global:SMILEY_WHITE = ([char]9786)
+$global:SMILEY_BLACK = ([char]9787)
+$global:GEAR = ([char]9788)
+$global:HEART = ([char]9829)
+$global:DIAMOND = ([char]9830)
+$global:CLUB = ([char]9827)
+$global:SPADE = ([char]9824)
+$global:CIRCLE = ([char]8226)
+$global:NOTE1 = ([char]9834)
+$global:NOTE2 = ([char]9835)
+$global:CHECKMARK = ([char]8730) 
 
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
