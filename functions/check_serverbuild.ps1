@@ -24,9 +24,7 @@ Function Get-ServerBuildCheck {
                     $search = "buildid"
                     # public
                     If ($sevenzipexecutable) {
-                        $steamcmdparams = @("+app_info_update 1 +app_info_print $appid +quit")
- 
-                        $remotebuild = & $steamexecutable $steamcmdparams  | select-string $search | Select-Object  -Index 0
+                        $remotebuild = .\steamcmd +app_info_update 1 +app_info_print $appid +quit  | select-string $search | Select-Object  -Index 0
                         #    # dev
                         #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
                         #    # experimental
