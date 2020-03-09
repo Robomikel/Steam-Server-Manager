@@ -52,11 +52,9 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -64,11 +62,9 @@ Function Select-Steamer {
         Get-FolderNames
         Get-createdvaribles
         Get-CheckForVars
-        
         Get-ChecktaskDisable
         Get-ServerBuildCheck
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -95,7 +91,6 @@ Function Select-Steamer {
         Get-ChecktaskDisable
         Get-UpdateServer
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -112,7 +107,6 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -126,7 +120,6 @@ Function Select-Steamer {
         Get-Steam
         Get-ValidateServer
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -226,7 +219,6 @@ Function Select-Steamer {
         New-BackupFolder
         New-BackupServer
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables
     }
@@ -239,7 +231,6 @@ Function Select-Steamer {
         New-BackupFolder  
         New-BackupServer
         Get-ChecktaskEnable
-        
         Get-Finished
         Get-ClearVariables  
     }

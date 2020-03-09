@@ -99,7 +99,7 @@ Function Get-StopServerInstall {
 Function Get-StopMultiple {
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
-        If (!($mprocess)) {
+        If (!$mprocess) {
             $global:infomessage = "notrunning"
             Get-Infomessage
         }

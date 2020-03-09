@@ -58,7 +58,7 @@ Function New-LaunchScriptKF2serverPS {
     Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
     Set-Location $serverdir
     Write-Host "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
-    .\KF2Server.bat
+    Start-Process cmd "/c KF2Server.bat"
     timeout 5
     Write-Host "***  stopping Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
     Get-StopServer
