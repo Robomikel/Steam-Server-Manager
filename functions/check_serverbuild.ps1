@@ -18,30 +18,31 @@ Function Get-ServerBuildCheck {
                 Get-MCbrversion
             }
             Else {
-                Get-Steam
-                If ($steamdirectory) {
-                    Set-Location $steamdirectory
-                    $search = "buildid"
-                    # public
-                    If ($sevenzipexecutable) {
-                        $remotebuild = .\steamcmd +app_info_update 1 +app_info_print $appid +quit  | select-string $search | Select-Object  -Index 0
-                        #    # dev
-                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
-                        #    # experimental
-                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 2
-                        #    # hosting
-                        #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
-                        $remotebuild = $remotebuild -replace '\s', ''
-                        If (Test-Path $appmanifest) {
-                            $localbuild = get-content $appmanifest | select-string $search
-                            $localbuild = $localbuild -replace '\s', ''
-                        }Else{
-                            $localbuild = $false
+                If (($command -eq 'update') -or ($checkupdateonstart -eq "on")) {
+                    Get-Steam
+                    If ($steamdirectory) {
+                        Set-Location $steamdirectory
+                        $search = "buildid"
+                        # public
+                        If ($sevenzipexecutable) {
+                            $remotebuild = .\steamcmd +app_info_update 1 +app_info_print $appid +quit | select-string $search | Select-Object  -Index 0
+                            #    # dev
+                            #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 1
+                            #    # experimental
+                            #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 2
+                            #    # hosting
+                            #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
+                            $remotebuild = $remotebuild -replace '\s', ''
+                            If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+                                $localbuild = get-content "$serverdir\steamapps\appmanifest_$appid.acf" | select-string $search
+                                $localbuild = $localbuild -replace '\s', ''
+                            }
+                            Else {
+                                $localbuild = $false
+                            }
                         }
                     }
-                }
-                #$localbuild
-                If (($command -eq 'update') -or ($checkupdateonstart -eq "on")) {
+                    #$localbuild
                     if (!$remotebuild ) {
                         Write-Warning 'Failed to retrieve remote build'
                         Add-Content $ssmlog "[$loggingdate] Failed to retrieve remote build"
@@ -83,11 +84,11 @@ Function Get-ServerBuildCheck {
 
 Function Get-SteamFix {
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {
-        If (Test-Path $appmanifest) {
+        If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
             Add-Content $ssmlog "[$loggingdate] Removing appmanifest_$appid.acf "
-            Remove-Item $appmanifest -Force
+            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
             Add-Content $ssmlog "[$loggingdate] Removing Multiple appmanifest_$appid.acf "
-            Remove-Item $appmanifest -Force
+            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
         }
     }
 }

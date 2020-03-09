@@ -60,8 +60,6 @@ Function Set-SteamerSetting {
     $global:logdir                  = "$currentdir\log"
     #                               SSM Log
     $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
-    #                               App Manifest
-    $global:appmanifest             = "$serverdir\steamapps\appmanifest_$appid.acf"
     #                               MC Version
     $global:mcversion             = "$serverfiles\version.txt"
     #                               Test Connection to Steam Master
