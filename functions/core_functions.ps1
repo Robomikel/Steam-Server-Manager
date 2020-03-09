@@ -11,9 +11,9 @@ Function Get-CreatedVaribles {
     # Get-Infomessage
 
     Add-Content $ssmlog "[$loggingdate] Getting Server Variables"
-    If (Test-Path $serverdir\Variables-$serverfiles.ps1 ) {
+    If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
-            Invoke-Expression $serverdir\Variables-$serverfiles.ps1
+            Invoke-Expression $currentdir\$serverfiles\Variables-$serverfiles.ps1
 
         } 
     }
