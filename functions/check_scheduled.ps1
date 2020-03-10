@@ -46,3 +46,41 @@ Function Get-ChecktaskEnable {
         }
     }
 }
+
+Function Get-ChecktaskDetails {
+    If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
+        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+        If ($?) {
+            
+            $global:monitorjob = $true
+            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskDetails $monitorjob "
+
+        }
+        ElseIf (!$?) {
+
+            $global:monitorjob = $false
+            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskDetails $monitorjob "
+
+
+        }
+    }
+}
+
+Function Get-ChecktaskautorestartDetails {
+    If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
+        Get-ScheduledTask -TaskName "$serverfiles autorestart" >$null 2>&1
+        If ($?) {
+            
+            $global:restartjob = $true
+            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskautorestartDetails $restartjob "
+
+        }
+        ElseIf (!$?) {
+
+            $global:restartjob = $false
+            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskautorestartDetails $restartjob "
+
+
+        }
+    }
+}

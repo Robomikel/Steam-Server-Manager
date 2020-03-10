@@ -35,7 +35,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
     #                       Server Log
-    $global:consolelog             = "Dedicated_DefaultCoop.log"
+    $global:consolelog      = "Dedicated_DefaultCoop.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config
@@ -44,4 +44,6 @@ Function New-LaunchScriptSeriousSamserverPS {
     $global:launchParams    = '@("$executable ${gamemode}")'
     # Get User Input version must be set to 0
     Get-UserInput
+    ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "Dedicated Coop Game", "$hostname") | Set-Content -Path $servercfgdir\$servercfg 
+
 }

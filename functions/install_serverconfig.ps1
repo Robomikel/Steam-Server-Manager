@@ -35,7 +35,7 @@ Function Get-Servercfg {
                 }
                 New-Item $servercfgdir\$servercfg -Force
                 If ($WebResponse) {
-                    Add-Content $servercfgdir\$servercfg $WebResponse
+                    Add-Content $servercfgdir\$servercfg $WebResponse | Out-File -Append -Encoding Default  $ssmlog
                 }
             }
         }

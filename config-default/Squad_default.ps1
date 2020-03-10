@@ -12,7 +12,7 @@ Function New-LaunchScriptSquadserverPS {
     #                       Maxplayers
     $global:maxplayers      = "80"
     #                       Server Name
-    # $global:hostname      = "SERVERNAME"
+    $global:hostname        = "SERVERNAME"
     ##############################/\##############################
     
     # Need to be open on Windows firewall and router.
@@ -27,7 +27,7 @@ Function New-LaunchScriptSquadserverPS {
     #                               System Directory
     $global:systemdir               = "$serverdir"
     #                               Server Config Directory
-    $global:servercfgdir            = "$serverdir\squad_server\SquadGame\ServerConfig\"
+    $global:servercfgdir            = "$serverdir\SquadGame\ServerConfig"
     #                               Server Executable
     $global:executable              = "SquadGameServer"
     #                               Server Executable Directory
@@ -39,13 +39,17 @@ Function New-LaunchScriptSquadserverPS {
     #                               Log Directory
     $global:logdirectory            = "$serverdir\SquadGame\Saved\Logs"
     #                               Server Log
-    $global:consolelog                     = "SquadGame.log"
+    $global:consolelog              = "SquadGame.log"
     #                               Game-Server-Config Directory
-    $global:gamedirname             = ""
+    $global:gamedirname             = "Squad"
     #                               Game-Server-Config
     $global:servercfg               = "Server.cfg"
     #                               Server Launch Command
     $global:launchParams            = '@("$executable MULTIHOME=${IP} Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
     # Get User Input version must be set to 0
     Get-UserInput
+    # Download Game-Server-Config
+    Get-Servercfg
+    # Edit Server Game-Server-Config
+    # Select-EditSourceCFG
 } 

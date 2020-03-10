@@ -14,11 +14,13 @@ Function Get-Details {
     $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
     $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
     $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
-    If (!(Get-Process "$process" -ea SilentlyContinue)) {
+    If ((Get-Process "$process" -ea SilentlyContinue)) {
         $mem = "{0:N2} GB" -f ((Get-Process $process | Measure-Object Workingset -sum).Sum / 1GB) 
     }
     $os = (Get-WMIObject win32_operatingsystem).caption
     $computername = (Get-WMIObject Win32_OperatingSystem).CSName
+    Get-ChecktaskDetails
+    Get-ChecktaskautorestartDetails
     Test-SteamMaster
     Get-CreatedVaribles
     $stats = $masterserver
@@ -48,6 +50,8 @@ Function Get-Details {
     Write-Host "    Backups size GB   : $backupssize"
     Write-Host "    Status            : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
     Write-Host "    Steam Master      : $masterserver"
+    Write-Host "    Monitor Job       : $monitorjob"
+    Write-Host "    Autorestart       : $restartjob"
     Write-Host "    OS                : $os"
     Write-Host "    hostname          : $computername"
     Set-Location $currentdir

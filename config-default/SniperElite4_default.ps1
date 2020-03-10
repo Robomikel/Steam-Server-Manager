@@ -4,7 +4,8 @@ Function  New-LaunchScriptSE4serverPS {
     # http://snipereliteadmin.com/#!/SE4DedicatedServerSetup  
     ################## Change Default Variables #################
 
-
+    #                       Server Name
+    $global:hostname        = "SERVERNAME"
     ##############################/\##############################
     
     # Server.AuthPort 8701
@@ -46,7 +47,8 @@ Function New-servercfgse4 {
     New-Item $servercfgdir\Server.cfg -ItemType File -Force
     Add-Content $servercfgdir\Server.cfg `
 "
-Server.Name Team Deathmatch - Map voting / Hardcore
+Server.Name $hostname
+//Server.Name Team Deathmatch - Map voting / Hardcore
 Server.MoTD Welcome to Sniper Elite 4
 
 Settings.MaxPlayers 12
