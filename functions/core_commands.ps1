@@ -21,7 +21,7 @@ Function Select-Steamer {
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
         Write-Host 'Input Server Folder Name: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-PreviousInstall
         Get-TestString
         Get-Appid
@@ -47,10 +47,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "update") -and ($null -eq $serverfiles)) {   
         Write-Host 'Server FolderName for server updates: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-ServerBuildCheck
@@ -70,10 +70,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "ForceUpdate") -and ($null -eq $serverfiles)) {   
         Write-Host 'Server FolderName for server updates: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-CheckNonSteam
         Get-ChecktaskDisable
@@ -96,10 +96,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "validate") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server validate: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-CheckNonSteam
         Get-ChecktaskDisable
@@ -125,10 +125,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "start") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for start: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars    
         Get-CheckServer
         Get-ServerBuildCheck
@@ -148,10 +148,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "stop") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server stop: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-ChecktaskDisable
         Get-StopServer
@@ -167,10 +167,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "restart") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server restart: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-ChecktaskDisable
         # Get-StopServer 
@@ -192,10 +192,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "monitor") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server check: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-MonitorServer
         Get-ClearVariables
@@ -209,10 +209,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "backup") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for server backup: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars 
         Get-SevenZipCheck
         Get-ChecktaskDisable
@@ -236,10 +236,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "monitor-job") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for monitor: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Set-MonitorJob
         Get-ClearVariables
@@ -253,10 +253,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "Mod-Install") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for monitor: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-Modinstall
         Get-ClearVariables
@@ -270,10 +270,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "ws-Install") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for monitor: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Install-SteamWS
         Get-ClearVariables
@@ -287,10 +287,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "AutoRestart") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for AutoRestart: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars 
         Set-RestartJob
         Get-ClearVariables
@@ -304,10 +304,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "query") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for gamedig: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars 
         Get-NodeJSCheck
         Get-GamedigServerv2
@@ -323,10 +323,10 @@ Function Select-Steamer {
     }
     elseif (($command -eq "mcrcon") -and ($null -eq $serverfiles)) {
         Write-Host 'Server FolderName for mcrcon: ' -F C -N
-        $global:serverfiles = Read-host
+        $serverfiles = Read-host
         Get-TestString
         Get-FolderNames
-        Get-createdvaribles
+        Get-createdvaribles $serverfiles
         Get-CheckForVars
         Get-MCRconCheck 
         set-connectMCRcon

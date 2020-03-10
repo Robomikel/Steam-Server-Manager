@@ -7,9 +7,9 @@
 #
 #
 Function Get-CreatedVaribles {
-    # $global:infomessage = "getting"
-    # Get-Infomessage
-
+If (!$serverfiles){
+    Param($serverfiles)
+}
     Add-Content $ssmlog "[$loggingdate] Getting Server Variables"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
