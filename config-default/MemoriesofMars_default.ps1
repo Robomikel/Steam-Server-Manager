@@ -12,8 +12,8 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     $global:serverpassword  = ""
     #                       Server Port
     $global:port            = "7777"
-    #                       Query Port
-    $global:queryport       = "27015"
+    #                       BeaconPort
+    $global:queryport       = "15000"
     ##############################/\##############################
     
     ###################### Do not change below #####################
@@ -44,9 +44,9 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     New-servercfgmom
 } 
 Function New-servercfgmom {
-    Write-Host "Creating Custom Config" -F M
+    # Write-Host "Creating Custom Config" -F M
     Rename-Item "$servercfgdir\DedicatedServerConfig.cfg" "$servercfgdir\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
-    New-Item $servercfgdir\DedicatedServerConfig.cfg -ItemType File -Force
+    New-Item $servercfgdir\DedicatedServerConfig.cfg -ItemType File -Force | Out-File -Append -Encoding Default  $ssmlog
     
     Add-Content $servercfgdir\DedicatedServerConfig.cfg `
 "{
