@@ -55,16 +55,16 @@ Function Get-ServerBuildCheck {
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-                            $global:infomessage = "availableupdates"
-                            Get-Infomessage
+                            
+                            Get-Infomessage "availableupdates"
                             Get-SteamFix
                             #Get-StopServer
                             Get-UpdateServer  
                         }
                         Else {
                             Add-Content $ssmlog "[$loggingdate] No $serverfiles Updates found"
-                            $global:infomessage = "noupdates"
-                            Get-Infomessage
+                            
+                            Get-Infomessage "noupdates"
                         }
                     }
                     Set-Location $currentdir

@@ -26,7 +26,7 @@ Function New-LaunchScriptBTserverPS {
     #                           Log Directory
     $global:logdirectory        = "$serverdir\ServerLogs"
     #                           Server Log
-    $global:consolelog                 = ""  
+    $global:consolelog          = ""  
     #                           Game-Server-Config Directory
     $global:gamedirname         = "Barotrauma"
     #                           Game-Server-Config

@@ -36,7 +36,7 @@ Function New-LaunchScriptCCserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\cure"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "CodenameCURE"
     #                       Game-Server-Config

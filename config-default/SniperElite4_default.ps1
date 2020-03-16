@@ -44,7 +44,7 @@ Function  New-LaunchScriptSE4serverPS {
 }
 
 Function New-servercfgse4 {
-    New-Item $servercfgdir\Server.cfg -ItemType File -Force
+    New-Item $servercfgdir\Server.cfg -ItemType File -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content $servercfgdir\Server.cfg `
 "
 Server.Name $hostname

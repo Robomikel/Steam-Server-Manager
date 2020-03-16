@@ -14,21 +14,18 @@ Function Get-StopServer {
     Else {
         If ($process) {
             If ( !(Get-Process $process -ea SilentlyContinue)) {
-                $global:infomessage = "notrunning"
-                Get-Infomessage
+                Get-Infomessage "notrunning"
             }
             Else { 
                 If ($appid -eq "996560") {
                     $process = Get-Process $process -ea SilentlyContinue
                     $processID = $process.Id
-                    $global:warnmessage = "stop"
-                    Get-warnmessage
+                    Get-warnmessage "stop"
                     Stop-Process -id $processID -Force
                     Start-Sleep 3
                     $processstatus = Get-Process $process -ea SilentlyContinue 
                     If ($processstatus) {
-                        $global:warnmessage = "stoppedfailed"
-                        Get-warnmessage
+                        Get-warnmessage "stoppedfailed"
                         
                     }
                     If ($consolelogging -eq "on") {   
@@ -40,13 +37,11 @@ Function Get-StopServer {
                     Start-Sleep 3
                     $processstatus = Get-Process $process -ea SilentlyContinue
                     If ($processstatus) {
-                        $global:warnmessage = "stoppedfailed"
-                        Get-warnmessage
+                        Get-warnmessage "stoppedfailed"
                         
                     }
                     Elseif (!$processstatus) {
-                        $global:infomessage = "stopped"
-                        Get-Infomessage
+                        Get-Infomessage "stopped"
                     }
                     If ($consolelogging -eq "on") { 
                         New-ServerLog
@@ -57,8 +52,7 @@ Function Get-StopServer {
             }
         }
         Else {
-            $global:warnmessage = "fn_Get-StopServer"
-            Get-warnmessage
+            Get-warnmessage "fn_Get-StopServer"
         }
     }
 }
@@ -69,23 +63,19 @@ Function Get-StopServerInstall {
     Else {
         If ($process) {
             If (! (Get-Process $process -ea SilentlyContinue)) {
-                $global:infomessage = "notrunning"
-                Get-Infomessage
+                Get-Infomessage "notrunning"
             }
             Else {
-                $global:infomessage = "stopping"
-                Get-Infomessage
+                Get-Infomessage "stopping"
                 Stop-Process -Name "$process" -Force
                 Start-Sleep 3
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
-                    $global:warnmessage = "stoppedfailed"
-                    Get-warnmessage
+                    Get-warnmessage "stoppedfailed"
                     
                 }
                 Elseif (!$processstatus) {
-                    $global:infomessage = "stopped"
-                    Get-Infomessage
+                    Get-Infomessage "stopped"
                 }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
@@ -100,23 +90,19 @@ Function Get-StopMultiple {
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {
-            $global:infomessage = "notrunning"
-            Get-Infomessage
+            Get-Infomessage "notrunning"
         }
         Else {
-            $global:infomessage = "stopping"
-            Get-Infomessage
+            Get-Infomessage "stopping"
             get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
             Start-Sleep 3
             $processstatus = Get-process $mprocess -ea SilentlyContinue
             If ($processstatus) {
-                $global:warnmessage = "stoppedfailed"
-                Get-warnmessage
+                Get-warnmessage "stoppedfailed"
                 
             }
             Elseif (!$processstatus) {
-                $global:infomessage = "stopped"
-                Get-Infomessage
+                Get-Infomessage "stopped"
             }
             If ($consolelogging -eq "on") { 
                 New-ServerLog
@@ -125,7 +111,6 @@ Function Get-StopMultiple {
         }
     }
     Else {
-        $global:warnmessage = "fn_Get-StopServerintall"
-        Get-warnmessage
+        Get-warnmessage "fn_Get-StopServerintall"
     }
 }

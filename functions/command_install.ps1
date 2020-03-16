@@ -50,8 +50,8 @@ Function Install-ServerFiles {
             }
         }
         Else {
-            $global:warnmessage = "fn_InstallServerFiles"
-            Get-warnmessage
+             
+            Get-warnmessage "fn_InstallServerFiles"
         }
     }
 }

@@ -9,36 +9,28 @@
 Function Add-NodeJS {
     If ($nodeversion) {
         $start_time = Get-Date
-        $global:package = 'Nodejs'
-        $global:infomessage = "Downloading"
-        Get-Infomessage
+        Get-Infomessage "Downloading" 'Nodejs'
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\node-v$nodeversion-win-x64.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $nodejsurl -OutFile $nodejsoutput
         If (!$?) {
-            $global:warnmessage = 'Downloadfailed'
-            Get-WarnMessage 
+            Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
         }
         ElseIf ($?) {
-            $global:infomessage = "Downloaded"
-            Get-Infomessage 
-        }
-        $global:infomessage = "downloadtime"
-        Get-Infomessage
-        $global:infomessage = "Extracting"
-        Get-Infomessage 
+            Get-Infomessage "Downloaded" 'Nodejs'
+        } 
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'Nodejs'
         Expand-Archive "$currentdir\node-v$nodeversion-win-x64.zip" "$currentdir\node-v$nodeversion-win-x64\" -Force
         Copy-Item  "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\*" -Destination $nodejsdirectory -Recurse -Force 
         Remove-Item "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64" -Recurse -Force 
         If (!$?) {
-            $global:warnmessage = 'ExtractFailed'
-            Get-WarnMessage
+            Get-WarnMessage 'ExtractFailed' 'Nodejs'
             New-TryagainNew
         }
         ElseIf ($?) { 
-            $global:infomessage = "Extracted"
-            Get-Infomessage 
+            Get-Infomessage "Extracted" 'Nodejs'
         }
         Set-Location $nodejsdirectory  
         .\npm install gamedig

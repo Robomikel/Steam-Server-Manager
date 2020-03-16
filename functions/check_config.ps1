@@ -22,15 +22,14 @@ Function Get-CheckForVars {
             }
             Foreach ($missingvars in $missingvars) {
                 If ( !$missingvars) {
-                    $global:warnmessage = "missingvars"
-                    Get-warnmessage
+                    
+                    Get-warnmessage "missingvars"
                 }
             }   
         }
     }
     Else {
-        $global:warnmessage = "chkvarsfailed"
-        Get-warnmessage
-        
+        Get-warnmessage "chkvarsfailed"
+         
     }
 }

@@ -8,7 +8,7 @@
 #
 Function Get-MonitorServer {
     If ($process) {
-        If ($global:appid -eq "996560") { 
+        If ($appid -eq "996560") { 
             Get-MonitorMultiple 
         }
         Else {
@@ -17,12 +17,10 @@ Function Get-MonitorServer {
                 # $infomessage = "notrunning"
                 # Get-Infomessage
                 Select-StartServer
-                $global:alert = "restart"
-                New-DiscordAlert
+                New-DiscordAlert "restart"
             }
             Else {
-                $infomessage = "running"
-                Get-Infomessage
+                Get-Infomessage "running"
                 get-process $process
                 Get-ClearVariables
                 Exit 
@@ -38,12 +36,10 @@ Function Get-MonitorMultiple {
         # $infomessage -eq "notrunning"
         # Get-Infomessage
         Select-StartServer
-        $global:alert = "restart"
-        New-DiscordAlert 
+        New-DiscordAlert  "restart"
     }
     Else {
-        $infomessage -eq "running"
-        Get-Infomessage
+        Get-Infomessage "running"
         get-process $process 
         Get-ClearVariables 
         Exit

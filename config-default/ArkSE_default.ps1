@@ -35,7 +35,7 @@ Function New-LaunchScriptArkPS {
         #                       Log Directory
         $global:logdirectory    = "$serverdir\ShooterGame\Saved\Logs"
         #                       Server Log
-        $global:consolelog             = "ShooterGame.log"
+        $global:consolelog      = "ShooterGame.log"
         #                       Game-Server-Config Directory
         $global:gamedirname     = "ARKSurvivalEvolved"
         #                       Game-Server-Config

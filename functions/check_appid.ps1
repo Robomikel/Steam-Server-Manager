@@ -215,17 +215,14 @@ Function Read-AppID {
         #        New-LaunchScriptTemplateserverPS
         #    } 336400
         Else {
-            $global:warnmessage = "nolaunchscript"
-            Get-warnmessage
+            Get-warnmessage "nolaunchscript"
             
         }
         If(!$?){
-            $global:warnmessage = "readappidfailed"
-            Get-warnmessage
+            Get-warnmessage "readappidfailed"
         }
     }
     Else {
-        $global:warnmessage = "readappidfailed"
-        Get-warnmessage
+        Get-warnmessage "readappidfailed"
     }
 }

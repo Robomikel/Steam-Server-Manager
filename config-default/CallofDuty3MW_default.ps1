@@ -54,7 +54,7 @@ Function New-LaunchScriptCOD3MWserverPS {
   #                           Log Directory
   $global:logdirectory        = "$serverdir"
   #                           Server Log
-  $global:consolelog                 = ""
+  $global:consolelog          = ""
   #                           Game-Server-Config Directory
   $global:gamedirname         = ""
   #                           Game-Server-Config

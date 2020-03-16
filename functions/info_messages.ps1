@@ -7,6 +7,7 @@
 #
 #
 Function Get-Infomessage {
+Param($infomessage,$package)
     $global:info = "[info]" | Receive-Information
     If ($infomessage) {
         If ($infomessage -eq "discord") {
@@ -108,7 +109,7 @@ Function Get-Infomessage {
         Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
     }
 }
-Function Get-WarnMessage {
+Function Get-WarnMessage($warnmessage,$package) {
     
 Add-Content $ssmlog "[$loggingdate] Getting Warning "
     If ($warnmessage) {

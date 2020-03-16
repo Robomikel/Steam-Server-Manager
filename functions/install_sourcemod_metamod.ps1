@@ -9,32 +9,24 @@
 Function Get-SourceMetaMod {
     Get-SourceMetaModWebrequest
     If ($metamodurl -and $metamodoutput -and $sourcemodoutput -and $sourcemoddirectory) {
-        
         $start_time = Get-Date
-        $global:package = 'MetaMod'
-        $global:infomessage = "Downloading"
-        Get-Infomessage
+        Get-Infomessage "Downloading" 'MetaMod'
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $metamodurl -OutFile $metamodoutput
         If (!$?) { 
-            $global:warnmessage = 'Downloadfailed'
-            Get-WarnMessage
+            Get-WarnMessage 'Downloadfailed' 'MetaMod'
         }
         ElseIf ($?) {
-            $global:infomessage = "Downloaded"
-            Get-Infomessage
+            Get-Infomessage "Downloaded" 'MetaMod'
         } 
-        $global:infomessage = "downloadtime"
-        Get-Infomessage
-        $global:infomessage = "Extracting"
-        Get-Infomessage
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'MetaMod'
         If ($metamodoutput -and $metamoddirectory){
         Expand-Archive $metamodoutput $metamoddirectory -Force >$null 2>&1
         }
         If (!$?) { 
-            $global:warnmessage = 'ExtractFailed'
-            Get-WarnMessage
+            Get-WarnMessage 'ExtractFailed' 'MetaMod'
             New-TryagainNew
         }
         Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod"
@@ -46,39 +38,30 @@ Function Get-SourceMetaMod {
             New-TryagainNew 
         }
         $start_time = Get-Date
-        $global:package = 'SourceMod'
-        $global:infomessage = "Downloading"
-        Get-Infomessage
+        Get-Infomessage "Downloading" 'SourceMod'
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         If ($sourcemodurl -and $sourcemodoutput){
         Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput
         }
         If (!$?) { 
-            $global:warnmessage = 'Downloadfailed'
-            Get-WarnMessage
+            Get-WarnMessage 'Downloadfailed' 'SourceMod'
             New-TryagainNew 
         }
         ElseIf ($?) {
-            $global:infomessage = "Downloaded"
-            Get-Infomessage
+            Get-Infomessage "Downloaded" 'SourceMod'
         }
-        $global:infomessage = "downloadtime"
-        Get-Infomessage 
-        $global:infomessage = "Extracting"
-        Get-Infomessage
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'SourceMod'
         Expand-Archive $sourcemodoutput $sourcemoddirectory -Force >$null 2>&1
         If (!$?) {
-            $global:warnmessage = 'ExtractFailed'
-            Get-WarnMessage 
+            Get-WarnMessage 'ExtractFailed' 'SourceMod'
             New-TryagainNew 
         }
         ElseIf ($?) {
-            $global:infomessage = "Extracted"
-            Get-Infomessage
+            Get-Infomessage "Extracted" 'SourceMod'
         }
-        $global:infomessage = "copying-installing"
-        Get-Infomessage
+        Get-Infomessage "copying-installing" 'SourceMod'
         If ($sourcemoddirectory -and $systemdir){ 
         Copy-Item  $sourcemoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
         }

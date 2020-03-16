@@ -9,9 +9,7 @@
 Function install-mcrcon {
     If ($mcrconurl -and $mcrconoutput) {
         $start_time = Get-Date
-        $global:package = 'MCRCon'
-        $global:infomessage = "downloading"
-        Get-Infomessage
+        Get-Infomessage "downloading" 'MCRCon'
         Add-Content $ssmlog "[$loggingdate] Downloading MCRCon from github" 
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -22,14 +20,11 @@ Function install-mcrcon {
             New-TryagainNew 
         }
         ElseIf ($?) {
-            $global:infomessage = "downloaded"
-            Get-Infomessage
+            Get-Infomessage "downloaded" 'MCRCon'
             Add-Content $ssmlog "[$loggingdate] MCRCon succeeded " 
         }
-        $global:infomessage = "downloadtime"
-        Get-Infomessage
-        $global:infomessage = "Extracting"
-        Get-Infomessage
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'MCRCon'
         Expand-Archive "$mcrconoutput" "$mcrcondirectory" -Force 
         Copy-Item  "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32\*" -Destination $mcrcondirectory -Recurse -Force 
         Remove-Item "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32" -Recurse -Force 
@@ -39,8 +34,7 @@ Function install-mcrcon {
             New-TryagainNew 
         }
         ElseIf ($?) { 
-            $global:infomessage = "Extracted"
-            Get-Infomessage
+            Get-Infomessage "Extracted" 'MCRCon'
             Add-Content $ssmlog "[$loggingdate] Extracting MCRCon succeeded  "  
         }
     }

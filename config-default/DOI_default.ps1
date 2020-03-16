@@ -66,9 +66,9 @@ Function New-LaunchScriptdoiserverPS {
 }
 Function Get-InstallChangesdoi {
     Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\subscribed_file_ids.txt -Force
+    New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\motd.txt -Force
+    New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Get-Gamemodedoi
 }
 Function Get-Playlistdoi {
@@ -152,7 +152,7 @@ Function Get-Gamemodedoi {
 Function new-mapcycles {
 
     Write-Host "***  Creating Mapcycle_coop.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\Mapcycle_coop.txt -Force
+    New-Item $systemdir\Mapcycle_coop.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     # - - - - - - MAPCYCLE.TXT - - - - - - - - - -# EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
     Add-Content   $systemdir\Mapcycle_coop.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_coop.txt "comacchio"
@@ -197,7 +197,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_coop.txt "flakturm"
     # PVP modes: mp_battles.playlist
     Write-Host "***  Creating Mapcycle_mp_battles.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item    $systemdir\Mapcycle_mp_battles.txt -Force
+    New-Item    $systemdir\Mapcycle_mp_battles.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "comacchio"
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "crete"
@@ -250,7 +250,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "flakturm"
     # mp_special_assignments.playlist
     Write-Host "***  Creating Mapcycle_mp_special_assignments.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item   $systemdir\Mapcycle_mp_special_assignments.txt -Force 
+    New-Item   $systemdir\Mapcycle_mp_special_assignments.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "comacchio"
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "crete"
@@ -281,7 +281,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "brittany"
     # mp_casual_with_bots.playlist
     Write-Host "***  Mapcycle_mp_casual_with_bots.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item   $systemdir\Mapcycle_mp_casual_with_bots.txt -Force 
+    New-Item   $systemdir\Mapcycle_mp_casual_with_bots.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     #Add-Content   $systemdir\Mapcycle_mp_casual_with_bots.txt 
     Add-Content   $systemdir\Mapcycle_mp_casual_with_bots.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_mp_casual_with_bots.txt "comacchio"

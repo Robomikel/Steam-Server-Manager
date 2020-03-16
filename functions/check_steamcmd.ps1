@@ -17,8 +17,7 @@ Function Get-Steam {
             }
         }
         ElseIf (!$steamexecutable) {
-            $global:warnmessage = "fngetsteamfailed"
-            Get-warnmessage
+            Get-warnmessage "fngetsteamfailed"
         
         }
     }

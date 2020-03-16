@@ -36,8 +36,7 @@ Function Set-ConnectMCRcon {
             }
         }
         ElseIf (!$mcrconexecutable) {
-            $global:warnmessage = "fn_Set-ConnectMCRcon"
-            Get-warnmessage
+            Get-warnmessage "fn_Set-ConnectMCRcon"
         
         }
     }
@@ -77,8 +76,7 @@ Function invoke-sourcerestart {
         }
     }
     ElseIf (!$mcrconexecutable) {
-        $global:warnmessage = "Set-ConnectMCRcon"
-        Get-warnmessage
+        Get-warnmessage "Set-ConnectMCRcon"
                 
     }
 }

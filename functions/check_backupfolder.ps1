@@ -15,15 +15,14 @@ Function New-BackupFolder {
             Add-Content $ssmlog "[$loggingDate] Creating backup folder "
             New-Item  $currentdir -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
-                $script:warnmessage = "createfolderfailed"
-                Get-warnmessage
+                Get-warnmessage "createfolderfailed"
                 
             }
         }
     }
     ElseIf (!$backupdir){
-        $script:warnmessage = "backupfnfailed"
-        Get-warnmessage
+                    
+        Get-warnmessage "backupfnfailed"
         
     }
 }

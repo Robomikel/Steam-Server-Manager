@@ -38,7 +38,7 @@ Function New-LaunchScriptceserverPS {
     #                       Log Directory 
     $global:logdirectory    = "$serverdir"
     #                       Server Log
-    $global:consolelog             = "ConanSandbox.log"
+    $global:consolelog      = "ConanSandbox.log"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -RconEnabled=1 -RconPassword=${rconpassword} -RconPort=${rconport}")'
     # Get User Input version must be set to 0

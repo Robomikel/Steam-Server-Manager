@@ -29,8 +29,7 @@ Function Get-UpdateServer {
                 compare-SteamExit
             }
         }
-        $global:alert = "update"
-        New-DiscordAlert
+        New-DiscordAlert "update"
         Set-Location $currentdir
     }
 }

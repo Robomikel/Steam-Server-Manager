@@ -9,36 +9,28 @@
 Function Install-Steam {
     If ($steamurl -and $steamoutput) {
         $start_time = Get-Date
-        $global:package = 'SteamCMD'
-        $global:infomessage = "Downloading"
-        Get-Infomessage
+        Get-Infomessage "Downloading" 'SteamCMD'
         #(New-Object Net.WebClient).DownloadFile("$steamurl", "steamcmd.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;  
         Invoke-WebRequest -Uri $steamurl -OutFile $steamoutput
         If (!$?) {
-            $global:warnmessage = 'Downloadfailed'
-            Get-WarnMessage
+            Get-WarnMessage 'Downloadfailed' 'SteamCMD'
             New-TryagainNew 
         }
         ElseIf ($?) {
-            $global:infomessage = "Downloaded"
-            Get-Infomessage
+            Get-Infomessage "Downloaded" 'SteamCMD'
         }
-        $global:infomessage = "downloadtime"
-        Get-Infomessage
-        $global:infomessage = "Extracting"
-        Get-Infomessage
+        Get-Infomessage  "downloadtime"
+        Get-Infomessage "Extracting" 'SteamCMD'
         If ($steamoutput -and $steamdirectory){
         Expand-Archive $steamoutput $steamdirectory -Force
         }
         If (!$?) {
-            $global:warnmessage = 'ExtractFailed'
-            Get-WarnMessage
+            Get-WarnMessage 'ExtractFailed' 'SteamCMD'
             New-TryagainNew 
         }
         ElseIf ($?) {
-            $global:infomessage = "Extracted"
-            Get-Infomessage
+            Get-Infomessage "Extracted" 'SteamCMD'
         }
     }
 }

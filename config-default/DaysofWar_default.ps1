@@ -29,7 +29,7 @@ Function New-LaunchScriptdowserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\DaysOfWar\Saved\Logs"
     #                       Server Log
-    $global:consolelog             = "DaysOfWar.log"    
+    $global:consolelog      = "DaysOfWar.log"    
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

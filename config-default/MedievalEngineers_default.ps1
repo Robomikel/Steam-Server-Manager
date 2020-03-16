@@ -80,8 +80,8 @@ Function New-LaunchScriptMEserverPS {
 
 
 Function New-servercfgme {
-  Write-Host "Creating Custom Config" -F M
-  New-Item $servercfgdir\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force
+  # Write-Host "Creating Custom Config" -F M
+  New-Item $servercfgdir\MedievalEngineersDedicated-Dedicated.cfg -ItemType File -Force | Out-File -Append -Encoding Default  $ssmlog
   
   Add-Content $servercfgdir\MedievalEngineersDedicated-Dedicated.cfg `
 "<?xml version=`"1.0`"?>

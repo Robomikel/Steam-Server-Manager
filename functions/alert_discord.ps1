@@ -80,8 +80,8 @@ Function Send-DiscordAlert_old {
 
 Function Send-DiscordAlert {
     If ($alertmessage -and $alertmessagecolor){
-    $global:InfoMessage = "discord"
-    Get-Infomessage
+    
+    Get-Infomessage "discord"
     # https://github.com/EvotecIT/PSDiscord
     $global:Uri = "$discordwebhook"
     $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"

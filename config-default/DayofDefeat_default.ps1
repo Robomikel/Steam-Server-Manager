@@ -36,7 +36,7 @@ Function New-LaunchScriptDODSserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\dod"
     #                       Server Log
-    $global:consolelog             = "console.log"  
+    $global:consolelog      = "console.log"  
     #                       Game-Server-Config Directory
     $global:gamedirname     = "DayOfDefeat"
     #                       Game-Server-Config

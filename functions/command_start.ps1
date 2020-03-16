@@ -27,25 +27,22 @@ Function Get-StartServer {
     }
 }
 Function Select-StartServer {
-    $global:infomessage = "starting"
-    Get-Infomessage
+    Get-Infomessage "starting"
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
     If ($ssmlog -and $loggingdate) {
         Add-Content $ssmlog "[$loggingdate] Check Server process "
         If ($process) {
-            If ($global:appid -eq "996560") { 
+            If ($appid -eq "996560") { 
                 Get-checkMultiple 
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
-                    $global:infomessage = "notrunning"
-                    Get-Infomessage
+                    Get-Infomessage "notrunning"
                 }
                 Else {
-                    $global:infomessage = "running"
-                    Get-Infomessage
+                    Get-Infomessage "running"
                     $process
                     Get-ClearVariables
                     Exit 
@@ -57,14 +54,12 @@ Function Get-CheckServer {
 }
 
 Function Get-checkMultiple {
-    $global:process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
+    $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
-        $global:infomessage = "notrunning"
-        Get-Infomessage
+        Get-Infomessage "notrunning"
     }
     Else {
-        $global:infomessage = "running"
-        Get-Infomessage
+        Get-Infomessage "running"
         $process
         Get-ClearVariables 
         Exit

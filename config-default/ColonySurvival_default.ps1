@@ -32,7 +32,7 @@ Function New-LaunchScriptColonySurvivalServerPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\gamedata\logs\server"
     #                       Server Log
-    $global:consolelog             = "*.txt"
+    $global:consolelog      = "*.txt"
     #                       Server Launch Command
     $global:launchParams    = '@("$executable -batchmode -nographics +server.world ${galaxyname} +server.name `"${hostname}`" +server.networktype SteamOnline +server.ip ${ip} +server.gameport ${port} +server.password `"${serverpassword}`" +server.maxplayers ${maxplayers}")'
     # Get User Input version must be set to 0

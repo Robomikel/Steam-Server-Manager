@@ -69,7 +69,7 @@ Function New-LaunchScriptcsgoserverPS {
         #                       Log Directory
         $global:logdirectory    = "$serverdir\csgo"
         #                       Server Log
-        $global:consolelog             = "console.log"
+        $global:consolelog      = "console.log"
         #                       Game-Server-Config Directory
         $global:gamedirname     = "CounterStrikeGlobalOffensive"
         #                       Game-Server-Config

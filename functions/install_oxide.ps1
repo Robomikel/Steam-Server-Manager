@@ -9,37 +9,28 @@
 Function Get-Oxide {
     If ($oxiderustlatestlink -and $oxideoutput) {
         $start_time = Get-Date
-        $global:package = 'Oxide'
-        $global:infomessage = "Downloading"
-        Get-Infomessage
+        Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
         If (!$?) {
-            $global:warnmessage = 'Downloadfailed'
-            Get-WarnMessage 
+            Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew
         }
         ElseIf ($?) {
-            $global:infomessage = "Downloaded"
-            Get-Infomessage
+            Get-Infomessage "Downloaded" 'Oxide'
         }
-        $global:infomessage = "downloadtime"
-        Get-Infomessage 
-        $global:infomessage = "Extracting"
-        Get-Infomessage
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'Oxide'
         Expand-Archive $oxideoutput $oxidedirectory -Force
         If (!$?) { 
-            $global:warnmessage = 'ExtractFailed'
-            Get-WarnMessage
+            Get-WarnMessage 'ExtractFailed' 'Oxide'
             New-TryagainNew
         }
         ElseIf ($?) {
-            $global:infomessage = "Extracted"
-            Get-Infomessage
+            Get-Infomessage "Extracted" 'Oxide'
         }
-        $global:infomessage = "copying-installing"
-        Get-Infomessage 
+        Get-Infomessage "copying-installing" 'Oxide'
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
             Add-Content $ssmlog "[$loggingdate] Copying Oxide Failed"

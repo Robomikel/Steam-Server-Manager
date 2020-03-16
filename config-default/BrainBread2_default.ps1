@@ -40,7 +40,7 @@ Function New-LaunchScriptBB2serverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\brainbread2"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "BrainBread2"
     #                       Game-Server-Config

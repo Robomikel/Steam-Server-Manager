@@ -61,13 +61,11 @@ Function New-LaunchScriptInssserverPS {
         mkdir $servercfgdir   >$null 2>&1
 
         # Creates a Default Admins.txt
-        Write-Host "***  Creating Admins.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-        New-Item $MapCyclePath\Admins.txt -Force
+        New-Item $MapCyclePath\Admins.txt -Force | Out-File -Append -Encoding Default  $ssmlog
         Add-Content  $MapCyclePath\Admins.txt $steamID64
     
         # Create a Default Mapcycle.txt 
-        Write-Host "***  Creating Mapcycle.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
-        New-Item $MapCyclePath\Mapcycle.txt -Force
+        New-Item $MapCyclePath\Mapcycle.txt -Force | Out-File -Append -Encoding Default  $ssmlog
         
         # - - - - - - MAPCYCLE.TXT - - - - - - # EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
         Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Security

@@ -33,9 +33,9 @@ Function Get-Servercfg {
                 ElseIf ($?) { 
                     Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
                 }
-                New-Item $servercfgdir\$servercfg -Force
+                New-Item $servercfgdir\$servercfg -Force | Out-File -Append -Encoding Default  $ssmlog
                 If ($WebResponse) {
-                    Add-Content $servercfgdir\$servercfg $WebResponse | Out-File -Append -Encoding Default  $ssmlog
+                    Add-Content $servercfgdir\$servercfg $WebResponse
                 }
             }
         }

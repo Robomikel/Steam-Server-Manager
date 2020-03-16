@@ -18,8 +18,7 @@ If (!$serverfiles){
         } 
     }
     Else {
-        $global:warnmessage = "fn_InstallServerFiles"
-        Get-warnmessage
+        Get-warnmessage "fn_InstallServerFiles"
         
     }
 }
@@ -34,8 +33,7 @@ Function Get-ClearVariables {
 Function Get-TestInterger { 
     If ($APPID) {
         If ( $APPID -notmatch '^[0-9]+$') { 
-            $global:warnmessage = "invalidnumbers"
-            Get-warnmessage
+            Get-warnmessage "invalidnumbers"
             
         }
     }
@@ -43,8 +41,7 @@ Function Get-TestInterger {
 Function Get-TestString {
     If ($serverfiles) {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
-            $global:warnmessage = "invalidCharacters"
-            Get-warnmessage
+            Get-warnmessage "invalidCharacters"
             
         }
     }
@@ -89,8 +86,7 @@ Function Set-Steamer {
     }
 }
 Function Set-VariablesPS {
-    $global:infomessage = "creating"
-    Get-Infomessage
+    Get-Infomessage "creating"
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 

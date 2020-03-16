@@ -40,7 +40,7 @@ Function New-LaunchScriptbsserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\berimbau"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "BladeSymphony"
     #                       Game-Server-Config

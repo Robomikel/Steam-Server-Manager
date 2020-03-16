@@ -19,8 +19,7 @@ Function Get-SevenZipCheck {
             }
         }
         ElseIf (!$sevenzipexecutable) {
-            $global:warnmessage = "fnssevenzipfailed"
-            Get-warnmessage
+            Get-warnmessage "fnssevenzipfailed"
         }
     }
 }
