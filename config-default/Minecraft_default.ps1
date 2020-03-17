@@ -25,7 +25,7 @@ Function New-LaunchScriptminecraft_serverPS {
     #                       Log Directory
     $global:logdirectory    = ""
     #                       Server Log
-    $global:consolelog             = ""
+    $global:consolelog      = ""
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config

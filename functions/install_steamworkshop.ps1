@@ -15,7 +15,7 @@ Function Install-SteamWS {
     $updateMods = $null
     Write-Host  "####-   Steamcmd intial Test Login   -#####" -F C 
     Write-Host "Enter Steam Username for Workshop install" -F Cyan -B Black
-    $global:username = Read-host
+    $username = Read-host
     Write-Host "Enter steam password" -F Cyan -B Black
     $securedpassword = Read-Host -AsSecureString
     $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)

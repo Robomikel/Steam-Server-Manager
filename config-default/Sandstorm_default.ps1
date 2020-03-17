@@ -42,7 +42,7 @@ Function New-LaunchScriptInssserverPS {
         #                               Log Directory
         $global:logdirectory            = "$serverdir\Insurgency\Saved\Logs"
         #                               Server Log
-        $global:consolelog                     = "Insurgency.log"
+        $global:consolelog              = "Insurgency.log"
         
 
         #                               Server Launch Command

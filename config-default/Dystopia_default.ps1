@@ -38,7 +38,7 @@ Function New-LaunchScriptDystopiaserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\dystopia"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "Dystopia"
     #                       Game-Server-Config

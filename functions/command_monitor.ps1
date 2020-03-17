@@ -14,8 +14,6 @@ Function Get-MonitorServer {
         Else {
             Add-Content $ssmlog "[$loggingdate] Monitor  Server process" 
             If (!(Get-Process $process -ea SilentlyContinue)) {
-                # $infomessage = "notrunning"
-                # Get-Infomessage
                 Select-StartServer
                 New-DiscordAlert "restart"
             }
@@ -33,8 +31,6 @@ Function Get-MonitorServer {
 Function Get-MonitorMultiple {
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 
     If (!$process) {
-        # $infomessage -eq "notrunning"
-        # Get-Infomessage
         Select-StartServer
         New-DiscordAlert  "restart"
     }

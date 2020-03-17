@@ -46,7 +46,7 @@ $global:process             = "rocketstation_DedicatedServer"
 #                           Log Directory
 $global:logdirectory        = "$serverdir"
 #                           Server Log
-$global:consolelog                 = "server.log"
+$global:consolelog          = "server.log"
 #                           Game-Server-Config Directory
 $global:gamedirname         = ""
 #                           Game-Server-Config

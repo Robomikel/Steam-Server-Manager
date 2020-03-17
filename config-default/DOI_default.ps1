@@ -46,7 +46,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\doi"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Configs
     $global:gamedirname     = "DayOfInfamy"
     #                       Game-Server-Config

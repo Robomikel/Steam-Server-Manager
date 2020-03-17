@@ -29,7 +29,7 @@ Function New-LaunchScriptPCserverPS {
   #                     Log Directory
   $global:logdirectory  = "$serverdir\logs"
   #                       Server Log
-  $global:consolelog             = ""
+  $global:consolelog    = ""
   #                     Game-Server-Config Directory
   $global:gamedirname   = "ProjectCars"
   #                     Game-Server-Config

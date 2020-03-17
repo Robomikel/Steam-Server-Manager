@@ -35,7 +35,7 @@ Function New-LaunchScriptLFD2serverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\left4dead2"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "Left4Dead2"
     #                       Game-Server-Config

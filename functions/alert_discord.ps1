@@ -39,13 +39,11 @@ Function New-DiscordAlert {
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
             }
             ElseIf (!$discordwebhook) {
-                $global:warnmessage = "missingwebhook"
-                Get-warnmessage
+                Get-warnmessage "missingwebhook"
             }
         }
         ElseIf ($DiscordBackupAlert -eq "off") {
-            $global:warnmessage = "discordnotenabled"
-            Get-warnmessage
+            Get-warnmessage "discordnotenabled"
         }
     }
 }
@@ -72,8 +70,7 @@ Function Send-DiscordAlert_old {
     }
     Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
     If (!$?) {
-        $global:warnmessage = "AlertFailed"
-        Get-warnmessage
+        Get-warnmessage "AlertFailed"
     }
 }
 
@@ -91,8 +88,7 @@ Function Send-DiscordAlert {
     # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
     Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
     If (!$?) {
-        $global:warnmessage = "AlertFailed"
-        Get-warnmessage
+        Get-warnmessage "AlertFailed"
     }    
 }
 }

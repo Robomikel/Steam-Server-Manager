@@ -37,7 +37,7 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     #                           Log Directory
     $global:logdirectory        = "$env:APPDATA\SCP Secret Laboratory\ServerLogs\$port"
     #                           Server Log
-    $global:consolelog                 = "*.txt"
+    $global:consolelog          = "*.txt"
     #                           Game-Server-Config Directory
     $global:gamedirname         = ""
     #                           Game-Server-Config

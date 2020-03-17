@@ -25,8 +25,8 @@ Function New-LaunchScriptbedrock_serverPS {
     #                       Log Directory
     $global:logdirectory    = ""
     #                       Server Log
-    $global:consolelog             = ""
-    #                        Game-Server-Config Directory
+    $global:consolelog      = ""
+    #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config
     $global:servercfg       = "server.properites"

@@ -29,7 +29,7 @@ Function New-LaunchScriptjc2serverPS {
     #                       Log Directory 
     $global:logdirectory    = "$serverdir"
     #                       Server Log
-    $global:consolelog             = "server.log"
+    $global:consolelog      = "server.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "JustCause2"
     #                       Game-Server-Config

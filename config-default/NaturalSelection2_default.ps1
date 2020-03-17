@@ -34,7 +34,7 @@ Function New-LaunchScriptNS2serverPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir"
     #                       Server Log
-    $global:consolelog             = "console.log"
+    $global:consolelog      = "console.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "NaturalSelection2"
     #                       Game-Server-Config

@@ -39,8 +39,8 @@ Function New-LaunchScriptZPSserverPS {
     $global:process           = "zps"
     #                         Log Directory
     $global:logdirectory      = "$serverdir\zps"
-    #                       Server Log
-    $global:consolelog             = "console.log"
+    #                         Server Log
+    $global:consolelog        = "console.log"
     #                         Game-Server-Config Directory
     $global:gamedirname       = "ZombiePanicSource"
     #                         Game-Server-Config

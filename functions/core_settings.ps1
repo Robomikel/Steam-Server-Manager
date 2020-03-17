@@ -61,7 +61,7 @@ Function Set-SteamerSetting {
     #                               SSM Log
     $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
     #                               MC Version
-    $global:mcversion             = "$serverfiles\version.txt"
+    $global:mcversion               = "$serverfiles\version.txt"
     #                               Test Connection to Steam Master
     $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin

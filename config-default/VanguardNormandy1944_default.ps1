@@ -24,8 +24,8 @@ Function New-LaunchScriptVanguard1944serverPS {
   $global:process       = "vanguardserver"
   #                     Log Directory
   $global:logdirectory  = "$serverdir"
-  #                      Server Log
-  $global:consolelog            = "server.log"
+  #                     Server Log
+  $global:consolelog    = "server.log"
   #                     Game-Server-Config Directory 
   $global:gamedirname   = ""
   #                     Game-Server-Config

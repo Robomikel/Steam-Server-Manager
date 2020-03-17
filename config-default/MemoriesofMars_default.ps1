@@ -32,7 +32,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     #                       Log Directory
     $global:logdirectory    = "$serverdir\Game\Saved\Logs"
     #                       Server Log
-    $global:consolelog             = "Game.log"
+    $global:consolelog      = "Game.log"
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config
