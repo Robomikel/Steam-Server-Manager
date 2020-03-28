@@ -107,7 +107,7 @@ Function Limit-Backups {
         }
         Set-Location $currentdir
     }
-    ElseIf (!$backupdir -and !$maxbackups ) {
+    ElseIf (!$backupdir -or !$maxbackups ) {
          
         Get-warnmessage "limitbackupfailed"
         
@@ -127,7 +127,7 @@ Function Limit-AppdataBackups {
         }
         Set-Location $currentdir
     }
-    ElseIf (!$backupdir -and !$maxbackups ) {
+    ElseIf (!$backupdir -or !$maxbackups ) {
          
         Get-warnmessage "limitbackupfailed"
         
