@@ -6,7 +6,8 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function New-DiscordAlert { 
+Function New-DiscordAlert {
+ param ($alert)    
     If ($DiscordBackupAlert) {
         If ($DiscordBackupAlert -eq "on") { 
             If (($discordwebhook)) {
