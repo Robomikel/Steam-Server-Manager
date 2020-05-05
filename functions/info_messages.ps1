@@ -109,8 +109,8 @@ Param($infomessage,$package)
         Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
     }
 }
-Function Get-WarnMessage($warnmessage,$package) {
-    
+Function Get-WarnMessage {
+ param ($warnmessage,$package)   
 Add-Content $ssmlog "[$loggingdate] Getting Warning "
     If ($warnmessage) {
         
