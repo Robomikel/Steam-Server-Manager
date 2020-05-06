@@ -32,10 +32,14 @@ Function Set-SteamerSetting {
     $global:checkupdateonstart      = "on"
     #                               check scheduled Task
     $global:Checktask               = "on"
+    #                               Discord Alert
+    $global:DiscordAlert            = "on"
     #                               Discord backup Alert
     $global:DiscordBackupAlert      = "on"
     #                               Discord Update Alert 
     $global:DiscordUpdateAlert      = "on"
+    #                               Discord Restart Alert 
+    $global:DiscordRestartAlert     = "on"
     #                               Use private IP for Query and mcrcon
     $global:Useprivate              = "off"
     #                               consolelogging

@@ -8,27 +8,38 @@
 #
 Function New-DiscordAlert {
     param ($alert)    
-    If ($DiscordBackupAlert) {
-        If ($DiscordBackupAlert -eq "on") { 
+    If ($DiscordAlert) {
+        If ($DiscordAlert -eq "on") { 
             If (($discordwebhook)) {
                 If ($alert -eq "Backup") {
-                    # BACKUP
-                    $global:alertmessage = ' New Server Backup'
-                    # GREEN
-                    $global:alertmessagecolor = 'ForestGreen'
-                    
+                    If ($DiscordBackupAlert) {
+                        If ($DiscordBackupAlert -eq "on") { 
+                            # BACKUP
+                            $global:alertmessage = ' New Server Backup'
+                            # GREEN
+                            $global:alertmessagecolor = 'ForestGreen'
+                        }
+                    }
                 }
                 ElseIf ($alert -eq "update") {
-                    # UDPATE
-                    $global:alertmessage = ' Server Updated '
-                    # BLUE
-                    $global:alertmessagecolor = 'DarkBlue'
+                    If ($DiscordUpdateAlert) {
+                        If ($DiscordUpdateAlert -eq "on") { 
+                            # UDPATE
+                            $global:alertmessage = ' Server Updated '
+                            # BLUE
+                            $global:alertmessagecolor = 'DarkBlue'
+                        }
+                    }
                 }
                 ElseIf ($alert -eq "restart") {
-                    # RESTART
-                    $global:alertmessage = " Server not Running, Starting Server "
-                    # RED
-                    $global:alertmessagecolor = 'FireBrick'
+                    If ($DiscordRestartAlert) {
+                        If ($DiscordRestartAlert -eq "on") { 
+                            # RESTART
+                            $global:alertmessage = " Server not Running, Starting Server "
+                            # RED
+                            $global:alertmessagecolor = 'FireBrick'
+                        }
+                    }
                 }
                 ElseIf ($command -eq "discord") {
                     # BACKUP
@@ -43,7 +54,7 @@ Function New-DiscordAlert {
                 Get-warnmessage "missingwebhook"
             }
         }
-        ElseIf ($DiscordBackupAlert -eq "off") {
+        ElseIf ($DiscordAlert -eq "off") {
             Get-warnmessage "discordnotenabled"
         }
     }
