@@ -68,6 +68,7 @@ Function Set-SteamerSetting {
     $global:pastebinconsolelog      = "off"
     #                               Discord Webhook 
     $global:discordwebhook          = ""
-
+    #                               Discord Display IP 
+    $global:discorddisplayip        = ""
 }
 

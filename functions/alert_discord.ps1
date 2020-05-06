@@ -7,7 +7,7 @@
 #
 #
 Function New-DiscordAlert {
- param ($alert)    
+    param ($alert)    
     If ($DiscordBackupAlert) {
         If ($DiscordBackupAlert -eq "on") { 
             If (($discordwebhook)) {
@@ -77,19 +77,23 @@ Function Send-DiscordAlert_old {
 
 
 Function Send-DiscordAlert {
-    If ($alertmessage -and $alertmessagecolor){
-    
-    Get-Infomessage "discord"
-    # https://github.com/EvotecIT/PSDiscord
-    $global:Uri = "$discordwebhook"
-    $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
-    $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $true
-    $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/t3WKCW1.png"
-    $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
-    # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
-    Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
-    If (!$?) {
-        Get-warnmessage "AlertFailed"
-    }    
-}
+    If ($alertmessage -and $alertmessagecolor) {
+        Get-Infomessage "discord"
+        # https://github.com/EvotecIT/PSDiscord
+        $global:Uri = "$discordwebhook"
+        $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
+        If ($discorddisplayip) {
+            $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$discorddisplayip`:$port" -Inline $true
+        }
+        Else {
+            $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $true
+        }
+        $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/t3WKCW1.png"
+        $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
+        # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+        Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
+        If (!$?) {
+            Get-warnmessage "AlertFailed"
+        }    
+    }
 }
