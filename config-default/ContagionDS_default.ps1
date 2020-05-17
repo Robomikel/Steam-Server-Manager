@@ -43,7 +43,7 @@ Function New-LaunchScriptContagionDSPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     # $global:launchParams    = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    $global:launchParams    = '@("$executable -steam -game ".\contagion" -console -dedicated -maxplayers $maxplayers -ip $ip -port $port +map $defaultmap +servercfgfile server.cfg +sv_lan $sv_lan -condebug")'
+    $global:launchParams    = '@("$executable -steam -game contagion -console -dedicated -maxplayers $maxplayers -ip $ip -port $port +map $defaultmap +servercfgfile server.cfg +sv_lan $sv_lan -condebug")'
 
     
     # Get User Input version must be set to 0
@@ -72,5 +72,12 @@ Function New-LaunchScriptContagionDSPS {
     # ch_pioneerexpress
     # ch_cypruspark
     # ch_barlowesquare
-    
+    #  server.cfg
+    #    cg_zombie_ai_only 1
+
+    # //This command should prevent player zombies.
+
+    # cg_infection_disabled 1
+
+    # //Disables infection
 }
