@@ -195,6 +195,8 @@ Install miscreated server ```./ssm install misserver```
  Does not open ports on firewall  
  https://www.tomshardware.com/news/how-to-open-firewall-ports-in-windows-10,36451.html
 - - - - 
+# Oxide
+https://umod.org/
 # SourceMod
 https://www.sourcemod.net/
 # Metamod:Source
