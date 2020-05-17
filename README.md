@@ -107,6 +107,8 @@ Install miscreated server ```./ssm install misserver```
    * Space Impossible (1222650) - "siserver" (optional server folder name)
    * Primal Carnage: Extinction Dedicated Server (336400) - "pcedserver" (optional server folder name)
    * Blackwake Dedicated Server (423410) - "bwserver" (optional server folder name)
+   * Blackwake Dedicated Server (423410) - "bwserver" (optional server folder name)
+   * Contagion Dedicated Server (238430) - "contagion" (optional server folder name)
    -----
  # Features
  - Manage Steam server with features
