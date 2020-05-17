@@ -31,7 +31,7 @@ Function Get-SourceMetaMod {
         }
         Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod"
         If ($metamoddirectory -and $systemdir){ 
-        Copy-Item  $metamoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        Copy-Item  "$metamoddirectory\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
         }
         If (!$?) { 
             Add-Content $ssmlog "[$loggingdate] Copying Meta Mod Failed"
@@ -63,7 +63,8 @@ Function Get-SourceMetaMod {
         }
         Get-Infomessage "copying-installing" 'SourceMod'
         If ($sourcemoddirectory -and $systemdir){ 
-        Copy-Item  $sourcemoddirectory -Destination $systemdir -Force -Recurse >$null 2>&1
+        Copy-Item  "$sourcemoddirectory\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
+        Copy-Item  "$sourcemoddirectory\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
         }
         If (!$?) { 
             Add-Content $ssmlog "[$loggingdate] Copying SourceMod Faileds "
