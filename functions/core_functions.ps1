@@ -223,13 +223,13 @@ Function Get-SourceMetaModWebrequest {
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
-    $metamodurl = "${metamoddownloadurl}"
+    $global:metamodurl = "${metamoddownloadurl}"
     
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
-    $sourcemodurl="${sourcemoddownloadurl}"
+    $global:sourcemodurl="${sourcemoddownloadurl}"
 
     If (!$metamodurl -or !$sourcemodurl) {
         Add-Content $ssmlog "[$loggingdate] Failed: Get-SourceMetaModWebrequest"
