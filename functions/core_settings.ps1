@@ -72,7 +72,7 @@ Function Set-SteamerSetting {
     $global:pastebinconsolelog      = "off"
     #                               Discord Webhook 
     $global:discordwebhook          = ""
-    #                               Discord Display IP 
+    #                               Discord Display IP and Steam API IP. (NAT address may not resolve correctly. Use correct server Public IP here. Leave Blank for N/A)
     $global:discorddisplayip        = ""
 }
 
