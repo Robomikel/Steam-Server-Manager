@@ -7,9 +7,9 @@
 #
 #
 Function Get-CreatedVaribles {
-If (!$serverfiles){
-    Param($serverfiles)
-}
+    If (!$serverfiles) {
+        Param($serverfiles)
+    }
     Add-Content $ssmlog "[$loggingdate] Getting Server Variables"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
@@ -219,13 +219,18 @@ Function Get-MCWebrequest {
     }
 }
 Function Get-SourceMetaModWebrequest {
-    $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
-    $mmWebResponse = $mmWebResponse.content
-    $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
+    # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
+    # $mmWebResponse = $mmWebResponse.content
+    # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
+    $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
+    $metamodurl = "${metamoddownloadurl}"
+    
+    # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
+    # $smWebResponse = $smWebResponse.content
+    # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
+    $sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
+    $sourcemodurl="${sourcemoddownloadurl}"
 
-    $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
-    $smWebResponse = $smWebResponse.content
-    $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     If (!$metamodurl -or !$sourcemodurl) {
         Add-Content $ssmlog "[$loggingdate] Failed: Get-SourceMetaModWebrequest"
         Exit
