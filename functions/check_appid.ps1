@@ -210,6 +210,9 @@ Function Read-AppID {
         ElseIf ($AppID -eq 423410) {
             New-LaunchScriptBlackwakePS
         }
+        ElseIf ($AppID -eq 238430) {
+            New-LaunchScriptContagionDSPS
+        }
         #    ElseIf ($AppID -eq Template) {
         #
         #        New-LaunchScriptTemplateserverPS
