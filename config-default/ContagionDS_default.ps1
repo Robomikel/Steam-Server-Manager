@@ -22,7 +22,7 @@ Function New-LaunchScriptContagionDSPS {
     
     ##################### Do not change below #####################
     #                       System Directory 
-    $global:systemdir       = "$serverdir"
+    $global:systemdir       = "$serverdir\contagion"
     #                       Server Config Directory
     $global:servercfgdir    = "$serverdir\contagion\cfg"
     #                       Server Executable 
