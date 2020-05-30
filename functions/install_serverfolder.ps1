@@ -6,7 +6,8 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function New-ServerFolder {   
+Function New-ServerFolder {
+    Write-log "Function: New-ServerFolder"   
     ##-- Create Folder for Server -- In current folder
     If (!$serverfiles -or $serverfiles -eq " ") {
         Write-Warning ' You Enter a null or Empty '
@@ -17,13 +18,13 @@ Function New-ServerFolder {
         Select-Steamer
     }
     ElseIf (Test-Path "$serverdir" ) {
-        Add-Content $ssmlog "[$loggingdate] Server Folder Already Created!   "
+        Write-log "Server Folder Already Created!   "
     }
     Else {
-        Add-Content $ssmlog "[$loggingdate] Creating Server Folder  "
+        Write-log "Creating Server Folder  "
         New-Item  . -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
-            Add-Content $ssmlog "[$loggingdate] Failed: Creating Server Folder  "
+            Write-log "Failed: Creating Server Folder  "
         }
     }
 }

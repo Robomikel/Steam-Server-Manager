@@ -7,6 +7,7 @@
 #
 #
 Function Get-Modinstall {
+    Write-log "Function: Get-Modinstall"
     If ($appid -eq 237410 -or $appid -eq 462310 -or $appid -eq 740 -or $appid -eq 222860 -or $appid -eq 238430) {
         Get-SourceMetaModQ
     }
@@ -19,6 +20,6 @@ Function Get-Modinstall {
     Else {
         Write-Host "***** No Mods Available *****" -F R -B Black
         
-        Add-Content $ssmlog "[$loggingdate] No Mods Available"
+        Write-log "No Mods Available"
     }
 }

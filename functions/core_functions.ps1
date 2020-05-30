@@ -7,10 +7,11 @@
 #
 #
 Function Get-CreatedVaribles {
+    Write-log "Function: Get-CreatedVaribles"
     If (!$serverfiles) {
         Param($serverfiles)
     }
-    Add-Content $ssmlog "[$loggingdate] Getting Server Variables"
+    Write-log "Getting Server Variables"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
             Invoke-Expression $currentdir\$serverfiles\Variables-$serverfiles.ps1
@@ -23,14 +24,16 @@ Function Get-CreatedVaribles {
     }
 }
 Function Get-ClearVariables {
+    Write-log "Function: Get-ClearVariables"
     $var = (Get-Variable * -scope global).Name
-    Add-Content $ssmlog "[$loggingdate] Removing Variables $var" 
+    Write-log "Removing Variables $var" 
     Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
-    # Add-Content $ssmlog "[$loggingdate]  Variables $var"
+    # Write-log " Variables $var"
     
 }
 
-Function Get-TestInterger { 
+Function Get-TestInterger {
+    Write-log "Function: Get-TestInterger" 
     If ($APPID) {
         If ( $APPID -notmatch '^[0-9]+$') { 
             Get-warnmessage "invalidnumbers"
@@ -39,6 +42,7 @@ Function Get-TestInterger {
     }
 }
 Function Get-TestString {
+    Write-log "Function: Get-TestString"
     If ($serverfiles) {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
             Get-warnmessage "invalidCharacters"
@@ -46,11 +50,8 @@ Function Get-TestString {
         }
     }
 }
-
-
-
-
 Function Set-Console {
+    Write-log "Function: Set-Console"
     If ( $logo -eq "off") { }Else {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
@@ -68,6 +69,7 @@ Function Set-Console {
     }
 }
 Function Get-Logo {
+    Write-log "Function: Get-Logo"
     Write-Host " 
     _________ __                          _________              _____                 
     /   _____//  |_  ____ _____    _____  /   _____/_________  __/     \    ___________ 
@@ -78,6 +80,7 @@ Function Get-Logo {
 " -F C
 }
 Function Set-Steamer {
+    Write-log "Function: Set-Steamer"
     If (!$command) {
         Select-Steamer 
     }
@@ -86,13 +89,15 @@ Function Set-Steamer {
     }
 }
 Function Set-VariablesPS {
+    Write-log "Function: Set-VariablesPS"
     Get-Infomessage "creating"
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
+    Write-log "Function: Get-Savelocation"
     If ( !$saves ) {
-        Add-Content $ssmlog "[$loggingdate] No saves located in App Data" 
+        Write-log "No saves located in App Data" 
     }
     Else {
         # New-AppDataSave
@@ -100,15 +105,17 @@ Function Get-Savelocation {
     }
 }
 Function Select-RenameSource {
+    Write-log "Function: Select-RenameSource"
     # Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
-    Add-Content $ssmlog "[$loggingdate] Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
+    Write-log "Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
     Rename-Item  "$executabledir\srcds.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
     Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable-x64.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
+    Write-log "Function: Select-EditSourceCFG"
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-        Add-Content $ssmlog "[$loggingdate] Editing Default server.cfg"
+        Write-log "Editing Default server.cfg"
         if ($HOSTNAME) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
         }
@@ -118,21 +125,22 @@ Function Select-EditSourceCFG {
     }
 }
 Function New-ServerLog {
+    Write-log "Function: New-ServerLog"
     If ($consolelogging -eq "on") { 
         If ($consolelog  ) {
-            Add-Content $ssmlog "[$loggingdate] Found $consolelog"
+            Write-log "Found $consolelog"
             $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
             Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
             If ($?) {
                 If ($pastebinconsolelog -eq "on") { 
                     Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
-                    Add-Content $ssmlog "[$loggingdate] Sent Pastebin"
+                    Write-log "Sent Pastebin"
                 }
                 if ($log) {
                     Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $date + " - " + $log) -Force -ea SilentlyContinue
                 }
                 If (!$?) {
-                    Add-Content $ssmlog "[$loggingdate] Rename-Item Failed"
+                    Write-log "Rename-Item Failed"
                 }
             }
         }
@@ -142,24 +150,28 @@ Function New-ServerLog {
     Remove-backupLogs
 }
 Function Remove-backupLogs {
-    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount backup_$serverfiles-*.log"
+    Write-log "Function: Remove-backupLogs"
+    Write-log "Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
         Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
-    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount $serverfiles-*.log"
+    Write-log "Function: Remove-ServerconsoleLogs"
+    Write-log "Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
         Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
-    Add-Content $ssmlog "[$loggingdate] Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
+    Write-log "Function: Remove-SteamerLogs"
+    Write-log "Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
         Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Send-Paste_OLD {
+    Write-log "Function: "
     If ($serverfiles) {
         If (Test-Path $currentdir\log\$serverfiles-*.log) {
             Set-Location $logdir
@@ -171,11 +183,13 @@ Function Send-Paste_OLD {
     }
 }
 Function New-ServerBackupLog {
+    Write-log "Function: New-ServerBackupLog"
     If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 
 Function Get-Appid {
+    Write-log "Function: Get-Appid"
     If ($serverfiles) {
         $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
         If ($Appid) {
@@ -192,7 +206,7 @@ Function Get-Appid {
         }
         If ($AppID -eq 985050 -or $AppID -eq 233780) {
             Write-Host "****   Requires Steam Login    *****" -F Y
-            Add-Content $ssmlog "[$loggingdate] Requires Steam Login"
+            Write-log "Requires Steam Login"
         }
         Else {
             Write-Host "        App Name: $game" -F Y 
@@ -202,23 +216,26 @@ Function Get-Appid {
 }
 
 Function Get-MCBRWebrequest {
+    Write-log "Function: Get-MCBRWebrequest"
     # get latest download
     $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
     If (!$? -or !$mcbrWebResponse) {
-        Add-Content $ssmlog "[$loggingdate] Failed: Get-MCBRWebrequest"
+        Write-log "Failed: Get-MCBRWebrequest"
         Exit
     }
 }
 Function Get-MCWebrequest {
+    Write-log "Function: Get-MCWebrequest"
     # check latest version
     $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
     $global:mcvWebResponse = $mcvWebResponse.Latest.release
     If (!$? -or !$mcvWebResponse) {
-        Add-Content $ssmlog "[$loggingdate] Failed: Get-MCWebrequest"
+        Write-log "Failed: Get-MCWebrequest"
         Exit
     }
 }
 Function Get-SourceMetaModWebrequest {
+    Write-log "Function: Get-SourceMetaModWebrequest"
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
@@ -232,12 +249,13 @@ Function Get-SourceMetaModWebrequest {
     $global:sourcemodurl="${sourcemoddownloadurl}"
 
     If (!$metamodurl -or !$sourcemodurl) {
-        Add-Content $ssmlog "[$loggingdate] Failed: Get-SourceMetaModWebrequest"
+        Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
 }
 
 Function Get-PreviousInstall {
+    Write-log "Function: Get-PreviousInstall"
     If (Test-Path $serverdir\Variables-*.ps1) {
         $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
@@ -251,12 +269,15 @@ Function Get-PreviousInstall {
 }
 
 function Receive-Information {
-    process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
+    Write-log "Function: Receive-Information"
+    Get-process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
 }
 function Receive-Message {
-    process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
+    Write-log "Function: Receive-Message"
+    Get-process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
 }
 Function compare-SteamExit {
+    Write-log "Function: compare-SteamExit"
     If ($ssmlog -and $loggingdate) {
         If ($appinstalllog) {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
@@ -267,21 +288,21 @@ Function compare-SteamExit {
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
                 Write-Host "****   Failed Password   ****" -F R
-                Add-Content $ssmlog "[$loggingdate] Failed Password"
+                Write-log "Failed Password"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*No subscription*") {
                 Write-Host "****  No subscription, Requires steamcmd login   ****" -F R
-                Add-Content $ssmlog "[$loggingdate] No subscription, Requires steamcmd login"
+                Write-log "No subscription, Requires steamcmd login"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*Success*") {
                 Write-Host "****   Downloading  server succeeded   ****" -F Y
-                Add-Content $ssmlog "[$loggingdate] Downloading  server succeeded"
+                Write-log "Downloading  server succeeded"
             }   
             ElseIf (($appinstalllog -Like "* Failed *") -or ($appinstalllog -Like "*FAILED*")) {
                 Write-Host "****   Downloading  server Failed   ****" -F R
-                Add-Content $ssmlog "[$loggingdate] Downloading  server Failed"
+                Write-log "Downloading  server Failed"
                 New-TryagainNew 
             }
             Else {

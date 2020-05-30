@@ -7,6 +7,7 @@
 #
 #
 Function Get-SourceMetaMod {
+    Write-log "Function: Get-SourceMetaMod"
     Get-SourceMetaModWebrequest
     If ($metamodurl -and $metamodoutput -and $sourcemodoutput -and $sourcemoddirectory) {
         $start_time = Get-Date
@@ -29,12 +30,12 @@ Function Get-SourceMetaMod {
             Get-WarnMessage 'ExtractFailed' 'MetaMod'
             New-TryagainNew
         }
-        Add-Content $ssmlog "[$loggingdate] Copying/installing Meta Mod"
+        Write-log "Copying/installing Meta Mod"
         If ($metamoddirectory -and $systemdir){ 
         Copy-Item  "$metamoddirectory\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
         }
         If (!$?) { 
-            Add-Content $ssmlog "[$loggingdate] Copying Meta Mod Failed"
+            Write-log "Copying Meta Mod Failed"
             New-TryagainNew 
         }
         $start_time = Get-Date
@@ -67,7 +68,7 @@ Function Get-SourceMetaMod {
         Copy-Item  "$sourcemoddirectory\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
         }
         If (!$?) { 
-            Add-Content $ssmlog "[$loggingdate] Copying SourceMod Faileds "
+            Write-log "Copying SourceMod Faileds "
             New-TryagainNew 
         }
     }

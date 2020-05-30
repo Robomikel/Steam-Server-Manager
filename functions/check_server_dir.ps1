@@ -7,11 +7,12 @@
 #
 #
 Function Get-FolderNames {
+    Write-log "Function: Get-FolderNames"
     If ($ssmlog -and $loggingdate) {
-        Add-Content $ssmlog "[$loggingdate] Checking Folder Names "
+        Write-log "Checking Folder Names "
         If ($serverdir) {
             If (Test-Path "$serverdir") {
-                Add-Content $ssmlog "[$loggingdate] Folder Name Exists   $serverdir "
+                Write-log "Folder Name Exists   $serverdir "
             }
             ElseIf (!(Test-Path "$serverdir")) {
                 New-ServerFolderq

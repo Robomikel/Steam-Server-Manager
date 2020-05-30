@@ -7,6 +7,7 @@
 #
 #
 Function Get-Oxide {
+    Write-log "Function: Get-Oxide"
     If ($oxiderustlatestlink -and $oxideoutput) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Oxide'
@@ -33,7 +34,7 @@ Function Get-Oxide {
         Get-Infomessage "copying-installing" 'Oxide'
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
-            Add-Content $ssmlog "[$loggingdate] Copying Oxide Failed"
+            Write-log "Copying Oxide Failed"
             New-TryagainNew
         }
     }

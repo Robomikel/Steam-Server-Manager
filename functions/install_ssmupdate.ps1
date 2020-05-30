@@ -7,6 +7,7 @@
 #
 #
 Function Get-UpdateSteamer {
+    Write-log "Function: Get-UpdateSteamer"
     $start_time = Get-Date
     Get-Infomessage "Downloading" 'Steam-Server-Manager'
     # Write-Host '****   Downloading Steam-Server-Manager github files   ****' -F M -B Black 
@@ -29,6 +30,7 @@ Function Get-UpdateSteamer {
 }
 
 Function Get-CleanUPSteamer {
+    Write-log "Function: Get-CleanUPSteamer"
     Remove-Item  "Steam-Server-Manager" -Recurse -Force -ea SilentlyContinue
     Remove-Item  "Steam-Server-Manager.zip" -Recurse -Force -ea SilentlyContinue
     Write-Information 'ssm github files Updated' -InformationAction Continue

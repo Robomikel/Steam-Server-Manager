@@ -7,14 +7,15 @@
 #
 #
 Function Get-ServerBuildCheck {
+    Write-log "Function: Get-ServerBuildCheck"
     If ($ssmlog -and $loggingdate) {
         If ($appid) {
             If ($appid -eq 11500000 ) { 
                 Get-MCversion
-                Add-Content $ssmlog "[$loggingdate] Non-steam Game"
+                Write-log "Non-steam Game"
             }
             ElseIf ($appid -eq 11421000 ) { 
-                Add-Content $ssmlog "[$loggingdate] Non-steam Game"
+                Write-log "Non-steam Game"
                 Get-MCbrversion
             }
             Else {
@@ -45,11 +46,11 @@ Function Get-ServerBuildCheck {
                     #$localbuild
                     if (!$remotebuild ) {
                         Write-Warning 'Failed to retrieve remote build'
-                        Add-Content $ssmlog "[$loggingdate] Failed to retrieve remote build"
+                        Write-log "Failed to retrieve remote build"
                     }
                     if (!$localbuild ) {
                         Write-Warning 'Failed to retrieve Local build'
-                        Add-Content $ssmlog "[$loggingdate] Failed to retrieve Local build"
+                        Write-log "Failed to retrieve Local build"
                     }
                     Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
@@ -62,7 +63,7 @@ Function Get-ServerBuildCheck {
                             Get-UpdateServer  
                         }
                         Else {
-                            Add-Content $ssmlog "[$loggingdate] No $serverfiles Updates found"
+                            Write-log "No $serverfiles Updates found"
                             
                             Get-Infomessage "noupdates"
                         }
@@ -70,24 +71,25 @@ Function Get-ServerBuildCheck {
                     Set-Location $currentdir
                 }
                 Else {
-                    Add-Content $ssmlog "[$loggingdate]  Updates on start off"
+                    Write-log " Updates on start off"
                     Set-Location $currentdir
                 }
             }
         }
         Else {
-            Add-Content $ssmlog "[$loggingdate] Failed: Get-ServerBuildCheck"
+            Write-log "Failed: Get-ServerBuildCheck"
         }
     }
 }
 
 
 Function Get-SteamFix {
+    Write-log "Function: Get-SteamFix"
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {
         If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
-            Add-Content $ssmlog "[$loggingdate] Removing appmanifest_$appid.acf "
+            Write-log "Removing appmanifest_$appid.acf "
             Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
-            Add-Content $ssmlog "[$loggingdate] Removing Multiple appmanifest_$appid.acf "
+            Write-log "Removing Multiple appmanifest_$appid.acf "
             Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
         }
     }

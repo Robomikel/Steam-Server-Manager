@@ -7,6 +7,7 @@
 #
 #
 Function Get-UpdateServer {
+    Write-log "Function:  Get-UpdateServer"
     If ($steamexecutable) {
         Set-Location $steamdirectory
         Get-Infomessage "updating"

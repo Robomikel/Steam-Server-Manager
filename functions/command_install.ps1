@@ -8,11 +8,12 @@
 #
 #
 Function Install-ServerFiles {
+    Write-log "Function: Install-ServerFiles"
     If ($APPID -eq 11421000) {
-        $true
+        Write-log "11421000 $true"
     }
     ElseIf ($APPID -eq 11500000) {
-        $true
+        Write-log  "11500000 $true"
     }
     Else {
         If ($anon) {
@@ -22,9 +23,8 @@ Function Install-ServerFiles {
                     $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                     Write-Host "Please Wait: Will Display console in a moment" -F Y
                     & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
-                    # Add-Content $ssmlog "[$loggingdate] $appinstalllog"
+                    # Write-log "$appinstalllog"
                     compare-SteamExit
-
                 }
                 Else {
                     Write-Host "Enter Username for Steam install" -F Cyan -B Black
@@ -50,7 +50,6 @@ Function Install-ServerFiles {
             }
         }
         Else {
-             
             Get-warnmessage "fn_InstallServerFiles"
         }
     }

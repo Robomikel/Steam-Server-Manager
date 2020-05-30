@@ -7,6 +7,7 @@
 #
 #
 Function Read-AppID {
+    Write-log "Function: Read-AppID"
     If ($AppID ) {
         # Set-Console  >$null 2>&1
         If ($AppID -eq 302200) {

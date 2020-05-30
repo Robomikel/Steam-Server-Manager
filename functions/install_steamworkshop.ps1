@@ -1,4 +1,5 @@
 Function Install-SteamWS {
+    Write-log "Function: Install-SteamWS"
     ######    Created by Archimedez   ######
     # https://steamcommunity.com/sharedfiles/filedetails/?id=939668540
     ######    Modified by Robomikel for SSM use   ######
@@ -42,8 +43,8 @@ Function Install-SteamWS {
             else {
                 Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again." -ForegroundColor Red
                 Write-Host " - - $DIAMOND The Workshop Item may be too large for steamcmd - -  $DIAMOND" -ForegroundColor Red
-                Add-Content $ssmlog "[$loggingdate] Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again."
-                Add-Content $ssmlog "[$loggingdate] download through steam Client and Copy Manually"
+                Write-log "Validation / Downloading mod $mod ($ii of $modCount) Failed! Please try running again."
+                Write-log "download through steam Client and Copy Manually"
                 $updateMods = $null
                 If ($StopOnFail -eq $true) {
                     $modDownloadsGood = $false
