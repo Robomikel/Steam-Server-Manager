@@ -65,10 +65,29 @@ Function New-LaunchScriptdoiserverPS {
     Get-InstallChangesdoi
 }
 Function Get-InstallChangesdoi {
-    Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-    Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    $subscribedfileids =  "$systemdir\subscribed_file_ids.txt"
+    Add-Content $ssmlog "[$loggingDate] Creating subscribed_file_ids.txt "
+     # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $subscribedfileids) { 
+         Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
+     } 
+     Else {
+         New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    
+     $mapcycletxtfile = "$systemdir\motd.txt"
+     Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
+     # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $mapcycletxtfile) { 
+         Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
+     }
+     Else {
+        New-Item $mapcycletxtfile -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Get-Gamemodedoi
 }
 Function Get-Playlistdoi {
@@ -124,7 +143,7 @@ Function Set-Gamemodedoi {
     $playlist = Read-Host 
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
         Write-Host "Editing nwi/$playlist playlist in server.cfg" -ForegroundColor Magenta
-        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
+        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"custom`"") | Set-Content -Path $servercfgdir\server.cfg
         Get-Playlistdoi
     }
     else {
