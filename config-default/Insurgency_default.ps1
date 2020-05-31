@@ -91,8 +91,7 @@ Function Get-InstallChangesINS {
     # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
     # New-Item $serverdir\insurgency\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    # New-Item $serverdir\insurgency\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-     
+    # New-Item $serverdir\insurgency\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog     
 }
 Function Get-Playlist {
     Write-Host "Checking playlist" -ForegroundColor Yellow
