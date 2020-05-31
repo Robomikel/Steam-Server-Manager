@@ -143,8 +143,8 @@ Function Set-Gamemodedoi {
     $playlist = Read-Host 
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
         Write-Host "Editing nwi/$playlist playlist in server.cfg" -ForegroundColor Magenta
-        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"custom`"") | Set-Content -Path $servercfgdir\server.cfg
-        Get-Playlistdoi
+        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
+        # Get-Playlistdoi
     }
     else {
         Write-Host " mode does not exist" -ForegroundColor Yellow
