@@ -270,11 +270,11 @@ Function Get-PreviousInstall {
 
 function Receive-Information {
     Write-log "Function: Receive-Information"
-    Get-process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
+    process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
 }
 function Receive-Message {
     Write-log "Function: Receive-Message"
-    Get-process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
+    process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
 }
 Function compare-SteamExit {
     Write-log "Function: compare-SteamExit"
