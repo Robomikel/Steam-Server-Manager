@@ -52,7 +52,7 @@ $global:gamedirname         = ""
 #                           Game-Server-Config
 $global:servercfg           = ""
 #                           Server Launch Command
-$global:launchParams        = '@("$executable -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername `"${hostname}`" -gameport ${port} -updateport ${queryport} -logfile server.log")'
+$global:launchParams        = '@("${executable} -batchmode -nographics -autostart -autosaveinterval=300 -worldtype=Mars -worldname=Mars1 -servername `"${hostname}`" -gameport ${port} -updateport ${queryport} -logfile server.log")'
 # Get User Input version must be set to 0
 Get-UserInput
 } 

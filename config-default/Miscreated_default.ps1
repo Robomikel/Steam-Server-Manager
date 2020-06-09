@@ -44,7 +44,7 @@ Function New-LaunchScriptMiscreatedPS {
         #                       Game-Server-Config
         $global:servercfg       = "HOSTING.CFG"
         #                       Server Launch Command
-        $global:launchParams    = '@("$executable +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
+        $global:launchParams    = '@("${executable} +sv_bind ${ip} +sv_maxplayers ${maxplayers} +map islands -sv_port ${port} +http_startserver -mis_gameserverid 100")'
         # Get User Input version must be set to 0
         Get-UserInput
         # Install Adjustment         

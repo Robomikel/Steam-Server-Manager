@@ -38,7 +38,7 @@ Function New-LaunchScriptforestserverPS {
     #                       Server Log
     $global:consolelog      = "console.log"  
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -serverip ${ip} -serversteamport ${steamport} -servergameport ${port} -serverqueryport ${queryport} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${diff} -configfilepath $servercfgdir\server.cfg -inittype Continue -slot 4 -batchmode -nographics")'
+    $global:launchParams    = '@("${executable} -serverip ${ip} -serversteamport ${steamport} -servergameport ${port} -serverqueryport ${queryport} -servername `"${hostname}`" -serverplayers ${maxplayers} -difficulty ${diff} -configfilepath ${servercfgdir}\${servercfg} -inittype Continue -slot 4 -batchmode -nographics")'
     # Get User Input version must be set to 0
     Get-UserInput    
 }

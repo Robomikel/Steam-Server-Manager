@@ -42,7 +42,7 @@ Function  New-LaunchScriptavserverPS {
         #                               Server Log
         $global:consolelog              = "serverlog*.txt"
         #                               Server Launch Command
-        $global:launchParams            = '@("$executable --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
+        $global:launchParams            = '@("${executable} --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
         # Get User Input version must be set to 0
         Get-UserInput
 }

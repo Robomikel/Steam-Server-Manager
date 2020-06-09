@@ -36,5 +36,5 @@ Function New-LaunchScriptrFactor2serverPS {
     #                       Game-Server-Config
     $global:servercfg       = ""
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable +path=".."")'
+    $global:launchParams    = '@("${executable} +path=".."")'
 } 

@@ -68,7 +68,7 @@ Function New-LaunchScriptMEserverPS {
   #                       Server Config Directory
   $global:servercfgdir    = "$env:APPDATA\$saves"
   #                       Server Launch Command
-  $global:launchParams    = '@("$executable -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
+  $global:launchParams    = '@("${executable} -console -ip ${ip} -port ${port} -maxPlayers ${maxplayers}")'
   # Get User Input version must be set to 0
   Get-UserInput
   # Write-Host "Creating Save Dir" -F M
