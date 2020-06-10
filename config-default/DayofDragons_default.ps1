@@ -32,7 +32,7 @@ Function New-LaunchScriptDofDserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "Game.ini"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -SteamServerName=`"${hostname}`" -log")'
+    $global:launchParams    = '@("${executable} -SteamServerName=`"${hostname}`" -log")'
     # Get User Input version must be set to 0
     Get-UserInput
 } 

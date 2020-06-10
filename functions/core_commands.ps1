@@ -16,8 +16,8 @@ Function Select-Steamer {
         [Parameter(Mandatory=$false,Position = 1)]
         #[ValidatePattern('^[a-z,A-Z]$')]
         $serverfiles)
-        
-        Add-Content $ssmlog "[$loggingdate] command:  $command $serverfiles"
+        Write-log "Function: Select-Steamer"
+        Write-log "command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     If (($command -eq "install") -and ($null -eq $serverfiles)) {     
         Write-Host 'Input Server Folder Name: ' -F C -N

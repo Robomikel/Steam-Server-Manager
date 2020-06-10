@@ -7,13 +7,14 @@
 #
 #
 Function Get-NodeJSCheck {
+    Write-log "Function: Get-NodeJSCheck"
     If ($nodejsexecutable -and $ssmlog -and $loggingdate) {
-        Add-Content $ssmlog "[$loggingdate] Checking NodeJS "     
+        Write-log "Checking NodeJS "     
         If (Test-Path $nodejsexecutable) { 
-            Add-Content $ssmlog "[$loggingdate]  NodeJS already downloaded "
+            Write-log " NodeJS already downloaded "
         }
         ElseIf (!(Test-Path $nodejsexecutable)) {
-            Add-Content $ssmlog "[$loggingdate]  NodeJS not found "
+            Write-log " NodeJS not found "
             Add-NodeJS
         }
     }

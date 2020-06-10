@@ -7,6 +7,7 @@
 #
 #
 Function Get-Servercfg {
+    Write-log "Function: Get-Servercfg"
     #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$serverdir\csgo\cfg\server.cfg")
     If ($servercfgdir -or $servercfg) {
         If (!$config2) {
@@ -23,15 +24,15 @@ Function Get-Servercfg {
         }
         Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
         Foreach ($servercfg in $servercfg) {
-            Add-Content $ssmlog "[$loggingdate] Retrieve server config GSM "
+            Write-log "Retrieve server config GSM "
             If ($githuburl -and $gamedirname) {
                 $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing
                 If (!$?) { 
-                    Add-Content $ssmlog "[$loggingdate] Array Failed !! Did NOT Retrieve server config"
+                    Write-log "Array Failed !! Did NOT Retrieve server config"
                     Exit 
                 }
                 ElseIf ($?) { 
-                    Add-Content $ssmlog "[$loggingdate] Retrieved server config " 
+                    Write-log "Retrieved server config " 
                 }
                 New-Item $servercfgdir\$servercfg -Force | Out-File -Append -Encoding Default  $ssmlog
                 If ($WebResponse) {

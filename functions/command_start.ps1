@@ -13,6 +13,7 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
+    Write-log "Function: Get-StartServer"
     If ($launchParams -and $appid -and $executabledir) {
         Set-Location $executabledir
         # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
@@ -27,12 +28,14 @@ Function Get-StartServer {
     }
 }
 Function Select-StartServer {
+    Write-log "Function: Select-StartServer"
     Get-Infomessage "starting"
     Get-StartServer $launchParams
 }
 Function Get-CheckServer {
+    Write-log "Function: Get-CheckServer"
     If ($ssmlog -and $loggingdate) {
-        Add-Content $ssmlog "[$loggingdate] Check Server process "
+        Write-log "Check Server process "
         If ($process) {
             If ($appid -eq "996560") { 
                 Get-checkMultiple 
@@ -54,6 +57,7 @@ Function Get-CheckServer {
 }
 
 Function Get-checkMultiple {
+    Write-log "Function: Get-checkMultiple"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
         Get-Infomessage "notrunning"

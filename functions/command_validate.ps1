@@ -7,6 +7,7 @@
 #
 #
 Function Get-ValidateServer {
+    Write-log "Function: Get-ValidateServer"
     If ($steamexecutable) {
         Set-Location $steamdirectory
         Write-Warning 'Validate May Overwrite some config files'

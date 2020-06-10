@@ -7,7 +7,8 @@
 #
 #
 Function New-DiscordAlert {
-    param ($alert)    
+    param ($alert)
+    Write-log "Function: New-DiscordAlert"
     If ($DiscordAlert) {
         If ($DiscordAlert -eq "on") { 
             If (($discordwebhook)) {
@@ -88,6 +89,7 @@ Function Send-DiscordAlert_old {
 
 
 Function Send-DiscordAlert {
+    Write-log "Function: Send-DiscordAlert"
     If ($alertmessage -and $alertmessagecolor) {
         Get-Infomessage "discord"
         # https://github.com/EvotecIT/PSDiscord

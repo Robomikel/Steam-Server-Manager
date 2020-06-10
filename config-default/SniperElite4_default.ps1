@@ -36,7 +36,7 @@ Function  New-LaunchScriptSE4serverPS {
     #                           Game-Server-Config
     $global:servercfg           = "server.cfg"
     #                           Server Launch Command
-    $global:launchParams        = '@("$executable exec $servercfgdir\Server.cfg -logdir=$serverdir")'
+    $global:launchParams        = '@("${executable} exec ${servercfgdir}\${servercfg} -logdir=${serverdir}")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustment

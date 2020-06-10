@@ -8,6 +8,7 @@
 #
 #
 Function Get-Details {
+    Write-log "Function: Get-Details"
     If ($psSeven) { 
         $Cpu = (Get-CimInstance win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
         $CpuCores = (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
@@ -69,6 +70,7 @@ Function Get-Details {
     Set-Location $currentdir
 }
 Function Get-DriveSpace {
+    Write-log "Function: Get-DriveSpace"
     If ($psSeven) {
         $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }

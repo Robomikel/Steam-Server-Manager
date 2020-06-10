@@ -48,7 +48,7 @@ Function New-LaunchScriptKF2serverPS {
     $global:config4         = "LinuxServer-KFInput.ini"
     $global:config5         = "LinuxServer-KFSystemSettings.ini"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'
+    $global:launchParams    = '@("${executable} ${defaultmap}?Game=${gamemode}?Difficulty=${diff}? -Port=${port} -QueryPort=${queryport}")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustment

@@ -7,6 +7,7 @@
 #
 #
 Function Get-MCbrversion {
+    Write-log "Function: Get-MCbrversion"
     If (Test-Path $mcversion) {
         $localbuild = Get-Content $mcversion
         Get-MCBRWebrequest
@@ -24,12 +25,13 @@ Function Get-MCbrversion {
             }
         }
         Else {
-            Add-Content $ssmlog "[$loggingdate] Failed: Get-MCbrversion "
+            Write-log "Failed: Get-MCbrversion "
         }
     }
 }
 
 Function Get-MCversion {
+    Write-log "Function: Get-MCversion"
     If (Test-Path $mcversion) {
         $localbuild = Get-Content $mcversion
         Get-MCWebrequest
@@ -47,7 +49,7 @@ Function Get-MCversion {
             }
         }
         Else {
-            Add-Content $ssmlog "[$loggingdate] Failed: Get-MCversion "
+            Write-log "Failed: Get-MCversion "
         }
     }
 }

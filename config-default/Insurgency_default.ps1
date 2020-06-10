@@ -14,7 +14,7 @@ Function New-LaunchScriptInsserverPS {
     #                       Tickrate
     $global:tickrate        = "64"
     #                       Game Server Token
-    $global:gslt            = "GameServerTokenHere"
+    $global:gslt            = ""
     #                       Map
     $global:defaultmap      = "buhriz_coop checkpoint"
     #                       Maxplayers
@@ -50,12 +50,12 @@ Function New-LaunchScriptInsserverPS {
     $global:logdirectory    = "$serverdir\insurgency"
     #                       Server Log
     $global:consolelog      = "console.log"
-    #                       Server Launch Command
-    $global:launchParams    = '@("$executable -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
     #                       Game-Server-Config Directory
     $global:gamedirname     = "Insurgency"
     #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
+    $global:servercfg       = "insserver.cfg"
+    #                       Server Launch Command
+    $global:launchParams    = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
@@ -69,11 +69,29 @@ Function New-LaunchScriptInsserverPS {
 
 
 Function Get-InstallChangesINS {
-    Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $serverdir\insurgency\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-    Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $serverdir\insurgency\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-     
+    $subscribedfileids =  "$serverdir\insurgency\subscribed_file_ids.txt"
+    Add-Content $ssmlog "[$loggingDate] Creating subscribed_file_ids.txt "
+     # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $subscribedfileids) { 
+         Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
+     } 
+     Else {
+         New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    
+     $mapcycletxtfile = "$serverdir\insurgency\motd.txt"
+     Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
+     # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $mapcycletxtfile) { 
+         Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
+     }
+     Else {
+        New-Item $mapcycletxtfile -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $serverdir\insurgency\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $serverdir\insurgency\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog     
 }
 Function Get-Playlist {
     Write-Host "Checking playlist" -ForegroundColor Yellow
@@ -124,7 +142,7 @@ Function Set-Gamemode {
     if (($playlist -eq "comp") -or ($playlist -eq "coop") -or ($playlist -eq "coop_elite") -or ($playlist -eq "coop_hardcore") -or ($playlist -eq "pvp_sustained") -or ($playlist -eq "pvp_tactical") -or ($playlist -eq "conquer")) {
         Write-Host "Editing nwi/$playlist playlist in server.cfg" -ForegroundColor Magenta
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "sv_playlist `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
-        Get-Playlist
+        # Get-Playlist
     }
     else {
         Write-Host " listed modes does not exist" -ForegroundColor Yellow

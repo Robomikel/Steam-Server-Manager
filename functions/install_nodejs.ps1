@@ -7,6 +7,7 @@
 #
 #
 Function Add-NodeJS {
+    Write-log "Function: Add-NodeJS"
     If ($nodeversion) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Nodejs'

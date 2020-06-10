@@ -7,59 +7,63 @@
 #
 #
 Function Get-ChecktaskUnreg {
+    Write-log "Function: Get-ChecktaskUnreg"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles $command" >$null 2>&1
         If ($?) {
-            Add-Content $ssmlog "[$loggingdate] Unregistering scheduled task  "
+            Write-log "Unregistering scheduled task  "
             Unregister-ScheduledTask -TaskName "$serverfiles $command" >$null 2>&1
         }
         ElseIf (!$?) {
-            Add-Content $ssmlog "[$loggingdate] Scheduled Task does not exist "
+            Write-log "Scheduled Task does not exist "
         }
     }
 }
 Function Get-ChecktaskDisable {
+    Write-log "Function: Get-ChecktaskDisable"
     If ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
             If ($?) {
-                Add-Content $ssmlog "[$loggingdate] Disabling scheduled task "
+                Write-log "Disabling scheduled task "
                 Disable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
             }
             ElseIf (!$?) {
-                Add-Content $ssmlog "[$loggingdate]  Scheduled Task does not exist "
+                Write-log " Scheduled Task does not exist "
             }
         }
     }
 }
 Function Get-ChecktaskEnable {
+    Write-log "Function: Get-ChecktaskEnable"
     if ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
             If ($?) {
-                Add-Content $ssmlog "[$loggingdate] Enabling scheduled task "
+                Write-log "Enabling scheduled task "
                 Enable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
             }
             ElseIf (!$?) {
-                Add-Content $ssmlog "[$loggingdate] Scheduled Task does not exist "
+                Write-log "Scheduled Task does not exist "
             }
         }
     }
 }
 
 Function Get-ChecktaskDetails {
+    Write-log "Function: Get-ChecktaskDetails"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         If ($?) {
             
             $global:monitorjob = $true
-            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskDetails $monitorjob "
+            Write-log "Get-ChecktaskDetails $monitorjob "
 
         }
         ElseIf (!$?) {
 
             $global:monitorjob = $false
-            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskDetails $monitorjob "
+            Write-log "Get-ChecktaskDetails $monitorjob "
 
 
         }
@@ -67,18 +71,19 @@ Function Get-ChecktaskDetails {
 }
 
 Function Get-ChecktaskautorestartDetails {
+    Write-log "Function: Get-ChecktaskautorestartDetails"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles autorestart" >$null 2>&1
         If ($?) {
             
             $global:restartjob = $true
-            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskautorestartDetails $restartjob "
+            Write-log "Get-ChecktaskautorestartDetails $restartjob "
 
         }
         ElseIf (!$?) {
 
             $global:restartjob = $false
-            Add-Content $ssmlog "[$loggingdate] Get-ChecktaskautorestartDetails $restartjob "
+            Write-log "Get-ChecktaskautorestartDetails $restartjob "
 
 
         }

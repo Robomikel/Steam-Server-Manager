@@ -39,7 +39,7 @@ Function New-LaunchScriptpzserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.ini"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
+    $global:launchParams    = '@("${executable} -ip ${ip} -adminpassword `"${adminpassword}`" -servername `"${hostname}`"")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
