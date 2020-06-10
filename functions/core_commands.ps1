@@ -352,6 +352,7 @@ Function Select-Steamer {
         Get-createdvaribles
         Get-CheckForVars
         # Get-NodeJSCheck
+        Test-PSversion
         Get-details
         Get-DriveSpace
         Get-ClearVariables
