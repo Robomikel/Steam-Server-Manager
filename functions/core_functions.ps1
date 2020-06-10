@@ -7,11 +7,10 @@
 #
 #
 Function Get-CreatedVaribles {
-    Write-log "Function: Get-CreatedVaribles"
     If (!$serverfiles) {
         Param($serverfiles)
     }
-    Write-log "Getting Server Variables"
+    Write-log "Function: Get-CreatedVaribles"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
             Invoke-Expression $currentdir\$serverfiles\Variables-$serverfiles.ps1

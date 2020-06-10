@@ -111,7 +111,7 @@ Function Get-Infomessage {
 }
 Function Get-WarnMessage {
     param ($warnmessage, $package)   
-    Add-Content $ssmlog "[$loggingdate] Getting Warning "
+    Write-log "Function:  Get-WarnMessage"
     If ($warnmessage) {
         
         If ($warnmessage -eq 'missingwebhook') {

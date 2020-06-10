@@ -7,8 +7,8 @@
 #
 #
 Function New-DiscordAlert {
+    param ($alert)
     Write-log "Function: New-DiscordAlert"
-    param ($alert)    
     If ($DiscordAlert) {
         If ($DiscordAlert -eq "on") { 
             If (($discordwebhook)) {
