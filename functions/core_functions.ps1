@@ -290,3 +290,12 @@ Function compare-SteamExit {
         }
     }
 }
+Function Test-PSversion {
+    $psSeven = ( $PSVersionTable.PSVersion.Major -eq 7 ) 
+    If ($psSeven -eq $true ) {
+        $global:psSeven = 1
+    }
+    Else {
+        $global:psSeven = $null
+    }
+}

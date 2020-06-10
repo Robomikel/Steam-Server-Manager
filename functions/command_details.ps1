@@ -8,17 +8,29 @@
 #
 #
 Function Get-Details {
-    $Cpu = (Get-WMIObject win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
+    If ($psSeven) { 
+        $Cpu = (Get-CimInstance win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
+        $CpuCores = (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors
+        $avmem = (Get-CimInstance Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
+        $os = (Get-CimInstance win32_operatingsystem).caption
+        $computername = (Get-CimInstance Win32_OperatingSystem).CSName
+
+    }
+    Else {
+        $Cpu = (Get-WMIObject win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
+        $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
+        $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
+        $os = (Get-WMIObject win32_operatingsystem).caption
+        $computername = (Get-WMIObject Win32_OperatingSystem).CSName
+    }
     $host.UI.RawUI.ForegroundColor = "Cyan"
     #$host.UI.RawUI.BackgroundColor = "Black"
-    $CpuCores = (Get-WMIObject Win32_ComputerSystem).NumberOfLogicalProcessors
-    $avmem = (Get-WMIObject Win32_OperatingSystem | Foreach-Object { "{0:N2} GB" -f ($_.totalvisiblememorysize / 1MB) })
+
     $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $mem = "{0:N2} GB" -f ((Get-Process $process | Measure-Object Workingset -sum).Sum / 1GB) 
     }
-    $os = (Get-WMIObject win32_operatingsystem).caption
-    $computername = (Get-WMIObject Win32_OperatingSystem).CSName
+
     Get-ChecktaskDetails
     Get-ChecktaskautorestartDetails
     Test-SteamMaster
@@ -57,7 +69,12 @@ Function Get-Details {
     Set-Location $currentdir
 }
 Function Get-DriveSpace {
-    $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+    If ($psSeven) {
+        $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+    }
+    Else {
+        $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+    }
     $results = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {
             $size = [math]::round($disk.Size / 1GB, 0)
