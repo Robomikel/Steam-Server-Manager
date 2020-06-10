@@ -7,8 +7,7 @@
 #
 #
 Function Get-Infomessage {
-Param($infomessage,$package)
-    Write-log "Function: Get-Infomessage"
+    Param($infomessage, $package)
     $info = "[info]" | Receive-Information
     If ($infomessage) {
         If ($infomessage -eq "discord") {
@@ -107,12 +106,12 @@ Param($infomessage,$package)
         Start-Sleep 0.3
         # Write-Information "[info]" -InformationAction Continue
         Write-Information "$message" -InformationAction Continue
-        Write-log "Message: $infomessage"
+        Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
     }
 }
 Function Get-WarnMessage {
- param ($warnmessage,$package)
- Write-log "Function: Get-WarnMessage"   
+    param ($warnmessage, $package)   
+    Add-Content $ssmlog "[$loggingdate] Getting Warning "
     If ($warnmessage) {
         
         If ($warnmessage -eq 'missingwebhook') {
@@ -195,7 +194,7 @@ Function Get-WarnMessage {
         }
         Start-Sleep 0.3
         Write-Warning "$message"
-        Write-log "Warning: $warnmessage"
+        Add-Content $ssmlog "[$loggingdate] Warning: $warnmessage"
         Set-Location $currentdir
         Exit
     }
@@ -216,7 +215,14 @@ Function Get-Finished {
     Get-Infomessage "Finished"
 }
 
+
 Function Write-log {
     param ($logmessage)
-    Add-Content $ssmlog "[$loggingdate] $logmessage "
+    If ($ssmlog) {
+        If ($loggingdate) {
+            If ($logmessage) {
+                Add-Content $ssmlog "[$loggingdate] $logmessage "
+            }
+        }
+    }
 }
