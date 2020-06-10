@@ -31,7 +31,7 @@ Function New-LaunchScriptunturnedserverPS {
     #                           Game-Server-Config
     $global:servercfg           = "Commands.dat"
     #                           Server Launch Command
-    $global:launchParams        = '@("$executable -batchmode -nographics -Port ${port} +InternetServer/${hostname}")'
+    $global:launchParams        = '@("${executable} -batchmode -nographics -Port ${port} +InternetServer/${hostname}")'
     # Get User Input version must be set to 0
     Get-UserInput
 }

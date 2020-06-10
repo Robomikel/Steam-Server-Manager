@@ -45,7 +45,7 @@ Function New-LaunchScriptSquadserverPS {
     #                               Game-Server-Config
     $global:servercfg               = "Server.cfg"
     #                               Server Launch Command
-    $global:launchParams            = '@("$executable MULTIHOME=${IP} Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
+    $global:launchParams            = '@("${executable} MULTIHOME=${IP} Port=${port} QueryPort=${queryport} FIXEDMAXPLAYERS=${maxplayers} FIXEDMAXTICKRATE=50 RANDOM=ALWAYS -log")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config

@@ -7,6 +7,7 @@
 #
 #
 Function Set-SteamInfo {
+    Write-log "Function: Set-SteamInfo"
     $title = 'Install Steam server with Anonymous login'
     $question = 'Use Anonymous Login?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -27,6 +28,7 @@ Function Set-SteamInfo {
     }
 }
 Function New-TryagainNew {
+    Write-log "Function: New-TryagainNew"
     $title = 'Try again?'
     $question = "$command $serverfiles ?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -45,6 +47,7 @@ Function New-TryagainNew {
     }
 }
 Function New-TryagainSteam {
+    Write-log "Function: New-TryagainSteam"
     $title = ' Install Successful?'
     $question = "Was the Install Successful?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -62,6 +65,7 @@ Function New-TryagainSteam {
     }
 }
 Function New-TryagainSteamLogin {
+    Write-log "Function: New-TryagainSteamLogin"
     $title = ' Login Successful?'
     $question = "Was the Login Successful?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -79,6 +83,7 @@ Function New-TryagainSteamLogin {
     }
 }
 Function New-ServerFolderq {
+    Write-log "Function: New-ServerFolderq"
     $title = 'Server Folder Name does not exist!'
     $question = 'Would you like to to create new Server Folder Name?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -96,6 +101,7 @@ Function New-ServerFolderq {
     }
 }
 Function Get-OxideQ {
+    Write-log "Function: Get-OxideQ"
     $title = 'Download Oxide'
     $question = 'Download Oxide and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -111,6 +117,7 @@ Function Get-OxideQ {
     }
 }
 Function Get-SourceMetaModQ {
+    Write-log "Function: Get-SourceMetaModQ"
     $title = 'Download MetaMod and SourceMod'
     $question = 'Download MetaMod, SourceMod and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -126,6 +133,7 @@ Function Get-SourceMetaModQ {
     }
 }
 Function Get-InstallForgeQ {
+    Write-log "Function: Get-InstallForgeQ"
     $title = 'Download Forge'
     $question = 'Download Forge and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -141,6 +149,7 @@ Function Get-InstallForgeQ {
     }
 }
 Function Set-MonitorJob {
+    Write-log "Function: Set-MonitorJob"
     $title = 'Create Monitor Task Job'
     $question = 'Run Task Whether user is logged on or not?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -159,6 +168,7 @@ Function Set-MonitorJob {
     }
 }
 Function Set-RestartJob {
+    Write-log "Function: Set-RestartJob"
     $title = 'Create Restart Task Job'
     $question = 'Run Task Whether user is logged on or not?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -177,6 +187,7 @@ Function Set-RestartJob {
     }
 } 
 Function New-AppDataSave {
+    Write-log "Function: New-AppDataSave"
     $title = 'Game has Saves located in AppData'
     $question = 'Backup Appdata for server?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -194,6 +205,7 @@ Function New-AppDataSave {
 }
 
 Function Get-UserInput {
+    Write-log "Function: Get-UserInput"
     If ($version -eq 0) {
         #Write-Host "$SMILEY_BLACK Press Enter to Accept default $SMILEY_BLACK" -F Y
         Set-Console

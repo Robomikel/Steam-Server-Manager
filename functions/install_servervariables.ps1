@@ -7,7 +7,8 @@
 #
 #
 Function New-CreateVariables {
-    Add-Content $ssmlog "[$loggingdate] Creating Variables Script"
+    Write-log "Function: New-CreateVariables"
+    Write-log "Creating Variables Script"
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force | Out-File -Append -Encoding Default  $ssmlog
 #        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Discord Webhook "
 #        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:discordwebhook      = `"$global:discordwebhook`""

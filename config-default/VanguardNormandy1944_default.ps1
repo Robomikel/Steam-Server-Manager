@@ -31,7 +31,7 @@ Function New-LaunchScriptVanguard1944serverPS {
   #                     Game-Server-Config
   $global:servercfg     = "server.cfg"
   #                     Server Launch Command
-  $global:launchParams  = '@("$executable -console +sv_servername=`"${hostname}`" -condebug")'
+  $global:launchParams  = '@("${executable} -console +sv_servername=`"${hostname}`" -condebug")'
   # Get User Input version must be set to 0
   Get-UserInput
 }   

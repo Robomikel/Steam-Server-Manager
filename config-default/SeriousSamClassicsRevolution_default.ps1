@@ -41,7 +41,7 @@ Function New-LaunchScriptSeriousSamserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "init.ini"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable ${gamemode}")'
+    $global:launchParams    = '@("${executable} ${gamemode}")'
     # Get User Input version must be set to 0
     Get-UserInput
     ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "Dedicated Coop Game", "$hostname") | Set-Content -Path $servercfgdir\$servercfg 

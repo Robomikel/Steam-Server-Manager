@@ -7,12 +7,13 @@
 #
 #
 Function Get-MonitorServer {
+    Write-log "Function: Get-MonitorServer"
     If ($process) {
         If ($appid -eq "996560") { 
             Get-MonitorMultiple 
         }
         Else {
-            Add-Content $ssmlog "[$loggingdate] Monitor  Server process" 
+            Write-log "Monitor  Server process" 
             If (!(Get-Process $process -ea SilentlyContinue)) {
                 Select-StartServer
                 New-DiscordAlert "restart"
@@ -29,6 +30,7 @@ Function Get-MonitorServer {
 }
 
 Function Get-MonitorMultiple {
+    Write-log "Function: Get-MonitorMultiple"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 
     If (!$process) {
         Select-StartServer

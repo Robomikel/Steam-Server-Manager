@@ -32,5 +32,5 @@ Function New-LaunchScriptSpacecImpossibleserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "serverconfig.txt"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -config serverconfig.txt -console -batchmode -nographics -LOG")'
+    $global:launchParams    = '@("${executable} -config ${servercfg} -console -batchmode -nographics -LOG")'
   }   

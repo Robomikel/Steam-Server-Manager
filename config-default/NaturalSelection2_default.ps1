@@ -40,7 +40,7 @@ Function New-LaunchScriptNS2serverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.txt"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -name `"${hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
+    $global:launchParams    = '@("${executable} -name `"${hostname}`" -port ${port} -webadmin -webdomain ${ip} -webuser admin -webpassword `"${rconpassword}`" -webport 8080 -map ${defaultmap} -limit ${maxplayers} -config_path $servercfgdir\server.txt -logdir `"`" -modstorage `"Workshop`" -mods `"`" -condebug")'
     # Get User Input version must be set to 0
     Get-UserInput
 }

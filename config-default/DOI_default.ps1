@@ -50,9 +50,9 @@ Function New-LaunchScriptdoiserverPS {
     #                       Game-Server-Configs
     $global:gamedirname     = "DayOfInfamy"
     #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
+    $global:servercfg       = "doiserver.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
+    $global:launchParams    = '@("${executable} -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +servercfgfile ${servercfg} +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
@@ -65,10 +65,29 @@ Function New-LaunchScriptdoiserverPS {
     Get-InstallChangesdoi
 }
 Function Get-InstallChangesdoi {
-    Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-    Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    $subscribedfileids =  "$systemdir\subscribed_file_ids.txt"
+    Add-Content $ssmlog "[$loggingDate] Creating subscribed_file_ids.txt "
+     # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $subscribedfileids) { 
+         Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
+     } 
+     Else {
+         New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    
+     $mapcycletxtfile = "$systemdir\motd.txt"
+     Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
+     # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+     If (Test-Path $mapcycletxtfile) { 
+         Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
+     }
+     Else {
+        New-Item $mapcycletxtfile -Force | Out-File -Append -Encoding Default  $ssmlog
+     }
+    # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
+    # New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Get-Gamemodedoi
 }
 Function Get-Playlistdoi {
@@ -125,7 +144,7 @@ Function Set-Gamemodedoi {
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
         Write-Host "Editing nwi/$playlist playlist in server.cfg" -ForegroundColor Magenta
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
-        Get-Playlistdoi
+        # Get-Playlistdoi
     }
     else {
         Write-Host " mode does not exist" -ForegroundColor Yellow

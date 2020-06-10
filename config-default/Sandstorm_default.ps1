@@ -48,10 +48,10 @@ Function New-LaunchScriptInssserverPS {
         #                               Server Launch Command
         If ($SERVERPASSWORD -ne "") {
     
-                $global:launchParams    = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                $global:launchParams    = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
         }
         Else {
-                $global:launchParams    = '@("$executable ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
+                $global:launchParams    = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
         }
         # Get User Input version must be set to 0
         Get-UserInput

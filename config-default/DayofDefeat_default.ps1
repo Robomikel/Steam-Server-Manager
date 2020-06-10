@@ -42,7 +42,7 @@ Function New-LaunchScriptDODSserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
+    $global:launchParams    = '@("${executable} -console -game dod -strictportbind +ip ${ip} -port ${port} +clientport ${clientport} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -condebug")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config

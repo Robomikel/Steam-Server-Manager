@@ -43,7 +43,7 @@ Function New-LaunchScriptSCPSecretLaboratoryserverPS {
     #                           Game-Server-Config
     $global:servercfg           = ""
     #                           Server Launch Command
-    $global:launchParams        = '@("$executable ${port}")'
+    $global:launchParams        = '@("${executable} ${port}")'
     # Get User Input version must be set to 0
     Get-UserInput
 }   

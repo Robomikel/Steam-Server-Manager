@@ -8,6 +8,7 @@
 #
 #
 Function Get-Details {
+    Write-log "Function: Get-Details"
     $Cpu = (Get-WMIObject win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
     $host.UI.RawUI.ForegroundColor = "Cyan"
     #$host.UI.RawUI.BackgroundColor = "Black"
@@ -57,6 +58,7 @@ Function Get-Details {
     Set-Location $currentdir
 }
 Function Get-DriveSpace {
+    Write-log "Function: Get-DriveSpace"
     $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     $results = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {

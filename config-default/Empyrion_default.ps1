@@ -30,7 +30,7 @@ Function New-LaunchScriptempserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "dedicated.yaml"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -startDedi")'
+    $global:launchParams    = '@("${executable} -startDedi")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustment

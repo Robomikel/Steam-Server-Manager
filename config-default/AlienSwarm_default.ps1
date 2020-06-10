@@ -33,8 +33,10 @@ Function New-LaunchScriptasrdserverPS {
     $global:logdirectory    = "$serverdir\reactivedrop"
     #                       Server Log
     $global:consolelog      = "console.log"
+    #                       Game-Server-Config
+    $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -console -game reactivedrop -ip ${ip} -port ${port} +map ${defaultmap} -maxplayers ${maxplayers} +clientport ${clientport} +tv_port ${sourcetvport} +exec server.cfg -condebug")'
+    $global:launchParams    = '@("${executable} -console -game reactivedrop -ip ${ip} -port ${port} +map ${defaultmap} -maxplayers ${maxplayers} +clientport ${clientport} +tv_port ${sourcetvport} +exec ${servercfg} -condebug")'
       # Get User Input version must be set to 0
     Get-UserInput
     # Rename Source $executable.exe

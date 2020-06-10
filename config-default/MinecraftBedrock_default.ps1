@@ -31,6 +31,6 @@ Function New-LaunchScriptbedrock_serverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.properites"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable ")'
+    $global:launchParams    = '@("${executable} ")'
     Get-MCBRBinaries
 }

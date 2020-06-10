@@ -7,10 +7,12 @@
 #
 #
 Function Get-RestartsServer {
+    Write-log "Function: Get-RestartsServer"
     Clear-Host
+    Get-StopServer
     Start-Countdown -Seconds 5 -Message "Restarting server"
     Get-Logo
-    Get-StopServer
+    # Get-StopServer
     Select-StartServer
     Get-CheckForError
 
@@ -19,6 +21,7 @@ Function Start-Countdown {
     Param(
         [Int32]$Seconds = 5,
         [string]$Message = "Restarting server in 5 seconds...")
+        Write-log "Function: Start-Countdown"
     Foreach ($Count in (1..$Seconds)) {
         Write-Progress -Id 1 -Activity $Message -Status "Waiting for $Seconds seconds, $($Seconds - $Count) left" -PercentComplete (($Count / $Seconds) * 100)
         Start-Sleep -Seconds 1

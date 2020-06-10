@@ -31,7 +31,7 @@ Function New-LaunchScriptSdtdserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "serverconfig.xml"
     #                       Server Launch Command
-    $global:launchParams    = '@("$executable -logfile $servercfgdir\server.log -quit -batchmode -nographics -configfile=serverconfig.xml -dedicated")'
+$global:launchParams    = '@("${executable} -logfile ${servercfgdir}\server.log -quit -batchmode -nographics -configfile=${servercfg} -dedicated")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustments
