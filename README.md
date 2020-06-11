@@ -1,7 +1,4 @@
 # Steam Server Manager
-
-![Details]("https://imgur.com/gh0IAim")
-
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
 
