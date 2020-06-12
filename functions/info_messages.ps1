@@ -103,6 +103,12 @@ Function Get-Infomessage {
         ElseIf ($infomessage -eq "noupdates") {
             $message = " No Updates found for $serverfiles" | Receive-Message
         }
+        ElseIf ($infomessage -eq "ssmupdates") {
+            $message = " SSM Updates found for $getlocalssmname" | Receive-Message
+        }
+        ElseIf ($infomessage -eq "nossmupdates") {
+            $message = " No SSM Updates found for $getlocalssmname" | Receive-Message
+        }
         Start-Sleep 0.3
         # Write-Information "[info]" -InformationAction Continue
         Write-Information "$message" -InformationAction Continue

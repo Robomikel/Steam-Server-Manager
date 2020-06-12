@@ -6,7 +6,7 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-UpdateSteamer {
+Function Get-UpdateSteamerOld {
     Write-log "Function: Get-UpdateSteamer"
     $start_time = Get-Date
     Get-Infomessage "Downloading" 'Steam-Server-Manager'
@@ -39,4 +39,34 @@ Function Get-CleanUPSteamer {
     # Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
     Pause  
     Stop-Process -Id $PID
+}
+
+Function Get-UpdateSteamer {
+    $getlocalssm = Get-ChildItem $currentdir\Steam-Server-Manager\functions -Force
+    ForEach ($getlocalssm in $getlocalssm ) {  
+         $global:getlocalssmname = $getlocalssm.Name
+         $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssm" -UseBasicParsing
+         $githubvarcontent = (($githubvarcontent).Content).Trim
+         
+         # $githubvarcontent = ($githubvarcontent).Content
+         # $githubvarcontenttrim = ($githubvarcontent).Trim()
+         # $githubvarcontenttrim
+         $ssmcontentlocal = gc "C:\Users\insserver\Steam-Server-Manager\functions\$getlocalssmname"
+         if (Compare-Object ($githubvarcontenttrim) ($ssmcontentlocal) -IncludeEqual -ExcludeDifferent ) {
+            $false
+            Get-Infomessage 'ssmupdates'
+            New-Item  $ssmcontentlocal -Force | Out-File -Append -Encoding Default  $ssmlog
+            Add-Content $ssmcontentlocal $githubvarcontenttrim -InformationAction  SilentlyContinue
+         } 
+         Else {
+            $True
+            Get-Infomessage 'nossmupdates'
+         }
+        New-Item  $ssmcontentlocal -Force
+        Add-Content $ssmcontentlocal $githubvarcontenttrim 
+        # New-Item  $ssmcontentlocal".txt" -Force
+        # Add-Content $ssmcontentlocal".txt"  $ssmcontentlocal 
+        # $ssmcontentlocal
+        # Pause
+    }
 }
