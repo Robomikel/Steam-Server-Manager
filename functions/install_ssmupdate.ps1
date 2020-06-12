@@ -60,6 +60,10 @@ Function Get-UpdateSteamer {
                                     Get-Infomessage 'ssmupdates'
                                     New-Item  "$currentdir\functions\$getlocalssmname" -Force | Out-File -Append -Encoding Default  $ssmlog
                                     Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                    Write-Information 'Press Enter to Close this session' -InformationAction Continue
+                                    # Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
+                                    Pause  
+                                    Stop-Process -Id $PID
                                 } 
                                 Else {
                                     Get-Infomessage 'nossmupdates'
