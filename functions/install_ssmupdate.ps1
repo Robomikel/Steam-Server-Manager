@@ -40,33 +40,34 @@ Function Get-CleanUPSteamer {
     Pause  
     Stop-Process -Id $PID
 }
-
 Function Get-UpdateSteamer {
-    $getlocalssm = Get-ChildItem $currentdir\Steam-Server-Manager\functions -Force
+    $getlocalssm = Get-ChildItem $currentdir\functions\ -Force
     ForEach ($getlocalssm in $getlocalssm ) {  
          $global:getlocalssmname = $getlocalssm.Name
-         $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssm" -UseBasicParsing
-         $githubvarcontent = (($githubvarcontent).Content).Trim
+         $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
+         # $githubvarcontenttrim = (($githubvarcontent).Content).Trim
          
-         # $githubvarcontent = ($githubvarcontent).Content
-         # $githubvarcontenttrim = ($githubvarcontent).Trim()
+         $githubvarcontent = ($githubvarcontent).Content
+         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force | Out-File -Append -Encoding Default  $ssmlog
+         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+         $githubvarcontenttrim = gc $currentdir\tmp\$getlocalssmname | Where { $_ -notlike ""}
+         $ssmcontentlocal = Get-Content $currentdir\functions\$getlocalssmname | Where { $_ -notlike ""}
          # $githubvarcontenttrim
-         $ssmcontentlocal = gc "C:\Users\insserver\Steam-Server-Manager\functions\$getlocalssmname"
-         if (Compare-Object ($githubvarcontenttrim) ($ssmcontentlocal) -IncludeEqual -ExcludeDifferent ) {
+         $ssmcontentlocaltrim = $ssmcontentlocal
+         if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
             $false
             Get-Infomessage 'ssmupdates'
-            New-Item  $ssmcontentlocal -Force | Out-File -Append -Encoding Default  $ssmlog
-            Add-Content $ssmcontentlocal $githubvarcontenttrim -InformationAction  SilentlyContinue
+            New-Item  "$currentdir\functions\$getlocalssmname" -Force | Out-File -Append -Encoding Default  $ssmlog
+            Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+
          } 
          Else {
             $True
             Get-Infomessage 'nossmupdates'
          }
-        New-Item  $ssmcontentlocal -Force
-        Add-Content $ssmcontentlocal $githubvarcontenttrim 
         # New-Item  $ssmcontentlocal".txt" -Force
         # Add-Content $ssmcontentlocal".txt"  $ssmcontentlocal 
         # $ssmcontentlocal
-        # Pause
+        # pause
     }
 }
