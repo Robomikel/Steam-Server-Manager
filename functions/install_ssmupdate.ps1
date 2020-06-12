@@ -42,32 +42,33 @@ Function Get-CleanUPSteamer {
 }
 Function Get-UpdateSteamer {
     $getlocalssm = Get-ChildItem $currentdir\functions\ -Force
-    ForEach ($getlocalssm in $getlocalssm ) {  
-         $global:getlocalssmname = $getlocalssm.Name
-         $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
-         # $githubvarcontenttrim = (($githubvarcontent).Content).Trim
-         
-         $githubvarcontent = ($githubvarcontent).Content
-         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force | Out-File -Append -Encoding Default  $ssmlog
-         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-         $githubvarcontenttrim = gc $currentdir\tmp\$getlocalssmname | Where { $_ -notlike ""}
-         $ssmcontentlocal = Get-Content $currentdir\functions\$getlocalssmname | Where { $_ -notlike ""}
-         # $githubvarcontenttrim
-         $ssmcontentlocaltrim = $ssmcontentlocal
-         if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
-            $false
-            Get-Infomessage 'ssmupdates'
-            New-Item  "$currentdir\functions\$getlocalssmname" -Force | Out-File -Append -Encoding Default  $ssmlog
-            Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-
-         } 
-         Else {
-            $True
-            Get-Infomessage 'nossmupdates'
-         }
-        # New-Item  $ssmcontentlocal".txt" -Force
-        # Add-Content $ssmcontentlocal".txt"  $ssmcontentlocal 
-        # $ssmcontentlocal
-        # pause
+    If ($getlocalssm) {
+        ForEach ($getlocalssm in $getlocalssm ) {  
+            $global:getlocalssmname = $getlocalssm.Name
+            If ($getlocalssmname) {
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
+                If ($githubvarcontent) {
+                    $githubvarcontent = ($githubvarcontent).Content
+                    If ($githubvarcontent) {
+                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force | Out-File -Append -Encoding Default  $ssmlog
+                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = gc $currentdir\tmp\$getlocalssmname | Where { $_ -notlike "" }
+                        If ($githubvarcontenttrim) {
+                            $ssmcontentlocaltrim = Get-Content $currentdir\functions\$getlocalssmname | Where { $_ -notlike "" }
+                            If ($ssmcontentlocaltrim ) {
+                                if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                    Get-Infomessage 'ssmupdates'
+                                    New-Item  "$currentdir\functions\$getlocalssmname" -Force | Out-File -Append -Encoding Default  $ssmlog
+                                    Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                } 
+                                Else {
+                                    Get-Infomessage 'nossmupdates'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
