@@ -89,7 +89,7 @@ Function New-LaunchScriptInssserverPS {
         
         
         # - - - - - - Game.ini - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
-        Write-Host "***  Creating Game.ini  ***" -ForegroundColor Magenta -BackgroundColor Black
+        Get-Infomessage " Creating Game.ini " 'info'
         New-Item $servercfgdir\Game.ini -Force
         Add-Content   $servercfgdir\Game.ini ";.........Start Game.ini..................................."
         Add-Content   $servercfgdir\Game.ini [Rcon]

@@ -29,8 +29,11 @@ Function Get-StartServer {
 }
 Function Select-StartServer {
     Write-log "Function: Select-StartServer"
-    Get-Infomessage "starting"
+    Get-Infomessage "starting" 'start'
     Get-StartServer $launchParams
+    If ($?) {
+        Get-Infomessage "starting" $true
+    }
 }
 Function Get-CheckServer {
     Write-log "Function: Get-CheckServer"
@@ -42,11 +45,11 @@ Function Get-CheckServer {
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
-                    Get-Infomessage "notrunning"
+                    Get-Infomessage "notrunning" 'info'
                 }
                 Else {
-                    Get-Infomessage "running"
-                    $process
+                    Get-Infomessage "running" $true
+                    # $process
                     Get-ClearVariables
                     Exit 
                 }
@@ -60,11 +63,11 @@ Function Get-checkMultiple {
     Write-log "Function: Get-checkMultiple"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
-        Get-Infomessage "notrunning"
+         Get-Infomessage "notrunning" "info"
     }
     Else {
-        Get-Infomessage "running"
-        $process
+        Get-Infomessage "running" $true
+        # $process
         Get-ClearVariables 
         Exit
     }

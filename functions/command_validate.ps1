@@ -13,7 +13,7 @@ Function Get-ValidateServer {
         Write-Warning 'Validate May Overwrite some config files'
         Write-Host 'Press any key to continue...';
         $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-        Get-Infomessage "validating"
+        Get-Infomessage "validating" 'info'
         If ($anon -eq "yes") {
             $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
             & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'

@@ -18,7 +18,7 @@ Function Get-Modinstall {
         Get-InstallForgeQ
     }
     Else {
-        Write-Host "***** No Mods Available *****" -F R -B Black
+        Get-Infomessage "No Mods Available " 'warning'
         
         Write-log "No Mods Available"
     }

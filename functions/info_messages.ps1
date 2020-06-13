@@ -7,8 +7,7 @@
 #
 #
 Function Get-Infomessage {
-    Param($infomessage, $package)
-    $info = "[info]" | Receive-Information
+    Param($infomessage, $package,$colors)
     If ($infomessage) {
         If ($infomessage -eq "discord") {
             $message = ' Sending Discord Alert' | Receive-Message
@@ -44,10 +43,10 @@ Function Get-Infomessage {
             $message = ' Checking Save location(appData)' | Receive-Message
         }
         ElseIf ($infomessage -eq "appdatabackupstart") {
-            $message = ' Server App Data Backup Started' | Receive-Message
+            $message = ' Server AppData Backup Started' | Receive-Message
         }
         ElseIf ($infomessage -eq "appdatabackupdone") {
-            $message = ' Server App Data Backup is Done' | Receive-Message
+            $message = ' Server AppData Backup is Done' | Receive-Message
         }
         ElseIf ($infomessage -eq "purgebackup") {
             $message = ' Purging Backups' | Receive-Message
@@ -109,6 +108,35 @@ Function Get-Infomessage {
         ElseIf ($infomessage -eq "nossmupdates") {
             $message = " No SSM Updates found for $getlocalssmname" | Receive-Message
         }
+        Else {
+            $message = "$infomessage" | Receive-Message
+        }
+        $leftbracket = "...   [ " | Receive-bracket
+        If ($package -eq $true) {
+            $info = "ok" | Receive-Information
+        }
+        ElseIf ($package -eq $false) {
+            $info = "FAILED" | Receive-Information
+        }
+        ElseIf ($package -eq 'warning') {
+            $info = "WARN" | Receive-Information
+        }
+        Elseif ($package -eq 'update') {
+            $info = "UPDATE" | Receive-Information
+        }
+        Elseif ($package -eq 'info') {
+            $info = "INFO" | Receive-Information
+        }
+        Elseif ($package -eq 'start') {
+            $info = "START" | Receive-Information
+        }
+        Elseif ($package -eq 'done') {
+            $info = "DONE" | Receive-Information
+        }
+        Else {
+            $info = "ok" | Receive-Information
+        }
+        $rightbracket = " ]" | Receive-bracket
         Start-Sleep 0.3
         # Write-Information "[info]" -InformationAction Continue
         Write-Information "$message" -InformationAction Continue
