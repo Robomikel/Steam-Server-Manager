@@ -26,12 +26,10 @@ Function Get-Details {
     }
     $host.UI.RawUI.ForegroundColor = "Cyan"
     #$host.UI.RawUI.BackgroundColor = "Black"
-
     $totalmem = "{0:N2} GB" -f ((Get-Process | Measure-Object Workingset -sum).Sum / 1GB)
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $mem = "{0:N2} GB" -f ((Get-Process $process | Measure-Object Workingset -sum).Sum / 1GB) 
     }
-
     Get-ChecktaskDetails
     Get-ChecktaskautorestartDetails
     Test-SteamMaster

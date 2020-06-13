@@ -19,8 +19,6 @@ Function Get-NodeJSCheck {
         }
     }
     ElseIf (!$nodejsexecutable) {
-         
         Get-warnmessage "fnnodejsfailed"
-        
     }
 }

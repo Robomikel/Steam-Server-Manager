@@ -44,7 +44,6 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     New-servercfgmom
 } 
 Function New-servercfgmom {
-    # Write-Host "Creating Custom Config" -F M
     Rename-Item "$servercfgdir\DedicatedServerConfig.cfg" "$servercfgdir\DedicatedServerConfig.cfg.bak" -ea SilentlyContinue
     New-Item $servercfgdir\DedicatedServerConfig.cfg -ItemType File -Force | Out-File -Append -Encoding Default  $ssmlog
     

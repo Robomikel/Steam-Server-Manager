@@ -20,8 +20,11 @@ Function Get-InstallForge {
     Write-log "Function: Get-InstallForge"
     If ($forgeversion) {
         $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
-        Get-Infomessage "Downloading" 'Minecraft Forge'
+        Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
         Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
+        If ($?){
+            Get-Infomessage "Downloading" 'Minecraft Forge'
+        } 
         Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
         Set-Location $serverdir
         java -jar forge-$forgeversion-installer.jar --installServer

@@ -19,9 +19,7 @@ Function Get-FolderNames {
             }
         }
         ElseIf (!$serverdir) {
-            
             Get-warnmessage "fngetfoldersfailed"
-        
         }
     }
 }

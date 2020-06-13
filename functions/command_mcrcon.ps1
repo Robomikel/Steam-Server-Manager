@@ -38,11 +38,9 @@ Function Set-ConnectMCRcon {
         }
         ElseIf (!$mcrconexecutable) {
             Get-warnmessage "fn_Set-ConnectMCRcon"
-        
         }
     }
 }
-
 Function invoke-sourcerestart {
     Write-log "Function: invoke-sourcerestart"
     Write-log "Starting McRcon for source restart"
@@ -78,7 +76,6 @@ Function invoke-sourcerestart {
         }
     }
     ElseIf (!$mcrconexecutable) {
-        Get-warnmessage "Set-ConnectMCRcon"
-                
+        Get-warnmessage "Set-ConnectMCRcon"      
     }
 }
