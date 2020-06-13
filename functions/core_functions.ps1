@@ -19,7 +19,6 @@ Function Get-CreatedVaribles {
     }
     Else {
         Get-warnmessage "fn_InstallServerFiles"
-        
     }
 }
 Function Get-ClearVariables {
@@ -30,7 +29,6 @@ Function Get-ClearVariables {
     # Write-log " Variables $var"
     
 }
-
 Function Get-TestInterger {
     Write-log "Function: Get-TestInterger" 
     If ($APPID) {
@@ -44,8 +42,7 @@ Function Get-TestString {
     Write-log "Function: Get-TestString"
     If ($serverfiles) {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
-            Get-warnmessage "invalidCharacters"
-            
+            Get-warnmessage "invalidCharacters"  
         }
     }
 }
@@ -70,7 +67,7 @@ Function Set-Console {
 Function Get-Logo {
     Write-log "Function: Get-Logo"
     Write-Host " 
-    _________ __                          _________              _____                 
+     _________ __                          _________              _____                 
     /   _____//  |_  ____ _____    _____  /   _____/_________  __/     \    ___________ 
     \_____  \\   __\/ __ \\__  \  /     \ \_____  \\_  __ \  \/ /  \ /  \  / ___\_  __ \
     /        \|  | \  ___/ / __ \|  Y Y  \/        \|  | \/\   /    Y    \/ /_/  >  | \/
@@ -89,7 +86,7 @@ Function Set-Steamer {
 }
 Function Set-VariablesPS {
     Write-log "Function: Set-VariablesPS"
-    Get-Infomessage "creating"
+    Get-Infomessage "creating" 'info'
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 
@@ -186,7 +183,6 @@ Function New-ServerBackupLog {
     If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
-
 Function Get-Appid {
     Write-log "Function: Get-Appid"
     If ($serverfiles) {
@@ -204,7 +200,7 @@ Function Get-Appid {
             Get-TestInterger
         }
         If ($AppID -eq 985050 -or $AppID -eq 233780) {
-            Write-Host "****   Requires Steam Login    *****" -F Y
+            Get-Infomessage "****   Requires Steam Login    *****"'warning'
             Write-log "Requires Steam Login"
         }
         Else {
@@ -213,7 +209,6 @@ Function Get-Appid {
         }        
     }
 }
-
 Function Get-MCBRWebrequest {
     Write-log "Function: Get-MCBRWebrequest"
     # get latest download
@@ -240,19 +235,16 @@ Function Get-SourceMetaModWebrequest {
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
     $global:metamodurl = "${metamoddownloadurl}"
-    
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
     $global:sourcemodurl="${sourcemoddownloadurl}"
-
     If (!$metamodurl -or !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
 }
-
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
     If (Test-Path $serverdir\Variables-*.ps1) {
@@ -266,9 +258,36 @@ Function Get-PreviousInstall {
         }
     }
 }
-
 function Receive-Information {
-    process { Write-Host $_ -ForegroundColor Yellow -NoNewline }
+    process { 
+        If ($package -eq $true ) {
+        Write-Host $_ -ForegroundColor Green -NoNewline 
+        } 
+        ElseIf ($package -eq $false )  {
+            Write-Host $_ -ForegroundColor Red -NoNewline 
+        } 
+        ElseIf ($package -eq 'update' )  {
+            Write-Host $_ -ForegroundColor Cyan -NoNewline 
+        }
+        ElseIf ($package -eq 'warning' )  {
+            Write-Host $_ -ForegroundColor Magenta -NoNewline 
+        }
+        ElseIf ($package -eq 'info' )  {
+            Write-Host $_ -ForegroundColor Yellow -NoNewline 
+        } 
+        ElseIf ($package -eq 'start' )  {
+            Write-Host $_ -ForegroundColor Yellow -NoNewline 
+        }
+        ElseIf ($package -eq 'done' )  {
+            Write-Host $_ -ForegroundColor Green -NoNewline 
+        }
+        Else {
+            Write-Host $_ -ForegroundColor Green -NoNewline 
+        }   
+    }
+}
+function Receive-bracket {
+    process { Write-Host $_ -ForegroundColor White -NoNewline }
 }
 function Receive-Message {
     process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
@@ -278,27 +297,27 @@ Function compare-SteamExit {
     If ($ssmlog -and $loggingdate) {
         If ($appinstalllog) {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
-                Write-Host "****   Failed Logon Requires set_steam_guard_code ****" -F R
+                Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
                 Set-Location $steamdirectory
                 .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
                 New-TryagainSteam
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
-                Write-Host "****   Failed Password   ****" -F R
+                Get-Infomessage "****   Failed Password   ****" $false
                 Write-log "Failed Password"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*No subscription*") {
-                Write-Host "****  No subscription, Requires steamcmd login   ****" -F R
+                Get-Infomessage "****  No subscription, Requires steamcmd login   ****" $false
                 Write-log "No subscription, Requires steamcmd login"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*Success*") {
-                Write-Host "****   Downloading  server succeeded   ****" -F Y
+                Get-Infomessage "****   Downloading  server succeeded   ****" $true
                 Write-log "Downloading  server succeeded"
             }   
             ElseIf (($appinstalllog -Like "* Failed *") -or ($appinstalllog -Like "*FAILED*")) {
-                Write-Host "****   Downloading  server Failed   ****" -F R
+                Get-Infomessage "****   Downloading  server Failed   ****" $false
                 Write-log "Downloading  server Failed"
                 New-TryagainNew 
             }
@@ -316,4 +335,40 @@ Function Test-PSversion {
     Else {
         $psSeven = $null
     }
+}
+Function Set-SteamerSettingLog {
+    Write-log "Function: Set-SteamerSettingLog"
+    Write-log "Setting: Show Backup Console = $Showbackupconsole "
+    Write-log "Setting: backup log open = $backuplogopen"
+    Write-log "Setting: backup logs  = $backuplogs "
+    Write-log "Setting: app data backup log open = $appdatabackuplogopen"
+    Write-log "Setting: Appdata backup = $appdatabackup "
+    Write-log "Setting: max backups  = $maxbackups "
+    Write-log "Setting: Stop On Backup = $stoponbackup "
+    Write-log "Setting: logo = $logo "
+    Write-log "Setting: Admin message = $admincheckmessage  "
+    Write-log "Setting: Update on start = $updateonstart "
+    Write-log "Setting: Check Update on start = $checkupdateonstart"
+    Write-log "Setting: check scheduled Task = $Checktask  "
+    Write-log "Setting: Discord Alert = $DiscordAlert  "
+    Write-log "Setting: Discord backup Alert = $DiscordBackupAlert "
+    Write-log "Setting: Discord Update Alert  = $DiscordUpdateAlert "
+    Write-log "Setting: Discord Restart Alert  = $DiscordRestartAlert"
+    Write-log "Setting: Use private IP for Query and mcrcon  = $Useprivate  "
+    Write-log "Setting: consolelogging   = $consolelogging "
+    Write-log "Setting: consolelogging count  = $consolelogcount "
+    Write-log "Setting: ssmlogging  = $ssmlogging   "
+    Write-log "Setting: ssmlogging count   = $ssmlogcount   "
+    Write-log "Setting: Console Text Color   = $textcolor  "
+    Write-log "Setting: Version  = $Version  "
+    Write-log "Setting: Server List Directory   = $serverlistdir"
+    Write-log "Setting: Backup Directory  = $backupdir"
+    write-log "Setting: ssm log Directory   = $ssmlogdir"
+    Write-log "Setting: log Directory  = $logdir"
+    Write-log "Setting: SSM Log  = $ssmlog"
+    Write-log "Setting: MC Version   = $mcversion"
+    Write-log "Setting: Steam Master    = $steammastercheck "
+    Write-log "Setting: Pastebin  = $pastebinconsolelog"
+    Write-log "Setting: Discord Webhook    = $discordwebhook  "
+    Write-log "Setting: Discord Display IP  = $discorddisplayip  "
 }

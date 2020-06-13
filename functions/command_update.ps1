@@ -10,7 +10,7 @@ Function Get-UpdateServer {
     Write-log "Function:  Get-UpdateServer"
     If ($steamexecutable) {
         Set-Location $steamdirectory
-        Get-Infomessage "updating"
+        Get-Infomessage "updating" 'info'
         If ($ANON -eq "yes") {
             $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
             & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'

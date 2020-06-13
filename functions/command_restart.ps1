@@ -9,13 +9,12 @@
 Function Get-RestartsServer {
     Write-log "Function: Get-RestartsServer"
     Clear-Host
+    Get-Logo
     Get-StopServer
     Start-Countdown -Seconds 5 -Message "Restarting server"
-    Get-Logo
     # Get-StopServer
     Select-StartServer
     Get-CheckForError
-
 }
 Function Start-Countdown {
     Param(

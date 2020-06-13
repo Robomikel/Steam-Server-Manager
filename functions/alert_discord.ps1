@@ -61,8 +61,6 @@ Function New-DiscordAlert {
     }
 }
 Function Send-DiscordAlert_old {
-    $global:InfoMessage = "discord"
-    Get-Infomessage
     $thumbnailObject = [PSCustomObject]@{
         url = "https://i.imgur.com/tTrtYMe.png"
     }
@@ -84,14 +82,15 @@ Function Send-DiscordAlert_old {
     Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
     If (!$?) {
         Get-warnmessage "AlertFailed"
+    } 
+    Else {
+        $global:InfoMessage = "discord"
+        Get-Infomessage $true
     }
 }
-
-
 Function Send-DiscordAlert {
     Write-log "Function: Send-DiscordAlert"
     If ($alertmessage -and $alertmessagecolor) {
-        Get-Infomessage "discord"
         # https://github.com/EvotecIT/PSDiscord
         $global:Uri = "$discordwebhook"
         $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
@@ -107,6 +106,10 @@ Function Send-DiscordAlert {
         Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
         If (!$?) {
             Get-warnmessage "AlertFailed"
+        }
+        Else {
+            $global:InfoMessage = 
+            Get-Infomessage "discord" $true
         }    
     }
 }

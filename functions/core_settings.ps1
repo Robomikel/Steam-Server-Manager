@@ -52,7 +52,7 @@ Function Set-SteamerSetting {
     #                               ssmlogging count 
     $global:ssmlogcount             = "10"
     #                               Console Text Color 
-    $global:textcolor               = "Blue" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
+    $global:textcolor               = "White" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt for input, 1 no prompt during install
     $global:Version                 = "1"
     #                               Server List Directory
@@ -77,75 +77,3 @@ Function Set-SteamerSetting {
     $global:discorddisplayip        = ""
     Set-SteamerSettingLog
 }
-
-Function Set-SteamerSettingLog {
-    Write-log "Function: Set-SteamerSettingLog"
-    Write-log "   #                               ####  Steamer Settings #######
-    #                               Show Backup Console
-    `$Showbackupconsole       = $Showbackupconsole
-    #                               backup log open
-    `$backuplogopen           = $backuplogopen
-    #                               backup logs
-    `$backuplogs              = $backuplogs 
-    #                               app data backup log open 
-    `$appdatabackuplogopen    = $appdatabackuplogopen
-    #                               Appdata backup 
-    `$appdatabackup           = $appdatabackup 
-    #                               max backups  
-    `$maxbackups              = $maxbackups 
-    #                               Stop On Backup
-    `$stoponbackup            = $stoponbackup 
-    #                               logo 
-    `$logo                    = $logo 
-    #                               Admin message
-    `$admincheckmessage       = $admincheckmessage  
-    #                               Update on start
-    `$updateonstart           = $updateonstart 
-    #                               Check Update on start
-    `$checkupdateonstart      = $checkupdateonstart
-    #                               check scheduled Task
-    `$Checktask               = $Checktask  
-    #                               Discord Alert
-    `$DiscordAlert            = $DiscordAlert  
-    #                               Discord backup Alert
-    `$DiscordBackupAlert      = $DiscordBackupAlert 
-    #                               Discord Update Alert 
-    `$DiscordUpdateAlert      = $DiscordUpdateAlert 
-    #                               Discord Restart Alert 
-    `$DiscordRestartAlert     = $DiscordRestartAlert
-    #                               Use private IP for Query and mcrcon
-    `$Useprivate              = $Useprivate  
-    #                               consolelogging
-    `$consolelogging          = $consolelogging 
-    #                               consolelogging count 
-    `$consolelogcount         = $consolelogcount 
-    #                               ssmlogging
-    `$ssmlogging              = $ssmlogging   
-    #                               ssmlogging count 
-    `$ssmlogcount             = $ssmlogcount   
-    #                               Console Text Color 
-    `$textcolor               = $textcolor  
-    #                               Version  0 prompt for input, 1 no prompt during install
-    `$Version                 = $Version  
-    #                               Server List Directory
-    `$serverlistdir           = $serverlistdir
-    #                               Backup Directory
-    `$backupdir               = $backupdir
-    #                               ssm log Directory
-    `$ssmlogdir               = $ssmlogdir
-    #                               log Directory
-    `$logdir                  = $logdir
-    #                               SSM Log
-    `$ssmlog                  = $ssmlog
-    #                               MC Version
-    `$mcversion               = $mcversion
-    #                               Test Connection to Steam Master
-    `$steammastercheck        = $steammastercheck 
-    #                               Server Console log to Pastebin
-    `$pastebinconsolelog      = $pastebinconsolelog
-    #                               Discord Webhook 
-    `$discordwebhook          = $discordwebhook  
-    #                               Discord Display IP and Steam API IP. (NAT address may not resolve correctly. Use correct server Public IP here. Leave Blank for N/A)
-    `$discorddisplayip        = $discorddisplayip  "
-}
-

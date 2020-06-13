@@ -48,7 +48,6 @@ Function New-LaunchScriptMiscreatedPS {
         # Get User Input version must be set to 0
         Get-UserInput
         # Install Adjustment         
-        # Write-Host '*** Creating HOSTING.CFG *****' -ForegroundColor Magenta -BackgroundColor Black 
         New-Item $servercfgdir\HOSTING.CFG -Force | Out-File -Append -Encoding Default  $ssmlog
         Add-Content -Path $servercfgdir\HOSTING.CFG -Value "sv_servername=`"$hostname`""
         Add-Content -Path $servercfgdir\HOSTING.CFG -Value "http_password=$RCONPASSWORD"

@@ -148,7 +148,6 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Workshop Enabled 1 "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:workshop            = `"$global:workshop`""
     }
-
     If ($saves) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            local Appdata saves folder "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:saves               = `"$global:saves`""

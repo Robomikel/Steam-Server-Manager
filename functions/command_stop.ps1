@@ -15,7 +15,7 @@ Function Get-StopServer {
     Else {
         If ($process) {
             If ( !(Get-Process $process -ea SilentlyContinue)) {
-                Get-Infomessage "notrunning"
+                Get-Infomessage "notrunning" 'info'
             }
             Else { 
                 If ($appid -eq "996560") {
@@ -42,7 +42,7 @@ Function Get-StopServer {
                         
                     }
                     Elseif (!$processstatus) {
-                        Get-Infomessage "stopped"
+                        Get-Infomessage "stopped" $true
                     }
                     If ($consolelogging -eq "on") { 
                         New-ServerLog
@@ -65,10 +65,10 @@ Function Get-StopServerInstall {
     Else {
         If ($process) {
             If (! (Get-Process $process -ea SilentlyContinue)) {
-                Get-Infomessage "notrunning"
+                Get-Infomessage "notrunning" 'info'
             }
             Else {
-                Get-Infomessage "stopping"
+                Get-Infomessage "stopping" 'start'
                 Stop-Process -Name "$process" -Force
                 Start-Sleep 3
                 $processstatus = Get-Process $process -ea SilentlyContinue
@@ -77,7 +77,7 @@ Function Get-StopServerInstall {
                     
                 }
                 Elseif (!$processstatus) {
-                    Get-Infomessage "stopped"
+                    Get-Infomessage "stopped" $true
                 }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
@@ -87,16 +87,15 @@ Function Get-StopServerInstall {
         }
     }
 }   
-
 Function Get-StopMultiple {
     Write-log "Function: Get-StopMultiple"
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {
-            Get-Infomessage "notrunning"
+            Get-Infomessage "notrunning" 'info'
         }
         Else {
-            Get-Infomessage "stopping"
+            Get-Infomessage "stopping" 'start'
             get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
             Start-Sleep 3
             $processstatus = Get-process $mprocess -ea SilentlyContinue
@@ -105,7 +104,7 @@ Function Get-StopMultiple {
                 
             }
             Elseif (!$processstatus) {
-                Get-Infomessage "stopped"
+                Get-Infomessage "stopped" $true
             }
             If ($consolelogging -eq "on") { 
                 New-ServerLog

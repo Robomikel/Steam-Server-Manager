@@ -34,7 +34,7 @@ Function New-LaunchScriptempserverPS {
     # Get User Input version must be set to 0
     Get-UserInput
     # Install Adjustment
-    Write-Host "***  Editing Default dedicated.yaml  ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage " Editing Default dedicated.yaml " 'info'
     ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "\bMy Server\b", "$hostname") | Set-Content -Path $servercfgdir\$servercfg
     ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "\b30000\b", "$port") | Set-Content -Path $servercfgdir\$servercfg
 }
