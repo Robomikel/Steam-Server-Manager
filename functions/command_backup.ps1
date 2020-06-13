@@ -82,7 +82,6 @@ Function New-backupAppdata {
     }
     Limit-AppdataBackups
 }
-
 Function Limit-Backups {
     Write-log "Function: Limit-Backups"
     If ($backupdir -and $maxbackups ) {
@@ -102,7 +101,6 @@ Function Limit-Backups {
         Get-warnmessage "limitbackupfailed"
     }
 }
-
 Function Limit-AppdataBackups {
     Write-log "Function: Limit-AppdataBackups"
     If ($backupdir -and $maxbackups ) {

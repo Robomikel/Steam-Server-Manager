@@ -17,13 +17,10 @@ Function New-BackupFolder {
             New-Item  $currentdir -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
                 Get-warnmessage "createfolderfailed"
-                
             }
         }
     }
-    ElseIf (!$backupdir){
-                    
+    ElseIf (!$backupdir){         
         Get-warnmessage "backupfnfailed"
-        
     }
 }

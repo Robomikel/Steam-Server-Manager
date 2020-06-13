@@ -15,7 +15,6 @@ Function Get-RestartsServer {
     # Get-StopServer
     Select-StartServer
     Get-CheckForError
-
 }
 Function Start-Countdown {
     Param(

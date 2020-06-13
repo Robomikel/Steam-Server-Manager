@@ -56,7 +56,6 @@ Function Get-ServerBuildCheck {
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
-                            
                             Get-Infomessage "availableupdates" 'update'
                             Get-SteamFix
                             #Get-StopServer
@@ -81,8 +80,6 @@ Function Get-ServerBuildCheck {
         }
     }
 }
-
-
 Function Get-SteamFix {
     Write-log "Function: Get-SteamFix"
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {

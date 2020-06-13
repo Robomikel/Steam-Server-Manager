@@ -31,6 +31,5 @@ Function Get-CheckForVars {
     }
     Else {
         Get-warnmessage "chkvarsfailed"
-         
     }
 }

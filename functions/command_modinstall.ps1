@@ -19,7 +19,6 @@ Function Get-Modinstall {
     }
     Else {
         Get-Infomessage "No Mods Available " 'warning'
-        
         Write-log "No Mods Available"
     }
 }

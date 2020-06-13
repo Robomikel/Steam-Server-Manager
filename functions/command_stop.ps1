@@ -87,7 +87,6 @@ Function Get-StopServerInstall {
         }
     }
 }   
-
 Function Get-StopMultiple {
     Write-log "Function: Get-StopMultiple"
     If ($process ) {

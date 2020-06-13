@@ -33,7 +33,6 @@ Function Get-MonitorServer {
         }
     }
 }
-
 Function Get-MonitorMultiple {
     Write-log "Function: Get-MonitorMultiple"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 

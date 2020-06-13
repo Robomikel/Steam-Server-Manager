@@ -58,7 +58,6 @@ Function Get-CheckServer {
         }
     }
 }
-
 Function Get-checkMultiple {
     Write-log "Function: Get-checkMultiple"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process

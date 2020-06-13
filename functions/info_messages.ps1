@@ -233,7 +233,6 @@ Function Get-WarnMessage {
         Exit
     }
 }
-
 Function Get-adminMessage {
     Write-warning " Running with an Adminstrator account"
 }
@@ -243,13 +242,10 @@ Function Get-CheckForError {
         Exit
     }
 }
-
 Function Get-Finished {
     
     Get-Infomessage "Finished"
 }
-
-
 Function Write-log {
     param ($logmessage)
     If ($ssmlog) {

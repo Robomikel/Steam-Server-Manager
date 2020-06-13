@@ -77,5 +77,3 @@ Function Set-SteamerSetting {
     $global:discorddisplayip        = ""
     Set-SteamerSettingLog
 }
-
-

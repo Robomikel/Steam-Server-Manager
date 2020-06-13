@@ -203,7 +203,6 @@ Function New-AppDataSave {
         Exit
     }
 }
-
 Function Get-UserInput {
     Write-log "Function: Get-UserInput"
     If ($version -eq 0) {

@@ -88,8 +88,6 @@ Function Send-DiscordAlert_old {
         Get-Infomessage $true
     }
 }
-
-
 Function Send-DiscordAlert {
     Write-log "Function: Send-DiscordAlert"
     If ($alertmessage -and $alertmessagecolor) {

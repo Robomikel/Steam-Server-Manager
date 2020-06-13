@@ -17,8 +17,6 @@ Function Get-MCRconCheck {
         }
     }
     ElseIf (!$mcrconexecutable) {
-       
         Get-warnmessage  "fnmcrconfailed"
-        
     }
 }

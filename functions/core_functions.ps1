@@ -19,7 +19,6 @@ Function Get-CreatedVaribles {
     }
     Else {
         Get-warnmessage "fn_InstallServerFiles"
-        
     }
 }
 Function Get-ClearVariables {
@@ -30,7 +29,6 @@ Function Get-ClearVariables {
     # Write-log " Variables $var"
     
 }
-
 Function Get-TestInterger {
     Write-log "Function: Get-TestInterger" 
     If ($APPID) {
@@ -44,8 +42,7 @@ Function Get-TestString {
     Write-log "Function: Get-TestString"
     If ($serverfiles) {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
-            Get-warnmessage "invalidCharacters"
-            
+            Get-warnmessage "invalidCharacters"  
         }
     }
 }
@@ -185,9 +182,7 @@ Function New-ServerBackupLog {
     Write-log "Function: New-ServerBackupLog"
     If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
-    
 }
-
 Function Get-Appid {
     Write-log "Function: Get-Appid"
     If ($serverfiles) {
@@ -214,7 +209,6 @@ Function Get-Appid {
         }        
     }
 }
-
 Function Get-MCBRWebrequest {
     Write-log "Function: Get-MCBRWebrequest"
     # get latest download
@@ -241,19 +235,16 @@ Function Get-SourceMetaModWebrequest {
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
     $global:metamodurl = "${metamoddownloadurl}"
-    
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
     $global:sourcemodurl="${sourcemoddownloadurl}"
-
     If (!$metamodurl -or !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
 }
-
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
     If (Test-Path $serverdir\Variables-*.ps1) {
@@ -345,40 +336,39 @@ Function Test-PSversion {
         $psSeven = $null
     }
 }
-
 Function Set-SteamerSettingLog {
     Write-log "Function: Set-SteamerSettingLog"
-    Write-log "  Show Backup Console = $Showbackupconsole "
-    Write-log "  backup log open = $backuplogopen"
-    Write-log "  backup logs  = $backuplogs "
-    Write-log "  app data backup log open = $appdatabackuplogopen"
-    Write-log "  Appdata backup = $appdatabackup "
-    Write-log "  max backups  = $maxbackups "
-    Write-log "  Stop On Backup = $stoponbackup "
-    Write-log "  logo = $logo "
-    Write-log "  Admin message = $admincheckmessage  "
-    Write-log "  Update on start = $updateonstart "
-    Write-log "  Check Update on start = $checkupdateonstart"
-    Write-log "  check scheduled Task = $Checktask  "
-    Write-log "  Discord Alert = $DiscordAlert  "
-    Write-log "  Discord backup Alert = $DiscordBackupAlert "
-    Write-log "  Discord Update Alert  = $DiscordUpdateAlert "
-    Write-log "  Discord Restart Alert  = $DiscordRestartAlert"
-    Write-log "  Use private IP for Query and mcrcon  = $Useprivate  "
-    Write-log "  consolelogging   = $consolelogging "
-    Write-log "  consolelogging count  = $consolelogcount "
-    Write-log "  ssmlogging  = $ssmlogging   "
-    Write-log "  ssmlogging count   = $ssmlogcount   "
-    Write-log "  Console Text Color   = $textcolor  "
-    Write-log "  Version  = $Version  "
-    Write-log "  Server List Directory   = $serverlistdir"
-    Write-log "  Backup Directory  = $backupdir"
-    write-log "  ssm log Directory   = $ssmlogdir"
-    Write-log "  log Directory  = $logdir"
-    Write-log "  SSM Log  = $ssmlog"
-    Write-log "  MC Version   = $mcversion"
-    Write-log "  Steam Master    = $steammastercheck "
-    Write-log "   Pastebin  = $pastebinconsolelog"
-    Write-log "  Discord Webhook    = $discordwebhook  "
-    Write-log "  Discord Display IP  = $discorddisplayip  "
+    Write-log "Setting: Show Backup Console = $Showbackupconsole "
+    Write-log "Setting: backup log open = $backuplogopen"
+    Write-log "Setting: backup logs  = $backuplogs "
+    Write-log "Setting: app data backup log open = $appdatabackuplogopen"
+    Write-log "Setting: Appdata backup = $appdatabackup "
+    Write-log "Setting: max backups  = $maxbackups "
+    Write-log "Setting: Stop On Backup = $stoponbackup "
+    Write-log "Setting: logo = $logo "
+    Write-log "Setting: Admin message = $admincheckmessage  "
+    Write-log "Setting: Update on start = $updateonstart "
+    Write-log "Setting: Check Update on start = $checkupdateonstart"
+    Write-log "Setting: check scheduled Task = $Checktask  "
+    Write-log "Setting: Discord Alert = $DiscordAlert  "
+    Write-log "Setting: Discord backup Alert = $DiscordBackupAlert "
+    Write-log "Setting: Discord Update Alert  = $DiscordUpdateAlert "
+    Write-log "Setting: Discord Restart Alert  = $DiscordRestartAlert"
+    Write-log "Setting: Use private IP for Query and mcrcon  = $Useprivate  "
+    Write-log "Setting: consolelogging   = $consolelogging "
+    Write-log "Setting: consolelogging count  = $consolelogcount "
+    Write-log "Setting: ssmlogging  = $ssmlogging   "
+    Write-log "Setting: ssmlogging count   = $ssmlogcount   "
+    Write-log "Setting: Console Text Color   = $textcolor  "
+    Write-log "Setting: Version  = $Version  "
+    Write-log "Setting: Server List Directory   = $serverlistdir"
+    Write-log "Setting: Backup Directory  = $backupdir"
+    write-log "Setting: ssm log Directory   = $ssmlogdir"
+    Write-log "Setting: log Directory  = $logdir"
+    Write-log "Setting: SSM Log  = $ssmlog"
+    Write-log "Setting: MC Version   = $mcversion"
+    Write-log "Setting: Steam Master    = $steammastercheck "
+    Write-log "Setting: Pastebin  = $pastebinconsolelog"
+    Write-log "Setting: Discord Webhook    = $discordwebhook  "
+    Write-log "Setting: Discord Display IP  = $discorddisplayip  "
 }
