@@ -1,5 +1,5 @@
 # Steam Server Manager
-
+![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steam-Server-Manager.JPG)
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
 
@@ -109,8 +109,9 @@ Install miscreated server ```./ssm install misserver```
    * Blackwake Dedicated Server (423410) - "bwserver" (optional server folder name)
    * Contagion Dedicated Server (238430) - "contagion" (optional server folder name)  
    * Onset Dedicated Server (1204170) - "contagion" (optional server folder name)  
-   -----  
- # Features
+   
+   -----
+ # Features  
  - Manage Steam server with features
    * install steam server
    * starting server 
