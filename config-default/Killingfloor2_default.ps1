@@ -57,18 +57,18 @@ Function New-LaunchScriptKF2serverPS {
     Set-Location $servercfgdir
     Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
     Set-Location $serverdir
-    Write-Host "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" 'info'
     Start-Process cmd "/c KF2Server.bat"
     timeout 5
-    Write-Host "***  stopping Server before Setting PCServer-KFGame.ini Please Wait ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  stopping Server before Setting PCServer-KFGame.ini Please Wait ***" 'info'
     Get-StopServer
-    Write-Host "***  Editing Default Server Name PCServer-KFGame.ini ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  Editing Default Server Name PCServer-KFGame.ini ***" 'info'
     ((Get-Content -path $servercfgdir\PCServer-KFGame.ini -Raw) -replace "\bKilling Floor 2 Server\b", "$hostname") | Set-Content -Path $servercfgdir\PCServer-KFGame.ini
-    Write-Host "***  Adding ADMIN PASSWORD PCServer-KFGame.ini ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  Adding ADMIN PASSWORD PCServer-KFGame.ini ***" 'info'
     ((Get-Content -path $servercfgdir\PCServer-KFGame.ini -Raw) -replace "AdminPassword=", "AdminPassword=$ADMINPASSWORD") | Set-Content -Path $servercfgdir\PCServer-KFGame.ini
-    Write-Host "***  Enabling Webmin in KFWeb.ini ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  Enabling Webmin in KFWeb.ini ***" 'info'
     ((Get-Content -path $servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $servercfgdir\KFWeb.ini
-    Write-Host "***  Disabling Takeover PCServer-KFEngine.ini ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "***  Disabling Takeover PCServer-KFEngine.ini ***" 'info'
     ((Get-Content -path $servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $servercfgdir\PCServer-KFEngine.ini
     Set-Location $currentdir
 }

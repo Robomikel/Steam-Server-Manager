@@ -19,8 +19,13 @@ Function Get-MonitorServer {
                 New-DiscordAlert "restart"
             }
             Else {
-                Get-Infomessage "running"
                 get-process $process
+                if ($?){
+                    Get-Infomessage "running" $true
+                }
+                Else {
+                    Get-Infomessage "running" $false
+                }
                 Get-ClearVariables
                 Exit 
             }
@@ -37,8 +42,13 @@ Function Get-MonitorMultiple {
         New-DiscordAlert  "restart"
     }
     Else {
-        Get-Infomessage "running"
         get-process $process 
+        If ($?){
+            Get-Infomessage "running" $true
+        } 
+        Else {
+            Get-Infomessage "running" $false
+        }
         Get-ClearVariables 
         Exit
     }

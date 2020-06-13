@@ -50,23 +50,19 @@ Function Get-UpdateSteamer {
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
-                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force | Out-File -Append -Encoding Default  $ssmlog
+                        New-Item  "$currentdir\tmp\$getlocalssmname\" >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                        $githubvarcontenttrim = gc $currentdir\tmp\$getlocalssmname | Where { $_ -notlike "" }
+                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            $ssmcontentlocaltrim = Get-Content $currentdir\functions\$getlocalssmname | Where { $_ -notlike "" }
+                            $ssmcontentlocaltrim = Get-Content $currentdir\functions\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
-                                    Get-Infomessage 'ssmupdates'
-                                    New-Item  "$currentdir\functions\$getlocalssmname" -Force | Out-File -Append -Encoding Default  $ssmlog
+                                    Get-Infomessage 'ssmupdates' 'update'
+                                    New-Item  "$currentdir\functions\$getlocalssmname" >$null 2>&1
                                     Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                                    Write-Information 'Press Enter to Close this session' -InformationAction Continue
-                                    # Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
-                                    Pause  
-                                    Stop-Process -Id $PID
                                 } 
                                 Else {
-                                    Get-Infomessage 'nossmupdates'
+                                    Get-Infomessage 'nossmupdates' $true
                                 }
                             }
                         }
@@ -74,5 +70,9 @@ Function Get-UpdateSteamer {
                 }
             }
         }
+        Write-Information 'Press Enter to Close this session' -InformationAction Continue
+        # Write-Host '****   Press Enter to Close this session   ****' -F Y -B Black
+        Pause  
+        Stop-Process -Id $PID
     }
 }

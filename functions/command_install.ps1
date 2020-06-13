@@ -21,7 +21,7 @@ Function Install-ServerFiles {
                 Set-Location $steamdirectory
                 If ($ANON -eq "yes") {
                     $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
-                    Write-Host "Please Wait: Will Display console in a moment" -F Y
+                    Get-Infomessage "Please Wait: Will Display console in a moment" 'info'
                     & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                     # Write-log "$appinstalllog"
                     compare-SteamExit
@@ -39,7 +39,7 @@ Function Install-ServerFiles {
                             $steamcmdparams = @("+login $username $password", "+Exit")
                             & $steamexecutable $steamcmdparams
                             New-TryagainSteamLogin
-                            Write-Host "Please Wait: " -F Y
+                            Get-Infomessage "Please Wait: " 'info'
                             $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                             & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                             compare-SteamExit

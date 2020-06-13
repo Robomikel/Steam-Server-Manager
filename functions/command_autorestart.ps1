@@ -24,8 +24,13 @@ Function New-RestartJobBG {
                 $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime
                 $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
                 $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
-                Write-Host "Creating Task........" -F M -B Black
+                Get-Infomessage "Creating Task" 'start'
                 Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" -ea SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                If ($?){
+                    Get-Infomessage "Creating Task" 'done'
+                } Else{
+                    Get-Infomessage "Creating Task" $false
+                }
             }
         }
     }
@@ -41,7 +46,12 @@ Function New-RestartJob {
         $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime
         $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
         $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
-        Write-Host "Creating Task........" -F M -B Black
+        Get-Infomessage "Creating Task" 'start'
         Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
+        If ($?){
+            Get-Infomessage "Creating Task" 'done'
+        } Else{
+            Get-Infomessage "Creating Task" $false
+        }
     }
 }

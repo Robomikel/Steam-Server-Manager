@@ -17,11 +17,11 @@ Function Get-MCbrversion {
             Write-Information "LocalBuild: $localbuild" -InformationAction Continue
             If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                 
-                Get-Infomessage "availableupdates"
+                Get-Infomessage "availableupdates" 'update'
             }
             Else {
                 
-                Get-Infomessage "noupdates"
+                Get-Infomessage "noupdates" 'info'
             }
         }
         Else {
@@ -41,11 +41,11 @@ Function Get-MCversion {
             Write-Information "LocalBuild: $localbuild" -InformationAction Continue
             If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                 
-                Get-Infomessage "availableupdates"
+                Get-Infomessage "availableupdates" 'update'
             }
             Else {
                 
-                Get-Infomessage "noupdates"
+                Get-Infomessage "noupdates" 'info'
             }
         }
         Else {

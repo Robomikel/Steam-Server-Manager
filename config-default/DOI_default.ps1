@@ -67,7 +67,6 @@ Function New-LaunchScriptdoiserverPS {
 Function Get-InstallChangesdoi {
     $subscribedfileids =  "$systemdir\subscribed_file_ids.txt"
     Add-Content $ssmlog "[$loggingDate] Creating subscribed_file_ids.txt "
-     # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
      If (Test-Path $subscribedfileids) { 
          Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
      } 
@@ -77,48 +76,40 @@ Function Get-InstallChangesdoi {
     
      $mapcycletxtfile = "$systemdir\motd.txt"
      Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
-     # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
      If (Test-Path $mapcycletxtfile) { 
          Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
      }
      Else {
         New-Item $mapcycletxtfile -Force | Out-File -Append -Encoding Default  $ssmlog
      }
-    # Write-Host "***  Creating subscribed_file_ids.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    # New-Item $systemdir\subscribed_file_ids.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-    # Write-Host "***  Creating motd.txt ***" -ForegroundColor Magenta -BackgroundColor Black
-    # New-Item $systemdir\motd.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Get-Gamemodedoi
 }
 Function Get-Playlistdoi {
-    Write-Host "Checking playlist" -ForegroundColor Yellow
+    Get-Infomessage "Checking playlist" 'info'
     if ($playlist -eq "coop_commando") {
-        Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "edit nwi/$playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist", "mapcyclefile `"mapcycle_coop.txt`"") | Set-Content -Path $servercfgdir\server.cfg
     }
     elseif ($playlist -eq "coop") {
-        Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "edit nwi/$playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist", "mapcyclefile `"mapcycle_coop.txt`"") | Set-Content -Path $servercfgdir\server.cfg
     }
     elseif ($playlist -eq "mp_battles") {
-        Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "edit nwi/$playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist", "mapcyclefile `"Mapcycle_mp_battles.txt`"") | Set-Content -Path $servercfgdir\server.cfg
     }
     elseif ($playlist -eq "mp_casual_with_bots") {
-        Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "edit nwi/$playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist", "mapcyclefile `"Mapcycle_mp_casual_with_bots.txt`"") | Set-Content -Path $servercfgdir\server.cfg
         #}elseif($playlist -eq "mp_first_deployment"){
-        #                    Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
         #                    ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist","mapcyclefile `"mapcycle.txt`"") | Set-Content -Path $servercfgdir\server.cfg
     }
     elseif ($playlist -eq "mp_special_assignments") {
-        Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "edit nwi/$playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "// Playlist", "mapcyclefile `"Mapcycle_mp_special_assignments.txt`"") | Set-Content -Path $servercfgdir\server.cfg
         #}elseif($playlist -eq "conquer"){
-        #                            Write-Host "edit nwi/$playlist in server.cfg" -ForegroundColor Magenta
         #                            ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "//mapcyclefile `"mapcycle.txt`"","mapcyclefile `"mapcycle_conquer.txt`"") | Set-Content -Path $servercfgdir\server.cfg
         #}elseif($null -eq $playlist) {
-        #                                Write-Host "entered blank or null" -ForegroundColor Red
     }
 }
 Function Set-Gamemodedoi {
@@ -142,12 +133,12 @@ Function Set-Gamemodedoi {
     Write-Host "Enter mode, Will add Mapcycle per mode: " -ForegroundColor Cyan -NoNewline
     $playlist = Read-Host 
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
-        Write-Host "Editing nwi/$playlist playlist in server.cfg" -ForegroundColor Magenta
+        Get-Infomessage "Editing nwi/$playlist playlist in server.cfg" 'info'
         ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
         # Get-Playlistdoi
     }
     else {
-        Write-Host " mode does not exist" -ForegroundColor Yellow
+        Get-Infomessage " mode does not exist" 'info'
         Set-Gamemodedoi 
     }
 }
@@ -170,7 +161,7 @@ Function Get-Gamemodedoi {
 }
 Function new-mapcycles {
 
-    Write-Host "***  Creating Mapcycle_coop.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
+    Write-Host "Creating Mapcycle_coop.txt" 'info'
     New-Item $systemdir\Mapcycle_coop.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     # - - - - - - MAPCYCLE.TXT - - - - - - - - - -# EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
     Add-Content   $systemdir\Mapcycle_coop.txt "bastogne"
@@ -215,7 +206,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_coop.txt "brittany"
     Add-Content   $systemdir\Mapcycle_coop.txt "flakturm"
     # PVP modes: mp_battles.playlist
-    Write-Host "***  Creating Mapcycle_mp_battles.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
+    Write-Host " Creating Mapcycle_mp_battles.txt " 'info'
     New-Item    $systemdir\Mapcycle_mp_battles.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "comacchio"
@@ -268,7 +259,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "brittany"
     Add-Content   $systemdir\Mapcycle_mp_battles.txt "flakturm"
     # mp_special_assignments.playlist
-    Write-Host "***  Creating Mapcycle_mp_special_assignments.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
+    Write-Host "Creating Mapcycle_mp_special_assignments.txt" 'info'
     New-Item   $systemdir\Mapcycle_mp_special_assignments.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "bastogne"
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "comacchio"
@@ -299,7 +290,7 @@ Function new-mapcycles {
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "breville"
     Add-Content   $systemdir\Mapcycle_mp_special_assignments.txt "brittany"
     # mp_casual_with_bots.playlist
-    Write-Host "***  Mapcycle_mp_casual_with_bots.txt  ***" -ForegroundColor Magenta -BackgroundColor Black
+    Get-Infomessage "Mapcycle_mp_casual_with_bots.txt" 'info'
     New-Item   $systemdir\Mapcycle_mp_casual_with_bots.txt -Force | Out-File -Append -Encoding Default  $ssmlog
     #Add-Content   $systemdir\Mapcycle_mp_casual_with_bots.txt 
     Add-Content   $systemdir\Mapcycle_mp_casual_with_bots.txt "bastogne"

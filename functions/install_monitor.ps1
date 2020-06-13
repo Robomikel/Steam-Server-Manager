@@ -14,8 +14,13 @@ Function New-MontiorJob {
     $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
     $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
-    Write-Host "Creating Task........" -F M -B Black
+    Get-Infomessage "Creating Task" 'start'
     Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
+    If ($?){
+        Get-Infomessage "Creating Task" 'done'
+    } Else{
+        Get-Infomessage "Creating Task" $false
+    }
 }
 Function New-MontiorJobBG {
     Write-log "Function: New-MontiorJobBG"
@@ -31,8 +36,14 @@ Function New-MontiorJobBG {
             $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
             $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
             $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
-            Write-Host "Creating Task........" -F M -B Black
+            Get-Infomessage "Creating Task" 'start'
             Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" | Out-File -Append -Encoding Default  $ssmlog
+            If ($?){
+                Get-Infomessage "Creating Task" 'done'
+            } Else{
+                Get-Infomessage "Creating Task" $false
+            }
+
         }
     }
 }

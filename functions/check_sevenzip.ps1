@@ -9,7 +9,7 @@
 Function Get-SevenZipCheck {
     Write-log "Function: Get-SevenZipCheck"
     If ($ssmlog -and $loggingdate) {
-        Write-log "Checking for 7ZIP "
+        Write-log "Checking for 7ZIP " 'info'
         If ($sevenzipexecutable) {   
             If (Test-Path $sevenzipexecutable ) { 
                 Write-log "7Zip already downloaded! "
