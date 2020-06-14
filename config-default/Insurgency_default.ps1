@@ -4,56 +4,56 @@ Function New-LaunchScriptInsserverPS {
     # APP ID # 237410
     ################## Change Default Variables #################
     #                       Server IP 
-    ${global:IP}            = "${ip}"
+    ${global:IP} = "${ip}"
     #                       Server Port
-    $global:port            = "27015"
+    $global:port = "27015"
     #                       Client Port
-    $global:clientport      = "27005"
+    $global:clientport = "27005"
     #                       Source TV Port
-    $global:sourcetvport    = "27020"
+    $global:sourcetvport = "27020"
     #                       Tickrate
-    $global:tickrate        = "64"
+    $global:tickrate = "64"
     #                       Game Server Token
-    $global:gslt            = ""
+    $global:gslt = ""
     #                       Map
-    $global:defaultmap      = "buhriz_coop checkpoint"
+    $global:defaultmap = "buhriz_coop checkpoint"
     #                       Maxplayers
-    $global:maxplayers      = "32"
+    $global:maxplayers = "32"
     #                       SV_LAN
-    $global:sv_lan          = "0"
+    $global:sv_lan = "0"
     #                       Coop Players
-    $global:coopplayers     = "8"
+    $global:coopplayers = "8"
     #                       Workshop
-    $global:workshop        = "1"
+    $global:workshop = "1"
     #                       SV_Pure
-    $global:sv_pure         = "0"
+    $global:sv_pure = "0"
     #                       Server Name
-    $global:hostname        = "SERVERNAME"
+    $global:hostname = "SERVERNAME"
     #                       Rcon Password
-    $global:rconpassword    = "$RANDOMPASSWORD"
+    $global:rconpassword = "$RANDOMPASSWORD"
     ##############################/\##############################
     
     ###################### Do not change below #####################
     #                       System Directory
-    $global:systemdir       = "$serverdir\insurgency"
+    $global:systemdir = "$serverdir\insurgency"
     #                       Server Config Directory
-    $global:servercfgdir    = "$serverdir\insurgency\cfg"
+    $global:servercfgdir = "$serverdir\insurgency\cfg"
     #                       Server Executable
-    $global:executable      = "srcds"
+    $global:executable = "srcds"
     #                       Server Executable Directory
-    $global:executabledir   = "$serverdir"
+    $global:executabledir = "$serverdir"
     #                       Gamedig Query
-    $global:querytype       = "insurgency"
+    $global:querytype = "insurgency"
     #                       Game Process
-    $global:process         = "srcds"
+    $global:process = "srcds"
     #                       Log Directory
-    $global:logdirectory    = "$serverdir\insurgency"
+    $global:logdirectory = "$serverdir\insurgency"
     #                       Server Log
-    $global:consolelog      = "console.log"
+    $global:consolelog = "console.log"
     #                       Game-Server-Config Directory
-    $global:gamedirname     = "Insurgency"
+    $global:gamedirname = "Insurgency"
     #                       Game-Server-Config
-    $global:servercfg       = "server.cfg"
+    $global:servercfg = "server.cfg"
     #                       Server Launch Command
     If ($gslt) {
         $global:launchParams = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
