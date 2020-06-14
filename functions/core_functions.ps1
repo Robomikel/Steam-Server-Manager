@@ -255,6 +255,7 @@ Function Get-PreviousInstall {
                 Get-StopServerInstall
                 # Get-ClearVariables
             }
+            Get-ClearVariables
         }
     }
 }
