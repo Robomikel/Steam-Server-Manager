@@ -55,7 +55,12 @@ Function New-LaunchScriptInsserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
+    If ($gslt) {
+        $global:launchParams = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
+    }
+    Else {
+        $global:launchParams = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug -norestart")'
+    }
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
@@ -69,23 +74,23 @@ Function New-LaunchScriptInsserverPS {
 
 
 Function Get-InstallChangesINS {
-    $subscribedfileids =  "$serverdir\insurgency\subscribed_file_ids.txt"
+    $subscribedfileids = "$serverdir\insurgency\subscribed_file_ids.txt"
     Add-Content $ssmlog "[$loggingDate] Creating subscribed_file_ids.txt "
-     If (Test-Path $subscribedfileids) { 
-         Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
-     } 
-     Else {
-         New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
-     }
+    If (Test-Path $subscribedfileids) { 
+        Add-Content $ssmlog "[$loggingDate] subscribed_file_ids.txt exists! "
+    } 
+    Else {
+        New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
+    }
     
-     $mapcycletxtfile = "$serverdir\insurgency\motd.txt"
-     Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
-     If (Test-Path $mapcycletxtfile) { 
-         Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
-     }
-     Else {
+    $mapcycletxtfile = "$serverdir\insurgency\motd.txt"
+    Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
+    If (Test-Path $mapcycletxtfile) { 
+        Add-Content $ssmlog "[$loggingDate] motd.txt exists! "
+    }
+    Else {
         New-Item $mapcycletxtfile -Force | Out-File -Append -Encoding Default  $ssmlog
-     }    
+    }    
 }
 Function Get-Playlist {
     Write-Host "Checking playlist" 'info'
