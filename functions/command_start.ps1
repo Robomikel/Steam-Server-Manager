@@ -48,7 +48,7 @@ Function Get-CheckServer {
                     Get-Infomessage "notrunning" 'info'
                 }
                 Else {
-                    Get-Infomessage "running" $true
+                    Get-Infomessage "running" 'info'
                     # $process
                     Get-ClearVariables
                     Exit 

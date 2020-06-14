@@ -73,7 +73,6 @@ Function Get-InstallChangesdoi {
      Else {
          New-Item $subscribedfileids -Force | Out-File -Append -Encoding Default  $ssmlog
      }
-    
      $mapcycletxtfile = "$systemdir\motd.txt"
      Add-Content $ssmlog "[$loggingDate] $serverdir\insurgency\motd.txt "
      If (Test-Path $mapcycletxtfile) { 
