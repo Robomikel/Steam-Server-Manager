@@ -120,6 +120,10 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            steamid64"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:steamid64           = `"$global:steamid64`""
     }
+    If ($lighting) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Map Lighting"
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:lighting           = `"$global:lighting`""
+    }
     If ($defaultmap) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            default Map"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:defaultmap          = `"$global:defaultmap`""

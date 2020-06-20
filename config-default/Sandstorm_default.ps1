@@ -20,11 +20,13 @@ Function New-LaunchScriptInssserverPS {
         #                       Server Password
         $global:serverpassword  = ""
         #                       Server Rcon Port
-        $global:rconport         = "27103"
+        $global:rconport        = "27103"
         #                       Server Rcon Password
         $global:rconpassword    = "$RANDOMPASSWORD"
         #                       Server Admin Steam ID 64
         $global:steamid64       = ""
+        #                       Map Lighting
+        $global:lighting       = "Night"
         ##############################/\############################## 
         ###################### Do not change below #####################
         #                               System Directory
@@ -48,10 +50,10 @@ Function New-LaunchScriptInssserverPS {
         #                               Server Launch Command
         If ($SERVERPASSWORD -ne "") {
     
-                $global:launchParams    = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
         }
         Else {
-                $global:launchParams    = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
+                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
         }
         # Get User Input version must be set to 0
         Get-UserInput
@@ -68,26 +70,50 @@ Function New-LaunchScriptInssserverPS {
         New-Item $MapCyclePath\Mapcycle.txt -Force | Out-File -Append -Encoding Default  $ssmlog
         
         # - - - - - - MAPCYCLE.TXT - - - - - - # EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Outskirts_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Summit_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Crossing_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Precinct_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Refinery_Checkpoint_Security 
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Farmhouse_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hideout_Checkpoint_Security 
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Security
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Outskirts_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Summit_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Crossing_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Precinct_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Refinery_Checkpoint_Insurgents 
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Farmhouse_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hideout_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Insurgents
-        Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Outskirts_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Summit_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Crossing_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Precinct_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Refinery_Checkpoint_Security 
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Farmhouse_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hideout_Checkpoint_Security 
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Security
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Outskirts_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Summit_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Crossing_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Precinct_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Refinery_Checkpoint_Insurgents 
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Farmhouse_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hideout_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Insurgents
+        # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Hillside_Checkpoint_Insurgents
         
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_PowerPlant_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_PowerPlant_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Ministry_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Ministry_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Outskirts_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Outskirts_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Summit_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Summit_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Crossing_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Crossing_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Precinct_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Precinct_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Refinery_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Refinery_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Farmhouse_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Farmhouse_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Hideout_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Hideout_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Hillside_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Hillside_Checkpoint_Security", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Town_Checkpoint_Security", Lighting="Night")(Scenario="Scenario_Town_Checkpoint_Security", Lighting="Day")'
         
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_PowerPlant_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_PowerPlant_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Ministry_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Ministry_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Outskirts_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Outskirts_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Summit_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Summit_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Crossing_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Crossing_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Precinct_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Precinct_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Refinery_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Refinery_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Farmhouse_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Farmhouse_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Hideout_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Hideout_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Hillside_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Hillside_Checkpoint_Insurgents", Lighting="Day")'
+        Add-Content   $MapCyclePath\Mapcycle.txt '(Scenario="Scenario_Town_Checkpoint_Insurgents", Lighting="Night")(Scenario="Scenario_Town_Checkpoint_Insurgents", Lighting="Day")'
+
+
         # - - - - - - Game.ini - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
         Get-Infomessage " Creating Game.ini " 'info'
         New-Item $servercfgdir\Game.ini -Force
