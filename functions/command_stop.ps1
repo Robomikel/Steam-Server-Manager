@@ -42,7 +42,7 @@ Function Get-StopServer {
                         
                     }
                     Elseif (!$processstatus) {
-                        Get-Infomessage "stopped" $true
+                        Get-Infomessage "stopped" 
                     }
                     If ($consolelogging -eq "on") { 
                         New-ServerLog
@@ -77,7 +77,7 @@ Function Get-StopServerInstall {
                     
                 }
                 Elseif (!$processstatus) {
-                    Get-Infomessage "stopped" $true
+                    Get-Infomessage "stopped" 
                 }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
@@ -104,7 +104,7 @@ Function Get-StopMultiple {
                 
             }
             Elseif (!$processstatus) {
-                Get-Infomessage "stopped" $true
+                Get-Infomessage "stopped" 
             }
             If ($consolelogging -eq "on") { 
                 New-ServerLog

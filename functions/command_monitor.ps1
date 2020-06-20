@@ -21,7 +21,7 @@ Function Get-MonitorServer {
             Else {
                 get-process $process
                 if ($?){
-                    Get-Infomessage "running" $true
+                    Get-Infomessage "running" 
                 }
                 Else {
                     Get-Infomessage "running" $false
@@ -43,7 +43,7 @@ Function Get-MonitorMultiple {
     Else {
         get-process $process 
         If ($?){
-            Get-Infomessage "running" $true
+            Get-Infomessage "running" 
         } 
         Else {
             Get-Infomessage "running" $false

@@ -112,10 +112,7 @@ Function Get-Infomessage {
             $message = "$infomessage" | Receive-Message
         }
         $leftbracket = "...   [ " | Receive-bracket
-        If ($package -eq $true) {
-            $info = "ok" | Receive-Information
-        }
-        ElseIf ($package -eq $false) {
+        If ($package -eq $false) {
             $info = "FAILED" | Receive-Information
         }
         ElseIf ($package -eq 'warning') {

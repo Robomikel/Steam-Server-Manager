@@ -85,7 +85,7 @@ Function Send-DiscordAlert_old {
     } 
     Else {
         $global:InfoMessage = "discord"
-        Get-Infomessage $true
+        Get-Infomessage 
     }
 }
 Function Send-DiscordAlert {
@@ -109,7 +109,7 @@ Function Send-DiscordAlert {
         }
         Else {
             $global:InfoMessage = 
-            Get-Infomessage "discord" $true
+            Get-Infomessage "discord" 
         }    
     }
 }

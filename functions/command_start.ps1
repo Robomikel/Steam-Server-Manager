@@ -32,7 +32,7 @@ Function Select-StartServer {
     Get-Infomessage "starting" 'start'
     Get-StartServer $launchParams
     If ($?) {
-        Get-Infomessage "starting" $true
+        Get-Infomessage "starting" 
     }
 }
 Function Get-CheckServer {
@@ -65,7 +65,7 @@ Function Get-checkMultiple {
          Get-Infomessage "notrunning" "info"
     }
     Else {
-        Get-Infomessage "running" $true
+        Get-Infomessage "running" 
         # $process
         Get-ClearVariables 
         Exit

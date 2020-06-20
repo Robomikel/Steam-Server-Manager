@@ -30,10 +30,10 @@ Function New-BackupServer {
                 Get-warnmessage "backupfailed"
             }
         }
-        Get-Infomessage "backupdone" $true
+        Get-Infomessage "backupdone" 
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
-            Get-Infomessage "savecheck" $true
+            Get-Infomessage "savecheck" 
  
         }
         New-ServerBackupLog
@@ -72,7 +72,7 @@ Function New-backupAppdata {
         }
     }   
      
-    Get-Infomessage "appdatabackupdone" $true
+    Get-Infomessage "appdatabackupdone" 
     If ($appdatabackuplogopen -eq "on") {
         Set-Location $sevenzipdirectory 
         .\AppDatabackup_*.log >$null 2>&1
@@ -92,7 +92,7 @@ Function Limit-Backups {
             Get-warnmessage "limitbackupfailed"
         }
          Else {
-            Get-Infomessage "purgebackup" $true
+            Get-Infomessage "purgebackup" 
 
          }
         Set-Location $currentdir
@@ -111,7 +111,7 @@ Function Limit-AppdataBackups {
             Get-warnmessage "limitbackupfailed"
         }  
         Else {
-            Get-Infomessage "purgeappdatabackup" $true
+            Get-Infomessage "purgeappdatabackup" 
         }
         Set-Location $currentdir
     }

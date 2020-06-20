@@ -60,7 +60,7 @@ Function Get-UpdateSteamer {
                                     Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
-                                    Get-Infomessage 'nossmupdates' $true
+                                    Get-Infomessage 'nossmupdates' 
                                 }
                             }
                         }
@@ -97,7 +97,7 @@ Function Get-UpdateSteamerConfigDefault {
                                     Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
-                                    Get-Infomessage 'nossmupdates' $true
+                                    Get-Infomessage 'nossmupdates' 
                                 }
                             }
                         }
@@ -134,7 +134,7 @@ Function Get-UpdateSteamerCSV {
                                     Add-Content "$currentdir\data\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
-                                    Get-Infomessage 'nossmupdates' $true
+                                    Get-Infomessage 'nossmupdates' 
                                 }
                             }
                         }

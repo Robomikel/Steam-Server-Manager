@@ -313,7 +313,7 @@ Function compare-SteamExit {
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*Success*") {
-                Get-Infomessage "****   Downloading  server succeeded   ****" $true
+                Get-Infomessage "****   Downloading  server succeeded   ****" 
                 Write-log "Downloading  server succeeded"
             }   
             ElseIf (($appinstalllog -Like "* Failed *") -or ($appinstalllog -Like "*FAILED*")) {
