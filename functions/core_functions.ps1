@@ -7,9 +7,9 @@
 #
 #
 Function Get-CreatedVaribles {
-    If (!$serverfiles) {
+     If (!$serverfiles) {
         Param($serverfiles)
-    }
+     }
     Write-log "Function: Get-CreatedVaribles"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
@@ -20,6 +20,31 @@ Function Get-CreatedVaribles {
     Else {
         Get-warnmessage "fn_InstallServerFiles"
     }
+}
+Function Get-help {
+    Write-Host "Format:  ./ssm <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
+    Write-Host "IE:      ./ssm install  insserver" -F Yellow -BackgroundColor Black
+    Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
+    Write-Host "install"
+    Write-Host "update"
+    Write-Host "ForceUpdate"
+    Write-Host "validate"
+    Write-Host "start"
+    Write-Host "stop"
+    Write-Host "restart"
+    Write-Host "backup"
+    Write-Host "exit"
+    Write-Host "query"
+    Write-Host "monitor"
+    Write-Host "monitor-job"
+    Write-Host "Mod-Install - SourceMod and Oxide Install"
+    Write-Host "ws-Install  - WorkShop Install"
+    Write-Host "mcrcon"
+    Write-Host "AutoRestart"
+    Write-Host "discord"
+    Write-Host "details"
+    Write-Host "ssm update"
+    break
 }
 Function Get-ClearVariables {
     Write-log "Function: Get-ClearVariables"
@@ -44,6 +69,9 @@ Function Get-TestString {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
             Get-warnmessage "invalidCharacters"  
         }
+    } 
+    Elseif (!$serverfiles){
+        Get-warnmessage "invalidCharacters"
     }
 }
 Function Set-Console {

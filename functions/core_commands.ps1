@@ -8,384 +8,52 @@
 #
 #
 Function Select-Steamer {
-    Param(
-        [Parameter(Mandatory=$true,Position = 0,HelpMessage = " CTL + C and ./ssm ?   ")]
+    [CmdletBinding()]
+    param(       
+        [Parameter(
+            Mandatory = $false,
+            # HelpMessage = " CTL + C and ./ssm ?   ", 
+            Position = 0
+        )]
+        [String] $global:command,
         #[ValidatePattern('^[a-z,A-Z]$')]
-        [String[]]
-        $command,
-        [Parameter(Mandatory=$false,Position = 1)]
-        #[ValidatePattern('^[a-z,A-Z]$')]
-        $serverfiles)
-        Write-log "Function: Select-Steamer"
-        Write-log "command:  $command $serverfiles"
+        [Parameter(
+            Mandatory = $false,
+            # HelpMessage = "Input Server Folder Name: ", 
+            Position = 1 
+        )]$global:serverfiles
+    )
+    Write-log "Function: Select-Steamer"
+    Write-log "command:  $command $serverfiles"
     Set-Console  >$null 2>&1
-    If (($command -eq "install") -and ($null -eq $serverfiles)) {     
-        Write-Host 'Input Server Folder Name: ' -F C -N
-        $serverfiles = Read-host
-        Get-PreviousInstall
-        Get-TestString
-        Get-Appid
-        New-ServerFolder
-        Get-Steam
-        Set-SteamInfo
-        Read-AppID
-        New-CreateVariables
-        Get-Finished
-        Get-ClearVariables
+
+    switch ($command) {
+        { ($command -eq "ssm") -and ($serverfiles -eq "update") } { Get-UpdateSteamer; Break }
+        'install' { Read-Param; Get-PreviousInstall; Get-TestString; Get-Appid; New-ServerFolder; Get-Steam; Set-SteamInfo; Read-AppID; New-CreateVariables; Get-Finished; Get-ClearVariables; Break }
+        'update' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-ServerBuildCheck; Get-ChecktaskEnable; Get-Finished; Get-ClearVariables; Break }
+        'ForceUpdate' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-CheckNonSteam; Get-ChecktaskDisable; Get-UpdateServer; Get-ChecktaskEnable; Get-Finished; Get-ClearVariables; Break }
+        'validate' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-CheckNonSteam; Get-ChecktaskDisable; Get-StopServer; Get-Steam; Get-ValidateServer; Get-ChecktaskEnable; Get-Finished; Get-ClearVariables; Break }
+        'start' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-CheckServer; Get-ServerBuildCheck; Select-StartServer; Get-ChecktaskEnable; Get-ClearVariables; Break }
+        'stop' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-StopServer; Get-ClearVariables; Break }
+        'restart' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-ServerBuildCheck; Get-RestartsServer; Get-ChecktaskEnable; Get-ClearVariables; Break }
+        'monitor' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-MonitorServer; Get-ClearVariables; Break }
+        'backup' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-SevenZipCheck; Get-ChecktaskDisable; New-BackupFolder  ; New-BackupServer; Get-ChecktaskEnable; Get-Finished; Get-ClearVariables; Break }
+        'monitor-job' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Set-MonitorJob; Get-ClearVariables; Break }
+        'Mod-Install' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-Modinstall; Get-ClearVariables; Break }
+        'ws-Install' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Install-SteamWS; Get-ClearVariables; Break }
+        'AutoRestart' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Set-RestartJob; Get-ClearVariables; Break }
+        'query' { Read-Param; Get-NodeJSCheck; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-GamedigServerv2; Get-ClearVariables; Break }
+        'mcrcon' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Get-MCRconCheck; set-connectMCRcon; Get-ClearVariables; Break }
+        'discord' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; New-DiscordAlert; Get-ClearVariables; Break }
+        'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Get-DriveSpace; Get-ClearVariables; Break }
+        'exit' { exit; Break }
+        Default { Get-Help }
     }
-    elseif ($command -eq "install") {
-        Get-PreviousInstall
-        Get-TestString
-        Get-Appid
-        New-ServerFolder
-        Get-Steam
-        Set-SteamInfo
-        Read-AppID
-        New-CreateVariables
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif (($command -eq "update") -and ($null -eq $serverfiles)) {   
-        Write-Host 'Server FolderName for server updates: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        Get-ServerBuildCheck
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif ($command -eq "update") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        Get-ServerBuildCheck
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif (($command -eq "ForceUpdate") -and ($null -eq $serverfiles)) {   
-        Write-Host 'Server FolderName for server updates: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-CheckNonSteam
-        Get-ChecktaskDisable
-        Get-UpdateServer 
-        Get-ChecktaskEnable
-       
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif ($command -eq "ForceUpdate") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-CheckNonSteam
-        Get-ChecktaskDisable
-        Get-UpdateServer
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif (($command -eq "validate") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server validate: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-CheckNonSteam
-        Get-ChecktaskDisable
-        Get-StopServer
-        Get-Steam
-        Get-ValidateServer
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif ($command -eq "validate") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-CheckNonSteam
-        Get-ChecktaskDisable
-        Get-StopServer
-        Get-Steam
-        Get-ValidateServer
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif (($command -eq "start") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for start: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars    
-        Get-CheckServer
-        Get-ServerBuildCheck
-        Select-StartServer
-        Get-ChecktaskEnable
-        Get-ClearVariables
-    }
-    elseif ($command -eq "start") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars   
-        Get-CheckServer
-        Get-ServerBuildCheck
-        Select-StartServer
-        Get-ChecktaskEnable
-        Get-ClearVariables
-    }
-    elseif (($command -eq "stop") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server stop: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        Get-StopServer
-        Get-ClearVariables
-    }
-    elseif ($command -eq "stop") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        Get-StopServer
-        Get-ClearVariables 
-    }
-    elseif (($command -eq "restart") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server restart: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        # Get-StopServer 
-        Get-ServerBuildCheck
-        Get-RestartsServer
-        Get-ChecktaskEnable
-        Get-ClearVariables
-    }
-    elseif ($command -eq "restart") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-ChecktaskDisable
-        # Get-StopServer
-        Get-ServerBuildCheck
-        Get-RestartsServer
-        Get-ChecktaskEnable  
-        Get-ClearVariables
-    }
-    elseif (($command -eq "monitor") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server check: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-MonitorServer
-        Get-ClearVariables
-    }
-    elseif ($command -eq "monitor") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-MonitorServer
-        Get-ClearVariables
-    }
-    elseif (($command -eq "backup") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for server backup: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars 
-        Get-SevenZipCheck
-        Get-ChecktaskDisable
-        New-BackupFolder
-        New-BackupServer
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables
-    }
-    elseif ($command -eq "backup") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-SevenZipCheck
-        Get-ChecktaskDisable
-        New-BackupFolder  
-        New-BackupServer
-        Get-ChecktaskEnable
-        Get-Finished
-        Get-ClearVariables  
-    }
-    elseif (($command -eq "monitor-job") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for monitor: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Set-MonitorJob
-        Get-ClearVariables
-    }
-    elseif ($command -eq "monitor-job") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Set-MonitorJob
-        Get-ClearVariables
-    }
-    elseif (($command -eq "Mod-Install") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for monitor: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-Modinstall
-        Get-ClearVariables
-    }
-    elseif ($command -eq "Mod-Install") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-Modinstall
-        Get-ClearVariables
-    }
-    elseif (($command -eq "ws-Install") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for monitor: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Install-SteamWS
-        Get-ClearVariables
-    }
-    elseif ($command -eq "ws-Install") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Install-SteamWS
-        Get-ClearVariables
-    }
-    elseif (($command -eq "AutoRestart") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for AutoRestart: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars 
-        Set-RestartJob
-        Get-ClearVariables
-    }
-    elseif ($command -eq "AutoRestart") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Set-RestartJob
-        Get-ClearVariables
-    }
-    elseif (($command -eq "query") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for gamedig: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars 
-        Get-NodeJSCheck
-        Get-GamedigServerv2
-        Get-ClearVariables
-    }
-    elseif ($command -eq "query") {
-        Get-NodeJSCheck
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-GamedigServerv2
-        Get-ClearVariables
-    }
-    elseif (($command -eq "mcrcon") -and ($null -eq $serverfiles)) {
-        Write-Host 'Server FolderName for mcrcon: ' -F C -N
-        $serverfiles = Read-host
-        Get-TestString
-        Get-FolderNames
-        Get-createdvaribles $serverfiles
-        Get-CheckForVars
-        Get-MCRconCheck 
-        set-connectMCRcon
-        Get-ClearVariables
-    }
-    elseif ($command -eq "mcrcon") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        Get-MCRconCheck
-        set-connectMCRcon
-        Get-ClearVariables
-    }
-    elseif ($command -eq "discord") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        New-DiscordAlert
-        Get-ClearVariables
-    }
-    elseif ($command -eq "details") {
-        Get-FolderNames
-        Get-createdvaribles
-        Get-CheckForVars
-        # Get-NodeJSCheck
-        Test-PSversion
-        Get-details
-        Get-DriveSpace
-        Get-ClearVariables
-    }
-    elseif ($command -eq "exit") {
-        exit
-    }
-    elseif (($command -eq "ssm") -and ($serverfiles -eq "update")) {
-        Get-UpdateSteamer   
-    }
-    else {
-        Write-Host "Format:  ./ssm <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
-        Write-Host "IE:      ./ssm install  insserver" -F Yellow -BackgroundColor Black
-        Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
-        Write-Host "install"
-        Write-Host "update"
-        Write-Host "ForceUpdate"
-        Write-Host "validate"
-        Write-Host "start"
-        Write-Host "stop"
-        Write-Host "restart"
-        Write-Host "backup"
-        Write-Host "exit"
-        Write-Host "query"
-        Write-Host "monitor"
-        Write-Host "monitor-job"
-        Write-Host "Mod-Install - SourceMod and Oxide Install"
-        Write-Host "ws-Install  - WorkShop Install"
-        Write-Host "mcrcon"
-        Write-Host "AutoRestart"
-        Write-Host "discord"
-        Write-Host "details"
-        Write-Host "ssm update"
-        
+}
+
+Function Read-Param {
+    Write-log "Function Read-Param"
+    switch ($serverfiles) {
+        { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $global:serverfiles = Read-host ; Get-TestString }
     }
 }
