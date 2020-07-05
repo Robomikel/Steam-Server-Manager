@@ -147,7 +147,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm monitor-job <serverFolder>``` - Creates Scheduled Task to monitor server
   - ```./ssm Mod-Install <serverFolder>```  - Install Sourcemod or Oxide for specified servers
   - ```./ssm ws-Install <serverFolder>```  - Workshop Install
- - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook
+ - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook in ```\functions\core_settings.ps1```
  - ```./ssm AutoRestart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart
  - ```./ssm MCRcon <serverFolder>``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
  - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)
@@ -157,7 +157,7 @@ Install miscreated server ```./ssm install misserver```
 # Configure
 - change default variables in ```\config-default\*_default.ps1```
 - After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.
-- ```\functions\core_settings.ps1``` disable some of the default features. 
+- ```\functions\core_settings.ps1``` change some of the default features. Discord Webhook Goes here.
 
 
 # Mod
