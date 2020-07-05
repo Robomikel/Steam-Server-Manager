@@ -108,7 +108,8 @@ Install miscreated server ```./ssm install misserver```
    * Primal Carnage: Extinction Dedicated Server (336400) - "pcedserver" (optional server folder name)
    * Blackwake Dedicated Server (423410) - "bwserver" (optional server folder name)
    * Contagion Dedicated Server (238430) - "contagion" (optional server folder name)  
-   * Onset Dedicated Server (1204170) - "contagion" (optional server folder name)  
+   * Onset Dedicated Server (1204170) - "contagion" (optional server folder name)
+   * Wreckfest Dedicated Server (361580) - "wfserver" (optional server folder name)  
    
    -----
  # Features  
