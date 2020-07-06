@@ -144,6 +144,7 @@ Function Out-Pastebin
             }
            
             $Result | Write-Output
+            Write-Log "Pastebin: $Result "
         } Else {
             Throw "Error when uploading to pastebin: {0} : {1}" -f $Result, $Response
         }
