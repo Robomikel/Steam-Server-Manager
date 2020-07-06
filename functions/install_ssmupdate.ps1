@@ -9,7 +9,8 @@
 Function Get-UpdateSteamer {
     Get-UpdateSteamerCSV
     Get-UpdateSteamerConfigDefault
-    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force) + $("$currentdir\ssm.ps1")
+    Get-UpdateSteamerSSM
+    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force)
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
@@ -45,6 +46,42 @@ Function Get-UpdateSteamer {
         Write-Information 'Press Enter to Close this session' -InformationAction Continue
         Pause  
         Stop-Process -Id $PID
+    }
+}
+Function Get-UpdateSteamerSSM {
+    $getlocalssm = $([pscustomobject]@{ Name = 'ssm.ps1' })
+    If ($getlocalssm) {
+        ForEach ($getlocalssm in $getlocalssm ) {  
+            $global:getlocalssmname = $getlocalssm.Name
+            If ($getlocalssmname) {
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
+                If ($githubvarcontent) {
+                    $githubvarcontent = ($githubvarcontent).Content
+                    If ($githubvarcontent) {
+                        If (Test-Path $currentdir\tmp) { } Else {
+                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        }
+                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
+                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
+                        If ($githubvarcontenttrim) {
+                            $ssmcontentlocaltrim = Get-Content $currentdir\$getlocalssmname | Where-Object { $_ -notlike "" }
+                            If ($ssmcontentlocaltrim ) {
+                                if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                    Get-Infomessage 'ssmupdates' 'update'
+                                    New-Item  "$currentdir\$getlocalssmname" -Force >$null 2>&1
+                                    Add-Content "$currentdir\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                } 
+                                Else {
+                                    Get-Infomessage 'nossmupdates' 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Remove-Item "$currentdir\tmp" -Recurse -Force
     }
 }
 Function Get-UpdateSteamerCSV {
