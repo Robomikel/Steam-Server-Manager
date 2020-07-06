@@ -55,24 +55,31 @@ Function Get-Infomessage {
             $message = ' Purging AppData Backups' | Receive-Message
         }
         ElseIf ($infomessage -eq "finished") {
+            $infomessage = @( " Server $command is done"," ./ssm start $serverfiles " )
             $message = " Server $command is done ./ssm start $serverfiles " | Receive-Message
         }
         ElseIf ($infomessage -eq "Downloading") {
+            $infomessage = @( " Downloading"," $package" )
             $message = " Downloading $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "Downloaded") {
+            $infomessage = @( " Downloaded"," $package" )
             $message = " Downloaded $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "Extracting") {
+            $infomessage = @( " Extracting"," $package" )
             $message = " Extracting $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "Extracted") {
+            $infomessage = @( " Extracted"," $package" )
             $message = " Extracted $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "copying-installing") {
+            $infomessage = @( " copying-installing"," $package" )
             $message = " copying-installing $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "copied-installed") {
+            $infomessage = @( " copied-installed"," $package" )
             $message = " copied-installed $package" | Receive-Message
         }
         ElseIf ($infomessage -eq "getting") {
@@ -85,21 +92,27 @@ Function Get-Infomessage {
             $message = " Creating Variables and adding launch params" | Receive-Message
         }
         ElseIf ($infomessage -eq "downloadtime") {
+            $infomessage = @( " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) ")
             $message = " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) " | Receive-Message
         }
         ElseIf ($infomessage -eq "validating") {
+            $infomessage = @(" Validating Server ","$serverfiles")
             $message = " Validating Server $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "updating") {
+            $infomessage = @(" Updating Server ","$serverfiles")
             $message = " Updating Server $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "installing") {
+            $infomessage = @(" Installing Server"," $serverfiles")
             $message = " Installing Server $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "availableupdates") {
+            $infomessage = @(" Avaiable Updates on ","$serverfiles")
             $message = " Avaiable Updates on $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "noupdates") {
+            $infomessage = @(" No Updates found for"," $serverfiles")
             $message = " No Updates found for $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "ssmupdates") {
