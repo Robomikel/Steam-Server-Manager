@@ -9,7 +9,7 @@
 Function Get-UpdateSteamer {
     Get-UpdateSteamerCSV
     Get-UpdateSteamerConfigDefault
-    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force) + $(Get-ChildItem $currentdir\ssm.ps1)
+    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force) + $("$currentdir\ssm.ps1")
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
