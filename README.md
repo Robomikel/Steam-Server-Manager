@@ -159,7 +159,7 @@ Install miscreated server ```./ssm install misserver```
 - change default variables in ```\config-default\*_default.ps1```
 - After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.
 - ```\functions\core_settings.ps1``` change some of the default features. Discord Webhook Goes here.
--  console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in core_pastebin.ps1. core_settings.ps1 to enable)
+- Server console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in core_pastebin.ps1. core_settings.ps1 to enable)
 
 # Mod
  * Insurgency - option for sourcemod and Meta Mod install
