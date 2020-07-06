@@ -103,9 +103,11 @@ Function Get-Infomessage {
             $message = " No Updates found for $serverfiles" | Receive-Message
         }
         ElseIf ($infomessage -eq "ssmupdates") {
+            $infomessage = @(" SSM Updates found for"," $getlocalssmname")
             $message = " SSM Updates found for $getlocalssmname" | Receive-Message
         }
         ElseIf ($infomessage -eq "nossmupdates") {
+            $infomessage = @(" No SSM Updates found for"," $getlocalssmname")
             $message = " No SSM Updates found for $getlocalssmname" | Receive-Message
         }
         Else {
