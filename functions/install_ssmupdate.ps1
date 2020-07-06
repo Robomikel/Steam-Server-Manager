@@ -84,7 +84,7 @@ Function Get-UpdateSteamerCSV {
     }
 }
 Function Get-UpdateSteamerConfigDefault {
-    $getlocalssm = @($((Import-Csv $currentdir\data\serverlist.csv)."Default-Config"))
+    $getlocalssm = $((Import-Csv $currentdir\data\serverlist.csv)."Default-Config")
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm
@@ -100,16 +100,24 @@ Function Get-UpdateSteamerConfigDefault {
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                         $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            $ssmcontentlocaltrim = Get-Content $currentdir\config-default\$getlocalssmname | Where-Object { $_ -notlike "" }
-                            If ($ssmcontentlocaltrim ) {
-                                if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
-                                    Get-Infomessage 'ssmupdates' 'update'
-                                    New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
-                                    Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                                } 
-                                Else {
-                                    Get-Infomessage 'nossmupdates' 
+                            if (Test-Path $currentdir\config-default\$getlocalssmname) {
+                                $ssmcontentlocaltrim = Get-Content $currentdir\config-default\$getlocalssmname | Where-Object { $_ -notlike "" }
+                                If ($ssmcontentlocaltrim ) { 
+                                    if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                        Get-Infomessage 'ssmupdates' 'update'
+                                        New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
+                                        Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                    } 
+                                    Else {
+                                        Get-Infomessage 'nossmupdates' 
+                                    }
                                 }
+
+                            }
+                            Else {
+                                Get-Infomessage 'ssmupdates' 'update'
+                                New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
+                                Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                             }
                         }
                     }
