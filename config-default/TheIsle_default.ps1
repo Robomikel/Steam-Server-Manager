@@ -55,7 +55,7 @@ Function New-LaunchScriptIslePS {
     Add-Content   $servercfgdir\Game.ini ServerName=$hostname
     Add-Content   $servercfgdir\Game.ini ServerPassword=$serverpassword
     Add-Content   $servercfgdir\Game.ini ServerSteamGroup=
-    Add-Content   $servercfgdir\Game.ini ServerMOTD=Hi There :3
+    Add-Content   $servercfgdir\Game.ini ServerMOTD=
     Add-Content   $servercfgdir\Game.ini bFamilySharing=false
     Add-Content   $servercfgdir\Game.ini bServerDatabase=true
     Add-Content   $servercfgdir\Game.ini bServerAllowChat=true
