@@ -78,6 +78,7 @@ Function Read-AppID {
         423410 { New-LaunchScriptBlackwakePS ; Break }
         238430 { New-LaunchScriptContagionDSPS ; Break }
         361580 { New-LaunchScriptWreckfestPS ; Break }
+        412680 { New-LaunchScriptIslePS ; Break }
         Default { Get-warnmessage "nolaunchscript" }
     }
 }
