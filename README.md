@@ -110,7 +110,8 @@ Install miscreated server ```./ssm install misserver```
    * Contagion Dedicated Server (238430) - "contagion" (optional server folder name)  
    * Onset Dedicated Server (1204170) - "contagion" (optional server folder name)
    * Wreckfest Dedicated Server (361580) - "wfserver" (optional server folder name)  
-   * The Isle Dedicated Server (412680) - "tiserver" (optional server folder name)  
+   * The Isle Dedicated Server (412680) - "tiserver" (optional server folder name)
+   * MORDHAU Dedicated Server (629800) - "mserver" (optional server folder name)   
    
    -----
  # Features  
