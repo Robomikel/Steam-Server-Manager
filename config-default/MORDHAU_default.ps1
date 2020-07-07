@@ -23,7 +23,7 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     ##############################/\##############################
-    # https://isle.fandom.com/wiki/The_Isle_Server_Settings_and_Configuration
+    # https://mordhau.com/forum/topic/10250/how-i-got-my-dedicated-server-ot-run-and-appear-on/
     ###################### Do not change below #####################
     #                       System Directory
     $global:systemdir       = "$serverdir"
@@ -48,7 +48,6 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Server Launch Command
     $global:launchParams    = '@("${executable} -USEALLAVAILABLECORES -Port=${port} -QueryPort=${queryport} -PeerPort=${sourcetvport} -Beaconport=${clientport} -log")'
     # -USEALLAVAILABLECORES -log -port=7778 -queryport=27015 -peerport=4778 -Beaconport=15000
-    # start C:\TheIsleServer\TheIsleServer.exe /Game/TheIsle/Maps/Landscape3/Isle_V3?MultiHome=12.345.67.890?Port=7777?QueryPort=7777?MaxPlayers=100?game=Survival -log
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
