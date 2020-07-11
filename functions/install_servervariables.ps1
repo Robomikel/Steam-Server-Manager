@@ -100,6 +100,14 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            server client port"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:clientport          = `"$global:clientport`""
     }
+    If ($beaconport) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            server Beacon port"
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:beaconport          = `"$global:beaconport`""
+    }
+    If ($peerport) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Peer Port "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:peerport        = `"$global:peerport`""
+    }
     If ($sourcetvport) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Source TV Port "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:sourcetvport        = `"$global:sourcetvport`""

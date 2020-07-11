@@ -5,28 +5,30 @@ Function New-LaunchScriptInssserverPS {
         # APP ID # 581330
         # tested 2.23.20
         ################## Change Default Variables #################
-        #                       Server Scenario 
-        $global:scenario        = "Scenario_Tideway_Checkpoint_Security"
-        #                       Server Map 
-        $global:defaultmap      = "Buhriz"
-        #                       Server max Players 
-        $global:maxplayers      = "8"
-        #                       Server Port   
-        $global:port            = "27102"
-        #                       Server Query Port  
-        $global:queryport       = "27131"
-        #                       Server Name       
-        $global:hostname        = "SERVERNAME"
-        #                       Server Password
-        $global:serverpassword  = ""
-        #                       Server Rcon Port
-        $global:rconport        = "27103"
-        #                       Server Rcon Password
-        $global:rconpassword    = "$RANDOMPASSWORD"
-        #                       Server Admin Steam ID 64
-        $global:steamid64       = ""
-        #                       Map Lighting
-        $global:lighting       = "Night"
+        #                               Server Scenario 
+        $global:scenario                = "Scenario_Tideway_Checkpoint_Security"
+        #                               Server Map 
+        $global:defaultmap              = "Buhriz"
+        #                               Server max Players 
+        $global:maxplayers              = "8"
+        #                               Server Port   
+        $global:port                    = "27102"
+        #                               Server Query Port  
+        $global:queryport               = "27131"
+        #                               Server Name       
+        $global:hostname                = "SERVERNAME"
+        #                               Server Password
+        $global:serverpassword          = ""
+        #                               Server Rcon Port
+        $global:rconport                = "27103"
+        #                               Server Rcon Password
+        $global:rconpassword            = "$RANDOMPASSWORD"
+        #                               Server Admin Steam ID 64
+        $global:steamid64               = ""
+        #                               Map Lighting
+        $global:lighting                = "Night"
+        #                               Game Server Token
+        $global:gslt                    = ""
         ##############################/\############################## 
         ###################### Do not change below #####################
         #                               System Directory
@@ -49,11 +51,20 @@ Function New-LaunchScriptInssserverPS {
 
         #                               Server Launch Command
         If ($SERVERPASSWORD -ne "") {
-    
-                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                If ($gslt ) {
+                        $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt}")'
+                } 
+                Else {
+                        $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                }
         }
         Else {
-                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
+                If ($gslt ) {
+                        $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt}")'
+                } 
+                Else {
+                        $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                } 
         }
         # Get User Input version must be set to 0
         Get-UserInput
