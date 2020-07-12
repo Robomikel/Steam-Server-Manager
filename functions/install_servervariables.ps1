@@ -132,6 +132,14 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Map Lighting"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:lighting           = `"$global:lighting`""
     }
+    If ($modsenabled) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Mods enabled"
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:modsenabled           = `"$global:modsenabled`""
+    }
+    If ($oauthtoken) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Mods OAuth"
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:oauthtoken           = `"$global:oauthtoken`""
+    }
     If ($defaultmap) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            default Map"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:defaultmap          = `"$global:defaultmap`""
