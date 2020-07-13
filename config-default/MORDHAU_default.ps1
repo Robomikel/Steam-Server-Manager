@@ -9,9 +9,9 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Query Port
     $global:queryport       = "27015"
     #                       Beacon Port 
-    $global:clientport        = "15000"
+    $global:beaconport        = "15000"
     #                       Peer Port
-    $global:sourcetvport    = "4778"
+    $global:peerport    = "4778"
     #                       Server Password
     $global:serverpassword  = ""
     #                       Admin Password
@@ -46,7 +46,7 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Game-Server-Config
     $global:servercfg       = "Game.ini"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -USEALLAVAILABLECORES -Port=${port} -QueryPort=${queryport} -PeerPort=${sourcetvport} -Beaconport=${clientport} -log")'
+    $global:launchParams    = '@("${executable} -USEALLAVAILABLECORES -Port=${port} -QueryPort=${queryport} -PeerPort=${peerport} -Beaconport=${beaconport} -log")'
     # -USEALLAVAILABLECORES -log -port=7778 -queryport=27015 -peerport=4778 -Beaconport=15000
     # Get User Input version must be set to 0
     Get-UserInput

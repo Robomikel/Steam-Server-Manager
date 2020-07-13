@@ -5,29 +5,41 @@ Function New-LaunchScriptInssserverPS {
         # APP ID # 581330
         # tested 2.23.20
         ################## Change Default Variables #################
-        #                       Server Scenario 
-        $global:scenario        = "Scenario_Tideway_Checkpoint_Security"
-        #                       Server Map 
-        $global:defaultmap      = "Buhriz"
-        #                       Server max Players 
-        $global:maxplayers      = "8"
-        #                       Server Port   
-        $global:port            = "27102"
-        #                       Server Query Port  
-        $global:queryport       = "27131"
-        #                       Server Name       
-        $global:hostname        = "SERVERNAME"
-        #                       Server Password
-        $global:serverpassword  = ""
-        #                       Server Rcon Port
-        $global:rconport        = "27103"
-        #                       Server Rcon Password
-        $global:rconpassword    = "$RANDOMPASSWORD"
-        #                       Server Admin Steam ID 64
-        $global:steamid64       = ""
-        #                       Map Lighting
-        $global:lighting       = "Night"
+        #                               Server Scenario 
+        $global:scenario                = "Scenario_Tideway_Checkpoint_Security"
+        #                               Server Map 
+        $global:defaultmap              = "Buhriz"
+        #                               Server max Players 
+        $global:maxplayers              = "8"
+        #                               Server Port   
+        $global:port                    = "27102"
+        #                               Server Query Port  
+        $global:queryport               = "27131"
+        #                               Server Name       
+        $global:hostname                = "SERVERNAME"
+        #                               Server Password
+        $global:serverpassword          = ""
+        #                               Server Rcon Port
+        $global:rconport                = "27103"
+        #                               Server Rcon Password
+        $global:rconpassword            = "$RANDOMPASSWORD"
+        #                               Server Admin Steam ID 64
+        $global:steamid64               = ""
+        #                               Map Lighting
+        $global:lighting                = "Night"
+        #                               Game Server Token
+        $global:gslt                    = ""
+        #                               Mods Enabled? $true / Leave Empty
+        $global:modsenabled             = ""
+        #                               OAuth 2 Management, Generate Access Token
+        $global:oauthtoken              = ""
         ##############################/\############################## 
+        # To specify a list of mods your server is running you can add a text file in Insurgency/Config/Server/Mods.txt specifying each mod ID line by line. 
+        # You can also override the text file read by specifying -ModList=MyCustomModList.txt on the command line.
+
+        # If you wish to specify a list of mods on the command line you may do this through specifying -CmdModList="mod1,mod2,mod3" where mod1,mod2,mod3 is a command separated list of mod IDs.
+
+        # You may specify a map to travel to after mods are downloaded by specifying the ModDownloadTravelTo= command line argument, followed by the travel URL argument to change to.
         ###################### Do not change below #####################
         #                               System Directory
         $global:systemdir               = "$serverdir"
@@ -49,11 +61,40 @@ Function New-LaunchScriptInssserverPS {
 
         #                               Server Launch Command
         If ($SERVERPASSWORD -ne "") {
-    
-                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                If ($gslt ) {
+                        If ($modsenabled -eq $true) {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt} -Mods")'
+                        } 
+                        Else {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt}")'
+                        }
+                } 
+                Else {
+                        If ($modsenabled -eq $true) {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -Mods")'
+                        }
+                        Else {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                        }
+                }
         }
         Else {
-                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'     
+                If ($gslt ) {
+                        If ($modsenabled -eq $true) {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt} -Mods")'
+                        }
+                        Else {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt}")'
+                        }
+                } 
+                Else {
+                        If ($modsenabled -eq $true) {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -Mods")'
+                        }
+                        Else {
+                                $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`"")'
+                        }
+                } 
         }
         # Get User Input version must be set to 0
         Get-UserInput
@@ -68,6 +109,9 @@ Function New-LaunchScriptInssserverPS {
     
         # Create a Default Mapcycle.txt 
         New-Item $MapCyclePath\Mapcycle.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+
+        # Create a Default Mods.txt
+        New-Item $MapCyclePath\Mods.txt -Force | Out-File -Append -Encoding Default  $ssmlog
         
         # - - - - - - MAPCYCLE.TXT - - - - - - # EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
         # Add-Content   $MapCyclePath\Mapcycle.txt Scenario_Ministry_Checkpoint_Security
@@ -285,4 +329,12 @@ Function New-LaunchScriptInssserverPS {
         Add-Content   $servercfgdir\Game.ini bCountFriendlyFire=Vampirism_bCountFriendlyFire
         Add-Content   $servercfgdir\Game.ini MaxHealth=1000
         Add-Content   $servercfgdir\Game.ini ";............End Game.ini"
+
+        
+        # - - - - - - Game.ini - - - -##  EDIT \/   \/   \/  \/  \/  \/ \/ \/ \/
+        Get-Infomessage " Creating Engine.ini for Mods" 'info'
+        New-Item $servercfgdir\Engine.ini -Force
+        Add-Content   $servercfgdir\Engine.ini [/Script/ModKit.ModIOClient]
+        Add-Content   $servercfgdir\Engine.ini bHasUserAcceptedTerms=True
+        Add-Content   $servercfgdir\Engine.ini AccessToken=$oauthtoken
 }
