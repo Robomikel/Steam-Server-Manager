@@ -157,7 +157,7 @@ Function New-ServerLog {
             Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
             If ($?) {
                 If ($pastebinconsolelog -eq "on") { 
-                    Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
+                    Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn 1D -Visibility Unlisted
                     Write-log "Sent Pastebin"
                 }
                 if ($log) {
