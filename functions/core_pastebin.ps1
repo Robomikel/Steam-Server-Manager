@@ -26,11 +26,11 @@
 #>
  
  
-$PastebinDeveloperKey = ''
+# $PastebinDeveloperKey = ''
 $PastebinPasteURI = 'https://pastebin.com/api/api_post.php'
 $PastebinLoginUri = "https://pastebin.com/api/api_login.php"
-$PastebinUsername = ""
-$PastebinPassword = ""
+# $PastebinUsername = ""
+# $PastebinPassword = ""
  
 $Authenticate = "api_dev_key=$PastebinDeveloperKey&api_user_name=$PastebinUsername&api_user_password=$PastebinPassword"
  

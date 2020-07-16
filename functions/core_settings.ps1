@@ -71,6 +71,12 @@ Function Set-SteamerSetting {
     $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin
     $global:pastebinconsolelog      = "off"
+    #                               Pastebin username
+    $global:PastebinUsername        = ""
+    #                               Pastebin pwd
+    $global:PastebinPassword        = ""
+    #                               Pastebin Dev Key
+    $global:PastebinDeveloperKey    = ''
     #                               Discord Webhook 
     $global:discordwebhook          = ""
     #                               Discord Display IP and Steam API IP. (NAT address may not resolve correctly. Use correct server Public IP here. Leave Blank for N/A)
