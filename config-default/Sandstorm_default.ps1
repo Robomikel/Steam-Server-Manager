@@ -31,7 +31,7 @@ Function New-LaunchScriptInssserverPS {
         $global:gslt                    = ""
         #                               Mods Enabled? $true / Leave Empty
         $global:modsenabled             = ""
-        #                               OAuth 2 Management, Generate Access Token
+        #                               Mod.io OAuth Access Token
         $global:oauthtoken              = ""
         ##############################/\############################## 
         # To specify a list of mods your server is running you can add a text file in Insurgency/Config/Server/Mods.txt specifying each mod ID line by line. 
