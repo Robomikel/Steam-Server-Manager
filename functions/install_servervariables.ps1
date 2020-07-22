@@ -106,7 +106,7 @@ Function New-CreateVariables {
     }
     If ($peerport) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Peer Port "
-        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:peerport        = `"$global:peerport`""
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:peerport            = `"$global:peerport`""
     }
     If ($sourcetvport) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Source TV Port "
@@ -159,6 +159,10 @@ Function New-CreateVariables {
     If ($maxplayers) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Max Players  "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:maxplayers          = `"$global:maxplayers`""
+    }
+    If ($numplayers) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            number of Players  "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:numplayers          = `"$global:numplayers`""
     }
     If ($coopplayers) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            coopplayers Players  "

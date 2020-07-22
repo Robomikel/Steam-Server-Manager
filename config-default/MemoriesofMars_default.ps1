@@ -13,7 +13,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     #                       Server Port
     $global:port            = "7777"
     #                       BeaconPort
-    $global:queryport       = "15000"
+    $global:beaconport       = "15000"
     ##############################/\##############################
     
     ###################### Do not change below #####################
@@ -38,7 +38,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     #                       Game-Server-Config
     $global:servercfg       = "DedicatedServerConfig.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -MULTIHOME=`"${ip}`" -port=${port} -queryport=${queryport} -maxplayers=${maxplayers}")'
+    $global:launchParams    = '@("${executable} -MULTIHOME=`"${ip}`" -port=${port} -queryport=${beaconport} -maxplayers=${maxplayers}")'
     # Get User Input version must be set to 0
     Get-UserInput
     New-servercfgmom

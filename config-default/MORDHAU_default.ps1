@@ -9,9 +9,9 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Query Port
     $global:queryport       = "27015"
     #                       Beacon Port 
-    $global:beaconport        = "15000"
+    $global:beaconport       = "15000"
     #                       Peer Port
-    $global:peerport    = "4778"
+    $global:peerport        = "4778"
     #                       Server Password
     $global:serverpassword  = ""
     #                       Admin Password
