@@ -59,8 +59,18 @@ Function Get-Details {
     Write-Host "    Process RAM Usage : $mem"
     Write-Host "    Backups           : $backups"
     Write-Host "    Backups size GB   : $backupssize"
-    Write-Host "    Status            : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
-    Write-Host "    Steam Master      : $masterserver"
+    Write-Host "    Steam Master      : .:.:.:.:.:.."
+    Write-Host "         Status       : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
+    If ($stats) {
+    Write-Host "         -addr        : $($masterserver.addr)"
+    Write-Host "         -gmsindex    : $($masterserver.gmsindex)"
+    Write-Host "         -appid       : $($masterserver.appid)"
+    Write-Host "         -gamedir     : $($masterserver.gamedir)"
+    Write-Host "         -region      : $($masterserver.region)"
+    Write-Host "         -secure      : $($masterserver.secure)"
+    Write-Host "         -lan         : $($masterserver.lan)"
+    Write-Host "         -gameport    : $($masterserver.gameport)"
+    Write-Host "         -secport     : $($masterserver.secport)"}
     Write-Host "    Monitor Job       : $monitorjob"
     Write-Host "    Autorestart       : $restartjob"
     Write-Host "    OS                : $os"
