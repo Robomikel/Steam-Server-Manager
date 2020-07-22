@@ -71,6 +71,8 @@ Function Set-SteamerSetting {
     $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin
     $global:pastebinconsolelog      = "off"
+    #                               Pastebin Time -  Never: N, 10 Minutes: 10M, 1 Hour: 1H, 1 Day: 1D, 1 Week: 1W, 2 Weeks: 2W, 1 Month: 1M
+    $global:pastebinexpires         = "1D"
     #                               Pastebin username
     $global:PastebinUsername        = ""
     #                               Pastebin pwd
@@ -79,7 +81,7 @@ Function Set-SteamerSetting {
     $global:PastebinDeveloperKey    = ''
     #                               Discord Webhook 
     $global:discordwebhook          = ""
-    #                               Discord Display IP and Steam API IP. (NAT address may not resolve correctly. Use correct server Public IP here. Leave Blank for N/A)
+    #                               Discord Display IP and Steam API IP.
     $global:discorddisplayip        = ""
     Set-SteamerSettingLog
 }
