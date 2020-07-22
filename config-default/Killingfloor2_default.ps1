@@ -59,7 +59,7 @@ Function New-LaunchScriptKF2serverPS {
     Set-Location $serverdir
     Get-Infomessage "***  starting Server before Setting PCServer-KFGame.ini Please Wait ***" 'info'
     Start-Process cmd "/c KF2Server.bat"
-    timeout 5
+    timeout 10
     Get-Infomessage "***  stopping Server before Setting PCServer-KFGame.ini Please Wait ***" 'info'
     Get-StopServer
     Get-Infomessage "***  Editing Default Server Name PCServer-KFGame.ini ***" 'info'
