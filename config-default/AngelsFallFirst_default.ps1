@@ -87,7 +87,7 @@ Function New-LaunchScriptAFFserverPS {
     
     Get-Infomessage "***  starting Server before Setting .ini Please Wait ***" 'info'
     Set-Location $executabledir
-    Start-process cmd -Args @("/c ${executable} AFF-Ixion -seekfreeloadingserver")
+    Start-process cmd -Args @("/c ${executable} AFF-Ixion -seekfreeloadingserver") -NoNewWindow
     timeout 10
     Get-Infomessage "***  stopping Server before Setting .ini Please Wait ***" 'info'
     Get-StopServer
