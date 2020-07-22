@@ -19,7 +19,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Coop players
-    $global:coopplayer     = "8"
+    $global:coopplayers     = "8"
     #                       Workshop
     $global:workshop        = "1"
     #                       SV_Pure
