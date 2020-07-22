@@ -13,10 +13,8 @@ Function New-LaunchScriptAFFserverPS {
     $global:defaultmap      = "AFF-Ixion"
     #                       Maxplayers
     $global:maxplayers      = "32"
-    #                       GameMode
-    # $global:gamemode        = "KFGameContent.KFGameInfo_Endless"
-    #                       Difficulty
-    # $global:diff            = "0"
+    #                       number of players
+    $global:numplayers      = "32"
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Admin Password
@@ -70,14 +68,12 @@ Function New-LaunchScriptAFFserverPS {
     $global:logdirectory    = "$serverdir\AFFGame\Logs"
     #                       Server Log
     $global:consolelog      = "Server.log"
-    #                       Game-Server-Config Directory
-    $global:gamedirname     = ""
     #                       Game-Server-Config
     $global:servercfg       = "PCServer-AFFGame.ini"
     #                       Game-Server-Config Directory
     $global:gamedirname     = "SpaceServer"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} ${defaultmap}?GamePassword=${adminpassword}?numplay=32?MaxPlayers=${maxplayers}?BalanceBots=true?briefingtime=60 -multihome=${ip} -Port=${port} -QueryPort=${queryport} -log=${logdirectory}\${consolelog} -configsubdir=${gamedirname} -seekfreeloadingserver")'
+    $global:launchParams    = '@("${executable} ${defaultmap}?GamePassword=${adminpassword}?numplay=${numplayers}?MaxPlayers=${maxplayers}?BalanceBots=true?briefingtime=60 -multihome=${ip} -Port=${port} -QueryPort=${queryport} -log=${logdirectory}\${consolelog} -configsubdir=${gamedirname} -seekfreeloadingserver")'
     #                            AFFGameServer.exe AFF-Ixion?GamePassword=superpassword?numplay=32?BalanceBots=true?briefingtime=60 -log=SpaceServer\server.log -configsubdir=SpaceServer -seekfreeloadingserver
     # Get User Input version must be set to 0
     Get-UserInput
@@ -85,16 +81,18 @@ Function New-LaunchScriptAFFserverPS {
     # Set-Location $servercfgdir
     # Get-ChildItem -Filter "LinuxServer-*.ini" -Recurse | Rename-Item -NewName { $_.name -replace 'LinuxServer', 'PCServer' } -Force
     
-    Get-Infomessage "***  starting Server before Setting .ini Please Wait ***" 'info'
+    Get-Infomessage "***  starting Server before Setting $servercfg Please Wait ***" 'info'
     Set-Location $executabledir
     Start-process cmd -Args @("/c ${executable} AFF-Ixion -seekfreeloadingserver") -NoNewWindow
     timeout 10
-    Get-Infomessage "***  stopping Server before Setting .ini Please Wait ***" 'info'
+    Get-Infomessage "***  stopping Server before Setting $servercfg Please Wait ***" 'info'
     Get-StopServer
     Set-Location $servercfgdir
-    If (!$("$servercfgdir\$gamedirname")){
+    If (!$(Test-Path $servercfgdir\$gamedirname)){
     New-Item . -Name $gamedirname -ItemType Directory -Force
     Copy-Item "PCServer-*.ini" $servercfgdir\$gamedirname -Recurse -Force
+    Get-Infomessage "***  Editing Default Server Name $servercfg ***" 'info'
+    ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "\bServerName=AFF Server\b", "ServerName=$hostname") | Set-Content -Path $servercfgdir\$servercfg
     }   
     Set-Location $currentdir
 }
