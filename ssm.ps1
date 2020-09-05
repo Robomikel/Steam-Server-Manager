@@ -84,13 +84,10 @@ $global:CHECKMARK = ([char]8730)
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
+Get-ClientSettings
+
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
-If (!(Test-Path $currentdir\config)){mkdir $currentdir\config}
-If (Test-Path $currentdir\config\*.ps1) {
-    Write-log "Found custom config .ps1"
-    Get-ChildItem -Path $currentdir\config -Filter *.ps1 | ForEach-Object { . $_.FullName }
-}
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
