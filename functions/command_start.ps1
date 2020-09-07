@@ -23,6 +23,7 @@ Function Get-StartServer {
         }
         Else {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
+            Write-Log "Start-Process CMD /c start $launchParams  -NoNewWindow"
         }
         Set-Location $currentdir
     }
