@@ -82,6 +82,7 @@ Function Read-AppID {
         629800 { New-LaunchScriptMORDHAUPS ; Break }
         407480 { New-LaunchScriptAFFserverPS ; Break }
         317800 { New-LaunchScriptDAserverPS ; Break }
+        419790 { New-LaunchScriptEdenStartPS ; Break }
         Default { Get-warnmessage "nolaunchscript" }
     }
 }
