@@ -113,8 +113,9 @@ Install miscreated server ```./ssm install misserver```
    * Wreckfest Dedicated Server (361580) - "wfserver" (optional server folder name)  
    * The Isle Dedicated Server (412680) - "tiserver" (optional server folder name)
    * MORDHAU Dedicated Server (629800) - "mserver" (optional server folder name)
-   * Angels Fall First Dedicated Server (407480) - "affserver" (optional server folder name) 
-   * Double Action Dedicated Server (317800) - "daserver" (optional server folder name)   
+   * Angels Fall First Dedicated Server (407480) - "affserver" (optional server folder name)    
+   * Double Action Dedicated Server (317800) - "daserver" (optional server folder name) 
+   * Eden Star Dedicated Server (419790) - "esserver" (optional server folder name) 
    
    -----
  # Features  
