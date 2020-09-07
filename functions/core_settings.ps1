@@ -59,6 +59,8 @@ Function Set-SteamerSetting {
     $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory
     $global:backupdir               = "$currentdir\backups"
+    #                               Config Directory
+    $global:configdir               = "$currentdir\config"
     #                               ssm log Directory
     $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory

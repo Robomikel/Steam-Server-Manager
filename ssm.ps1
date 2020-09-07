@@ -84,6 +84,8 @@ $global:CHECKMARK = ([char]8730)
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
+Get-ClientSettings
+
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
 Set-Console  >$null 2>&1
