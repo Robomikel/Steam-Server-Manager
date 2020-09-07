@@ -7,9 +7,9 @@
 #
 #
 Function Get-CreatedVaribles {
-     If (!$serverfiles) {
+    If (!$serverfiles) {
         Param($serverfiles)
-     }
+    }
     Write-log "Function: Get-CreatedVaribles"
     If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
@@ -70,7 +70,7 @@ Function Get-TestString {
             Get-warnmessage "invalidCharacters"  
         }
     } 
-    Elseif (!$serverfiles){
+    Elseif (!$serverfiles) {
         Get-warnmessage "invalidCharacters"
     }
 }
@@ -151,7 +151,7 @@ Function Select-EditSourceCFG {
 Function New-ServerLog {
     Write-log "Function: New-ServerLog"
     If ($consolelogging -eq "on") { 
-        If ($consolelog  ) {
+        If (Test-Path $logdirectory\$consolelog  ) {
             Write-log "Found $consolelog"
             $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
             Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
@@ -266,8 +266,8 @@ Function Get-SourceMetaModWebrequest {
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
-    $sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
-    $global:sourcemodurl="${sourcemoddownloadurl}"
+    $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
+    $global:sourcemodurl = "${sourcemoddownloadurl}"
     If (!$metamodurl -or !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
@@ -289,24 +289,24 @@ Function Get-PreviousInstall {
 function Receive-Information {
     process { 
         If ($package -eq $true ) {
-        Write-Host $_ -ForegroundColor Green -NoNewline 
+            Write-Host $_ -ForegroundColor Green -NoNewline 
         } 
-        ElseIf ($package -eq $false )  {
+        ElseIf ($package -eq $false ) {
             Write-Host $_ -ForegroundColor Red -NoNewline 
         } 
-        ElseIf ($package -eq 'update' )  {
+        ElseIf ($package -eq 'update' ) {
             Write-Host $_ -ForegroundColor Cyan -NoNewline 
         }
-        ElseIf ($package -eq 'warning' )  {
+        ElseIf ($package -eq 'warning' ) {
             Write-Host $_ -ForegroundColor Magenta -NoNewline 
         }
-        ElseIf ($package -eq 'info' )  {
+        ElseIf ($package -eq 'info' ) {
             Write-Host $_ -ForegroundColor Yellow -NoNewline 
         } 
-        ElseIf ($package -eq 'start' )  {
+        ElseIf ($package -eq 'start' ) {
             Write-Host $_ -ForegroundColor Yellow -NoNewline 
         }
-        ElseIf ($package -eq 'done' )  {
+        ElseIf ($package -eq 'done' ) {
             Write-Host $_ -ForegroundColor Green -NoNewline 
         }
         Else {
