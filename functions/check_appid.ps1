@@ -83,6 +83,8 @@ Function Read-AppID {
         407480 { New-LaunchScriptAFFserverPS ; Break }
         317800 { New-LaunchScriptDAserverPS ; Break }
         419790 { New-LaunchScriptEdenStartPS ; Break }
+        17555 { New-LaunchScriptEternalSilenceserverPS ; Break }
+        405100 { New-LaunchScriptHurtWorldPS ; Break }
         Default { Get-warnmessage "nolaunchscript" }
     }
 }

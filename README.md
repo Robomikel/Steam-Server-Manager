@@ -116,7 +116,9 @@ Install miscreated server ```./ssm install misserver```
    * Angels Fall First Dedicated Server (407480) - "affserver" (optional server folder name)    
    * Double Action Dedicated Server (317800) - "daserver" (optional server folder name) 
    * Eden Star Dedicated Server (419790) - "esserver" (optional server folder name) 
-   
+   * Eternal Silence Dedicated Server (17555) - "esmodserver" (optional server folder name)
+   * Hurtworld Dedicated Server(405100) - "hwserver" (optional server folder name)
+
    -----
  # Features  
  - Manage Steam server with features
