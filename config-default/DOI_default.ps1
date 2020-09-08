@@ -52,7 +52,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +servercfgfile ${servercfg} +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} +sv_pure ${sv_pure} -condebug")'
+    $global:launchParams    = '@("${executable} -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +servercfgfile ${servercfg} +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} `"+sv_pure ${sv_pure}`" -condebug")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
@@ -129,7 +129,7 @@ Function Set-Gamemodedoi {
     #Write-Host "mp_first_deployment" -ForegroundColor Yellow
     Write-Host "mp_special_assignments" -ForegroundColor Yellow
     #Write-Host "conquer" -ForegroundColor Yellow
-    Write-Host "Enter mode, Will add Mapcycle per mode: " -ForegroundColor Cyan -NoNewline
+    Write-Host "Enter mode" -ForegroundColor Cyan -NoNewline
     $playlist = Read-Host 
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
         Get-Infomessage "Editing nwi/$playlist playlist in server.cfg" 'info'
@@ -150,7 +150,7 @@ Function Get-Gamemodedoi {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     if ($decision -eq 0) {
         Set-Gamemodedoi
-        new-mapcycles
+        # new-mapcycles
         Write-Host 'Entered Y'
     }
     else {
