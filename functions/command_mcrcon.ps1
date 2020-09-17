@@ -18,7 +18,7 @@ Function Set-ConnectMCRcon {
                     & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
                 }
                 Else {
-                    Write-log "Using RconPort ${extip} -P ${port} -p $rconpassword"
+                    Write-log "Using RconPort ${extip} -P ${rconport} -p $rconpassword"
                     & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
                 }
                 set-location $currentdir
