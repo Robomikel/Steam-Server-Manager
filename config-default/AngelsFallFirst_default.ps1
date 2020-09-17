@@ -84,7 +84,9 @@ Function New-LaunchScriptAFFserverPS {
     Get-Infomessage "***  starting Server before Setting $servercfg Please Wait ***" 'info'
     Set-Location $executabledir
     Start-process cmd -Args @("/c ${executable} AFF-Ixion -seekfreeloadingserver") -NoNewWindow
-    timeout 10
+    while (!(Get-Process $process -ea SilentlyContinue )) {
+        Wait-process -Name $process -Timeout 45 >$null 2>&1
+    }
     Get-Infomessage "***  stopping Server before Setting $servercfg Please Wait ***" 'info'
     Get-StopServer
     Set-Location $servercfgdir
