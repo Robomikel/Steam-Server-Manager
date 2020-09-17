@@ -23,7 +23,7 @@ cod3mw,cod3mwserver,Call of Duty Modern Warfare 3,42750,CallofDuty3MW_default.ps
 contagion,contagionserver,Conatagion Dedicated,238430,ContagionDS_default.ps1,
 cs,csserver,Colony Survival,748090,ColonySurvival_default.ps1,
 csgo,csgoserver,Counter-Strike Global Offensive,740,CSGO_default.ps1,
-da,daserver,Double Action,317800,New-LaunchScriptDAserverPS,
+da,daserver,Double Action,317800,DoubleAction_default.ps1,
 dayofdragons,dayofdragonsserver,Day of Dragons,1088320,DayofDragons_default.ps1,
 dod,dodserver,Day of Defeat,232290,DayofDefeat_default.ps1,
 dow,dowserver,Days of War,541790,DaysofWar_default.ps1,
