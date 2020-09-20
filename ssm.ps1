@@ -10,7 +10,8 @@ $global:command = $($args[0])
 $global:serverfiles = $($args[1])
 $global:currentdir = Get-Location
 $global:serverdir = "$currentdir\$serverfiles"
-${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings
+$pattern = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $pattern)){(Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
 # ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
@@ -21,10 +22,12 @@ $global:logDate = Get-Date -Format MM-dd-yyyy
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
 # NodeJs Version "12.13.1"
-$global:nodeversion = "12.15.0"
-$global:nodejsurl = "https://nodejs.org/dist/v$nodeversion/node-v$nodeversion-win-x64.zip"
-$global:nodejsoutput = "node-v$nodeversion-win-x64.zip"
-$global:nodejsdirectory = "$currentdir\node-v$nodeversion-win-x64"
+# $global:nodeversion = "12.15.0"
+$global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+$global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
+$global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+$global:nodejsoutput = "$nodeversion"
+$global:nodejsdirectory = "$currentdir\latest-v12.x"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
 # Oxide

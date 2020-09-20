@@ -11,7 +11,7 @@ Function Add-NodeJS {
     If ($nodeversion) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Nodejs'
-        #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\node-v$nodeversion-win-x64.zip")
+        #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $nodejsurl -OutFile $nodejsoutput
         If (!$?) {
@@ -23,9 +23,10 @@ Function Add-NodeJS {
         } 
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Nodejs'
-        Expand-Archive "$currentdir\node-v$nodeversion-win-x64.zip" "$currentdir\node-v$nodeversion-win-x64\" -Force
-        Copy-Item  "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64\*" -Destination $nodejsdirectory -Recurse -Force 
-        Remove-Item "$currentdir\node-v$nodeversion-win-x64\node-v$nodeversion-win-x64" -Recurse -Force 
+        Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\latest-v12.x\" -Force
+        $nodeversionfolder = $nodeversion -replace '.zip', ''
+        Copy-Item  "$currentdir\latest-v12.x\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
+        Remove-Item "$currentdir\latest-v12.x\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'Nodejs'
             New-TryagainNew
