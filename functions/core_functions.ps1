@@ -140,9 +140,14 @@ Function Select-EditSourceCFG {
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
-        if ($HOSTNAME) {
-            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+        If (($appid -ne 237410) -or ($appid -ne 462310)) {
+            if ($HOSTNAME) {
+                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+        } 
+        Else {
+            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg
         }
+    }
         If ($RCONPASSWORD) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
         }    
