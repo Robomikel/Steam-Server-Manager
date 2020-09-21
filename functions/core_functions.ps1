@@ -403,13 +403,14 @@ Function Set-SteamerSettingLog {
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
     If ( $testvariable -eq "on" ) {
-    Get-Variable | Where-Object Value -Like $null | ForEach-Object {if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StrackTrace") { 
+    Get-Variable | Where-Object Value -Like $null | ForEach-Object {if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace") { 
         $name = $_.Name ; Write-log "Name: $name is empty variable" ;  Write-Warning "Name: $name is empty variable" -InformationAction Continue  
             }
         }
     }
 }
 Function Get-CustomSettings {
+    Write-Log "Function Get-CustomSettings"
     If (Test-Path "$currentdir\custom_settings.ps1") {
         .$currentdir\custom_settings.ps1
         Import-CustomSetting
@@ -421,7 +422,8 @@ Function Get-CustomSettings {
     }
 }
 Function Set-Customsettings {
-    New-Item "$currentdir\custom_settings.ps1" -Force
+    Write-Log "Function Set-Customsettings"
+    New-Item "$currentdir\custom_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content "$currentdir\custom_settings.ps1" `
 "Function Import-CustomSetting {
     Write-log `"Function: Import-CustomSetting`"

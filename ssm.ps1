@@ -21,12 +21,12 @@ $global:logDate = Get-Date -Format MM-dd-yyyy
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-# NodeJs Version "12.13.1"
-# $global:nodeversion = "12.15.0"
-$global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
-$global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
+#
+# Moved to install_nodejs.ps1
+# $global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+# $global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
 $global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-$global:nodejsoutput = "$nodeversion"
+# $global:nodejsoutput = "$nodeversion"
 $global:nodejsdirectory = "$currentdir\latest-v12.x"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
@@ -94,3 +94,8 @@ If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
+# http://ipinfo.io/ip
+# http://ifconfig.me/ip
+# http://icanhazip.com
+# http://ident.me
+# http://smart-ip.net/myip
