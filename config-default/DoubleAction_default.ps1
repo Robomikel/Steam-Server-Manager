@@ -22,7 +22,7 @@ Function New-LaunchScriptDAserverPS {
     #                       Rcon Password
     $global:rconpassword    = "$RANDOMPASSWORD"
     #                       Game Server Token required for public servers
-    # $global:gslt            = "GameServerTokenHere"
+    $global:gslt            = ""
     ###########################/\#################################
 
     ###################### Do not change below #####################
@@ -47,9 +47,12 @@ Function New-LaunchScriptDAserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} -condebug")'
-    
-    # $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} +sv_setsteamaccount ${gslt} -condebug")'
+    If ($gslt) {
+        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} -condebug")'
+    } 
+    Else {
+        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} +sv_setsteamaccount ${gslt} -condebug")'
+    }
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config

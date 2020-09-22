@@ -14,7 +14,7 @@ Function New-LaunchScriptMEserverPS {
   #                       World Name
   $global:worldname       = "WorldName"
   #                       scenario
-  $global:scenario      = "ArenaStart"
+  $global:scenario        = "ArenaStart"
   ##############################/\##############################
   # - Scenario - 
   # ArenaStart

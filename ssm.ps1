@@ -94,8 +94,3 @@ If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
-# http://ipinfo.io/ip
-# http://ifconfig.me/ip
-# http://icanhazip.com
-# http://ident.me
-# http://smart-ip.net/myip
