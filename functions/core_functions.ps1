@@ -140,14 +140,14 @@ Function Select-EditSourceCFG {
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
-        If (($appid -ne 237410) -or ($appid -ne 462310)) {
+        If (($appid -ne 237410) -and ($appid -ne 462310)) {
             if ($HOSTNAME) {
                 ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
-        } 
+            } 
+        }
         Else {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg
         }
-    }
         If ($RCONPASSWORD) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
         }    
@@ -408,8 +408,8 @@ Function Set-SteamerSettingLog {
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
     If ( $testvariable -eq "on" ) {
-    Get-Variable | Where-Object Value -Like $null | ForEach-Object {if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace") { 
-        $name = $_.Name ; Write-log "Name: $name is empty variable" ;  Write-Warning "Name: $name is empty variable" -InformationAction Continue  
+        Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace") { 
+                $name = $_.Name ; Write-log "Name: $name is empty variable" ; Write-Warning "Name: $name is empty variable" -InformationAction Continue  
             }
         }
     }
@@ -430,7 +430,7 @@ Function Set-Customsettings {
     Write-Log "Function Set-Customsettings"
     New-Item "$currentdir\custom_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content "$currentdir\custom_settings.ps1" `
-"Function Import-CustomSetting {
+        "Function Import-CustomSetting {
     Write-log `"Function: Import-CustomSetting`"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
