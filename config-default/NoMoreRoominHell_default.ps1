@@ -49,10 +49,10 @@ Function New-LaunchScriptNMRIHserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     If ($glst) {
-        $global:launchParams    = '@("${executable} -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -condebug")'
+        $global:launchParams    = '@("${executable} -console -game nmrih -strictportbind -ip ${ip} -port ${port} +hostname `"${hostname}`" +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -condebug")'
     } 
     Else {
-        $global:launchParams    = '@("${executable} -console -game nmrih -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -condebug")'
+        $global:launchParams    = '@("${executable} -console -game nmrih -strictportbind -ip ${ip} -port ${port} +hostname `"${hostname}`" +clientport ${clientport} +tv_port ${sourcetvport} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} -condebug")'
     }
     # Get User Input version must be set to 0
     Get-UserInput

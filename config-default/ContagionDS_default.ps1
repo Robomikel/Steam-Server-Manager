@@ -43,7 +43,7 @@ Function New-LaunchScriptContagionDSPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     # $global:launchParams    = '@("$executable -console -game bms -strictportbind -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile server.cfg -maxplayers ${maxplayers} -condebug")'
-    $global:launchParams    = '@("${executable} -steam -game contagion -console -dedicated -maxplayers $maxplayers -ip $ip -port $port +map $defaultmap +servercfgfile ${servercfg} +sv_lan $sv_lan -condebug")'
+    $global:launchParams    = '@("${executable} -steam -game contagion -console -dedicated -maxplayers ${maxplayers} -ip ${ip} -port ${port} +hostname `"${hostname}`" +map ${defaultmap} +servercfgfile ${servercfg} +sv_lan ${sv_lan} -condebug")'
 
     
     # Get User Input version must be set to 0
