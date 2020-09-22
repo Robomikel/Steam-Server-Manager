@@ -140,8 +140,13 @@ Function Select-EditSourceCFG {
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
-        if ($HOSTNAME) {
-            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+        If (($appid -ne 237410) -and ($appid -ne 462310)) {
+            if ($HOSTNAME) {
+                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+            } 
+        }
+        Else {
+            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg
         }
         If ($RCONPASSWORD) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
@@ -399,4 +404,111 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Pastebin  = $pastebinconsolelog"
     Write-log "Setting: Discord Webhook    = $discordwebhook  "
     Write-log "Setting: Discord Display IP  = $discorddisplayip  "
+}
+Function Test-VariablesNull {
+    Write-Log "Function: Get-VariablesNull"
+    If ( $testvariable -eq "on" ) {
+        Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace") { 
+                $name = $_.Name ; Write-log "Name: $name is empty variable" ; Write-Warning "Name: $name is empty variable" -InformationAction Continue  
+            }
+        }
+    }
+}
+Function Get-CustomSettings {
+    Write-Log "Function Get-CustomSettings"
+    If (Test-Path "$currentdir\custom_settings.ps1") {
+        .$currentdir\custom_settings.ps1
+        Import-CustomSetting
+    } 
+    Else {
+        Set-Customsettings
+        .$currentdir\custom_settings.ps1
+        Import-CustomSetting
+    }
+}
+Function Set-Customsettings {
+    Write-Log "Function Set-Customsettings"
+    New-Item "$currentdir\custom_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
+    Add-Content "$currentdir\custom_settings.ps1" `
+        "Function Import-CustomSetting {
+    Write-log `"Function: Import-CustomSetting`"
+    #                               ####  Steamer Settings #######
+    #                               Show Backup Console
+    `$global:Showbackupconsole       = `"$Showbackupconsole`"
+    #                               backup log open
+    `$global:backuplogopen           = `"$backuplogopen`"
+    #                               backup logs
+    `$global:backuplogs              = `"$backuplogs`"
+    #                               app data backup log open 
+    `$global:appdatabackuplogopen    = `"$appdatabackuplogopen`"
+    #                               Appdata backup 
+    `$global:appdatabackup           = `"$appdatabackup`"
+    #                               max backups  
+    `$global:maxbackups              = `"$maxbackups`"
+    #                               Stop On Backup
+    `$global:stoponbackup            = `"$stoponbackup`"
+    #                               logo 
+    `$global:logo                    = `"$logo`"
+    #                               Admin message
+    `$global:admincheckmessage       = `"$admincheckmessage`"
+    #                               Update on start
+    `$global:updateonstart           = `"$updateonstart`"
+    #                               Check Update on start
+    `$global:checkupdateonstart      = `"$checkupdateonstart`"
+    #                               check scheduled Task
+    `$global:Checktask               = `"$Checktask`"
+    #                               Discord Alert
+    `$global:DiscordAlert            = `"$DiscordAlert`"
+    #                               Discord backup Alert
+    `$global:DiscordBackupAlert      = `"$DiscordBackupAlert`"
+    #                               Discord Update Alert 
+    `$global:DiscordUpdateAlert      = `"$DiscordUpdateAlert`"
+    #                               Discord Restart Alert 
+    `$global:DiscordRestartAlert     = `"$DiscordRestartAlert`"
+    #                               Use private IP for Query and mcrcon
+    `$global:Useprivate              = `"$Useprivate`"
+    #                               consolelogging
+    `$global:consolelogging          = `"$consolelogging`"
+    #                               consolelogging count 
+    `$global:consolelogcount         = `"$consolelogcount`"
+    #                               ssmlogging
+    `$global:ssmlogging              = `"$ssmlogging`"
+    #                               ssmlogging count 
+    `$global:ssmlogcount             = `"$ssmlogcount`"
+    #                               Console Text Color 
+    `$global:textcolor               = `"$textcolor`" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
+    #                               Version  0 prompt for input, 1 no prompt during install
+    `$global:Version                 = `"$Version`"
+    #                               Server List Directory
+    `$global:serverlistdir           = `"$serverlistdir`"
+    #                               Backup Directory
+    `$global:backupdir               = `"$backupdir`"
+    #                               ssm log Directory
+    `$global:ssmlogdir               = `"$ssmlogdir`"
+    #                               log Directory
+    `$global:logdir                  = `"$logdir`"
+    #                               SSM Log
+    `$global:ssmlog                  = `"$ssmlog`"
+    #                               Empty Variable checking
+    `$global:testvariable            = `"$testvariable`"
+    #                               MC Version
+    `$global:mcversion               = `"$mcversion`"
+    #                               Test Connection to Steam Master
+    `$global:steammastercheck        = `"$steammastercheck`"
+    #                               Server Console log to Pastebin
+    `$global:pastebinconsolelog      = `"$pastebinconsolelog`"
+    #                               Pastebin Time -  Never: N, 10 Minutes: 10M, 1 Hour: 1H, 1 Day: 1D, 1 Week: 1W, 2 Weeks: 2W, 1 Month: 1M
+    `$global:pastebinexpires         = `"$pastebinexpires`"
+    #                               Pastebin username
+    `$global:PastebinUsername        = `"$PastebinUsername`"
+    #                               Pastebin pwd
+    `$global:PastebinPassword        = `"$PastebinPassword`"
+    #                               Pastebin Dev Key
+    `$global:PastebinDeveloperKey    = `'$PastebinDeveloperKey`'
+    #                               Discord Webhook 
+    `$global:discordwebhook          = `"$discordwebhook`"
+    #                               Discord Display IP and Steam API IP.
+    `$global:discorddisplayip        = `"$discorddisplayip`"
+    Set-SteamerSettingLog
+}"
 }

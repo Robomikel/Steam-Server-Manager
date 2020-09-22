@@ -7,7 +7,7 @@
 #
 #
 Function Set-SteamerSetting {
-    Write-log "Function: Set-SteamerSetting"
+    # Write-log "Function: Set-SteamerSetting"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
     $global:Showbackupconsole       = "off"
@@ -65,6 +65,8 @@ Function Set-SteamerSetting {
     $global:logdir                  = "$currentdir\log"
     #                               SSM Log
     $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
+    #                               Empty Variable checking
+    $global:testvariable            = "on"
     #                               MC Version
     $global:mcversion               = "$serverfiles\version.txt"
     #                               Test Connection to Steam Master

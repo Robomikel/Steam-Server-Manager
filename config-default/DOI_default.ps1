@@ -52,7 +52,7 @@ Function New-LaunchScriptdoiserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -game doi -strictportbind -usercon -ip ${ip} -port ${port} +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +servercfgfile ${servercfg} +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} `"+sv_pure ${sv_pure}`" -condebug")'
+    $global:launchParams    = '@("${executable} -game doi -strictportbind -usercon -ip ${ip} -port ${port} +hostname `"$hostname`" +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map `"${defaultmap}`" +servercfgfile ${servercfg} +maxplayers ${maxplayers} +sv_lan ${sv_lan }+mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} `"+sv_pure ${sv_pure}`" -condebug")'
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
@@ -133,7 +133,7 @@ Function Set-Gamemodedoi {
     $playlist = Read-Host 
     if (($playlist -eq "coop_commando") -or ($playlist -eq "coop") -or ($playlist -eq "mp_battles") -or ($playlist -eq "mp_casual_with_bots") -or ($playlist -eq "mp_special_assignments")) {
         Get-Infomessage "Editing nwi/$playlist playlist in server.cfg" 'info'
-        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" 		  `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
+        ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "`"sv_playlist`" `"nwi/coop`"", "sv_playlist `"nwi/$playlist`"") | Set-Content -Path $servercfgdir\server.cfg
         # Get-Playlistdoi
     }
     else {

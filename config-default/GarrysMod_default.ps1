@@ -31,7 +31,7 @@ Function New-LaunchScriptGMODserverPS {
     # Custom Start Parameters
     $global:customparms            = "-disableluarefresh"
     #                       Game Server Token
-    $global:gslt                   = "GameServerTokenHere"
+    $global:gslt                   = ""
     ###########################/\#################################
 
     ###################### Do not change below #####################
@@ -56,7 +56,12 @@ Function New-LaunchScriptGMODserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers} ${customparms} -condebug")'
+    If ($gslt) {
+        $global:launchParams    = '@("${executable} -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +sv_setsteamaccount ${gslt} +servercfgfile ${servercfg} -maxplayers ${maxplayers} ${customparms} -condebug")'
+    }
+    Else {
+        $global:launchParams    = '@("${executable} -console -game garrysmod -strictportbind -ip ${ip} -port ${port} -tickrate ${tickrate} +host_workshop_collection ${wscollectionid} -authkey ${wsapikey} +clientport ${clientport} +tv_port ${sourcetvport} +gamemode ${gamemode} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} ${customparms} -condebug")'
+    }
     # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config

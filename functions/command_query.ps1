@@ -15,11 +15,11 @@ Function Get-GamedigServerv2 {
                 set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${extip}:${port} "
-                    .\gamedig --type $querytype ${extip}:${port} --pretty
+                    $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput
                 }
                 Else {
                     Write-log " Using queryport $querytype ${extip}:${queryport}"
-                    .\gamedig --type $querytype ${extip}:${queryport} --pretty
+                    $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${queryport} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput 
                 }
                 set-location $currentdir
             }
@@ -27,11 +27,13 @@ Function Get-GamedigServerv2 {
                 set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${ip}:${port} "
-                    .\gamedig --type $querytype ${ip}:${port} --pretty
+                    $queryOutput = ((((( .\gamedig --type $querytype ${ip}:${port} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput
+                    
                 }
                 Else {
                     Write-log "Using queryport $querytype ${ip}:${queryport}"
-                    .\gamedig --type $querytype ${ip}:${queryport} --pretty
+                    $queryOutput = (((((  .\gamedig --type $querytype ${ip}:${queryport} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput 
+                   
                 }
                 set-location $currentdir
             }

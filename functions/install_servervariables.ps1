@@ -64,6 +64,10 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Exe dir "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:executabledir       = `"$global:executabledir`""
     }
+    If ($servercfg) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Game-Server-Config"
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:servercfg           = `"$global:servercfg`""
+    }
     If ($servercfgdir) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            server cfg dir "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:servercfgdir        = `"$global:servercfgdir`""

@@ -10,8 +10,8 @@ $global:command = $($args[0])
 $global:serverfiles = $($args[1])
 $global:currentdir = Get-Location
 $global:serverdir = "$currentdir\$serverfiles"
-$pattern = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $pattern)){(Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
+$ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
 # ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
@@ -21,12 +21,12 @@ $global:logDate = Get-Date -Format MM-dd-yyyy
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-# NodeJs Version "12.13.1"
-# $global:nodeversion = "12.15.0"
-$global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
-$global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
+#
+# Moved to install_nodejs.ps1
+# $global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+# $global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
 $global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-$global:nodejsoutput = "$nodeversion"
+# $global:nodejsoutput = "$nodeversion"
 $global:nodejsdirectory = "$currentdir\latest-v12.x"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
@@ -71,7 +71,7 @@ $global:mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 # Forge
 $global:forgeversion = "1.15.2-31.1.2"
 
-$global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 11 | ForEach-Object { [char]$_ })
+$global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
 $global:SMILEY_WHITE = ([char]9786)
 $global:SMILEY_BLACK = ([char]9787)
@@ -85,11 +85,13 @@ $global:NOTE1 = ([char]9834)
 $global:NOTE2 = ([char]9835)
 $global:CHECKMARK = ([char]8730) 
 
+If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm >$null 2>&1}
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
+Get-CustomSettings
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
-If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm}
+
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
