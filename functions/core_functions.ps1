@@ -153,6 +153,26 @@ Function Select-EditSourceCFG {
         }    
     }
 }
+
+Function Edit-ServerConfig {
+    switch ($appid) {
+        '294420' { $line = 5 }
+        '237410' { $line = 10 }
+        Default { Write-Error "Edit-ServerConfig" }
+    }
+    $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
+    $deleteline = $readserverconfig[$line]
+    # $edithostname = "$hostname"
+    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+    If ($readserverconfig[$line] -like "*hostname*" -or $readserverconfig[$line] -like "*SERVERNAME*" -and $readserverconfig[$line] -notmatch "$hostname"  ) {
+        Write-log "$deleteline-like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+        switch ($appid) {
+            '294420' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
+            '237410' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "//hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
+            Default { Write-Error "Edit-ServerConfig" }
+        }
+    }
+}
 Function New-ServerLog {
     Write-log "Function: New-ServerLog"
     If ($consolelogging -eq "on") { 
@@ -487,8 +507,6 @@ Function Set-Customsettings {
     `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
     `$global:logdir                  = `"$logdir`"
-    #                               SSM Log
-    `$global:ssmlog                  = `"$ssmlog`"
     #                               Empty Variable checking
     `$global:testvariable            = `"$testvariable`"
     #                               MC Version
