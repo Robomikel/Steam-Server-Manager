@@ -68,8 +68,8 @@ Function New-LaunchScriptceserverPS {
     #                       Server Log
     $global:consolelog      = "ConanSandbox.log"
     #                       Game-Server-Config
-    $global:servercfg       = "ServerSettings.ini "
-    $global:config2         =  "Engine.ini"
+    $global:config2         = "ServerSettings.ini "
+    $global:servercfg       =  "Engine.ini"
     #                       Server Launch Command
     $global:launchParams    = '@("${executable} -log  -MaxPlayers=${maxplayers} -Port=${port} -QueryPort=${queryport} -RconEnabled=1 -RconPassword=${rconpassword} -RconPort=${rconport}")'
     # Get User Input version must be set to 0
@@ -100,16 +100,16 @@ Function Get-ceserverInstallChanges {
        New-Item $modfiletext -Force | Out-File -Append -Encoding Default  $ssmlog
     }
     if ($defaultmap) {
-    New-Item $servercfgdir\$config2 -Force
-    Add-Content   $servercfgdir\$config2 `
+    New-Item $servercfgdir\$servercfg -Force
+    Add-Content   $servercfgdir\$servercfg `
    "[OnlineSubsystem]
 ServerName=$hostname
 ServerPassword=$serverpassword
 [/Script/EngineSettings.GameMapsSettings] 
 ServerDefaultMap=/Game/DLC_EXT/DLC_Siptah/Maps/DLC_Isle_of_Siptah"
 }
-    New-Item $servercfgdir\$servercfg -Force
-    Add-Content   $servercfgdir\$servercfg `
+    New-Item $servercfgdir\$config2 -Force
+    Add-Content   $servercfgdir\$config2 `
    "[ServerSettings]
 AdminPassword=$ADMINPASSWORD
 DedicatedServerLauncherSteamBranch=Live,TestLive
@@ -326,7 +326,7 @@ DedicatedServerLauncherScriptPath=
 DedicatedServerLauncherExtraCommandLineParameters=
 "
     if ($defaultmap){
-        Add-Content   $servercfgdir\$servercfg `
+        Add-Content   $servercfgdir\$config2 `
    "StormEnabled = true;
 ElderThingsEnabled = true;
 ElderThingsIdleLifespan = 30.f;
