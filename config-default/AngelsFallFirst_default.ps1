@@ -73,7 +73,7 @@ Function New-LaunchScriptAFFserverPS {
     #                       Game-Server-Config Directory
     $global:gamedirname     = "SpaceServer"
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} ${defaultmap}?GamePassword=${adminpassword}?numplay=${numplayers}?MaxPlayers=${maxplayers}?BalanceBots=true?briefingtime=60 -multihome=${ip} -Port=${port} -QueryPort=${queryport} -log=${logdirectory}\${consolelog} -configsubdir=${gamedirname} -seekfreeloadingserver")'
+    $global:launchParams    = '@("${executable} ${defaultmap}?GamePassword=${adminpassword}?numplay=${numplayers}?MaxPlayers=${maxplayers}?BalanceBots=true?briefingtime=60 -multihome=${ip} -Port=${port} -QueryPort=${queryport} -log=${gamedirname}\${consolelog} -configsubdir=${gamedirname} -seekfreeloadingserver")'
     #                            AFFGameServer.exe AFF-Ixion?GamePassword=superpassword?numplay=32?BalanceBots=true?briefingtime=60 -log=SpaceServer\server.log -configsubdir=SpaceServer -seekfreeloadingserver
     # Get User Input version must be set to 0
     Get-UserInput
@@ -94,7 +94,9 @@ Function New-LaunchScriptAFFserverPS {
     New-Item . -Name $gamedirname -ItemType Directory -Force
     Copy-Item "PCServer-*.ini" $servercfgdir\$gamedirname -Recurse -Force
     Get-Infomessage "***  Editing Default Server Name $servercfg ***" 'info'
-    ((Get-Content -path $servercfgdir\$servercfg -Raw) -replace "\bServerName=AFF Server\b", "ServerName=$hostname") | Set-Content -Path $servercfgdir\$servercfg
-    }   
+    ((Get-Content -path $servercfgdir\$gamedirname\$servercfg -Raw) -replace "\bServerName=AFF Server\b", "ServerName=$hostname") | Set-Content -Path $servercfgdir\$gamedirname\$servercfg
+    }
+    #                       Server Config Directory
+    $global:servercfgdir    = "$serverdir\AFFGame\Config\$gamedirname"
     Set-Location $currentdir
 }
