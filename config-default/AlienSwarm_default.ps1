@@ -16,6 +16,7 @@ Function New-LaunchScriptasrdserverPS {
     #                       Maxplayers
     $global:maxplayers      = "10"
     ##############################/\##############################
+    #  +hostname `"${hostname}`"
     ###################### Do not change below #####################
     #                       System Directory
     $global:systemdir       = "$serverdir"

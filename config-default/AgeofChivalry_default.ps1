@@ -37,7 +37,7 @@ Function New-LaunchScriptAoCserverPS {
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"    
     #                       Server Launch Command
-    $global:launchParams    = '@("${executable} -console -game ageofchivalry -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port} +ip ${ip} +exec ${servercfg} -condebug")'
+    $global:launchParams    = '@("${executable} -console -game ageofchivalry -secure +map ${defaultmap} -autoupdate +log on +maxplayers ${maxplayers} -port ${port}  +hostname `"${hostname}`" +ip ${ip} +exec ${servercfg} -condebug")'
       # Get User Input version must be set to 0
     Get-UserInput
     # Download Game-Server-Config
