@@ -38,6 +38,7 @@ Function Select-Steamer {
         'restart' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-ServerBuildCheck; Get-RestartsServer; Get-ChecktaskEnable; Test-VariablesNull; Get-ClearVariables; Break }
         'monitor' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-MonitorServer; Test-VariablesNull; Get-ClearVariables; Break }
         'backup' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-SevenZipCheck; Get-ChecktaskDisable; New-BackupFolder  ; New-BackupServer; Get-ChecktaskEnable; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
+        'restore' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-SevenZipCheck; Get-ChecktaskDisable; New-BackupFolder  ; Get-BackupMenu ; Get-ChecktaskEnable; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
         'monitor-job' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Set-MonitorJob; Test-VariablesNull; Get-ClearVariables; Break }
         'Mod-Install' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-Modinstall; Test-VariablesNull; Get-ClearVariables; Break }
         'ws-Install' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Install-SteamWS; Test-VariablesNull; Get-ClearVariables; Break }

@@ -124,8 +124,13 @@ Function Get-Savelocation {
         Write-log "No saves located in App Data" 
     }
     Else {
-        # New-AppDataSave
-        New-backupAppdata
+        If ($command -eq "restore") {
+            New-backupAppdatarestore
+        }
+        Else {
+            # New-AppDataSave
+            New-backupAppdata
+        }
     }
 }
 Function Select-RenameSource {

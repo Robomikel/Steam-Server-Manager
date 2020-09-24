@@ -24,7 +24,7 @@ Function New-BackupServer {
             Get-Infomessage "backupstart" 'start'
             Set-Location $sevenzipdirectory
             #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
-            Get-Childitem $sevenzipdirectory | Where-Object {$_ -like '*.log'} | Remove-item 
+            Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
             ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $serverdir\* > backup_$logDate.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
@@ -91,10 +91,10 @@ Function Limit-Backups {
         If (!$?) {
             Get-warnmessage "limitbackupfailed"
         }
-         Else {
+        Else {
             Get-Infomessage "purgebackup" 
 
-         }
+        }
         Set-Location $currentdir
     }
     ElseIf (!$backupdir -or !$maxbackups ) {
@@ -118,4 +118,96 @@ Function Limit-AppdataBackups {
     ElseIf (!$backupdir -or !$maxbackups ) {
         Get-warnmessage "limitbackupfailed"
     }
+}
+Function Get-BackupMenu {
+    Show-Menu
+    $selection = Read-Host "Please make a selection"
+    switch ($selection) {
+        '1' { $global:restore = $option1 } 
+        '2' { $global:restore = $option2 } 
+        '3' { $global:restore = $option3 } 
+        'q' { exit }
+    }
+    New-BackupRestore
+}
+Function Show-Menu {
+    $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime).Name
+    If ($option.Count -eq 1 ) {
+        $global:option1 = $option
+    }
+    ElseIf ($option.Count -eq 0 ) {
+        Write-Information "No Backups" -InformationAction Continue ; exit
+    }
+    Else {
+        $global:option1 = $option[0] 
+        $global:option2 = $option[1] 
+        $global:option3 = $option[2]
+    }
+    Write-Host ":::::::::::: SSM Backup Restore Menu ::::::::::"
+    Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+    Write-Host "1: $option1"
+    Write-Host "2: $option2"
+    Write-Host "3: $option3"
+    Write-Host "Q: Press 'Q' to quit."
+}
+Function New-BackupRestore {
+    Write-log "Function: New-BackupRestore"
+    If (($serverfiles) -and ($backupdir) -and ($Date) -and ($serverdir) -and ($logdate)) { 
+        If ($stoponbackup -eq "on") { 
+            Get-StopServer 
+        }
+        Get-Infomessage "Restore from Backup" 'start'
+        Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$currentdir\$serverfiles" -Force
+        If (!$?) {
+            Write-Warning "restore failed"
+        }
+        Get-Infomessage "backupdone" 
+        If ($appdatabackup -eq "on") { 
+            Get-Savelocation
+            # Get-Infomessage "savecheck" 
+        }
+        Set-Location $currentdir
+    }
+    ElseIf ( !$serverfiles -or !$backupdir) {
+        Write-Warning "restore failed"
+    }
+}
+
+Function New-backupAppdatarestore {
+    Write-log "Function: New-backupAppdatarestore"
+    Expand-Archive -Path $backupdir\AppDataBackup_$serverfiles-$Date.zip -DestinationPath $env:APPDATA\$saves -Force
+    If (!$?) {
+        Get-warnmessage "backupAppdatarestore"
+    }
+}
+Function Get-AppdataBackupMenu {
+    Show-AppdataMenu
+    $selection = Read-Host "Please make a selection"
+    switch ($selection) {
+        '1' { $global:restore = $option1 } 
+        '2' { $global:restore = $option2 } 
+        '3' { $global:restore = $option3 } 
+        'q' { exit }
+    }
+    New-backupAppdatarestore
+}
+Function Show-AppdataMenu {
+    $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime).Name
+    If ($option.Count -eq 1 ) {
+        $global:option1 = $option
+    }
+    ElseIf ($option.Count -eq 0 ) {
+        Write-Information "No AppDataBackups" -InformationAction Continue ; exit
+    }
+    Else {
+        $global:option1 = $option[0] 
+        $global:option2 = $option[1] 
+        $global:option3 = $option[2]
+    }
+    Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
+    Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+    Write-Host "1: $option1"
+    Write-Host "2: $option2"
+    Write-Host "3: $option3"
+    Write-Host "Q: Press 'Q' to quit."
 }
