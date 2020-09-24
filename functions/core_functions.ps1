@@ -172,11 +172,15 @@ Function Edit-ServerConfig {
 
 Function Set-ServerConfig {
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
-    $deleteline = $readserverconfig[$line]
+    If ($readserverconfig[$line]) { 
+        $deleteline = $readserverconfig[$line]
+    } ElseIf (($readserverconfig | Select-String -SimpleMatch "SessionName").LineNumber)  {
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName").LineNumber
+    } 
     # $edithostname = "$hostname"
     Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
-    If ($readserverconfig[$line] -like "*hostname*" -or $readserverconfig[$line] -like "*SERVERNAME*" -and $readserverconfig[$line] -notmatch "$hostname"  ) {
-        Write-log "$deleteline-like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+    If ($deleteline  -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
+        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
             '237410' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "//hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
