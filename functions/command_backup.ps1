@@ -131,18 +131,23 @@ Function Get-BackupMenu {
     New-BackupRestore
 }
 Function Show-Menu {
-    $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime).Name
+    $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
+        Get-Menu
     }
-    ElseIf ($option.Count -eq 0 ) {
-        Write-Information "No Backups" -InformationAction Continue ; exit
-    }
-    Else {
+    ElseIf ($option.Count -ne 0 ) {
         $global:option1 = $option[0] 
         $global:option2 = $option[1] 
         $global:option3 = $option[2]
+        Get-Menu
     }
+    ElseIf ($option.Count -eq 0 )  {
+        Write-Warning "No Backups" -InformationAction Stop
+        exit
+    }
+}
+Function Get-Menu {
     Write-Host ":::::::::::: SSM Backup Restore Menu ::::::::::"
     Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
     Write-Host "1: $option1"
@@ -159,9 +164,10 @@ Function New-BackupRestore {
         Get-Infomessage "Restore from Backup" 'start'
         Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$currentdir\$serverfiles" -Force
         If (!$?) {
-            Write-Warning "restore failed"
+            Write-Warning "Restore from Backup failed" -InformationAction Stop
+            exit
         }
-        Get-Infomessage "backupdone" 
+        Get-Infomessage "Restore from Backup" 
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             # Get-Infomessage "savecheck" 
@@ -169,17 +175,11 @@ Function New-BackupRestore {
         Set-Location $currentdir
     }
     ElseIf ( !$serverfiles -or !$backupdir) {
-        Write-Warning "restore failed"
+        Write-Warning "Restore from Backup failed" -InformationAction Stop
+        exit
     }
 }
 
-Function New-backupAppdatarestore {
-    Write-log "Function: New-backupAppdatarestore"
-    Expand-Archive -Path $backupdir\AppDataBackup_$serverfiles-$Date.zip -DestinationPath $env:APPDATA\$saves -Force
-    If (!$?) {
-        Get-warnmessage "backupAppdatarestore"
-    }
-}
 Function Get-AppdataBackupMenu {
     Show-AppdataMenu
     $selection = Read-Host "Please make a selection"
@@ -191,14 +191,23 @@ Function Get-AppdataBackupMenu {
     }
     New-backupAppdatarestore
 }
+Function New-backupAppdatarestore {
+    Write-log "Function: New-backupAppdatarestore"
+    Expand-Archive -Path $backupdir\$restore -DestinationPath $env:APPDATA\$saves -Force
+    If (!$?) {
+        Write-Warning "AppData Restore Failed" -InformationAction Stop
+        exit
+    }
+}
 Function Show-AppdataMenu {
-    $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime).Name
+    $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
     }
     ElseIf ($option.Count -eq 0 ) {
-        Write-Information "No AppDataBackups" -InformationAction Continue ; exit
-    }
+        Write-Warning "No AppDataBackups" -InformationAction Stop
+        exit
+        }
     Else {
         $global:option1 = $option[0] 
         $global:option2 = $option[1] 
