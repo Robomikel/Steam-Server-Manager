@@ -161,11 +161,16 @@ Function Select-EditSourceCFG {
 
 Function Edit-ServerConfig {
     switch ($appid) {
-        '294420' { $line = 5 }
-        '237410' { $line = 10 }
-        '407480' { $line = 1205 }
+        '294420' { $line = 5; Set-ServerConfig }
+        '237410' { $line = 10; Set-ServerConfig }
+        '407480' { $line = 1205; Set-ServerConfig }
+        '376030' { $line = 97; Set-ServerConfig }
         Default { Write-log "Failed: Edit ServerConfig Hostname" }
     }
+
+}
+
+Function Set-ServerConfig {
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     $deleteline = $readserverconfig[$line]
     # $edithostname = "$hostname"
@@ -176,6 +181,7 @@ Function Edit-ServerConfig {
             '294420' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
             '237410' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "//hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
             '407480' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            '376030' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
