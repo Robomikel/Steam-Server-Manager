@@ -163,7 +163,8 @@ Function Edit-ServerConfig {
     switch ($appid) {
         '294420' { $line = 5 }
         '237410' { $line = 10 }
-        Default { Write-Error "Edit-ServerConfig" }
+        '407480' { $line = 1205 }
+        Default { Write-log "Failed: Edit ServerConfig Hostname" }
     }
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     $deleteline = $readserverconfig[$line]
@@ -174,7 +175,8 @@ Function Edit-ServerConfig {
         switch ($appid) {
             '294420' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
             '237410' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "//hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            Default { Write-Error "Edit-ServerConfig" }
+            '407480' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
 }
