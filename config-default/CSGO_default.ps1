@@ -76,10 +76,10 @@ Function New-LaunchScriptcsgoserverPS {
         $global:servercfg       = "server.cfg"
         #                       Server Launch Command
         If ($gslt) { 
-          $global:launchParams    = '@("${executable} -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +clientport  ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} -tickrate ${TICKRATE} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
+          $global:launchParams    = '@("${executable} -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +hostname `"${hostname}`" +clientport  ${clientport} +tv_port ${sourcetvport} +sv_setsteamaccount ${gslt} -tickrate ${TICKRATE} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
         }
         Else {
-          $global:launchParams    = '@("${executable} -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +clientport  ${clientport} +tv_port ${sourcetvport} -tickrate ${TICKRATE} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
+          $global:launchParams    = '@("${executable} -game csgo -console -usercon -strictportbind -ip ${ip} -port ${port} +hostname `"${hostname}`" +clientport  ${clientport} +tv_port ${sourcetvport} -tickrate ${TICKRATE} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers_override ${maxplayers} +mapgroup ${mapgroup} +game_type ${gametype} +game_mode ${gamemode} +host_workshop_collection ${wscollectionid} +workshop_start_map ${wsstartmap} -authkey ${wsapikey} -nobreakpad +net_public_adr ${extip} -condebug")'
         }
         # Get User Input version must be set to 0
         Get-UserInput

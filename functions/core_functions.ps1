@@ -124,8 +124,13 @@ Function Get-Savelocation {
         Write-log "No saves located in App Data" 
     }
     Else {
-        # New-AppDataSave
-        New-backupAppdata
+        If ($command -eq "restore") {
+            Get-AppdataBackupMenu
+        }
+        Else {
+            # New-AppDataSave
+            New-backupAppdata
+        }
     }
 }
 Function Select-RenameSource {
@@ -140,17 +145,81 @@ Function Select-EditSourceCFG {
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
-        If (($appid -ne 237410) -and ($appid -ne 462310)) {
-            if ($HOSTNAME) {
-                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
-            } 
-        }
-        Else {
-            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg
+        if ($HOSTNAME) {
+            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
         }
         If ($RCONPASSWORD) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
         }    
+    }
+}
+Function Select-EditSourceCFG_OLD {
+    Write-log "Function: Select-EditSourceCFG"
+    If (($servercfgdir) -and ($servercfg )) {
+        # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
+        Write-log "Editing Default server.cfg"
+        #  -and ($appid -ne 17505) -and ($appid -ne 232250) -and ($appid -ne 276060) -and ($appid -ne 222860) -and ($appid -ne 317670) -and ($appid -ne 232370) -and ($appid -ne 985050) -and ($appid -ne 346680) -and ($appid -ne 228780) -and ($appid -ne 475370) -and ($appid -ne 383410) -and ($appid -ne 238430) -and ($appid -ne 740) -and ($appid -ne 232290) -and ($appid -ne 17585) -and ($appid -ne 295230) -and ($appid -ne 4020)
+        $servercfgcomment = @(237410, 462310 )
+        If ($servercfgcomment -contains $appid) {
+            if ($HOSTNAME) {
+                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg            } 
+        }
+        Else {
+            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
+        }
+        If ($RCONPASSWORD) {
+            ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
+        }    
+    }
+}
+Function Edit-ServerConfig {
+    switch ($appid) {
+        # '294420' { $line = 5; Set-ServerConfig }
+        # '237410' { $line = 10; Set-ServerConfig }
+        '407480' { $line = 1205; Set-ServerConfig }
+        # '17515' { $line = 9; Set-ServerConfig }
+        # '376030' { $line = 97; Set-ServerConfig }
+        # '233780' { $line = 16; Set-ServerConfig }
+        Default { Set-ServerConfig }
+    }
+
+}
+
+Function Set-ServerConfig {
+    $removelinenumber = @( 407480 )
+    $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
+    If ( $removelinenumber -contains $appid ) {
+        $deleteline = $readserverconfig[$line]
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "SessionName")) {
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname")) {
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname" | Where Line -NotMatch '//'  )
+    } 
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName")) {
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName")
+    }
+    If ($deleteline.Count -gt 1 ) {
+        Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
+    }
+    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
+        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+        switch ($appid) {
+            '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@( '407480', '443030', '232130', '629800', '412680' ) -contains $_ }  { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@( '403240' ) -contains $_ }  { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
+            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}" }
+            '343050' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            Default { Write-log "Failed: Edit ServerConfig Hostname" }
+        }
+    }
+    Else {
+        Write-log "Failed: Edit ServerConfig Hostname" 
     }
 }
 Function New-ServerLog {
@@ -408,7 +477,7 @@ Function Set-SteamerSettingLog {
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
     If ( $testvariable -eq "on" ) {
-        Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace") { 
+        Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace" -and $_.Name -notlike "option3" -and $_.Name -notlike "option2") { 
                 $name = $_.Name ; Write-log "Name: $name is empty variable" ; Write-Warning "Name: $name is empty variable" -InformationAction Continue  
             }
         }
@@ -487,8 +556,6 @@ Function Set-Customsettings {
     `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
     `$global:logdir                  = `"$logdir`"
-    #                               SSM Log
-    `$global:ssmlog                  = `"$ssmlog`"
     #                               Empty Variable checking
     `$global:testvariable            = `"$testvariable`"
     #                               MC Version

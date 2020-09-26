@@ -77,6 +77,6 @@ Function Get-InstallChangesArma3 {
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPassword $RCONPASSWORD"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConIP 127.0.0.1"
     Add-Content   $serverdir\battleye\BEServer.cfg "RConPort $RCONPORT"
-    ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace '\b32\b', "$maxplayers") | Set-Content -Path $servercfgdir\server.cfg  
-    ((Get-Content -path $servercfgdir\server.cfg -Raw) -replace "\barma3pass\b", "$SERVERPASSWORD") | Set-Content -Path $servercfgdir\server.cfg
+    ((Get-Content -path $servercfgdir\${servercfg} -Raw) -replace '\b32\b', "$maxplayers") | Set-Content -Path $servercfgdir\${servercfg} 
+    ((Get-Content -path $servercfgdir\${servercfg} -Raw) -replace "\barma3pass\b", "$SERVERPASSWORD") | Set-Content -Path $servercfgdir\${servercfg}
 }
