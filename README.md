@@ -167,7 +167,7 @@ Install miscreated server ```./ssm install misserver```
 # Configure
 - change default variables in ```\config-default\*_default.ps1```
 - After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.
-- ```\functions\core_settings.ps1``` change some of the default features. Discord Webhook Goes here.
+- ```\functions\core_settings.ps1``` change some of the default features. Discord Webhook Goes here. On first run will copy Default settings to ```Steam-Server-Manager\custom_settings.ps1``` "local settings" to prevent settings from being overwritten during update.
 - Server console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in core_settings.ps1 to enable)
 
 # Mod
