@@ -153,6 +153,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
   - ```./ssm ForceUpdate <serverFolder>``` - updates App ID. Force server stop and update
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
+ - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files. 
  - ```./ssm monitor-job <serverFolder>``` - Creates Scheduled Task to monitor server
   - ```./ssm Mod-Install <serverFolder>```  - Install Sourcemod or Oxide for specified servers
   - ```./ssm ws-Install <serverFolder>```  - Workshop Install
