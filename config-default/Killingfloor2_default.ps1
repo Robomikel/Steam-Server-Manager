@@ -72,5 +72,7 @@ Function New-LaunchScriptKF2serverPS {
     ((Get-Content -path $servercfgdir\KFWeb.ini -Raw) -replace "\bbEnabled=false\b", "bEnabled=true") | Set-Content -Path $servercfgdir\KFWeb.ini
     Get-Infomessage "***  Disabling Takeover PCServer-KFEngine.ini ***" 'info'
     ((Get-Content -path $servercfgdir\PCServer-KFEngine.ini -Raw) -replace "\bbUsedForTakeover=TRUE\b", "bUsedForTakeover=FALSE") | Set-Content -Path $servercfgdir\PCServer-KFEngine.ini
+    #                       Game-Server-Config
+    $global:servercfg       = "PCServer-KFGame.ini"
     Set-Location $currentdir
 }

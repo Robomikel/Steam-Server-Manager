@@ -8,7 +8,8 @@
 #
 Function Get-Modinstall {
     Write-log "Function: Get-Modinstall"
-    If ($appid -eq 237410 -or $appid -eq 462310 -or $appid -eq 740 -or $appid -eq 222860 -or $appid -eq 238430) {
+    $sourcemetainstall = @(237410, 462310, 740, 222860, 238430)
+    If ($sourcemetainstall -contains $appid) {
         Get-SourceMetaModQ
     }
     ElseIF ($appid -eq 258550) {

@@ -85,9 +85,9 @@ Function Get-SteamFix {
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {
         If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
             Write-log "Removing appmanifest_$appid.acf "
-            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
+            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force -ErrorAction SilentlyContinue
             Write-log "Removing Multiple appmanifest_$appid.acf "
-            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force
+            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force -ErrorAction SilentlyContinue
         }
     }
 }

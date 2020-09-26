@@ -48,10 +48,10 @@ Function New-LaunchScriptDAserverPS {
     $global:servercfg       = "server.cfg"
     #                       Server Launch Command
     If ($gslt) {
-        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} -condebug")'
+        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +hostname `"${hostname}`" +map ${defaultmap} +servercfgfile ${servercfg} -condebug")'
     } 
     Else {
-        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +map ${defaultmap} +servercfgfile ${servercfg} +sv_setsteamaccount ${gslt} -condebug")'
+        $global:launchParams    = '@("${executable} -game dab -console -usercon -strictportbind -ip ${ip} -port ${port} -maxplayers ${maxplayers} +hostname `"${hostname}`" +map ${defaultmap} +servercfgfile ${servercfg} +sv_setsteamaccount ${gslt} -condebug")'
     }
     # Get User Input version must be set to 0
     Get-UserInput
