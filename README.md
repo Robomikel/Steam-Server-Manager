@@ -130,6 +130,7 @@ Install miscreated server ```./ssm install misserver```
    * update server/App ID
    * validate server files 
    * backup server files
+   * restore server files   
    * get details from host and server
    * monitor server process
    * console and steamer logging - server console log to pastebin.
