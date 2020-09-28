@@ -56,8 +56,8 @@ Function New-LaunchScriptFFserverPS {
   New-Item $servercfgdir\${servercfg} -Force
   Add-Content   $servercfgdir\${servercfg} `
   "//Standard SERVER.CFG
-
-  hostname `"${hostname}`" // Put your servers name in quotes here.
+  // Put your servers name in quotes here.
+  hostname `"${hostname}`" 
   
   sv_password `"${serverpassword}`" // Put a password here to lock your server.
   rcon_password `"${RCONPASSWORD}`" // Put an RCON password here for remote server administration (HLSW, client, etc.)
