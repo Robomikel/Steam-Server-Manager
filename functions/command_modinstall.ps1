@@ -8,7 +8,7 @@
 #
 Function Get-Modinstall {
     Write-log "Function: Get-Modinstall"
-    $sourcemetainstall = @(237410, 462310, 740, 222860, 238430)
+    $sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 740, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
     If ($sourcemetainstall -contains $appid) {
         Get-SourceMetaModQ
     }
