@@ -120,7 +120,7 @@ Install miscreated server ```./ssm install misserver```
    * Hurtworld Dedicated Server (405100) - "hwserver" (optional server folder name)
    * Takedown: Red Sabre Dedicated Server (261020) - "trsserver" (optional server folder name)
    * Fortress Forever Dedicated Server  (329710) - "ffserver" (optional server folder name)
-
+   * Night of the Dead Dedicated Server  (1420710) - "notdserver" (optional server folder name)
    -----
  # Features  
  - Manage Steam server with features
