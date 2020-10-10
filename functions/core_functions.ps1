@@ -163,8 +163,7 @@ Function Select-EditSourceCFG_OLD {
         If ($servercfgcomment -contains $appid) {
             if ($HOSTNAME) {
                 ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
-                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg            
-            } 
+                ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg            } 
         }
         Else {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
@@ -175,19 +174,16 @@ Function Select-EditSourceCFG_OLD {
     }
 }
 Function Edit-ServerConfig {
-    If (${servercfg}) {
-        If (${servercfgdir}) {
-            switch ($appid) {
-                # '294420' { $line = 5; Set-ServerConfig }
-                # '237410' { $line = 10; Set-ServerConfig }
-                '407480' { $line = 1205; Set-ServerConfig }
-                # '17515' { $line = 9; Set-ServerConfig }
-                # '376030' { $line = 97; Set-ServerConfig }
-                # '233780' { $line = 16; Set-ServerConfig }
-                Default { Set-ServerConfig }
-            }
-        }
+    switch ($appid) {
+        # '294420' { $line = 5; Set-ServerConfig }
+        # '237410' { $line = 10; Set-ServerConfig }
+        '407480' { $line = 1205; Set-ServerConfig }
+        # '17515' { $line = 9; Set-ServerConfig }
+        # '376030' { $line = 97; Set-ServerConfig }
+        # '233780' { $line = 16; Set-ServerConfig }
+        Default { Set-ServerConfig }
     }
+
 }
 
 Function Set-ServerConfig {
@@ -213,11 +209,11 @@ Function Set-ServerConfig {
         Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '407480', '443030', '232130', '629800', '412680', '1420710' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '403240', '261020' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@( '407480', '443030', '232130', '629800', '412680','1420710' ) -contains $_ }  { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@( '403240','261020' ) -contains $_ }  { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
+            {@('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
             '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}" }
-            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            '343050' {( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}" }
             '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
@@ -229,22 +225,20 @@ Function Set-ServerConfig {
 Function New-ServerLog {
     Write-log "Function: New-ServerLog"
     If ($consolelogging -eq "on") { 
-        If ($consolelog  ) {
-            If (Test-Path $logdirectory\$consolelog  ) {
-                Write-log "Found $consolelog"
-                $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
-                Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
-                If ($?) {
-                    If ($pastebinconsolelog -eq "on") { 
-                        Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn $pastebinexpires -Visibility Unlisted
-                        Write-log "Sent Pastebin"
-                    }
-                    if ($log) {
-                        Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $date + " - " + $log) -Force -ea SilentlyContinue
-                    }
-                    If (!$?) {
-                        Write-log "Rename-Item Failed"
-                    }
+        If (Test-Path $logdirectory\$consolelog  ) {
+            Write-log "Found $consolelog"
+            $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
+            Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
+            If ($?) {
+                If ($pastebinconsolelog -eq "on") { 
+                    Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn $pastebinexpires -Visibility Unlisted
+                    Write-log "Sent Pastebin"
+                }
+                if ($log) {
+                    Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $date + " - " + $log) -Force -ea SilentlyContinue
+                }
+                If (!$?) {
+                    Write-log "Rename-Item Failed"
                 }
             }
         }
@@ -484,7 +478,7 @@ Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
     If ( $testvariable -eq "on" ) {
         Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace" -and $_.Name -notlike "option3" -and $_.Name -notlike "option2") { 
-                $name = $_.Name ; Write-log "WARNING: $name is empty variable"
+                $name = $_.Name ; Write-log "Name: $name is empty variable" ; Write-Warning "Name: $name is empty variable" -InformationAction Continue  
             }
         }
     }

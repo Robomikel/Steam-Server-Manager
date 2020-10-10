@@ -29,7 +29,7 @@ Function New-LaunchScriptminecraft_serverPS {
     #                       Game-Server-Config Directory
     $global:gamedirname     = ""
     #                       Game-Server-Config
-    $global:servercfg       = "server.properties"
+    $global:servercfg       = "server.properites"
     #                       Server Launch Command
     $global:launchParams    = '@("java -Xms1024M -Xmx1024M -jar $executable nogui")'
     # Get User Input version must be set to 0

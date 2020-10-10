@@ -85,5 +85,5 @@ Function Set-SteamerSetting {
     $global:discordwebhook          = ""
     #                               Discord Display IP and Steam API IP.
     $global:discorddisplayip        = ""
-    # Set-SteamerSettingLog
+    Set-SteamerSettingLog
 }
