@@ -491,20 +491,21 @@ Function Test-VariablesNull {
 }
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
-    If (Test-Path "$currentdir\custom_settings.ps1") {
-        .$currentdir\custom_settings.ps1
+    New-LocalFolder
+    If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     } 
     Else {
         Set-Customsettings
-        .$currentdir\custom_settings.ps1
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     }
 }
 Function Set-Customsettings {
     Write-Log "Function Set-Customsettings"
-    New-Item "$currentdir\custom_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
-    Add-Content "$currentdir\custom_settings.ps1" `
+    New-Item "$currentdir\$configlocal\local_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
+    Add-Content "$currentdir\$configlocal\local_settings.ps1" `
         "Function Import-CustomSetting {
     Write-log `"Function: Import-CustomSetting`"
     #                               ####  Steamer Settings #######
@@ -584,4 +585,26 @@ Function Set-Customsettings {
     `$global:discorddisplayip        = `"$discorddisplayip`"
     Set-SteamerSettingLog
 }"
+}
+
+Function Import-localConfig {
+    Write-log "Function: Import-localConfig"
+    If ($getlocalssmname) {
+        If ((Test-Path $currentdir\config-local\$getlocalssmname)) {
+            Write-log "Import:  .$currentdir\config-local\$getlocalssmname"
+            .$currentdir\config-local\$getlocalssmname
+            Set-LaunchScript
+        }
+        ElseIf (Test-Path $currentdir\config-default\$getlocalssmname) {
+            Write-log "Import: .$currentdir\config-default\$getlocalssmname"
+            .$currentdir\config-default\$getlocalssmname
+            Set-LaunchScript
+        }
+        Else {
+            Write-log "ERROR: No Config found to Import" ; Break
+        }
+    } 
+    Else {
+        Write-log "Failed: Import-localConfig"
+    }
 }

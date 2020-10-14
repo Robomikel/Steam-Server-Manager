@@ -8,7 +8,7 @@
 #
 Function Get-UpdateSteamer {
     Get-UpdateSteamerCSV
-    Get-UpdateSteamerConfigDefault
+    # Get-UpdateSteamerConfigDefault
     Get-UpdateSteamerSSM
     $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force)
     If ($getlocalssm) {
@@ -121,10 +121,10 @@ Function Get-UpdateSteamerCSV {
     }
 }
 Function Get-UpdateSteamerConfigDefault {
-    $getlocalssm = $((Import-Csv $currentdir\data\serverlist.csv)."Default-Config")
-    If ($getlocalssm) {
-        ForEach ($getlocalssm in $getlocalssm ) {  
-            $global:getlocalssmname = $getlocalssm
+    # $getlocalssm = $((Import-Csv $currentdir\data\serverlist.csv)."Default-Config")
+    $getlocalssmname = gci $currentdir\config-default\
+    If ($getlocalssmname) {
+        ForEach ($getlocalssmname in $getlocalssmname ) {  
             If ($getlocalssmname) {
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
@@ -162,5 +162,40 @@ Function Get-UpdateSteamerConfigDefault {
             }
         }
         Remove-Item "$currentdir\tmp" -Recurse -Force
+    }
+}
+
+Function Get-SteamerConfigDefault {
+    Write-log "Function: Get-SteamerConfigDefault "
+    $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
+    If ($getlocalssm) {
+        $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
+        write-log "`$getlocalssmname $getlocalssmname"
+        If ($getlocalssmname) {
+            $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname" -UseBasicParsing
+            Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname"
+            If ($githubvarcontent) {
+                $githubvarcontent = ($githubvarcontent).Content
+                If ($githubvarcontent) {
+                    If (!(Test-Path $currentdir\config-default)) {
+                        New-Item  . -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                    }
+                    If ($getlocalssmname) {
+                        If (!(Test-Path $currentdir\config-default\$getlocalssmname)) {
+                            New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
+                            Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        }
+                        If (!(Test-Path $currentdir\config-local\$getlocalssmname)) {
+                            New-Item  "$currentdir\config-local\$getlocalssmname\" -Force >$null 2>&1
+                            Add-Content "$currentdir\config-local\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        }
+                    }
+                }
+            }
+        }
+        New-LocalConfig
+    } 
+    Else {
+        New-LocalConfig
     }
 }

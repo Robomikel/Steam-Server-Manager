@@ -203,6 +203,24 @@ Function New-AppDataSave {
         Exit
     }
 }
+
+Function New-LocalConfig {
+        Write-log "Function: New-localConfig"
+        $title = 'New config-local Created'
+        $question = 'Pause to edit config-local?'
+        $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+        $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+        If ($decision -eq 0) {
+            Write-Information "Edit config-local in $currentdir\config-local\$getlocalssmname. Save and Press Enter..."
+            pause 
+            Import-localConfig       
+        } 
+        Else {
+            Import-localConfig
+        }
+}
 Function Get-UserInput {
     Write-log "Function: Get-UserInput"
     If ($version -eq 0) {
