@@ -126,7 +126,7 @@ Function Get-UpdateSteamerConfigDefault {
     If ($getlocalssmname) {
         ForEach ($getlocalssmname in $getlocalssmname ) {  
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -172,8 +172,8 @@ Function Get-SteamerConfigDefault {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
         write-log "`$getlocalssmname $getlocalssmname"
         If ($getlocalssmname) {
-            $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname" -UseBasicParsing
-            Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/config-default/$getlocalssmname"
+            $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
+            Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
             If ($githubvarcontent) {
                 $githubvarcontent = ($githubvarcontent).Content
                 If ($githubvarcontent) {
