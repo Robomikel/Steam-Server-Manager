@@ -1,5 +1,4 @@
 #.::::::.::::::::::::.,::::::   :::.     .        :   .::::::.:::::::.. :::      .::..        :    .,-:::::/ :::::::..   
-
 #;;;`    `;;;;;;;;'''';;;;''''   ;;`;;    ;;,.    ;;; ;;;`    `;;;;``;;;;';;,   ,;;;' ;;,.    ;;; ,;;-'````'  ;;;;``;;;;  
 #'[==/[[[[,    [[      [[cccc   ,[[ '[[,  [[[[, ,[[[[,'[==/[[[[,[[[,/[[[' \[[  .[[/   [[[[, ,[[[[,[[[   [[[[[[/[[[,/[[['  
 #  '''    $    $$      $$""""  c$$$cc$$$c $$$$$$$$"$$$  '''    $$$$$$$c    Y$c.$$"    $$$$$$$$"$$$"$$c.    "$$ $$$$$$c    
@@ -32,6 +31,13 @@ Function Get-DriveSpace {
 
 Function Get-Details {
     $host.UI.RawUI.ForegroundColor = "Cyan"
+    $portarrayname = @()
+    $portarrayvalue = @()
+    $portarraytcpstatus = @()
+    $portarrayudpstatus = @()
+    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} ; $array |  foreach { if ($status = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue).State) {$portarraytcpstatus+="Open"}Else{$portarraytcpstatus+="Closed"}}
+    $array |  foreach { if ($status = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue).LocalPort) {$portarrayudpstatus+="Open"}Else{$portarrayudpstatus+="Closed"}}
+
     If ($psSeven) { 
         $windows32 = Get-CimInstance Win32_OperatingSystem
         $window32processor = Get-CimInstance Win32_processor
@@ -110,12 +116,32 @@ Function Get-Details {
     Write-Host " "
     Write-Host "Server details"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
-    Write-Host "Server Name       : $hostname"
-    Write-Host "Port              : $port"
-    Write-Host "Query Port        : $queryport"
-    Write-Host "Rcon Port         : $rconport"
-    Write-Host "App ID            : $appid"
-    Write-Host "Process           : $process"
+    Write-Host "Server Name     : $hostname"
+    If ($($portarrayname[0])) {Write-Host "$($portarrayname[0])" -n} 
+    If ($($portarrayname[0])) {Write-host "`     `t: $($portarrayvalue[0])" -n}
+    If ($($portarrayname[0])) {Write-host "`     `tTCP: $($portarraytcpstatus[0])" -n}
+    If ($($portarrayname[0])) {Write-host "`     UDP: $($portarrayudpstatus[0])" }
+    If ($($portarrayname[1])) {Write-Host "$($portarrayname[1])" -n} 
+    If ($($portarrayname[1])) {Write-host "`    `t: $($portarrayvalue[1])" -n }
+    If ($($portarrayname[1])) {Write-host "`    `tTCP: $($portarraytcpstatus[1])" -n}
+    If ($($portarrayname[1])) {Write-host "`    `tUDP: $($portarrayudpstatus[1])" }
+    If ($($portarrayname[2])) {Write-Host "$($portarrayname[2])" -n}
+    If ($($portarrayname[2])) { Write-host "`   `t: $($portarrayvalue[2])" -n }
+    If ($($portarrayname[2])) { Write-host "`   `tTCP: $($portarraytcpstatus[2])" -n}
+    If ($($portarrayname[2])) { Write-host "`   `tUDP: $($portarrayudpstatus[2])" }
+    If ($($portarrayname[3])) {Write-Host "$($portarrayname[3])" -n}
+    If ($($portarrayname[3])) { Write-host "`   `t: $($portarrayvalue[3])" -n}
+    If ($($portarrayname[3])) { Write-host "`   `tTCP: $($portarraytcpstatus[3])" -n}
+    If ($($portarrayname[3])) { Write-host "`   `tUDP: $($portarrayudpstatus[3])" }
+    If ($($portarrayname[4])) {Write-Host "$($portarrayname[4])" -n} 
+    If ($($portarrayname[4])) {Write-host "`    `t: $($portarrayvalue[4])" -n}
+    If ($($portarrayname[4])) {Write-host "`    `tTCP: $($portarraytcpstatus[4])" -n}
+    If ($($portarrayname[4])) {Write-host "`    `tUDP: $($portarrayudpstatus[4])" }
+    # Write-Host "Port              : $port"
+    # Write-Host "Query Port        : $queryport"
+    # Write-Host "Rcon Port         : $rconport"
+    Write-Host "App ID          : $appid"
+    Write-Host "Process         : $process"
     Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = "**** RUNNING ****"; ; Write-Host $status -F Green }
     Write-Host "    Steam Master      : .:.:.:.:.:.."
     Write-Host "         Status       : "-NoNewline; ; If ($Null -eq $stats) { $stats = "----Offline----"; ; Write-Host $stats -F R }Else { $stats = "**** Online ***"; ; Write-Host $stats -F Green }
