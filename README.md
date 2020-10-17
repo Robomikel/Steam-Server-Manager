@@ -7,25 +7,27 @@ PowerShell Steam Server Manager
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 Server install in the location of ssm. before install change directory to the location you want the server.
+> Windows 10 may require to unblock .zip to prevent constant "Prompts" for any downloaded .zips. Right click .zip > Properties > check box for unblock. use PS to install to prevent this issue.   
 
-# Install SSM
+# Install SSM (Pre-Release)
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
-```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/pre-release/stabilizing.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
-```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
-```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
+```Copy-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing\* Steam-Server-Manager\ -Recurse -Force```   
+```Remove-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing -Recurse -Force```   
 ```Set-Location Steam-Server-Manager```   
 
-Configure berfore install (optional):
-Find default config for game you wish to install
-```\Steam-Server-Manager\config-default\*_default.ps1```
-Change any vars like port/s or server name.
+Configure during install :     
+During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.   
+>change $version "0" in config-local\local_settings before run to prompt for input to change default variables.  
+```\Steam-Server-Manager\config-local\*_default.ps1```   
+Change any vars like port/s or server name.   
 
 # Install Server
-open PowerShell as user NOT Admin
-ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```
+open PowerShell as user NOT Admin   
+ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
 If Optional name is used, will grab APP ID   
 
 Example:          
@@ -147,31 +149,32 @@ Install miscreated server ```./ssm install misserver```
  
    
  # Commands:  
-  - ```./ssm install <serverFolder>```  - install server  
- - ```./ssm Start <serverFolder>```  - Starts  server process          
- - ```./ssm Stop <serverFolder>``` - stop process server
- - ```./ssm restart <serverFolder>``` - stops and starts process for server]
- - ```./ssm validate <serverFolder>``` - Validate App ID files
- - ```./ssm monitor <serverFolder>``` - checks process server and starts if need with Discord Alert
- - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings
-  - ```./ssm ForceUpdate <serverFolder>``` - updates App ID. Force server stop and update
- - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)
- - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files. 
- - ```./ssm monitor-job <serverFolder>``` - Creates Scheduled Task to monitor server
-  - ```./ssm Mod-Install <serverFolder>```  - Install Sourcemod or Oxide for specified servers
-  - ```./ssm ws-Install <serverFolder>```  - Workshop Install
- - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook in ```\functions\core_settings.ps1```
- - ```./ssm AutoRestart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart
- - ```./ssm MCRcon <serverFolder>``` - Uses MCRcon. Rcon to server (Downloads MCRcon)
- - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)
- - ```./ssm SSM update``` -  Downloads and overwrites ssm github files
-  - ```./ssm details <serverFolder>``` - outputs host and server details.
+  - ```./ssm install <serverFolder>```  - install server   
+ - ```./ssm start <serverFolder>```  - Starts  server process   
+ - ```./ssm stop <serverFolder>``` - stop process server   
+ - ```./ssm restart <serverFolder>``` - stops and starts process for server    
+ - ```./ssm validate <serverFolder>``` - Validate App ID files   
+ - ```./ssm monitor <serverFolder>``` - checks process server and starts if need with Discord Alert   
+ - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings   
+  - ```./ssm force-update <serverFolder>``` - updates App ID. Force server stop and update   
+ - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)   
+ - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files.   
+ - ```./ssm install-monitor <serverFolder>``` - Creates Scheduled Task to monitor server   
+  - ```./ssm install-mod <serverFolder>```  - Install Sourcemod or Oxide for specified servers   
+  - ```./ssm install-ws <serverFolder>```  - Workshop Install   
+ - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook in ```\config-local\local_settings.ps1```   
+ - ```./ssm install-Restart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart   
+ - ```./ssm mcrcon <serverFolder>``` - Uses MCRcon. Rcon to server (Downloads MCRcon)   
+ - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)   
+ - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
+  - ```./ssm details <serverFolder>``` - outputs host and server details.   
 
 # Configure
-- change default variables in ```\config-default\*_default.ps1```
-- After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.
-- ```\functions\core_settings.ps1``` change some of the default features. Discord Webhook Goes here. On first run will copy Default settings to ```Steam-Server-Manager\custom_settings.ps1``` "local settings" to prevent settings from being overwritten during update.
-- Server console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in custom_settings.ps1 to enable)
+- change default variables for server in ```\config-local\*_default.ps1```. Appears during install. SSM will prompt for edit or change $version "0" in config-local\local_settings.ps1 to prompt for each variable   
+- After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.   
+- ```\config-local\local_settings.ps1``` change some of the default features. Discord Webhook Goes here. local_settings.ps1 will be created on first run.   
+-  "core_settings.ps1" and "default-config" will be overwritten during update. Use config-local for changes..   
+- Server console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in local_settings.ps1 and enable)   
 
 # Mod
  * Insurgency - option for sourcemod and Meta Mod install
