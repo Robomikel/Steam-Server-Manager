@@ -15,7 +15,7 @@ Function Get-UpdateSteamer {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/functions/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/functions/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
