@@ -203,7 +203,6 @@ Function New-AppDataSave {
         Exit
     }
 }
-
 Function New-LocalConfig {
     If ($Version -eq 1) {
         Write-log "Function: New-localConfig"
