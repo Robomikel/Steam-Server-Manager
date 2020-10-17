@@ -205,6 +205,7 @@ Function New-AppDataSave {
 }
 
 Function New-LocalConfig {
+    If ($Version -eq 1) {
         Write-log "Function: New-localConfig"
         $title = 'New config-local Created'
         $question = 'Pause to edit config-local?'
@@ -220,6 +221,10 @@ Function New-LocalConfig {
         Else {
             Import-localConfig
         }
+    } 
+    Else {
+        Import-localConfig
+    }
 }
 Function Get-UserInput {
     Write-log "Function: Get-UserInput"
@@ -236,7 +241,7 @@ Function Get-UserInput {
         }
         If ($queryport) {
             $defaultquery = "$query"
-            If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$QUERYPORT]: "-F CY -N )) -eq '') { $global:QUERYPORT = "$defaultQUERYPORT" }Else { $QUERYPORT }
+            If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$queryport]: "-F CY -N )) -eq '') { $global:queryport = "$defaultquery" }Else { $queryport }
         }
         If ($rconport) {
             $defaultrconport = "$rconport"
@@ -278,7 +283,7 @@ Function Get-UserInput {
             If (($global:gamemode = Read-Host -P(Write-Host "Enter Server GAME MODE, Press Enter to Accept  [$gamemode]: "-F CY -N )) -eq '') { $global:gamemode = "$defaultgamemode" }Else { $gamemode }
         }
         If ($diff ) {
-            $defaultdiff = "$defaultdiff"
+            $defaultdiff = "$diff"
             If (($global:diff = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $global:diff = "$defaultdiff" }Else { $diff }
         }
         If ($adminpassword) {
