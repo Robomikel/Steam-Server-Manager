@@ -1110,7 +1110,7 @@ public enum RGBColors {
     Ivory,
     White
 }
-"@
+"@ -ErrorAction SilentlyContinue
 
 function Convert-Color {
     <#
