@@ -35,8 +35,8 @@ Function Get-Details {
     $portarrayvalue = @()
     $portarraytcpstatus = @()
     $portarrayudpstatus = @()
-    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} ; $array |  foreach { if ($status = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue).State) {$portarraytcpstatus+="$status"}Else{$portarraytcpstatus+="Closed"}}
-    $array |  foreach { if ($status = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue).LocalPort) {$portarrayudpstatus+="Listen"}Else{$portarrayudpstatus+="Closed"}}
+    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} ; $array |  foreach { if ($status = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue).State) {$portarraytcpstatus+="$status"}Else{$portarraytcpstatus+="$null"}}
+    $array |  foreach { if ($status = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue).LocalPort) {$portarrayudpstatus+="Listen"}Else{$portarrayudpstatus+="$null"}}
 
     If ($psSeven) { 
         $windows32 = Get-CimInstance Win32_OperatingSystem
