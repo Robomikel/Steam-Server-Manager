@@ -144,7 +144,7 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Map Lighting"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:lighting           = `"$global:lighting`""
     }
-    If ($modsenabled) {
+    If (($modsenabled) -and (($modsenabled -ne $false))) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Mods enabled"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:modsenabled           = `"$global:modsenabled`""
     }
