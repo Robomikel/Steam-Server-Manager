@@ -35,8 +35,21 @@ Function Get-Details {
     $portarrayvalue = @()
     $portarraytcpstatus = @()
     $portarrayudpstatus = @()
-    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} ; $array |  foreach { if ($status = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue).State) {$portarraytcpstatus+="Open"}Else{$portarraytcpstatus+="Closed"}}
-    $array |  foreach { if ($status = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue).LocalPort) {$portarrayudpstatus+="Open"}Else{$portarrayudpstatus+="Closed"}}
+    $openportarraytcpstatus = @()
+    $portarraytcpOwningProcess = @()
+    $portarrayudpOwningProcess = @()
+    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} 
+    $array |  foreach { if ($tcpstatus = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess, State)) { $portarraytcpstatus+="$($tcpstatus.State)" ; $portarraytcpOwningProcess+= "`nTCPPort: " + $_.Value + "` `tOwning Process: " + ((GPS -Id $tcpstatus.OwningProcess).ProcessName) }Else{$portarraytcpstatus+="$false"}}
+    # ; $portarrayudpOwningProcess+=$udpstatus = $(Get-Process -Id $udpstatus.OwningProcess)
+    $array |  foreach { if ($udpstatus = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess)) {$portarrayudpstatus+="Listen"  ; $portarrayudpOwningProcess+= "`nUDPPort: " + $_.Value + "` `tOwning Process: " + ((Get-Process -Id $udpstatus.OwningProcess).ProcessName) }Else{$udpstatus+="$false"}}
+    if ($psSeven) {
+        $array |  foreach { if (($status = (Test-Connection $extip -TcpPort $_.Value)) -eq $true ) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
+    }
+    Else{
+        $global:ProgressPreference = 'SilentlyContinue'
+        $global:WarningPreference = 'SilentlyContinue'
+        $array |  foreach { if (($status = (Test-NetConnection $extip -Port $_.Value -ErrorAction SilentlyContinue).TcpTestSucceeded) -eq $true) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
+    }
 
     If ($psSeven) { 
         $windows32 = Get-CimInstance Win32_OperatingSystem
@@ -119,27 +132,47 @@ Function Get-Details {
     Write-Host "Server Name     : $hostname"
     If ($($portarrayname[0])) {Write-Host "$($portarrayname[0])" -n} 
     If ($($portarrayname[0])) {Write-host "`     `t: $($portarrayvalue[0])" -n}
-    If ($($portarrayname[0])) {Write-host "`     `tTCP: $($portarraytcpstatus[0])" -n}
-    If ($($portarrayname[0])) {Write-host "`     UDP: $($portarrayudpstatus[0])" }
+    If ($($portarrayname[0])) {Write-host "`     `tTCPBind: $($portarraytcpstatus[0])" -n}
+    If ($($portarrayname[0])) {Write-host "`     UDPBind: $($portarrayudpstatus[0])" -n}
+    If ($($portarrayname[0])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[0])" }
+   # If ($portarraytcpOwningProcess.count -gt 1 ) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[0])"}Else{Write-host "`     OwningProcess: $($portarraytcpOwningProcess)"}
+    
     If ($($portarrayname[1])) {Write-Host "$($portarrayname[1])" -n} 
     If ($($portarrayname[1])) {Write-host "`    `t: $($portarrayvalue[1])" -n }
-    If ($($portarrayname[1])) {Write-host "`    `tTCP: $($portarraytcpstatus[1])" -n}
-    If ($($portarrayname[1])) {Write-host "`    `tUDP: $($portarrayudpstatus[1])" }
+    If ($($portarrayname[1])) {Write-host "`    `tTCPBind: $($portarraytcpstatus[1])" -n}
+    If ($($portarrayname[1])) {Write-host "`     UDPBind: $($portarrayudpstatus[1])" -n}
+    If ($($portarrayname[1])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[1])" }
+    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[1])"}
+    
     If ($($portarrayname[2])) {Write-Host "$($portarrayname[2])" -n}
-    If ($($portarrayname[2])) { Write-host "`   `t: $($portarrayvalue[2])" -n }
-    If ($($portarrayname[2])) { Write-host "`   `tTCP: $($portarraytcpstatus[2])" -n}
-    If ($($portarrayname[2])) { Write-host "`   `tUDP: $($portarrayudpstatus[2])" }
+    If ($($portarrayname[2])) {Write-host "`   `t: $($portarrayvalue[2])" -n }
+    If ($($portarrayname[2])) {Write-host "`   `tTCPBind: $($portarraytcpstatus[2])" -n}
+    If ($($portarrayname[2])) {Write-host "`   `tUDPBind: $($portarrayudpstatus[2])" -n}
+    If ($($portarrayname[2])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[2])" }
+    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[2])" }
+    
+    
+    
     If ($($portarrayname[3])) {Write-Host "$($portarrayname[3])" -n}
-    If ($($portarrayname[3])) { Write-host "`   `t: $($portarrayvalue[3])" -n}
-    If ($($portarrayname[3])) { Write-host "`   `tTCP: $($portarraytcpstatus[3])" -n}
-    If ($($portarrayname[3])) { Write-host "`   `tUDP: $($portarrayudpstatus[3])" }
+    If ($($portarrayname[3])) {Write-host "`   `t: $($portarrayvalue[3])" -n}
+    If ($($portarrayname[3])) {Write-host "`   `tTCPBind: $($portarraytcpstatus[3])" -n}
+    If ($($portarrayname[3])) {Write-host "`   `tUDPBind: $($portarrayudpstatus[3])" -n}
+    If ($($portarrayname[3])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[3])" }
+    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[3])" }
+
+    
     If ($($portarrayname[4])) {Write-Host "$($portarrayname[4])" -n} 
     If ($($portarrayname[4])) {Write-host "`    `t: $($portarrayvalue[4])" -n}
-    If ($($portarrayname[4])) {Write-host "`    `tTCP: $($portarraytcpstatus[4])" -n}
-    If ($($portarrayname[4])) {Write-host "`    `tUDP: $($portarrayudpstatus[4])" }
+    If ($($portarrayname[4])) {Write-host "`    `tTCPBind: $($portarraytcpstatus[4])" -n}
+    If ($($portarrayname[4])) {Write-host "`    `tUDPBind: $($portarrayudpstatus[4])" -n}
+    If ($($portarrayname[4])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[4])" }
+    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[4])" }
+     If ($portarraytcpOwningProcess) {Write-host "` $($portarraytcpOwningProcess)"}
+      If ($portarrayudpOwningProcess) {Write-host "` $($portarrayudpOwningProcess)"}
     # Write-Host "Port              : $port"
     # Write-Host "Query Port        : $queryport"
     # Write-Host "Rcon Port         : $rconport"
+    Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
     Write-Host "App ID          : $appid"
     Write-Host "Process         : $process"
     Write-Host "    Process status    : "-NoNewline; ; If ($Null -eq (Get-Process "$process" -ea SilentlyContinue)) { $status = " ----NOT RUNNING----"; ; Write-Host $status -F R }Else { $status = "**** RUNNING ****"; ; Write-Host $status -F Green }
