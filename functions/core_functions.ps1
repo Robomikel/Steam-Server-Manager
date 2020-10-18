@@ -188,9 +188,11 @@ Function Edit-ServerConfig {
             }
         }
     }
+    Write-log "Function: Edit-ServerConfig"
 }
 
 Function Set-ServerConfig {
+    Write-log "Function: Set-ServerConfig"
     $removelinenumber = @( 407480 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
@@ -204,21 +206,23 @@ Function Set-ServerConfig {
     } 
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName")) {
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName")
+        $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
     }
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+   Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
     If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
-        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+       Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '407480', '443030', '232130', '629800', '412680', '1420710' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '403240', '261020' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}" }
-            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}" }
-            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @( '407480', '443030', '232130', '629800', '412680', '1420710' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @( '403240', '261020' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
