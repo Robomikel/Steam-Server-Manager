@@ -27,10 +27,10 @@ Function Get-DriveSpace {
         }
     }
 }
-
-
 Function Get-Details {
+    Write-log "Function: Get-Details"
     $host.UI.RawUI.ForegroundColor = "Cyan"
+    Get-DriveSpace
     $portarrayname = @()
     $portarrayvalue = @()
     $portarraytcpstatus = @()
@@ -38,9 +38,9 @@ Function Get-Details {
     $openportarraytcpstatus = @()
     $portarraytcpOwningProcess = @()
     $portarrayudpOwningProcess = @()
+    $visualcpackages = @()
     ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} 
     $array |  foreach { if ($tcpstatus = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess, State)) { $portarraytcpstatus+="$($tcpstatus.State)" ; $portarraytcpOwningProcess+= "`nTCPPort: " + $_.Value + "` `tOwning Process: " + ((GPS -Id $tcpstatus.OwningProcess).ProcessName) }Else{$portarraytcpstatus+="$false"}}
-    # ; $portarrayudpOwningProcess+=$udpstatus = $(Get-Process -Id $udpstatus.OwningProcess)
     $array |  foreach { if ($udpstatus = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess)) {$portarrayudpstatus+="Listen"  ; $portarrayudpOwningProcess+= "`nUDPPort: " + $_.Value + "` `tOwning Process: " + ((Get-Process -Id $udpstatus.OwningProcess).ProcessName) }Else{$udpstatus+="$false"}}
     if ($psSeven) {
         $array |  foreach { if (($status = (Test-Connection $extip -TcpPort $_.Value)) -eq $true ) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
@@ -50,18 +50,19 @@ Function Get-Details {
         $global:WarningPreference = 'SilentlyContinue'
         $array |  foreach { if (($status = (Test-NetConnection $extip -Port $_.Value -ErrorAction SilentlyContinue).TcpTestSucceeded) -eq $true) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
     }
-
     If ($psSeven) { 
         $windows32 = Get-CimInstance Win32_OperatingSystem
         $window32processor = Get-CimInstance Win32_processor
         $windows32computer = Get-CimInstance Win32_ComputerSystem
         $uptime = (Get-Date) - ($windows32.lastbootuptime)
+        $visualc = Get-CimInstance -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | foreach { $visualcpackages += "`n " + $_.Name }
     }
     Else {
         $windows32 = Get-WmiObject Win32_OperatingSystem
         $window32processor = Get-WMIObject Win32_processor
         $windows32computer = Get-WMIObject Win32_ComputerSystem
         $uptime = (Get-Date) - ($windows32.ConvertToDateTime($windows32.lastbootuptime))
+        $visualc = Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | foreach { $visualcpackages += "`n " + $_.Name }
     }
     Get-ChecktaskDetails
     Get-ChecktaskautorestartDetails
@@ -72,9 +73,6 @@ Function Get-Details {
     New-BackupFolder
     $netinterface = Get-NetAdapter
     $netip = (Get-NetIPConfiguration | ? InterfaceAlias -like "$($netinterface.Name[0])").IPv4Address.IPAddress
-
-
-    
     $uptime = "uptime:    " + $Uptime.Days + " days, " + $Uptime.Hours + " hours, " + $Uptime.Minutes + " minutes" 
     $totalfree = "{0:N2} GB" -f ($windows32.FreePhysicalMemory / 1MB)
     $totalmem = "{0:N2} GB" -f ($windows32.TotalVisibleMemorySize / 1MB)
@@ -83,12 +81,11 @@ Function Get-Details {
     $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir  -recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $serverfiles  -recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $ssmdir = "{0:N2} GB" -f ((Get-Childitem $currentdir  -recurse  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-
+    $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $gameservermem = "{0:N2} GB" -f ((Get-Process $process).WS / 1GB) 
     }
     $gamecpucooked = [math]::Truncate(((Get-Counter '\Process(*)\% Processor Time' -ea SilentlyContinue).CounterSamples | Where-Object InstanceName -like $process).CookedValue)
-
     Write-Host "Host Details"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
     Write-Host "OS:                $($windows32.caption)"
@@ -135,43 +132,28 @@ Function Get-Details {
     If ($($portarrayname[0])) {Write-host "`     `tTCPBind: $($portarraytcpstatus[0])" -n}
     If ($($portarrayname[0])) {Write-host "`     UDPBind: $($portarrayudpstatus[0])" -n}
     If ($($portarrayname[0])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[0])" }
-   # If ($portarraytcpOwningProcess.count -gt 1 ) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[0])"}Else{Write-host "`     OwningProcess: $($portarraytcpOwningProcess)"}
-    
     If ($($portarrayname[1])) {Write-Host "$($portarrayname[1])" -n} 
     If ($($portarrayname[1])) {Write-host "`    `t: $($portarrayvalue[1])" -n }
     If ($($portarrayname[1])) {Write-host "`    `tTCPBind: $($portarraytcpstatus[1])" -n}
     If ($($portarrayname[1])) {Write-host "`     UDPBind: $($portarrayudpstatus[1])" -n}
     If ($($portarrayname[1])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[1])" }
-    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[1])"}
-    
     If ($($portarrayname[2])) {Write-Host "$($portarrayname[2])" -n}
     If ($($portarrayname[2])) {Write-host "`   `t: $($portarrayvalue[2])" -n }
     If ($($portarrayname[2])) {Write-host "`   `tTCPBind: $($portarraytcpstatus[2])" -n}
     If ($($portarrayname[2])) {Write-host "`   `tUDPBind: $($portarrayudpstatus[2])" -n}
     If ($($portarrayname[2])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[2])" }
-    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[2])" }
-    
-    
-    
     If ($($portarrayname[3])) {Write-Host "$($portarrayname[3])" -n}
     If ($($portarrayname[3])) {Write-host "`   `t: $($portarrayvalue[3])" -n}
     If ($($portarrayname[3])) {Write-host "`   `tTCPBind: $($portarraytcpstatus[3])" -n}
     If ($($portarrayname[3])) {Write-host "`   `tUDPBind: $($portarrayudpstatus[3])" -n}
     If ($($portarrayname[3])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[3])" }
-    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[3])" }
-
-    
     If ($($portarrayname[4])) {Write-Host "$($portarrayname[4])" -n} 
     If ($($portarrayname[4])) {Write-host "`    `t: $($portarrayvalue[4])" -n}
     If ($($portarrayname[4])) {Write-host "`    `tTCPBind: $($portarraytcpstatus[4])" -n}
     If ($($portarrayname[4])) {Write-host "`    `tUDPBind: $($portarrayudpstatus[4])" -n}
     If ($($portarrayname[4])) {Write-host "`     `tExtTCP: $($openportarraytcpstatus[4])" }
-    # If ($($portarrayname[0])) {Write-host "`     OwningProcess: $($portarraytcpOwningProcess[4])" }
-     If ($portarraytcpOwningProcess) {Write-host "` $($portarraytcpOwningProcess)"}
-      If ($portarrayudpOwningProcess) {Write-host "` $($portarrayudpOwningProcess)"}
-    # Write-Host "Port              : $port"
-    # Write-Host "Query Port        : $queryport"
-    # Write-Host "Rcon Port         : $rconport"
+    If ($portarraytcpOwningProcess) {Write-host "` $($portarraytcpOwningProcess)"}
+    If ($portarrayudpOwningProcess) {Write-host "` $($portarrayudpOwningProcess)"}
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
     Write-Host "App ID          : $appid"
     Write-Host "Process         : $process"
@@ -189,7 +171,14 @@ Function Get-Details {
         Write-Host "         -gameport    : $($masterserver.gameport)"
         Write-Host "         -secport     : $($masterserver.secport)"
     }
-    Get-DriveSpace
+    Write-Host " "
+    Write-Host "Visual C++ Packages installed"
+    Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
+    If ($visualcpackages) {Write-host "`t$($visualcpackages)"}
+    Write-Host " "
+    Write-Host "Direct X Version"
+    Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
+    Write-Host "$($directx.PSChildName)`t$($directx.Version)"
     Write-Host " "
     Write-Host "Host Storage"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
