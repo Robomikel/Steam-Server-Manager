@@ -228,7 +228,7 @@ Function New-LocalConfig {
 Function Get-UserInput {
     Write-log "Function: Get-UserInput"
     If ($version -eq 0) {
-        #Write-Host "$SMILEY_BLACK Press Enter to Accept default $SMILEY_BLACK" -F Y
+        Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
         Set-Console
         If ($ip) {
             $defaultip = "$ip"
