@@ -68,7 +68,7 @@ Function Set-SteamerSetting {
     #                               Empty Variable checking
     $global:testvariable            = "on"
     #                               MC Version
-    $global:mcversion               = "$serverfiles\version.txt"
+    $global:mcversion               = "`$serverfiles\version.txt"
     #                               Test Connection to Steam Master
     $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin
