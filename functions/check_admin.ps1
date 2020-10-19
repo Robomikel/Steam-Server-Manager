@@ -16,48 +16,43 @@ Function Get-AdminCheck {
     }
 }
 
-Function Install-VisualCPlusPlus {
-    $chunk = {
-        Function Install-AllVcRedists([string]$location)
-        {
-            [console]::ForegroundColor = "Cyan"
-            [console]::BackgroundColor = "Black"
-            If (!(Test-Path $location\VcRedist)){
-                Write-Information " - - - > creating VcRedist Folder - - - > " -InformationAction Continue
-                mkdir $location\VcRedist
-            }
-            Write-Information " - - - > Install Module VcRedist - - - > " -InformationAction Continue
-            Pause
-            Install-Module VcRedist
-            If ($?) { Write-Information " - - - Installling Module VcRedist Succeeded- - - " -InformationAction Continue }Else{ Write-Warning " - - - Installing Module VcRedist Failed- - - " -WarningAction Stop ; Exit}
-            
-            Write-Information " - - - > Import Module VcRedist - - - > " -InformationAction Continue
-            Pause
-            Import-Module VcRedist
-            If ($?) { Write-Information " - - - Importing Module VcRedist Succeeded- - - " -InformationAction Continue }Else{ Write-Warning " - - - Importing Module VcRedist Failed- - - " -WarningAction Stop ; Exit}
-            
-            Write-Information " - - - > Get VcRedist Download List- - - > " -InformationAction Continue
-            Pause
-            Get-VcList -OutVariable vclist
-            If ($?) { Write-Information " - - - Getting VcRedist List Download Succeeded- - - " -InformationAction Continue }Else{ Write-Warning " - - - Getting VcRedist List Download Failed- - - " -WarningAction Stop ; Exit}
-
-
-            Write-Information " - - - > Download VcRedist to $location\VcRedist - - - > " -InformationAction Continue
-            Pause
-            Get-VcRedist -Path $location\VcRedist -vclist $vclist
-            If ($?) { Write-Information " - - - Downloading VcRedist Succeeded- - - " -InformationAction Continue }Else{ Write-Warning " - - - Downloading VcRedist Failed- - - " -WarningAction Stop ; Exit}
-
-            Write-Information " - - - > Install All VcRedist - - - > " -InformationAction Continue
-            Pause
-            $vclist | Install-VcRedist  -Path $location\VcRedist
-            If ($?) { Write-Information " - - - Installing VcRedist Succeeded- - - " -InformationAction Continue }Else{ Write-Warning " - - - Installing VcRedist Failed- - - " -WarningAction Stop ; Exit}
-
-            Write-Information " - - - > List All Installed VcRedist - - - > " -InformationAction Continue
-            Pause
-            Get-InstalledVcRedist
-            pause
+$chunk = {
+    function Install-AllVC([string]$installdirectory) {
+        [console]::ForegroundColor = 'Cyan'
+        [console]::BackgroundColor = 'Black'
+        If (!(Test-Path $installdirectory\VcRedist)) {
+            Write-Information ' - - - > creating VcRedist Folder - - - > ' -InformationAction Continue
+            mkdir $installdirectory\VcRedist
         }
+        Write-Information ' - - - > Install Module VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Install-Module VcRedist
+        
+        Write-Information ' - - - > Import Module VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Import-Module VcRedist
+        
+        Write-Information ' - - - > Get VcRedist Download List- - - > ' -InformationAction Continue
+        Pause
+        Get-VcList -OutVariable vclist
+
+
+        Write-Information ' - - - > Download VcRedist to $installdirectory\VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Get-VcRedist -Path $installdirectory\VcRedist -vclist $vclist
+
+        Write-Information ' - - - > Install All VcRedist - - - > ' -InformationAction Continue
+        Pause
+        $vclist | Install-VcRedist  -Path $installdirectory\VcRedist
+
+        Write-Information ' - - - > List All Installed VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Get-InstalledVcRedist
+        pause
     }
-    $currentdirectory = $(gl)
-    Start-Process -FilePath PowerShell -verb runas -ArgumentList "-Command & {$chunk Install-AllVcRedists('$currentdirectory')}"
+}
+Function Install-VisualCPlusPlus {
+    # Run the script block and pass in parameters.
+    $installdirectory = $(gl)
+    Start-Process -FilePath PowerShell -verb runas -ArgumentList "-Command & {$chunk Install-AllVC('$installdirectory')}"
 }
