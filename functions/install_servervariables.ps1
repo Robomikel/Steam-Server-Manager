@@ -32,6 +32,14 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Server Name "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:hostname            = `"$global:hostname`""
     }
+    If ($hostname) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Server Name "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:hostname            = `"$global:hostname`""
+    }
+    If (($serverpassword)-and ($serverpassword -ne " ")) {
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Server password "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:serverpassword      = `"$global:serverpassword`""
+    }
     If ($serverfiles) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            serverfiles dir "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:serverfiles         = `"$global:serverfiles`""
@@ -128,7 +136,7 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Server Difficulty "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`${global:diff}              = `"${global:diff}`""
     }
-    If ($steamid64) {
+    If (($steamid64) -and ($steamid64 -ne " ")) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            steamid64"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:steamid64           = `"$global:steamid64`""
     }
@@ -136,7 +144,7 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Map Lighting"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:lighting           = `"$global:lighting`""
     }
-    If ($modsenabled) {
+    If (($modsenabled) -and (($modsenabled -ne $false))) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Mods enabled"
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:modsenabled           = `"$global:modsenabled`""
     }

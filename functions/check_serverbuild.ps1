@@ -46,20 +46,22 @@ Function Get-ServerBuildCheck {
                     #$localbuild
                     if (!$remotebuild ) {
                         Write-Warning 'Failed to retrieve remote build'
-                        Write-log "Failed to retrieve remote build"
+                        Write-log "Warning: Failed to retrieve remote build"
                     }
                     if (!$localbuild ) {
                         Write-Warning 'Failed to retrieve Local build'
-                        Write-log "Failed to retrieve Local build"
+                        Write-log "Warning: Failed to retrieve Local build"
                     }
-                    Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
+                    Write-Information "SteamDB: $remotebuild" -InformationAction Continue
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                             Get-Infomessage "availableupdates" 'update'
                             Get-SteamFix
-                            #Get-StopServer
-                            Get-UpdateServer  
+                            If ($stoponupdateonstart -eq "on") {
+                            Get-StopServer
+                            } 
+                            Get-UpdateServer 
                         }
                         Else {
                             Write-log "No $serverfiles Updates found"
@@ -83,11 +85,21 @@ Function Get-ServerBuildCheck {
 Function Get-SteamFix {
     Write-log "Function: Get-SteamFix"
     If ($ssmlog -and $loggingdate -and $appid -and $serverdir) {
-        If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
-            Write-log "Removing appmanifest_$appid.acf "
-            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force -ErrorAction SilentlyContinue
-            Write-log "Removing Multiple appmanifest_$appid.acf "
-            Remove-Item "$serverdir\steamapps\appmanifest_$appid.acf" -Force -ErrorAction SilentlyContinue
+        If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
+            Write-log "Restore appmanifest_$appid.acf "
+        }
+        ElseIf (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
+            Write-log "Rename appmanifest_$appid.acf "
+            If (Test-Path "$serverdir\steamapps\appmanifest_228980.acf") {
+                Rename-Item "$serverdir\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
+                Write-log "Rename Steamworks Common Redistributables appmanifest_228980.acf"
+            }
+        }
+        ElseIf (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) {
+            Write-warning "No app Manifests found. Recommend Validate"
+            Write-log "Warining: No app Manifests found. Recommend Validate"
         }
     }
 }

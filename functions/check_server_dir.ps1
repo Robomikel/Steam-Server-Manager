@@ -23,3 +23,36 @@ Function Get-FolderNames {
         }
     }
 }
+
+Function New-LocalFolder {
+    Write-log "Function: New-LocalFolder"   
+    ##-- 
+    $global:configlocal = "config-local"
+    If (Test-Path $currentdir\$configlocal ) {
+        Write-log "config-default Folder Already Created!   "
+    }
+    Else {
+        Write-log "Creating: config-default Folder  "
+        New-Item  . -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        If(!$?){
+            Write-log "Failed: Creating config-local Folder  "
+        }
+    }
+    New-defaultFolder
+}
+
+Function New-defaultFolder {
+    Write-log "Function: New-defaultFolder"   
+    ##-- 
+    $global:configdefault = "config-default"
+    If (Test-Path $currentdir\$configdefault) {
+        Write-log "config-default Folder Already Created!   "
+    }
+    Else {
+        Write-log "Creating: config-default Folder  "
+        New-Item  . -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        If(!$?){
+            Write-log "Failed: Creating config-default Folder  "
+        }
+    }
+}

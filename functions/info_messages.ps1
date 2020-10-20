@@ -237,10 +237,12 @@ Function Get-WarnMessage {
         }
         ElseIf ($warnmessage -eq 'discordnotenabled') {
             $message = ' Discord alerts not enabled'
+        }Else{
+            $message = "$warnmessage"
         }
         Start-Sleep 0.3
         Write-Warning "$message"
-        Add-Content $ssmlog "[$loggingdate] Warning: $warnmessage"
+        Add-Content $ssmlog "[$loggingdate] Warning: $message"
         Set-Location $currentdir
         Exit
     }

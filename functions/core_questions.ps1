@@ -203,11 +203,33 @@ Function New-AppDataSave {
         Exit
     }
 }
+Function New-LocalConfig {
+    If ($Version -eq 1) {
+        Write-log "Function: New-localConfig"
+        $title = 'New config-local Created'
+        $question = 'Pause to edit config-local?'
+        $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
+        $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
+        If ($decision -eq 0) {
+            Write-Information "Edit config-local in $currentdir\config-local\$getlocalssmname. Save and Press Enter..."
+            pause 
+            Import-localConfig       
+        } 
+        Else {
+            Import-localConfig
+        }
+    } 
+    Else {
+        Import-localConfig
+    }
+}
 Function Get-UserInput {
     Write-log "Function: Get-UserInput"
     If ($version -eq 0) {
-        #Write-Host "$SMILEY_BLACK Press Enter to Accept default $SMILEY_BLACK" -F Y
         Set-Console
+        Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
         If ($ip) {
             $defaultip = "$ip"
             If (($global:IP = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$IP]: "-F CY -N )) -eq '') { $global:IP = "$defaultIP" }Else { $IP }
@@ -217,18 +239,17 @@ Function Get-UserInput {
             If (($global:port = Read-Host -P(Write-Host "Enter Server PORT, Press Enter to Accept  [$PORT]: "-F CY -N )) -eq '') { $global:port = "$defaultPORT" }Else { $PORT }
         }
         If ($queryport) {
-            $defaultquery = "$query"
-            If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$QUERYPORT]: "-F CY -N )) -eq '') { $global:QUERYPORT = "$defaultQUERYPORT" }Else { $QUERYPORT }
+            $defaultquery = "$queryport"
+            If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$queryport]: "-F CY -N )) -eq '') { $global:queryport = "$defaultquery" }Else { $queryport }
         }
         If ($rconport) {
             $defaultrconport = "$rconport"
-            If (($global:rcon = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept  [$rconport]: "-F CY -N )) -eq '') { $global:rconport = "$defaultrconport" }Else { $rcon }
+            If (($global:rconport = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept  [$rconport]: "-F CY -N )) -eq '') { $global:rconport = "$defaultrconport" }Else { $rconport }
         }
         If ($rconpassword ) {
             If (($global:rconpassword = Read-Host -P(Write-Host "Enter Server RCON PASSWORD, Press Enter to Accept  [$randompassword]: "-F CY -N )) -eq '') { $global:rconpassword = "$randompassword" }Else { $rconpassword }
         }
         If ($hostname) {
-
             If (($global:hostname = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept  [SERVERNAME]: "-F CY -N )) -eq '') { $global:hostname = "SERVERNAME" }Else { $hostname }
         }
         If ($serverpassword) {
@@ -260,7 +281,7 @@ Function Get-UserInput {
             If (($global:gamemode = Read-Host -P(Write-Host "Enter Server GAME MODE, Press Enter to Accept  [$gamemode]: "-F CY -N )) -eq '') { $global:gamemode = "$defaultgamemode" }Else { $gamemode }
         }
         If ($diff ) {
-            $defaultdiff = "$defaultdiff"
+            $defaultdiff = "$diff"
             If (($global:diff = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $global:diff = "$defaultdiff" }Else { $diff }
         }
         If ($adminpassword) {

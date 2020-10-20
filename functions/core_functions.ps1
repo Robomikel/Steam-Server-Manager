@@ -27,7 +27,7 @@ Function Get-help {
     Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
     Write-Host "install"
     Write-Host "update"
-    Write-Host "ForceUpdate"
+    Write-Host "force-update"
     Write-Host "validate"
     Write-Host "start"
     Write-Host "stop"
@@ -36,11 +36,11 @@ Function Get-help {
     Write-Host "exit"
     Write-Host "query"
     Write-Host "monitor"
-    Write-Host "monitor-job"
-    Write-Host "Mod-Install - SourceMod and Oxide Install"
-    Write-Host "ws-Install  - WorkShop Install"
+    Write-Host "install-monitor"
+    Write-Host "install-mod - SourceMod and Oxide Install"
+    Write-Host "install-ws  - WorkShop Install"
     Write-Host "mcrcon"
-    Write-Host "AutoRestart"
+    Write-Host "install-Restart"
     Write-Host "discord"
     Write-Host "details"
     Write-Host "ssm update"
@@ -188,9 +188,11 @@ Function Edit-ServerConfig {
             }
         }
     }
+    Write-log "Function: Edit-ServerConfig"
 }
 
 Function Set-ServerConfig {
+    Write-log "Function: Set-ServerConfig"
     $removelinenumber = @( 407480 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
@@ -204,21 +206,23 @@ Function Set-ServerConfig {
     } 
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName")) {
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName")
+        $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
     }
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+   Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
     If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
-        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+       Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '407480', '443030', '232130', '629800', '412680', '1420710' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @( '403240', '261020' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}" }
-            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}" }
-            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}" }
-            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}" }
+            '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @( '407480', '443030', '232130', '629800', '412680', '1420710' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @( '403240', '261020' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
@@ -457,6 +461,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Admin message = $admincheckmessage  "
     Write-log "Setting: Update on start = $updateonstart "
     Write-log "Setting: Check Update on start = $checkupdateonstart"
+    Write-log "Setting: Stop on Update on start = $stoponupdateonstart"
     Write-log "Setting: check scheduled Task = $Checktask  "
     Write-log "Setting: Discord Alert = $DiscordAlert  "
     Write-log "Setting: Discord backup Alert = $DiscordBackupAlert "
@@ -491,20 +496,21 @@ Function Test-VariablesNull {
 }
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
-    If (Test-Path "$currentdir\custom_settings.ps1") {
-        .$currentdir\custom_settings.ps1
+    New-LocalFolder
+    If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     } 
     Else {
         Set-Customsettings
-        .$currentdir\custom_settings.ps1
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     }
 }
 Function Set-Customsettings {
     Write-Log "Function Set-Customsettings"
-    New-Item "$currentdir\custom_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
-    Add-Content "$currentdir\custom_settings.ps1" `
+    New-Item "$currentdir\$configlocal\local_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
+    Add-Content "$currentdir\$configlocal\local_settings.ps1" `
         "Function Import-CustomSetting {
     Write-log `"Function: Import-CustomSetting`"
     #                               ####  Steamer Settings #######
@@ -528,6 +534,8 @@ Function Set-Customsettings {
     `$global:admincheckmessage       = `"$admincheckmessage`"
     #                               Update on start
     `$global:updateonstart           = `"$updateonstart`"
+    #                               Stop on Update on start 
+    `$global:stoponupdateonstart     = `"$stoponupdateonstart`"
     #                               Check Update on start
     `$global:checkupdateonstart      = `"$checkupdateonstart`"
     #                               check scheduled Task
@@ -584,4 +592,26 @@ Function Set-Customsettings {
     `$global:discorddisplayip        = `"$discorddisplayip`"
     Set-SteamerSettingLog
 }"
+}
+
+Function Import-localConfig {
+    Write-log "Function: Import-localConfig"
+    If ($getlocalssmname) {
+        If ((Test-Path $currentdir\config-local\$getlocalssmname)) {
+            Write-log "Import:  .$currentdir\config-local\$getlocalssmname"
+            .$currentdir\config-local\$getlocalssmname
+            Set-LaunchScript
+        }
+        ElseIf (Test-Path $currentdir\config-default\$getlocalssmname) {
+            Write-log "Import: .$currentdir\config-default\$getlocalssmname"
+            .$currentdir\config-default\$getlocalssmname
+            Set-LaunchScript
+        }
+        Else {
+            Write-log "ERROR: No Config found to Import" ; Break
+        }
+    } 
+    Else {
+        Write-log "Failed: Import-localConfig"
+    }
 }

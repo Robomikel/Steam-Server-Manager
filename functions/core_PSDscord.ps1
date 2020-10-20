@@ -958,6 +958,7 @@ $global:RGBColors = [ordered] @{
     YellowOrange           = 255, 174, 66
     YourPink               = 244, 194, 194
 }
+$global:ErrorActionPreference = 'SilentlyContinue'
 Add-Type -TypeDefinition @"
 public enum RGBColors {
     None,
