@@ -1,10 +1,13 @@
 # Steam Server Manager
 ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steam-Server-Manager.JPG)
-PowerShell Steam Server Manager
-- Install and Manage Steam Servers with Powershell.
 
+# Discord Bot   
+ ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)   
  
-Install Any location:
+PowerShell Steam Server Manager   
+- Install and Manage Steam Servers with Powershell.    
+
+Install Any location:  
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
 Server install in the location of ssm. before install change directory to the location you want the server.
 > Windows 10 may require to unblock .zip to prevent constant "Prompts" for any downloaded .zips. Right click .zip > Properties > check box for unblock. use PS to install to prevent this issue.   
