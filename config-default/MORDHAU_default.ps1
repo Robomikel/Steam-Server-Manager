@@ -13,7 +13,7 @@ Function New-LaunchScriptMORDHAUPS {
     #                       Peer Port
     $global:peerport        = "4778"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Admin Password
     $global:adminpassword   = "$RANDOMPASSWORD"
     #                       Map "/Game/Mordhau/Maps/ThePit/FFA_ThePit.FFA_ThePit"

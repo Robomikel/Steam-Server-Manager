@@ -7,7 +7,7 @@ Function  New-LaunchScriptavserverPS {
         #                       Server Difficulty
         $global:DIFF            = "0"
         #                       Server Admin Steam64
-        $global:steamID64       = ""
+        $global:steamID64       = "Steam64"
         #                       Galaxy Name
         $global:galaxyname      = "avorion_galaxy"
         #                       Server Name
@@ -41,13 +41,14 @@ Function  New-LaunchScriptavserverPS {
         $global:logdirectory            = "$env:APPDATA\$saves\galaxies\$galaxyname"
         #                               Server Log
         $global:consolelog              = "serverlog*.txt"
+        # Get User Input version must be set to 0
+        Get-UserInput
         #                               Server Launch Command
-        If ($steamID64) {
+        If ($steamID64 -ne "Steam64") {
                 $global:launchParams = '@("${executable} --server-name `"${hostname}`" --admin ${steamID64} --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
         } 
         Else {
                 $global:launchParams = '@("${executable} --server-name `"${hostname}`" --galaxy-name ${galaxyname} --difficulty ${diff} --max-players ${maxplayers}")'
         }
-        # Get User Input version must be set to 0
-        Get-UserInput
+
 }

@@ -18,19 +18,19 @@ Function New-LaunchScriptInssserverPS {
         #                               Server Name       
         $global:hostname                = "SERVERNAME"
         #                               Server Password
-        $global:serverpassword          = ""
+        $global:serverpassword          = " "
         #                               Server Rcon Port
         $global:rconport                = "27103"
         #                               Server Rcon Password
         $global:rconpassword            = "$RANDOMPASSWORD"
         #                               Server Admin Steam ID 64
-        $global:steamid64               = ""
+        $global:steamid64               = " "
         #                               Map Lighting
         $global:lighting                = "Night"
         #                               Game Server Token
-        $global:gslt                    = ""
-        #                               Mods Enabled? $true / Leave Empty
-        $global:modsenabled             = ""
+        $global:gslt                    = "GameServerToken"
+        #                               Mods Enabled? $true / $false
+        $global:modsenabled             = "$false"
         #                               Mod.io OAuth Access Token
         $global:oauthtoken              = ""
         ##############################/\############################## 
@@ -57,11 +57,12 @@ Function New-LaunchScriptInssserverPS {
         $global:logdirectory            = "$serverdir\Insurgency\Saved\Logs"
         #                               Server Log
         $global:consolelog              = "Insurgency.log"
-        
+        # Get User Input version must be set to 0
+        Get-UserInput
 
         #                               Server Launch Command
-        If ($SERVERPASSWORD -ne "") {
-                If ($gslt ) {
+        If ($serverpassword -ne " ") {
+                If ($gslt -ne "GameServerToken" ) {
                         If ($modsenabled -eq $true) {
                                 $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?password=${serverpassword}?Lighting=${lighting}-Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt} -Mods")'
                         } 
@@ -79,7 +80,7 @@ Function New-LaunchScriptInssserverPS {
                 }
         }
         Else {
-                If ($gslt ) {
+                If ($gslt -ne "GameServerToken" ) {
                         If ($modsenabled -eq $true) {
                                 $global:launchParams = '@("${executable} ${defaultmap}?Scenario=${scenario}?MaxPlayers=${maxplayers}?Lighting=${lighting} -Port=${port} -QueryPort=${queryport} -log -hostname=`"${hostname}`" -GSLTToken=${gslt} -Mods")'
                         }
@@ -96,8 +97,7 @@ Function New-LaunchScriptInssserverPS {
                         }
                 } 
         }
-        # Get User Input version must be set to 0
-        Get-UserInput
+
         # Custom config 
         mkdir $serverdir\Insurgency\Config\Server   >$null 2>&1
         $MapCyclePath = "$serverdir\Insurgency\Config\Server"  

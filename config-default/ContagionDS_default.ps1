@@ -14,7 +14,7 @@ Function New-LaunchScriptContagionDSPS {
     $global:maxplayers      = "16"
     #                       SV_LAN
     $global:sv_lan          = "0"
-    #                     Server Name
+    #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Rcon Password
     $global:rconpassword    = "$RANDOMPASSWORD"

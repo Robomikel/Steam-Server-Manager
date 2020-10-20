@@ -18,7 +18,7 @@ Function New-LaunchScriptFFserverPS {
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Rcon Password
     $global:RCONPASSWORD    = "$RANDOMPASSWORD"
     ##############################/\##############################

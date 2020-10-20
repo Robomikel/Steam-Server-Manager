@@ -14,7 +14,7 @@ Function New-LaunchScriptInsserverPS {
     #                       Tickrate
     $global:tickrate        = "64"
     #                       Game Server Token
-    $global:gslt            = ""
+    $global:gslt            = "GameServerToken"
     #                       Map
     $global:defaultmap      = "buhriz_coop checkpoint"
     #                       Maxplayers
@@ -54,15 +54,16 @@ Function New-LaunchScriptInsserverPS {
     $global:gamedirname     = "Insurgency"
     #                       Game-Server-Config
     $global:servercfg       = "server.cfg"
+    # Get User Input version must be set to 0
+    Get-UserInput
     #                       Server Launch Command
-    If ($gslt) {
+    If ($gslt -ne "GameServerToken") {
         $global:launchParams = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +hostname `"$hostname`" +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +sv_setsteamaccount ${gslt} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} `"+sv_pure ${sv_pure}`" -condebug -norestart")'
     }
     Else {
         $global:launchParams = '@("${executable} -game insurgency -strictportbind -ip ${ip} -port ${port} +hostname `"$hostname`" +clientport ${clientport} +tv_port ${sourcetvport} -tickrate ${tickrate} +map ${defaultmap} +servercfgfile ${servercfg} -maxplayers ${maxplayers} +sv_lan ${sv_lan} +mp_coop_lobbysize ${coopplayers} +sv_workshop_enabled ${workshop} `"+sv_pure ${sv_pure}`" -condebug -norestart")'
     }
-    # Get User Input version must be set to 0
-    Get-UserInput
+
     # Download Game-Server-Config
     Get-Servercfg
     # Edit Server Game-Server-Config

@@ -16,7 +16,7 @@ Function New-LaunchScriptPrimalCarnagePS {
     #                       Maxplayers
     $global:maxplayers      = "18"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     ##############################/\##############################
     # 7777-7778 (this is for primal) to TCP and UDP both.
     # 27015-27016 (this is for steam) UDP AND TCP.

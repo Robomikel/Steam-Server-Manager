@@ -13,7 +13,7 @@ Function New-LaunchScriptceserverPS {
     #                       Maxplayers
     $global:maxplayers      = "50"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Admin Password
     $global:adminpassword   = "$RANDOMPASSWORD"
     #                       Map # Delete string if you want default map

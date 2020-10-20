@@ -9,7 +9,7 @@ Function New-LaunchScriptIslePS {
     #                       Query Port
     $global:queryport       = "7778"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Map
     $global:defaultmap      = "/Game/TheIsle/Maps/Thenyaw_Island/Thenyaw_Island"
     #                       Maxplayers

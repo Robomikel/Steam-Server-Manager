@@ -22,7 +22,7 @@ Function New-LaunchScriptPixArkPS {
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       World and Ore Seed
     $global:seed            = "$global:RANDOMSEED"
     ##############################/\##############################

@@ -14,7 +14,7 @@ Function New-LaunchScriptEdenStartPS {
     #                       Rcon Password
     $global:rconpassword    = "$RANDOMPASSWORD"
     #                       Server Password
-    $global:serverpassword  = "$RANDOMPASSWORD"
+    $global:serverpassword  = " "
     #                       Maxplayers
     $global:maxplayers      = "32"
     #                       Server Name

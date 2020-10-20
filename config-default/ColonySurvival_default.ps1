@@ -9,7 +9,7 @@ Function New-LaunchScriptColonySurvivalServerPS {
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Server Port
     $global:port            = "27004"
     #                       World Name  

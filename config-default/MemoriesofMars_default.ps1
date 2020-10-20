@@ -9,7 +9,7 @@ Function New-LaunchScriptMemoriesofMarsServerPS {
     #                       Server Name
     $global:hostname        = "SERVERNAME"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     #                       Server Port
     $global:port            = "7777"
     #                       BeaconPort

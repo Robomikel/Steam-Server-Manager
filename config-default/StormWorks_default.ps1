@@ -9,7 +9,7 @@ Function New-LaunchScriptStormworksserverPS {
     #                       Maxplayers
     $global:maxplayers      = "20"
     #                       Server Password
-    $global:serverpassword  = ""
+    $global:serverpassword  = " "
     ###########################/\#################################
     
     # port="25564" set the game and query ports that will be used for the server 
