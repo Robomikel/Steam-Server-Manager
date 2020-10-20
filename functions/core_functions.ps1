@@ -563,13 +563,13 @@ Function Set-Customsettings {
     #                               Version  0 prompt for input, 1 no prompt during install
     `$global:Version                 = `"$Version`"
     #                               Server List Directory
-    `$global:serverlistdir           = `"$serverlistdir`"
+    `$global:serverlistdir           = `"`$serverlistdir`"
     #                               Backup Directory
-    `$global:backupdir               = `"$backupdir`"
+    `$global:backupdir               = `"`$backupdir`"
     #                               ssm log Directory
-    `$global:ssmlogdir               = `"$ssmlogdir`"
+    `$global:ssmlogdir               = `"`$ssmlogdir`"
     #                               log Directory
-    `$global:logdir                  = `"$logdir`"
+    `$global:logdir                  = `"`$logdir`"
     #                               Empty Variable checking
     `$global:testvariable            = `"$testvariable`"
     #                               MC Version
