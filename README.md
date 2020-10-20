@@ -2,7 +2,7 @@
 ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steam-Server-Manager.JPG)
 
 # Discord Bot   
- ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord_Bot.png)   
+ ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)   
  
 PowerShell Steam Server Manager   
 - Install and Manage Steam Servers with Powershell.    
