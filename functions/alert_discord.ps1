@@ -16,9 +16,13 @@ Function New-DiscordAlert {
                     If ($DiscordBackupAlert) {
                         If ($DiscordBackupAlert -eq "on") { 
                             # BACKUP
+                            $global:alerttype = 'Backup'
+                            # BACKUP
                             $global:alertmessage = ' New Server Backup'
                             # GREEN
                             $global:alertmessagecolor = 'ForestGreen'
+                            # Backup Count
+                            $global:backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
                         }
                     }
                 }
@@ -27,6 +31,7 @@ Function New-DiscordAlert {
                         If ($DiscordUpdateAlert -eq "on") { 
                             # UDPATE
                             $global:alertmessage = ' Server Updated '
+                            $global:alerttype = 'Update'
                             # BLUE
                             $global:alertmessagecolor = 'DarkBlue'
                         }
@@ -37,6 +42,7 @@ Function New-DiscordAlert {
                         If ($DiscordRestartAlert -eq "on") { 
                             # RESTART
                             $global:alertmessage = " Server not Running, Starting Server "
+                            $global:alerttype = 'Restarted'
                             # RED
                             $global:alertmessagecolor = 'FireBrick'
                         }
@@ -45,6 +51,7 @@ Function New-DiscordAlert {
                 ElseIf ($command -eq "discord") {
                     # BACKUP
                     $global:alertmessage = ' Test Alert'
+                    $global:alerttype = 'test'
                     # Cyan
                     $global:alertmessagecolor = 'RoyalBlue'
                 }
@@ -89,21 +96,46 @@ Function Send-DiscordAlert_old {
     }
 }
 Function Send-DiscordAlert {
+    $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
     Write-log "Function: Send-DiscordAlert"
     If ($alertmessage -and $alertmessagecolor) {
         # https://github.com/EvotecIT/PSDiscord
-        $global:Uri = "$discordwebhook"
-        $global:Author = New-DiscordAuthor -Name 'Alert' -IconUrl "https://i.imgur.com/tTrtYMe.png"
+        $Uri = "$discordwebhook"
         If ($discorddisplayip) {
-            $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$discorddisplayip`:$port" -Inline $true
+            $displayip = $discorddisplayip
+            #$Fact = New-DiscordFact -Name "Server IP: " -Value "$discorddisplayip`:$port" -Inline $true
         }
         Else {
-            $global:Fact = New-DiscordFact -Name "Server IP: " -Value "$extip`:$port" -Inline $true
+            $displayip = $extip
+            
         }
-        $global:Thumbnail = New-DiscordThumbnail -Url "https://i.imgur.com/t3WKCW1.png"
-        $global:Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
+        $details =  [PSCustomObject]@{
+            Game = $game
+            ServerIP = "$displayip`:$port"
+            LocalBuild = $localbuild
+            RemoteBuild = $remotebuild
+        }        
+        $detailss = @()
+        $detailss += "Game:  $($details.Game)"
+        $detailss += "`nServer IP: $($details.ServerIP)"
+        If ($alert -eq "Backup") {
+        $detailss += "`nbackups: $backups"
+        }
+        If ($alert -eq "update") {
+        $detailss += "`nLocal: $($details.LocalBuild)"
+        $detailss += "`nSteamDB: $($details.RemoteBuild)"
+        }
+        $detailss += "`nsteam://connect/$displayip`:$port"
+        #                               Discord Author Name 
+        $global:AuthorName              = "Notice - $hostname - $alerttype "
+        #                               Discord Avatar Name 
+        $global:AavatarName              = "Steam-Server-Manager"
+        $Fact = New-DiscordFact -Name "Info:" -Value "$detailss" -Inline $true
+        $Author = New-DiscordAuthor -Name $AuthorName -IconUrl $AuthorIconURL
+        $Thumbnail = New-DiscordThumbnail -Url $ThumbnailURL
+        $Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
         # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
-        Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName 'Steam-Server-Manager' -AvatarUrl "https://i.imgur.com/tTrtYMe.png"
+        Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName $AavatarName -AvatarUrl $AvatarUrl
         If (!$?) {
             Get-warnmessage "AlertFailed"
         }

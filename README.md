@@ -234,5 +234,7 @@ https://github.com/GameServerManagers
 # PS Discord
 https://github.com/EvotecIT/PSDiscord
 # PS SharedGoods
-https://github.com/EvotecIT/PSSharedGoods 
+https://github.com/EvotecIT/PSSharedGoods
+# VcRedist
+https://github.com/aaronparker/VcRedist
 

@@ -17,7 +17,7 @@ Function Get-AdminCheck {
 }
 
 $chunk = {
-    function Install-AllVC([string]$installdirectory) {
+    Function Install-AllVC([string]$installdirectory) {
         [console]::ForegroundColor = 'Cyan'
         [console]::BackgroundColor = 'Black'
         If (!(Test-Path $installdirectory\VcRedist)) {
@@ -37,7 +37,7 @@ $chunk = {
         Get-VcList -OutVariable vclist
 
 
-        Write-Information ' - - - > Download VcRedist to $installdirectory\VcRedist - - - > ' -InformationAction Continue
+        Write-Information ' - - - > Download VcRedist to Steam-Server-Manager\VcRedist - - - > ' -InformationAction Continue
         Pause
         Get-VcRedist -Path $installdirectory\VcRedist -vclist $vclist
 

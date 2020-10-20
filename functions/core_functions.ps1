@@ -461,6 +461,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Admin message = $admincheckmessage  "
     Write-log "Setting: Update on start = $updateonstart "
     Write-log "Setting: Check Update on start = $checkupdateonstart"
+    Write-log "Setting: Stop on Update on start = $stoponupdateonstart"
     Write-log "Setting: check scheduled Task = $Checktask  "
     Write-log "Setting: Discord Alert = $DiscordAlert  "
     Write-log "Setting: Discord backup Alert = $DiscordBackupAlert "
@@ -533,6 +534,8 @@ Function Set-Customsettings {
     `$global:admincheckmessage       = `"$admincheckmessage`"
     #                               Update on start
     `$global:updateonstart           = `"$updateonstart`"
+    #                               Stop on Update on start 
+    `$global:stoponupdateonstart     = `"$stoponupdateonstart`"
     #                               Check Update on start
     `$global:checkupdateonstart      = `"$checkupdateonstart`"
     #                               check scheduled Task

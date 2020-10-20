@@ -27,10 +27,12 @@ Function Set-SteamerSetting {
     $global:logo                    = "on"
     #                               Admin message
     $global:admincheckmessage       = "on"
-    #                               Update on start
+    #                               Update on start. Depends on "Check Update on start"
     $global:updateonstart           = "on"
-    #                               Check Update on start
+    #                               Check Update on start.
     $global:checkupdateonstart      = "on"
+    #                               Stop on "Update on start" 
+    $global:stoponupdateonstart     = "on"
     #                               check scheduled Task
     $global:Checktask               = "on"
     #                               Discord Alert
@@ -85,5 +87,11 @@ Function Set-SteamerSetting {
     $global:discordwebhook          = ""
     #                               Discord Display IP and Steam API IP.
     $global:discorddisplayip        = ""
+    #                               Discord Icon URL
+    $global:AuthorIconURL           = "https://i.imgur.com/yp6wLLa.png"
+    #                               Discord Thumbnail URL 
+    $global:ThumbnailURL            = "https://i.imgur.com/yp6wLLa.png"
+    #                               Discord Avatar URL
+    $global:AvatarUrl               = "https://i.imgur.com/yp6wLLa.png"
     # Set-SteamerSettingLog
 }
