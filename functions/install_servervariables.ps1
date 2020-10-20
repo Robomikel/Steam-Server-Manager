@@ -164,7 +164,7 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            server tick rate "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:tickrate            = `"$global:tickrate`""
     } 
-    If ($gslt) {
+    If (($gslt) -and ($gslt -ne "GameServerToken" )) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Gamer Server token "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:gslt                = `"$global:gslt`""
     }
