@@ -56,7 +56,7 @@ Function Set-SteamerSetting {
     #                               Console Text Color 
     $global:textcolor               = "White" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt for input, 1 no prompt during install
-    $global:Version                 = "1"
+    $global:Version                 = "0"
     #                               Server List Directory
     $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory

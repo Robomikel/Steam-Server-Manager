@@ -24,7 +24,9 @@ During install will download and copy to config-local. Will Prompt and pause scr
 >change $version "0" in config-local\local_settings before run to prompt for input to change default variables.  
 ```\Steam-Server-Manager\config-local\*_default.ps1```   
 Change any vars like port/s or server name.   
-
+# Console Menu   
+Displays in console menu. Choose from command list, Game list, and installed servers list   
+```./ssm.ps1 menu```   
 # Install Server
 open PowerShell as user NOT Admin   
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
@@ -126,6 +128,7 @@ Install miscreated server ```./ssm install misserver```
    -----
  # Features  
  - Manage Steam server with features
+   * SSM Console Menu   
    * install steam server
    * starting server 
    * stopping server 
@@ -148,7 +151,8 @@ Install miscreated server ```./ssm install misserver```
    
  
    
- # Commands:  
+ # Commands:
+ - ```./ssm menu ```  - Use Interactive SSM console Menu  
   - ```./ssm install <serverFolder>```  - install server   
  - ```./ssm start <serverFolder>```  - Starts  server process   
  - ```./ssm stop <serverFolder>``` - stop process server   

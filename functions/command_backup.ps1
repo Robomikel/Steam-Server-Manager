@@ -121,26 +121,29 @@ Function Limit-AppdataBackups {
 }
 Function Get-BackupMenu {
     Show-Menu
-    $selection = Read-Host "Please make a selection"
-    switch ($selection) {
-        '1' { $global:restore = $option1 } 
-        '2' { $global:restore = $option2 } 
-        '3' { $global:restore = $option3 } 
-        'q' { exit }
-    }
+    Get-Menu
+    # $selection = Read-Host "Please make a selection"
+    $selection = Menu (iex "(gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending).Name")
+    $global:restore = $selection
+    # switch ($selection) {
+    #    '1' { $global:restore = $option1 } 
+    #    '2' { $global:restore = $option2 } 
+   #     '3' { $global:restore = $option3 } 
+    #    'q' { exit }
+    # }
     New-BackupRestore
 }
 Function Show-Menu {
     $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
-        Get-Menu
+        #Get-Menu
     }
     ElseIf ($option.Count -ne 0 ) {
         $global:option1 = $option[0] 
         $global:option2 = $option[1] 
         $global:option3 = $option[2]
-        Get-Menu
+        #Get-Menu
     }
     ElseIf ($option.Count -eq 0 )  {
         Write-Warning "No Backups" -InformationAction Stop
@@ -148,12 +151,13 @@ Function Show-Menu {
     }
 }
 Function Get-Menu {
-    Write-Host ":::::::::::: SSM Backup Restore Menu ::::::::::"
-    Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
-    Write-Host "1: $option1"
-    Write-Host "2: $option2"
-    Write-Host "3: $option3"
-    Write-Host "Q: Press 'Q' to quit."
+    Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:."
+    Write-Host " "
+   # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+   # Write-Host "1: $option1"
+   # Write-Host "2: $option2"
+   # Write-Host "3: $option3"
+   # Write-Host "Q: Press 'Q' to quit."
 }
 Function New-BackupRestore {
     Write-log "Function: New-BackupRestore"
