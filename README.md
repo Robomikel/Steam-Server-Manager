@@ -1,5 +1,5 @@
 # Steam Server Manager
-![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steam-Server-Manager.JPG)
+![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Details.gif)
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
 
@@ -27,6 +27,7 @@ Change any vars like port/s or server name.
 # Console Menu   
 Displays in console menu. Choose from command list, Game list, and installed servers list   
 ```./ssm.ps1 menu```   
+![Menu Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Menu3.gif)   
 # Install Server
 open PowerShell as user NOT Admin   
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
@@ -194,7 +195,8 @@ Install miscreated server ```./ssm install misserver```
  * MCRcon Download and Install
  * Use used to Rcon to servers.
  
- 
+# Graphial Stats 
+ ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
  
  
 - - - -  
