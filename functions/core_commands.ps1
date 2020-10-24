@@ -89,5 +89,5 @@ Function Get-SSMMenu {
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
-    Select-Steamer $command $serverfiles
+    ./ssm.ps1 $command $serverfiles
 }
