@@ -47,6 +47,7 @@ Function Select-Steamer {
         'discord' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; New-DiscordAlert; Test-VariablesNull; Get-ClearVariables; Break }
         'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Test-VariablesNull; Get-ClearVariables; Break }
         'install-VcRedist' { Install-VisualCPlusPlus; Get-ClearVariables; Break }
+        'stats' { Measure-stats; Break }
         'menu' { Get-SSMMenu}
         'exit' { exit; Break }
         Default { Get-Help }
@@ -63,7 +64,7 @@ Function Read-Param {
 Function Get-SSMMenu {
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-H', 'install I-Z','start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit')
+    $command = Menu @('install A-H', 'install I-Z','start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit','stats')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -ne "install A-H" -and $command -ne "install I-Z") {
