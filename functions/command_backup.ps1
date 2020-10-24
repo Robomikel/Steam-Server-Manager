@@ -8,14 +8,14 @@
 #
 Function New-BackupServer {
     Write-log "Function: New-BackupServer"
-    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ($serverdir) -and ($logdate)) { 
+    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$currentdir\$serverfiles") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
         If ($Showbackupconsole -eq "on") { 
             Get-Infomessage "backupstart" 'start'
             Set-Location $sevenzipdirectory
-            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$logDate.log") -Wait
+            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -25,7 +25,7 @@ Function New-BackupServer {
             Set-Location $sevenzipdirectory
             #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
             Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
-            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $serverdir\* > backup_$logDate.log
+            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $currentdir\$serverfiles\* > backup_$logDate.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -161,7 +161,7 @@ Function Get-Menu {
 }
 Function New-BackupRestore {
     Write-log "Function: New-BackupRestore"
-    If (($serverfiles) -and ($backupdir) -and ($Date) -and ($serverdir) -and ($logdate)) { 
+    If (($serverfiles) -and ($backupdir) -and ($Date) -and ("$currentdir\$serverfiles") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }

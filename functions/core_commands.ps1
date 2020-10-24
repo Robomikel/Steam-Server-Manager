@@ -77,14 +77,12 @@ Function Get-SSMMenu {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 40" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
-        $serverdir = "$currentdir\$serverfiles"
         Select-Steamer $command $serverfiles
     }
     ElseIf ($command -eq "install I-Z") {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 40" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
-        $serverdir = "$currentdir\$serverfiles"
         Select-Steamer $command $serverfiles
     }
 }

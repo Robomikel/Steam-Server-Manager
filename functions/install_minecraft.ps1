@@ -34,7 +34,7 @@ Function Get-MCjavaBinaries {
             Move-Item server.jar $serverfiles\ -Force -ea SilentlyContinue
             New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
             Add-Content $serverfiles\version.txt $mcvWebResponse -Force
-            Set-Location $serverdir
+            Set-Location $currentdir\$serverfiles
             If (!(Test-Path eula.txt )) {
                 Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
                 Start-Sleep 3

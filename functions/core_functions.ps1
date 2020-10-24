@@ -115,7 +115,7 @@ Function Set-Steamer {
 Function Set-VariablesPS {
     Write-log "Function: Set-VariablesPS"
     Get-Infomessage "creating" 'info'
-    New-Item $serverdir\Variables-$serverfiles.ps1 -Force
+    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
@@ -359,8 +359,8 @@ Function Get-SourceMetaModWebrequest {
 }
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
-    If (Test-Path $serverdir\Variables-*.ps1) {
-        $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+    If (Test-Path $currentdir\$serverfiles\Variables-*.ps1) {
+        $check = (Get-Childitem $currentdir\$serverfiles | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
             Get-createdvaribles
             If ( $process ) {
@@ -411,7 +411,7 @@ Function compare-SteamExit {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
                 Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
                 Set-Location $steamdirectory
-                .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+                .\steamCMD +login $username $password +force_install_dir $currentdir\$serverfiles +app_update $APPID $Branch +Exit
                 New-TryagainSteam
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
