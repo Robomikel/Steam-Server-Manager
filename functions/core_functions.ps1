@@ -713,7 +713,7 @@ function DrawMenu {
 				}
 			}
 			if ($i -eq $menuPosition) {
-				Write-Host "> $($item)" -ForegroundColor White
+				Write-Host "$($circle) $($item)" -ForegroundColor White
 			} else {
 				Write-Host "  $($item)" -F Cyan
 			}

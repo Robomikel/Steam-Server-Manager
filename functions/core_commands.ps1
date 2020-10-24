@@ -60,30 +60,34 @@ Function Read-Param {
         { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $global:serverfiles = Read-host ; Get-TestString }
     }
 }
-
 Function Get-SSMMenu {
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-H', 'install I-Z','start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit','stats')
+    $command = Menu @('install A-H', 'install I-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -ne "install A-H" -and $command -ne "install I-Z") {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
     Choose Server: 
     loading..." -F Cyan
-        $serverfiles = Menu (iex "((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`",`"`" )")
-        Select-Steamer $command $serverfiles
+        $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
+        if ($check.count -gt 1) {
+            $serverfiles = Menu (iex "((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+        }
+        Elseif ($check.count -eq 1) {
+            $serverfiles = $check
+        }   
+        
     }
-    ElseIf ($command -eq "install A-H") {
+    If ($command -eq "install A-H") {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 40" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
-        Select-Steamer $command $serverfiles
     }
     ElseIf ($command -eq "install I-Z") {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 40" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
-        Select-Steamer $command $serverfiles
     }
+    Select-Steamer $command $serverfiles
 }
