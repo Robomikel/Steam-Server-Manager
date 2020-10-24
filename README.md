@@ -199,7 +199,8 @@ Install miscreated server ```./ssm install misserver```
  
 # Graphial Stats 
  ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
- 
+# Discord Alert
+ ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)
  
 - - - -  
  When creating a Schedule task to run Monitor script in background.  
