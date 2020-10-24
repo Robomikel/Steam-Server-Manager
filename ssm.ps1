@@ -90,6 +90,7 @@ Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.
 # Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 Get-CustomSettings
+Test-PSversion
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 
 Set-Console  >$null 2>&1

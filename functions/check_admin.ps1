@@ -15,3 +15,44 @@ Function Get-AdminCheck {
         Get-adminMessage
     }
 }
+
+$chunk = {
+    Function Install-AllVC([string]$installdirectory) {
+        [console]::ForegroundColor = 'Cyan'
+        [console]::BackgroundColor = 'Black'
+        If (!(Test-Path $installdirectory\VcRedist)) {
+            Write-Information ' - - - > creating VcRedist Folder - - - > ' -InformationAction Continue
+            mkdir $installdirectory\VcRedist
+        }
+        Write-Information ' - - - > Install Module VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Install-Module VcRedist
+        
+        Write-Information ' - - - > Import Module VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Import-Module VcRedist
+        
+        Write-Information ' - - - > Get VcRedist Download List- - - > ' -InformationAction Continue
+        Pause
+        Get-VcList -OutVariable vclist
+
+
+        Write-Information ' - - - > Download VcRedist to Steam-Server-Manager\VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Get-VcRedist -Path $installdirectory\VcRedist -vclist $vclist
+
+        Write-Information ' - - - > Install All VcRedist - - - > ' -InformationAction Continue
+        Pause
+        $vclist | Install-VcRedist  -Path $installdirectory\VcRedist
+
+        Write-Information ' - - - > List All Installed VcRedist - - - > ' -InformationAction Continue
+        Pause
+        Get-InstalledVcRedist
+        pause
+    }
+}
+Function Install-VisualCPlusPlus {
+    # Run the script block and pass in parameters.
+    $installdirectory = $(gl)
+    Start-Process -FilePath PowerShell -verb runas -ArgumentList "-Command & {$chunk Install-AllVC('$installdirectory')}"
+}

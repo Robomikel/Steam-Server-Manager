@@ -10,15 +10,15 @@ Function Get-FolderNames {
     Write-log "Function: Get-FolderNames"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking Folder Names "
-        If ($serverdir) {
-            If (Test-Path "$serverdir") {
-                Write-log "Folder Name Exists   $serverdir "
+        If ("$currentdir\$serverfiles") {
+            If (Test-Path "$currentdir\$serverfiles") {
+                Write-log "Folder Name Exists   $currentdir\$serverfiles "
             }
-            ElseIf (!(Test-Path "$serverdir")) {
+            ElseIf (!(Test-Path "$currentdir\$serverfiles")) {
                 New-ServerFolderq
             }
         }
-        ElseIf (!$serverdir) {
+        ElseIf (!"$currentdir\$serverfiles") {
             Get-warnmessage "fngetfoldersfailed"
         }
     }

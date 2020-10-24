@@ -17,7 +17,7 @@ Function New-ServerFolder {
         Write-Warning ' You Enter a space or Empty  '
         Select-Steamer
     }
-    ElseIf (Test-Path "$serverdir" ) {
+    ElseIf (Test-Path "$currentdir\$serverfiles" ) {
         Write-log "Server Folder Already Created!   "
     }
     Else {

@@ -25,8 +25,8 @@ Function Get-InstallForge {
         If ($?){
             Get-Infomessage "Downloading" 'Minecraft Forge'
         } 
-        Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
-        Set-Location $serverdir
+        Move-Item forge-$forgeversion-installer.jar $currentdir\$serverfiles -Force -ea SilentlyContinue
+        Set-Location $currentdir\$serverfiles
         java -jar forge-$forgeversion-installer.jar --installServer
         Remove-Item forge-$forgeversion-installer.jar
         Rename-Item server.jar server.jar.bak
