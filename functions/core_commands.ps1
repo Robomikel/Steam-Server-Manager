@@ -72,12 +72,12 @@ Function Get-SSMMenu {
     loading..." -F Cyan
         $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
         if ($check.count -gt 1) {
-            $serverfiles = Menu (iex "((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           $serverfiles = Menu (iex " ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           # $serverfiles = menu (iex "(gci * -Filter *server | select Name).Name")
         }
         Elseif ($check.count -eq 1) {
             $serverfiles = $check
         }   
-        
     }
     If ($command -eq "install A-H") {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 40" )

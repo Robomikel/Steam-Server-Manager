@@ -615,66 +615,67 @@ Function Import-localConfig {
         Write-log "Failed: Import-localConfig"
     }
 }
-
-Function Measure-cpu {
-    $cpulast2min = @()
-    do {
-        $window32processor = Get-WMIObject Win32_processor
-        $cpulast2min += $($window32processor.LoadPercentage)
-        # $($window32processor.LoadPercentage)
-        start-sleep -Seconds 1
-        $minutes++
-    }while ($minutes -lt 120)
-    Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "host CPU 2 Min"
-}
-
 Function Measure-stats {
     $startTime = get-date
     $endTime = $startTime.addMinutes(1.0)
     $timeSpan = new-timespan $startTime $endTime
     $cpulast2min = @()
-  #   $cpucookedlast2min = @()
- #    $NetaverageBandwidth = @()
+    #   $cpucookedlast2min = @()
+    $memorylast2min = @()
+    #  $NetaverageBandwidth = @()
+
     while ($timeSpan -gt 0) {
-      #   $gamecpucooked = [math]::Truncate(((Get-Counter '\Process(*)\% Processor Time' -ea SilentlyContinue).CounterSamples | Where-Object InstanceName -like $process).CookedValue)
-        if ($psSeven -eq $true ) {
+       #   $gamecpucooked = [math]::Truncate(((Get-Counter '\Process(*)\% Processor Time' -ea SilentlyContinue).CounterSamples | Where-Object InstanceName -like $process).CookedValue)
+      
+      if ($psSeven -eq $true ) {
             $window32processor = Get-CimInstance Win32_processor
-     #        $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+            $windows32 = Get-CimInstance Win32_OperatingSystem
+       #      $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
         }
         Else {
             $window32processor = Get-WmiObject Win32_processor
-      #       $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
-        }
-    #     foreach ($interface in $colInterfaces) {
-    #        $bitsPerSec = $interface.BytesTotalPersec * 8
-    #        $totalBits = $interface.CurrentBandwidth / 10
-    #        # Exclude Nulls (any WMI failures)
-    #        if ($totalBits -gt 0) {
-    #            $result = (( $bitsPerSec / $totalBits) * 100)
-    #            $totalBandwidth = $totalBandwidth + $result
-    #            $count++
-    #        }
-     #    }
+            $windows32 = Get-WmiObject Win32_OperatingSystem
+       #      $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+       # }
+       #  foreach ($interface in $colInterfaces) {
+       #     $bitsPerSec = $interface.BytesTotalPersec * 8
+       #     $totalBits = $interface.CurrentBandwidth / 10
+       #     # Exclude Nulls (any WMI failures)
+       #     if ($totalBits -gt 0) {
+       #         $result = (( $bitsPerSec / $totalBits) * 100)
+       #         $totalBandwidth = $totalBandwidth + $result
+       #         $count++
+       #     }
+         }
         cls
         [console]::CursorVisible=$false
         Get-Logo
         $bar++
-        $bar | % { if ($_ % 2 -eq 0 ) { Write-Host "Loading...[-]       " } }
-        $bar | % { if ($_ % 2 -eq 1 ) { Write-Host "Loading...[x]       " } }
-    #     $averageBandwidth = $totalBandwidth / $count
-    #     $NetaverageBandwidth += $averageBandwidth
+        $bar | % { if ($_ % 2 -eq 0 ) { Write-Host "Fetch stats 1Min...[-]       " } }
+        $bar | % { if ($_ % 2 -eq 1 ) { Write-Host "Fetch stats 1Min...[x]       " } }
+       #     $averageBandwidth = $totalBandwidth / $count
+       #  $NetaverageBandwidth += $averageBandwidth
         $cpulast2min += $window32processor.LoadPercentage
-      #   $cpucookedlast2min += $gamecpucooked
+        $maxmemory = [System.Math]::Round($windows32.TotalVisibleMemorySize /1MB)
+        $memoryleft = [System.Math]::Round((( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB )) 
+        $memorylast2min += ($memoryleft/$maxmemory).ToString("P").Replace("%","")
+       #   $cpucookedlast2min += $gamecpucooked
         $timeSpan = new-timespan $(Get-Date) $endTime
         $minutes++
+        Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
+       # Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory" 
+       # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
+       # Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Network"
     }
     # > uncomment next two lines for test show-graph
     # $data = 1..100 | Get-Random -Count 50
     # Show-Graph -Datapoints $Data -GraphTitle 'CPU'
-    
-    Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "1Min" -GraphTitle "CPU"
-   #  Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
-  #   Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Net"
+      cls
+      Get-logo
+      Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
+      # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
+      Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory"
+      #  Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Net"
 }
 <###############################################################################################################
 .SYNOPSIS
@@ -874,7 +875,8 @@ Function Show-Graph {
             [Int] $YAxisStep = 10,
             [ValidateSet("Bar","Scatter","Line")] [String] $Type = 'Bar',
             [Hashtable] $ColorMap,
-            [Switch] $HorizontalLines
+            [Switch] $HorizontalLines,
+            $max
     )
 
     # graph boundary marks
@@ -890,11 +892,14 @@ Function Show-Graph {
     $Metric = $Datapoints | Measure-Object -Maximum -Minimum
     if ($command -eq 'stats') { 
         $EndofRange = 100
+        $StartOfRange = 0
+
     }
     Else {
         $EndofRange = $Metric.Maximum + ($YAxisStep - $Metric.Maximum % $YAxisStep)
+        $StartOfRange = $Metric.Minimum - ($Metric.Minimum % $YAxisStep)
     }
-    $StartOfRange = $Metric.Minimum - ($Metric.Minimum % $YAxisStep)
+
     $difference =  $EndofRange - $StartOfRange
     $NumOfRows = $difference/($YAxisStep)
 
