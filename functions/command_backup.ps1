@@ -127,7 +127,7 @@ Function Get-BackupMenu {
     (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
 '@
     $selection = Menu (iex "$restoreex")
-    $global:restore = $selection
+    $global:restore = ($selection).Split()[0]
     # switch ($selection) {
     #    '1' { $global:restore = $option1 } 
     #    '2' { $global:restore = $option2 } 
