@@ -193,7 +193,7 @@ Function Get-AppdataBackupMenu {
     Show-AppdataMenu
     Get-Menu
     $restoreex = @'
-    (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
+    (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} MB' -f ($_.Length / 1MB))}}).Name
 '@
     $selection = Menu (iex "$restoreex")
     $global:restore = ($selection).Split()[0]
