@@ -168,6 +168,8 @@ Function New-BackupRestore {
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
+        Write-Warning "Deleting Current $serverfiles files"
+        gci $currentdir\$serverfiles -Exclude "Variables-*.ps1" | Remove-Item -Recurse
         Get-Infomessage "Restore from Backup" 'start'
         Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$currentdir\$serverfiles" -Force
         If (!$?) {
@@ -199,6 +201,8 @@ Function Get-AppdataBackupMenu {
     New-backupAppdatarestore
 }
 Function New-backupAppdatarestore {
+    Write-Warning "Deleting Current $saves files"
+    gci $currentdir\$serverfiles -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: New-backupAppdatarestore"
     Expand-Archive -Path $backupdir\$restore -DestinationPath $env:APPDATA\$saves -Force
     If (!$?) {
