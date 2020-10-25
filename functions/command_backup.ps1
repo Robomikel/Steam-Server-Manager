@@ -46,7 +46,7 @@ Function New-BackupServer {
         }
         Limit-Backups
         New-DiscordAlert "Backup"
-        Pop-Location -StackName 'SSM'
+        Set-Location $currentdir
     }
     ElseIf (!$sevenzipdirectory -or !$serverfiles -or !$backupdir) {
         Get-warnmessage "backupfailed"
@@ -95,7 +95,7 @@ Function Limit-Backups {
             Get-Infomessage "purgebackup" 
 
         }
-        Pop-Location -StackName 'SSM'
+        Set-Location $currentdir
     }
     ElseIf (!$backupdir -or !$maxbackups ) {
         Get-warnmessage "limitbackupfailed"
@@ -113,7 +113,7 @@ Function Limit-AppdataBackups {
         Else {
             Get-Infomessage "purgeappdatabackup" 
         }
-        Pop-Location -StackName 'SSM'
+        Set-Location $currentdir
     }
     ElseIf (!$backupdir -or !$maxbackups ) {
         Get-warnmessage "limitbackupfailed"
@@ -179,7 +179,7 @@ Function New-BackupRestore {
             Get-Savelocation
             # Get-Infomessage "savecheck" 
         }
-        Pop-Location -StackName 'SSM'
+        Set-Location $currentdir
     }
     ElseIf ( !$serverfiles -or !$backupdir) {
         Write-Warning "Restore from Backup failed" -InformationAction Stop
