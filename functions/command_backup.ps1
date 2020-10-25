@@ -123,7 +123,10 @@ Function Get-BackupMenu {
     Show-Menu
     Get-Menu
     # $selection = Read-Host "Please make a selection"
-    $selection = Menu (iex "(gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending).Name")
+    $restoreex = @'
+    (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
+'@
+    $selection = Menu (iex "$restoreex")
     $global:restore = $selection
     # switch ($selection) {
     #    '1' { $global:restore = $option1 } 
@@ -151,8 +154,8 @@ Function Show-Menu {
     }
 }
 Function Get-Menu {
-    Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:."
-    Write-Host " "
+    Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:.
+   `t Choose backup: " -F Cyan
    # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
    # Write-Host "1: $option1"
    # Write-Host "2: $option2"

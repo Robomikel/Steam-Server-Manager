@@ -69,7 +69,7 @@ $global:mcrcondirectory = "$currentdir\mcrcon"
 $global:mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 
 # Forge
-$global:forgeversion = "1.15.2-31.1.2"
+$global:forgeversion = "1.16.3-34.1.25"
 
 $global:RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
