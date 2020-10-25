@@ -191,18 +191,25 @@ Function New-BackupRestore {
 
 Function Get-AppdataBackupMenu {
     Show-AppdataMenu
-    $selection = Read-Host "Please make a selection"
-    switch ($selection) {
-        '1' { $global:restore = $option1 } 
-        '2' { $global:restore = $option2 } 
-        '3' { $global:restore = $option3 } 
-        'q' { exit }
-    }
+    Get-Menu
+    $restoreex = @'
+    (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} MB' -f ($_.Length / 1MB))}}).Name
+'@
+    $selection = Menu (iex "$restoreex")
+    $global:restore = ($selection).Split()[0]
+
+#    $selection = Read-Host "Please make a selection"
+##    switch ($selection) {
+ #       '1' { $global:restore = $option1 } 
+ #       '2' { $global:restore = $option2 } 
+ #       '3' { $global:restore = $option3 } 
+ #       'q' { exit }
+ #   }
     New-backupAppdatarestore
 }
 Function New-backupAppdatarestore {
     Write-Warning "Deleting Current $saves files"
-    gci $currentdir\$serverfiles -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+    gci $env:APPDATA\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: New-backupAppdatarestore"
     Expand-Archive -Path $backupdir\$restore -DestinationPath $env:APPDATA\$saves -Force
     If (!$?) {
@@ -224,10 +231,10 @@ Function Show-AppdataMenu {
         $global:option2 = $option[1] 
         $global:option3 = $option[2]
     }
-    Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
-    Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
-    Write-Host "1: $option1"
-    Write-Host "2: $option2"
-    Write-Host "3: $option3"
-    Write-Host "Q: Press 'Q' to quit."
+ #   Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
+  #  Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+  #  Write-Host "1: $option1"
+  #  Write-Host "2: $option2"
+  #  Write-Host "3: $option3"
+  #  Write-Host "Q: Press 'Q' to quit."
 }
