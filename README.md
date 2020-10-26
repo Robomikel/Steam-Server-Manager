@@ -203,7 +203,8 @@ Install miscreated server ```./ssm install misserver```
  ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
 # Discord Alert
  ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)
- 
+# Restore
+![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/RestoreMenu.jpg)
 - - - -  
  When creating a Schedule task to run Monitor script in background.  
  - If using a user windows account. May need to add user to the "log on as batch job" to run the task in background under that account  
