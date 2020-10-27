@@ -32,10 +32,6 @@ Function New-CreateVariables {
         Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                            Server Name "
         Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:hostname            = `"$global:hostname`""
     }
-    If ($hostname) {
-        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                            Server Name "
-        Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:hostname            = `"$global:hostname`""
-    }
     If (($serverpassword)-and ($serverpassword -ne " ")) {
         Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "#                            Server password "
         Add-Content  $currentdir\$serverfiles\Variables-$serverfiles.ps1  "`$global:serverpassword      = `"$global:serverpassword`""
