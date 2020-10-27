@@ -126,6 +126,8 @@ Install miscreated server ```./ssm install misserver```
    * Takedown: Red Sabre Dedicated Server (261020) - "trsserver" (optional server folder name)
    * Fortress Forever Dedicated Server  (329710) - "ffserver" (optional server folder name)
    * Night of the Dead Dedicated Server  (1420710) - "notdserver" (optional server folder name)
+   * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)
+   * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)
    -----
  # Features  
  - Manage Steam server with features
