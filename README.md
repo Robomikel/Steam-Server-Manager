@@ -6,7 +6,8 @@ PowerShell Steam Server Manager
  
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
-Server install in the location of ssm. before install change directory to the location you want the server.
+Server install in the location of ssm. before install change directory to the location you want the server.   
+
 > Windows 10 may require to unblock Downloaded files.in the Directoy Use ```gci -r | Unblock-File``` command   
 
 # Install SSM
@@ -20,10 +21,11 @@ PS Commands:
 ```Set-Location Steam-Server-Manager```   
 
 Configure during install :     
-During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.   
+During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.  
 >change $version "0" in config-local\local_settings before run to prompt for input to change default variables.  
 ```\Steam-Server-Manager\config-local\*_default.ps1```   
 Change any vars like port/s or server name.   
+
 # Console Menu   
 Displays in console menu. Interactive Console Menu for SSM.   
 ```./ssm.ps1 menu```   
@@ -129,8 +131,9 @@ Install miscreated server ```./ssm install misserver```
    * Fortress Forever Dedicated Server  (329710) - "ffserver" (optional server folder name)
    * Night of the Dead Dedicated Server  (1420710) - "notdserver" (optional server folder name)
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)
-   * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)
-   -----
+   * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)   
+   
+   -----   
  # Features  
  - Manage Steam server with features
    * SSM Console Menu   
@@ -153,7 +156,7 @@ Install miscreated server ```./ssm install misserver```
    * send discord alerts - backup - monitor - update 
    * Graphical CPU and Memory stats
    * run gamedig on hosted server 
-   * update ssm PS scripts from github
+   * update ssm PS scripts from github   
    
  
    
