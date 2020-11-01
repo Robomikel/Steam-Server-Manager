@@ -79,13 +79,13 @@ Function Get-SSMMenu {
             $serverfiles = $check
         }   
     }
-    If ($command -eq "install A-H") {
+    If ($command -eq "install A-G") {
         $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
-    ElseIf ($command -eq "install I-Z") {
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 40" )
+    ElseIf ($command -eq "install H-Z") {
+        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 42" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
