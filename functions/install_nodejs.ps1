@@ -10,11 +10,13 @@ Function Add-NodeJS {
     Write-log "Function: Add-NodeJS"
     # NodeJs Version "12.13.1"
     # $nodeversion = "12.15.0"
-    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+    #$nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest/" -UseBasicParsing
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
-    $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+    # $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+    $global:nodejsurl = "https://nodejs.org/download/release/latest/$nodeversion"
     $nodejsoutput = "$nodeversion"
-    $nodejsdirectory = "$currentdir\latest-v12.x"
+    $nodejsdirectory = "$currentdir\latest"
     $nodejsexecutable = "$nodejsdirectory\node.exe"
     If ($nodeversion) {
         $start_time = Get-Date

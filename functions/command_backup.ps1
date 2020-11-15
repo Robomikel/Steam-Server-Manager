@@ -8,6 +8,7 @@
 #
 Function New-BackupServer {
     Write-log "Function: New-BackupServer"
+    Set-7zipApp
     If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$currentdir\$serverfiles") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
@@ -15,7 +16,7 @@ Function New-BackupServer {
         If ($Showbackupconsole -eq "on") { 
             Get-Infomessage "backupstart" 'start'
             Set-Location $sevenzipdirectory
-            Start-Process 7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
+            Start-Process $7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -23,9 +24,9 @@ Function New-BackupServer {
         ElseIf ($Showbackupconsole -eq "off") {
             Get-Infomessage "backupstart" 'start'
             Set-Location $sevenzipdirectory
-            #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
+            #./$7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
             Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
-            ./7za a $backupdir\Backup_$serverfiles-$Date.zip     $currentdir\$serverfiles\* > backup_$logDate.log
+            ./$7za a $backupdir\Backup_$serverfiles-$Date.zip     $currentdir\$serverfiles\* > backup_$logDate.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -58,7 +59,7 @@ Function New-backupAppdata {
     If ($Showbackupconsole -eq "on") {
         Get-Infomessage "appdatabackupstart" 'start'
         Set-Location $sevenzipdirectory
-        Start-Process 7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
+        Start-Process $7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
         If (!$?) {
             Get-warnmessage "backupfailed"
         }
@@ -66,7 +67,7 @@ Function New-backupAppdata {
     ElseIf ($Showbackupconsole -eq "Off") {
         Get-Infomessage "appdatabackupstart" 'start'
         Set-Location $sevenzipdirectory
-        ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
+        ./$7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
         If (!$?) {
             Get-warnmessage "backupfailed"
         }

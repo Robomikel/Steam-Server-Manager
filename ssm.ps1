@@ -27,9 +27,10 @@ $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-S
 # Moved to install_nodejs.ps1
 # $global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
 # $global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
-$global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+#$global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+$global:nodejsurl = "https://nodejs.org/download/release/latest/$nodeversion"
 # $global:nodejsoutput = "$nodeversion"
-$global:nodejsdirectory = "$currentdir\latest-v12.x"
+$global:nodejsdirectory = "$currentdir\latest"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
 # Oxide
@@ -53,6 +54,10 @@ $global:sevenzipoutput = "$currentdir\7za920.zip"
 $global:sevenzipversion = "7za920"
 $global:sevenzipdirectory = "$currentdir\$sevenzipversion"
 $global:sevenzipexecutable = "$sevenzipdirectory\7za.exe"
+
+# 7-Zip x64 - used to see if 7zip is installed already
+$global:sevenzipprogramdirectory = "C:\Program Files\7-Zip"
+$global:sevenzipprogramexecutable = "$sevenzipprogramdirectory\7z.exe"
 
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"

@@ -10,17 +10,22 @@ Function Get-SevenZipCheck {
     Write-log "Function: Get-SevenZipCheck"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking for 7ZIP " 'info'
-        If ($sevenzipexecutable) {   
-            If (Test-Path $sevenzipexecutable ) { 
-                Write-log "7Zip already downloaded! "
+        If (!(Test-Path $sevenzipprogramexecutable)) {
+            If ($sevenzipexecutable) {   
+                If (Test-Path $sevenzipexecutable ) { 
+                    Write-log "7Zip already downloaded! "
+                }
+                ElseIf (!(Test-Path $sevenzipexecutable)) {
+                    Write-log " 7Zip not found! $sevenzipexecutable "
+                    Add-Sevenzip
+                }
             }
-            ElseIf (!(Test-Path $sevenzipexecutable)) {
-                Write-log " 7Zip not found! $sevenzipexecutable "
-                Add-Sevenzip
+            ElseIf (!$sevenzipexecutable) {
+                Get-warnmessage "fnssevenzipfailed"
             }
         }
-        ElseIf (!$sevenzipexecutable) {
-            Get-warnmessage "fnssevenzipfailed"
+        Else {
+            Write-log "7Zip already installed! "
         }
     }
 }
