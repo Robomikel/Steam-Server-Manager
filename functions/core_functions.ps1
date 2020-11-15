@@ -47,6 +47,9 @@ Function Get-help {
     break
 }
 Function Get-ClearVariables {
+    If ($debuglog -eq 'on'){
+        $error | Out-File -Append -Encoding Default $ssmerrorlog
+    }
     Write-log "Function: Get-ClearVariables"
     $var = (Get-Variable * -scope global).Name
     Write-log "Removing Variables $var" 

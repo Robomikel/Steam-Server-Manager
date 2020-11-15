@@ -16,6 +16,7 @@ ${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
 $global:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
+$global:errorloggingDate = get-date -Format MM-dd-yyyy-hhmm
 $global:logDate = Get-Date -Format MM-dd-yyyy
 
 # Game-Server-configs
