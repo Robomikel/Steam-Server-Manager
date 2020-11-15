@@ -11,7 +11,8 @@ $global:serverfiles = $($args[1])
 $global:currentdir = Get-Location
 $global:serverdir = "$currentdir\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
+# Moved $extip to function to prevent constant lookups. Only grabs when needed. hopefully will increase performance as well.
+#${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
 # ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
