@@ -48,3 +48,13 @@ Function Add-NodeJS {
         Set-Location $currentdir
     }
 }
+
+Function Add-gamedig {
+    Write-log "Function: Add-gamedig"
+    if (!($(test-path $env:APPDATA\npm\gamedig))) {
+        # & "npm install gamedig"
+        # & "npm install gamedig -g"
+         saps powershell -args ("npm install gamedig") -wait -nnw
+         saps powershell -args ("npm install gamedig -g") -wait -nnw
+    }
+}

@@ -32,6 +32,8 @@ $global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversi
 # $global:nodejsoutput = "$nodeversion"
 $global:nodejsdirectory = "$currentdir\latest-v12.x"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
+# NodeJS Program
+$global:nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
 # Oxide
 $global:oxiderustlatestlink = "https://umod.org/games/rust/download"
