@@ -27,7 +27,7 @@ Function Get-FolderNames {
 Function New-LocalFolder {
     Write-log "Function: New-LocalFolder"   
     ##-- 
-    $global:configlocal = "config-local"
+    $script:configlocal = "config-local"
     If (Test-Path $currentdir\$configlocal ) {
         Write-log "config-default Folder Already Created!   "
     }
@@ -44,7 +44,7 @@ Function New-LocalFolder {
 Function New-defaultFolder {
     Write-log "Function: New-defaultFolder"   
     ##-- 
-    $global:configdefault = "config-default"
+    $script:configdefault = "config-default"
     If (Test-Path $currentdir\$configdefault) {
         Write-log "config-default Folder Already Created!   "
     }

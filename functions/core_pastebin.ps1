@@ -86,7 +86,7 @@ Function Out-Pastebin
     {
         Add-Type -AssemblyName System.Web
  
-        $global:s = Invoke-RestMethod -Uri $PastebinLoginUri -Body $Authenticate -Method Post
+        $script:s = Invoke-RestMethod -Uri $PastebinLoginUri -Body $Authenticate -Method Post
        
         $Post = [System.Net.HttpWebRequest]::Create( $PastebinPasteURI )
         $Post.Method = "POST"
@@ -106,7 +106,7 @@ Function Out-Pastebin
     End
     {
         $Parameters = @{
-            api_user_key   = $global:s;
+            api_user_key   = $script:s;
             api_dev_key    = $PastebinDeveloperKey;
             api_option     = 'paste';
             api_paste_code  = $InputText -join "`r`n";

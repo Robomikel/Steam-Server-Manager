@@ -13,7 +13,7 @@ Function Get-UpdateSteamer {
     $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force)
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
-            $global:getlocalssmname = $getlocalssm.Name
+            $script:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/functions/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
@@ -52,7 +52,7 @@ Function Get-UpdateSteamerSSM {
     $getlocalssm = $([pscustomobject]@{ Name = 'ssm.ps1' })
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
-            $global:getlocalssmname = $getlocalssm.Name
+            $script:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
@@ -88,7 +88,7 @@ Function Get-UpdateSteamerCSV {
     $getlocalssm = Get-ChildItem $currentdir\data\ -Force
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
-            $global:getlocalssmname = $getlocalssm.Name
+            $script:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/data/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
@@ -169,7 +169,7 @@ Function Get-SteamerConfigDefault {
     Write-log "Function: Get-SteamerConfigDefault "
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
-        $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
+        $script:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
         write-log "`$getlocalssmname $getlocalssmname"
         If ($getlocalssmname) {
             $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing

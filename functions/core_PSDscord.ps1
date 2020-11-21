@@ -41,7 +41,7 @@ function New-DiscordAuthor {
         [Uri] $IconUrl,
         [Uri] $ProxyUrlIcon
     )
-    $global:Author = [ordered] @{
+    $script:Author = [ordered] @{
         name           = $Name
         url            = $Url
         icon_url       = $IconUrl
@@ -59,7 +59,7 @@ function New-DiscordFact {
     )
 
     If ($Name -ne '' -and $Value -ne '') {
-        $global:Fact = [ordered] @{
+        $script:Fact = [ordered] @{
             name   = $Name
             value  = $Value
             inline = $inline
@@ -75,7 +75,7 @@ function New-DiscordImage {
         [int] $Width,
         [int] $Height
     )
-    $global:Thumbnail = [ordered] @{
+    $script:Thumbnail = [ordered] @{
         "url"    = $Url
         "width"  = $Width
         "height" = $Height
@@ -94,28 +94,28 @@ function New-DiscordSection {
         [System.Collections.IDictionary] $Thumbnail,
         [System.Collections.IDictionary] $Image
     )
-    $global:Section = [ordered] @{
+    $script:Section = [ordered] @{
         title       = $Title
         description = $Description
         fields      = @()
     }
-    $global:Field = foreach ($Fact in $Facts) {
+    $script:Field = foreach ($Fact in $Facts) {
         if ($null -ne $Fact) {
-            $global:Fact
+            $script:Fact
         }
     }
-    $global:Section.fields = @($Field)
+    $script:Section.fields = @($Field)
      if ($null -ne $Color) {
-         $global:Section.color = ConvertFrom-Color -Color $Color -AsDecimal
+         $script:Section.color = ConvertFrom-Color -Color $Color -AsDecimal
     }
     if ($null -ne $Author) {
-        $global:Section.author = $Author
+        $script:Section.author = $Author
     }
     if ($null -ne $Image) {
-        $global:Section.image = $Image
+        $script:Section.image = $Image
     }
     if ($null -ne $Thumbnail) {
-        $global:Section.thumbnail = $Thumbnail
+        $script:Section.thumbnail = $Thumbnail
     }
     return $Section
 }
@@ -133,18 +133,18 @@ function Send-DiscordMessage {
         [switch] $OutputJSON
     )
     if (-not $WebHookUrl) {
-        $global:WebHookUrl = Get-DiscordConfig -Name 'Primary'
+        $script:WebHookUrl = Get-DiscordConfig -Name 'Primary'
     }
     if ($null -eq $WebHookUrl) {
         Write-Warning 'Send-DiscordMessage - WebhookUrl is not set. Either provide it as parameter or initialize it with config.'
     }
     if ($CreateConfig) {
         if (-not $ConfigName) {
-            $global:ConfigName = 'Primary'
+            $script:ConfigName = 'Primary'
         }
         Initialize-DiscordConfig -ConfigName $ConfigName -URI $WebHookUrl
     }
-    $global:FullMessage = [ordered] @{
+    $script:FullMessage = [ordered] @{
         "embeds" = @()
     }
     if ($null -ne $Sections) {
@@ -157,13 +157,13 @@ function Send-DiscordMessage {
             # Applies only to Content
             $FullMessage.tts = $true
         }
-        $global:FullMessage.content = $Text
+        $script:FullMessage.content = $Text
     }
     if ($null -ne $AvatarName) {
-        $global:FullMessage.username = $AvatarName
+        $script:FullMessage.username = $AvatarName
     }
     if ($null -ne $AvatarUrl) {
-        $global:FullMessage.avatar_url = $AvatarUrl
+        $script:FullMessage.avatar_url = $AvatarUrl
     }
 
     $Body = ConvertTo-Json -Depth 6 -InputObject $FullMessage
@@ -181,7 +181,7 @@ function ConvertFrom-Color {
     [CmdletBinding()]
     param (
         [ValidateScript( {
-                if ($($_ -in $global:RGBColors.Keys -or $_ -match "^#([A-Fa-f0-9]{6})$" -or $_ -eq "") -eq $false) {
+                if ($($_ -in $script:RGBColors.Keys -or $_ -match "^#([A-Fa-f0-9]{6})$" -or $_ -eq "") -eq $false) {
                     throw "The Input value is not a valid colorname nor an valid color hex code."
                 } else { $true }
             })]
@@ -189,7 +189,7 @@ function ConvertFrom-Color {
         [switch] $AsDecimal
     )
     $Colors = foreach ($C in $Color) {
-        $Value = $global:RGBColors."$C"
+        $Value = $script:RGBColors."$C"
         if ($C -match "^#([A-Fa-f0-9]{6})$") {
             return $C
         }
@@ -206,7 +206,7 @@ function ConvertFrom-Color {
     }
     $Colors
 }
-$global:RGBColors = [ordered] @{
+$script:RGBColors = [ordered] @{
     None                   = $null
     AirForceBlue           = 93, 138, 168
     Akaroa                 = 195, 176, 145
@@ -958,7 +958,7 @@ $global:RGBColors = [ordered] @{
     YellowOrange           = 255, 174, 66
     YourPink               = 244, 194, 194
 }
-$global:ErrorActionPreference = 'SilentlyContinue'
+$script:ErrorActionPreference = 'SilentlyContinue'
 Add-Type -TypeDefinition @"
 public enum RGBColors {
     None,
