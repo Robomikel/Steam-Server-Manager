@@ -27,10 +27,9 @@ $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-S
 # Moved to install_nodejs.ps1
 # $global:nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
 # $global:nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
-#$global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-$global:nodejsurl = "https://nodejs.org/download/release/latest/$nodeversion"
+$global:nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
 # $global:nodejsoutput = "$nodeversion"
-$global:nodejsdirectory = "$currentdir\latest"
+$global:nodejsdirectory = "$currentdir\latest-v12.x"
 $global:nodejsexecutable = "$nodejsdirectory\node.exe"
 
 # Oxide
