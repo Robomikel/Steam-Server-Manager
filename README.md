@@ -257,4 +257,5 @@ https://github.com/EvotecIT/PSSharedGoods
 https://github.com/aaronparker/VcRedist   
 # Graphical
 https://github.com/PrateekKumarSingh/Graphical
-
+# PS-Menu
+https://github.com/chrisseroka/ps-menu
