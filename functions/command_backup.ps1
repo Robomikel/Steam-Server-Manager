@@ -8,27 +8,32 @@
 #
 Function New-BackupServer {
     Write-log "Function: New-BackupServer"
-    Set-7zipApp
     If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$currentdir\$serverfiles") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
-        If ($Showbackupconsole -eq "on") { 
-            Get-Infomessage "backupstart" 'start'
-            Set-Location $sevenzipdirectory
-            Start-Process $7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
-            If (!$?) {
-                Get-warnmessage "backupfailed"
-            }
+        if ($(Test-Path $sevenzipprogramexecutable)) {
+            & "C:\Program Files\7-Zip\7z.exe" a -bsp2 $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > $logdir\backup_$logDate.log
         }
-        ElseIf ($Showbackupconsole -eq "off") {
-            Get-Infomessage "backupstart" 'start'
-            Set-Location $sevenzipdirectory
-            #./$7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
-            Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
-            ./$7za a $backupdir\Backup_$serverfiles-$Date.zip     $currentdir\$serverfiles\* > backup_$logDate.log
-            If (!$?) {
-                Get-warnmessage "backupfailed"
+        ELse {
+            If ($Showbackupconsole -eq "on") { 
+                Get-Infomessage "backupstart" 'start'
+                Set-Location $sevenzipdirectory
+                write-log "Start-Process $7za -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log`") -Wait"
+                Start-Process $7za -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
+                If (!$?) {
+                    Get-warnmessage "backupfailed"
+                }
+            }
+            ElseIf ($Showbackupconsole -eq "off") {
+                Get-Infomessage "backupstart" 'start'
+                Set-Location $sevenzipdirectory
+                #./$7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
+                Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
+                ./$7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log
+                If (!$?) {
+                    Get-warnmessage "backupfailed"
+                }
             }
         }
         Get-Infomessage "backupdone" 
@@ -39,11 +44,16 @@ Function New-BackupServer {
         }
         New-ServerBackupLog
         If ($backuplogopen -eq "on") {
-            Set-Location $sevenzipdirectory 
-            .\backup_*.log >$null 2>&1
-            If (!$?) {
-                Get-warnmessage "backupfailed"
-            } 
+            if ($(Test-Path $sevenzipprogramexecutable)) {
+                .$logdir\backup_*.log >$null 2>&1
+            }
+            ELse {
+                Set-Location $sevenzipdirectory 
+                .\backup_*.log >$null 2>&1
+                If (!$?) {
+                    Get-warnmessage "backupfailed"
+                } 
+            }
         }
         Limit-Backups
         New-DiscordAlert "Backup"
@@ -56,30 +66,39 @@ Function New-BackupServer {
 }
 Function New-backupAppdata {
     Write-log "Function: New-backupAppdata"
-    If ($Showbackupconsole -eq "on") {
-        Get-Infomessage "appdatabackupstart" 'start'
-        Set-Location $sevenzipdirectory
-        Start-Process $7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
-        If (!$?) {
-            Get-warnmessage "backupfailed"
-        }
+    if ($(Test-Path $sevenzipprogramexecutable)) {
+        & "C:\Program Files\7-Zip\7z.exe" a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$logDate.log
     }
-    ElseIf ($Showbackupconsole -eq "Off") {
-        Get-Infomessage "appdatabackupstart" 'start'
-        Set-Location $sevenzipdirectory
-        ./$7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
-        If (!$?) {
-            Get-warnmessage "backupfailed"
+    Else {   
+        If ($Showbackupconsole -eq "on") {
+            Get-Infomessage "appdatabackupstart" 'start'
+            Set-Location $sevenzipdirectory
+            Start-Process $7za -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
+            If (!$?) {
+                Get-warnmessage "backupfailed"
+            }
         }
-    }   
-     
+        ElseIf ($Showbackupconsole -eq "Off") {
+            Get-Infomessage "appdatabackupstart" 'start'
+            Set-Location $sevenzipdirectory
+            ./$7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
+            If (!$?) {
+                Get-warnmessage "backupfailed"
+            }
+        }   
+    }
     Get-Infomessage "appdatabackupdone" 
-    If ($appdatabackuplogopen -eq "on") {
-        Set-Location $sevenzipdirectory 
-        .\AppDatabackup_*.log >$null 2>&1
-        If (!$?) {
-            Get-warnmessage "backupfailed"
-        }  
+    if ($(Test-Path $sevenzipprogramexecutable)) {
+        .$logdir\AppDatabackup_*.log >$null 2>&1
+    }
+    Else {  
+        If ($appdatabackuplogopen -eq "on") {
+            Set-Location $sevenzipdirectory 
+            .\AppDatabackup_*.log >$null 2>&1
+            If (!$?) {
+                Get-warnmessage "backupfailed"
+            }  
+        }
     }
     Limit-AppdataBackups
 }
@@ -132,7 +151,7 @@ Function Get-BackupMenu {
     # switch ($selection) {
     #    '1' { $global:restore = $option1 } 
     #    '2' { $global:restore = $option2 } 
-   #     '3' { $global:restore = $option3 } 
+    #     '3' { $global:restore = $option3 } 
     #    'q' { exit }
     # }
     New-BackupRestore
@@ -149,7 +168,7 @@ Function Show-Menu {
         $global:option3 = $option[2]
         #Get-Menu
     }
-    ElseIf ($option.Count -eq 0 )  {
+    ElseIf ($option.Count -eq 0 ) {
         Write-Warning "No Backups" -InformationAction Stop
         exit
     }
@@ -157,11 +176,11 @@ Function Show-Menu {
 Function Get-Menu {
     Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:.
    `t Choose backup: " -F Cyan
-   # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
-   # Write-Host "1: $option1"
-   # Write-Host "2: $option2"
-   # Write-Host "3: $option3"
-   # Write-Host "Q: Press 'Q' to quit."
+    # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+    # Write-Host "1: $option1"
+    # Write-Host "2: $option2"
+    # Write-Host "3: $option3"
+    # Write-Host "Q: Press 'Q' to quit."
 }
 Function New-BackupRestore {
     Write-log "Function: New-BackupRestore"
@@ -199,13 +218,13 @@ Function Get-AppdataBackupMenu {
     $selection = Menu (iex "$restoreex")
     $global:restore = ($selection).Split()[0]
 
-#    $selection = Read-Host "Please make a selection"
-##    switch ($selection) {
- #       '1' { $global:restore = $option1 } 
- #       '2' { $global:restore = $option2 } 
- #       '3' { $global:restore = $option3 } 
- #       'q' { exit }
- #   }
+    #    $selection = Read-Host "Please make a selection"
+    ##    switch ($selection) {
+    #       '1' { $global:restore = $option1 } 
+    #       '2' { $global:restore = $option2 } 
+    #       '3' { $global:restore = $option3 } 
+    #       'q' { exit }
+    #   }
     New-backupAppdatarestore
 }
 Function New-backupAppdatarestore {
@@ -226,16 +245,16 @@ Function Show-AppdataMenu {
     ElseIf ($option.Count -eq 0 ) {
         Write-Warning "No AppDataBackups" -InformationAction Stop
         exit
-        }
+    }
     Else {
         $global:option1 = $option[0] 
         $global:option2 = $option[1] 
         $global:option3 = $option[2]
     }
- #   Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
-  #  Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
-  #  Write-Host "1: $option1"
-  #  Write-Host "2: $option2"
-  #  Write-Host "3: $option3"
-  #  Write-Host "Q: Press 'Q' to quit."
+    #   Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
+    #  Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
+    #  Write-Host "1: $option1"
+    #  Write-Host "2: $option2"
+    #  Write-Host "3: $option3"
+    #  Write-Host "Q: Press 'Q' to quit."
 }

@@ -1203,13 +1203,4 @@ Function Get-ExtIP {
     ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
 }
 
-Function Set-7zipApp {
-    If (!($(Test-Path $sevenzipprogramexecutable))) {
-        $7za = '7za'
-    }
-    Else {
-        $7za = '7z'
-        $sevenzipdirectory = "$sevenzipprogramdirectory"
-    }
-}
 
