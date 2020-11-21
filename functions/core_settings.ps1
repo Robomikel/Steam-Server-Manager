@@ -92,10 +92,10 @@ Function Set-SteamerSetting {
     #                               Discord Display IP and Steam API IP.
     $global:discorddisplayip        = ""
     #                               Discord Icon URL
-    $global:AuthorIconURL           = "https://i.imgur.com/yp6wLLa.png"
+    $global:AuthorIconURL           = "https://i.imgur.com/B8SWNyO.png?1"
     #                               Discord Thumbnail URL 
-    $global:ThumbnailURL            = "https://i.imgur.com/yp6wLLa.png"
+    $global:ThumbnailURL            = "https://i.imgur.com/B8SWNyO.png?1"
     #                               Discord Avatar URL
-    $global:AvatarUrl               = "https://i.imgur.com/yp6wLLa.png"
+    $global:AvatarUrl               = "https://i.imgur.com/B8SWNyO.png?1"
     # Set-SteamerSettingLog
 }
