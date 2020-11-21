@@ -302,17 +302,17 @@ Function New-ServerBackupLog {
 Function Get-Appid {
     Write-log "Function: Get-Appid"
     If ($serverfiles) {
-        $script:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
+        $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
         If ($Appid) {
-            $script:appid = $appid.Line.Split(",")[3]
-            # $script:appid = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty AppID
+            $global:appid = $appid.Line.Split(",")[3]
+            # $global:appid = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty AppID
             $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
         }
         ElseIf (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
-            $script:AppID = Read-host
+            $global:AppID = Read-host
             Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
-            $script:Branch = Read-host  
+            $global:Branch = Read-host  
             Get-TestInterger
         }
         If ($AppID -eq 985050 -or $AppID -eq 233780) {
@@ -328,7 +328,7 @@ Function Get-Appid {
 Function Get-MCBRWebrequest {
     Write-log "Function: Get-MCBRWebrequest"
     # get latest download
-    $script:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
     If (!$? -or !$mcbrWebResponse) {
         Write-log "Failed: Get-MCBRWebrequest"
         Exit
@@ -338,7 +338,7 @@ Function Get-MCWebrequest {
     Write-log "Function: Get-MCWebrequest"
     # check latest version
     $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
-    $script:mcvWebResponse = $mcvWebResponse.Latest.release
+    $global:mcvWebResponse = $mcvWebResponse.Latest.release
     If (!$? -or !$mcvWebResponse) {
         Write-log "Failed: Get-MCWebrequest"
         Exit
@@ -348,14 +348,14 @@ Function Get-SourceMetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
-    # $script:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
+    # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
-    $script:metamodurl = "${metamoddownloadurl}"
+    $global:metamodurl = "${metamoddownloadurl}"
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
-    # $script:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
+    # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
-    $script:sourcemodurl = "${sourcemoddownloadurl}"
+    $global:sourcemodurl = "${sourcemoddownloadurl}"
     If (!$metamodurl -or !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
@@ -447,7 +447,7 @@ Function compare-SteamExit {
     }
 }
 Function Test-PSversion {
-    $script:psSeven = ( $PSVersionTable.PSVersion.Major -eq 7 ) 
+    $global:psSeven = ( $PSVersionTable.PSVersion.Major -eq 7 ) 
     If ($psSeven -eq $true ) {
         $psSeven = 1
     }
@@ -522,81 +522,81 @@ Function Set-Customsettings {
     Write-log `"Function: Import-CustomSetting`"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
-    `$script:Showbackupconsole       = `"$Showbackupconsole`"
+    `$global:Showbackupconsole       = `"$Showbackupconsole`"
     #                               backup log open
-    `$script:backuplogopen           = `"$backuplogopen`"
+    `$global:backuplogopen           = `"$backuplogopen`"
     #                               backup logs
-    `$script:backuplogs              = `"$backuplogs`"
+    `$global:backuplogs              = `"$backuplogs`"
     #                               app data backup log open 
-    `$script:appdatabackuplogopen    = `"$appdatabackuplogopen`"
+    `$global:appdatabackuplogopen    = `"$appdatabackuplogopen`"
     #                               Appdata backup 
-    `$script:appdatabackup           = `"$appdatabackup`"
+    `$global:appdatabackup           = `"$appdatabackup`"
     #                               max backups  
-    `$script:maxbackups              = `"$maxbackups`"
+    `$global:maxbackups              = `"$maxbackups`"
     #                               Stop On Backup
-    `$script:stoponbackup            = `"$stoponbackup`"
+    `$global:stoponbackup            = `"$stoponbackup`"
     #                               logo 
-    `$script:logo                    = `"$logo`"
+    `$global:logo                    = `"$logo`"
     #                               Admin message
-    `$script:admincheckmessage       = `"$admincheckmessage`"
+    `$global:admincheckmessage       = `"$admincheckmessage`"
     #                               Update on start
-    `$script:updateonstart           = `"$updateonstart`"
+    `$global:updateonstart           = `"$updateonstart`"
     #                               Stop on Update on start 
-    `$script:stoponupdateonstart     = `"$stoponupdateonstart`"
+    `$global:stoponupdateonstart     = `"$stoponupdateonstart`"
     #                               Check Update on start
-    `$script:checkupdateonstart      = `"$checkupdateonstart`"
+    `$global:checkupdateonstart      = `"$checkupdateonstart`"
     #                               check scheduled Task
-    `$script:Checktask               = `"$Checktask`"
+    `$global:Checktask               = `"$Checktask`"
     #                               Discord Alert
-    `$script:DiscordAlert            = `"$DiscordAlert`"
+    `$global:DiscordAlert            = `"$DiscordAlert`"
     #                               Discord backup Alert
-    `$script:DiscordBackupAlert      = `"$DiscordBackupAlert`"
+    `$global:DiscordBackupAlert      = `"$DiscordBackupAlert`"
     #                               Discord Update Alert 
-    `$script:DiscordUpdateAlert      = `"$DiscordUpdateAlert`"
+    `$global:DiscordUpdateAlert      = `"$DiscordUpdateAlert`"
     #                               Discord Restart Alert 
-    `$script:DiscordRestartAlert     = `"$DiscordRestartAlert`"
+    `$global:DiscordRestartAlert     = `"$DiscordRestartAlert`"
     #                               Use private IP for Query and mcrcon
-    `$script:Useprivate              = `"$Useprivate`"
+    `$global:Useprivate              = `"$Useprivate`"
     #                               consolelogging
-    `$script:consolelogging          = `"$consolelogging`"
+    `$global:consolelogging          = `"$consolelogging`"
     #                               consolelogging count 
-    `$script:consolelogcount         = `"$consolelogcount`"
+    `$global:consolelogcount         = `"$consolelogcount`"
     #                               ssmlogging
-    `$script:ssmlogging              = `"$ssmlogging`"
+    `$global:ssmlogging              = `"$ssmlogging`"
     #                               ssmlogging count 
-    `$script:ssmlogcount             = `"$ssmlogcount`"
+    `$global:ssmlogcount             = `"$ssmlogcount`"
     #                               Console Text Color 
-    `$script:textcolor               = `"$textcolor`" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
+    `$global:textcolor               = `"$textcolor`" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt for input, 1 no prompt during install
-    `$script:Version                 = `"$Version`"
+    `$global:Version                 = `"$Version`"
     #                               Server List Directory
-    `$script:serverlistdir           = `"$serverlistdir`"
+    `$global:serverlistdir           = `"$serverlistdir`"
     #                               Backup Directory
-    `$script:backupdir               = `"$backupdir`"
+    `$global:backupdir               = `"$backupdir`"
     #                               ssm log Directory
-    `$script:ssmlogdir               = `"$ssmlogdir`"
+    `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
-    `$script:logdir                  = `"$logdir`"
+    `$global:logdir                  = `"$logdir`"
     #                               Empty Variable checking
-    `$script:testvariable            = `"$testvariable`"
+    `$global:testvariable            = `"$testvariable`"
     #                               MC Version
-    `$script:mcversion               = `"$mcversion`"
+    `$global:mcversion               = `"$mcversion`"
     #                               Test Connection to Steam Master
-    `$script:steammastercheck        = `"$steammastercheck`"
+    `$global:steammastercheck        = `"$steammastercheck`"
     #                               Server Console log to Pastebin
-    `$script:pastebinconsolelog      = `"$pastebinconsolelog`"
+    `$global:pastebinconsolelog      = `"$pastebinconsolelog`"
     #                               Pastebin Time -  Never: N, 10 Minutes: 10M, 1 Hour: 1H, 1 Day: 1D, 1 Week: 1W, 2 Weeks: 2W, 1 Month: 1M
-    `$script:pastebinexpires         = `"$pastebinexpires`"
+    `$global:pastebinexpires         = `"$pastebinexpires`"
     #                               Pastebin username
-    `$script:PastebinUsername        = `"$PastebinUsername`"
+    `$global:PastebinUsername        = `"$PastebinUsername`"
     #                               Pastebin pwd
-    `$script:PastebinPassword        = `"$PastebinPassword`"
+    `$global:PastebinPassword        = `"$PastebinPassword`"
     #                               Pastebin Dev Key
-    `$script:PastebinDeveloperKey    = `'$PastebinDeveloperKey`'
+    `$global:PastebinDeveloperKey    = `'$PastebinDeveloperKey`'
     #                               Discord Webhook 
-    `$script:discordwebhook          = `"$discordwebhook`"
+    `$global:discordwebhook          = `"$discordwebhook`"
     #                               Discord Display IP and Steam API IP.
-    `$script:discorddisplayip        = `"$discorddisplayip`"
+    `$global:discorddisplayip        = `"$discorddisplayip`"
     Set-SteamerSettingLog
 }"
 }

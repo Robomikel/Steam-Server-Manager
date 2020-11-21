@@ -147,11 +147,11 @@ Function Get-BackupMenu {
     (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
 '@
     $selection = Menu (iex "$restoreex")
-    $script:restore = ($selection).Split()[0]
+    $global:restore = ($selection).Split()[0]
     # switch ($selection) {
-    #    '1' { $script:restore = $option1 } 
-    #    '2' { $script:restore = $option2 } 
-    #     '3' { $script:restore = $option3 } 
+    #    '1' { $global:restore = $option1 } 
+    #    '2' { $global:restore = $option2 } 
+    #     '3' { $global:restore = $option3 } 
     #    'q' { exit }
     # }
     New-BackupRestore
@@ -159,13 +159,13 @@ Function Get-BackupMenu {
 Function Show-Menu {
     $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
-        $script:option1 = $option
+        $global:option1 = $option
         #Get-Menu
     }
     ElseIf ($option.Count -ne 0 ) {
-        $script:option1 = $option[0] 
-        $script:option2 = $option[1] 
-        $script:option3 = $option[2]
+        $global:option1 = $option[0] 
+        $global:option2 = $option[1] 
+        $global:option3 = $option[2]
         #Get-Menu
     }
     ElseIf ($option.Count -eq 0 ) {
@@ -216,13 +216,13 @@ Function Get-AppdataBackupMenu {
     (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} MB' -f ($_.Length / 1MB))}}).Name
 '@
     $selection = Menu (iex "$restoreex")
-    $script:restore = ($selection).Split()[0]
+    $global:restore = ($selection).Split()[0]
 
     #    $selection = Read-Host "Please make a selection"
     ##    switch ($selection) {
-    #       '1' { $script:restore = $option1 } 
-    #       '2' { $script:restore = $option2 } 
-    #       '3' { $script:restore = $option3 } 
+    #       '1' { $global:restore = $option1 } 
+    #       '2' { $global:restore = $option2 } 
+    #       '3' { $global:restore = $option3 } 
     #       'q' { exit }
     #   }
     New-backupAppdatarestore
@@ -240,16 +240,16 @@ Function New-backupAppdatarestore {
 Function Show-AppdataMenu {
     $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
-        $script:option1 = $option
+        $global:option1 = $option
     }
     ElseIf ($option.Count -eq 0 ) {
         Write-Warning "No AppDataBackups" -InformationAction Stop
         exit
     }
     Else {
-        $script:option1 = $option[0] 
-        $script:option2 = $option[1] 
-        $script:option3 = $option[2]
+        $global:option1 = $option[0] 
+        $global:option2 = $option[1] 
+        $global:option3 = $option[2]
     }
     #   Write-Host ":::::::::::: SSM AppData Restore Menu :::::::::"
     #  Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."

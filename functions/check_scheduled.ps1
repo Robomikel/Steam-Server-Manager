@@ -54,11 +54,11 @@ Function Get-ChecktaskDetails {
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
         If ($?) {
-            $script:monitorjob = $true
+            $global:monitorjob = $true
             Write-log "info: Get-ChecktaskDetails $monitorjob "
         }
         ElseIf (!$?) {
-            $script:monitorjob = $false
+            $global:monitorjob = $false
             Write-log "info: Get-ChecktaskDetails $monitorjob "
         }
     }
@@ -68,11 +68,11 @@ Function Get-ChecktaskautorestartDetails {
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles autorestart" >$null 2>&1
         If ($?) {
-            $script:restartjob = $true
+            $global:restartjob = $true
             Write-log "info:  Get-ChecktaskautorestartDetails $restartjob "
         }
         ElseIf (!$?) {
-            $script:restartjob = $false
+            $global:restartjob = $false
             Write-log "info: Get-ChecktaskautorestartDetails $restartjob "
         }
     }

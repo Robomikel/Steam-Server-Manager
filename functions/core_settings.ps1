@@ -10,92 +10,92 @@ Function Set-SteamerSetting {
     # Write-log "Function: Set-SteamerSetting"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
-    $script:Showbackupconsole       = "on"
+    $global:Showbackupconsole       = "on"
     #                               backup log open
-    $script:backuplogopen           = "on"
+    $global:backuplogopen           = "on"
     #                               backup logs
-    $script:backuplogs              = "on"
+    $global:backuplogs              = "on"
     #                               app data backup log open 
-    $script:appdatabackuplogopen    = "on"
+    $global:appdatabackuplogopen    = "on"
     #                               Appdata backup 
-    $script:appdatabackup           = "on"
+    $global:appdatabackup           = "on"
     #                               max backups  
-    $script:maxbackups              = "2"
+    $global:maxbackups              = "2"
     #                               Stop On Backup
-    $script:stoponbackup            = "on"
+    $global:stoponbackup            = "on"
     #                               logo 
-    $script:logo                    = "on"
+    $global:logo                    = "on"
     #                               Admin message
-    $script:admincheckmessage       = "on"
+    $global:admincheckmessage       = "on"
     #                               Update on start. Depends on "Check Update on start"
-    $script:updateonstart           = "on"
+    $global:updateonstart           = "on"
     #                               Check Update on start.
-    $script:checkupdateonstart      = "on"
+    $global:checkupdateonstart      = "on"
     #                               Stop on "Update on start" 
-    $script:stoponupdateonstart     = "on"
+    $global:stoponupdateonstart     = "on"
     #                               check scheduled Task
-    $script:Checktask               = "on"
+    $global:Checktask               = "on"
     #                               Discord Alert
-    $script:DiscordAlert            = "on"
+    $global:DiscordAlert            = "on"
     #                               Discord backup Alert
-    $script:DiscordBackupAlert      = "on"
+    $global:DiscordBackupAlert      = "on"
     #                               Discord Update Alert 
-    $script:DiscordUpdateAlert      = "on"
+    $global:DiscordUpdateAlert      = "on"
     #                               Discord Restart Alert 
-    $script:DiscordRestartAlert     = "on"
+    $global:DiscordRestartAlert     = "on"
     #                               Use private IP for Query and mcrcon
-    $script:Useprivate              = "off"
+    $global:Useprivate              = "off"
     #                               consolelogging
-    $script:consolelogging          = "on"
+    $global:consolelogging          = "on"
     #                               consolelogging count 
-    $script:consolelogcount         = "10"
+    $global:consolelogcount         = "10"
     #                               ssmlogging
-    $script:ssmlogging              = "on"
+    $global:ssmlogging              = "on"
     #                               ssmlogging count 
-    $script:ssmlogcount             = "10"
+    $global:ssmlogcount             = "10"
     #                               Console Text Color 
-    $script:textcolor               = "White" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
+    $global:textcolor               = "White" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Version  0 prompt for input, 1 no prompt during install
-    $script:Version                 = "0"
+    $global:Version                 = "0"
     #                               Server List Directory
-    $script:serverlistdir           = "$currentdir\data"
+    $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory
-    $script:backupdir               = "$currentdir\backups"
+    $global:backupdir               = "$currentdir\backups"
     #                               ssm log Directory
-    $script:ssmlogdir               = "$currentdir\log\ssm"
+    $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
-    $script:logdir                  = "$currentdir\log"
+    $global:logdir                  = "$currentdir\log"
     #                               SSM Log
-    $script:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
+    $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
     #                               Empty Variable checking
-    $script:testvariable            = "on"
+    $global:testvariable            = "on"
     #                               Debug log
-    $script:debuglog                = "on"
+    $global:debuglog                = "on"
     #                               SSM Error Log
-    $script:ssmerrorlog             = "$ssmlogdir\ssm-Error-$errorloggingDate.log"
+    $global:ssmerrorlog             = "$ssmlogdir\ssm-Error-$errorloggingDate.log"
     #                               MC Version
-    $script:mcversion               = "`$serverfiles\version.txt"
+    $global:mcversion               = "`$serverfiles\version.txt"
     #                               Test Connection to Steam Master
-    $script:steammastercheck        = "on"
+    $global:steammastercheck        = "on"
     #                               Server Console log to Pastebin
-    $script:pastebinconsolelog      = "off"
+    $global:pastebinconsolelog      = "off"
     #                               Pastebin Time -  Never: N, 10 Minutes: 10M, 1 Hour: 1H, 1 Day: 1D, 1 Week: 1W, 2 Weeks: 2W, 1 Month: 1M
-    $script:pastebinexpires         = "1D"
+    $global:pastebinexpires         = "1D"
     #                               Pastebin username
-    $script:PastebinUsername        = ""
+    $global:PastebinUsername        = ""
     #                               Pastebin pwd
-    $script:PastebinPassword        = ""
+    $global:PastebinPassword        = ""
     #                               Pastebin Dev Key
-    $script:PastebinDeveloperKey    = ''
+    $global:PastebinDeveloperKey    = ''
     #                               Discord Webhook 
-    $script:discordwebhook          = ""
+    $global:discordwebhook          = ""
     #                               Discord Display IP and Steam API IP.
-    $script:discorddisplayip        = ""
+    $global:discorddisplayip        = ""
     #                               Discord Icon URL
-    $script:AuthorIconURL           = "https://i.imgur.com/yp6wLLa.png"
+    $global:AuthorIconURL           = "https://i.imgur.com/yp6wLLa.png"
     #                               Discord Thumbnail URL 
-    $script:ThumbnailURL            = "https://i.imgur.com/yp6wLLa.png"
+    $global:ThumbnailURL            = "https://i.imgur.com/yp6wLLa.png"
     #                               Discord Avatar URL
-    $script:AvatarUrl               = "https://i.imgur.com/yp6wLLa.png"
+    $global:AvatarUrl               = "https://i.imgur.com/yp6wLLa.png"
     # Set-SteamerSettingLog
 }

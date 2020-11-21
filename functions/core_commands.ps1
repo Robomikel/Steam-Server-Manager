@@ -14,13 +14,13 @@ Function Select-Steamer {
             # HelpMessage = " CTL + C and ./ssm ?   ", 
             Position = 0
         )]
-        [String] $script:command,
+        [String] $global:command,
         #[ValidatePattern('^[a-z,A-Z]$')]
         [Parameter(
             Mandatory = $false,
             # HelpMessage = "Input Server Folder Name: ", 
             Position = 1 
-        )]$script:serverfiles
+        )]$global:serverfiles
     )
     Write-log "Function: Select-Steamer"
     Write-log "command:  $command $serverfiles"
@@ -57,7 +57,7 @@ Function Select-Steamer {
 Function Read-Param {
     Write-log "Function Read-Param"
     switch ($serverfiles) {
-        { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $script:serverfiles = Read-host ; Get-TestString }
+        { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $global:serverfiles = Read-host ; Get-TestString }
     }
 }
 Function Get-SSMMenu {

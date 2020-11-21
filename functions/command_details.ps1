@@ -14,7 +14,7 @@ Function Get-DriveSpace {
     Else {
     $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
-    $script:diskresults = Foreach ($disk in $disks) {
+    $global:diskresults = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {
             $size = [math]::round($disk.Size / 1GB, 0)
             $free = [math]::round($disk.FreeSpace / 1GB, 0)
@@ -46,8 +46,8 @@ Function Get-Details {
   #      $array |  foreach { if (($status = (Test-Connection $extip -TcpPort $_.Value)) -eq $true ) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
   #  }
   #  Else{
-  #      $script:ProgressPreference = 'SilentlyContinue'
-  #      $script:WarningPreference = 'SilentlyContinue'
+  #      $global:ProgressPreference = 'SilentlyContinue'
+  #      $global:WarningPreference = 'SilentlyContinue'
   #      $array |  foreach { if (($status = (Test-NetConnection $extip -Port $_.Value -ErrorAction SilentlyContinue).TcpTestSucceeded) -eq $true) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
   #  }
     If ($psSeven -eq $true) { 

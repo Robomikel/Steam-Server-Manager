@@ -16,13 +16,13 @@ Function New-DiscordAlert {
                     If ($DiscordBackupAlert) {
                         If ($DiscordBackupAlert -eq "on") { 
                             # BACKUP
-                            $script:alerttype = 'Backup'
+                            $global:alerttype = 'Backup'
                             # BACKUP
-                            $script:alertmessage = ' New Server Backup'
+                            $global:alertmessage = ' New Server Backup'
                             # GREEN
-                            $script:alertmessagecolor = 'ForestGreen'
+                            $global:alertmessagecolor = 'ForestGreen'
                             # Backup Count
-                            $script:backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
+                            $global:backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
                         }
                     }
                 }
@@ -30,10 +30,10 @@ Function New-DiscordAlert {
                     If ($DiscordUpdateAlert) {
                         If ($DiscordUpdateAlert -eq "on") { 
                             # UDPATE
-                            $script:alertmessage = ' Server Updated '
-                            $script:alerttype = 'Update'
+                            $global:alertmessage = ' Server Updated '
+                            $global:alerttype = 'Update'
                             # BLUE
-                            $script:alertmessagecolor = 'DarkBlue'
+                            $global:alertmessagecolor = 'DarkBlue'
                         }
                     }
                 }
@@ -41,19 +41,19 @@ Function New-DiscordAlert {
                     If ($DiscordRestartAlert) {
                         If ($DiscordRestartAlert -eq "on") { 
                             # RESTART
-                            $script:alertmessage = " Server not Running, Starting Server "
-                            $script:alerttype = 'Restarted'
+                            $global:alertmessage = " Server not Running, Starting Server "
+                            $global:alerttype = 'Restarted'
                             # RED
-                            $script:alertmessagecolor = 'FireBrick'
+                            $global:alertmessagecolor = 'FireBrick'
                         }
                     }
                 }
                 ElseIf ($command -eq "discord") {
                     # BACKUP
-                    $script:alertmessage = ' Test Alert'
-                    $script:alerttype = 'test'
+                    $global:alertmessage = ' Test Alert'
+                    $global:alerttype = 'test'
                     # Cyan
-                    $script:alertmessagecolor = 'RoyalBlue'
+                    $global:alertmessagecolor = 'RoyalBlue'
                 }
                 Send-DiscordAlert                              
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
@@ -91,7 +91,7 @@ Function Send-DiscordAlert_old {
         Get-warnmessage "AlertFailed"
     } 
     Else {
-        $script:InfoMessage = "discord"
+        $global:InfoMessage = "discord"
         Get-Infomessage 
     }
 }
@@ -127,20 +127,20 @@ Function Send-DiscordAlert {
         }
         $detailss += "`nsteam://connect/$displayip`:$port"
         #                               Discord Author Name 
-        $script:AuthorName              = "Notice - $hostname - $alerttype "
+        $global:AuthorName              = "Notice - $hostname - $alerttype "
         #                               Discord Avatar Name 
-        $script:AavatarName              = "Steam-Server-Manager"
+        $global:AavatarName              = "Steam-Server-Manager"
         $Fact = New-DiscordFact -Name "Info:" -Value "$detailss" -Inline $true
         $Author = New-DiscordAuthor -Name $AuthorName -IconUrl $AuthorIconURL
         $Thumbnail = New-DiscordThumbnail -Url $ThumbnailURL
         $Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
-        # $script:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+        # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
         Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName $AavatarName -AvatarUrl $AvatarUrl
         If (!$?) {
             Get-warnmessage "AlertFailed"
         }
         Else {
-            $script:InfoMessage = 
+            $global:InfoMessage = 
             Get-Infomessage "discord" 
         }    
     }

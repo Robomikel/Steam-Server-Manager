@@ -15,13 +15,13 @@ Function Set-SteamInfo {
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
     If ($decision -eq 1) {
-        $script:anon = "yes"
+        $global:anon = "yes"
         #Install-Anonserver
         Install-ServerFiles
         Write-Host 'Entered Y'
     }
     Else {
-        $script:anon = "no"
+        $global:anon = "no"
         #Install-Anonserver
         Install-ServerFiles
         Write-Host 'Entered N'
@@ -232,113 +232,113 @@ Function Get-UserInput {
         Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
         If ($ip) {
             $defaultip = "$ip"
-            If (($script:IP = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$IP]: "-F CY -N )) -eq '') { $script:IP = "$defaultIP" }Else { $IP }
+            If (($global:IP = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$IP]: "-F CY -N )) -eq '') { $global:IP = "$defaultIP" }Else { $IP }
         }
         If ($port) {
             $defaultport = "$port" 
-            If (($script:port = Read-Host -P(Write-Host "Enter Server PORT, Press Enter to Accept  [$PORT]: "-F CY -N )) -eq '') { $script:port = "$defaultPORT" }Else { $PORT }
+            If (($global:port = Read-Host -P(Write-Host "Enter Server PORT, Press Enter to Accept  [$PORT]: "-F CY -N )) -eq '') { $global:port = "$defaultPORT" }Else { $PORT }
         }
         If ($queryport) {
             $defaultquery = "$queryport"
-            If (($script:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$queryport]: "-F CY -N )) -eq '') { $script:queryport = "$defaultquery" }Else { $queryport }
+            If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$queryport]: "-F CY -N )) -eq '') { $global:queryport = "$defaultquery" }Else { $queryport }
         }
         If ($rconport) {
             $defaultrconport = "$rconport"
-            If (($script:rconport = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept  [$rconport]: "-F CY -N )) -eq '') { $script:rconport = "$defaultrconport" }Else { $rconport }
+            If (($global:rconport = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept  [$rconport]: "-F CY -N )) -eq '') { $global:rconport = "$defaultrconport" }Else { $rconport }
         }
         If ($rconpassword ) {
-            If (($script:rconpassword = Read-Host -P(Write-Host "Enter Server RCON PASSWORD, Press Enter to Accept  [$randompassword]: "-F CY -N )) -eq '') { $script:rconpassword = "$randompassword" }Else { $rconpassword }
+            If (($global:rconpassword = Read-Host -P(Write-Host "Enter Server RCON PASSWORD, Press Enter to Accept  [$randompassword]: "-F CY -N )) -eq '') { $global:rconpassword = "$randompassword" }Else { $rconpassword }
         }
         If ($hostname) {
-            If (($script:hostname = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept  [SERVERNAME]: "-F CY -N )) -eq '') { $script:hostname = "SERVERNAME" }Else { $hostname }
+            If (($global:hostname = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept  [SERVERNAME]: "-F CY -N )) -eq '') { $global:hostname = "SERVERNAME" }Else { $hostname }
         }
         If ($serverpassword) {
             $defaultserverpassword = "$serverpassword"
-            If (($script:serverpassword = Read-Host -P(Write-Host "Enter Server SERVER PASSWORD, Press Enter to Accept  [$serverpassword]: "-F CY -N )) -eq '') { $script:serverpassword = "$defaultserverpassword" }Else { $serverpassword }
+            If (($global:serverpassword = Read-Host -P(Write-Host "Enter Server SERVER PASSWORD, Press Enter to Accept  [$serverpassword]: "-F CY -N )) -eq '') { $global:serverpassword = "$defaultserverpassword" }Else { $serverpassword }
         }
         If ($maxplayers) {
             $defaultmaxplayers = "$maxplayers"
-            If (($script:maxplayers = Read-Host -P(Write-Host "Enter Server MAX PLAYERS, Press Enter to Accept  [$maxplayers]: "-F CY -N )) -eq '') { $script:maxplayers = "$defaultmaxplayers" }Else { $maxplayers }
+            If (($global:maxplayers = Read-Host -P(Write-Host "Enter Server MAX PLAYERS, Press Enter to Accept  [$maxplayers]: "-F CY -N )) -eq '') { $global:maxplayers = "$defaultmaxplayers" }Else { $maxplayers }
         }
         If ($gslt) {
             $defaultgslt = "$gslt"
-            If (($script:GSLT = Read-Host -P(Write-Host "Enter Server GSLT, Press Enter to Accept  [$gslt]: "-F CY -N )) -eq '') { $script:gslt = "$defaultgslt" }Else { $gslt }
+            If (($global:GSLT = Read-Host -P(Write-Host "Enter Server GSLT, Press Enter to Accept  [$gslt]: "-F CY -N )) -eq '') { $global:gslt = "$defaultgslt" }Else { $gslt }
         }
         If ($defaultmap) {
             $defaultdefaultmap = "$defaultmap"
-            If (($script:defaultmap = Read-Host -P(Write-Host "Enter Server default map, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $script:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
+            If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server default map, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
         }
         If ($clientport) {
             $defaultclientport = "$clientport"
-            If (($script:clientport = Read-Host -P(Write-Host "Enter Server client port, Press Enter to Accept  [$clientport]: "-F CY -N )) -eq '') { $script:clientport = "$defaultclientport" }Else { $clientport }
+            If (($global:clientport = Read-Host -P(Write-Host "Enter Server client port, Press Enter to Accept  [$clientport]: "-F CY -N )) -eq '') { $global:clientport = "$defaultclientport" }Else { $clientport }
         }
         If ($sourcetvport) {
             $defaultsourcetvport = "$sourcetvport"
-            If (($script:sourcetvport = Read-Host -P(Write-Host "Enter Server source tv port, Press Enter to Accept  [$sourcetvport]: "-F CY -N )) -eq '') { $script:sourcetvport = "$defaultsourcetvport" }Else { $sourcetvport }
+            If (($global:sourcetvport = Read-Host -P(Write-Host "Enter Server source tv port, Press Enter to Accept  [$sourcetvport]: "-F CY -N )) -eq '') { $global:sourcetvport = "$defaultsourcetvport" }Else { $sourcetvport }
         }
         If ($gamemode) {
             $defaultgamemode = "$gamemode"
-            If (($script:gamemode = Read-Host -P(Write-Host "Enter Server GAME MODE, Press Enter to Accept  [$gamemode]: "-F CY -N )) -eq '') { $script:gamemode = "$defaultgamemode" }Else { $gamemode }
+            If (($global:gamemode = Read-Host -P(Write-Host "Enter Server GAME MODE, Press Enter to Accept  [$gamemode]: "-F CY -N )) -eq '') { $global:gamemode = "$defaultgamemode" }Else { $gamemode }
         }
         If ($diff ) {
             $defaultdiff = "$diff"
-            If (($script:diff = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $script:diff = "$defaultdiff" }Else { $diff }
+            If (($global:diff = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $global:diff = "$defaultdiff" }Else { $diff }
         }
         If ($adminpassword) {
             $defaultadminpassword = "$adminpassword"
-            If (($script:ADMINPASSWORD = Read-Host -P(Write-Host "Enter Server ADMIN PASSWORD, Press Enter to Accept  [$adminpassword]: "-F CY -N )) -eq '') { $script:adminpassword = "$defaultadminpassword" }Else { $adminpassword }
+            If (($global:ADMINPASSWORD = Read-Host -P(Write-Host "Enter Server ADMIN PASSWORD, Press Enter to Accept  [$adminpassword]: "-F CY -N )) -eq '') { $global:adminpassword = "$defaultadminpassword" }Else { $adminpassword }
         }
         If ($tickrate) {
             $defaulttickrate = "$tickrate"
-            If (($script:tickrate = Read-Host -P(Write-Host "Enter Server TICKRATE, Press Enter to Accept  [$tickrate]: "-F CY -N )) -eq '') { $script:tickrate = "$defaulttickrate" }Else { $tickrate }
+            If (($global:tickrate = Read-Host -P(Write-Host "Enter Server TICKRATE, Press Enter to Accept  [$tickrate]: "-F CY -N )) -eq '') { $global:tickrate = "$defaulttickrate" }Else { $tickrate }
         }
         If ($saveinterval) {
             $defaultsaveinterval = "$saveinterval"
-            If (($script:saveinterval = Read-Host -P(Write-Host "Enter Server SAVEINTERVAL, Press Enter to Accept  [$saveinterval]: "-F CY -N )) -eq '') { $script:saveinterval = "$defaultsaveinterval" }Else { $saveinterval }
+            If (($global:saveinterval = Read-Host -P(Write-Host "Enter Server SAVEINTERVAL, Press Enter to Accept  [$saveinterval]: "-F CY -N )) -eq '') { $global:saveinterval = "$defaultsaveinterval" }Else { $saveinterval }
         }
         If ($worldsize) {
             $defaultworldsize = "$worldsize"
-            If (($script:worldsize = Read-Host -P(Write-Host "Enter Server WORLDSIZE, Press Enter to Accept  [$worldsize]: "-F CY -N )) -eq '') { $script:worldsize = "$defaultworldsize" }Else { $worldsize }
+            If (($global:worldsize = Read-Host -P(Write-Host "Enter Server WORLDSIZE, Press Enter to Accept  [$worldsize]: "-F CY -N )) -eq '') { $global:worldsize = "$defaultworldsize" }Else { $worldsize }
         }
         If ($seed) {
             $defaultseed = "$seed"
-            If (($script:SEED = Read-Host -P(Write-Host "Enter Server SEED, Press Enter to Accept  [$seed]: "-F CY -N )) -eq '') { $script:seed = "$defaultseed" }Else { $seed }
+            If (($global:SEED = Read-Host -P(Write-Host "Enter Server SEED, Press Enter to Accept  [$seed]: "-F CY -N )) -eq '') { $global:seed = "$defaultseed" }Else { $seed }
         }
         If ($rconweb) {
             $defaultrconweb = "$rconweb"
-            If (($script:rconweb = Read-Host -P(Write-Host "Enter Server RCONWEB, Press Enter to Accept  [$rconweb]: "-F CY -N )) -eq '') { $script:rconweb = "$defaultrconweb" }Else { $rconweb }
+            If (($global:rconweb = Read-Host -P(Write-Host "Enter Server RCONWEB, Press Enter to Accept  [$rconweb]: "-F CY -N )) -eq '') { $global:rconweb = "$defaultrconweb" }Else { $rconweb }
         }
         If ($steamID64) {
             $defaultsteamID64 = "$steamID64"
-            If (($script:steamID64 = Read-Host -P(Write-Host "Enter steamID64, Press Enter to Accept  [$steamID64]: "-F CY -N )) -eq '') { $script:steamID64 = "$defaultsteamID64" }Else { $steamID64 }
+            If (($global:steamID64 = Read-Host -P(Write-Host "Enter steamID64, Press Enter to Accept  [$steamID64]: "-F CY -N )) -eq '') { $global:steamID64 = "$defaultsteamID64" }Else { $steamID64 }
         }
         If ($galaxyname) {
             $defaultgalaxyname = "$galaxyname"
-            If (($script:galaxyname = Read-Host -P(Write-Host "Enter GALAXYNAME, Press Enter to Accept  [$galaxyname]: "-F CY -N )) -eq '') { $script:galaxyname = "$defaultgalaxyname" }Else { $galaxyname }
+            If (($global:galaxyname = Read-Host -P(Write-Host "Enter GALAXYNAME, Press Enter to Accept  [$galaxyname]: "-F CY -N )) -eq '') { $global:galaxyname = "$defaultgalaxyname" }Else { $galaxyname }
         }
         If ($mapgroup) {
             $defaultmapgroup = "$mapgroup"
-            If (($script:mapgroup = Read-Host -P(Write-Host "Enter Server MAPGROUP, Press Enter to Accept  [$mapgroup]: "-F CY -N )) -eq '') { $script:mapgroup = "$defaultmapgroup" }Else { $mapgroup }
+            If (($global:mapgroup = Read-Host -P(Write-Host "Enter Server MAPGROUP, Press Enter to Accept  [$mapgroup]: "-F CY -N )) -eq '') { $global:mapgroup = "$defaultmapgroup" }Else { $mapgroup }
         }
         If ($gametype) {
             $defaultgametype = "$gametype"
-            If (($script:gametype = Read-Host -P(Write-Host "Enter Server game type, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $script:gametype = "$defaultgametype" }Else { $gametype }
+            If (($global:gametype = Read-Host -P(Write-Host "Enter Server game type, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $global:gametype = "$defaultgametype" }Else { $gametype }
         }
         If ($coopplayers) {
             $defaultcoopplayers = "$coopplayers"
-            If (($script:coopplayers = Read-Host -P(Write-Host "Enter Server COOP PLAYERS, Press Enter to Accept  [$coopplayers]: "-F CY -N )) -eq '') { $script:coopplayers = "$defaultcoopplayers" }Else { $coopplayers }
+            If (($global:coopplayers = Read-Host -P(Write-Host "Enter Server COOP PLAYERS, Press Enter to Accept  [$coopplayers]: "-F CY -N )) -eq '') { $global:coopplayers = "$defaultcoopplayers" }Else { $coopplayers }
         }
         If ($sv_lan) {
             $defaultsv_lan = "$sv_lan"
-            If (($script:sv_lan = Read-Host -P(Write-Host "Enter Server SV_LAN, Press Enter to Accept  [$sv_lan]: "-F CY -N )) -eq '') { $script:sv_lan = "$defaultsv_lan" }Else { $sv_lan }
+            If (($global:sv_lan = Read-Host -P(Write-Host "Enter Server SV_LAN, Press Enter to Accept  [$sv_lan]: "-F CY -N )) -eq '') { $global:sv_lan = "$defaultsv_lan" }Else { $sv_lan }
         }
         If ($workshop) {
             $defaultworkshop = "$workshop"
-            If (($script:workshop = Read-Host -P(Write-Host "Enter Server workshop, Press Enter to Accept  [$workshop]: "-F CY -N )) -eq '') { $script:workshop = "$defaultworkshop" }Else { $workshop }
+            If (($global:workshop = Read-Host -P(Write-Host "Enter Server workshop, Press Enter to Accept  [$workshop]: "-F CY -N )) -eq '') { $global:workshop = "$defaultworkshop" }Else { $workshop }
         }
         If ($sv_pure) {
             $defaultsv_pure = "$sv_pure"
-            If (($script:sv_pure = Read-Host -P(Write-Host "Enter Server SV_PURE, Press Enter to Accept  [$sv_pure]: "-F CY -N )) -eq '') { $script:sv_pure = "$defaultsv_pure" }Else { $sv_pure }
+            If (($global:sv_pure = Read-Host -P(Write-Host "Enter Server SV_PURE, Press Enter to Accept  [$sv_pure]: "-F CY -N )) -eq '') { $global:sv_pure = "$defaultsv_pure" }Else { $sv_pure }
         }
         If ($parm28 -eq 1) {
             If ((${xx} = Read-Host -P(Write-Host "Enter Server xx, Press Enter to Accept default [$xx]: "-F CY -N )) -eq '') { $xx = "$xx" }Else { $xx }
