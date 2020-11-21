@@ -47,10 +47,14 @@ Function Get-help {
     break
 }
 Function Get-ClearVariables {
+    If ($debuglog -eq 'on'){
+        #$error | Out-File -Append -Encoding Default $ssmerrorlog
+        $error > $ssmerrorlog
+    }
     Write-log "Function: Get-ClearVariables"
-    $var = (Get-Variable * -scope global).Name
+    $var = (Get-Variable * -scope script).Name
     Write-log "Removing Variables $var" 
-    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
+    Remove-Variable * -Scope Script  -ea SilentlyContinue -Force
     # Write-log " Variables $var"
     
 }
@@ -368,6 +372,9 @@ Function Get-PreviousInstall {
                 # Get-ClearVariables
             }
         }
+    }
+    Else{
+        Get-ExtIP
     }
 }
 function Receive-Information {
@@ -1192,6 +1199,9 @@ Write-Host $Row -ForegroundColor $RowColor -NoNewline
 Write-Host " " $([char]9474) 
 }
 #################################################################################################################################################################
+Function Get-ExtIP {
+    ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
+}
 
 
 

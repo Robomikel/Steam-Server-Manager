@@ -11,12 +11,15 @@ $global:serverfiles = $($args[1])
 $global:currentdir = Get-Location
 $global:serverdir = "$currentdir\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
+# Moved $extip to function to prevent constant lookups. Only grabs when needed. hopefully will increase performance as well.
+#${global:EXTIP} = If ((((${global:EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
 # ${global:EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${global:IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $global:Date = get-date -Format yyyyMMddTHHmmssffff
 $global:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
+$global:errorloggingDate = get-date -Format MM-dd-yyyy-hhmm
 $global:logDate = Get-Date -Format MM-dd-yyyy
+
 
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
@@ -51,6 +54,10 @@ $global:sevenzipoutput = "$currentdir\7za920.zip"
 $global:sevenzipversion = "7za920"
 $global:sevenzipdirectory = "$currentdir\$sevenzipversion"
 $global:sevenzipexecutable = "$sevenzipdirectory\7za.exe"
+
+# 7-Zip x64 - used to see if 7zip is installed already
+$global:sevenzipprogramdirectory = "C:\Program Files\7-Zip"
+$global:sevenzipprogramexecutable = "$sevenzipprogramdirectory\7z.exe"
 
 # Steam
 $global:steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
@@ -96,3 +103,4 @@ Test-PSversion
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
+

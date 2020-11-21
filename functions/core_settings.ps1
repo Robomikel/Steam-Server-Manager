@@ -69,6 +69,10 @@ Function Set-SteamerSetting {
     $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
     #                               Empty Variable checking
     $global:testvariable            = "on"
+    #                               Debug log
+    $global:debuglog                = "off"
+    #                               SSM Error Log
+    $global:ssmerrorlog             = "$ssmlogdir\ssm-Error-$errorloggingDate.log"
     #                               MC Version
     $global:mcversion               = "`$serverfiles\version.txt"
     #                               Test Connection to Steam Master
