@@ -52,9 +52,9 @@ Function Get-ClearVariables {
         $error > $ssmerrorlog
     }
     Write-log "Function: Get-ClearVariables"
-    $var = (Get-Variable * -scope script).Name
+    $var = (Get-Variable * -scope global).Name
     Write-log "Removing Variables $var" 
-    Remove-Variable * -Scope Script  -ea SilentlyContinue -Force
+    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
     # Write-log " Variables $var"
     
 }
