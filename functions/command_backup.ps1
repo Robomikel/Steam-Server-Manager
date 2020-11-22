@@ -140,6 +140,7 @@ Function Limit-AppdataBackups {
     }
 }
 Function Get-BackupMenu {
+    Write-log "Function: Get-BackupMenu"
     Show-Menu
     Get-Menu
     # $selection = Read-Host "Please make a selection"
@@ -157,6 +158,7 @@ Function Get-BackupMenu {
     New-BackupRestore
 }
 Function Show-Menu {
+    Write-log "Function: Show-Menu"
     $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
@@ -174,6 +176,7 @@ Function Show-Menu {
     }
 }
 Function Get-Menu {
+    Write-log "Function: Get-Menu"
     Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:.
    `t Choose backup: " -F Cyan
     # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
@@ -210,6 +213,7 @@ Function New-BackupRestore {
 }
 
 Function Get-AppdataBackupMenu {
+    Write-log "Function: Get-AppdataBackupMenu"
     Show-AppdataMenu
     Get-Menu
     $restoreex = @'
@@ -238,6 +242,7 @@ Function New-backupAppdatarestore {
     }
 }
 Function Show-AppdataMenu {
+    Write-log "Function: Show-AppdataMenu"
     $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option

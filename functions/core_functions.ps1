@@ -22,6 +22,7 @@ Function Get-CreatedVaribles {
     }
 }
 Function Get-help {
+    Write-log "Function: Get-help"
     Write-Host "Format:  ./ssm <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
     Write-Host "IE:      ./ssm install  insserver" -F Yellow -BackgroundColor Black
     Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
@@ -447,6 +448,7 @@ Function compare-SteamExit {
     }
 }
 Function Test-PSversion {
+    Write-Log "Function: Test-PSversion"
     $global:psSeven = ( $PSVersionTable.PSVersion.Major -eq 7 ) 
     If ($psSeven -eq $true ) {
         $psSeven = 1
@@ -623,6 +625,7 @@ Function Import-localConfig {
     }
 }
 Function Measure-stats {
+    Write-log "Function: Measure-stats"
     $startTime = get-date
     $endTime = $startTime.addMinutes(1.0)
     $timeSpan = new-timespan $startTime $endTime
@@ -1200,6 +1203,7 @@ Write-Host " " $([char]9474)
 }
 #################################################################################################################################################################
 Function Get-ExtIP {
+    Write-Log "Function: Get-ExtIP "
     ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
 }
 
