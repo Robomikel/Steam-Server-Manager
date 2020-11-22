@@ -15,11 +15,25 @@ Function Get-GamedigServerv2 {
                 set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${extip}:${port} "
-                    $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
+                    Else {
+                        # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
+                        $queryOutput = saps powershell -args ("gamedig --type $querytype ${extip}:${port} --pretty") -wait -nnw
+                        $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
                 }
                 Else {
                     Write-log " Using queryport $querytype ${extip}:${queryport}"
-                    $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${queryport} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput 
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = (((((  .\gamedig --type $querytype ${extip}:${queryport} --pretty ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
+                    }
+                    Else {
+                        # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
+                        $queryOutput = saps powershell -args ("gamedig --type $querytype ${extip}:${queryport} --pretty") -wait -nnw
+                        $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
                 }
                 set-location $currentdir
             }
@@ -27,13 +41,25 @@ Function Get-GamedigServerv2 {
                 set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${ip}:${port} "
-                    $queryOutput = ((((( .\gamedig --type $querytype ${ip}:${port} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput
-                    
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = ((((( .\gamedig --type $querytype ${ip}:${port} --pretty ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
+                    Else {
+                        # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
+                        $queryOutput = saps powershell -args ("gamedig --type $querytype ${ip}:${port} --pretty") -wait -nnw
+                        $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
                 }
                 Else {
                     Write-log "Using queryport $querytype ${ip}:${queryport}"
-                    $queryOutput = (((((  .\gamedig --type $querytype ${ip}:${queryport} --pretty ).trim()).replace('"','')).replace('{','')).replace(',','')).replace('}','') ; $queryOutput 
-                   
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = (((((  .\gamedig --type $querytype ${ip}:${queryport} --pretty ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
+                    }
+                    Else {
+                        # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
+                        $queryOutput = saps powershell -args ("gamedig --type $querytype ${ip}:${queryport} --pretty") -wait -nnw
+                        $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                    }
                 }
                 set-location $currentdir
             }
