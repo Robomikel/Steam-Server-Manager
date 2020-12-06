@@ -9,13 +9,19 @@
 Function Get-NodeJSCheck {
     Write-log "Function: Get-NodeJSCheck"
     If ($nodejsexecutable -and $ssmlog -and $loggingdate) {
-        Write-log "Checking NodeJS "     
-        If (Test-Path $nodejsexecutable) { 
-            Write-log " NodeJS already downloaded "
+        If (!(test-path $nodejsprogramexecutable)) {
+            Write-log "Checking NodeJS "     
+            If (Test-Path $nodejsexecutable) { 
+                Write-log " NodeJS already downloaded "
+            }
+            ElseIf (!(Test-Path $nodejsexecutable)) {
+                Write-log " NodeJS not found "
+                Add-NodeJS
+            }
         }
-        ElseIf (!(Test-Path $nodejsexecutable)) {
-            Write-log " NodeJS not found "
-            Add-NodeJS
+        Else {
+            Write-log " NodeJS Installed "
+            Add-gamedig
         }
     }
     ElseIf (!$nodejsexecutable) {
