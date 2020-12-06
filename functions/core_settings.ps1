@@ -70,7 +70,7 @@ Function Set-SteamerSetting {
     #                               Empty Variable checking
     $global:testvariable            = "on"
     #                               Debug log
-    $global:debuglog                = "on"
+    $global:debuglog                = "off"
     #                               SSM Error Log
     $global:ssmerrorlog             = "$ssmlogdir\ssm-Error-$errorloggingDate.log"
     #                               MC Version
