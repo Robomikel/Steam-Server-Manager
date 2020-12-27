@@ -19,7 +19,7 @@ $global:Date = get-date -Format yyyyMMddTHHmmssffff
 $global:loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
 $global:errorloggingDate = get-date -Format MM-dd-yyyy-hhmm
 $global:logDate = Get-Date -Format MM-dd-yyyy
-$global:errorloggingDate = Get-Date -Format MM-dd-yyyy-hhmm
+
 
 # Game-Server-configs
 $global:githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
@@ -105,3 +105,4 @@ Test-PSversion
 Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
+
