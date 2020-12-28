@@ -10,7 +10,7 @@ Function Set-SteamerSetting {
     # Write-log "Function: Set-SteamerSetting"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
-    $global:Showbackupconsole       = "off"
+    $global:Showbackupconsole       = "on"
     #                               backup log open
     $global:backuplogopen           = "on"
     #                               backup logs
