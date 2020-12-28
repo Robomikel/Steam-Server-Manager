@@ -7,11 +7,13 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update','validate','start','stop','restart','monitor','backup','restore','install-monitor','install-mod','install-ws','install-Restart','query','mcrcon','discord','details','install-VcRedist','stats','menu','exit')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit')]    
     $command,
     $serverfiles)
-if ($serverfiles.Contains('\')) {
-$serverfiles = Split-Path $serverfiles -Leaf
+If ($serverfiles) {    
+    if ($serverfiles.Contains('\')) {
+        $serverfiles = Split-Path $serverfiles -Leaf
+    }
 }
 # $command = $($args[0])
 # $serverfiles = $($args[1])
