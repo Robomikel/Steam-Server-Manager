@@ -73,3 +73,88 @@ Function Get-SourceMetaMod {
         }
     }
 }
+Function Get-CSGOGet5 {
+    Write-log "Function: Get-CSGOGet5"
+    If ($csgoget5url -and $csgoget5zip -and $csgoget5folder -and $systemdir) {
+        iwr $csgoget5url -O $csgoget5zip
+    }
+    If (!$?) { 
+        Get-WarnMessage 'Downloadfailed' 'CSGOGet5'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Downloaded" 'CSGOGet5'
+    }
+    Expand-Archive $csgoget5zip $csgoget5folder
+    If (!$?) {
+        Get-WarnMessage 'ExtractFailed' 'CSGOGet5'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Extracted" 'CSGOGet5'
+    }
+    Get-Infomessage "copying-installing" 'CSGOGet5'
+    Copy-Item  "$csgoget5folder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
+    Copy-Item  "$csgoget5folder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+    If (!$?) { 
+        Write-log "Copying CSGOGet5 Failed "
+        New-TryagainNew 
+    }
+}
+
+Function Get-CSGOcsgopugsetup {
+    Write-log "Function: Get-CSGOcsgopugsetup"
+    If ($csgopugsetupurl -and $csgopugsetupzip -and $csgopugsetupfolder -and $systemdir) {
+        iwr $csgopugsetupurl -O $csgopugsetupzip
+    }
+    If (!$?) { 
+        Get-WarnMessage 'Downloadfailed' 'CSGOcsgopugsetup'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Downloaded" 'CSGOcsgopugsetup'
+    }
+    Expand-Archive $csgopugsetupzip $csgopugsetupfolder
+    If (!$?) {
+        Get-WarnMessage 'ExtractFailed' 'CSGOcsgopugsetup'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Extracted" 'CSGOcsgopugsetup'
+    }
+    Get-Infomessage "copying-installing" 'CSGOcsgopugsetup'
+    Copy-Item  "$csgopugsetupfolder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
+    Copy-Item  "$csgopugsetupfolder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+    If (!$?) { 
+        Write-log "Copying CSGOcsgopugsetup Failed "
+        New-TryagainNew 
+    }
+}
+Function Get-CSGOsteamworks {
+    Write-log "Function: Get-CSGOsteamworks"
+    If ($steamworksurl -and $steamworkszip -and $csgopugsetupfolder -and $systemdir) {
+        iwr $steamworksurl -O $steamworkszip
+    }
+    If (!$?) { 
+        Get-WarnMessage 'Downloadfailed' 'SteamWorks'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Downloaded" 'SteamWorks'
+    }
+    Expand-Archive $steamworkszip $steamworksfolder
+    If (!$?) {
+        Get-WarnMessage 'ExtractFailed' 'SteamWorks'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        Get-Infomessage "Extracted" 'SteamWorks'
+    }
+    Get-Infomessage "copying-installing" 'SteamWorks'
+    Copy-Item  "$steamworksfolder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
+    #Copy-Item  "$steamworksfolder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+    If (!$?) { 
+        Write-log "Copying SteamWorks Failed "
+        New-TryagainNew 
+    }
+}

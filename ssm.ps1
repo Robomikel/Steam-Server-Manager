@@ -59,6 +59,21 @@ $sourcemodmversion = "1.10"
 $sourcemodoutput = "$currentdir\sourcemod.zip"
 $sourcemoddirectory = "$currentdir\sourcemod"
 
+# CSGO Get5
+$csgoget5url = "https://github.com/splewis/get5/releases/download/0.7.1/get5_0.7.1.zip"
+$csgoget5zip = "get5_0.7.1.zip"
+$csgoget5folder = "$currentdir\get5_0.7.1"
+
+# CSGO Pug-setup
+$csgopugsetupurl = "https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip"
+$csgopugsetupzip = "pugsetup_2.0.5.zip"
+$csgopugsetupfolder = "$currentdir\pugsetup_2.0.5"
+
+# SteamWorks
+$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git132-windows.zip"
+$steamworkszip = "SteamWorks-git132-windows.zip"
+$steamworksfolder = "$currentdir\SteamWorks-git132-windows"
+
 # 7-Zip Portable
 $sevenzipurl = "https://www.7-zip.org/a/7za920.zip"
 $sevenzipoutput = "$currentdir\7za920.zip"
