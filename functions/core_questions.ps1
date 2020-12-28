@@ -266,15 +266,15 @@ Function Get-UserInput {
         }
         If ($defaultmap) {
             $defaultdefaultmap = "$defaultmap"
-            If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server default map, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
+            If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server DEFAULT MAP, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
         }
         If ($clientport) {
             $defaultclientport = "$clientport"
-            If (($global:clientport = Read-Host -P(Write-Host "Enter Server client port, Press Enter to Accept  [$clientport]: "-F CY -N )) -eq '') { $global:clientport = "$defaultclientport" }Else { $clientport }
+            If (($global:clientport = Read-Host -P(Write-Host "Enter Server CLIENT PORT, Press Enter to Accept  [$clientport]: "-F CY -N )) -eq '') { $global:clientport = "$defaultclientport" }Else { $clientport }
         }
         If ($sourcetvport) {
             $defaultsourcetvport = "$sourcetvport"
-            If (($global:sourcetvport = Read-Host -P(Write-Host "Enter Server source tv port, Press Enter to Accept  [$sourcetvport]: "-F CY -N )) -eq '') { $global:sourcetvport = "$defaultsourcetvport" }Else { $sourcetvport }
+            If (($global:sourcetvport = Read-Host -P(Write-Host "Enter Server SOURCE TV PORT, Press Enter to Accept  [$sourcetvport]: "-F CY -N )) -eq '') { $global:sourcetvport = "$defaultsourcetvport" }Else { $sourcetvport }
         }
         If ($gamemode) {
             $defaultgamemode = "$gamemode"
@@ -282,7 +282,7 @@ Function Get-UserInput {
         }
         If ($diff ) {
             $defaultdiff = "$diff"
-            If (($global:diff = Read-Host -P(Write-Host "Enter Server Difficulty, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $global:diff = "$defaultdiff" }Else { $diff }
+            If (($global:diff = Read-Host -P(Write-Host "Enter Server DIFFICULTY, Press Enter to Accept  [$diff]: "-F CY -N )) -eq '') { $global:diff = "$defaultdiff" }Else { $diff }
         }
         If ($adminpassword) {
             $defaultadminpassword = "$adminpassword"
@@ -310,7 +310,7 @@ Function Get-UserInput {
         }
         If ($steamID64) {
             $defaultsteamID64 = "$steamID64"
-            If (($global:steamID64 = Read-Host -P(Write-Host "Enter steamID64, Press Enter to Accept  [$steamID64]: "-F CY -N )) -eq '') { $global:steamID64 = "$defaultsteamID64" }Else { $steamID64 }
+            If (($global:steamID64 = Read-Host -P(Write-Host "Enter STEAMID64, Press Enter to Accept  [$steamID64]: "-F CY -N )) -eq '') { $global:steamID64 = "$defaultsteamID64" }Else { $steamID64 }
         }
         If ($galaxyname) {
             $defaultgalaxyname = "$galaxyname"
@@ -322,7 +322,7 @@ Function Get-UserInput {
         }
         If ($gametype) {
             $defaultgametype = "$gametype"
-            If (($global:gametype = Read-Host -P(Write-Host "Enter Server game type, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $global:gametype = "$defaultgametype" }Else { $gametype }
+            If (($global:gametype = Read-Host -P(Write-Host "Enter Server GAME TYPE, Press Enter to Accept  [$gametype]: "-F CY -N )) -eq '') { $global:gametype = "$defaultgametype" }Else { $gametype }
         }
         If ($coopplayers) {
             $defaultcoopplayers = "$coopplayers"
@@ -334,7 +334,7 @@ Function Get-UserInput {
         }
         If ($workshop) {
             $defaultworkshop = "$workshop"
-            If (($global:workshop = Read-Host -P(Write-Host "Enter Server workshop, Press Enter to Accept  [$workshop]: "-F CY -N )) -eq '') { $global:workshop = "$defaultworkshop" }Else { $workshop }
+            If (($global:workshop = Read-Host -P(Write-Host "Enter Server WORKSHOP, Press Enter to Accept  [$workshop]: "-F CY -N )) -eq '') { $global:workshop = "$defaultworkshop" }Else { $workshop }
         }
         If ($sv_pure) {
             $defaultsv_pure = "$sv_pure"
