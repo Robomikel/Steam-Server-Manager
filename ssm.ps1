@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm')]    
     $command,
     $serverfiles)
 If ($serverfiles) {    
@@ -105,7 +105,7 @@ $mcrcondirectory = "$currentdir\mcrcon"
 $mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 
 # Forge
-$forgeversion = "1.16.3-34.1.25"
+$forgeversion = "1.16.4-35.1.4"
 
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
