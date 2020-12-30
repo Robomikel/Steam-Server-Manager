@@ -8,9 +8,12 @@
 #
 Function Get-Modinstall {
     Write-log "Function: Get-Modinstall"
-    $sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 740, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
+    $sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
     If ($sourcemetainstall -contains $appid) {
         Get-SourceMetaModQ
+    }
+    ElseIF ($appid -eq 740) {
+        Show-CSGOModMenu
     }
     ElseIF ($appid -eq 258550) {
         Get-OxideQ
@@ -21,5 +24,27 @@ Function Get-Modinstall {
     Else {
         Get-Infomessage "No Mods Available " 'warning'
         Write-log "No Mods Available"
+    }
+}
+
+Function Show-CSGOModMenu {
+
+    Write-log "Function: Show-CSGOModMenu"
+    Write-Host ".:.:.:.:.:.:.:. CSGO Mod Menu .:.:.:.:.:.:.:.
+    Choose Option: " -F Cyan
+    $command = Menu @('SourceMod/metmod','Get5','csgo-pug-setup','Steamworks')
+    clear-Host
+    Set-Console  >$null 2>&1
+    If ($command -eq 'SourceMod/metmod') {
+        Get-SourceMetaModQ
+    } 
+    ElseIf($command -eq 'Get5'){
+        Get-CSGOGet5
+    }
+    ElseIf($command -eq 'csgo-pug-setup'){
+        Get-CSGOcsgopugsetup
+    }
+    ElseIf($command -eq 'Steamworks'){
+        Get-CSGOsteamworks
     }
 }
