@@ -49,33 +49,37 @@ $oxiderustlatestlink = "https://umod.org/games/rust/download"
 $oxideoutput = "$currentdir\oxide.zip"
 $oxidedirectory = "$currentdir\oxide"
 
-# Metamod
-$metamodmversion = "1.10"
-$metamodoutput = "$currentdir\metamod.zip"
-$metamoddirectory = "$currentdir\metamod"
-
 # Sourcemod
-$sourcemodmversion = "1.10"
+# $sourcemodmversion = "1.10"
 $sourcemodoutput = "$currentdir\sourcemod.zip"
 $sourcemoddirectory = "$currentdir\sourcemod"
+
+# Metamod
+# $metamodmversion = "1.11"
+$metamodoutput = "$currentdir\metamod.zip"
+$metamoddirectory = "$currentdir\metamod"
 
 # CSGO Get5
 # github release
 # $csgoget5url = "https://github.com/splewis/get5/releases/download/0.7.1/get5_0.7.1.zip"
 # Latest Dev release
-$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/get5-514.zip"
-$csgoget5zip = "get5.zip"
-$csgoget5folder = "$currentdir\get5"
+#$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/get5-514.zip"
+#$csgoget5zip = "get5.zip"
+# $csgoget5folder = "$currentdir\get5"
+$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/"
 
 # CSGO Pug-setup
-$csgopugsetupurl = "https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip"
-$csgopugsetupzip = "pugsetup_2.0.5.zip"
-$csgopugsetupfolder = "$currentdir\pugsetup_2.0.5"
+$Pugsetupowner = 'splewis'
+$Pugsetuprepo = 'csgo-pug-setup'
+#$csgopugsetupurl = "https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip"
+#$csgopugsetupzip = "pugsetup_2.0.5.zip"
+# $csgopugsetupfolder = "$currentdir\pugsetup_2.0.5"
 
 # SteamWorks
-$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git132-windows.zip"
-$steamworkszip = "SteamWorks-git132-windows.zip"
-$steamworksfolder = "$currentdir\SteamWorks-git132-windows"
+#$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git132-windows.zip"
+#$steamworkszip = "SteamWorks-git132-windows.zip"
+#$steamworksfolder = "$currentdir\SteamWorks-git132-windows"
+$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/"
 
 # 7-Zip Portable
 $sevenzipurl = "https://www.7-zip.org/a/7za920.zip"

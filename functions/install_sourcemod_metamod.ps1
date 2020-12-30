@@ -75,8 +75,16 @@ Function Get-SourceMetaMod {
 }
 Function Get-CSGOGet5 {
     Write-log "Function: Get-CSGOGet5"
-    If ($csgoget5url -and $csgoget5zip -and $csgoget5folder -and $systemdir) {
-        iwr $csgoget5url -O $csgoget5zip
+    If ( $csgoget5url -and $systemdir) {
+     # This might work...
+        $get5latesturl = iwr $csgoget5url
+        $get5latestzip = $( $get5latesturl.Links.href | ? { $_ -match "get5-" } | select-string -NotMatch / )
+        $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
+
+     
+        #   iwr $csgoget5url -O $csgoget5zip
+        iwr $get5latestdl -O $get5latestzip
+        $csgoget5folder = $get5latestzip.Replace('.zip','')
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'CSGOGet5'
@@ -85,7 +93,8 @@ Function Get-CSGOGet5 {
     ElseIf ($?) {
         Get-Infomessage "Downloaded" 'CSGOGet5'
     }
-    Expand-Archive $csgoget5zip $csgoget5folder
+    # Expand-Archive $csgoget5zip $csgoget5folder
+    Expand-Archive $get5latestzip $csgoget5folder
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'CSGOGet5'
         New-TryagainNew 
@@ -105,7 +114,12 @@ Function Get-CSGOGet5 {
 Function Get-CSGOcsgopugsetup {
     Write-log "Function: Get-CSGOcsgopugsetup"
     If ($csgopugsetupurl -and $csgopugsetupzip -and $csgopugsetupfolder -and $systemdir) {
-        iwr $csgopugsetupurl -O $csgopugsetupzip
+        # iwr $csgopugsetupurl -O $csgopugsetupzip
+        if ($Pugsetupowner -and $Pugsetuprepo ) {
+            Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
+            $csgopugsetupzip = $githubrepozipname
+            $csgopugsetupfolder = $csgopugsetupzip.Replace('.zip','')
+        }
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'CSGOcsgopugsetup'
@@ -132,8 +146,11 @@ Function Get-CSGOcsgopugsetup {
 }
 Function Get-CSGOsteamworks {
     Write-log "Function: Get-CSGOsteamworks"
-    If ($steamworksurl -and $steamworkszip -and $csgopugsetupfolder -and $systemdir) {
+    If ($steamworksurl -and $systemdir) {
+        $steamworkslatest = iwr $steamworksurl
+        $steamworkslatestzip = $( $steamworkslatest.Links.href | select-string -SimpleMatch windows.zip | select -First 1 ) 
         iwr $steamworksurl -O $steamworkszip
+        $steamworksfolder = $steamworkszip.Replace('.zip','')
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'SteamWorks'

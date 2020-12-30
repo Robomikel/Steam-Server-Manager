@@ -97,5 +97,9 @@ Function Set-SteamerSetting {
     $global:ThumbnailURL            = "https://i.imgur.com/B8SWNyO.png?1"
     #                               Discord Avatar URL
     $global:AvatarUrl               = "https://i.imgur.com/B8SWNyO.png?1"
+    #                               SourceMod Version
+    $global:smversion               = 'stable' # stable / dev
+    #                               MetaMod Version
+    $global:mmversion               = 'stable' # stable / master 
     # Set-SteamerSettingLog
 }

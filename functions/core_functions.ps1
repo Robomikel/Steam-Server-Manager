@@ -352,11 +352,18 @@ Function Get-MCWebrequest {
 }
 Function Get-SourceMetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
+    $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
+    $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    $metamodmversion = $($metamodlatestlist -split '/')[4]
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
     $global:metamodurl = "${metamoddownloadurl}"
+    
+    $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
+    $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
@@ -604,6 +611,10 @@ Function Set-Customsettings {
     `$global:discordwebhook          = `"$discordwebhook`"
     #                               Discord Display IP and Steam API IP.
     `$global:discorddisplayip        = `"$discorddisplayip`"
+    #                               SourceMod Version
+    `$global:smversion               = `"$smversion`" # stable / dev
+    #                               MetaMod Version
+    `$global:mmversion               = `"$mmversion`" # stable / master 
     Set-SteamerSettingLog
 }"
 }
@@ -1213,3 +1224,19 @@ Function Get-ExtIP {
 }
 
 
+Function Get-GithubRestAPI {
+    param ($owner, $repo) 
+    # Repo info
+    #$owner = 'splewis'
+    #$repo = 'csgo-pug-setup'
+    # GET request
+    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json'}
+    # read content and convert from json
+    $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
+    # list all the broswer download links (zip) already places newest on top, lets grab it.
+    $githubrepoziplink = $githubrepoJSON.assets.browser_download_url[0]
+    # lets grab the name of zip file newest on top, lets grab it.
+    $global:githubrepozipname = $githubrepoJSON.assets.name[0]
+    # that should be everything to do the download. 
+    iwr $githubrepoziplink -O $githubrepozipname
+} 
