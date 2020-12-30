@@ -13,14 +13,15 @@ Function New-BackupServer {
             Get-StopServer 
         }
         if ($(Test-Path $sevenzipprogramexecutable)) {
-            & $sevenzipprogramexecutable a -bsp2 $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > $logdir\backup_$logDate.log
+            & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > $logdir\backup_$serverfiles-$Date.log
         }
         ELse {
             If ($Showbackupconsole -eq "on") { 
+                $backuplogopen = 'off'
+                Write-log "Disabled: open backup log. show backup console on"
                 Get-Infomessage "backupstart" 'start'
                 Set-Location $sevenzipdirectory
-                write-log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log`") -Wait"
-                Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log") -Wait
+                Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\*") -Wait
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
@@ -30,31 +31,36 @@ Function New-BackupServer {
                 Set-Location $sevenzipdirectory
                 #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $currentdir\$serverfiles\* -an > backup.log
                 Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
-                write-log "./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log"
-                ./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$logDate.log
+                write-log "./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > backup_$serverfiles-$Date.log"
+                ./7za a $backupdir\Backup_$serverfiles-$Date.zip $currentdir\$serverfiles\* > $logdir\backup_$serverfiles-$Date.log
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
             }
         }
         Get-Infomessage "backupdone" 
+       New-ServerBackupLog
+        If ($backuplogopen -eq "on") {
+            if ($(Test-Path $sevenzipprogramexecutable)) {
+                set-location $logdir
+                $lastlog = (gci | sort LastWriteTime -Descending | select -First 1).Name
+                Invoke-Item $lastlog
+                If (!$?) {
+                    Write-Warning "Failed: Backup Log open"
+                } 
+            }
+            ELse {
+                set-location $logdir
+                $lastlog = (gci | sort LastWriteTime -Descending | select -First 1).Name
+                Invoke-Item $lastlog
+                If (!$?) {
+                    Write-Warning "Failed: Backup Log open"
+                } 
+            }
+        }
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             Get-Infomessage "savecheck" 
- 
-        }
-        New-ServerBackupLog
-        If ($backuplogopen -eq "on") {
-            if ($(Test-Path $sevenzipprogramexecutable)) {
-                .$logdir\backup_*.log >$null 2>&1
-            }
-            ELse {
-                Set-Location $sevenzipdirectory 
-                .\backup_*.log >$null 2>&1
-                If (!$?) {
-                   Write-Warning "Failed: Backup Log open"
-                } 
-            }
         }
         Limit-Backups
         New-DiscordAlert "Backup"
@@ -62,19 +68,20 @@ Function New-BackupServer {
     }
     ElseIf (!$sevenzipdirectory -or !$serverfiles -or !$backupdir) {
         Get-warnmessage "backupfailed"
-        
     }
 }
 Function New-backupAppdata {
     Write-log "Function: New-backupAppdata"
     if ($(Test-Path $sevenzipprogramexecutable)) {
-        & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$logDate.log
+        & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
     }
     Else {   
         If ($Showbackupconsole -eq "on") {
+            $appdatabackuplogopen = 'off'
+            Write-log "Disabled: open appdata backup log. show backup console on"
             Get-Infomessage "appdatabackupstart" 'start'
             Set-Location $sevenzipdirectory
-            Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log") -Wait
+            Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\*") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -82,20 +89,27 @@ Function New-backupAppdata {
         ElseIf ($Showbackupconsole -eq "Off") {
             Get-Infomessage "appdatabackupstart" 'start'
             Set-Location $sevenzipdirectory
-            ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > AppDatabackup_$logDate.log
+            ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
         }   
     }
     Get-Infomessage "appdatabackupdone" 
+    New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
-        .$logdir\AppDatabackup_*.log >$null 2>&1
+        set-location $logdir
+        $lastlog = (gci | sort LastWriteTime | select -First 1).Name
+        Invoke-Item $lastlog
+        If (!$?) {
+            Write-Warning "Failed: AppData Backup Log open"
+        }  
     }
     Else {  
         If ($appdatabackuplogopen -eq "on") {
-            Set-Location $sevenzipdirectory 
-            .\AppDatabackup_*.log >$null 2>&1
+            set-location $logdir
+            $lastlog = (gci | sort LastWriteTime | select -First 1).Name
+            Invoke-Item $lastlog
             If (!$?) {
                 Write-Warning "Failed: AppData Backup Log open"
             }  
@@ -114,7 +128,6 @@ Function Limit-Backups {
         }
         Else {
             Get-Infomessage "purgebackup" 
-
         }
         Set-Location $currentdir
     }
@@ -222,7 +235,6 @@ Function Get-AppdataBackupMenu {
 '@
     $selection = Menu (iex "$restoreex")
     $global:restore = ($selection).Split()[0]
-
     #    $selection = Read-Host "Please make a selection"
     ##    switch ($selection) {
     #       '1' { $global:restore = $option1 } 

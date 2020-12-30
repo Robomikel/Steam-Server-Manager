@@ -297,8 +297,13 @@ Function Send-Paste_OLD {
 }
 Function New-ServerBackupLog {
     Write-log "Function: New-ServerBackupLog"
-    If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
+    #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+}
+Function New-ServerAppDataBackupLog {
+    Write-log "Function: New-ServerAppDataBackupLog"
+    #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[A]*.log", -Destination "$logdir\AppDatabackup_$serverfiles-$date.log" -ea SilentlyContinue }
+    Get-Childitem $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function Get-Appid {
     Write-log "Function: Get-Appid"
