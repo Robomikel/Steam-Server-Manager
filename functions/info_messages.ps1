@@ -244,7 +244,9 @@ Function Get-WarnMessage {
         Write-Warning "$message"
         Add-Content $ssmlog "[$loggingdate] Warning: $message"
         Set-Location $currentdir
-        Exit
+        if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
+            Exit
+        }
     }
 }
 Function Get-adminMessage {
