@@ -80,11 +80,10 @@ Function Get-CSGOGet5 {
         $get5latesturl = iwr $csgoget5url
         $get5latestzip = $( $get5latesturl.Links.href | ? { $_ -match "get5-" } | select-string -NotMatch / )
         $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
-
      
         #   iwr $csgoget5url -O $csgoget5zip
         iwr $get5latestdl -O $get5latestzip
-        $csgoget5folder = $get5latestzip.Replace('.zip','')
+       
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'CSGOGet5'
@@ -93,8 +92,10 @@ Function Get-CSGOGet5 {
     ElseIf ($?) {
         Get-Infomessage "Downloaded" 'CSGOGet5'
     }
+    $csgoget5folder = "$($get5latestzip.Replace('.zip',''))"
+    $csgoget5folder = "$currentdir\$csgoget5folder"
     # Expand-Archive $csgoget5zip $csgoget5folder
-    Expand-Archive $get5latestzip $csgoget5folder
+    Expand-Archive $get5latestzip $csgoget5folder -Force
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'CSGOGet5'
         New-TryagainNew 
@@ -113,12 +114,10 @@ Function Get-CSGOGet5 {
 
 Function Get-CSGOcsgopugsetup {
     Write-log "Function: Get-CSGOcsgopugsetup"
-    If ($csgopugsetupurl -and $csgopugsetupzip -and $csgopugsetupfolder -and $systemdir) {
+    If ( $systemdir) {
         # iwr $csgopugsetupurl -O $csgopugsetupzip
         if ($Pugsetupowner -and $Pugsetuprepo ) {
             Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
-            $csgopugsetupzip = $githubrepozipname
-            $csgopugsetupfolder = $csgopugsetupzip.Replace('.zip','')
         }
     }
     If (!$?) { 
@@ -128,7 +127,10 @@ Function Get-CSGOcsgopugsetup {
     ElseIf ($?) {
         Get-Infomessage "Downloaded" 'CSGOcsgopugsetup'
     }
-    Expand-Archive $csgopugsetupzip $csgopugsetupfolder
+    $csgopugsetupzip = $githubrepozipname
+    $csgopugsetupfolder = $csgopugsetupzip.Replace('.zip','')
+    $csgopugsetupfolder = "$currentdir\$csgopugsetupfolder"
+    Expand-Archive $csgopugsetupzip $csgopugsetupfolder -Force
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'CSGOcsgopugsetup'
         New-TryagainNew 
@@ -149,8 +151,7 @@ Function Get-CSGOsteamworks {
     If ($steamworksurl -and $systemdir) {
         $steamworkslatest = iwr $steamworksurl
         $steamworkslatestzip = $( $steamworkslatest.Links.href | select-string -SimpleMatch windows.zip | select -First 1 ) 
-        iwr $steamworksurl -O $steamworkszip
-        $steamworksfolder = $steamworkszip.Replace('.zip','')
+        iwr $steamworksurl$steamworkslatestzip -O $steamworkslatestzip
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'SteamWorks'
@@ -159,7 +160,10 @@ Function Get-CSGOsteamworks {
     ElseIf ($?) {
         Get-Infomessage "Downloaded" 'SteamWorks'
     }
-    Expand-Archive $steamworkszip $steamworksfolder
+    # $steamworksfolder = $steamworkslatestzip.Replace('.zip','')
+    $steamworksfolder = $steamworkslatestzip -Replace '.zip',''
+    $steamworksfolder = "$currentdir\$steamworksfolder"
+    Expand-Archive $steamworkslatestzip $steamworksfolder -Force
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'SteamWorks'
         New-TryagainNew 
