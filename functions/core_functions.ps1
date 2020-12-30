@@ -1226,6 +1226,7 @@ Function Get-ExtIP {
 
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
+    Write-log "Function Get-GithubRestAPI"
     # Repo info
     #$owner = 'splewis'
     #$repo = 'csgo-pug-setup'
