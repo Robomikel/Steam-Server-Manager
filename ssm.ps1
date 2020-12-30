@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm')]    
     $command,
     $serverfiles)
 If ($serverfiles) {    
@@ -60,9 +60,12 @@ $sourcemodoutput = "$currentdir\sourcemod.zip"
 $sourcemoddirectory = "$currentdir\sourcemod"
 
 # CSGO Get5
-$csgoget5url = "https://github.com/splewis/get5/releases/download/0.7.1/get5_0.7.1.zip"
-$csgoget5zip = "get5_0.7.1.zip"
-$csgoget5folder = "$currentdir\get5_0.7.1"
+# github release
+# $csgoget5url = "https://github.com/splewis/get5/releases/download/0.7.1/get5_0.7.1.zip"
+# Latest Dev release
+$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/get5-514.zip"
+$csgoget5zip = "get5.zip"
+$csgoget5folder = "$currentdir\get5"
 
 # CSGO Pug-setup
 $csgopugsetupurl = "https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip"
@@ -102,7 +105,7 @@ $mcrcondirectory = "$currentdir\mcrcon"
 $mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 
 # Forge
-$forgeversion = "1.16.3-34.1.25"
+$forgeversion = "1.16.4-35.1.4"
 
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
