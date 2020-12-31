@@ -72,11 +72,3 @@ Function Get-UpdateMods {
         Get-InstallForge
     }
 }
-
-Function Import-installedMods {
-    If ($("$currentdir\$serverfiles\mods.json") -eq $true) {
-        Get-UpdateMods
-    }Else{
-        Get-WarnMessage "Failed: No $serverfiles\mod.json found"
-    }
-}

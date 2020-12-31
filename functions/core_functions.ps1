@@ -1245,68 +1245,56 @@ Function Get-GithubRestAPI {
     # that should be everything to do the download. 
     iwr $githubrepoziplink -O $githubrepozipname
 } 
-
 Function Add-Modtolist {
     param($modname, $modfile)
     Write-log "Function: Add-Modtolist"
     if (!$installedmods) {
-        Write-log "`$installedmods = @()"
-        $global:installedmods = @()
+        Write-log "Create Mods object"
+        $script:installedmods = @()
     }
-    
-    $global:installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile"  }
-    Write-log "`$installedmods $installedmods"
-    # $mymods | ConvertTo-Json | Set-Content -Path mods.json -Force
-    # $myObject = Get-Content -Path mods.json | ConvertFrom-Json
-
-    #  $mymods += new-object psobject -property @{File = "metamod-windows.zip"; Name = "metamod" }
+    $script:installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
+    Write-log "Add Object $modname = $modfile"
 }
 Function Get-installedMods {    
     Write-log "Function: Get-installedMods"
     If (Test-Path "$currentdir\$serverfiles\mods.json") {
         $script:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
     }
-    Else{
+    Else {
         Write-log "No csgoserver\mod.json found"
     }
 }
-
 Function New-modlist {
     Write-Log "Function: New-modlist"
     If ($installedmods) {
-        write-log " $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force"
         #$null = $installedmods.Add($mod);
-       # $null = $installedmods.Add($mod);
+        #$null = $installedmods.Add($mod);
         If ($installedmods.Mods) {
             $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
-
-        }Else{
-       
-        $mods = @{ Mods = $installedmods};
-        $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
-        #$installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "Edit $($installedmods.Mods) mods.json"
+        }
+        Else {
+            $mods = @{ Mods = $installedmods };
+            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "New $mods mods.json"
         }
     }
 }
-
 Function Edit-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Edit-Modlist"
-    Write-log "Param($modname, $modfile)"
-    Write-log "Test-Path $currentdir\$serverfiles\mods.json"
     If (Test-Path $currentdir\$serverfiles\mods.json) {
         If ($installedmods) {
-            write-log "Function: Edit-Modlist"
             If ($($installedmods.Mods) -like "*$modname*") {
                 # $edit = $installedmods | ? { $_.Name -like "*$modname*" }
                 # $edit = $installedmods | Select-Object -Property $modname
                 $($installedmods.Mods).$modname = "$modfile"
+                write-log "Edit-Member $($installedmods.Mods).$modname"
             }
             Else {
-               # $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname"}
+                # $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname"}
                 Add-Member NoteProperty -InputObject $($installedmods.Mods) -Name $modname -Value $modfile
                 write-log "Add-Member $($installedmods.Mods)"
-            
             }
         }
     }
