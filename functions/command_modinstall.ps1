@@ -30,6 +30,7 @@ Function Get-Modinstall {
 
 Function Show-CSGOModMenu {
     Write-log "Function: Show-CSGOModMenu"
+    Get-installedMods
     Write-Host ".:.:.:.:.:.:.:. CSGO Mod Menu .:.:.:.:.:.:.:.
     Choose Option: " -F Cyan
     $command = Menu @('SourceMod/metmod', 'Get5', 'csgo-pug-setup', 'Steamworks')

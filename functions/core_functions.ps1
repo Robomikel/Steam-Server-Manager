@@ -355,9 +355,9 @@ Function Get-SourceMetaModWebrequest {
     $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
     $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
-    $metamodmversionzip = $($metamodlatestlist -split '/')[5]
-    $metamodlatestlisturl  = $metamodlatestlist[0]
-    $metamodmversionfolder = $metamodmversionzip.Replace('.zip','')
+    $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
+    $global:metamodlatestlisturl  = $metamodlatestlist[0]
+    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip','')
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
@@ -367,9 +367,9 @@ Function Get-SourceMetaModWebrequest {
     $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
     $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
-    $sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
-    $sourcemodlatestlisturl = $sourcemodlatestlist[0]
-    $sourcemodmversionfolder  = $sourcemodmversionzip.Replace('.zip','') 
+    $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
+    $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
+    $global:sourcemodmversionfolder  = $sourcemodmversionzip.Replace('.zip','') 
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
@@ -1250,9 +1250,12 @@ Function Add-Modtolist {
     param($modname, $modfile)
     Write-log "Function: Add-Modtolist"
     if (!$installedmods) {
-        $installedmods = @()
+        Write-log "`$installedmods = @()"
+        $global:installedmods = @()
     }
-    $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname" }
+    
+    $global:installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile"  }
+    Write-log "`$installedmods $installedmods"
     # $mymods | ConvertTo-Json | Set-Content -Path mods.json -Force
     # $myObject = Get-Content -Path mods.json | ConvertFrom-Json
 
@@ -1261,13 +1264,14 @@ Function Add-Modtolist {
 Function Get-installedMods {    
     Write-log "Function: Get-installedMods"
     If ($("$currentdir\$serverfiles\mods.json")) {
-        $installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
+        $global:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
     }
 }
 
 Function New-modlist {
     Write-Log "Function: New-modlist"
     If ($installedmods) {
+        write-log " $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force"
     $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
     }
 }
@@ -1275,14 +1279,21 @@ Function New-modlist {
 Function Edit-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Edit-Modlist"
+    Write-log "Param($modname, $modfile)"
     If (Test-Path $currentdir\$serverfiles\mods.json) {
         If ($installedmods) {
-            If ($installedmods.Name -eq "$modname") {
-                $edit = $installedmods | ? { $_.Name -like "$modname" }
-                $edit.File = "$modfile"
+            write-log "Function: Edit-Modlist"
+            If ($installedmods -like "*$modname*") {
+                # $edit = $installedmods | ? { $_.Name -like "*$modname*" }
+                # $edit = $installedmods | Select-Object -Property $modname
+                $installedmods.$modname = "$modfile"
             }
             Else {
-                $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname" }
+
+               # $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname"}
+                Add-Member NoteProperty -InputObject $installedmods -Name $modname -Value $modfile
+                write-log "`$installedmods $installedmods"
+            
             }
         }
     }

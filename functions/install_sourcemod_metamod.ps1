@@ -9,12 +9,14 @@
 Function Get-SourceMetaMod {
     Write-log "Function: Get-SourceMetaMod"
     Get-SourceMetaModWebrequest
-    If ($metamodlatestlisturl -and $metamodmversionzip -and $sourcemodoutput -and $sourcemoddirectory) {
+    If ($metamodlatestlisturl -and $metamodmversionzip) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'MetaMod'
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $metamodlatestlisturl -OutFile $metamodmversionzip
+        write-log "Invoke-WebRequest -Uri $metamodlatestlisturl -OutFile $metamodmversionzip"
+       # Invoke-WebRequest $metamodlatestlisturl -O $metamodmversionzip
+        Start-Process -Wait -FilePath powershell -ArgumentList "Invoke-WebRequest $metamodlatestlisturl -O $metamodmversionzip" -nnw
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'MetaMod'
         }
@@ -46,7 +48,8 @@ Function Get-SourceMetaMod {
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         If ($sourcemodlatestlisturl -and $sourcemodmversionzip){
-        Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $sourcemodmversionzip
+        # Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $sourcemodmversionzip
+        Start-Process -Wait -FilePath powershell -ArgumentList "Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $sourcemodmversionzip" -nnw
         }
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'SourceMod'
@@ -83,7 +86,7 @@ Function Get-CSGOGet5 {
     If ( $csgoget5url -and $systemdir) {
      # This might work...
         $get5latesturl = iwr $csgoget5url
-        $get5latestzip = $( $get5latesturl.Links.href | ? { $_ -match "get5-" } | select-string -NotMatch / )
+        $get5latestzip = $(($get5latesturl.Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
         $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
      
         #   iwr $csgoget5url -O $csgoget5zip
