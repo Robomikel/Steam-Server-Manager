@@ -14,6 +14,7 @@ Function Get-MetaMod {
             Compare-Modlist 'MetaMod' $metamodmversionzip
         }
         If ($nomodupdate -eq $true) {
+            Get-Infomessage "No MetaMod updates" 'info'
             return
         }
         Else {
@@ -59,6 +60,7 @@ Function Get-SourceMod {
         Compare-Modlist 'Sourcemod' $sourcemodmversionzip
     }
     If ($nomodupdate -eq $true) {
+        Get-Infomessage "No Sourcemod updates" 'info'
         return
     }
     Else {
@@ -111,6 +113,8 @@ Function Get-CSGOGet5 {
             Compare-Modlist 'CSGO-Get5' $get5latestzip
         }
         If ($nomodupdate -eq $true) {
+            Write-log "($nomodupdate -eq $true)"
+            Get-Infomessage "No CSGO-Get5 updates" 'info'
             return
         }
         Else {
@@ -159,6 +163,7 @@ Function Get-CSGOcsgopugsetup {
         Compare-Modlist 'CSGO-pugsetup' $csgopugsetupzip
     }
     If ($nomodupdate -eq $true) {
+        Get-Infomessage "No CSGO-pugsetup updates" 'info'
         return
     }
     Else {
@@ -199,6 +204,7 @@ Function Get-CSGOsteamworks {
             Compare-Modlist 'SteamWorks' $steamworkslatestzip
         }
         If ($nomodupdate -eq $true) {
+            Get-Infomessage "No SteamWorks updates" 'info'
             return
         }
         Else {
