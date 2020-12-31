@@ -47,7 +47,7 @@ Function Select-Steamer {
         'discord' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; New-DiscordAlert; Test-VariablesNull; Get-ClearVariables; Break }
         'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Test-VariablesNull; Get-ClearVariables; Break }
         'install-VcRedist' { Install-VisualCPlusPlus; Get-ClearVariables; Break }
-        'update-mods' { Get-UpdateMods; Get-ClearVariables; Break }
+        'update-mods' { Read-Param;Get-FolderNames;Get-createdvaribles;Get-UpdateMods; Get-ClearVariables; Break }
         'stats' { Measure-stats; Break }
         'menu' { Get-SSMMenu}
         'exit' { exit; Break }

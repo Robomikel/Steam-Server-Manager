@@ -74,7 +74,9 @@ Function Get-UpdateMods {
 }
 
 Function Import-installedMods {
-    If ($("$currentdir\$serverfiles\mods.json")) {
+    If ($("$currentdir\$serverfiles\mods.json") -eq $true) {
         Get-UpdateMods
+    }Else{
+        Get-WarnMessage "Failed: No $serverfiles\mod.json found"
     }
 }
