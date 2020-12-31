@@ -37,7 +37,9 @@ Function Show-CSGOModMenu {
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -eq 'SourceMod/metmod') {
-        Get-SourceMetaMod
+        # Get-SourceMetaMod
+        Get-MetaMod
+        Get-SourceMod
     } 
     ElseIf ($command -eq 'Get5') {
         Get-CSGOGet5
@@ -54,7 +56,10 @@ Function Get-UpdateMods {
     Write-log "Function: Get-UpdateMods"
     Get-installedMods
     If ($($installedmods.Mods) -like "*MetaMod*" -or $installedmods -like "*SourceMod*") {
-        Get-SourceMetaMod
+        #Get-SourceMetaMod
+        Get-MetaMod
+        Get-SourceMod
+
     } 
     If ($($installedmods.Mods) -like "*CSGO-Get5*") {
         Get-CSGOGet5
