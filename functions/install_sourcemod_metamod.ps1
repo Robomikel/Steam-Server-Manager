@@ -160,7 +160,7 @@ Function Get-CSGOcsgopugsetup {
         }
     }
     If ($command -eq 'update-mods') {
-        Compare-Modlist 'CSGO-pugsetup' $csgopugsetupzip
+        Compare-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
     If ($nomodupdate -eq $true) {
         Get-Infomessage "No CSGO-pugsetup updates" 'info'
