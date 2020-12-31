@@ -12,39 +12,68 @@ Function Get-Modinstall {
     If ($sourcemetainstall -contains $appid) {
         Get-SourceMetaModQ
     }
-    ElseIF ($appid -eq 740) {
+    ElseIf ($appid -eq 740) {
         Show-CSGOModMenu
     }
-    ElseIF ($appid -eq 258550) {
+    ElseIf ($appid -eq 258550) {
         Get-OxideQ
     }
-    ElseIF ($appid -eq 11500000) {
+    ElseIf ($appid -eq 11500000) {
         Get-InstallForgeQ
     }
     Else {
         Get-Infomessage "No Mods Available " 'warning'
         Write-log "No Mods Available"
     }
+
 }
 
 Function Show-CSGOModMenu {
-
     Write-log "Function: Show-CSGOModMenu"
     Write-Host ".:.:.:.:.:.:.:. CSGO Mod Menu .:.:.:.:.:.:.:.
     Choose Option: " -F Cyan
-    $command = Menu @('SourceMod/metmod','Get5','csgo-pug-setup','Steamworks')
+    $command = Menu @('SourceMod/metmod', 'Get5', 'csgo-pug-setup', 'Steamworks')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -eq 'SourceMod/metmod') {
         Get-SourceMetaMod
     } 
-    ElseIf($command -eq 'Get5'){
+    ElseIf ($command -eq 'Get5') {
         Get-CSGOGet5
     }
-    ElseIf($command -eq 'csgo-pug-setup'){
+    ElseIf ($command -eq 'csgo-pug-setup') {
         Get-CSGOcsgopugsetup
     }
-    ElseIf($command -eq 'Steamworks'){
+    ElseIf ($command -eq 'Steamworks') {
         Get-CSGOsteamworks
+    }
+}
+
+Function Get-UpdateMods {
+    Write-log "Function: Get-UpdateMods"
+    Get-installedMods
+    If ($installedmods.Name -eq "MetaMod" -or $installedmods.Name -eq "SourceMod") {
+        Get-SourceMetaMod
+    } 
+    ElseIf ($installedmods.Name -eq "CSGO-Get5") {
+        Get-CSGOGet5
+    }
+    ElseIf ($installedmods.Name -eq "CSGO-pugsetup") {
+        Get-CSGOcsgopugsetup
+    }
+    ElseIf ($installedmods.Name -eq "SteamWorks") {
+        Get-CSGOsteamworks
+    }
+    ElseIf ($installedmods.Name -eq "Oxide") {
+        Get-Oxide
+    }
+    ElseIf ($installedmods.Name -eq "Minecraft Forge") {
+        Get-InstallForge
+    }
+}
+
+Function Import-installedMods {
+    If ($("$currentdir\$serverfiles\mods.json")) {
+        Get-UpdateMods
     }
 }

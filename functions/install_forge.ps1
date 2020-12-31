@@ -32,5 +32,6 @@ Function Get-InstallForge {
         Rename-Item server.jar server.jar.bak
         Rename-Item forge-$forgeversion.jar server.jar
         Set-Location $currentdir
+        Edit-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
     }
 }

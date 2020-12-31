@@ -37,5 +37,6 @@ Function Get-Oxide {
             Write-log "Copying Oxide Failed"
             New-TryagainNew
         }
+        Edit-Modlist 'Oxide' $oxideoutput
     }
 }

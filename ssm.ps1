@@ -51,13 +51,12 @@ $oxidedirectory = "$currentdir\oxide"
 
 # Sourcemod
 # $sourcemodmversion = "1.10"
-$sourcemodoutput = "$currentdir\sourcemod.zip"
-$sourcemoddirectory = "$currentdir\sourcemod"
-
+# $sourcemodoutput = "$currentdir\sourcemod.zip"
+# $sourcemoddirectory = "$currentdir\sourcemod"
 # Metamod
 # $metamodmversion = "1.11"
-$metamodoutput = "$currentdir\metamod.zip"
-$metamoddirectory = "$currentdir\metamod"
+#$metamodoutput = "$currentdir\metamod.zip"
+#$metamoddirectory = "$currentdir\metamod"
 
 # CSGO Get5
 # github release
