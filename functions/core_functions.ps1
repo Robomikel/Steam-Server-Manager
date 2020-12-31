@@ -1303,3 +1303,17 @@ Function Edit-Modlist {
     }
     New-modlist
 }
+
+Function Compare-Modlist {
+    Param($modname, $modfile)
+    Write-log "Function: Compare-Modlist"
+    Write-log " Param($modname, $modfile)"
+    If (Test-Path $currentdir\$serverfiles\mods.json) {
+        Get-installedMods
+        Write-log "($installedmods.Mods.$modname -eq $modfile)"
+        If ($installedmods.Mods.$modname -eq $modfile) {
+            write-log "No Mod udpate"
+            $script:nomodupdate = $true
+        } 
+    }
+}

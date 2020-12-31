@@ -53,22 +53,22 @@ Function Show-CSGOModMenu {
 Function Get-UpdateMods {
     Write-log "Function: Get-UpdateMods"
     Get-installedMods
-    If ($installedmods -like "*MetaMod*" -or $installedmods -like "*SourceMod*") {
+    If ($($installedmods.Mods) -like "*MetaMod*" -or $installedmods -like "*SourceMod*") {
         Get-SourceMetaMod
     } 
-    If ($installedmods -like "*CSGO-Get5*") {
+    If ($($installedmods.Mods) -like "*CSGO-Get5*") {
         Get-CSGOGet5
     }
-    If ($installedmods -like "*CSGO-pugsetup*") {
+    If ($($installedmods.Mods) -like "*CSGO-pugsetup*") {
         Get-CSGOcsgopugsetup
     }
-    If ($installedmods -like "*SteamWorks*") {
+    If ($($installedmods.Mods) -like "*SteamWorks*") {
         Get-CSGOsteamworks
     }
-    If ($installedmods -like "*Oxide*") {
+    If ($($installedmods.Mods) -like "*Oxide*") {
         Get-Oxide
     }
-    If ($installedmods -like "*Minecraft Forge*") {
+    If ($($installedmods.Mods) -like "*Minecraft Forge*") {
         Get-InstallForge
     }
 }

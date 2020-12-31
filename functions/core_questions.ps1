@@ -125,7 +125,9 @@ Function Get-SourceMetaModQ {
     $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
-        Get-SourceMetaMod
+        #Get-SourceMetaMod
+        Get-SourceMod
+        Get-MetaMod
         Write-Host 'Entered Y'
     } 
     Else {
