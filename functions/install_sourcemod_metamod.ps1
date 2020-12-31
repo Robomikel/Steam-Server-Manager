@@ -162,7 +162,7 @@ Function Get-CSGOsteamworks {
     Write-log "Function: Get-CSGOsteamworks"
     If ($steamworksurl -and $systemdir) {
         $steamworkslatest = iwr $steamworksurl
-        $steamworkslatestzip = $( $steamworkslatest.Links.href | select-string -SimpleMatch windows.zip | select -First 1 ) 
+        $steamworkslatestzip = $( ($steamworkslatest.Links.href | select-string -SimpleMatch windows.zip | select -First 1 ).Line) 
         iwr $steamworksurl$steamworkslatestzip -O $steamworkslatestzip
     }
     If (!$?) { 
