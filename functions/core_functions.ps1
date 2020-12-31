@@ -350,7 +350,7 @@ Function Get-MCWebrequest {
         Exit
     }
 }
-Function Get-SourceMetaModWebrequest {
+Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
     $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
     $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
@@ -363,7 +363,13 @@ Function Get-SourceMetaModWebrequest {
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
     $global:metamodurl = "${metamoddownloadurl}"
-    
+    If (!$metamodurl) {
+        Write-log "Failed: Get-SourceMetaModWebrequest"
+        Exit
+    }
+}
+
+Function Get-Sourcemodwebrequest {
     $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
     $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
@@ -375,7 +381,7 @@ Function Get-SourceMetaModWebrequest {
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
     $global:sourcemodurl = "${sourcemoddownloadurl}"
-    If (!$metamodurl -or !$sourcemodurl) {
+    If ( !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -1310,10 +1316,13 @@ Function Compare-Modlist {
     Write-log " Param($modname, $modfile)"
     If (Test-Path $currentdir\$serverfiles\mods.json) {
         Get-installedMods
-        Write-log "($installedmods.Mods.$modname -eq $modfile)"
+        Write-log "($($installedmods.Mods.$modname) -eq $modfile)"
         If ($installedmods.Mods.$modname -eq $modfile) {
             write-log "No Mod udpate"
             $script:nomodupdate = $true
         } 
+        ELse {
+            $script:nomodupdate = $false
+        }
     }
 }

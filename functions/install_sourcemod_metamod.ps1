@@ -8,7 +8,7 @@
 #
 Function Get-MetaMod {
     Write-log "Function: Get-MetaMod"
-    Get-SourceMetaModWebrequest
+    Get-MetaModWebrequest
     If ($metamodlatestlisturl -and $metamodmversionzip) {
         If ($command -eq 'update-mods') {
             Compare-Modlist 'MetaMod' $metamodmversionzip
@@ -54,6 +54,7 @@ Function Get-MetaMod {
 
 Function Get-SourceMod {
     Write-log "Function: Get-SourceMod"
+    Get-Sourcemodwebrequest
     If ($command -eq 'update-mods') {
         Compare-Modlist 'Sourcemod' $sourcemodmversionzip
     }

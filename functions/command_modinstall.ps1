@@ -33,13 +33,16 @@ Function Show-CSGOModMenu {
     Get-installedMods
     Write-Host ".:.:.:.:.:.:.:. CSGO Mod Menu .:.:.:.:.:.:.:.
     Choose Option: " -F Cyan
-    $command = Menu @('SourceMod/metmod', 'Get5', 'csgo-pug-setup', 'Steamworks')
+    $command = Menu @('SourceMod','Metamod', 'Get5', 'csgo-pug-setup', 'Steamworks')
     clear-Host
     Set-Console  >$null 2>&1
-    If ($command -eq 'SourceMod/metmod') {
+    If ($command -eq 'SourceMod') {
+        # Get-SourceMetaMod
+        Get-SourceMod
+    }
+    ElseIf ($command -eq 'Metamod') {
         # Get-SourceMetaMod
         Get-MetaMod
-        Get-SourceMod
     } 
     ElseIf ($command -eq 'Get5') {
         Get-CSGOGet5
