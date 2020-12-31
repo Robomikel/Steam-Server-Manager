@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm','update-mods')]    
     $command,
     $serverfiles)
 If ($serverfiles) {    
