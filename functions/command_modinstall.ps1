@@ -36,7 +36,7 @@ Function Show-CSGOModMenu {
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -eq 'SourceMod/metmod') {
-        Get-SourceMetaModQ
+        Get-SourceMetaMod
     } 
     ElseIf($command -eq 'Get5'){
         Get-CSGOGet5
