@@ -6,35 +6,31 @@ PowerShell Steam Server Manager
  
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
-Server install in the location of ssm. before install change directory to the location you want the server.   
-
+Server install in the location of ssm. before install change directory to the location you want the server.
 > Windows 10 may require to unblock Downloaded files.in the Directoy Use ```gci -r | Unblock-File``` command   
 
-# Install SSM
+# Install SSM (Pre-Release)
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
-```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/pre-release/stabilizing.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
-```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
-```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
+```Copy-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing\* Steam-Server-Manager\ -Recurse -Force```   
+```Remove-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing -Recurse -Force```   
 ```Set-Location Steam-Server-Manager```   
 
 Configure during install :     
-During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.  
+During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.   
 >change $version "0" in config-local\local_settings before run to prompt for input to change default variables.  
 ```\Steam-Server-Manager\config-local\*_default.ps1```   
 Change any vars like port/s or server name.   
-
 # Console Menu   
 Displays in console menu. Interactive Console Menu for SSM.   
 ```./ssm.ps1 menu```   
-
 ![Menu Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Menu3.gif)   
 # Install Server
 open PowerShell as user NOT Admin   
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
-
 If Optional name is used, will grab APP ID   
 
 Example:          
@@ -131,10 +127,10 @@ Install miscreated server ```./ssm install misserver```
    * Fortress Forever Dedicated Server  (329710) - "ffserver" (optional server folder name)
    * Night of the Dead Dedicated Server  (1420710) - "notdserver" (optional server folder name)
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)
-   * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)   
+   * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)  
    * BadLads Dedicated Server  (1203110) - "blserver" (optional server folder name)  
    * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)  
-   -----   
+   -----
  # Features  
  - Manage Steam server with features
    * SSM Console Menu   
@@ -157,7 +153,7 @@ Install miscreated server ```./ssm install misserver```
    * send discord alerts - backup - monitor - update 
    * Graphical CPU and Memory stats
    * run gamedig on hosted server 
-   * update ssm PS scripts from github   
+   * update ssm PS scripts from github
    
  
    
@@ -205,12 +201,11 @@ Install miscreated server ```./ssm install misserver```
  * MCRcon Download and Install
  * Use used to Rcon to servers.
  
-# Graphical Stats 
+# Graphial Stats 
  ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
 # Discord Alert
  ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)
-# Restore
-![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/RestoreMenu.jpg)
+ 
 - - - -  
  When creating a Schedule task to run Monitor script in background.  
  - If using a user windows account. May need to add user to the "log on as batch job" to run the task in background under that account  
@@ -259,3 +254,9 @@ https://github.com/aaronparker/VcRedist
 https://github.com/PrateekKumarSingh/Graphical
 # PS-Menu
 https://github.com/chrisseroka/ps-menu
+# Get5
+https://github.com/splewis/get5/releases
+# csgo-pug-setup
+https://github.com/splewis/csgo-pug-setup/releases
+# steamworks
+https://github.com/KyleSanderson/SteamWorks
