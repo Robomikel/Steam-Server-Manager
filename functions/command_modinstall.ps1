@@ -13,13 +13,15 @@ Function Get-Modinstall {
         Get-SourceMetaModQ
     }
     ElseIf ($appid -eq 740) {
-        Show-CSGOModMenu
+        Show-ModMenu
     }
     ElseIf ($appid -eq 258550) {
-        Get-OxideQ
+        #Get-OxideQ
+        Show-ModMenu
     }
     ElseIf ($appid -eq 11500000) {
-        Get-InstallForgeQ
+        #Get-InstallForgeQ
+        Show-ModMenu
     }
     Else {
         Get-Infomessage "No Mods Available " 'warning'
@@ -28,12 +30,20 @@ Function Get-Modinstall {
 
 }
 
-Function Show-CSGOModMenu {
-    Write-log "Function: Show-CSGOModMenu"
+Function Show-ModMenu {
+    Write-log "Function: Show-ModMenu"
     Get-installedMods
-    Write-Host ".:.:.:.:.:.:.:. CSGO Mod Menu .:.:.:.:.:.:.:.
+    Write-Host ".:.:.:.:.:.:.:. Mod Menu .:.:.:.:.:.:.:.
     Choose Option: " -F Cyan
-    $command = Menu @('SourceMod','Metamod', 'Get5', 'csgo-pug-setup', 'Steamworks')
+    If ($appid -eq 740) {
+        $command = Menu @('SourceMod','Metamod', 'Get5', 'csgo-pug-setup', 'Steamworks')
+    }
+    ElseIf ($appid -eq 258550){
+        $command = Menu @('Oxide')
+    }
+    ElseIf ($appid -eq 11500000){
+        $command = Menu @('Minecraft Forge')
+    }
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -eq 'SourceMod') {
@@ -52,6 +62,12 @@ Function Show-CSGOModMenu {
     }
     ElseIf ($command -eq 'Steamworks') {
         Get-CSGOsteamworks
+    }
+    ElseIf ($command -eq 'Minecraft Forge') {
+        Get-InstallForge
+    }
+    ElseIf ($command -eq 'Oxide') {
+        Get-Oxide
     }
 }
 
