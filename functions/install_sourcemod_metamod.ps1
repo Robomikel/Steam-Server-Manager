@@ -209,8 +209,6 @@ Function Get-CSGOcsgopugsetup {
     If ( $systemdir) {
         # iwr $csgopugsetupurl -O $githubrepozipname
         if ($Pugsetupowner -and $Pugsetuprepo ) {
-            $start_time = Get-Date
-            Get-Infomessage "Downloading" 'CSGO-pugsetup'
             Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
         }
     }
@@ -222,6 +220,9 @@ Function Get-CSGOcsgopugsetup {
         return
     }
     Else {
+        $start_time = Get-Date
+        Get-Infomessage "Downloading" 'CSGO-pugsetup'
+        iwr $githubrepoziplink -O $githubrepozipname
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
             New-TryagainNew 

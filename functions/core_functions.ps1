@@ -1248,7 +1248,7 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"| select -Index 0).Line
+        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"| select -Index 0).Line
     }
     Else {
         Write-log "Get-GithubRestAPI: No zip download link found"
@@ -1268,11 +1268,11 @@ Function Get-GithubRestAPI {
         Write-log "Get-GithubRestAPI: No zip file found"
         return
     }
-    iwr $githubrepoziplink -O $githubrepozipname
-    If (!$?) {
-        Write-log "Get-GithubRestAPI: Repo WebRequest failed"
-        return
-    }
+    #    iwr $githubrepoziplink -O $githubrepozipname
+    #If (!$?) {
+    #    Write-log "Get-GithubRestAPI: Repo WebRequest failed"
+    #    return
+    #}
 }
 Function Add-Modtolist {
     param($modname, $modfile)
@@ -1324,6 +1324,10 @@ Function Edit-Modlist {
                 # $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname"}
                 Add-Member NoteProperty -InputObject $($installedmods.Mods) -Name $modname -Value $modfile
                 write-log "Add-Member $($installedmods.Mods)"
+                # $mods = [PSCustomObject]@{
+                #    $modname = $modfile
+                #}
+                #$installedmods.Mods += $mods
             }
         }
     }
