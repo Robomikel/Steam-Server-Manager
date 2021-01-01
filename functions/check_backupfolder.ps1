@@ -15,7 +15,7 @@ Function New-BackupFolder {
         ElseIf (!(Test-Path $backupdir)) {  
             Write-log "Creating backup folder "
             $backupfolder = @{
-                Path     = $currentdir
+                Path     = '.'
                 Name     = 'backups'
                 ItemType = 'directory'
             }
