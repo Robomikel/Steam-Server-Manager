@@ -29,10 +29,10 @@ Function New-LocalFolder {
     ##-- 
     $global:configlocal = "config-local"
     If (Test-Path $currentdir\$configlocal ) {
-        Write-log "config-default Folder Already Created!   "
+        Write-log "config-local Folder Already Created!   "
     }
     Else {
-        Write-log "Creating: config-default Folder  "
+        Write-log "Creating: config-local Folder  "
         New-Item  . -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-local Folder  "
