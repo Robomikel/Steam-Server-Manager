@@ -1232,25 +1232,48 @@ Function Get-ExtIP {
     Write-Log "Function: Get-ExtIP "
     ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
 }
-
-
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
     Write-log "Function Get-GithubRestAPI"
-    # Repo info
-    #$owner = 'splewis'
-    #$repo = 'csgo-pug-setup'
-    # GET request
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
-    # read content and convert from json
-    $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
-    # list all the broswer download links (zip) already places newest on top, lets grab it.
-    $githubrepoziplink = $githubrepoJSON.assets.browser_download_url[0]
-    # lets grab the name of zip file newest on top, lets grab it.
-    $global:githubrepozipname = $githubrepoJSON.assets.name[0]
-    # that should be everything to do the download. 
+    If (!$?) {
+        Write-log "Get-GithubRestAPI: Repo Request failed"
+        return
+    }
+    If ($githubrepo) {
+        $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: Repo convert from json failed"
+        return
+    }
+    if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
+        $githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"| select -Index 0).Line
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download link found"
+        return
+    }
+    if ($githubrepoJSON.assets.name) {
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"| select -Index 0).Line
+    } 
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download file found"
+        return
+    }
+    If ($githubrepozipname) {
+        $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip file found"
+        return
+    }
     iwr $githubrepoziplink -O $githubrepozipname
-} 
+    If (!$?) {
+        Write-log "Get-GithubRestAPI: Repo WebRequest failed"
+        return
+    }
+}
 Function Add-Modtolist {
     param($modname, $modfile)
     Write-log "Function: Add-Modtolist"
