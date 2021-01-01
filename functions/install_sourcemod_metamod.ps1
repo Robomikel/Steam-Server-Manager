@@ -141,8 +141,7 @@ Function Get-CSGOGet5 {
     Write-log "Function: Get-CSGOGet5"
     If ( $csgoget5url -and $systemdir) {
         # This might work...
-        $get5latesturl = iwr $csgoget5url
-        $get5latestzip = $(($get5latesturl.Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
+        $get5latestzip = $(($(iwr $csgoget5url).Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
         $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
         If ($command -eq 'update-mods') {
             Compare-Modlist 'CSGO-Get5' $get5latestzip
