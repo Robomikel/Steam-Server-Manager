@@ -8,9 +8,10 @@
 #
 Function Get-Modinstall {
     Write-log "Function: Get-Modinstall"
-    $sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
+    $script:sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
     If ($sourcemetainstall -contains $appid) {
-        Get-SourceMetaModQ
+        #Get-SourceMetaModQ
+        Show-ModMenu
     }
     ElseIf ($appid -eq 740) {
         Show-ModMenu
@@ -43,6 +44,9 @@ Function Show-ModMenu {
     }
     ElseIf ($appid -eq 11500000){
         $command = Menu @('Minecraft Forge')
+    }
+    ElseIf($sourcemetainstall -contains $appid) {
+        $command = Menu @('SourceMod','Metamod')
     }
     clear-Host
     Set-Console  >$null 2>&1
