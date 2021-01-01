@@ -154,7 +154,7 @@ Function Get-CSGOGet5 {
 Function Get-CSGOcsgopugsetup {
     Write-log "Function: Get-CSGOcsgopugsetup"
     If ( $systemdir) {
-        # iwr $csgopugsetupurl -O $csgopugsetupzip
+        # iwr $csgopugsetupurl -O $githubrepozipname
         if ($Pugsetupowner -and $Pugsetuprepo ) {
             Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
         }
@@ -174,10 +174,10 @@ Function Get-CSGOcsgopugsetup {
         ElseIf ($?) {
             Get-Infomessage "Downloaded" 'CSGO-pugsetup'
         }
-        $csgopugsetupzip = $githubrepozipname
-        $csgopugsetupfolder = $csgopugsetupzip.Replace('.zip', '')
+        $csgopugsetupfolder = $githubrepozipname.Replace('.zip', '')
+        
         $csgopugsetupfolder = "$currentdir\$csgopugsetupfolder"
-        Expand-Archive $csgopugsetupzip $csgopugsetupfolder -Force
+        Expand-Archive $githubrepozipname $csgopugsetupfolder -Force
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'CSGO-pugsetup'
             New-TryagainNew 
@@ -192,7 +192,7 @@ Function Get-CSGOcsgopugsetup {
             Write-log "Copying CSGOcsgopugsetup Failed "
             New-TryagainNew 
         }
-        Edit-Modlist 'CSGO-pugsetup' $csgopugsetupzip
+        Edit-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
 }
 Function Get-CSGOsteamworks {
