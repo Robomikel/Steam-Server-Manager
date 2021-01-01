@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm','update-mods')]    
     $command,
     $serverfiles)
 If ($serverfiles) {    
@@ -20,28 +20,19 @@ If ($serverfiles) {
 $currentdir = Get-Location
 $serverdir = "$currentdir\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-# Moved $extip to function to prevent constant lookups. Only grabs when needed. hopefully will increase performance as well.
-#${EXTIP} = If ((((${EXTIP} =  (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1)-or($extip -notmatch $ipv4)){(Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content} Else {$extip[0]}
-# ${EXTIP} = (Invoke-WebRequest -uri "http://ifconfig.me/ip"  -UseBasicParsing -ea SilentlyContinue ).Content
 ${IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $Date = get-date -Format yyyyMMddTHHmmssffff
 $loggingDate = get-date -Format MM-dd-yyyy-hh:mm:ss
 $errorloggingDate = get-date -Format MM-dd-yyyy-hhmm
 $logDate = Get-Date -Format MM-dd-yyyy
 
-
 # Game-Server-configs
 $githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-#
-# Moved to install_nodejs.ps1
-# $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
-# $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
+# NodeJS 12 LTS
 $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-# $nodejsoutput = "$nodeversion"
 $nodejsdirectory = "$currentdir\latest-v12.x"
 $nodejsexecutable = "$nodejsdirectory\node.exe"
-# NodeJS Program
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
 # Oxide
@@ -49,33 +40,24 @@ $oxiderustlatestlink = "https://umod.org/games/rust/download"
 $oxideoutput = "$currentdir\oxide.zip"
 $oxidedirectory = "$currentdir\oxide"
 
-# Metamod
-$metamodmversion = "1.10"
-$metamodoutput = "$currentdir\metamod.zip"
-$metamoddirectory = "$currentdir\metamod"
-
 # Sourcemod
-$sourcemodmversion = "1.10"
-$sourcemodoutput = "$currentdir\sourcemod.zip"
-$sourcemoddirectory = "$currentdir\sourcemod"
+#"https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows"
+
+# Metamod
+#"https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows"
 
 # CSGO Get5
 # github release
 # $csgoget5url = "https://github.com/splewis/get5/releases/download/0.7.1/get5_0.7.1.zip"
 # Latest Dev release
-$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/get5-514.zip"
-$csgoget5zip = "get5.zip"
-$csgoget5folder = "$currentdir\get5"
+$csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/"
 
 # CSGO Pug-setup
-$csgopugsetupurl = "https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip"
-$csgopugsetupzip = "pugsetup_2.0.5.zip"
-$csgopugsetupfolder = "$currentdir\pugsetup_2.0.5"
+$Pugsetupowner = 'splewis'
+$Pugsetuprepo = 'csgo-pug-setup'
 
 # SteamWorks
-$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git132-windows.zip"
-$steamworkszip = "SteamWorks-git132-windows.zip"
-$steamworksfolder = "$currentdir\SteamWorks-git132-windows"
+$steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/"
 
 # 7-Zip Portable
 $sevenzipurl = "https://www.7-zip.org/a/7za920.zip"
@@ -99,10 +81,10 @@ $steamexecutable = "$steamdirectory\steamCMD.exe"
 $steamerurl = "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
 
 # Mcrcon
-$mcrconurl = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-windows-x86-32.zip"
-$mcrconoutput = "mcrcon.zip"
 $mcrcondirectory = "$currentdir\mcrcon"
 $mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
+$mcrconowner = "Tiiffi"
+$mcrconrepo = "mcrcon"
 
 # Forge
 $forgeversion = "1.16.4-35.1.4"

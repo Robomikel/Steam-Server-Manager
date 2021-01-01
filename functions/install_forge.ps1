@@ -20,6 +20,13 @@ Function Get-InstallForge {
     Write-log "Function: Get-InstallForge"
     If ($forgeversion) {
         $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
+        If ($command -eq 'update-mods') {
+            Compare-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
+        }
+        If ($nomodupdate -eq $true) {
+            Get-Infomessage "No Minecraft Forge updates" 'info'
+            return
+        }
         Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
         Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
         If ($?){
@@ -32,5 +39,6 @@ Function Get-InstallForge {
         Rename-Item server.jar server.jar.bak
         Rename-Item forge-$forgeversion.jar server.jar
         Set-Location $currentdir
+        Edit-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
     }
 }

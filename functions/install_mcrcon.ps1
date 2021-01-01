@@ -8,13 +8,14 @@
 #
 Function install-mcrcon {
     Write-log "Function: install-mcrcon"
-    If ($mcrconurl -and $mcrconoutput) {
+    If ($mcrconowner -and $mcrconrepo ) {
         $start_time = Get-Date
         Get-Infomessage "downloading" 'MCRCon'
         Write-log "Downloading MCRCon from github" 
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $mcrconurl -OutFile $mcrconoutput
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        #Invoke-WebRequest -Uri $mcrconurl -OutFile $mcrconoutput
+        Get-GithubRestAPI $mcrconowner $mcrconrepo 
         If (!$?) {
             Write-Warning 'Downloading  MCRCon Failed'
             Write-log "Downloading  MCRCon Failed"
@@ -26,9 +27,9 @@ Function install-mcrcon {
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'MCRCon'
-        Expand-Archive "$mcrconoutput" "$mcrcondirectory" -Force 
-        Copy-Item  "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32\*" -Destination $mcrcondirectory -Recurse -Force 
-        Remove-Item "$currentdir\mcrcon\mcrcon-0.7.1-windows-x86-32" -Recurse -Force 
+        Expand-Archive $githubrepozipname $githubrepofolder -Force 
+        Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $mcrcondirectory -Recurse -Force 
+        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting MCRCon Failed'
             Write-log "Extracting MCRCon Failed " 
@@ -39,8 +40,8 @@ Function install-mcrcon {
             Write-log "Extracting MCRCon succeeded  "  
         }
     }
-    ElseIf (!$mcrconurl -and !$mcrconoutput) {
-        Write-log "install-mcrcon Failed: $mcrconurl $mcrconoutput"
+    Else {
+        Write-log "install-mcrcon Failed: $mcrconurl $githubrepozipname"
         Write-Warning 'fn_install-mcrcon Failed'
         Exit
     }
