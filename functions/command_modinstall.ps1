@@ -24,6 +24,9 @@ Function Get-Modinstall {
         #Get-InstallForgeQ
         Show-ModMenu
     }
+    ElseIf ($appid -eq 294420){
+        Show-ModMenu
+    }
     Else {
         Get-Infomessage "No Mods Available " 'warning'
         Write-log "No Mods Available"
@@ -48,8 +51,10 @@ Function Show-ModMenu {
     ElseIf($sourcemetainstall -contains $appid) {
         $command = Menu @('SourceMod','Metamod')
     }
-    clear-Host
-    Set-Console  >$null 2>&1
+    ElseIf ($appid -eq 294420){
+        $command = Menu @('subquakes-undead-legacy')
+    }
+    Set-Console
     If ($command -eq 'SourceMod') {
         # Get-SourceMetaMod
         Get-SourceMod
@@ -72,6 +77,10 @@ Function Show-ModMenu {
     }
     ElseIf ($command -eq 'Oxide') {
         Get-Oxide
+    }
+    ElseIf ($command -eq 'subquakes-undead-legacy') {
+        #Get-Oxide
+        Get-undeadlegacy
     }
 }
 
