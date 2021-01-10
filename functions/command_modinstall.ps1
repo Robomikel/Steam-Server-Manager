@@ -58,6 +58,7 @@ Function Show-ModMenu {
     If ($command -eq 'SourceMod') {
         # Get-SourceMetaMod
         Get-SourceMod
+        Get-MetaMod
     }
     ElseIf ($command -eq 'Metamod') {
         # Get-SourceMetaMod
@@ -91,7 +92,6 @@ Function Get-UpdateMods {
         #Get-SourceMetaMod
         Get-MetaMod
         Get-SourceMod
-
     } 
     If ($($installedmods.Mods) -like "*CSGO-Get5*") {
         Get-CSGOGet5
@@ -104,6 +104,7 @@ Function Get-UpdateMods {
     }
     If ($($installedmods.Mods) -like "*Oxide*") {
         Get-Oxide
+        Initialize-plugins
     }
     If ($($installedmods.Mods) -like "*Minecraft Forge*") {
         Get-InstallForge
