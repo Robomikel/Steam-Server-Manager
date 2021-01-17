@@ -57,7 +57,7 @@ Function Select-Steamer {
 Function Read-Param {
     Write-log "Function Read-Param"
     switch ($serverfiles) {
-        { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $global:serverfiles = Read-host ; Get-TestString }
+        { (!$serverfiles) } { Write-Host 'Input Server Folder Name: ' -F C -N; $script:serverfiles = Read-host ; Get-TestString }
     }
 }
 Function Get-SSMMenu {
