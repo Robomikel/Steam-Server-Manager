@@ -13,7 +13,11 @@ Function Add-Sevenzip {
         Get-Infomessage "Downloading" '7ZIP'
         #(New-Object Net.WebClient).DownloadFile("$sevenzipurl", "$currentdir\7za920.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $sevenzipurl -OutFile $sevenzipoutput
+        $sevenzip = @{
+            Uri = $sevenzipurl
+            OutFile = $sevenzipoutput
+        }
+        Invoke-WebRequest @sevenzip
         If (!$?) {
             Get-WarnMessage 'Downloadfailed' '7ZIP'
             New-TryagainNew 

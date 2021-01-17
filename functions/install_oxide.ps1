@@ -10,6 +10,13 @@ Function Get-Oxide {
     Write-log "Function: Get-Oxide"
     If ($oxiderustlatestlink -and $oxideoutput) {
         $start_time = Get-Date
+        If ($command -eq 'update-mods') {
+            Compare-Modlist 'Oxide' "$oxideoutput"
+        }
+        If ($nomodupdate -eq $true) {
+            Get-Infomessage "No Oxide updates" 'info'
+            return
+        }
         Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -37,5 +44,6 @@ Function Get-Oxide {
             Write-log "Copying Oxide Failed"
             New-TryagainNew
         }
+        Edit-Modlist 'Oxide' $oxideoutput
     }
 }
