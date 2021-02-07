@@ -35,7 +35,7 @@ Function Select-Steamer {
         'start' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-CheckServer; Edit-ServerConfig; Get-ServerBuildCheck; Select-StartServer; Get-ChecktaskEnable; Test-VariablesNull; Get-ClearVariables; Break }
         'stop' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-StopServer; Test-VariablesNull; Get-ClearVariables; Break }
         'restart' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-ChecktaskDisable; Get-ServerBuildCheck; Get-RestartsServer; Get-ChecktaskEnable; Test-VariablesNull; Get-ClearVariables; Break }
-        'monitor' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-MonitorServer; Test-VariablesNull; Get-ClearVariables; Break }
+        'monitor' { Read-Param; Get-NodeJSCheck; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-GamedigServervMonitor; Get-MonitorServer; Test-VariablesNull; Get-ClearVariables; Break }
         'backup' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-SevenZipCheck; Get-ChecktaskDisable; New-BackupFolder  ; New-BackupServer; Get-ChecktaskEnable; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
         'restore' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Get-SevenZipCheck; Get-ChecktaskDisable; New-BackupFolder  ; Get-BackupMenu ; Get-ChecktaskEnable; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
         'install-monitor' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; Set-MonitorJob; Test-VariablesNull; Get-ClearVariables; Break }
@@ -74,7 +74,7 @@ Function Get-SSMMenu {
     loading..." -F Cyan
         $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
         if ($check.count -gt 1) {
-           $serverfiles = Menu (iex " ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           $serverfiles = Menu (iex " ((gci $currentdir -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
            # $serverfiles = menu (iex "(gci * -Filter *server | select Name).Name")
         }
         Elseif ($check.count -eq 1) {

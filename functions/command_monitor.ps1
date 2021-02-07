@@ -19,9 +19,13 @@ Function Get-MonitorServer {
                 New-DiscordAlert "restart"
             }
             Else {
-                get-process $process
-                if ($?){
-                    Get-Infomessage "running" 
+                #
+                If ($pingstatus) {
+                    # 
+                    get-process $process
+                    if ($?) {
+                        Get-Infomessage "running" 
+                    }
                 }
                 Else {
                     Get-Infomessage "running" $false
