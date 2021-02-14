@@ -1293,7 +1293,7 @@ Function Get-installedMods {
         $script:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
     }
     Else {
-        Write-log "No csgoserver\mod.json found"
+        Write-log "No $serverfiles\mod.json found"
     }
 }
 Function New-modlist {
