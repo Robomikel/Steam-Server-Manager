@@ -201,7 +201,7 @@ Install miscreated server ```./ssm install misserver```
  * MCRcon Download and Install
  * Use used to Rcon to servers.
  
-# Graphial Stats 
+# Graphical Stats 
  ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
 # Discord Alert
  ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)
