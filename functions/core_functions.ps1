@@ -1279,10 +1279,13 @@ Function Add-Modtolist {
     Write-log "Function: Add-Modtolist"
     if (!$installedmods) {
         Write-log "Create Mods object"
-        $script:installedmods = @()
+        #$installedmods = @()
+        $script:installedmods = New-Object -TypeName psobject
     }
-    $script:installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
+   # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
     Write-log "Add Object $modname = $modfile"
+    $installedmods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+    
 }
 Function Get-installedMods {    
     Write-log "Function: Get-installedMods"
@@ -1296,14 +1299,16 @@ Function Get-installedMods {
 Function New-modlist {
     Write-Log "Function: New-modlist"
     If ($installedmods) {
-        #$null = $installedmods.Add($mod);
-        #$null = $installedmods.Add($mod);
-        If ($installedmods.Mods) {
+        If ($mods.Mods) {
+            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "Edit mods.mods $($mods.Mods) mods.json"
+        }
+        ElseIf ($installedmods.Mods) {
             $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
-            Write-log "Edit $($installedmods.Mods) mods.json"
+            Write-log "Edit mods.mods $($installedmods.Mods) mods.json"
         }
         Else {
-            $mods = @{ Mods = $installedmods };
+            $script:mods = @{ Mods = $installedmods };
             $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
             Write-log "New $mods mods.json"
         }
@@ -1314,20 +1319,23 @@ Function Edit-Modlist {
     Write-log "Function: Edit-Modlist"
     If (Test-Path $currentdir\$serverfiles\mods.json) {
         If ($installedmods) {
-            If ($($installedmods.Mods) -like "*$modname*") {
-                # $edit = $installedmods | ? { $_.Name -like "*$modname*" }
-                # $edit = $installedmods | Select-Object -Property $modname
-                $($installedmods.Mods).$modname = "$modfile"
+#            If ($($installedmods.Mods) -like "*$modname*") {
+#                $($installedmods.Mods).$modname = "$modfile"
+            If ($installedmods.Mods -like "*$modname*") {
+                $installedmods.Mods.$modname = "$modfile"
                 write-log "Edit-Member $($installedmods.Mods).$modname"
             }
             Else {
-                # $installedmods += New-Object pscustomobject -Property @{File = "$modfile"; Name = "$modname"}
-                Add-Member NoteProperty -InputObject $($installedmods.Mods) -Name $modname -Value $modfile
-                write-log "Add-Member $($installedmods.Mods)"
-                # $mods = [PSCustomObject]@{
-                #    $modname = $modfile
-                #}
-                #$installedmods.Mods += $mods
+                if ($mods.Mods) {
+                    $mods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+                    write-log "Add-Member $($script:mods.Mods)"
+                }
+                Else {
+                    if ($installedmods.Mods) {
+                        $installedmods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+                        write-log "Add-Member $($script:installedmods.Mods)"
+                    }
+                }
             }
         }
     }

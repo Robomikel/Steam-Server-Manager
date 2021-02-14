@@ -24,6 +24,9 @@ Function Get-Modinstall {
         #Get-InstallForgeQ
         Show-ModMenu
     }
+    ElseIf ($appid -eq 294420){
+        Show-ModMenu
+    }
     Else {
         Get-Infomessage "No Mods Available " 'warning'
         Write-log "No Mods Available"
@@ -48,11 +51,14 @@ Function Show-ModMenu {
     ElseIf($sourcemetainstall -contains $appid) {
         $command = Menu @('SourceMod','Metamod')
     }
-    clear-Host
-    Set-Console  >$null 2>&1
+    ElseIf ($appid -eq 294420){
+        $command = Menu @('subquakes-undead-legacy')
+    }
+    Set-Console
     If ($command -eq 'SourceMod') {
         # Get-SourceMetaMod
         Get-SourceMod
+        Get-MetaMod
     }
     ElseIf ($command -eq 'Metamod') {
         # Get-SourceMetaMod
@@ -73,6 +79,10 @@ Function Show-ModMenu {
     ElseIf ($command -eq 'Oxide') {
         Get-Oxide
     }
+    ElseIf ($command -eq 'subquakes-undead-legacy') {
+        #Get-Oxide
+        Get-undeadlegacy
+    }
 }
 
 Function Get-UpdateMods {
@@ -82,7 +92,6 @@ Function Get-UpdateMods {
         #Get-SourceMetaMod
         Get-MetaMod
         Get-SourceMod
-
     } 
     If ($($installedmods.Mods) -like "*CSGO-Get5*") {
         Get-CSGOGet5
@@ -95,6 +104,7 @@ Function Get-UpdateMods {
     }
     If ($($installedmods.Mods) -like "*Oxide*") {
         Get-Oxide
+        Initialize-plugins
     }
     If ($($installedmods.Mods) -like "*Minecraft Forge*") {
         Get-InstallForge

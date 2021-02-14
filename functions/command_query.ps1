@@ -69,6 +69,21 @@ Function Get-GamedigServerv2 {
 
                     }
                 }
+                #$queryOutput
+                $queryOutput =  $queryOutput | ConvertFrom-Json
+
+                Write-Host "Name: $($queryOutput.name)"
+                Write-Host "Map: $($queryOutput.map)"
+                Write-Host "Password: $($queryOutput.password)"
+                Write-Host "Maxplayers: $($queryOutput.maxplayers)"
+                Write-Host "Online Players: $($queryOutput.players)"
+                Write-Host "Current bots: $($queryOutput.bots)"
+                Write-Host "Ping: $($queryOutput.ping)"
+                Write-Host "connect: $($queryOutput.connect)"
+                Write-Host "Rules: "
+                $($queryOutput.raw.rules)
+                Write-Host "Tags: "
+                $($queryOutput.raw.tags)
                 set-location $currentdir
             }
         }
