@@ -48,6 +48,17 @@ Function New-DiscordAlert {
                         }
                     }
                 }
+                ElseIf ($alert -eq "query-restart") {
+                    If ($DiscordRestartAlert) {
+                        If ($DiscordRestartAlert -eq "on") { 
+                            # RESTART
+                            $global:alertmessage = " Cannot Query Server, restarting Server "
+                            $global:alerttype = 'Restarted'
+                            # RED
+                            $global:alertmessagecolor = 'FireBrick'
+                        }
+                    }
+                }
                 ElseIf ($command -eq "discord") {
                     # BACKUP
                     $global:alertmessage = ' Test Alert'

@@ -28,7 +28,10 @@ Function Get-MonitorServer {
                     }
                 }
                 Else {
+                    Write-log "Monitor: Cannot Query Server"
                     Get-Infomessage "running" $false
+                    Get-RestartsServer
+                    New-DiscordAlert "query-restart"
                 }
                 Get-ClearVariables
                 Exit 
