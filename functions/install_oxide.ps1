@@ -134,6 +134,11 @@ Function Add-plugintolist {
 }
 Function Get-installedplugins {    
     Write-log "Function: Get-installedplugins"
+    $installedpluginscount = Get-Content -Path $currentdir\$serverfiles\plugins.json | select-string -SimpleMatch ".cs"
+    if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
+        write-log "Plugin removed"
+        Remove-item "$currentdir\$serverfiles\plugins.json" -Force
+    }
     If (Test-Path "$currentdir\$serverfiles\plugins.json") {
         $script:installedplugins = Get-Content -Path $currentdir\$serverfiles\plugins.json | ConvertFrom-Json
     }
@@ -209,7 +214,8 @@ Function Compare-pluginlist {
 
 Function Initialize-plugins {
     Write-log "Function: Initialize-plugins"
-        gci $currentdir\$serverfiles\oxide\plugins | ? Name -like *.cs | foreach { 
+    $script:pluginss = gci $currentdir\$serverfiles\oxide\plugins | ? Name -like *.cs
+        $pluginss |  foreach { 
             $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
            $script:pluginname = $_.Name
            $script:pluginversion = $plugin[2]
