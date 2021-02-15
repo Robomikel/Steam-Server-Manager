@@ -133,7 +133,9 @@ Install miscreated server ```./ssm install misserver```
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)
    * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)   
    * BadLads Dedicated Server  (1203110) - "blserver" (optional server folder name)  
-   * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)  
+   * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)    
+   
+   
    -----   
  # Features  
  - Manage Steam server with features
