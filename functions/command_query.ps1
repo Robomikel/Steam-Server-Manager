@@ -141,6 +141,7 @@ Function Get-GamedigServervMonitor {
                 $queryOutput =  $queryOutput | ConvertFrom-Json
                 Write-log "Ping: $($queryOutput.ping)"
                 $script:pingstatus = $($queryOutput.ping)
+                set-location $currentdir
             }
         }
     }
