@@ -253,10 +253,12 @@ Function ping-pluginversion {
     }
     if ($update.StatusCode -eq 200) {
         Write-log "Plugin Update: $pluginname, $pluginfile, $updatecheck "
+        Get-Infomessage "Plugin Update: $pluginname" 'update'
         Receive-plugin $pluginname $pluginfile $updatecheck
     }
     ElseIf ($wr) {
         Write-log "Plugin: No update"
+        Get-Infomessage "No Plugin Update: $pluginname"
         Write-log "$($wr.Exception)"
     }
     $update = $null
