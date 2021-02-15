@@ -201,6 +201,7 @@ Function Get-Menu {
 }
 Function New-BackupRestore {
     Write-log "Function: New-BackupRestore"
+    Set-Console
     If (($serverfiles) -and ($backupdir) -and ($Date) -and ("$currentdir\$serverfiles") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
@@ -245,6 +246,7 @@ Function Get-AppdataBackupMenu {
     New-backupAppdatarestore
 }
 Function New-backupAppdatarestore {
+    Set-Console
     Write-Warning "Deleting Current $saves files"
     gci $env:APPDATA\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: New-backupAppdatarestore"
