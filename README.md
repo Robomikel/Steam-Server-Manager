@@ -261,3 +261,9 @@ https://github.com/aaronparker/VcRedist
 https://github.com/PrateekKumarSingh/Graphical
 # PS-Menu
 https://github.com/chrisseroka/ps-menu
+# Get5
+https://github.com/splewis/get5/releases
+# csgo-pug-setup
+https://github.com/splewis/csgo-pug-setup/releases
+# steamworks
+https://github.com/KyleSanderson/SteamWorks
