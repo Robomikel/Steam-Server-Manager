@@ -19,12 +19,19 @@ Function Get-MonitorServer {
                 New-DiscordAlert "restart"
             }
             Else {
-                get-process $process
-                if ($?){
-                    Get-Infomessage "running" 
+                #
+                If ($pingstatus) {
+                    # 
+                    get-process $process
+                    if ($?) {
+                        Get-Infomessage "running" 
+                    }
                 }
                 Else {
+                    Write-log "Monitor: Cannot Query Server"
                     Get-Infomessage "running" $false
+                    Get-RestartsServer
+                    New-DiscordAlert "query-restart"
                 }
                 Get-ClearVariables
                 Exit 

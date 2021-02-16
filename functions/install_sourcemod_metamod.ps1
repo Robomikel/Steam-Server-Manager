@@ -6,44 +6,90 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-SourceMetaMod {
-    Write-log "Function: Get-SourceMetaMod"
-    Get-SourceMetaModWebrequest
-    If ($metamodurl -and $metamodoutput -and $sourcemodoutput -and $sourcemoddirectory) {
-        $start_time = Get-Date
-        Get-Infomessage "Downloading" 'MetaMod'
-        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
-        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $metamodurl -OutFile $metamodoutput
-        If (!$?) { 
-            Get-WarnMessage 'Downloadfailed' 'MetaMod'
+Function Get-MetaMod {
+    Write-log "Function: Get-MetaMod"
+    Get-MetaModWebrequest
+    If ($metamodlatestlisturl -and $metamodmversionzip) {
+        If ($command -eq 'update-mods') {
+            Compare-Modlist 'MetaMod' $metamodmversionzip
         }
-        ElseIf ($?) {
-            Get-Infomessage "Downloaded" 'MetaMod'
-        } 
-        Get-Infomessage "downloadtime"
-        Get-Infomessage "Extracting" 'MetaMod'
-        If ($metamodoutput -and $metamoddirectory){
-        Expand-Archive $metamodoutput $metamoddirectory -Force >$null 2>&1
+        If ($nomodupdate -eq $true) {
+            Get-Infomessage "No MetaMod updates" 'info'
+            return
         }
-        If (!$?) { 
-            Get-WarnMessage 'ExtractFailed' 'MetaMod'
-            New-TryagainNew
+        Else {
+            $start_time = Get-Date
+            Get-Infomessage "Downloading" 'MetaMod'
+            # (New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+            # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+            $metamod = @{
+                Wait     = $true
+                FilePath = 'PowerShell.exe' 
+                Arg      = "Invoke-WebRequest $metamodlatestlisturl -O $metamodmversionzip"
+                nnw      = $true
+            }
+            Start-Process @metamod
+            If (!$?) { 
+                Get-WarnMessage 'Downloadfailed' 'MetaMod'
+            }
+            ElseIf ($?) {
+                Get-Infomessage "Downloaded" 'MetaMod'
+            } 
+            Get-Infomessage "downloadtime"
+            Get-Infomessage "Extracting" 'MetaMod'
+            If ($metamodmversionzip -and $metamodmversionfolder) {
+                $metamodzip = @{
+                    Path            = "$metamodmversionzip"
+                    DestinationPath = "$metamodmversionfolder"
+                    Force           = $true
+                }
+                Expand-Archive @metamodzip >$null 2>&1
+            }
+            If (!$?) { 
+                Get-WarnMessage 'ExtractFailed' 'MetaMod'
+                New-TryagainNew
+            }
+            Write-log "Copying/installing Meta Mod"
+            If ($metamodmversionfolder -and $systemdir) { 
+                $metamodfolder = @{
+                    Path        = "$metamodmversionfolder\addons"
+                    Destination = $systemdir
+                    Force       = $true
+                    Recurse     = $true
+                }
+                Copy-Item @metamodfolder >$null 2>&1
+            }
+            If (!$?) { 
+                Write-log "Copying Meta Mod Failed"
+                New-TryagainNew 
+            }
+            Edit-Modlist 'MetaMod' $metamodmversionzip
         }
-        Write-log "Copying/installing Meta Mod"
-        If ($metamoddirectory -and $systemdir){ 
-        Copy-Item  "$metamoddirectory\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
-        }
-        If (!$?) { 
-            Write-log "Copying Meta Mod Failed"
-            New-TryagainNew 
-        }
+    }
+}
+Function Get-SourceMod {
+    Write-log "Function: Get-SourceMod"
+    Get-Sourcemodwebrequest
+    If ($command -eq 'update-mods') {
+        Compare-Modlist 'Sourcemod' $sourcemodmversionzip
+    }
+    If ($nomodupdate -eq $true) {
+        Get-Infomessage "No Sourcemod updates" 'info'
+        return
+    }
+    Else {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'SourceMod'
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        If ($sourcemodurl -and $sourcemodoutput){
-        Invoke-WebRequest -Uri $sourcemodurl -OutFile $sourcemodoutput
+        If ($sourcemodlatestlisturl -and $sourcemodmversionzip) {
+            $sourcemodzip = @{
+                Wait     = $true
+                FilePath = 'powershell.exe'
+                Arg      = "Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $sourcemodmversionzip"
+                nnw      = $true
+            }
+            Start-Process @sourcemodzip
         }
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'SourceMod'
@@ -54,7 +100,12 @@ Function Get-SourceMetaMod {
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'SourceMod'
-        Expand-Archive $sourcemodoutput $sourcemoddirectory -Force >$null 2>&1
+        $sourcemodzip = @{
+            Path            = "$sourcemodmversionzip"
+            DestinationPath = "$sourcemodmversionfolder"
+            Force           = $true
+        }
+        Expand-Archive @sourcemodzip >$null 2>&1
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'SourceMod'
             New-TryagainNew 
@@ -63,77 +114,179 @@ Function Get-SourceMetaMod {
             Get-Infomessage "Extracted" 'SourceMod'
         }
         Get-Infomessage "copying-installing" 'SourceMod'
-        If ($sourcemoddirectory -and $systemdir){ 
-        Copy-Item  "$sourcemoddirectory\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
-        Copy-Item  "$sourcemoddirectory\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+        If ($sourcemodmversionfolder -and $systemdir) { 
+            $sourcemodaddons = @{
+                Path        = "$sourcemodmversionfolder\addons"
+                Destination = "$systemdir"
+                Force       = $true
+                Recurse     = $true
+            }
+            $sourcemodcfg = @{
+                Path        = "$sourcemodmversionfolder\cfg"
+                Destination = "$systemdir"
+                Force       = $true
+                Recurse     = $true
+            }
+            Copy-Item @sourcemodaddons >$null 2>&1
+            Copy-Item  @sourcemodcfg >$null 2>&1
         }
         If (!$?) { 
             Write-log "Copying SourceMod Faileds "
             New-TryagainNew 
         }
+        Edit-Modlist 'Sourcemod' $sourcemodmversionzip
     }
 }
 Function Get-CSGOGet5 {
     Write-log "Function: Get-CSGOGet5"
-    If ($csgoget5url -and $csgoget5zip -and $csgoget5folder -and $systemdir) {
-        iwr $csgoget5url -O $csgoget5zip
+    If ( $csgoget5url -and $systemdir) {
+        # This might work...
+        $get5latestzip = $(($(iwr $csgoget5url).Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
+        $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
+        If ($command -eq 'update-mods') {
+            Compare-Modlist 'CSGO-Get5' $get5latestzip
+        }
+        If ($nomodupdate -eq $true) {
+            Write-log "($nomodupdate -eq $true)"
+            Get-Infomessage "No CSGO-Get5 updates" 'info'
+            return
+        }
+        Else {
+            $start_time = Get-Date
+            Get-Infomessage "Downloading" 'CSGO-Get5'
+            $get5zip = @{
+                Uri     = "$get5latestdl"
+                OutFile = "$get5latestzip"
+            }
+            Invoke-WebRequest @get5zip
+        }
     }
     If (!$?) { 
-        Get-WarnMessage 'Downloadfailed' 'CSGOGet5'
+        Get-WarnMessage 'Downloadfailed' 'CSGO-Get5'
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'CSGOGet5'
+        Get-Infomessage "Downloaded" 'CSGO-Get5'
     }
-    Expand-Archive $csgoget5zip $csgoget5folder
+    Get-Infomessage "downloadtime"
+    $csgoget5folder = $currentdir, $($get5latestzip.Replace('.zip', '')) -join '\'
+    $get5zip = @{
+        Path            = "$get5latestzip"
+        DestinationPath = "$csgoget5folder"
+        Force           = $true
+    }
+    Expand-Archive @get5zip
     If (!$?) {
-        Get-WarnMessage 'ExtractFailed' 'CSGOGet5'
+        Get-WarnMessage 'ExtractFailed' 'CSGO-Get5'
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Extracted" 'CSGOGet5'
+        Get-Infomessage "Extracted" 'CSGO-Get5'
     }
-    Get-Infomessage "copying-installing" 'CSGOGet5'
-    Copy-Item  "$csgoget5folder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
-    Copy-Item  "$csgoget5folder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+    Get-Infomessage "copying-installing" 'CSGO-Get5'
+    $get5folderaddons = @{
+        Path        = "$csgoget5folder\addons"
+        Destination = "$systemdir"
+        Force       = $true
+        Recurse     = $true
+    }
+    $get5foldercfg = @{
+        Path        = "$csgoget5folder\cfg"
+        Destination = "$systemdir"
+        Force       = $true
+        Recurse     = $true
+    }
+    Copy-Item  @get5folderaddons >$null 2>&1
+    Copy-Item  @get5foldercfg >$null 2>&1
     If (!$?) { 
-        Write-log "Copying CSGOGet5 Failed "
+        Write-log "Copying CSGO-Get5 Failed "
         New-TryagainNew 
     }
+    Edit-Modlist 'CSGO-Get5' $get5latestzip
 }
-
 Function Get-CSGOcsgopugsetup {
     Write-log "Function: Get-CSGOcsgopugsetup"
-    If ($csgopugsetupurl -and $csgopugsetupzip -and $csgopugsetupfolder -and $systemdir) {
-        iwr $csgopugsetupurl -O $csgopugsetupzip
+    If ( $systemdir) {
+        # iwr $csgopugsetupurl -O $githubrepozipname
+        if ($Pugsetupowner -and $Pugsetuprepo ) {
+            Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
+        }
     }
-    If (!$?) { 
-        Get-WarnMessage 'Downloadfailed' 'CSGOcsgopugsetup'
-        New-TryagainNew 
+    If ($command -eq 'update-mods') {
+        Compare-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
-    ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'CSGOcsgopugsetup'
+    If ($nomodupdate -eq $true) {
+        Get-Infomessage "No CSGO-pugsetup updates" 'info'
+        return
     }
-    Expand-Archive $csgopugsetupzip $csgopugsetupfolder
-    If (!$?) {
-        Get-WarnMessage 'ExtractFailed' 'CSGOcsgopugsetup'
-        New-TryagainNew 
-    }
-    ElseIf ($?) {
-        Get-Infomessage "Extracted" 'CSGOcsgopugsetup'
-    }
-    Get-Infomessage "copying-installing" 'CSGOcsgopugsetup'
-    Copy-Item  "$csgopugsetupfolder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
-    Copy-Item  "$csgopugsetupfolder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
-    If (!$?) { 
-        Write-log "Copying CSGOcsgopugsetup Failed "
-        New-TryagainNew 
+    Else {
+        $start_time = Get-Date
+        Get-Infomessage "Downloading" 'CSGO-pugsetup'
+        iwr $githubrepoziplink -O $githubrepozipname
+        If (!$?) { 
+            Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            Get-Infomessage "Downloaded" 'CSGO-pugsetup'
+        }
+        Get-Infomessage "downloadtime"
+        $csgopugsetupfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
+        $pugsetupzip = @{
+            Path            = "$githubrepozipname"
+            DestinationPath = "$csgopugsetupfolder"
+            Force           = $true
+        }
+        Expand-Archive @pugsetupzip
+        If (!$?) {
+            Get-WarnMessage 'ExtractFailed' 'CSGO-pugsetup'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            Get-Infomessage "Extracted" 'CSGO-pugsetup'
+        }
+        Get-Infomessage "copying-installing" 'CSGO-pugsetup'
+        $pugsetupaddons = @{
+            Path        = "$csgopugsetupfolder\addons"
+            Destination = "$systemdir"
+            Force       = $true
+            Recurse     = $true
+        }
+        $pugsetupcfg = @{
+            Path        = "$csgopugsetupfolder\cfg"
+            Destination = "$systemdir"
+            Force       = $true
+            Recurse     = $true
+        }
+        Copy-Item  @pugsetupaddons >$null 2>&1
+        Copy-Item  @pugsetupcfg >$null 2>&1
+        If (!$?) { 
+            Write-log "Copying CSGOcsgopugsetup Failed "
+            New-TryagainNew 
+        }
+        Edit-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
 }
 Function Get-CSGOsteamworks {
     Write-log "Function: Get-CSGOsteamworks"
-    If ($steamworksurl -and $steamworkszip -and $csgopugsetupfolder -and $systemdir) {
-        iwr $steamworksurl -O $steamworkszip
+    If ($steamworksurl -and $systemdir) {
+        $steamworkslatestzip = $( ($(iwr $steamworksurl).Links.href | select-string -SimpleMatch windows.zip | select -First 1 ).Line) 
+        If ($command -eq 'update-mods') {
+            Compare-Modlist 'SteamWorks' $steamworkslatestzip
+        }
+        If ($nomodupdate -eq $true) {
+            Get-Infomessage "No SteamWorks updates" 'info'
+            return
+        }
+        Else {
+            $start_time = Get-Date
+            Get-Infomessage "Downloading" 'SteamWorks'
+            $steamworkszip = @{
+                Uri     = "$steamworksurl$steamworkslatestzip"
+                Outfile = "$steamworkslatestzip"
+            }
+            Invoke-WebRequest @steamworkszip
+        }
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'SteamWorks'
@@ -142,7 +295,14 @@ Function Get-CSGOsteamworks {
     ElseIf ($?) {
         Get-Infomessage "Downloaded" 'SteamWorks'
     }
-    Expand-Archive $steamworkszip $steamworksfolder
+    Get-Infomessage "downloadtime"
+    $steamworksfolder = $currentdir, $steamworkslatestzip -Replace '.zip', '' -join '\'
+    $steamworkszip = @{
+        Path            = "$steamworkslatestzip"
+        DestinationPath = "$steamworksfolder"
+        Force           = $true
+    }
+    Expand-Archive @steamworkszip
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'SteamWorks'
         New-TryagainNew 
@@ -151,10 +311,16 @@ Function Get-CSGOsteamworks {
         Get-Infomessage "Extracted" 'SteamWorks'
     }
     Get-Infomessage "copying-installing" 'SteamWorks'
-    Copy-Item  "$steamworksfolder\addons" -Destination $systemdir -Force -Recurse >$null 2>&1
-    #Copy-Item  "$steamworksfolder\cfg" -Destination $systemdir -Force -Recurse >$null 2>&1
+    $steamworksaddon = @{
+        Path        = "$steamworksfolder\addons"
+        Destination = "$systemdir"
+        Force       = $true
+        Recurse     = $true
+    }
+    Copy-Item @steamworksaddon >$null 2>&1
     If (!$?) { 
         Write-log "Copying SteamWorks Failed "
         New-TryagainNew 
     }
+    Edit-Modlist 'SteamWorks' $steamworkslatestzip
 }

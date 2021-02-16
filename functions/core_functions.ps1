@@ -48,7 +48,7 @@ Function Get-help {
     break
 }
 Function Get-ClearVariables {
-    If ($debuglog -eq 'on'){
+    If ($debuglog -eq 'on') {
         #$error | Out-File -Append -Encoding Default $ssmerrorlog
         $error > $ssmerrorlog
     }
@@ -216,18 +216,18 @@ Function Set-ServerConfig {
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-   Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
     If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
-       Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
-            '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            { @( '407480', '443030', '232130', '629800', '412680', '1420710','728470' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            { @( '403240', '261020','418480','696120' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
-            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}";Break }
+            '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            { @( '407480', '443030', '232130', '629800', '412680', '1420710', '728470' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            { @( '403240', '261020', '418480', '696120' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
@@ -350,19 +350,38 @@ Function Get-MCWebrequest {
         Exit
     }
 }
-Function Get-SourceMetaModWebrequest {
+Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
+    $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
+    $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    # $metamodmversion = $($metamodlatestlist -split '/')[4]
+    $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
+    $global:metamodlatestlisturl  = $metamodlatestlist[0]
+    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip','')
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
     $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
     $global:metamodurl = "${metamoddownloadurl}"
+    If (!$metamodurl) {
+        Write-log "Failed: Get-SourceMetaModWebrequest"
+        Exit
+    }
+}
+
+Function Get-Sourcemodwebrequest {
+    $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
+    $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
+    $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
+    $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
+    $global:sourcemodmversionfolder  = $sourcemodmversionzip.Replace('.zip','') 
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
     $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
     $global:sourcemodurl = "${sourcemoddownloadurl}"
-    If (!$metamodurl -or !$sourcemodurl) {
+    If ( !$sourcemodurl) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -379,7 +398,7 @@ Function Get-PreviousInstall {
             }
         }
     }
-    Else{
+    Else {
         Get-ExtIP
     }
 }
@@ -604,6 +623,10 @@ Function Set-Customsettings {
     `$global:discordwebhook          = `"$discordwebhook`"
     #                               Discord Display IP and Steam API IP.
     `$global:discorddisplayip        = `"$discorddisplayip`"
+    #                               SourceMod Version
+    `$global:smversion               = `"$smversion`" # stable / dev
+    #                               MetaMod Version
+    `$global:mmversion               = `"$mmversion`" # stable / master 
     Set-SteamerSettingLog
 }"
 }
@@ -640,57 +663,57 @@ Function Measure-stats {
     #  $NetaverageBandwidth = @()
 
     while ($timeSpan -gt 0) {
-       #   $gamecpucooked = [math]::Truncate(((Get-Counter '\Process(*)\% Processor Time' -ea SilentlyContinue).CounterSamples | Where-Object InstanceName -like $process).CookedValue)
+        #   $gamecpucooked = [math]::Truncate(((Get-Counter '\Process(*)\% Processor Time' -ea SilentlyContinue).CounterSamples | Where-Object InstanceName -like $process).CookedValue)
       
-      if ($psSeven -eq $true ) {
+        if ($psSeven -eq $true ) {
             $window32processor = Get-CimInstance Win32_processor
             $windows32 = Get-CimInstance Win32_OperatingSystem
-       #      $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+            #      $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
         }
         Else {
             $window32processor = Get-WmiObject Win32_processor
             $windows32 = Get-WmiObject Win32_OperatingSystem
-       #      $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
-       # }
-       #  foreach ($interface in $colInterfaces) {
-       #     $bitsPerSec = $interface.BytesTotalPersec * 8
-       #     $totalBits = $interface.CurrentBandwidth / 10
-       #     # Exclude Nulls (any WMI failures)
-       #     if ($totalBits -gt 0) {
-       #         $result = (( $bitsPerSec / $totalBits) * 100)
-       #         $totalBandwidth = $totalBandwidth + $result
-       #         $count++
-       #     }
-         }
+            #      $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+            # }
+            #  foreach ($interface in $colInterfaces) {
+            #     $bitsPerSec = $interface.BytesTotalPersec * 8
+            #     $totalBits = $interface.CurrentBandwidth / 10
+            #     # Exclude Nulls (any WMI failures)
+            #     if ($totalBits -gt 0) {
+            #         $result = (( $bitsPerSec / $totalBits) * 100)
+            #         $totalBandwidth = $totalBandwidth + $result
+            #         $count++
+            #     }
+        }
         cls
-        [console]::CursorVisible=$false
+        [console]::CursorVisible = $false
         Get-Logo
         $bar++
         $bar | % { if ($_ % 2 -eq 0 ) { Write-Host "Fetch stats 1Min...[-]       " } }
         $bar | % { if ($_ % 2 -eq 1 ) { Write-Host "Fetch stats 1Min...[x]       " } }
-       #     $averageBandwidth = $totalBandwidth / $count
-       #  $NetaverageBandwidth += $averageBandwidth
+        #     $averageBandwidth = $totalBandwidth / $count
+        #  $NetaverageBandwidth += $averageBandwidth
         $cpulast2min += $window32processor.LoadPercentage
-        $maxmemory = [System.Math]::Round($windows32.TotalVisibleMemorySize /1MB)
+        $maxmemory = [System.Math]::Round($windows32.TotalVisibleMemorySize / 1MB)
         $memoryleft = [System.Math]::Round((( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB )) 
-        $memorylast2min += ($memoryleft/$maxmemory).ToString("P").Replace("%","")
-       #   $cpucookedlast2min += $gamecpucooked
+        $memorylast2min += ($memoryleft / $maxmemory).ToString("P").Replace("%", "")
+        #   $cpucookedlast2min += $gamecpucooked
         $timeSpan = new-timespan $(Get-Date) $endTime
         $minutes++
         Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
-       # Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory" 
-       # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
-       # Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Network"
+        # Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory" 
+        # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
+        # Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Network"
     }
     # > uncomment next two lines for test show-graph
     # $data = 1..100 | Get-Random -Count 50
     # Show-Graph -Datapoints $Data -GraphTitle 'CPU'
-      cls
-      Get-logo
-      Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
-      # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
-      Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory"
-      #  Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Net"
+    cls
+    Get-logo
+    Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
+    # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
+    Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory"
+    #  Show-Graph -Datapoints $NetaverageBandwidth -YAxisTitle "Avg" -XAxistitle "Time" -GraphTitle "Net"
 }
 <###############################################################################################################
 .SYNOPSIS
@@ -716,88 +739,83 @@ General notes
 function DrawMenu {
     param ($menuItems, $menuPosition, $Multiselect, $selection)
     $l = $menuItems.length
-    for ($i = 0; $i -le $l;$i++) {
-		if ($menuItems[$i] -ne $null){
-			$item = $menuItems[$i]
-			if ($Multiselect)
-			{
-				if ($selection -contains $i){
-					$item = '[x] ' + $item
-				}
-				else {
-					$item = '[ ] ' + $item
-				}
-			}
-			if ($i -eq $menuPosition) {
-				Write-Host "$($circle) $($item)" -ForegroundColor White
-			} else {
-				Write-Host "  $($item)" -F Cyan
-			}
-		}
+    for ($i = 0; $i -le $l; $i++) {
+        if ($menuItems[$i] -ne $null) {
+            $item = $menuItems[$i]
+            if ($Multiselect) {
+                if ($selection -contains $i) {
+                    $item = '[x] ' + $item
+                }
+                else {
+                    $item = '[ ] ' + $item
+                }
+            }
+            if ($i -eq $menuPosition) {
+                Write-Host "$($circle) $($item)" -ForegroundColor White
+            }
+            else {
+                Write-Host "  $($item)" -F Cyan
+            }
+        }
     }
 }
 function Toggle-Selection {
-	param ($pos, [array]$selection)
-	if ($selection -contains $pos){ 
-		$result = $selection | where {$_ -ne $pos}
-	}
-	else {
-		$selection += $pos
-		$result = $selection
-	}
-	$result
+    param ($pos, [array]$selection)
+    if ($selection -contains $pos) { 
+        $result = $selection | where { $_ -ne $pos }
+    }
+    else {
+        $selection += $pos
+        $result = $selection
+    }
+    $result
 }
 
 function Menu {
-    param ([array]$menuItems, [switch]$ReturnIndex=$false, [switch]$Multiselect)
+    param ([array]$menuItems, [switch]$ReturnIndex = $false, [switch]$Multiselect)
     $vkeycode = 0
     $pos = 0
     $selection = @()
     $cur_pos = [System.Console]::CursorTop
-    [console]::CursorVisible=$false #prevents cursor flickering
-    if ($menuItems.Length -gt 0)
-	{
-		DrawMenu $menuItems $pos $Multiselect $selection
-		While ($vkeycode -ne 13 -and $vkeycode -ne 27) {
-			$press = $host.ui.rawui.readkey("NoEcho,IncludeKeyDown")
-			$vkeycode = $press.virtualkeycode
-			If ($vkeycode -eq 38 -or $press.Character -eq 'k') {$pos--}
-			If ($vkeycode -eq 40 -or $press.Character -eq 'j') {$pos++}
-			If ($press.Character -eq ' ') { $selection = Toggle-Selection $pos $selection }
-			if ($pos -lt 0) {$pos = 0}
-			If ($vkeycode -eq 27) {$pos = $null }
-			if ($pos -ge $menuItems.length) {$pos = $menuItems.length -1}
-			if ($vkeycode -ne 27)
-			{
-				[System.Console]::SetCursorPosition(0,$cur_pos)
-				DrawMenu $menuItems $pos $Multiselect $selection
-			}
-		}
-	}
-	else 
-	{
-		$pos = $null
-	}
-    [console]::CursorVisible=$true
+    [console]::CursorVisible = $false #prevents cursor flickering
+    if ($menuItems.Length -gt 0) {
+        DrawMenu $menuItems $pos $Multiselect $selection
+        While ($vkeycode -ne 13 -and $vkeycode -ne 27) {
+            $press = $host.ui.rawui.readkey("NoEcho,IncludeKeyDown")
+            $vkeycode = $press.virtualkeycode
+            If ($vkeycode -eq 38 -or $press.Character -eq 'k') { $pos-- }
+            If ($vkeycode -eq 40 -or $press.Character -eq 'j') { $pos++ }
+            If ($press.Character -eq ' ') { $selection = Toggle-Selection $pos $selection }
+            if ($pos -lt 0) { $pos = 0 }
+            If ($vkeycode -eq 27) { $pos = $null }
+            if ($pos -ge $menuItems.length) { $pos = $menuItems.length - 1 }
+            if ($vkeycode -ne 27) {
+                [System.Console]::SetCursorPosition(0, $cur_pos)
+                DrawMenu $menuItems $pos $Multiselect $selection
+            }
+        }
+    }
+    else {
+        $pos = $null
+    }
+    [console]::CursorVisible = $true
 
-    if ($ReturnIndex -eq $false -and $pos -ne $null)
-	{
-		if ($Multiselect){
-			return $menuItems[$selection]
-		}
-		else {
-			return $menuItems[$pos]
-		}
-	}
-	else 
-	{
-		if ($Multiselect){
-			return $selection
-		}
-		else {
-			return $pos
-		}
-	}
+    if ($ReturnIndex -eq $false -and $pos -ne $null) {
+        if ($Multiselect) {
+            return $menuItems[$selection]
+        }
+        else {
+            return $menuItems[$pos]
+        }
+    }
+    else {
+        if ($Multiselect) {
+            return $selection
+        }
+        else {
+            return $pos
+        }
+    }
 }
 <################################################################################################################################################################
 .SYNOPSIS
@@ -874,24 +892,24 @@ Function Show-Graph {
     [cmdletbinding()]
     [alias("Graph")]
     Param(
-            # Parameter help description
-            [Parameter(Mandatory=$true, ValueFromPipeline)] [int[]] $Datapoints,
-            [String] $XAxisTitle,
-            [String] $YAxisTitle,
-            [String] $GraphTitle = 'Untitled',
-            [ValidateScript({
-                if($_ -le 5){
-                Throw "Can not set XAxisStep less than or equals to 5"
+        # Parameter help description
+        [Parameter(Mandatory = $true, ValueFromPipeline)] [int[]] $Datapoints,
+        [String] $XAxisTitle,
+        [String] $YAxisTitle,
+        [String] $GraphTitle = 'Untitled',
+        [ValidateScript( {
+                if ($_ -le 5) {
+                    Throw "Can not set XAxisStep less than or equals to 5"
                 }
-                else{
+                else {
                     $true
                 }
             })] [Int] $XAxisStep = 10,
-            [Int] $YAxisStep = 10,
-            [ValidateSet("Bar","Scatter","Line")] [String] $Type = 'Bar',
-            [Hashtable] $ColorMap,
-            [Switch] $HorizontalLines,
-            $max
+        [Int] $YAxisStep = 10,
+        [ValidateSet("Bar", "Scatter", "Line")] [String] $Type = 'Bar',
+        [Hashtable] $ColorMap,
+        [Switch] $HorizontalLines,
+        $max
     )
 
     # graph boundary marks
@@ -915,8 +933,8 @@ Function Show-Graph {
         $StartOfRange = $Metric.Minimum - ($Metric.Minimum % $YAxisStep)
     }
 
-    $difference =  $EndofRange - $StartOfRange
-    $NumOfRows = $difference/($YAxisStep)
+    $difference = $EndofRange - $StartOfRange
+    $NumOfRows = $difference / ($YAxisStep)
 
     # Calculate label lengths
     $NumOfLabelsOnYAxis = $NumOfRows
@@ -925,16 +943,16 @@ Function Show-Graph {
     $YAxisTitleAlphabetCounter = 0
     $YAxisTitleStartIdx, $YAxisTitleEndIdx = CenterAlignStringReturnIndices -String $YAxisTitle -Length $NumOfRows
     
-    If($YAxisTitle.Length -gt $NumOfLabelsOnYAxis){
+    If ($YAxisTitle.Length -gt $NumOfLabelsOnYAxis) {
         Write-Warning "No. Alphabets in YAxisTitle [$($YAxisTitle.Length)] can't be greator than no. of Labels on Y-Axis [$NumOfLabelsOnYAxis]"
         Write-Warning "YAxisTitle will be cropped"
     }
     
     # Create a 2D Array to save datapoints  in a 2D format
-    switch($Type){
-        'Bar'       {$Array = Get-BarPlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
-        'Scatter'   {$Array = Get-ScatterPlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
-        'Line'      {$Array = Get-LinePlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
+    switch ($Type) {
+        'Bar' { $Array = Get-BarPlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
+        'Scatter' { $Array = Get-ScatterPlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
+        'Line' { $Array = Get-LinePlot -Datapoints $Datapoints -Step $YAxisStep -StartOfRange $StartOfRange -EndofRange $EndofRange }
     }
     
     # Preparing the step markings on the X-Axis
@@ -942,13 +960,13 @@ Function Show-Graph {
     $XAxisLabel = " " * ($LengthOfMaxYAxisLabel + 4)
     $XAxis = " " * ($LengthOfMaxYAxisLabel + 3) + [char]9492
     
-    For($Label =1;$Label -le $NumOfDatapoints;$Label++){
-        if ([math]::floor($Label/$XAxisStep) ){
-            $XAxisLabel +=  $Label.tostring().PadLeft($Increment)
+    For ($Label = 1; $Label -le $NumOfDatapoints; $Label++) {
+        if ([math]::floor($Label / $XAxisStep) ) {
+            $XAxisLabel += $Label.tostring().PadLeft($Increment)
             $XAxis += ([char]9516).ToString()
-            $XAxisStep+=$Increment
+            $XAxisStep += $Increment
         }
-        else{
+        else {
             $XAxis += [Char]9472
         }
     }
@@ -958,33 +976,34 @@ Function Show-Graph {
     $BottomBoundaryLength = $XAxis.Length + 2
     
     # draw top boundary
-    [string]::Concat($TopLeft," ",$GraphTitle," ",$([string]$TopEdge * $TopBoundaryLength),$TopRight)
-    [String]::Concat($VerticalEdge,$(" "*$($XAxis.length+2)),$VerticalEdge) # extra line to add space between top-boundary and the graph
+    [string]::Concat($TopLeft, " ", $GraphTitle, " ", $([string]$TopEdge * $TopBoundaryLength), $TopRight)
+    [String]::Concat($VerticalEdge, $(" " * $($XAxis.length + 2)), $VerticalEdge) # extra line to add space between top-boundary and the graph
     
     # draw the graph
-    For($i=$NumOfRows;$i -gt 0;$i--){
+    For ($i = $NumOfRows; $i -gt 0; $i--) {
         $Row = ''
-        For($j=0;$j -lt $NumOfDatapoints;$j++){
-            $Cell = $Array[$i,$j]
-            if([String]::IsNullOrWhiteSpace($Cell)){
-                if($AddHorizontalLines){
+        For ($j = 0; $j -lt $NumOfDatapoints; $j++) {
+            $Cell = $Array[$i, $j]
+            if ([String]::IsNullOrWhiteSpace($Cell)) {
+                if ($AddHorizontalLines) {
                     $String = [Char]9472
                 }
-                else{
+                else {
                     $String = ' '
                 }
                 #$String = [Char]9532
-            }else{
+            }
+            else {
                 $String = $Cell
             }
-            $Row = [string]::Concat($Row,$String)
+            $Row = [string]::Concat($Row, $String)
         }
         
-        $YAxisLabel = $StartOfRange + $i*$YAxisStep
+        $YAxisLabel = $StartOfRange + $i * $YAxisStep
         
         
         # add Y-Axis title alphabets if it exists in a row
-        If($i -in $YAxisTitleStartIdx..$YAxisTitleEndIdx -and $YAxisTitle){
+        If ($i -in $YAxisTitleStartIdx..$YAxisTitleEndIdx -and $YAxisTitle) {
             $YAxisLabelAlphabet = $YAxisTitle[$YAxisTitleAlphabetCounter]
             $YAxisTitleAlphabetCounter++
         }
@@ -993,33 +1012,33 @@ Function Show-Graph {
         }
         
 
-        If($ColorMap){
+        If ($ColorMap) {
 
-            $Keys = $ColorMap.Keys| Sort-Object
+            $Keys = $ColorMap.Keys | Sort-Object
             $LowerBound = $StartOfRange
-            $Map=@()
+            $Map = @()
 
-            $Map += For($k=0;$k -lt $Keys.count;$k++){
+            $Map += For ($k = 0; $k -lt $Keys.count; $k++) {
                 [PSCustomObject]@{
-                    LowerBound  = $LowerBound
-                    UpperBound  = $Keys[$k]
-                    Color       = $ColorMap[$Keys[$k]]
+                    LowerBound = $LowerBound
+                    UpperBound = $Keys[$k]
+                    Color      = $ColorMap[$Keys[$k]]
                 }
-                $LowerBound = $Keys[$k]+1
+                $LowerBound = $Keys[$k] + 1
             }
             
-            $Color = $Map.ForEach({
-                if($YAxisLabel -in $_.LowerBound..$_.UpperBound){
-                    $_.Color
-                }
-            })
+            $Color = $Map.ForEach( {
+                    if ($YAxisLabel -in $_.LowerBound..$_.UpperBound) {
+                        $_.Color
+                    }
+                })
 
-            if ([String]::IsNullOrEmpty($Color)) {$Color = "White"}
+            if ([String]::IsNullOrEmpty($Color)) { $Color = "White" }
             
             Write-Graph $YAxisLabelAlphabet $YAxisLabel $Row $Color 'DarkYellow'
 
         }
-        else{
+        else {
             # Default coloring mode divides the datapoints in percentage range
             # and color code them automatically 
             # i.e, 
@@ -1027,15 +1046,15 @@ Function Show-Graph {
             # 41-80% -> Yellow
             # 81-100% -> Red
 
-            $RangePercent = $i/$NumOfRows * 100
+            $RangePercent = $i / $NumOfRows * 100
             # To color the graph depending upon the datapoint value
             If ($RangePercent -gt 80) {
                 Write-Graph $YAxisLabelAlphabet $YAxisLabel $Row 'Red' 'DarkYellow'
             }
-            elseif($RangePercent-le 80 -and $RangePercent -gt 40) {
+            elseif ($RangePercent -le 80 -and $RangePercent -gt 40) {
                 Write-Graph $YAxisLabelAlphabet $YAxisLabel $Row 'Yellow' 'DarkYellow' 
             }
-            elseif($RangePercent -le 40 -and $RangePercent -ge 1) {
+            elseif ($RangePercent -le 40 -and $RangePercent -ge 1) {
                 Write-Graph $YAxisLabelAlphabet $YAxisLabel $Row 'Green' 'DarkYellow'
             }
             else {
@@ -1047,21 +1066,21 @@ Function Show-Graph {
     }
     
     # draw bottom boundary
-    $XAxisLabel +=" "*($XAxis.Length-$XAxisLabel.Length) # to match x-axis label length with x-axis length
-    [String]::Concat($VerticalEdge,$XAxis,"  ",$VerticalEdge) # Prints X-Axis horizontal line
-    [string]::Concat($VerticalEdge,$XAxisLabel,"  ",$VerticalEdge) # Prints X-Axis step labels
+    $XAxisLabel += " " * ($XAxis.Length - $XAxisLabel.Length) # to match x-axis label length with x-axis length
+    [String]::Concat($VerticalEdge, $XAxis, "  ", $VerticalEdge) # Prints X-Axis horizontal line
+    [string]::Concat($VerticalEdge, $XAxisLabel, "  ", $VerticalEdge) # Prints X-Axis step labels
 
     
-    if(![String]::IsNullOrWhiteSpace($XAxisTitle)){
+    if (![String]::IsNullOrWhiteSpace($XAxisTitle)) {
         # Position the x-axis label at the center of the axis
-        $XAxisTitle = " "*$LengthOfMaxYAxisLabel + (CenterAlignString $XAxisTitle $XAxis.Length)        
+        $XAxisTitle = " " * $LengthOfMaxYAxisLabel + (CenterAlignString $XAxisTitle $XAxis.Length)        
         Write-Host $VerticalEdge -NoNewline
         Write-Host $XAxisTitle -ForegroundColor DarkYellow -NoNewline # Prints XAxisTitle
-        Write-Host $(" "*$(($LengthOfMaxYAxisLabel + $XAxis.length) - $XAxisTitle.Length - 2)) $VerticalEdge
+        Write-Host $(" " * $(($LengthOfMaxYAxisLabel + $XAxis.length) - $XAxisTitle.Length - 2)) $VerticalEdge
     }
     
     # bottom boundary
-    [string]::Concat($BottomLeft,$([string]$BottomEdge * $BottomBoundaryLength),$BottomRight)
+    [string]::Concat($BottomLeft, $([string]$BottomEdge * $BottomBoundaryLength), $BottomRight)
     
 }
 
@@ -1069,147 +1088,276 @@ Function Get-BarPlot {
     [cmdletbinding()]
     [alias("bar")]
     Param(
-            # Parameter help description
-            [Parameter(Mandatory=$true)]
-            [int[]] $Datapoints,
-            [int] $StartOfRange,
-            [int] $EndofRange,
-            [int] $Step = 10
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [int[]] $Datapoints,
+        [int] $StartOfRange,
+        [int] $EndofRange,
+        [int] $Step = 10
     )
     $Difference = $EndofRange - $StartOfRange
 
     $NumOfDatapoints = $Datapoints.Count
-    $HalfStep = [Math]::Ceiling($Step/2)
+    $HalfStep = [Math]::Ceiling($Step / 2)
     $Marker = [char] 9608
 
     # Create a 2D Array to save datapoints  in a 2D format
-    $NumOfRows = $difference/($Step) + 1
-    $Array = New-Object 'object[,]' $NumOfRows,$NumOfDatapoints
+    $NumOfRows = $difference / ($Step) + 1
+    $Array = New-Object 'object[,]' $NumOfRows, $NumOfDatapoints
 
-    For($i = 0;$i -lt $Datapoints.count;$i++){
+    For ($i = 0; $i -lt $Datapoints.count; $i++) {
         # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
-        $RowIndex = [Math]::Ceiling($($Datapoints[$i]-$StartOfRange)/$Step)
+        $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step)
         # use a half marker is datapoint falls in less than equals half of the step
-        $HalfMark = $Datapoints[$i]%$Step -in $(1..$HalfStep)
+        $HalfMark = $Datapoints[$i] % $Step -in $(1..$HalfStep)
         
-        if($HalfMark){
-            $Array[($RowIndex),$i] = [char] 9604
-        }else{
-            $Array[($RowIndex),$i] = $Marker
+        if ($HalfMark) {
+            $Array[($RowIndex), $i] = [char] 9604
+        }
+        else {
+            $Array[($RowIndex), $i] = $Marker
         }
         
         # To get a bar fill all the same row indices of 2D array under and including datapoint
-        For($j=0;$j -lt $RowIndex;$j++){
-            $Array[$j,$i] = $Marker
+        For ($j = 0; $j -lt $RowIndex; $j++) {
+            $Array[$j, $i] = $Marker
         }
     }
 
     # return the 2D array of plots
-    return ,$Array
+    return , $Array
 }
 Function Get-LinePlot {
     [cmdletbinding()]
     [alias("line")]
     Param(
-            # Parameter help description
-            [Parameter(Mandatory=$true)]
-            [int[]] $Datapoints,
-            [int] $StartOfRange,
-            [int] $EndofRange,
-            [int] $Step = 10
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [int[]] $Datapoints,
+        [int] $StartOfRange,
+        [int] $EndofRange,
+        [int] $Step = 10
     )
     $Difference = $EndofRange - $StartOfRange
     $NumOfDatapoints = $Datapoints.Count
 
     
     # Create a 2D Array to save datapoints  in a 2D format
-    $NumOfRows = $difference/($Step) + 1
-    $Array = New-Object 'object[,]' $NumOfRows,$NumOfDatapoints
+    $NumOfRows = $difference / ($Step) + 1
+    $Array = New-Object 'object[,]' $NumOfRows, $NumOfDatapoints
 
     $Marker = [char] 9608
     $Line = [char] 9616
 
-    For($i = 0;$i -lt $Datapoints.count;$i++){
+    For ($i = 0; $i -lt $Datapoints.count; $i++) {
         # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
-        $RowIndex = [Math]::Ceiling($($Datapoints[$i]-$StartOfRange)/$Step) 
-        $RowIndexNextItem = [Math]::Ceiling($($Datapoints[$i+1]-$StartOfRange)/$Step)
+        $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step) 
+        $RowIndexNextItem = [Math]::Ceiling($($Datapoints[$i + 1] - $StartOfRange) / $Step)
 
         # to decide the direction of line joining two data points
-        if($RowIndex -gt $RowIndexNextItem){
-            Foreach($j in $($RowIndex-1)..$($RowIndexNextItem+1)){
-                $Array[$j,$i] = $Line # add line
-            }
-        }elseif($RowIndex -lt $RowIndexNextItem){
-            Foreach($j in $($RowIndex)..$($RowIndexNextItem-1)){
-                $Array[$j,$i] = $Line # add line
+        if ($RowIndex -gt $RowIndexNextItem) {
+            Foreach ($j in $($RowIndex - 1)..$($RowIndexNextItem + 1)) {
+                $Array[$j, $i] = $Line # add line
             }
         }
-        $Array[$RowIndex,$i] = [char] $Marker # data point
+        elseif ($RowIndex -lt $RowIndexNextItem) {
+            Foreach ($j in $($RowIndex)..$($RowIndexNextItem - 1)) {
+                $Array[$j, $i] = $Line # add line
+            }
+        }
+        $Array[$RowIndex, $i] = [char] $Marker # data point
     }
     # return the 2D array of plots
-    return ,$Array
+    return , $Array
 }
 Function Get-ScatterPlot {
     [cmdletbinding()]
     [alias("scatter")]
     Param(
-            # Parameter help description
-            [Parameter(Mandatory=$true)]
-            [int[]] $Datapoints,
-            [int] $StartOfRange,
-            [int] $EndofRange,
-            [int] $Step = 10
-            #[ValidateSet("square","dot","triangle")] [String] $Marker = 'dot'
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [int[]] $Datapoints,
+        [int] $StartOfRange,
+        [int] $EndofRange,
+        [int] $Step = 10
+        #[ValidateSet("square","dot","triangle")] [String] $Marker = 'dot'
     )
 
     # Create a 2D Array to save datapoints  in a 2D format
     $Difference = $EndofRange - $StartOfRange
-    $NumOfRows = $difference/($Step) + 1
+    $NumOfRows = $difference / ($Step) + 1
     $NumOfDatapoints = $Datapoints.Count
-    $Array = New-Object 'object[,]' ($NumOfRows),$NumOfDatapoints
+    $Array = New-Object 'object[,]' ($NumOfRows), $NumOfDatapoints
 
 
-    For($i = 0;$i -lt $Datapoints.count;$i++){
+    For ($i = 0; $i -lt $Datapoints.count; $i++) {
         # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
-        $RowIndex = [Math]::Ceiling($($Datapoints[$i]-$StartOfRange)/$Step) 
+        $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step) 
 
         # use a half marker is datapoint falls in less than equals half of the step
-        $LowerHalf = $Datapoints[$i]%$Step -in $(1..$HalfStep)
+        $LowerHalf = $Datapoints[$i] % $Step -in $(1..$HalfStep)
         
-        if($LowerHalf){
-            $Array[$RowIndex,$i] = [char] 9604
-        }else{
-            $Array[$RowIndex,$i] = [char] 9600
+        if ($LowerHalf) {
+            $Array[$RowIndex, $i] = [char] 9604
+        }
+        else {
+            $Array[$RowIndex, $i] = [char] 9600
         }
         
     }
 
     # return the 2D array of plots
-    return ,$Array
+    return , $Array
 }
 Function CenterAlignString ($String, $Length) {
-    $Padding = [math]::Round( $Length/2 + [math]::round( $String.length/2)  )
+    $Padding = [math]::Round( $Length / 2 + [math]::round( $String.length / 2)  )
     return $String.PadLeft($Padding)
 }
 Function CenterAlignStringReturnIndices ($String, $Length) {
-    $StartIdx = [Math]::Round(($Length + ($String.Length -1)) / 2 )
-    $EndIdx = $StartIdx - ($String.Length -1)
+    $StartIdx = [Math]::Round(($Length + ($String.Length - 1)) / 2 )
+    $EndIdx = $StartIdx - ($String.Length - 1)
     return $StartIdx, $EndIdx
 }
 
-Function Write-Graph($YAxisLabelAlphabet, $YAxisLabel, $Row, $RowColor, $LabelColor)
-{
-Write-Host $([char]9474) -NoNewline
-Write-Host $YAxisLabelAlphabet -ForegroundColor $LabelColor -NoNewline
-Write-Host "$($YAxisLabel.tostring().PadLeft($LengthOfMaxYAxisLabel+2) + [Char]9508)" -NoNewline
-##Write-Host "$YAxisLabel|" -NoNewline
-Write-Host $Row -ForegroundColor $RowColor -NoNewline
-Write-Host " " $([char]9474) 
+Function Write-Graph($YAxisLabelAlphabet, $YAxisLabel, $Row, $RowColor, $LabelColor) {
+    Write-Host $([char]9474) -NoNewline
+    Write-Host $YAxisLabelAlphabet -ForegroundColor $LabelColor -NoNewline
+    Write-Host "$($YAxisLabel.tostring().PadLeft($LengthOfMaxYAxisLabel+2) + [Char]9508)" -NoNewline
+    ##Write-Host "$YAxisLabel|" -NoNewline
+    Write-Host $Row -ForegroundColor $RowColor -NoNewline
+    Write-Host " " $([char]9474) 
 }
 #################################################################################################################################################################
 Function Get-ExtIP {
     Write-Log "Function: Get-ExtIP "
     ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
 }
+Function Get-GithubRestAPI {
+    param ($owner, $repo) 
+    Write-log "Function Get-GithubRestAPI"
+    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
+    If (!$?) {
+        Write-log "Get-GithubRestAPI: Repo Request failed"
+        return
+    }
+    If ($githubrepo) {
+        $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: Repo convert from json failed"
+        return
+    }
+    if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
+        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"| select -Index 0).Line
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download link found"
+        return
+    }
+    if ($githubrepoJSON.assets.name) {
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"| select -Index 0).Line
+    } 
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download file found"
+        return
+    }
+    If ($githubrepozipname) {
+        $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip file found"
+        return
+    }
+    #    iwr $githubrepoziplink -O $githubrepozipname
+    #If (!$?) {
+    #    Write-log "Get-GithubRestAPI: Repo WebRequest failed"
+    #    return
+    #}
+}
+Function Add-Modtolist {
+    param($modname, $modfile)
+    Write-log "Function: Add-Modtolist"
+    if (!$installedmods) {
+        Write-log "Create Mods object"
+        #$installedmods = @()
+        $script:installedmods = New-Object -TypeName psobject
+    }
+   # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
+    Write-log "Add Object $modname = $modfile"
+    $installedmods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+    
+}
+Function Get-installedMods {    
+    Write-log "Function: Get-installedMods"
+    If (Test-Path "$currentdir\$serverfiles\mods.json") {
+        $script:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
+    }
+    Else {
+        Write-log "No $serverfiles\mod.json found"
+    }
+}
+Function New-modlist {
+    Write-Log "Function: New-modlist"
+    If ($installedmods) {
+        If ($mods.Mods) {
+            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "Edit mods.mods $($mods.Mods) mods.json"
+        }
+        ElseIf ($installedmods.Mods) {
+            $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "Edit mods.mods $($installedmods.Mods) mods.json"
+        }
+        Else {
+            $script:mods = @{ Mods = $installedmods };
+            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            Write-log "New $mods mods.json"
+        }
+    }
+}
+Function Edit-Modlist {
+    Param($modname, $modfile)
+    Write-log "Function: Edit-Modlist"
+    If (Test-Path $currentdir\$serverfiles\mods.json) {
+        If ($installedmods) {
+#            If ($($installedmods.Mods) -like "*$modname*") {
+#                $($installedmods.Mods).$modname = "$modfile"
+            If ($installedmods.Mods -like "*$modname*") {
+                $installedmods.Mods.$modname = "$modfile"
+                write-log "Edit-Member $($installedmods.Mods).$modname"
+            }
+            Else {
+                if ($mods.Mods) {
+                    $mods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+                    write-log "Add-Member $($script:mods.Mods)"
+                }
+                Else {
+                    if ($installedmods.Mods) {
+                        $installedmods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
+                        write-log "Add-Member $($script:installedmods.Mods)"
+                    }
+                }
+            }
+        }
+    }
+    Else {
+        Add-Modtolist $modname $modfile
+    }
+    New-modlist
+}
 
-
+Function Compare-Modlist {
+    Param($modname, $modfile)
+    Write-log "Function: Compare-Modlist"
+    Write-log " Param($modname, $modfile)"
+    If (Test-Path $currentdir\$serverfiles\mods.json) {
+        Get-installedMods
+        Write-log "($($installedmods.Mods.$modname) -eq $modfile)"
+        If ($installedmods.Mods.$modname -eq $modfile) {
+            write-log "No Mod udpate"
+            $script:nomodupdate = $true
+        } 
+        ELse {
+            $script:nomodupdate = $false
+        }
+    }
+}

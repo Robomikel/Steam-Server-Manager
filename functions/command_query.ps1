@@ -69,6 +69,78 @@ Function Get-GamedigServerv2 {
 
                     }
                 }
+                #$queryOutput
+                # $queryOutput =  $queryOutput | ConvertFrom-Json
+
+                # Write-Host "Name: $($queryOutput.name)"
+                # Write-Host "Map: $($queryOutput.map)"
+                # Write-Host "Password: $($queryOutput.password)"
+                # Write-Host "Maxplayers: $($queryOutput.maxplayers)"
+                # Write-Host "Online Players: $($queryOutput.players)"
+                # Write-Host "Current bots: $($queryOutput.bots)"
+                # Write-Host "Ping: $($queryOutput.ping)"
+                # Write-Host "connect: $($queryOutput.connect)"
+                # Write-Host "Rules: "
+                # $($queryOutput.raw.rules)
+                # Write-Host "Tags: "
+                # $($queryOutput.raw.tags)
+                # set-location $currentdir
+            }
+        }
+    }
+}
+
+Function Get-GamedigServervMonitor {
+    Write-log "Function: Get-GamedigServervMonitor"
+    If ($ssmlog -and $loggingdate) {
+        If ($nodejsdirectory) {
+            Write-log "Starting gamedig Monitor on Server  "
+            If ($Useprivate -eq "off") {
+                set-location $nodejsdirectory
+                If (!${queryport}) {
+                    Write-log " Using port $querytype ${extip}:${port} "
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = .\gamedig --type $querytype ${extip}:${port} --pretty
+                    }
+                    Else {
+                        $queryOutput = gamedig --type $querytype ${extip}:${port} --pretty
+                    }
+                }
+                Else {
+                    Write-log " Using queryport $querytype ${extip}:${queryport}"
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = .\gamedig --type $querytype ${extip}:${queryport} --pretty
+                    }
+                    Else {
+                        $queryOutput = gamedig --type $querytype ${extip}:${queryport} --pretty
+                    }
+                }
+                set-location $currentdir
+            }
+            Else {
+                set-location $nodejsdirectory
+                If (!${queryport}) {
+                    Write-log " Using port $querytype ${ip}:${port} "
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput = .\gamedig --type $querytype ${ip}:${port} --pretty
+                    }
+                    Else {
+                        $queryOutput = gamedig --type $querytype ${ip}:${port} --pretty
+                    }
+                }
+                Else {
+                    Write-log "Using queryport $querytype ${ip}:${queryport}"
+                    If (!(test-path $nodejsprogramexecutable)) {
+                        $queryOutput =  .\gamedig --type $querytype ${ip}:${queryport} --pretty
+                    }
+                    Else {
+                        $queryOutput = gamedig --type $querytype ${ip}:${queryport} --pretty
+                    }
+                }
+                #$queryOutput
+                $queryOutput =  $queryOutput | ConvertFrom-Json
+                Write-log "Ping: $($queryOutput.ping)"
+                $script:pingstatus = $($queryOutput.ping)
                 set-location $currentdir
             }
         }
