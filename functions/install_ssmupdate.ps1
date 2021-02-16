@@ -15,7 +15,7 @@ Function Get-UpdateSteamer {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/functions/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -54,7 +54,7 @@ Function Get-UpdateSteamerSSM {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -90,7 +90,7 @@ Function Get-UpdateSteamerCSV {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/data/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/data/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
