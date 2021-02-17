@@ -8,8 +8,10 @@
 #
 param(
     [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'install-VcRedist', 'stats', 'menu', 'exit','ssm','update-mods')]    
-    $command,
-    $serverfiles)
+    [Parameter(ParameterSetName="steamer",Position = 0)]
+    [string]$command,
+    [Parameter(ParameterSetName="steamer",Position = 1)]
+    [string]$serverfiles)
 If ($serverfiles) {    
     if ($serverfiles.Contains('\')) {
         $serverfiles = Split-Path $serverfiles -Leaf
