@@ -268,6 +268,7 @@ Function Write-log {
         If ($loggingdate) {
             If ($logmessage) {
                 Add-Content $ssmlog "[$loggingdate] $logmessage " 2>$null
+                Write-Verbose "$logmessage"
             }
         }
     }
