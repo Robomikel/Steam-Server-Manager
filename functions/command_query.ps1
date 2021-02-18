@@ -84,7 +84,7 @@ Function Get-GamedigServerv2 {
                 # $($queryOutput.raw.rules)
                 # Write-Host "Tags: "
                 # $($queryOutput.raw.tags)
-                # set-location $currentdir
+                set-location $currentdir
             }
         }
     }
