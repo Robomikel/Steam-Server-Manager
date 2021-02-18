@@ -10,15 +10,15 @@ Function Get-FolderNames {
     Write-log "Function: Get-FolderNames"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking Folder Names "
-        If ("$currentdir\$serverfiles") {
-            If (Test-Path "$currentdir\$serverfiles") {
-                Write-log "Folder Name Exists   $currentdir\$serverfiles "
+        If ("$ssmwd\$serverfiles") {
+            If (Test-Path "$ssmwd\$serverfiles") {
+                Write-log "Folder Name Exists   $ssmwd\$serverfiles "
             }
-            ElseIf (!(Test-Path "$currentdir\$serverfiles")) {
+            ElseIf (!(Test-Path "$ssmwd\$serverfiles")) {
                 New-ServerFolderq
             }
         }
-        ElseIf (!"$currentdir\$serverfiles") {
+        ElseIf (!"$ssmwd\$serverfiles") {
             Get-warnmessage "fngetfoldersfailed"
         }
     }
@@ -28,12 +28,12 @@ Function New-LocalFolder {
     Write-log "Function: New-LocalFolder"   
     ##-- 
     $global:configlocal = "config-local"
-    If (Test-Path $currentdir\$configlocal ) {
+    If (Test-Path $ssmwd\$configlocal ) {
         Write-log "config-local Folder Already Created!   "
     }
     Else {
         Write-log "Creating: config-local Folder  "
-        New-Item  . -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item $ssmwd -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-local Folder  "
         }
@@ -45,12 +45,12 @@ Function New-defaultFolder {
     Write-log "Function: New-defaultFolder"   
     ##-- 
     $global:configdefault = "config-default"
-    If (Test-Path $currentdir\$configdefault) {
+    If (Test-Path $ssmwd\$configdefault) {
         Write-log "config-default Folder Already Created!   "
     }
     Else {
         Write-log "Creating: config-default Folder  "
-        New-Item  . -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item $ssmwd -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-default Folder  "
         }

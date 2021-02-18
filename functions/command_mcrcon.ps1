@@ -11,8 +11,8 @@ Function Set-ConnectMCRcon {
     If ($ssmlog -and $loggingdate) {
         Write-log "Starting McRcon"
         If ($mcrconexecutable) {
+            set-location $mcrcondirectory
             If ($Useprivate -eq "off") {
-                set-location $mcrcondirectory
                 If (!( ${rconport} )) {
                     Write-log "Using Port ${extip} -P ${port} -p $rconpassword"
                     & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
@@ -21,10 +21,8 @@ Function Set-ConnectMCRcon {
                     Write-log "Using RconPort ${extip} -P ${rconport} -p $rconpassword"
                     & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
                 }
-                set-location $currentdir
             }
             Else {
-                set-location $mcrcondirectory
                 If (!( ${rconport} )) {
                     Write-log "Using Port ${ip} -P ${port} -p $rconpassword"
                     & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
@@ -33,8 +31,8 @@ Function Set-ConnectMCRcon {
                     Write-log "Using Port ${ip} -P ${rconport} -p $rconpassword"
                     & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
                 }
-                set-location $currentdir
             }
+            pop-location -StackName cwd
         }
         ElseIf (!$mcrconexecutable) {
             Get-warnmessage "fn_Set-ConnectMCRcon"
@@ -45,8 +43,8 @@ Function invoke-sourcerestart {
     Write-log "Function: invoke-sourcerestart"
     Write-log "Starting McRcon for source restart"
     If ($mcrconexecutable) {
+        set-location $mcrcondirectory
         If ($Useprivate -eq "off") {
-            set-location $mcrcondirectory
             If (!${rconport}) {
                 Write-log "Using Port ${extip} -P ${port} -p $rconpassword _restart"
                 & $mcrconexecutable -c -H ${extip} -P ${port} -p $rconpassword "_restart"
@@ -58,10 +56,8 @@ Function invoke-sourcerestart {
                 & $mcrconexecutable -c -H ${extip} -P ${rconport} -p $rconpassword "_restart"
                 
             }
-            set-location $currentdir
         }
         Else {
-            set-location $mcrcondirectory
             If (!${rconport}) {
                 Write-log "Using Port ${ip} -P ${port} -p $rconpassword _restart"
                 # & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
@@ -72,8 +68,8 @@ Function invoke-sourcerestart {
                 # & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
                 & $mcrconexecutable -c -H ${ip} -P ${rconport} -p $rconpassword "_restart"
             }
-            set-location $currentdir
         }
+        Pop-Location -StackName cwd
     }
     ElseIf (!$mcrconexecutable) {
         Get-warnmessage "Set-ConnectMCRcon"      

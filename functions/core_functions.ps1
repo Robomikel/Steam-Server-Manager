@@ -11,9 +11,9 @@ Function Get-CreatedVaribles {
         Param($serverfiles)
     }
     Write-log "Function: Get-CreatedVaribles"
-    If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
+    If (Test-Path $ssmwd\$serverfiles\Variables-$serverfiles.ps1 ) {
         . { 
-            Invoke-Expression $currentdir\$serverfiles\Variables-$serverfiles.ps1
+            Invoke-Expression $ssmwd\$serverfiles\Variables-$serverfiles.ps1
 
         } 
     }
@@ -120,7 +120,7 @@ Function Set-Steamer {
 Function Set-VariablesPS {
     Write-log "Function: Set-VariablesPS"
     Get-Infomessage "creating" 'info'
-    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
+    New-Item $ssmwd\$serverfiles\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
@@ -242,7 +242,7 @@ Function New-ServerLog {
             If (Test-Path $logdirectory\$consolelog  ) {
                 Write-log "Found $consolelog"
                 $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
-                Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
+                Copy-Item  $logdirectory\$log -Destination "$ssmwd\log\$serverfiles-$date.log" -Force
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
                         Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn $pastebinexpires -Visibility Unlisted
@@ -286,11 +286,11 @@ Function Remove-SteamerLogs {
 Function Send-Paste_OLD {
     Write-log "Function: "
     If ($serverfiles) {
-        If (Test-Path $currentdir\log\$serverfiles-*.log) {
+        If (Test-Path $ssmwd\log\$serverfiles-*.log) {
             Set-Location $logdir
             $paste = Get-Childitem $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
             Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
-            Set-Location $currentdir
+            Set-Location $ssmwd
         }
 
     }
@@ -311,8 +311,8 @@ Function Get-Appid {
         $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
         If ($Appid) {
             $global:appid = $appid.Line.Split(",")[3]
-            # $global:appid = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty AppID
-            $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
+            # $global:appid = Import-Csv $ssmwd\data\serverlist.csv | where-object appid -like $appid  | Select-Object -ExpandProperty AppID
+            $game = Import-Csv $ssmwd\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
         }
         ElseIf (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
@@ -388,8 +388,8 @@ Function Get-Sourcemodwebrequest {
 }
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
-    If (Test-Path $currentdir\$serverfiles\Variables-*.ps1) {
-        $check = (Get-Childitem $currentdir\$serverfiles | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+    If (Test-Path $ssmwd\$serverfiles\Variables-*.ps1) {
+        $check = (Get-Childitem $ssmwd\$serverfiles | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
             Get-createdvaribles
             If ( $process ) {
@@ -443,7 +443,7 @@ Function compare-SteamExit {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
                 Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
                 Set-Location $steamdirectory
-                .\steamCMD +login $username $password +force_install_dir $currentdir\$serverfiles +app_update $APPID $Branch +Exit
+                .\steamCMD +login $username $password +force_install_dir $ssmwd\$serverfiles +app_update $APPID $Branch +Exit
                 New-TryagainSteam
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
@@ -530,20 +530,20 @@ Function Test-VariablesNull {
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
     New-LocalFolder
-    If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
-        .$currentdir\$configlocal\local_settings.ps1
+    If (Test-Path "$ssmwd\$configlocal\local_settings.ps1") {
+        .$ssmwd\$configlocal\local_settings.ps1
         Import-CustomSetting
     } 
     Else {
         Set-Customsettings
-        .$currentdir\$configlocal\local_settings.ps1
+        .$ssmwd\$configlocal\local_settings.ps1
         Import-CustomSetting
     }
 }
 Function Set-Customsettings {
     Write-Log "Function Set-Customsettings"
-    New-Item "$currentdir\$configlocal\local_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
-    Add-Content "$currentdir\$configlocal\local_settings.ps1" `
+    New-Item "$ssmwd\$configlocal\local_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
+    Add-Content "$ssmwd\$configlocal\local_settings.ps1" `
         "Function Import-CustomSetting {
     Write-log `"Function: Import-CustomSetting`"
     #                               ####  Steamer Settings #######
@@ -634,14 +634,14 @@ Function Set-Customsettings {
 Function Import-localConfig {
     Write-log "Function: Import-localConfig"
     If ($getlocalssmname) {
-        If ((Test-Path $currentdir\config-local\$getlocalssmname)) {
-            Write-log "Import:  .$currentdir\config-local\$getlocalssmname"
-            .$currentdir\config-local\$getlocalssmname
+        If ((Test-Path $ssmwd\config-local\$getlocalssmname)) {
+            Write-log "Import:  .$ssmwd\config-local\$getlocalssmname"
+            .$ssmwd\config-local\$getlocalssmname
             Set-LaunchScript
         }
-        ElseIf (Test-Path $currentdir\config-default\$getlocalssmname) {
-            Write-log "Import: .$currentdir\config-default\$getlocalssmname"
-            .$currentdir\config-default\$getlocalssmname
+        ElseIf (Test-Path $ssmwd\config-default\$getlocalssmname) {
+            Write-log "Import: .$ssmwd\config-default\$getlocalssmname"
+            .$ssmwd\config-default\$getlocalssmname
             Set-LaunchScript
         }
         Else {
@@ -1289,8 +1289,8 @@ Function Add-Modtolist {
 }
 Function Get-installedMods {    
     Write-log "Function: Get-installedMods"
-    If (Test-Path "$currentdir\$serverfiles\mods.json") {
-        $script:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
+    If (Test-Path "$ssmwd\$serverfiles\mods.json") {
+        $script:installedmods = Get-Content -Path $ssmwd\$serverfiles\mods.json | ConvertFrom-Json
     }
     Else {
         Write-log "No $serverfiles\mod.json found"
@@ -1300,16 +1300,16 @@ Function New-modlist {
     Write-Log "Function: New-modlist"
     If ($installedmods) {
         If ($mods.Mods) {
-            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $mods | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\mods.json -Force
             Write-log "Edit mods.mods $($mods.Mods) mods.json"
         }
         ElseIf ($installedmods.Mods) {
-            $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $installedmods | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\mods.json -Force
             Write-log "Edit mods.mods $($installedmods.Mods) mods.json"
         }
         Else {
             $script:mods = @{ Mods = $installedmods };
-            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $mods | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\mods.json -Force
             Write-log "New $mods mods.json"
         }
     }
@@ -1317,7 +1317,7 @@ Function New-modlist {
 Function Edit-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Edit-Modlist"
-    If (Test-Path $currentdir\$serverfiles\mods.json) {
+    If (Test-Path $ssmwd\$serverfiles\mods.json) {
         If ($installedmods) {
 #            If ($($installedmods.Mods) -like "*$modname*") {
 #                $($installedmods.Mods).$modname = "$modfile"
@@ -1349,7 +1349,7 @@ Function Compare-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Compare-Modlist"
     Write-log " Param($modname, $modfile)"
-    If (Test-Path $currentdir\$serverfiles\mods.json) {
+    If (Test-Path $ssmwd\$serverfiles\mods.json) {
         Get-installedMods
         Write-log "($($installedmods.Mods.$modname) -eq $modfile)"
         If ($installedmods.Mods.$modname -eq $modfile) {

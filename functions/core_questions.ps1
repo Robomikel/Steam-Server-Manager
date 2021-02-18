@@ -42,7 +42,7 @@ Function New-TryagainNew {
     }
     Else {
         Write-Host 'Entered N'
-        Set-Location $currentdir
+        Pop-Location -StackName cwd
         Exit
     }
 }
@@ -56,7 +56,7 @@ Function New-TryagainSteam {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Set-Location $currentdir
+        Pop-Location -StackName cwd
     }
     Else {
         Write-Host 'Entered N'
@@ -74,11 +74,11 @@ Function New-TryagainSteamLogin {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Set-Location $currentdir
+        Pop-Location -StackName cwd
     }
     Else {
         Write-Host 'Entered N'
-        Set-Location $currentdir
+        Pop-Location -StackName cwd
         Exit
     }
 }
@@ -215,7 +215,7 @@ Function New-LocalConfig {
         $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
         $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
         If ($decision -eq 0) {
-            Write-Information "Edit config-local in $currentdir\config-local\$getlocalssmname. Save and Press Enter..."
+            Write-Information "Edit config-local in $ssmwd\config-local\$getlocalssmname. Save and Press Enter..."
             pause 
             Import-localConfig       
         } 

@@ -18,7 +18,7 @@ Function Get-Oxide {
             return
         }
         Get-Infomessage "Downloading" 'Oxide'
-        #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
+        #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$ssmwd\oxide.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
         If (!$?) {
@@ -39,7 +39,7 @@ Function Get-Oxide {
             Get-Infomessage "Extracted" 'Oxide'
         }
         Get-Infomessage "copying-installing" 'Oxide'
-        Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
+        Copy-Item  $ssmwd\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
             Write-log "Copying Oxide Failed"
             New-TryagainNew
@@ -50,7 +50,7 @@ Function Get-Oxide {
 
 Function Get-undeadlegacy {
     Write-log "Function: Get-undead-legacy"
-    if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
+    if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$ssmwd\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
         $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
@@ -70,7 +70,7 @@ Function Get-undeadlegacy {
         Get-Infomessage "Downloaded" 'undead-legacy'
     }
     Get-Infomessage "downloadtime"
-    $undeadurlfolder = $currentdir, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
+    $undeadurlfolder = $ssmwd, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
     $undeadurlzip = @{
         Path            = "$undeadurllatestzip"
         DestinationPath = "$undeadurlfolder"
@@ -88,7 +88,7 @@ Function Get-undeadlegacy {
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
         Path        = "$undeadurlfolder\UndeadLegacy-master\*"
-        Destination = "$currentdir\$serverfiles"
+        Destination = "$ssmwd\$serverfiles"
         Force       = $true
         Recurse     = $true
     }
@@ -115,13 +115,13 @@ Function Add-plugintolist {
 }
 Function Get-installedplugins {    
     Write-log "Function: Get-installedplugins"
-    $installedpluginscount = Get-Content -Path $currentdir\$serverfiles\plugins.json | select-string -SimpleMatch ".cs"
+    $installedpluginscount = Get-Content -Path $ssmwd\$serverfiles\plugins.json | select-string -SimpleMatch ".cs"
     if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
         write-log "Plugin removed"
-        Remove-item "$currentdir\$serverfiles\plugins.json" -Force
+        Remove-item "$ssmwd\$serverfiles\plugins.json" -Force
     }
-    If (Test-Path "$currentdir\$serverfiles\plugins.json") {
-        $script:installedplugins = Get-Content -Path $currentdir\$serverfiles\plugins.json | ConvertFrom-Json
+    If (Test-Path "$ssmwd\$serverfiles\plugins.json") {
+        $script:installedplugins = Get-Content -Path $ssmwd\$serverfiles\plugins.json | ConvertFrom-Json
     }
     Else {
         Write-log "No $serverfiles\plugins.json found"
@@ -130,23 +130,23 @@ Function Get-installedplugins {
 Function New-pluginlist {
     Write-Log "Function: New-pluginlist"
     If ($plugins.plugins) {
-        $plugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $plugins | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\plugins.json -Force
         Write-log "Edit plugins.plugins $($plugins.plugins) plugins.json"
     }
     ElseIf ($installedplugins.plugins) {
-        $installedplugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $installedplugins | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\plugins.json -Force
         Write-log "Edit plugins.plugins $($installedplugins.plugins) plugins.json"
     }
     Else {
         $script:plugins = @{ plugins = $installedplugins };
-        $plugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $plugins | ConvertTo-Json | Set-Content -Path $ssmwd\$serverfiles\plugins.json -Force
         Write-log "New $plugins plugins.json"
     }
 }
 Function Edit-pluginlist {
     Param($pluginname, $pluginfile)
     Write-log "Function: Edit-pluginlist"
-    If (Test-Path $currentdir\$serverfiles\plugins.json) {
+    If (Test-Path $ssmwd\$serverfiles\plugins.json) {
         If ($installedplugins) {
             If ($installedplugins.plugins -like "*$pluginname*") {
                 $installedplugins.plugins.$pluginname = "$pluginfile"
@@ -175,7 +175,7 @@ Function Edit-pluginlist {
 Function Compare-pluginlist {
     Param($pluginname, $pluginfile)
     Write-log "Function: Compare-pluginlist"
-    If (Test-Path $currentdir\$serverfiles\plugins.json) {
+    If (Test-Path $ssmwd\$serverfiles\plugins.json) {
         Get-installedplugins
         $installedplugins | foreach {
             ping-pluginversion $installedplugins.plugins 
@@ -186,7 +186,7 @@ Function Compare-pluginlist {
 
 Function Initialize-plugins {
     Write-log "Function: Initialize-plugins"
-    $script:pluginss = gci $currentdir\$serverfiles\oxide\plugins | ? Name -like *.cs
+    $script:pluginss = gci $ssmwd\$serverfiles\oxide\plugins | ? Name -like *.cs
     $pluginss |  foreach { 
         $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
         $script:pluginname = $_.Name
@@ -229,8 +229,8 @@ Function Receive-plugin {
     param($pluginname, $pluginfile, $updatecheck)
     write-log "Function: Receive-plugin "
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
-    iwr $Uri -O $currentdir\$serverfiles\oxide\plugins\$pluginname
-    If (Test-Path $currentdir\$serverfiles\oxide\plugins\$pluginname) {
+    iwr $Uri -O $ssmwd\$serverfiles\oxide\plugins\$pluginname
+    If (Test-Path $ssmwd\$serverfiles\oxide\plugins\$pluginname) {
         Write-log "$pluginname installed"
     }
     Else {

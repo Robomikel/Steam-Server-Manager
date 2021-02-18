@@ -11,8 +11,8 @@ Function Get-GamedigServerv2 {
     If ($ssmlog -and $loggingdate) {
         If ($nodejsdirectory) {
             Write-log "Starting gamedig on Server  "
+            set-location $nodejsdirectory
             If ($Useprivate -eq "off") {
-                set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${extip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
@@ -39,10 +39,8 @@ Function Get-GamedigServerv2 {
 
                     }
                 }
-                set-location $currentdir
             }
             Else {
-                set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${ip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
@@ -84,8 +82,9 @@ Function Get-GamedigServerv2 {
                 # $($queryOutput.raw.rules)
                 # Write-Host "Tags: "
                 # $($queryOutput.raw.tags)
-                set-location $currentdir
+                # set-location $ssmwd
             }
+            pop-location -StackName cwd
         }
     }
 }
@@ -95,8 +94,8 @@ Function Get-GamedigServervMonitor {
     If ($ssmlog -and $loggingdate) {
         If ($nodejsdirectory) {
             Write-log "Starting gamedig Monitor on Server  "
+            set-location $nodejsdirectory
             If ($Useprivate -eq "off") {
-                set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${extip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
@@ -115,10 +114,8 @@ Function Get-GamedigServervMonitor {
                         $queryOutput = gamedig --type $querytype ${extip}:${queryport} --pretty
                     }
                 }
-                set-location $currentdir
             }
             Else {
-                set-location $nodejsdirectory
                 If (!${queryport}) {
                     Write-log " Using port $querytype ${ip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
@@ -141,8 +138,8 @@ Function Get-GamedigServervMonitor {
                 $queryOutput =  $queryOutput | ConvertFrom-Json
                 Write-log "Ping: $($queryOutput.ping)"
                 $script:pingstatus = $($queryOutput.ping)
-                set-location $currentdir
             }
+            Pop-Location -StackName cwd
         }
     }
 }

@@ -8,14 +8,14 @@
 #
 Function New-BackupFolder {
     Write-log "Function: Function New-BackupFolder"
-    If ($backupdir -and $ssmlog -and $loggingDate -and $currentdir) {
+    If ($backupdir -and $ssmlog -and $loggingDate -and $ssmwd) {
         If (Test-Path $backupdir) { 
             Write-log "Backup folder exists! "
         } 
         ElseIf (!(Test-Path $backupdir)) {  
             Write-log "Creating backup folder "
             $backupfolder = @{
-                Path     = '.'
+                Path     = $ssmwd
                 Name     = 'backups'
                 ItemType = 'directory'
             }

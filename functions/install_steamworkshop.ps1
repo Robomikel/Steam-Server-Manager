@@ -6,7 +6,7 @@ Function Install-SteamWS {
     # Stop On Failed Download
     $StopOnFail = $false
     # path to your SteamCMD SE Workshop content folder
-    $contentFolder = "$currentdir\steamcmd\steamapps\workshop\content\$reg_appID\"
+    $contentFolder = "$ssmwd\steamcmd\steamapps\workshop\content\$reg_appID\"
     # download workshop content - requires user/pwd of steam account which owns SE game to get mods. 
     # Using WAIT because if we run async, steamCMD sometimes complains that it hasn't shut down properly, 
     # since it's running multiple sessions.
@@ -93,5 +93,5 @@ Function Install-SteamWS {
             gci $moddir\*.pak | ForEach-Object { Add-content $modfiletext ("*" + $_.Name) -Force }
         }
     }
-    Set-Location $currentdir
+    Pop-Location -StackName cwd
 }

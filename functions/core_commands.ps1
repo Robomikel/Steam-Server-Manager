@@ -72,9 +72,9 @@ Function Get-SSMMenu {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
     Choose Server: 
     loading..." -F Cyan
-        $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
+        $check = ((gci $ssmwd -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$ssmwd\", "" )
         if ($check.count -gt 1) {
-           $serverfiles = Menu (iex " ((gci $currentdir -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           $serverfiles = Menu (iex " ((gci $ssmwd -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$ssmwd\`", `"`" )")
            # $serverfiles = menu (iex "(gci * -Filter *server | select Name).Name")
         }
         Elseif ($check.count -eq 1) {
@@ -82,13 +82,13 @@ Function Get-SSMMenu {
         }   
     }
     If ($command -eq "install A-H") {
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
-        $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
+        $gamename = Menu (iex "Import-Csv $ssmwd\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
+        $serverfiles = Import-Csv $ssmwd\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install I-Z") {
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 42" )
-        $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
+        $gamename = Menu (iex "Import-Csv $ssmwd\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 42" )
+        $serverfiles = Import-Csv $ssmwd\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ./ssm.ps1 $command $serverfiles

@@ -14,12 +14,12 @@ Function Add-NodeJS {
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
     $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
     $nodejsoutput = "$nodeversion"
-    $nodejsdirectory = "$currentdir\latest-v12.x"
+    $nodejsdirectory = "$ssmwd\latest-v12.x"
     $nodejsexecutable = "$nodejsdirectory\node.exe"
     If ($nodeversion) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Nodejs'
-        #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
+        #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$ssmwd\$nodeversion")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         Invoke-WebRequest -Uri $nodejsurl -OutFile $nodejsoutput
         If (!$?) {
@@ -31,10 +31,10 @@ Function Add-NodeJS {
         } 
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Nodejs'
-        Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\latest-v12.x\" -Force
+        Expand-Archive "$ssmwd\$nodejsoutput" "$ssmwd\latest-v12.x\" -Force
         $nodeversionfolder = $nodeversion -replace '.zip', ''
-        Copy-Item  "$currentdir\latest-v12.x\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
-        Remove-Item "$currentdir\latest-v12.x\$nodeversionfolder" -Recurse -Force 
+        Copy-Item  "$ssmwd\latest-v12.x\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
+        Remove-Item "$ssmwd\latest-v12.x\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'Nodejs'
             New-TryagainNew
@@ -45,7 +45,7 @@ Function Add-NodeJS {
         Set-Location $nodejsdirectory  
         .\npm install gamedig
         .\npm install gamedig -g
-        Set-Location $currentdir
+        Pop-Location -StackName cwd
     }
 }
 

@@ -10,7 +10,7 @@ Function Get-UpdateSteamer {
     Get-UpdateSteamerCSV
     # Get-UpdateSteamerConfigDefault
     Get-UpdateSteamerSSM
-    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force)
+    $getlocalssm = $(Get-ChildItem $ssmwd\functions\ -Force)
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
@@ -19,19 +19,19 @@ Function Get-UpdateSteamer {
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
-                        If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        If (Test-Path $ssmwd\tmp) { } Else {
+                            New-Item $ssmwd -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
-                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
-                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
+                        New-Item  "$ssmwd\tmp\$getlocalssmname\" -Force >$null 2>&1
+                        Add-Content "$ssmwd\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = Get-Content $ssmwd\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            $ssmcontentlocaltrim = Get-Content $currentdir\functions\$getlocalssmname | Where-Object { $_ -notlike "" }
+                            $ssmcontentlocaltrim = Get-Content $ssmwd\functions\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
                                     Get-Infomessage 'ssmupdates' 'update'
-                                    New-Item  "$currentdir\functions\$getlocalssmname" -Force >$null 2>&1
-                                    Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                    New-Item  "$ssmwd\functions\$getlocalssmname" -Force >$null 2>&1
+                                    Add-Content "$ssmwd\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
                                     Get-Infomessage 'nossmupdates' 
@@ -42,7 +42,7 @@ Function Get-UpdateSteamer {
                 }
             }
         }
-        Remove-Item "$currentdir\tmp" -Recurse -Force
+        Remove-Item "$ssmwd\tmp" -Recurse -Force
         Write-Information 'Press Enter to Close this session' -InformationAction Continue
         Pause  
         Stop-Process -Id $PID
@@ -58,19 +58,19 @@ Function Get-UpdateSteamerSSM {
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
-                        If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        If (Test-Path $ssmwd\tmp) { } Else {
+                            New-Item $ssmwd -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
-                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
-                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
+                        New-Item  "$ssmwd\tmp\$getlocalssmname\" -Force >$null 2>&1
+                        Add-Content "$ssmwd\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = Get-Content $ssmwd\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            $ssmcontentlocaltrim = Get-Content $currentdir\$getlocalssmname | Where-Object { $_ -notlike "" }
+                            $ssmcontentlocaltrim = Get-Content $ssmwd\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
                                     Get-Infomessage 'ssmupdates' 'update'
-                                    New-Item  "$currentdir\$getlocalssmname" -Force >$null 2>&1
-                                    Add-Content "$currentdir\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                    New-Item  "$ssmwd\$getlocalssmname" -Force >$null 2>&1
+                                    Add-Content "$ssmwd\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
                                     Get-Infomessage 'nossmupdates' 
@@ -81,11 +81,11 @@ Function Get-UpdateSteamerSSM {
                 }
             }
         }
-        Remove-Item "$currentdir\tmp" -Recurse -Force
+        Remove-Item "$ssmwd\tmp" -Recurse -Force
     }
 }
 Function Get-UpdateSteamerCSV {
-    $getlocalssm = Get-ChildItem $currentdir\data\ -Force
+    $getlocalssm = Get-ChildItem $ssmwd\data\ -Force
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
@@ -94,19 +94,19 @@ Function Get-UpdateSteamerCSV {
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
-                        If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        If (Test-Path $ssmwd\tmp) { } Else {
+                            New-Item $ssmwd -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
-                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
-                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
+                        New-Item  "$ssmwd\tmp\$getlocalssmname\" -Force >$null 2>&1
+                        Add-Content "$ssmwd\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = Get-Content $ssmwd\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            $ssmcontentlocaltrim = Get-Content $currentdir\data\$getlocalssmname | Where-Object { $_ -notlike "" }
+                            $ssmcontentlocaltrim = Get-Content $ssmwd\data\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
                                     Get-Infomessage 'ssmupdates' 'update'
-                                    New-Item  "$currentdir\data\$getlocalssmname" -Force >$null 2>&1
-                                    Add-Content "$currentdir\data\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                    New-Item  "$ssmwd\data\$getlocalssmname" -Force >$null 2>&1
+                                    Add-Content "$ssmwd\data\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
                                     Get-Infomessage 'nossmupdates' 
@@ -117,12 +117,12 @@ Function Get-UpdateSteamerCSV {
                 }
             }
         }
-        Remove-Item "$currentdir\tmp" -Recurse -Force
+        Remove-Item "$ssmwd\tmp" -Recurse -Force
     }
 }
 Function Get-UpdateSteamerConfigDefault {
-    # $getlocalssm = $((Import-Csv $currentdir\data\serverlist.csv)."Default-Config")
-    $getlocalssmname = gci $currentdir\config-default\
+    # $getlocalssm = $((Import-Csv $ssmwd\data\serverlist.csv)."Default-Config")
+    $getlocalssmname = gci $ssmwd\config-default\
     If ($getlocalssmname) {
         ForEach ($getlocalssmname in $getlocalssmname ) {  
             If ($getlocalssmname) {
@@ -130,20 +130,20 @@ Function Get-UpdateSteamerConfigDefault {
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
-                        If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        If (Test-Path $ssmwd\tmp) { } Else {
+                            New-Item $ssmwd -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
-                        New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
-                        Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
-                        $githubvarcontenttrim = Get-Content $currentdir\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
+                        New-Item  "$ssmwd\tmp\$getlocalssmname\" -Force >$null 2>&1
+                        Add-Content "$ssmwd\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        $githubvarcontenttrim = Get-Content $ssmwd\tmp\$getlocalssmname | Where-Object { $_ -notlike "" }
                         If ($githubvarcontenttrim) {
-                            if (Test-Path $currentdir\config-default\$getlocalssmname) {
-                                $ssmcontentlocaltrim = Get-Content $currentdir\config-default\$getlocalssmname | Where-Object { $_ -notlike "" }
+                            if (Test-Path $ssmwd\config-default\$getlocalssmname) {
+                                $ssmcontentlocaltrim = Get-Content $ssmwd\config-default\$getlocalssmname | Where-Object { $_ -notlike "" }
                                 If ($ssmcontentlocaltrim ) { 
                                     if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
                                         Get-Infomessage 'ssmupdates' 'update'
-                                        New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
-                                        Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                        New-Item  "$ssmwd\config-default\$getlocalssmname" -Force >$null 2>&1
+                                        Add-Content "$ssmwd\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                     } 
                                     Else {
                                         Get-Infomessage 'nossmupdates' 
@@ -153,21 +153,21 @@ Function Get-UpdateSteamerConfigDefault {
                             }
                             Else {
                                 Get-Infomessage 'ssmupdates' 'update'
-                                New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
-                                Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                                New-Item  "$ssmwd\config-default\$getlocalssmname" -Force >$null 2>&1
+                                Add-Content "$ssmwd\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                             }
                         }
                     }
                 }
             }
         }
-        Remove-Item "$currentdir\tmp" -Recurse -Force
+        Remove-Item "$ssmwd\tmp" -Recurse -Force
     }
 }
 
 Function Get-SteamerConfigDefault {
     Write-log "Function: Get-SteamerConfigDefault "
-    $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
+    $getlocalssm = Import-Csv $ssmwd\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
         write-log "`$getlocalssmname $getlocalssmname"
@@ -177,17 +177,17 @@ Function Get-SteamerConfigDefault {
             If ($githubvarcontent) {
                 $githubvarcontent = ($githubvarcontent).Content
                 If ($githubvarcontent) {
-                    If (!(Test-Path $currentdir\config-default)) {
-                        New-Item  . -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                    If (!(Test-Path $ssmwd\config-default)) {
+                        New-Item $ssmwd -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                     }
                     If ($getlocalssmname) {
-                        If (!(Test-Path $currentdir\config-default\$getlocalssmname)) {
-                            New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
-                            Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        If (!(Test-Path $ssmwd\config-default\$getlocalssmname)) {
+                            New-Item  "$ssmwd\config-default\$getlocalssmname" -Force >$null 2>&1
+                            Add-Content "$ssmwd\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                         }
-                        If (!(Test-Path $currentdir\config-local\$getlocalssmname)) {
-                            New-Item  "$currentdir\config-local\$getlocalssmname\" -Force >$null 2>&1
-                            Add-Content "$currentdir\config-local\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
+                        If (!(Test-Path $ssmwd\config-local\$getlocalssmname)) {
+                            New-Item  "$ssmwd\config-local\$getlocalssmname\" -Force >$null 2>&1
+                            Add-Content "$ssmwd\config-local\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                         }
                     }
                 }

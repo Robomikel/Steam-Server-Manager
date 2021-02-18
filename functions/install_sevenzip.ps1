@@ -11,7 +11,7 @@ Function Add-Sevenzip {
     If ($sevenzipurl -and $sevenzipoutput) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" '7ZIP'
-        #(New-Object Net.WebClient).DownloadFile("$sevenzipurl", "$currentdir\7za920.zip")
+        #(New-Object Net.WebClient).DownloadFile("$sevenzipurl", "$ssmwd\7za920.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         $sevenzip = @{
             Uri = $sevenzipurl
