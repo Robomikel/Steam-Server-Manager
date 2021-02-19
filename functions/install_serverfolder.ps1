@@ -22,18 +22,7 @@ Function New-ServerFolder {
     }
     Else {
         Write-log "Creating Server Folder  "
-        $serverfolder = @{
-            Path = '.'
-            Name = "$serverfiles"
-            ItemType = "directory"
-        }
-        $outfile = @{
-            OutFile = "$ssmlog"
-            Append = $true
-            Encoding = 'Default'
-
-        }
-        New-Item  @serverfolder | Out-File @outfile
+        New-Item  . -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating Server Folder  "
         }
