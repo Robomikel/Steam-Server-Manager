@@ -25,7 +25,7 @@ Function New-ServerFolder {
         $serverfolder = @{
             Path = '.'
             Name = "$serverfiles"
-            ItemType = "directory"
+            ItemType = Directory
         }
         $outfile = @{
             OutFile = "$ssmlog"

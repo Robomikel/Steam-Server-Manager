@@ -17,7 +17,7 @@ Function New-BackupFolder {
             $backupfolder = @{
                 Path     = '.'
                 Name     = 'backups'
-                ItemType = 'directory'
+                ItemType = Directory
             }
             New-Item @backupfolder | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
