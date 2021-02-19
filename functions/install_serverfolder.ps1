@@ -17,23 +17,12 @@ Function New-ServerFolder {
         Write-Warning ' You Enter a space or Empty  '
         Select-Steamer
     }
-    ElseIf (Test-Path "$ssmwd\$serverfiles" ) {
+    ElseIf (Test-Path "$currentdir\$serverfiles" ) {
         Write-log "Server Folder Already Created!   "
     }
     Else {
         Write-log "Creating Server Folder  "
-        $serverfolder = @{
-            Path = $ssmwd
-            Name = "$serverfiles"
-            ItemType = "directory"
-        }
-        $outfile = @{
-            OutFile = "$ssmlog"
-            Append = $true
-            Encoding = 'Default'
-
-        }
-        New-Item  @serverfolder | Out-File @outfile
+        New-Item  . -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating Server Folder  "
         }
