@@ -20,7 +20,7 @@ Function Get-UpdateSteamer {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -59,7 +59,7 @@ Function Get-UpdateSteamerSSM {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -95,7 +95,7 @@ Function Get-UpdateSteamerCSV {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -131,7 +131,7 @@ Function Get-UpdateSteamerConfigDefault {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -178,7 +178,7 @@ Function Get-SteamerConfigDefault {
                 $githubvarcontent = ($githubvarcontent).Content
                 If ($githubvarcontent) {
                     If (!(Test-Path $currentdir\config-default)) {
-                        New-Item  . -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        New-Item  $currentdir -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                     }
                     If ($getlocalssmname) {
                         If (!(Test-Path $currentdir\config-default\$getlocalssmname)) {

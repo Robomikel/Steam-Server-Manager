@@ -22,7 +22,7 @@ Function New-ServerFolder {
     }
     Else {
         Write-log "Creating Server Folder  "
-        New-Item  . -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item  $currentdir -Name "$serverfiles" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating Server Folder  "
         }

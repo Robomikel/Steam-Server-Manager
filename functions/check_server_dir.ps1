@@ -33,7 +33,7 @@ Function New-LocalFolder {
     }
     Else {
         Write-log "Creating: config-local Folder  "
-        New-Item  . -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item  $currentdir -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-local Folder  "
         }
@@ -50,7 +50,7 @@ Function New-defaultFolder {
     }
     Else {
         Write-log "Creating: config-default Folder  "
-        New-Item  . -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item  $currentdir -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-default Folder  "
         }
