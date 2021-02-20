@@ -20,8 +20,10 @@ If ($serverfiles) {
 # $command = $($args[0])
 # $serverfiles = $($args[1])
 Push-Location $(gl) -StackName cwd
-$ssmwd = 'C:\Users\ssm\Steam-Server-Manager'
-$serverdir = "$ssmwd\$serverfiles"
+$currentdir = $PSScriptRoot
+$bwd = 'C:\Users\ssm\Pictures'
+$sfwd = 'C:\Users\Public\Documents'
+$serverdir = "$sfwd\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 ${IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $Date = get-date -Format yyyyMMddTHHmmssffff
@@ -34,14 +36,14 @@ $githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-C
 
 # NodeJS 12 LTS
 $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-$nodejsdirectory = "$ssmwd\latest-v12.x"
+$nodejsdirectory = "$currentdir\latest-v12.x"
 $nodejsexecutable = "$nodejsdirectory\node.exe"
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
 # Oxide
 $oxiderustlatestlink = "https://umod.org/games/rust/download"
-$oxideoutput = "$ssmwd\oxide.zip"
-$oxidedirectory = "$ssmwd\oxide"
+$oxideoutput = "$currentdir\oxide.zip"
+$oxidedirectory = "$currentdir\oxide"
 
 # Sourcemod
 #"https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows"
@@ -64,9 +66,9 @@ $steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/"
 
 # 7-Zip Portable
 $sevenzipurl = "https://www.7-zip.org/a/7za920.zip"
-$sevenzipoutput = "$ssmwd\7za920.zip"
+$sevenzipoutput = "$currentdir\7za920.zip"
 $sevenzipversion = "7za920"
-$sevenzipdirectory = "$ssmwd\$sevenzipversion"
+$sevenzipdirectory = "$currentdir\$sevenzipversion"
 $sevenzipexecutable = "$sevenzipdirectory\7za.exe"
 
 # 7-Zip x64 - used to see if 7zip is installed already
@@ -76,7 +78,7 @@ $sevenzipprogramexecutable = "$sevenzipprogramdirectory\7z.exe"
 # Steam
 $steamurl = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
 $steamoutput = "steamcmd.zip"
-$steamdirectory = "$ssmwd\SteamCMD"
+$steamdirectory = "$currentdir\SteamCMD"
 $steamexecutable = "$steamdirectory\steamCMD.exe"
 # $steamcmdparmas = @("+@ShutdownOnFailedCommand 1", "+@NoPromptForPassword 1", "+login", "anonymous","$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+app_update $appid $branch validate", "+Exit")
 
@@ -84,7 +86,7 @@ $steamexecutable = "$steamdirectory\steamCMD.exe"
 $steamerurl = "https://github.com/Robomikel/Steam-Server-Manger/archive/master.zip"
 
 # Mcrcon
-$mcrcondirectory = "$ssmwd\mcrcon"
+$mcrcondirectory = "$currentdir\mcrcon"
 $mcrconexecutable = "$mcrcondirectory\mcrcon.exe"
 $mcrconowner = "Tiiffi"
 $mcrconrepo = "mcrcon"
@@ -106,14 +108,14 @@ $NOTE1 = ([char]9834)
 $NOTE2 = ([char]9835)
 $CHECKMARK = ([char]8730) 
 
-If (!(Test-Path $ssmwd\log\ssm)){mkdir $ssmwd\log\ssm >$null 2>&1}
-Get-ChildItem -Path $ssmwd\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
-# Get-ChildItem -Path $ssmwd\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
+If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm >$null 2>&1}
+Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
+# Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 Get-CustomSettings
 if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){ $logo  = "off"}
 Test-PSversion
-# If ($ssmlogging -eq "on") { Start-Transcript -Path "$ssmwd\log\ssm\Steamer-$Date.log" -Append -NoClobber}
+# If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 
 Set-Console  >$null 2>&1
 Set-Steamer
