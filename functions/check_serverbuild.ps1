@@ -34,8 +34,8 @@ Function Get-ServerBuildCheck {
                             #    # hosting
                             #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
                             $remotebuild = $remotebuild -replace '\s', ''
-                            If (Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf") {
-                                $localbuild = get-content "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf" | select-string $search
+                            If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+                                $localbuild = get-content "$serverdir\steamapps\appmanifest_$appid.acf" | select-string $search
                                 $localbuild = $localbuild -replace '\s', ''
                             }
                             Else {
@@ -83,20 +83,20 @@ Function Get-ServerBuildCheck {
 }
 Function Get-SteamFix {
     Write-log "Function: Get-SteamFix"
-    If ($ssmlog -and $loggingdate -and $appid -and "$ssmwd\$serverfiles") {
-        If ((Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf")) ) {
-            Rename-Item "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
+    If ($ssmlog -and $loggingdate -and $appid -and "$serverdir") {
+        If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
             Write-log "Restore appmanifest_$appid.acf "
         }
-        ElseIf (Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf") {
-            Rename-Item "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
+        ElseIf (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
             Write-log "Rename appmanifest_$appid.acf "
-            If (Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_228980.acf") {
-                Rename-Item "$ssmwd\$serverfiles\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
+            If (Test-Path "$serverdir\steamapps\appmanifest_228980.acf") {
+                Rename-Item "$serverdir\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
                 Write-log "Rename Steamworks Common Redistributables appmanifest_228980.acf"
             }
         }
-        ElseIf (!(Test-Path "$ssmwd\$serverfiles\steamapps\appmanifest_$appid.acf")) {
+        ElseIf (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) {
             Write-warning "No app Manifests found. Recommend Validate"
             Write-log "Warining: No app Manifests found. Recommend Validate"
         }

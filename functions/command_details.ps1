@@ -80,7 +80,7 @@ Function Get-Details {
     $backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
     $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $ssmdir = "{0:N2} GB" -f ((Get-Childitem $ssmwd  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $gameservermem = "{0:N2} GB" -f ((Get-Process $process).WS / 1GB) 
@@ -119,7 +119,7 @@ Function Get-Details {
     Write-Host "CPU Cooked:        $gamecpucooked %"
     Write-Host "Mem Used:          $gameservermem"
     Write-Host "Storage"
-    Write-Host "SSM Total:         $ssmdir"
+    Write-Host "SSM Total:         $currentdir"
     Write-Host "Serverfiles:       $serverfilesdir"
     Write-Host "Backups:           $backups"
     Write-Host "Backups Size:      $backupssize"

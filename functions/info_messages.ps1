@@ -182,7 +182,7 @@ Function Get-WarnMessage {
             $message = ' Missing Variables'
         }
         ElseIf ($warnmessage -eq 'missingVariables') {
-            $message = " Missing $ssmwd\$serverfiles\Variables-$serverfiles.ps1"
+            $message = " Missing $serverdir\Variables-$serverfiles.ps1"
         }
         ElseIf ($warnmessage -eq 'chkvarsfailed') {
             $message = ' Fn_Get-CheckForVars Failed'
@@ -218,7 +218,7 @@ Function Get-WarnMessage {
             $message = ' Failed: Install-ServerFiles: Try Install command'
         }
         ElseIf ($warnmessage -eq 'Fn_Set-ConnectMCRcon') {
-            $message = " Set-ConnectMCRcon Failed: $ssmwd\$serverfiles"
+            $message = " Set-ConnectMCRcon Failed: $serverdir"
         }
         ElseIf ($warnmessage -eq 'Fn_Get-StopServer') {
             $message = " Failed: Get-StopServer null $process"

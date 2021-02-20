@@ -12,7 +12,7 @@ Function Get-UpdateServer {
         Set-Location $steamdirectory
         Get-Infomessage "updating" 'info'
         If ($ANON -eq "yes") {
-            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $ssmwd\$serverfiles", "+app_update $appid $branch", "+Exit")
+            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
             & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
             compare-SteamExit
         }
@@ -24,7 +24,7 @@ Function Get-UpdateServer {
             If ($username -and $securedpassword) {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
                 $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $ssmwd\$serverfiles", "+app_update $appid $branch", "+Exit")
+                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
                 & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                 compare-SteamExit
             }

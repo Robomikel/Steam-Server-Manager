@@ -8,12 +8,12 @@
 #
 Function New-BackupServer {
     Write-log "Function: New-BackupServer"
-    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$ssmwd\$serverfiles") -and ($logdate)) { 
+    If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$serverdir") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
         if ($(Test-Path $sevenzipprogramexecutable)) {
-            & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $ssmwd\$serverfiles\* > $logdir\backup_$serverfiles-$Date.log
+            & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
         }
         ELse {
             If ($Showbackupconsole -eq "on") { 
@@ -21,7 +21,7 @@ Function New-BackupServer {
                 Write-log "Disabled: open backup log. show backup console on"
                 Get-Infomessage "backupstart" 'start'
                 Set-Location $sevenzipdirectory
-                Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $ssmwd\$serverfiles\*") -Wait
+                Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
@@ -29,10 +29,10 @@ Function New-BackupServer {
             ElseIf ($Showbackupconsole -eq "off") {
                 Get-Infomessage "backupstart" 'start'
                 Set-Location $sevenzipdirectory
-                #./7za a $ssmwd\backups\Backup_$serverfiles-$BackupDate.zip $ssmwd\$serverfiles\* -an > backup.log
+                #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $serverdir\* -an > backup.log
                 Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
-                write-log "./7za a $backupdir\Backup_$serverfiles-$Date.zip $ssmwd\$serverfiles\* > backup_$serverfiles-$Date.log"
-                ./7za a $backupdir\Backup_$serverfiles-$Date.zip $ssmwd\$serverfiles\* > $logdir\backup_$serverfiles-$Date.log
+                write-log "./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$serverfiles-$Date.log"
+                ./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
@@ -202,14 +202,14 @@ Function Get-Menu {
 Function New-BackupRestore {
     Write-log "Function: New-BackupRestore"
     Set-Console
-    If (($serverfiles) -and ($backupdir) -and ($Date) -and ("$ssmwd\$serverfiles") -and ($logdate)) { 
+    If (($serverfiles) -and ($backupdir) -and ($Date) -and ("$serverdir") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
         }
         Write-Warning "Deleting Current $serverfiles files"
-        gci $ssmwd\$serverfiles -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+        gci $serverdir -Exclude "Variables-*.ps1" | Remove-Item -Recurse
         Get-Infomessage "Restore from Backup" 'start'
-        Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$ssmwd\$serverfiles" -Force
+        Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$serverdir" -Force
         If (!$?) {
             Write-Warning "Restore from Backup failed" -InformationAction Stop
             exit

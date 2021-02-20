@@ -58,13 +58,13 @@ Function Set-SteamerSetting {
     #                               Version  0 prompt for input, 1 no prompt during install
     $global:Version                 = "0"
     #                               Server List Directory
-    $global:serverlistdir           = "$ssmwd\data"
+    $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory
-    $global:backupdir               = "$ssmwd\backups"
+    $global:backupdir               = "$currentdir\backups"
     #                               ssm log Directory
-    $global:ssmlogdir               = "$ssmwd\log\ssm"
+    $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
-    $global:logdir                  = "$ssmwd\log"
+    $global:logdir                  = "$currentdir\log"
     #                               SSM Log
     $global:ssmlog                  = "$ssmlogdir\ssm-$logdate.log"
     #                               Empty Variable checking

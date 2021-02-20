@@ -215,7 +215,7 @@ Function New-LocalConfig {
         $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
         $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
         If ($decision -eq 0) {
-            Write-Information "Edit config-local in $ssmwd\config-local\$getlocalssmname. Save and Press Enter..."
+            Write-Information "Edit config-local in $currentdir\config-local\$getlocalssmname. Save and Press Enter..."
             pause 
             Import-localConfig       
         } 

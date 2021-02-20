@@ -10,15 +10,15 @@ Function Get-FolderNames {
     Write-log "Function: Get-FolderNames"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking Folder Names "
-        If ("$ssmwd\$serverfiles") {
-            If (Test-Path "$ssmwd\$serverfiles") {
-                Write-log "Folder Name Exists   $ssmwd\$serverfiles "
+        If ("$serverdir") {
+            If (Test-Path "$serverdir") {
+                Write-log "Folder Name Exists   $serverdir "
             }
-            ElseIf (!(Test-Path "$ssmwd\$serverfiles")) {
+            ElseIf (!(Test-Path "$serverdir")) {
                 New-ServerFolderq
             }
         }
-        ElseIf (!"$ssmwd\$serverfiles") {
+        ElseIf (!"$serverdir") {
             Get-warnmessage "fngetfoldersfailed"
         }
     }
@@ -28,12 +28,12 @@ Function New-LocalFolder {
     Write-log "Function: New-LocalFolder"   
     ##-- 
     $global:configlocal = "config-local"
-    If (Test-Path $ssmwd\$configlocal ) {
+    If (Test-Path $currentdir\$configlocal ) {
         Write-log "config-local Folder Already Created!   "
     }
     Else {
         Write-log "Creating: config-local Folder  "
-        New-Item $ssmwd -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item $currentdir -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-local Folder  "
         }
@@ -45,12 +45,12 @@ Function New-defaultFolder {
     Write-log "Function: New-defaultFolder"   
     ##-- 
     $global:configdefault = "config-default"
-    If (Test-Path $ssmwd\$configdefault) {
+    If (Test-Path $currentdir\$configdefault) {
         Write-log "config-default Folder Already Created!   "
     }
     Else {
         Write-log "Creating: config-default Folder  "
-        New-Item $ssmwd -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+        New-Item $currentdir -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating config-default Folder  "
         }

@@ -20,7 +20,7 @@ Function Get-MetaMod {
         Else {
             $start_time = Get-Date
             Get-Infomessage "Downloading" 'MetaMod'
-            # (New-Object Net.WebClient).DownloadFile("$metamodurl", "$ssmwd\metamod.zip")
+            # (New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             $metamod = @{
                 Wait     = $true
@@ -80,7 +80,7 @@ Function Get-SourceMod {
     Else {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'SourceMod'
-        #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$ssmwd\sourcemod.zip")
+        #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         If ($sourcemodlatestlisturl -and $sourcemodmversionzip) {
             $sourcemodzip = @{
@@ -169,7 +169,7 @@ Function Get-CSGOGet5 {
         Get-Infomessage "Downloaded" 'CSGO-Get5'
     }
     Get-Infomessage "downloadtime"
-    $csgoget5folder = $ssmwd, $($get5latestzip.Replace('.zip', '')) -join '\'
+    $csgoget5folder = $currentdir, $($get5latestzip.Replace('.zip', '')) -join '\'
     $get5zip = @{
         Path            = "$get5latestzip"
         DestinationPath = "$csgoget5folder"
@@ -231,7 +231,7 @@ Function Get-CSGOcsgopugsetup {
             Get-Infomessage "Downloaded" 'CSGO-pugsetup'
         }
         Get-Infomessage "downloadtime"
-        $csgopugsetupfolder = $ssmwd, $githubrepozipname.Replace('.zip', '') -join '\'
+        $csgopugsetupfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
         $pugsetupzip = @{
             Path            = "$githubrepozipname"
             DestinationPath = "$csgopugsetupfolder"
@@ -296,7 +296,7 @@ Function Get-CSGOsteamworks {
         Get-Infomessage "Downloaded" 'SteamWorks'
     }
     Get-Infomessage "downloadtime"
-    $steamworksfolder = $ssmwd, $steamworkslatestzip -Replace '.zip', '' -join '\'
+    $steamworksfolder = $currentdir, $steamworkslatestzip -Replace '.zip', '' -join '\'
     $steamworkszip = @{
         Path            = "$steamworkslatestzip"
         DestinationPath = "$steamworksfolder"

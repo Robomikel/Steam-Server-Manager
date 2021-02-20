@@ -8,7 +8,7 @@
 #
 Function Get-Servercfg {
     Write-log "Function: Get-Servercfg"
-    #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$ssmwd\$serverfiles\csgo\cfg\server.cfg")
+    #(New-Object Net.WebClient).DownloadFile("$githuburl/${gamedirname}/${servercfg}", "$serverdir\csgo\cfg\server.cfg")
     If ($servercfgdir -or $servercfg) {
         If (!$config2) {
             $servercfg = "$servercfg"

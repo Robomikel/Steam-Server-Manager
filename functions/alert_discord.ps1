@@ -107,7 +107,7 @@ Function Send-DiscordAlert_old {
     }
 }
 Function Send-DiscordAlert {
-    $game = Import-Csv $ssmwd\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
+    $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
     Write-log "Function: Send-DiscordAlert"
     If ($alertmessage -and $alertmessagecolor) {
         # https://github.com/EvotecIT/PSDiscord
