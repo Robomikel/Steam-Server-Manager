@@ -21,7 +21,9 @@ If ($serverfiles) {
 # $serverfiles = $($args[1])
 Push-Location $(gl) -StackName cwd
 $currentdir = $PSScriptRoot
+#      Backup Directory
 $bwd = 'C:\Users\ssm\Pictures'
+#      Serverfiles Directory
 $sfwd = 'C:\Users\Public\Documents'
 $serverdir = "$sfwd\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
