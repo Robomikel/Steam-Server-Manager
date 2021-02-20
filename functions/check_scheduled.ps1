@@ -23,10 +23,10 @@ Function Get-ChecktaskDisable {
     Write-log "Function: Get-ChecktaskDisable"
     If ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
-            Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
+            Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             If ($?) {
                 Write-log "info: Disabling scheduled task "
-                Disable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
+                Disable-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             }
             ElseIf (!$?) {
                 Write-log "info: Scheduled Task does not exist "
@@ -38,10 +38,10 @@ Function Get-ChecktaskEnable {
     Write-log "Function: Get-ChecktaskEnable"
     if ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
-            Get-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
+            Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             If ($?) {
                 Write-log "info: Enabling scheduled task "
-                Enable-ScheduledTask -TaskName "$serverfiles Monitor-job" >$null 2>&1
+                Enable-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             }
             ElseIf (!$?) {
                 Write-log "info: Scheduled Task does not exist "
@@ -52,7 +52,7 @@ Function Get-ChecktaskEnable {
 Function Get-ChecktaskDetails {
     Write-log "Function: Get-ChecktaskDetails"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
-        Get-ScheduledTask -TaskName "$serverfiles monitor-job" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
         If ($?) {
             $global:monitorjob = $true
             Write-log "info: Get-ChecktaskDetails $monitorjob "
