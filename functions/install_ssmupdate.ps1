@@ -170,7 +170,7 @@ Function Get-SteamerConfigDefault {
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
-        write-log "`$getlocalssmname $getlocalssmname"
+        write-log "Default-Config: $getlocalssmname"
         If ($getlocalssmname) {
             $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
             Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
