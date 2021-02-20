@@ -66,7 +66,7 @@ Function Get-ChecktaskDetails {
 Function Get-ChecktaskautorestartDetails {
     Write-log "Function: Get-ChecktaskautorestartDetails"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
-        Get-ScheduledTask -TaskName "$serverfiles autorestart" >$null 2>&1
+        Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
         If ($?) {
             $global:restartjob = $true
             Write-log "info:  Get-ChecktaskautorestartDetails $restartjob "
