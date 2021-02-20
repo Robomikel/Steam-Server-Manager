@@ -111,6 +111,7 @@ Get-ChildItem -Path $ssmwd\functions -Filter *.ps1 | ForEach-Object { . $_.FullN
 # Get-ChildItem -Path $ssmwd\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 Get-CustomSettings
+if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){ $logo  = "off"}
 Test-PSversion
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$ssmwd\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 
