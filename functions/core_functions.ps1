@@ -601,7 +601,7 @@ Function Set-Customsettings {
     #                               Server List Directory
     `$global:serverlistdir           = `"$serverlistdir`"
     #                               Backup Directory
-    `$global:backupdir               = `"$backupdir`"
+    # `$global:backupdir               = `"$backupdir`"
     #                               ssm log Directory
     `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
