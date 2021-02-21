@@ -79,7 +79,7 @@ Function Get-Details {
     $totalusedmem = "{0:N2} GB" -f ( ( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB)
     $backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
     $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
