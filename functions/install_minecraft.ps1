@@ -11,12 +11,12 @@ Function Get-MCBRBinaries {
     #################### MineCraftBedrock Install ################
     Get-MCBRWebrequest 
     Get-Infomessage "Downloading" 'Minecraft Bedrock'
-    Invoke-WebRequest -uri $mcbrWebResponse.href -O bedrock-server.zip
+    Invoke-WebRequest -uri $mcbrWebResponse.href -O $currentdir\bedrock-server.zip
     Get-Infomessage "Extracting" 'Minecraft Bedrock'
-    Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
-    Move-Item bedrock-server\* $serverfiles\ -Force -ea SilentlyContinue
-    New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-    Add-Content $serverfiles\version.txt $mcbrWebResponse.href -Force
+    Expand-Archive $currentdir\bedrock-server.zip $currentdir\bedrock-server -Force -ea SilentlyContinue
+    Move-Item $currentdir\bedrock-server\* $serverdir -Force -ea SilentlyContinue
+    New-Item $serverdir\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+    Add-Content $serverdir\version.txt $mcbrWebResponse.href -Force
     Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
     ##############################################################
 }
@@ -32,8 +32,8 @@ Function Get-MCjavaBinaries {
             # $mcWebResponse.outerText
             # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
             Move-Item $currentdir\server.jar $serverdir -Force -ea SilentlyContinue
-            New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-            Add-Content $serverfiles\version.txt $mcvWebResponse -Force
+            New-Item $serverdir\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+            Add-Content $serverdir\version.txt $mcvWebResponse -Force
             Push-location
             Set-Location $serverdir
             If (!(Test-Path eula.txt )) {
@@ -42,7 +42,7 @@ Function Get-MCjavaBinaries {
                 ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
             }
             Pop-Location
-            # Add-Content $serverfiles\eula.txt 'eula=true' -Force
+            # Add-Content $serverdir\eula.txt 'eula=true' -Force
             # Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
             ##############################################################
         }

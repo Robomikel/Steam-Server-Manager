@@ -58,7 +58,7 @@ Function Get-undeadlegacy {
         Get-Infomessage "Downloading" 'undead-legacy'
         $undeadurlzip = @{
             Uri     = "$undeadurllatestdl"
-            OutFile = "$undeadurllatestzip"
+            OutFile = "$currentdir\$undeadurllatestzip"
         }
         Invoke-WebRequest @undeadurlzip
     }
@@ -72,12 +72,12 @@ Function Get-undeadlegacy {
     Get-Infomessage "downloadtime"
     $undeadurlfolder = $currentdir, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
     $undeadurlzip = @{
-        Path            = "$undeadurllatestzip"
+        Path            = "$currentdir\$undeadurllatestzip"
         DestinationPath = "$undeadurlfolder"
         Force           = $true
     }
     #Expand-Archive @undeadurlzip
-    saps 7za -args("x -o$undeadurlfolder $undeadurllatestzip -r")
+    saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r")
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'undead-legacy'
         New-TryagainNew 

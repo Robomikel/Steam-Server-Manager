@@ -21,6 +21,7 @@ Function Get-StartServer {
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
         If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {
             Start-Process CMD "/c start $launchParams"
+            Write-Log "Start-Process CMD /c start $launchParams  "
         }
         Else {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
