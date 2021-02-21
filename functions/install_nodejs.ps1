@@ -21,7 +21,7 @@ Function Add-NodeJS {
         Get-Infomessage "Downloading" 'Nodejs'
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $nodejsurl -OutFile $nodejsoutput
+        Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
         If (!$?) {
             Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
