@@ -101,5 +101,15 @@ Function Set-SteamerSetting {
     $global:smversion               = 'stable' # stable / dev
     #                               MetaMod Version
     $global:mmversion               = 'stable' # stable / master 
+
+    #############   Custom Directories        ###############
+    #                                Backup Directory 
+    $global:bwd                     = "$PSScriptRoot"
+    #                               Serverfiles Directory
+    $global:sfwd                    = "$PSScriptRoot"
+    #########################################################
+    #                                 Do Not Change ↓ ‼
+    $global:serverdir               = "$sfwd\$serverfiles"
+
     # Set-SteamerSettingLog
 }

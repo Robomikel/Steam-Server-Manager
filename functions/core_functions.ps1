@@ -634,6 +634,14 @@ Function Set-Customsettings {
     `$global:smversion               = `"$smversion`" # stable / dev
     #                               MetaMod Version
     `$global:mmversion               = `"$mmversion`" # stable / master 
+    #############   Custom Directories        ###############
+    #                                Backup Directory 
+    `$global:bwd                     = `"$currentdir`"
+    #                               Serverfiles Directory
+    `$global:sfwd                    = `"$currentdir`"
+    #########################################################
+    #                                 Do Not Change ↓ ‼
+    `$global:serverdir               = `"`$sfwd\`$serverfiles`"
     Set-SteamerSettingLog
 }"
 }

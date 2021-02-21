@@ -7,10 +7,10 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist', 'stats', 'menu', 'exit','ssm','update-mods')]    
-    [Parameter(ParameterSetName="steamer",Position = 0)]
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist', 'stats', 'menu', 'exit', 'ssm', 'update-mods')]    
+    [Parameter(ParameterSetName = "steamer", Position = 0)]
     [string]$command,
-    [Parameter(ParameterSetName="steamer",Position = 1)]
+    [Parameter(ParameterSetName = "steamer", Position = 1)]
     [string]$serverfiles)
 If ($serverfiles) {    
     if ($serverfiles.Contains('\')) {
@@ -20,13 +20,6 @@ If ($serverfiles) {
 # $command = $($args[0])
 # $serverfiles = $($args[1])
 $currentdir = $PSScriptRoot
-#############   Custom Directories        ###############
-#       Backup Directory 
-$bwd = $PSScriptRoot
-#       Serverfiles Directory
-$sfwd = $PSScriptRoot
-#########################################################
-$serverdir = "$sfwd\$serverfiles"
 $ipv4 = '^((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 ${IP} = ((ipconfig | findstr [0-9].\.)[0]).Split()[-1]
 $Date = get-date -Format yyyyMMddTHHmmssffff
@@ -111,12 +104,12 @@ $NOTE1 = ([char]9834)
 $NOTE2 = ([char]9835)
 $CHECKMARK = ([char]8730) 
 
-If (!(Test-Path $currentdir\log\ssm)){mkdir $currentdir\log\ssm >$null 2>&1}
+If (!(Test-Path $currentdir\log\ssm)) { mkdir $currentdir\log\ssm >$null 2>&1 }
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 # Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
 Get-CustomSettings
-if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){ $logo  = "off"}
+if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) { $logo = "off" }
 Test-PSversion
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 
