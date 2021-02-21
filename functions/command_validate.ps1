@@ -9,6 +9,7 @@
 Function Get-ValidateServer {
     Write-log "Function: Get-ValidateServer"
     If ($steamexecutable) {
+        Push-location
         Set-Location $steamdirectory
         Write-Warning 'Validate May Overwrite some config files'
         Write-Host 'Press any key to continue...';
@@ -32,6 +33,6 @@ Function Get-ValidateServer {
                 compare-SteamExit
             }
         }
-        Pop-Location -StackName cwd
+        Pop-Location
     }
 }

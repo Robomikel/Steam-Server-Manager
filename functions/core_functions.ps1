@@ -442,8 +442,10 @@ Function compare-SteamExit {
         If ($appinstalllog) {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
                 Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
+                push-location
                 Set-Location $steamdirectory
                 .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+                pop-location
                 New-TryagainSteam
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
@@ -533,6 +535,8 @@ Function Test-VariablesNull {
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
     New-LocalFolder
+    Write-log "Test-Path $currentdir\$configlocal\local_settings.ps1"
+
     If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
         .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting

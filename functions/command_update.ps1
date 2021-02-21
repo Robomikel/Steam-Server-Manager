@@ -9,6 +9,7 @@
 Function Get-UpdateServer {
     Write-log "Function:  Get-UpdateServer"
     If ($steamexecutable) {
+        Push-location
         Set-Location $steamdirectory
         Get-Infomessage "updating" 'info'
         If ($ANON -eq "yes") {
@@ -30,6 +31,6 @@ Function Get-UpdateServer {
             }
         }
         New-DiscordAlert "update"
-        pop-location -StackName cwd
+        pop-location
     }
 }

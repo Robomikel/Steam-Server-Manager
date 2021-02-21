@@ -19,7 +19,6 @@ If ($serverfiles) {
 }
 # $command = $($args[0])
 # $serverfiles = $($args[1])
-Push-Location $(gl) -StackName cwd
 $currentdir = $PSScriptRoot
 #############   Custom Directories        ###############
 #       Backup Directory 

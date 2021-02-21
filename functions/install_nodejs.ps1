@@ -42,10 +42,11 @@ Function Add-NodeJS {
         ElseIf ($?) { 
             Get-Infomessage "Extracted" 'Nodejs'
         }
+        Push-location
         Set-Location $nodejsdirectory  
         .\npm install gamedig
         .\npm install gamedig -g
-        Pop-Location -StackName cwd
+        Pop-Location
     }
 }
 

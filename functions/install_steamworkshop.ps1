@@ -22,8 +22,10 @@ Function Install-SteamWS {
     $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
     $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
     If ($steamdirectory -and $username -and $password) {
+        Push-location
         Set-Location $steamdirectory
         .\steamCMD +login $username $password +quit
+        Pop-location
         New-TryagainSteamLogin
     }
     Else {
@@ -33,8 +35,10 @@ Function Install-SteamWS {
         foreach ($mod in $wsmods) {
             $ii += 1
             Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
+            Push-location
             Set-Location $steamdirectory
             .\steamCMD +login $username $password +workshop_download_item $reg_appID $mod validate +quit | Out-File $ssmlogdir\wsmod.log
+            Pop-location
             $updateMods = Get-Content $ssmlogdir\wsmod.log
             if ($updateMods -like "Success. Downloaded item $mod to *") {
                 Write-Host "Validation / Downloading mod $mod ($ii of $modCount) Complete." -ForegroundColor Y
@@ -93,5 +97,5 @@ Function Install-SteamWS {
             gci $moddir\*.pak | ForEach-Object { Add-content $modfiletext ("*" + $_.Name) -Force }
         }
     }
-    Pop-Location -StackName cwd
+    Pop-Location
 }

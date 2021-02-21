@@ -255,5 +255,5 @@ Function Get-Details_old {
     Write-Host "    Autorestart       : $restartjob"
     Write-Host "    OS                : $os"
     Write-Host "    hostname          : $computername"
-    Pop-Location -StackName cwd
+    set-location $currentdir
 }

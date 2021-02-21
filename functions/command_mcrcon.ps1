@@ -11,6 +11,7 @@ Function Set-ConnectMCRcon {
     If ($ssmlog -and $loggingdate) {
         Write-log "Starting McRcon"
         If ($mcrconexecutable) {
+            Push-location
             set-location $mcrcondirectory
             If ($Useprivate -eq "off") {
                 If (!( ${rconport} )) {
@@ -32,7 +33,7 @@ Function Set-ConnectMCRcon {
                     & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
                 }
             }
-            pop-location -StackName cwd
+            Pop-location
         }
         ElseIf (!$mcrconexecutable) {
             Get-warnmessage "fn_Set-ConnectMCRcon"
@@ -43,6 +44,7 @@ Function invoke-sourcerestart {
     Write-log "Function: invoke-sourcerestart"
     Write-log "Starting McRcon for source restart"
     If ($mcrconexecutable) {
+        push-location
         set-location $mcrcondirectory
         If ($Useprivate -eq "off") {
             If (!${rconport}) {
@@ -69,7 +71,7 @@ Function invoke-sourcerestart {
                 & $mcrconexecutable -c -H ${ip} -P ${rconport} -p $rconpassword "_restart"
             }
         }
-        Pop-Location -StackName cwd
+        Pop-Location
     }
     ElseIf (!$mcrconexecutable) {
         Get-warnmessage "Set-ConnectMCRcon"      

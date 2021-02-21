@@ -11,6 +11,7 @@ Function Get-GamedigServerv2 {
     If ($ssmlog -and $loggingdate) {
         If ($nodejsdirectory) {
             Write-log "Starting gamedig on Server  "
+            Push-location
             set-location $nodejsdirectory
             If ($Useprivate -eq "off") {
                 If (!${queryport}) {
@@ -82,9 +83,9 @@ Function Get-GamedigServerv2 {
                 # $($queryOutput.raw.rules)
                 # Write-Host "Tags: "
                 # $($queryOutput.raw.tags)
-                set-location $currentdir
+                # set-location $currentdir
             }
-            pop-location -StackName cwd
+            Pop-location
         }
     }
 }
@@ -94,6 +95,7 @@ Function Get-GamedigServervMonitor {
     If ($ssmlog -and $loggingdate) {
         If ($nodejsdirectory) {
             Write-log "Starting gamedig Monitor on Server  "
+            Push-location
             set-location $nodejsdirectory
             If ($Useprivate -eq "off") {
                 If (!${queryport}) {
@@ -139,7 +141,7 @@ Function Get-GamedigServervMonitor {
                 Write-log "Ping: $($queryOutput.ping)"
                 $script:pingstatus = $($queryOutput.ping)
             }
-            Pop-Location -StackName cwd
+            Pop-Location
         }
     }
 }

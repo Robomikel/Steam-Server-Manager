@@ -34,13 +34,14 @@ Function Get-MCjavaBinaries {
             Move-Item $currentdir\server.jar $serverdir -Force -ea SilentlyContinue
             New-Item $serverfiles\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
             Add-Content $serverfiles\version.txt $mcvWebResponse -Force
+            Push-location
             Set-Location $serverdir
             If (!(Test-Path eula.txt )) {
                 Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
                 Start-Sleep 3
                 ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
             }
-            Pop-Location -StackName cwd
+            Pop-Location
             # Add-Content $serverfiles\eula.txt 'eula=true' -Force
             # Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
             ##############################################################

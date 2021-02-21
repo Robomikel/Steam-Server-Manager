@@ -22,6 +22,7 @@ Function Get-ServerBuildCheck {
                 If (($command -eq 'update') -or ($checkupdateonstart -eq "on")) {
                     Get-Steam
                     If ($steamdirectory) {
+                        Push-Location
                         Set-Location $steamdirectory
                         $search = "buildid"
                         # public
@@ -42,6 +43,7 @@ Function Get-ServerBuildCheck {
                                 $localbuild = $false
                             }
                         }
+                        Pop-Location
                     }
                     #$localbuild
                     if (!$remotebuild ) {
@@ -73,7 +75,6 @@ Function Get-ServerBuildCheck {
                 Else {
                     Write-log " Updates on start off"
                 }
-                Pop-Location -StackName cwd
             }
         }
         Else {

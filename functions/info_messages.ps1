@@ -243,7 +243,7 @@ Function Get-WarnMessage {
         Start-Sleep 0.3
         Write-Warning "$message"
         Add-Content $ssmlog "[$loggingdate] Warning: $message"
-        Pop-Location -StackName cwd
+        Pop-Location
         if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
             Exit
         }

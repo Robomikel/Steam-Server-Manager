@@ -15,6 +15,7 @@ Function Get-StartServer {
     )
     Write-log "Function: Get-StartServer"
     If ($launchParams -and $appid -and $executabledir) {
+        Push-location
         Set-Location $executabledir
         # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
@@ -25,7 +26,7 @@ Function Get-StartServer {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
             Write-Log "Start-Process CMD /c start $launchParams  -NoNewWindow"
         }
-        Pop-Location -StackName cwd
+        Pop-Location
     }
 }
 Function Select-StartServer {

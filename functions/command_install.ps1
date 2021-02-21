@@ -18,6 +18,7 @@ Function Install-ServerFiles {
     Else {
         If ($anon) {
             If ($steamexecutable -and $steamdirectory) {
+                push-location
                 Set-Location $steamdirectory
                 If ($ANON -eq "yes") {
                     $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
@@ -46,7 +47,7 @@ Function Install-ServerFiles {
                         }
                     }
                 }
-                Pop-location -StackName cwd
+                Pop-location
             }
         }
         Else {

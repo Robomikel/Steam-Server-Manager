@@ -33,12 +33,13 @@ Function Get-InstallForge {
             Get-Infomessage "Downloading" 'Minecraft Forge'
         } 
         Move-Item forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
+        Push-location
         Set-Location $serverdir
         java -jar forge-$forgeversion-installer.jar --installServer
         Remove-Item forge-$forgeversion-installer.jar
         Rename-Item server.jar server.jar.bak
         Rename-Item forge-$forgeversion.jar server.jar
-        Pop-Location -StackName cwd
+        Pop-Location
         Edit-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
     }
 }
