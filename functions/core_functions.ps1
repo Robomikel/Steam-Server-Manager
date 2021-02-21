@@ -533,13 +533,13 @@ Function Test-VariablesNull {
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
     New-LocalFolder
-    If (Test-Path "$PSScriptroot\$configlocal\local_settings.ps1") {
-        .$PSScriptroot\$configlocal\local_settings.ps1
+    If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     } 
     Else {
         Set-Customsettings
-        .$PSScriptroot\$configlocal\local_settings.ps1
+        .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
     }
 }
