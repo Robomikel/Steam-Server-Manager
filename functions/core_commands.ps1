@@ -72,9 +72,9 @@ Function Get-SSMMenu {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
     Choose Server: 
     loading..." -F Cyan
-        $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
+        $check = ((gci $sfwd -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$sfwd\", "" )
         if ($check.count -gt 1) {
-           $serverfiles = Menu (iex " ((gci $currentdir -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           $serverfiles = Menu (iex " ((gci $sfwd -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$sfwd\`", `"`" )")
            # $serverfiles = menu (iex "(gci * -Filter *server | select Name).Name")
         }
         Elseif ($check.count -eq 1) {
@@ -91,5 +91,10 @@ Function Get-SSMMenu {
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
-    ./ssm.ps1 $command $serverfiles
+    If ($env:path -match 'Steam-Server-Manager') {
+        ssm.ps1 $command $serverfiles
+    }
+    Else {
+        ./ssm.ps1 $command $serverfiles
+    }
 }
