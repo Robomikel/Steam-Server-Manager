@@ -108,7 +108,7 @@ Function Set-SteamerSetting {
     #                               Serverfiles Directory
     $global:sfwd                    = "$PSScriptRoot"
     #########################################################
-    #                                 Do Not Change ↓ ‼
+    #                                 Do Not Change
     $global:serverdir               = "$sfwd\$serverfiles"
 
     # Set-SteamerSettingLog
