@@ -640,7 +640,7 @@ Function Set-Customsettings {
     #                               Serverfiles Directory
     `$global:sfwd                    = `"$currentdir`"
     #########################################################
-    #                                 Do Not Change ↓‼
+    #                                 Do Not Change ↓ ‼
     `$global:serverdir               = `"`$sfwd\`$serverfiles`"
     Set-SteamerSettingLog
 }"
