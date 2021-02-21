@@ -53,6 +53,6 @@ $chunk = {
 }
 Function Install-VisualCPlusPlus {
     # Run the script block and pass in parameters.
-    $installdirectory = $(gl)
+    $installdirectory = "$currentdir"
     Start-Process -FilePath PowerShell -verb runas -ArgumentList "-Command & {$chunk Install-AllVC('$installdirectory')}"
 }

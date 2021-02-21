@@ -65,16 +65,16 @@ Function Get-SSMMenu {
     Write-log "Function: Get-SSMMenu"
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-H', 'install I-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats')
+    $command = Menu @('install A-H', 'install I-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats','update-mods')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -ne "install A-H" -and $command -ne "install I-Z") {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
     Choose Server: 
     loading..." -F Cyan
-        $check = ((gci $currentdir -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$currentdir\", "" )
+        $check = ((gci $sfwd -r |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace("$sfwd\", "" )
         if ($check.count -gt 1) {
-           $serverfiles = Menu (iex " ((gci $currentdir -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$currentdir\`", `"`" )")
+           $serverfiles = Menu (iex " ((gci $sfwd -r -depth 2 |  ? name -like Variables-*.ps1 | select DirectoryName).DirectoryName).Replace(`"$sfwd\`", `"`" )")
            # $serverfiles = menu (iex "(gci * -Filter *server | select Name).Name")
         }
         Elseif ($check.count -eq 1) {
@@ -91,5 +91,10 @@ Function Get-SSMMenu {
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
-    ./ssm.ps1 $command $serverfiles
+    If ($env:path -match 'Steam-Server-Manager') {
+        ssm.ps1 $command $serverfiles
+    }
+    Else {
+        ./ssm.ps1 $command $serverfiles
+    }
 }

@@ -60,7 +60,7 @@ Function Set-SteamerSetting {
     #                               Server List Directory
     $global:serverlistdir           = "$currentdir\data"
     #                               Backup Directory
-    $global:backupdir               = "$currentdir\backups"
+    $global:backupdir               = "$bwd\backups"
     #                               ssm log Directory
     $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
@@ -101,5 +101,15 @@ Function Set-SteamerSetting {
     $global:smversion               = 'stable' # stable / dev
     #                               MetaMod Version
     $global:mmversion               = 'stable' # stable / master 
+
+    #############   Custom Directories        ###############
+    #                                Backup Directory 
+    $global:bwd                     = "$PSScriptRoot"
+    #                               Serverfiles Directory
+    $global:sfwd                    = "$PSScriptRoot"
+    #########################################################
+    #                                 Do Not Change
+    $global:serverdir               = "$sfwd\$serverfiles"
+
     # Set-SteamerSettingLog
 }

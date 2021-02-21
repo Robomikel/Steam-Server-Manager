@@ -18,9 +18,10 @@ Function Install-ServerFiles {
     Else {
         If ($anon) {
             If ($steamexecutable -and $steamdirectory) {
+                push-location
                 Set-Location $steamdirectory
                 If ($ANON -eq "yes") {
-                    $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $currentdir\$serverfiles", "+app_update $appid $branch validate", "+Exit")
+                    $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                     Get-Infomessage "Please Wait: Will Display console in a moment" 'info'
                     & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                     # Write-log "$appinstalllog"
@@ -35,18 +36,18 @@ Function Install-ServerFiles {
                         If ($securedpassword) {
                             $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
                             $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-                            Set-Location $steamdirectory
+                            # Set-Location $steamdirectory
                             $steamcmdparams = @("+login $username $password", "+Exit")
                             & $steamexecutable $steamcmdparams
                             New-TryagainSteamLogin
                             Get-Infomessage "Please Wait: " 'info'
-                            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $currentdir\$serverfiles", "+app_update $appid $branch validate", "+Exit")
+                            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                             & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                             compare-SteamExit
                         }
                     }
                 }
-                Set-Location $currentdir
+                Pop-location
             }
         }
         Else {

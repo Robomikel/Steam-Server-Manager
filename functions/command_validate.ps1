@@ -9,13 +9,14 @@
 Function Get-ValidateServer {
     Write-log "Function: Get-ValidateServer"
     If ($steamexecutable) {
+        Push-location
         Set-Location $steamdirectory
         Write-Warning 'Validate May Overwrite some config files'
         Write-Host 'Press any key to continue...';
         $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
         Get-Infomessage "validating" 'info'
         If ($anon -eq "yes") {
-            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $currentdir\$serverfiles", "+app_update $appid $branch validate", "+Exit")
+            $steamcmdparams = @( "+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
             & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
             compare-SteamExit
         }
@@ -27,11 +28,11 @@ Function Get-ValidateServer {
             If ($username -and $securedpassword) {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
                 $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $currentdir\$serverfiles", "+app_update $appid $branch validate", "+Exit")
+                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                 & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                 compare-SteamExit
             }
         }
-        Set-Location $currentdir
+        Pop-Location
     }
 }

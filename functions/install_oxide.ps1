@@ -58,7 +58,7 @@ Function Get-undeadlegacy {
         Get-Infomessage "Downloading" 'undead-legacy'
         $undeadurlzip = @{
             Uri     = "$undeadurllatestdl"
-            OutFile = "$undeadurllatestzip"
+            OutFile = "$currentdir\$undeadurllatestzip"
         }
         Invoke-WebRequest @undeadurlzip
     }
@@ -72,12 +72,12 @@ Function Get-undeadlegacy {
     Get-Infomessage "downloadtime"
     $undeadurlfolder = $currentdir, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
     $undeadurlzip = @{
-        Path            = "$undeadurllatestzip"
+        Path            = "$currentdir\$undeadurllatestzip"
         DestinationPath = "$undeadurlfolder"
         Force           = $true
     }
     #Expand-Archive @undeadurlzip
-    saps 7za -args("x -o$undeadurlfolder $undeadurllatestzip -r")
+    saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r")
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'undead-legacy'
         New-TryagainNew 
@@ -88,7 +88,7 @@ Function Get-undeadlegacy {
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
         Path        = "$undeadurlfolder\UndeadLegacy-master\*"
-        Destination = "$currentdir\$serverfiles"
+        Destination = "$serverdir"
         Force       = $true
         Recurse     = $true
     }
@@ -115,13 +115,13 @@ Function Add-plugintolist {
 }
 Function Get-installedplugins {    
     Write-log "Function: Get-installedplugins"
-    $installedpluginscount = Get-Content -Path $currentdir\$serverfiles\plugins.json | select-string -SimpleMatch ".cs"
+    $installedpluginscount = Get-Content -Path $serverdir\plugins.json | select-string -SimpleMatch ".cs"
     if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
         write-log "Plugin removed"
-        Remove-item "$currentdir\$serverfiles\plugins.json" -Force
+        Remove-item "$serverdir\plugins.json" -Force
     }
-    If (Test-Path "$currentdir\$serverfiles\plugins.json") {
-        $script:installedplugins = Get-Content -Path $currentdir\$serverfiles\plugins.json | ConvertFrom-Json
+    If (Test-Path "$serverdir\plugins.json") {
+        $script:installedplugins = Get-Content -Path $serverdir\plugins.json | ConvertFrom-Json
     }
     Else {
         Write-log "No $serverfiles\plugins.json found"
@@ -130,23 +130,23 @@ Function Get-installedplugins {
 Function New-pluginlist {
     Write-Log "Function: New-pluginlist"
     If ($plugins.plugins) {
-        $plugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
         Write-log "Edit plugins.plugins $($plugins.plugins) plugins.json"
     }
     ElseIf ($installedplugins.plugins) {
-        $installedplugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $installedplugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
         Write-log "Edit plugins.plugins $($installedplugins.plugins) plugins.json"
     }
     Else {
         $script:plugins = @{ plugins = $installedplugins };
-        $plugins | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\plugins.json -Force
+        $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
         Write-log "New $plugins plugins.json"
     }
 }
 Function Edit-pluginlist {
     Param($pluginname, $pluginfile)
     Write-log "Function: Edit-pluginlist"
-    If (Test-Path $currentdir\$serverfiles\plugins.json) {
+    If (Test-Path $serverdir\plugins.json) {
         If ($installedplugins) {
             If ($installedplugins.plugins -like "*$pluginname*") {
                 $installedplugins.plugins.$pluginname = "$pluginfile"
@@ -175,7 +175,7 @@ Function Edit-pluginlist {
 Function Compare-pluginlist {
     Param($pluginname, $pluginfile)
     Write-log "Function: Compare-pluginlist"
-    If (Test-Path $currentdir\$serverfiles\plugins.json) {
+    If (Test-Path $serverdir\plugins.json) {
         Get-installedplugins
         $installedplugins | foreach {
             ping-pluginversion $installedplugins.plugins 
@@ -186,7 +186,7 @@ Function Compare-pluginlist {
 
 Function Initialize-plugins {
     Write-log "Function: Initialize-plugins"
-    $script:pluginss = gci $currentdir\$serverfiles\oxide\plugins | ? Name -like *.cs
+    $script:pluginss = gci $serverdir\oxide\plugins | ? Name -like *.cs
     $pluginss |  foreach { 
         $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
         $script:pluginname = $_.Name
@@ -229,8 +229,8 @@ Function Receive-plugin {
     param($pluginname, $pluginfile, $updatecheck)
     write-log "Function: Receive-plugin "
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
-    iwr $Uri -O $currentdir\$serverfiles\oxide\plugins\$pluginname
-    If (Test-Path $currentdir\$serverfiles\oxide\plugins\$pluginname) {
+    iwr $Uri -O $serverdir\oxide\plugins\$pluginname
+    If (Test-Path $serverdir\oxide\plugins\$pluginname) {
         Write-log "$pluginname installed"
     }
     Else {

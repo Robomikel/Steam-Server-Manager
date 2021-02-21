@@ -42,7 +42,7 @@ Function New-TryagainNew {
     }
     Else {
         Write-Host 'Entered N'
-        Set-Location $currentdir
+        Pop-Location
         Exit
     }
 }
@@ -56,7 +56,7 @@ Function New-TryagainSteam {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Set-Location $currentdir
+        Pop-Location
     }
     Else {
         Write-Host 'Entered N'
@@ -74,11 +74,11 @@ Function New-TryagainSteamLogin {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Set-Location $currentdir
+        Pop-Location
     }
     Else {
         Write-Host 'Entered N'
-        Set-Location $currentdir
+        Pop-Location
         Exit
     }
 }

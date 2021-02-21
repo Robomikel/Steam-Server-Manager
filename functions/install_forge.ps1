@@ -28,17 +28,18 @@ Function Get-InstallForge {
             return
         }
         Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
-        Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
+        Invoke-WebRequest -Uri $forgeWebResponse -OutFile $currentdir\forge-$forgeversion-installer.jar
         If ($?){
             Get-Infomessage "Downloading" 'Minecraft Forge'
         } 
-        Move-Item forge-$forgeversion-installer.jar $currentdir\$serverfiles -Force -ea SilentlyContinue
-        Set-Location $currentdir\$serverfiles
+        Move-Item $currentdir\forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
+        Push-location
+        Set-Location $serverdir
         java -jar forge-$forgeversion-installer.jar --installServer
         Remove-Item forge-$forgeversion-installer.jar
         Rename-Item server.jar server.jar.bak
         Rename-Item forge-$forgeversion.jar server.jar
-        Set-Location $currentdir
+        Pop-Location
         Edit-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
     }
 }
