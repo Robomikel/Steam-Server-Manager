@@ -590,6 +590,8 @@ Function Set-Customsettings {
     `$global:DiscordRestartAlert     = `"$DiscordRestartAlert`"
     #                               Use private IP for Query and mcrcon
     `$global:Useprivate              = `"$Useprivate`"
+    #                               Monitor Query
+    `$global:monquery                = `"$monquery`"
     #                               consolelogging
     `$global:consolelogging          = `"$consolelogging`"
     #                               consolelogging count 

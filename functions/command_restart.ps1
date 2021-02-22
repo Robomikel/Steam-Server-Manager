@@ -8,8 +8,7 @@
 #
 Function Get-RestartsServer {
     Write-log "Function: Get-RestartsServer"
-    Clear-Host
-    Get-Logo
+    set-console
     Get-StopServer
     Start-Countdown -Seconds 5 -Message "Restarting server"
     # Get-StopServer
