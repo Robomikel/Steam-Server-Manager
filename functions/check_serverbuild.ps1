@@ -22,6 +22,7 @@ Function Get-ServerBuildCheck {
                 If (($command -eq 'update') -or ($checkupdateonstart -eq "on")) {
                     Get-Steam
                     If ($steamdirectory) {
+                        Push-Location
                         Set-Location $steamdirectory
                         $search = "buildid"
                         # public
@@ -34,14 +35,15 @@ Function Get-ServerBuildCheck {
                             #    # hosting
                             #    $remotebuild= .\steamcmd +runscript Buildcheck-$serverfiles.txt  | select-string $search | Select-Object  -Index 3
                             $remotebuild = $remotebuild -replace '\s', ''
-                            If (Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf") {
-                                $localbuild = get-content "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf" | select-string $search
+                            If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+                                $localbuild = get-content "$serverdir\steamapps\appmanifest_$appid.acf" | select-string $search
                                 $localbuild = $localbuild -replace '\s', ''
                             }
                             Else {
                                 $localbuild = $false
                             }
                         }
+                        Pop-Location
                     }
                     #$localbuild
                     if (!$remotebuild ) {
@@ -69,11 +71,9 @@ Function Get-ServerBuildCheck {
                             Get-Infomessage "noupdates" 'info'
                         }
                     }
-                    Set-Location $currentdir
                 }
                 Else {
                     Write-log " Updates on start off"
-                    Set-Location $currentdir
                 }
             }
         }
@@ -84,20 +84,20 @@ Function Get-ServerBuildCheck {
 }
 Function Get-SteamFix {
     Write-log "Function: Get-SteamFix"
-    If ($ssmlog -and $loggingdate -and $appid -and "$currentdir\$serverfiles") {
-        If ((Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf")) ) {
-            Rename-Item "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
+    If ($ssmlog -and $loggingdate -and $appid -and "$serverdir") {
+        If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
             Write-log "Restore appmanifest_$appid.acf "
         }
-        ElseIf (Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf") {
-            Rename-Item "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
+        ElseIf (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
+            Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
             Write-log "Rename appmanifest_$appid.acf "
-            If (Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_228980.acf") {
-                Rename-Item "$currentdir\$serverfiles\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
+            If (Test-Path "$serverdir\steamapps\appmanifest_228980.acf") {
+                Rename-Item "$serverdir\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
                 Write-log "Rename Steamworks Common Redistributables appmanifest_228980.acf"
             }
         }
-        ElseIf (!(Test-Path "$currentdir\$serverfiles\steamapps\appmanifest_$appid.acf")) {
+        ElseIf (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) {
             Write-warning "No app Manifests found. Recommend Validate"
             Write-log "Warining: No app Manifests found. Recommend Validate"
         }

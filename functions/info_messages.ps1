@@ -152,7 +152,8 @@ Function Get-Infomessage {
         Start-Sleep 0.3
         # Write-Information "[info]" -InformationAction Continue
         Write-Information "$message" -InformationAction Continue
-        Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+        #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+        Write-log "Message: $infomessage"
     }
 }
 Function Get-WarnMessage {
@@ -182,7 +183,7 @@ Function Get-WarnMessage {
             $message = ' Missing Variables'
         }
         ElseIf ($warnmessage -eq 'missingVariables') {
-            $message = " Missing $currentdir\$serverfiles\Variables-$serverfiles.ps1"
+            $message = " Missing $serverdir\Variables-$serverfiles.ps1"
         }
         ElseIf ($warnmessage -eq 'chkvarsfailed') {
             $message = ' Fn_Get-CheckForVars Failed'
@@ -218,7 +219,7 @@ Function Get-WarnMessage {
             $message = ' Failed: Install-ServerFiles: Try Install command'
         }
         ElseIf ($warnmessage -eq 'Fn_Set-ConnectMCRcon') {
-            $message = " Set-ConnectMCRcon Failed: $currentdir\$serverfiles"
+            $message = " Set-ConnectMCRcon Failed: $serverdir"
         }
         ElseIf ($warnmessage -eq 'Fn_Get-StopServer') {
             $message = " Failed: Get-StopServer null $process"
@@ -242,8 +243,9 @@ Function Get-WarnMessage {
         }
         Start-Sleep 0.3
         Write-Warning "$message"
-        Add-Content $ssmlog "[$loggingdate] Warning: $message"
-        Set-Location $currentdir
+        #Add-Content $ssmlog "[$loggingdate] Warning: $message"
+        Write-Log "Warning: $message"
+        Pop-Location
         if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
             Exit
         }
@@ -268,6 +270,7 @@ Function Write-log {
         If ($loggingdate) {
             If ($logmessage) {
                 Add-Content $ssmlog "[$loggingdate] $logmessage " 2>$null
+                write-verbose "$logmessage"
             }
         }
     }

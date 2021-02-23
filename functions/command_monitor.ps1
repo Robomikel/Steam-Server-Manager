@@ -20,18 +20,26 @@ Function Get-MonitorServer {
             }
             Else {
                 #
-                If ($pingstatus) {
-                    # 
+                If ($monquery -eq 'on') {
+                    If ($null -ne $pingstatus) {
+                        # get-process $process
+                        if ($?) {
+                            Get-Infomessage "running" 
+                        }
+                    }
+                    Else{
+                        Write-log "Monitor: Cannot Query Server"
+                        Get-Infomessage "running" $false
+                        Get-RestartsServer
+                        New-DiscordAlert "query-restart"
+                    }
+                }
+                Else {
                     get-process $process
                     if ($?) {
                         Get-Infomessage "running" 
                     }
-                }
-                Else {
-                    Write-log "Monitor: Cannot Query Server"
-                    Get-Infomessage "running" $false
-                    Get-RestartsServer
-                    New-DiscordAlert "query-restart"
+
                 }
                 Get-ClearVariables
                 Exit 
@@ -49,7 +57,7 @@ Function Get-MonitorMultiple {
     }
     Else {
         get-process $process 
-        If ($?){
+        If ($?) {
             Get-Infomessage "running" 
         } 
         Else {

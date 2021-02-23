@@ -8,13 +8,13 @@
 #
 Function New-BackupFolder {
     Write-log "Function: Function New-BackupFolder"
-    If ($backupdir -and $ssmlog  -and $loggingDate -and $currentdir) {
+    If ($backupdir -and $ssmlog  -and $loggingDate -and $bwd) {
         If (Test-Path $backupdir) { 
             Write-log "Backup folder exists! "
         } 
         ElseIf (!(Test-Path $backupdir)) {  
             Write-log "Creating backup folder "
-            New-Item  $currentdir -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
+            New-Item  $bwd -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
                 Get-warnmessage "createfolderfailed"
             }

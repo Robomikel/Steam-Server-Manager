@@ -45,6 +45,8 @@ Function Set-SteamerSetting {
     $global:DiscordRestartAlert     = "on"
     #                               Use private IP for Query and mcrcon
     $global:Useprivate              = "off"
+    #                               Monitor Query
+    $global:monquery                = "off"
     #                               consolelogging
     $global:consolelogging          = "on"
     #                               consolelogging count 
@@ -59,8 +61,6 @@ Function Set-SteamerSetting {
     $global:Version                 = "0"
     #                               Server List Directory
     $global:serverlistdir           = "$currentdir\data"
-    #                               Backup Directory
-    $global:backupdir               = "$currentdir\backups"
     #                               ssm log Directory
     $global:ssmlogdir               = "$currentdir\log\ssm"
     #                               log Directory
@@ -101,5 +101,17 @@ Function Set-SteamerSetting {
     $global:smversion               = 'stable' # stable / dev
     #                               MetaMod Version
     $global:mmversion               = 'stable' # stable / master 
+
+    #############   Custom Directories        ###############
+    #                                Backup Directory 
+    $global:bwd                     = "$PSScriptRoot"
+    #                               Serverfiles Directory
+    $global:sfwd                    = "$PSScriptRoot"
+    #########################################################
+    #                                 Do Not Change
+    $global:serverdir               = "$sfwd\$serverfiles"
+    #                               Backups Directory
+    $global:backupdir               = "$bwd\backups"
     # Set-SteamerSettingLog
 }
+

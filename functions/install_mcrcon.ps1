@@ -9,13 +9,14 @@
 Function install-mcrcon {
     Write-log "Function: install-mcrcon"
     If ($mcrconowner -and $mcrconrepo ) {
-        $start_time = Get-Date
-        Get-Infomessage "downloading" 'MCRCon'
-        Write-log "Downloading MCRCon from github" 
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         #Invoke-WebRequest -Uri $mcrconurl -OutFile $mcrconoutput
-        Get-GithubRestAPI $mcrconowner $mcrconrepo 
+        Get-GithubRestAPI $mcrconowner $mcrconrepo
+        Write-log "Downloading MCRCon from github" 
+        $start_time = Get-Date
+        Get-Infomessage "downloading" 'MCRCon'
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
             Write-Warning 'Downloading  MCRCon Failed'
             Write-log "Downloading  MCRCon Failed"
@@ -27,7 +28,7 @@ Function install-mcrcon {
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'MCRCon'
-        Expand-Archive $githubrepozipname $githubrepofolder -Force 
+        Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
         Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $mcrcondirectory -Recurse -Force 
         Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {

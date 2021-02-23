@@ -25,7 +25,7 @@ Function Get-MetaMod {
             $metamod = @{
                 Wait     = $true
                 FilePath = 'PowerShell.exe' 
-                Arg      = "Invoke-WebRequest $metamodlatestlisturl -O $metamodmversionzip"
+                Arg      = "Invoke-WebRequest $metamodlatestlisturl -O $currentdir\$metamodmversionzip"
                 nnw      = $true
             }
             Start-Process @metamod
@@ -39,8 +39,8 @@ Function Get-MetaMod {
             Get-Infomessage "Extracting" 'MetaMod'
             If ($metamodmversionzip -and $metamodmversionfolder) {
                 $metamodzip = @{
-                    Path            = "$metamodmversionzip"
-                    DestinationPath = "$metamodmversionfolder"
+                    Path            = "$currentdir\$metamodmversionzip"
+                    DestinationPath = "$currentdir\$metamodmversionfolder"
                     Force           = $true
                 }
                 Expand-Archive @metamodzip >$null 2>&1
@@ -52,11 +52,12 @@ Function Get-MetaMod {
             Write-log "Copying/installing Meta Mod"
             If ($metamodmversionfolder -and $systemdir) { 
                 $metamodfolder = @{
-                    Path        = "$metamodmversionfolder\addons"
+                    Path        = "$currentdir\$metamodmversionfolder\addons"
                     Destination = $systemdir
                     Force       = $true
                     Recurse     = $true
                 }
+                Write-log "Copy-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
                 Copy-Item @metamodfolder >$null 2>&1
             }
             If (!$?) { 
@@ -86,7 +87,7 @@ Function Get-SourceMod {
             $sourcemodzip = @{
                 Wait     = $true
                 FilePath = 'powershell.exe'
-                Arg      = "Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $sourcemodmversionzip"
+                Arg      = "Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $currentdir\$sourcemodmversionzip"
                 nnw      = $true
             }
             Start-Process @sourcemodzip
@@ -101,8 +102,8 @@ Function Get-SourceMod {
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'SourceMod'
         $sourcemodzip = @{
-            Path            = "$sourcemodmversionzip"
-            DestinationPath = "$sourcemodmversionfolder"
+            Path            = "$currentdir\$sourcemodmversionzip"
+            DestinationPath = "$currentdir\$sourcemodmversionfolder"
             Force           = $true
         }
         Expand-Archive @sourcemodzip >$null 2>&1
@@ -116,18 +117,20 @@ Function Get-SourceMod {
         Get-Infomessage "copying-installing" 'SourceMod'
         If ($sourcemodmversionfolder -and $systemdir) { 
             $sourcemodaddons = @{
-                Path        = "$sourcemodmversionfolder\addons"
+                Path        = "$currentdir\$sourcemodmversionfolder\addons"
                 Destination = "$systemdir"
                 Force       = $true
                 Recurse     = $true
             }
             $sourcemodcfg = @{
-                Path        = "$sourcemodmversionfolder\cfg"
+                Path        = "$currentdir\$sourcemodmversionfolder\cfg"
                 Destination = "$systemdir"
                 Force       = $true
                 Recurse     = $true
             }
+            write-log "$currentdir\$sourcemodmversionfolder\addons $systemdir"
             Copy-Item @sourcemodaddons >$null 2>&1
+            write-log "$currentdir\$sourcemodmversionfolder\cfg $systemdir"
             Copy-Item  @sourcemodcfg >$null 2>&1
         }
         If (!$?) { 
@@ -156,7 +159,7 @@ Function Get-CSGOGet5 {
             Get-Infomessage "Downloading" 'CSGO-Get5'
             $get5zip = @{
                 Uri     = "$get5latestdl"
-                OutFile = "$get5latestzip"
+                OutFile = "$currentdir\$get5latestzip"
             }
             Invoke-WebRequest @get5zip
         }
@@ -171,7 +174,7 @@ Function Get-CSGOGet5 {
     Get-Infomessage "downloadtime"
     $csgoget5folder = $currentdir, $($get5latestzip.Replace('.zip', '')) -join '\'
     $get5zip = @{
-        Path            = "$get5latestzip"
+        Path            = "$currentdir\$get5latestzip"
         DestinationPath = "$csgoget5folder"
         Force           = $true
     }
@@ -196,7 +199,9 @@ Function Get-CSGOGet5 {
         Force       = $true
         Recurse     = $true
     }
+    Write-Log "Copy-Item $csgoget5folder\addons $systemdir"
     Copy-Item  @get5folderaddons >$null 2>&1
+    Write-Log "Copy-item $csgoget5folder\cfg $systemdir"
     Copy-Item  @get5foldercfg >$null 2>&1
     If (!$?) { 
         Write-log "Copying CSGO-Get5 Failed "
@@ -222,7 +227,7 @@ Function Get-CSGOcsgopugsetup {
     Else {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'CSGO-pugsetup'
-        iwr $githubrepoziplink -O $githubrepozipname
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
             New-TryagainNew 
@@ -233,7 +238,7 @@ Function Get-CSGOcsgopugsetup {
         Get-Infomessage "downloadtime"
         $csgopugsetupfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
         $pugsetupzip = @{
-            Path            = "$githubrepozipname"
+            Path            = "$currentdir\$githubrepozipname"
             DestinationPath = "$csgopugsetupfolder"
             Force           = $true
         }
@@ -258,7 +263,9 @@ Function Get-CSGOcsgopugsetup {
             Force       = $true
             Recurse     = $true
         }
+        Write-Log "$csgopugsetupfolder\addons $systemdir"
         Copy-Item  @pugsetupaddons >$null 2>&1
+        Write-Log "$csgopugsetupfolder\cfg $systemdir"
         Copy-Item  @pugsetupcfg >$null 2>&1
         If (!$?) { 
             Write-log "Copying CSGOcsgopugsetup Failed "
@@ -283,7 +290,7 @@ Function Get-CSGOsteamworks {
             Get-Infomessage "Downloading" 'SteamWorks'
             $steamworkszip = @{
                 Uri     = "$steamworksurl$steamworkslatestzip"
-                Outfile = "$steamworkslatestzip"
+                Outfile = "$currentdir\$steamworkslatestzip"
             }
             Invoke-WebRequest @steamworkszip
         }
@@ -298,7 +305,7 @@ Function Get-CSGOsteamworks {
     Get-Infomessage "downloadtime"
     $steamworksfolder = $currentdir, $steamworkslatestzip -Replace '.zip', '' -join '\'
     $steamworkszip = @{
-        Path            = "$steamworkslatestzip"
+        Path            = "$currentdir\$steamworkslatestzip"
         DestinationPath = "$steamworksfolder"
         Force           = $true
     }
@@ -317,6 +324,7 @@ Function Get-CSGOsteamworks {
         Force       = $true
         Recurse     = $true
     }
+    Write-Log "Copy-Item $steamworksfolder\addons $systemdir"
     Copy-Item @steamworksaddon >$null 2>&1
     If (!$?) { 
         Write-log "Copying SteamWorks Failed "

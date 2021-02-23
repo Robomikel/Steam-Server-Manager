@@ -11,9 +11,9 @@ Function Get-CreatedVaribles {
         Param($serverfiles)
     }
     Write-log "Function: Get-CreatedVaribles"
-    If (Test-Path $currentdir\$serverfiles\Variables-$serverfiles.ps1 ) {
+    If (Test-Path $serverdir\Variables-$serverfiles.ps1 ) {
         . { 
-            Invoke-Expression $currentdir\$serverfiles\Variables-$serverfiles.ps1
+            Invoke-Expression $serverdir\Variables-$serverfiles.ps1
 
         } 
     }
@@ -81,11 +81,12 @@ Function Get-TestString {
 }
 Function Set-Console {
     Write-log "Function: Set-Console"
-    If ( $logo -eq "off") { }Else {
+    If ( $logo -ne "off") {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
         [console]::BackgroundColor = "Black"
+        $host.PrivateData.VerboseForegroundColor = 'White'
         # [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
         #$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(200,5000)
         If ($admincheckmessage -eq "on") {
@@ -95,6 +96,12 @@ Function Set-Console {
         Else {
             Get-Logo
         }
+    }
+    Else{
+        $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
+        [console]::ForegroundColor = "Green"
+        [console]::BackgroundColor = "Black"
+        $host.PrivateData.VerboseForegroundColor = 'White'
     }
 }
 Function Get-Logo {
@@ -120,7 +127,7 @@ Function Set-Steamer {
 Function Set-VariablesPS {
     Write-log "Function: Set-VariablesPS"
     Get-Infomessage "creating" 'info'
-    New-Item $currentdir\$serverfiles\Variables-$serverfiles.ps1 -Force
+    New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
@@ -388,8 +395,8 @@ Function Get-Sourcemodwebrequest {
 }
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
-    If (Test-Path $currentdir\$serverfiles\Variables-*.ps1) {
-        $check = (Get-Childitem $currentdir\$serverfiles | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+    If (Test-Path $serverdir\Variables-*.ps1) {
+        $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
             Get-createdvaribles
             If ( $process ) {
@@ -442,8 +449,10 @@ Function compare-SteamExit {
         If ($appinstalllog) {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
                 Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
+                push-location
                 Set-Location $steamdirectory
-                .\steamCMD +login $username $password +force_install_dir $currentdir\$serverfiles +app_update $APPID $Branch +Exit
+                .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+                pop-location
                 New-TryagainSteam
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
@@ -501,6 +510,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Discord Update Alert  = $DiscordUpdateAlert "
     Write-log "Setting: Discord Restart Alert  = $DiscordRestartAlert"
     Write-log "Setting: Use private IP for Query and mcrcon  = $Useprivate  "
+    Write-Log "Settings: Monitor Query  = $monquery"
     Write-log "Setting: consolelogging   = $consolelogging "
     Write-log "Setting: consolelogging count  = $consolelogcount "
     Write-log "Setting: ssmlogging  = $ssmlogging   "
@@ -508,7 +518,9 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Console Text Color   = $textcolor  "
     Write-log "Setting: Version  = $Version  "
     Write-log "Setting: Server List Directory   = $serverlistdir"
-    Write-log "Setting: Backup Directory  = $backupdir"
+    Write-log "Setting: SSM Directory  = $currentdir "
+    Write-log "Setting: Backup Directory  = $bwd "
+    Write-log "Setting: Serverfiles Directory  = $sfwd"
     write-log "Setting: ssm log Directory   = $ssmlogdir"
     Write-log "Setting: log Directory  = $logdir"
     Write-log "Setting: SSM Log  = $ssmlog"
@@ -517,6 +529,10 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Pastebin  = $pastebinconsolelog"
     Write-log "Setting: Discord Webhook    = $discordwebhook  "
     Write-log "Setting: Discord Display IP  = $discorddisplayip  "
+    Write-Log "Settings: Backup Directory   = $currentdir "
+    Write-Log "Settings: Serverfiles Directory = $currentdir"
+    Write-Log "Settings: Serverdir = $sfwd\$serverfiles"
+    Write-Log "Settings: Backups Directory = $bwd\backups"
 }
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
@@ -530,6 +546,8 @@ Function Test-VariablesNull {
 Function Get-CustomSettings {
     Write-Log "Function Get-CustomSettings"
     New-LocalFolder
+    Write-log "Test-Path $currentdir\$configlocal\local_settings.ps1"
+
     If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
         .$currentdir\$configlocal\local_settings.ps1
         Import-CustomSetting
@@ -583,6 +601,8 @@ Function Set-Customsettings {
     `$global:DiscordRestartAlert     = `"$DiscordRestartAlert`"
     #                               Use private IP for Query and mcrcon
     `$global:Useprivate              = `"$Useprivate`"
+    #                               Monitor Query
+    `$global:monquery                = `"$monquery`"
     #                               consolelogging
     `$global:consolelogging          = `"$consolelogging`"
     #                               consolelogging count 
@@ -597,8 +617,6 @@ Function Set-Customsettings {
     `$global:Version                 = `"$Version`"
     #                               Server List Directory
     `$global:serverlistdir           = `"$serverlistdir`"
-    #                               Backup Directory
-    `$global:backupdir               = `"$backupdir`"
     #                               ssm log Directory
     `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
@@ -627,6 +645,16 @@ Function Set-Customsettings {
     `$global:smversion               = `"$smversion`" # stable / dev
     #                               MetaMod Version
     `$global:mmversion               = `"$mmversion`" # stable / master 
+    #############   Custom Directories        ###############
+    #                                Backup Directory 
+    `$global:bwd                     = `"$currentdir`"
+    #                               Serverfiles Directory
+    `$global:sfwd                    = `"$currentdir`"
+    #########################################################
+    #                                 Do Not Change
+    `$global:serverdir               = `"`$sfwd\`$serverfiles`"
+    #                               Backups Directory
+    `$global:backupdir               = `"`$bwd\backups`"
     Set-SteamerSettingLog
 }"
 }
@@ -1289,8 +1317,8 @@ Function Add-Modtolist {
 }
 Function Get-installedMods {    
     Write-log "Function: Get-installedMods"
-    If (Test-Path "$currentdir\$serverfiles\mods.json") {
-        $script:installedmods = Get-Content -Path $currentdir\$serverfiles\mods.json | ConvertFrom-Json
+    If (Test-Path "$serverdir\mods.json") {
+        $script:installedmods = Get-Content -Path $serverdir\mods.json | ConvertFrom-Json
     }
     Else {
         Write-log "No $serverfiles\mod.json found"
@@ -1300,16 +1328,16 @@ Function New-modlist {
     Write-Log "Function: New-modlist"
     If ($installedmods) {
         If ($mods.Mods) {
-            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $mods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
             Write-log "Edit mods.mods $($mods.Mods) mods.json"
         }
         ElseIf ($installedmods.Mods) {
-            $installedmods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $installedmods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
             Write-log "Edit mods.mods $($installedmods.Mods) mods.json"
         }
         Else {
             $script:mods = @{ Mods = $installedmods };
-            $mods | ConvertTo-Json | Set-Content -Path $currentdir\$serverfiles\mods.json -Force
+            $mods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
             Write-log "New $mods mods.json"
         }
     }
@@ -1317,7 +1345,7 @@ Function New-modlist {
 Function Edit-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Edit-Modlist"
-    If (Test-Path $currentdir\$serverfiles\mods.json) {
+    If (Test-Path $serverdir\mods.json) {
         If ($installedmods) {
 #            If ($($installedmods.Mods) -like "*$modname*") {
 #                $($installedmods.Mods).$modname = "$modfile"
@@ -1349,7 +1377,7 @@ Function Compare-Modlist {
     Param($modname, $modfile)
     Write-log "Function: Compare-Modlist"
     Write-log " Param($modname, $modfile)"
-    If (Test-Path $currentdir\$serverfiles\mods.json) {
+    If (Test-Path $serverdir\mods.json) {
         Get-installedMods
         Write-log "($($installedmods.Mods.$modname) -eq $modfile)"
         If ($installedmods.Mods.$modname -eq $modfile) {
@@ -1361,3 +1389,4 @@ Function Compare-Modlist {
         }
     }
 }
+
