@@ -15,12 +15,12 @@ Function Get-UpdateSteamer {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/functions/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -54,12 +54,12 @@ Function Get-UpdateSteamerSSM {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -90,12 +90,12 @@ Function Get-UpdateSteamerCSV {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/pre-release/stabilizing/data/$getlocalssmname" -UseBasicParsing
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/data/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -131,7 +131,7 @@ Function Get-UpdateSteamerConfigDefault {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
                         If (Test-Path $currentdir\tmp) { } Else {
-                            New-Item  $currentdir -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                            New-Item  . -Name 'tmp' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                         }
                         New-Item  "$currentdir\tmp\$getlocalssmname\" -Force >$null 2>&1
                         Add-Content "$currentdir\tmp\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -170,7 +170,7 @@ Function Get-SteamerConfigDefault {
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
-        write-log "Default-Config: $getlocalssmname"
+        write-log "`$getlocalssmname $getlocalssmname"
         If ($getlocalssmname) {
             $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
             Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
@@ -178,7 +178,7 @@ Function Get-SteamerConfigDefault {
                 $githubvarcontent = ($githubvarcontent).Content
                 If ($githubvarcontent) {
                     If (!(Test-Path $currentdir\config-default)) {
-                        New-Item  $currentdir -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
+                        New-Item  . -Name 'config-default' -ItemType Directory -InformationAction  SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                     }
                     If ($getlocalssmname) {
                         If (!(Test-Path $currentdir\config-default\$getlocalssmname)) {

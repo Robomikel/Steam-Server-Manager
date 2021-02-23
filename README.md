@@ -10,14 +10,14 @@ Server install in the location of ssm. before install change directory to the lo
 
 > Windows 10 may require to unblock Downloaded files.in the Directoy Use ```gci -r | Unblock-File``` command   
 
-# Install SSM (Pre-Release)   
+# Install SSM
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
-```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/pre-release/stabilizing.zip" -O Steam-Server-Manager.zip```   
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
-```Copy-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing\* Steam-Server-Manager\ -Recurse -Force```   
-```Remove-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing -Recurse -Force```   
+```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
+```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
 ```Set-Location Steam-Server-Manager```   
 
 Configure during install :     
