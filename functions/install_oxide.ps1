@@ -77,7 +77,7 @@ Function Get-undeadlegacy {
         Force           = $true
     }
     #Expand-Archive @undeadurlzip
-    saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r")
+    saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r") -Wait
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'undead-legacy'
         New-TryagainNew 
