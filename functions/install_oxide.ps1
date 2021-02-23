@@ -60,7 +60,7 @@ Function Get-undeadlegacy {
             Uri     = "$undeadurllatestdl"
             OutFile = "$currentdir\$undeadurllatestzip"
         }
-        #Invoke-WebRequest @undeadurlzip
+        Invoke-WebRequest @undeadurlzip
     }
     If (!$?) { 
         Get-WarnMessage 'Downloadfailed' 'undead-legacy'
