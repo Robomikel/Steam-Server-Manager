@@ -110,7 +110,7 @@ Function Set-SteamerSetting {
     #########################################################
     #                                 Do Not Change
     $global:serverdir               = "$sfwd\$serverfiles"
-    #                               Backup Directory
+    #                               Backups Directory
     $global:backupdir               = "$bwd\backups"
     # Set-SteamerSettingLog
 }

@@ -529,7 +529,7 @@ Function Set-SteamerSettingLog {
     Write-Log "Settings: Backup Directory   = $currentdir "
     Write-Log "Settings: Serverfiles Directory = $currentdir"
     Write-Log "Settings: Serverdir = $sfwd\$serverfiles"
-    Write-Log "Settings: Backup Directory = $bwd\backups"
+    Write-Log "Settings: Backups Directory = $bwd\backups"
 }
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
@@ -650,7 +650,7 @@ Function Set-Customsettings {
     #########################################################
     #                                 Do Not Change
     `$global:serverdir               = `"`$sfwd\`$serverfiles`"
-    #                               Backup Directory
+    #                               Backups Directory
     `$global:backupdir               = `"`$bwd\backups`"
     Set-SteamerSettingLog
 }"
