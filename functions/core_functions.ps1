@@ -81,11 +81,12 @@ Function Get-TestString {
 }
 Function Set-Console {
     Write-log "Function: Set-Console"
-    If ( $logo -eq "off") { }Else {
+    If ( $logo -ne "off") {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
         [console]::BackgroundColor = "Black"
+        $host.PrivateData.VerboseForegroundColor = 'White'
         # [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
         #$host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size(200,5000)
         If ($admincheckmessage -eq "on") {
@@ -96,10 +97,12 @@ Function Set-Console {
             Get-Logo
         }
     }
-    $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
-    [console]::ForegroundColor = "Green"
-    [console]::BackgroundColor = "Black"
-    $host.PrivateData.VerboseForegroundColor = 'White'
+    Else{
+        $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
+        [console]::ForegroundColor = "Green"
+        [console]::BackgroundColor = "Black"
+        $host.PrivateData.VerboseForegroundColor = 'White'
+    }
 }
 Function Get-Logo {
     Write-log "Function: Get-Logo"
