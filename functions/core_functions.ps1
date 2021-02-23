@@ -96,6 +96,10 @@ Function Set-Console {
             Get-Logo
         }
     }
+    $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
+    [console]::ForegroundColor = "Green"
+    [console]::BackgroundColor = "Black"
+    $host.PrivateData.VerboseForegroundColor = 'White'
 }
 Function Get-Logo {
     Write-log "Function: Get-Logo"

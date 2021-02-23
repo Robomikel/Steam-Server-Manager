@@ -152,7 +152,8 @@ Function Get-Infomessage {
         Start-Sleep 0.3
         # Write-Information "[info]" -InformationAction Continue
         Write-Information "$message" -InformationAction Continue
-        Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+        #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+        Write-log "Message: $infomessage"
     }
 }
 Function Get-WarnMessage {
@@ -242,7 +243,8 @@ Function Get-WarnMessage {
         }
         Start-Sleep 0.3
         Write-Warning "$message"
-        Add-Content $ssmlog "[$loggingdate] Warning: $message"
+        #Add-Content $ssmlog "[$loggingdate] Warning: $message"
+        Write-Log "Warning: $message"
         Pop-Location
         if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
             Exit
