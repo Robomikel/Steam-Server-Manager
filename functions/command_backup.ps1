@@ -13,6 +13,7 @@ Function New-BackupServer {
             Get-StopServer 
         }
         if ($(Test-Path $sevenzipprogramexecutable)) {
+            Write-Log "& $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log"
             & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
         }
         ELse {
@@ -22,6 +23,7 @@ Function New-BackupServer {
                 $backuplogopen = 'off'
                 Write-log "Disabled: open backup log. show backup console on"
                 Get-Infomessage "backupstart" 'start'
+                write-log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*`") -Wait"
                 Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
                 If (!$?) {
                     Get-warnmessage "backupfailed"

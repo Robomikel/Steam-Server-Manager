@@ -507,6 +507,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Discord Update Alert  = $DiscordUpdateAlert "
     Write-log "Setting: Discord Restart Alert  = $DiscordRestartAlert"
     Write-log "Setting: Use private IP for Query and mcrcon  = $Useprivate  "
+    Write-Log "Settings: Monitor Query  = $monquery"
     Write-log "Setting: consolelogging   = $consolelogging "
     Write-log "Setting: consolelogging count  = $consolelogcount "
     Write-log "Setting: ssmlogging  = $ssmlogging   "
@@ -514,7 +515,6 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Console Text Color   = $textcolor  "
     Write-log "Setting: Version  = $Version  "
     Write-log "Setting: Server List Directory   = $serverlistdir"
-    # Write-log "Setting: Backup Directory  = $backupdir"
     Write-log "Setting: SSM Directory  = $currentdir "
     Write-log "Setting: Backup Directory  = $bwd "
     Write-log "Setting: Serverfiles Directory  = $sfwd"
@@ -526,6 +526,10 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Pastebin  = $pastebinconsolelog"
     Write-log "Setting: Discord Webhook    = $discordwebhook  "
     Write-log "Setting: Discord Display IP  = $discorddisplayip  "
+    Write-Log "Settings: Backup Directory   = $currentdir "
+    Write-Log "Settings: Serverfiles Directory = $currentdir"
+    Write-Log "Settings: Serverdir = $sfwd\$serverfiles"
+    Write-Log "Settings: Backup Directory = $bwd\backups"
 }
 Function Test-VariablesNull {
     Write-Log "Function: Get-VariablesNull"
@@ -610,8 +614,6 @@ Function Set-Customsettings {
     `$global:Version                 = `"$Version`"
     #                               Server List Directory
     `$global:serverlistdir           = `"$serverlistdir`"
-    #                               Backup Directory
-    # `$global:backupdir               = `"$backupdir`"
     #                               ssm log Directory
     `$global:ssmlogdir               = `"$ssmlogdir`"
     #                               log Directory
@@ -648,6 +650,8 @@ Function Set-Customsettings {
     #########################################################
     #                                 Do Not Change
     `$global:serverdir               = `"`$sfwd\`$serverfiles`"
+    #                               Backup Directory
+    `$global:backupdir               = `"`$bwd\backups`"
     Set-SteamerSettingLog
 }"
 }
@@ -1382,3 +1386,4 @@ Function Compare-Modlist {
         }
     }
 }
+
