@@ -107,13 +107,15 @@ $CHECKMARK = ([char]8730)
 If (!(Test-Path $currentdir\log\ssm)) { mkdir $currentdir\log\ssm >$null 2>&1 }
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 # Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
+if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) { $logo = "off" }
+Set-Console  >$null 2>&1
 Set-SteamerSetting
 Get-CustomSettings
-if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) { $logo = "off" }
+
 Test-PSversion
 # If ($ssmlogging -eq "on") { Start-Transcript -Path "$currentdir\log\ssm\Steamer-$Date.log" -Append -NoClobber}
 
-Set-Console  >$null 2>&1
 Set-Steamer
 ##########################################################################
+
 

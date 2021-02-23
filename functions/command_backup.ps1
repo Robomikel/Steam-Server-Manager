@@ -76,6 +76,7 @@ Function New-BackupServer {
 Function New-backupAppdata {
     Write-log "Function: New-backupAppdata"
     if ($(Test-Path $sevenzipprogramexecutable)) {
+        Write-Log "& $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
         & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
     }
     Else {   
@@ -85,6 +86,7 @@ Function New-backupAppdata {
             $appdatabackuplogopen = 'off'
             Write-log "Disabled: open appdata backup log. show backup console on"
             Get-Infomessage "appdatabackupstart" 'start'
+            Write-Log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\*`") -Wait"
             Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\*") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
@@ -92,6 +94,7 @@ Function New-backupAppdata {
         }
         ElseIf ($Showbackupconsole -eq "Off") {
             Get-Infomessage "appdatabackupstart" 'start'
+            Write-Log "./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
             ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
