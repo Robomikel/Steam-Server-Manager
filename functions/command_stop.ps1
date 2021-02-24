@@ -18,7 +18,6 @@ Function Get-StopServer {
             }
             Else { 
                 Get-Infomessage "stopping" 'start'
-                #Stop-Process -Name $process -Force 
                 Write-log "Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "Process ID: $($p.id)"
@@ -28,12 +27,22 @@ Function Get-StopServer {
                     Write-log "Waiting Process: $($p.Name) "
                     $wshell = new-object -com wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
-                    $p.WaitForExit()
+                    # $p.WaitForExit()
+                    $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
                 }
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
-                    Get-warnmessage "stoppedfailed"
-                        
+                    Get-Infomessage " stopping failed" 'warning'
+                    Get-Infomessage " force stopping" 'start'
+                    Stop-Process -Name $process -Force
+                    Start-Sleep 3
+                    $processstatus = Get-Process $process -ea SilentlyContinue
+                    If ($processstatus) {
+                        Get-warnmessage "stoppedfailed"
+                    }
+                    Elseif (!$processstatus) {
+                        Get-Infomessage "stopped" 
+                    }
                 }
                 Elseif (!$processstatus) {
                     Get-Infomessage "stopped" 
@@ -61,7 +70,6 @@ Function Get-StopServerInstall {
             }
             Else {
                 Get-Infomessage "stopping" 'start'
-                #Stop-Process -Name "$process" -Force
                 Write-log "Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "Process ID:  $($p.id)"
@@ -71,12 +79,22 @@ Function Get-StopServerInstall {
                     Write-log "Waiting Process: $($p.Name) "
                     $wshell = new-object -com wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
-                    $p.WaitForExit()
+                    #$p.WaitForExit()
+                    $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
                 }
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
-                    Get-warnmessage "stoppedfailed"
-                    
+                    Get-Infomessage " stopping failed" 'warning'
+                    Get-Infomessage " force stopping" 'start'
+                    Stop-Process -Name $process -Force 
+                    Start-Sleep 3
+                    $processstatus = Get-Process $process -ea SilentlyContinue
+                    If ($processstatus) {
+                        Get-warnmessage "stoppedfailed"
+                    }
+                    Elseif (!$processstatus) {
+                        Get-Infomessage "stopped" 
+                    }
                 }
                 Elseif (!$processstatus) {
                     Get-Infomessage "stopped" 
@@ -104,13 +122,23 @@ Function Get-StopMultiple {
                 Start-Sleep 3
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
-                    $p.WaitForExit()
+                    #$p.WaitForExit()
+                    $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
                 }
             }
-            $processstatus = Get-process $mprocess -ea SilentlyContinue
-            If ($processstatus) {
-                Get-warnmessage "stoppedfailed"
-                
+            $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
+            If ($mprocess) {
+                Get-Infomessage " stopping failed" 'warning'
+                Get-Infomessage " force stopping" 'start'
+                get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
+                Start-Sleep 3
+                $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
+                If ($mprocess) {
+                    Get-warnmessage "stoppedfailed"
+                }
+                Elseif (!$mprocess) {
+                    Get-Infomessage "stopped" 
+                }
             }
             Elseif (!$processstatus) {
                 Get-Infomessage "stopped" 
