@@ -37,9 +37,11 @@ $nodejsexecutable = "$nodejsdirectory\node.exe"
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
 # Oxide
-$oxiderustlatestlink = "https://umod.org/games/rust/download"
-$oxideoutput = "$currentdir\oxide.zip"
-$oxidedirectory = "$currentdir\oxide"
+# $oxiderustlatestlink = "https://umod.org/games/rust/download"
+$oxiderustowner = "OxideMod" 
+$oxiderustrepo = "Oxide.Rust"
+
+
 
 # Sourcemod
 #"https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows"

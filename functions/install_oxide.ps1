@@ -9,18 +9,23 @@
 Function Get-Oxide {
     Write-log "Function: Get-Oxide"
     If ($oxiderustlatestlink -and $oxideoutput) {
+        Get-GithubRestAPI $oxiderustowner $oxiderustrepo
+        $oxideversion = ($githubrepoziplink).split('/')[7]
+        $oxideoutput = "$currentdir\oxide" + '-' + "$oxideversion" + '.zip'
+        $oxidedirectory = "$currentdir\oxide"
         $start_time = Get-Date
-        # If ($command -eq 'update-mods') {
-        #     Compare-Modlist 'Oxide' "$oxideoutput"
-        # }
-        # If ($nomodupdate -eq $true) {
-        #     Get-Infomessage "No Oxide updates" 'info'
-        #     return
-        # }
+         If ($command -eq 'update-mods') {
+             Compare-Modlist 'Oxide' "$oxideoutput"
+         }
+         If ($nomodupdate -eq $true) {
+             Get-Infomessage "No Oxide updates" 'info'
+             return
+         }
         Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
+        #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
             Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew

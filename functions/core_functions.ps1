@@ -1276,7 +1276,7 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"| select -Index 0).Line
+        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux"| select -Index 0).Line
     }
     Else {
         Write-log "Get-GithubRestAPI: No zip download link found"
