@@ -10,6 +10,9 @@ Server install in the location of ssm. before install change directory to the lo
 
 > Windows 10 may require to unblock Downloaded files.in the Directoy Use ```gci -r | Unblock-File``` command   
 
+> Add SSM to Path to use `ssm` command in any directory without `./` [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM-to-PATH)
+
+
 # Install SSM (Pre-Release)   
 PS Commands:   
 
@@ -139,6 +142,8 @@ Install miscreated server ```./ssm install misserver```
    -----   
  # Features  
  - Manage Steam server with features
+   * Add SSM to Path
+   * Custom Backup and Server Files Directories
    * SSM Console Menu   
    * install steam server
    * starting server 
@@ -170,7 +175,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm stop <serverFolder>``` - stop process server   
  - ```./ssm restart <serverFolder>``` - stops and starts process for server    
  - ```./ssm validate <serverFolder>``` - Validate App ID files   
- - ```./ssm monitor <serverFolder>``` - checks process server and starts if need with Discord Alert   
+ - ```./ssm monitor <serverFolder>``` - checks process server and starts if need with Discord Alert. Optional GameDig query   
  - ```./ssm update <serverFolder>``` - updates App ID, with  Discord alert. Stop server as needed, can be disabled in settings   
  - ```./ssm force-update <serverFolder>``` - updates App ID. Force server stop and update   
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)   
@@ -199,6 +204,9 @@ Install miscreated server ```./ssm install misserver```
  * Counter-Strike Global Offensive - option for sourcemod and Meta Mod install
  * Left 4 Dead 2 - Dedicated Server - option for sourcemod and Meta Mod install
  * Sourcemod and Oxide for other supported games available
+ * 7D2D - Undead-Legacy
+ * Rust - Plugin Updater
+ * CSGO - Get5, Pug-setup, and Steamworks 
 
 # Steam Workshop install
 * advanced configuration in *_default.ps1 (see Space Engineers for example)
