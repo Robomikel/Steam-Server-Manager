@@ -17,36 +17,29 @@ Function Get-StopServer {
                 Get-Infomessage "notrunning" 'info'
             }
             Else { 
-                If ($appid -eq "996560") {
-                    $process = Get-Process $process -ea SilentlyContinue
-                    $processID = $process.Id
-                    Get-warnmessage "stop"
-                    Stop-Process -id $processID -Force
-                    Start-Sleep 3
-                    $processstatus = Get-Process $process -ea SilentlyContinue 
-                    If ($processstatus) {
-                        Get-warnmessage "stoppedfailed"
-                        
-                    }
-                    If ($consolelogging -eq "on") {   
-                        New-ServerLog
-                    }
+                Get-Infomessage "stopping" 'start'
+                #Stop-Process -Name $process -Force 
+                Write-log "Stop Process: $process"
+                $p = Get-Process $process -ErrorAction SilentlyContinue
+                Write-log "Process ID: $($p.id)"
+                [void]$p.CloseMainWindow()
+                Start-Sleep 3
+                if (!$p.HasExited) {
+                    Write-log "Waiting Process: $($p.Name) "
+                    $wshell = new-object -com wscript.shell
+                    $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
+                    $p.WaitForExit()
                 }
-                Else {
-                    Stop-Process -Name $process -Force 
-                    Start-Sleep 3
-                    $processstatus = Get-Process $process -ea SilentlyContinue
-                    If ($processstatus) {
-                        Get-warnmessage "stoppedfailed"
+                $processstatus = Get-Process $process -ea SilentlyContinue
+                If ($processstatus) {
+                    Get-warnmessage "stoppedfailed"
                         
-                    }
-                    Elseif (!$processstatus) {
-                        Get-Infomessage "stopped" 
-                    }
-                    If ($consolelogging -eq "on") { 
-                        New-ServerLog
-                    }
-                   
+                }
+                Elseif (!$processstatus) {
+                    Get-Infomessage "stopped" 
+                }
+                If ($consolelogging -eq "on") { 
+                    New-ServerLog
                 }
                 Get-CheckForError
             }
@@ -68,8 +61,18 @@ Function Get-StopServerInstall {
             }
             Else {
                 Get-Infomessage "stopping" 'start'
-                Stop-Process -Name "$process" -Force
+                #Stop-Process -Name "$process" -Force
+                Write-log "Stop Process: $process"
+                $p = Get-Process $process -ErrorAction SilentlyContinue
+                Write-log "Process ID:  $($p.id)"
+                [void]$p.CloseMainWindow()
                 Start-Sleep 3
+                if (!$p.HasExited) {
+                    Write-log "Waiting Process: $($p.Name) "
+                    $wshell = new-object -com wscript.shell
+                    $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
+                    $p.WaitForExit()
+                }
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
                     Get-warnmessage "stoppedfailed"
@@ -95,8 +98,15 @@ Function Get-StopMultiple {
         }
         Else {
             Get-Infomessage "stopping" 'start'
-            get-process | Where-Object { $_.ProcessName -match $process } | stop-process -force
-            Start-Sleep 3
+            $p = get-process | Where-Object { $_.ProcessName -match $process }
+            $p | foreach {
+                [void]$p.CloseMainWindow()
+                Start-Sleep 3
+                if (!$p.HasExited) {
+                    Write-log "Waiting Process: $($p.Name) "
+                    $p.WaitForExit()
+                }
+            }
             $processstatus = Get-process $mprocess -ea SilentlyContinue
             If ($processstatus) {
                 Get-warnmessage "stoppedfailed"
