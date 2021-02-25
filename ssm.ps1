@@ -37,7 +37,7 @@ $nodejsexecutable = "$nodejsdirectory\node.exe"
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
 # Oxide
-# $oxiderustlatestlink = "https://umod.org/games/rust/download"
+# https://github.com/OxideMod/Oxide.Rust
 $oxiderustowner = "OxideMod" 
 $oxiderustrepo = "Oxide.Rust"
 
