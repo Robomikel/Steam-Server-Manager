@@ -1283,7 +1283,7 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"| select -Index 0).Line
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux" | select -Index 0).Line
     } 
     Else {
         Write-log "Get-GithubRestAPI: No zip download file found"

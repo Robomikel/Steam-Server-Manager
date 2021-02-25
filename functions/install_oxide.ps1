@@ -8,10 +8,10 @@
 #
 Function Get-Oxide {
     Write-log "Function: Get-Oxide"
-    If ($oxiderustlatestlink -and $oxideoutput) {
+    If ($oxiderustowner -and $oxiderustrepo) {
         Get-GithubRestAPI $oxiderustowner $oxiderustrepo
         $oxideversion = ($githubrepoziplink).split('/')[7]
-        $oxideoutput = "$currentdir\oxide" + '-' + "$oxideversion" + '.zip'
+        $oxideoutput = "oxide" + '-' + "$oxideversion" + '.zip'
         $oxidedirectory = "$currentdir\oxide"
         $start_time = Get-Date
          If ($command -eq 'update-mods') {
@@ -25,6 +25,7 @@ Function Get-Oxide {
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
+        write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
             Get-WarnMessage 'Downloadfailed' 'Oxide'
@@ -35,7 +36,10 @@ Function Get-Oxide {
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Oxide'
-        Expand-Archive $oxideoutput $oxidedirectory -Force
+        Write-Log "Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force"
+        Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force
+        Write-log " Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force"
+        Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force
         If (!$?) { 
             Get-WarnMessage 'ExtractFailed' 'Oxide'
             New-TryagainNew

@@ -41,8 +41,6 @@ $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 $oxiderustowner = "OxideMod" 
 $oxiderustrepo = "Oxide.Rust"
 
-
-
 # Sourcemod
 #"https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows"
 
