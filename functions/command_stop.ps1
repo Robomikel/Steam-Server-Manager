@@ -22,12 +22,19 @@ Function Get-StopServer {
                 Write-log "Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "Process ID: $($p.id)"
-                [void]$p.CloseMainWindow()
+                $wshell = New-Object -ComObject wscript.shell
+                if ($appid -eq 443030) {
+                    $r = $wshell.AppActivate("$($p.Id)")
+                    $wshell.Sendkeys("^{c}")
+                }
+                Else {
+                    [void]$p.CloseMainWindow()
+                }
                 Start-Sleep 3
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
-                    $wshell = new-object -com wscript.shell
-                    $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)"); $wshell.Sendkeys("^{c}")
+                    #$wshell = New-Object -ComObject wscript.shell
+                    $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
                     $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
                 }
@@ -75,11 +82,18 @@ Function Get-StopServerInstall {
                 Write-log "Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "Process ID:  $($p.id)"
-                [void]$p.CloseMainWindow()
+                $wshell = New-Object -ComObject wscript.shell
+                if ($appid -eq 443030) {
+                    $r = $wshell.AppActivate("$($p.Id)")
+                    $wshell.Sendkeys("^{c}")
+                }
+                Else {
+                    [void]$p.CloseMainWindow()
+                }
                 Start-Sleep 3
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
-                    $wshell = new-object -com wscript.shell
+                    #$wshell = New-Object -ComObject wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
                     $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
@@ -124,7 +138,7 @@ Function Get-StopMultiple {
                 Start-Sleep 3
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
-                    $wshell = new-object -com wscript.shell
+                    $wshell = New-Object -ComObject wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
                     $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
