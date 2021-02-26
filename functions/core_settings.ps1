@@ -44,7 +44,7 @@ Function Set-SteamerSetting {
     #                               Discord Restart Alert 
     $global:DiscordRestartAlert     = "on"
     #                               Use private IP for Query and mcrcon
-    $global:Useprivate              = "off"
+    $global:Useprivate              = "on"
     #                               Monitor Query
     $global:monquery                = "off"
     #                               consolelogging
