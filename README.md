@@ -23,12 +23,6 @@ PS Commands:
 ```Remove-Item Steam-Server-Manager\Steam-Server-Manager-pre-release-stabilizing -Recurse -Force```   
 ```Set-Location Steam-Server-Manager```   
 
-Configure during install :     
-During install will download and copy to config-local. Will Prompt and pause script to allow time to edit and save.  
->change $version "0" in config-local\local_settings before run to prompt for input to change default variables.  
-```\Steam-Server-Manager\config-local\*_default.ps1```   
-Change any vars like port/s or server name.   
-
 # Console Menu   
 Displays in console menu. Interactive Console Menu for SSM.   
 ```./ssm.ps1 menu```   
@@ -38,11 +32,16 @@ Displays in console menu. Interactive Console Menu for SSM.
 open PowerShell as user NOT Admin   
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
 
+Configure during install :     
+During server install will download and copy `default-config\*_default.ps1` to `config-local\*_default.ps1`. Will Prompt for input to change default variables like ports and servername. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Configure-Default-Variables-during-Game-Server-install) 
+>change $version "1" in config-local\local_settings before run to disable prompt for input to change default variables.  
+```\Steam-Server-Manager\config-local\*_default.ps1```   
+Change any vars like port/s or server name.  
+
 If Optional name is used, will grab APP ID   
 
 Example:          
 Install miscreated server ```./ssm install misserver```   
-
 
 ```./ssm <command> <serverFolder>```
  - Creates Server Folder Named ```<serverFolder>``` and starts install
@@ -136,7 +135,7 @@ Install miscreated server ```./ssm install misserver```
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)
    * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)   
    * BadLads Dedicated Server  (1203110) - "blserver" (optional server folder name)  
-   * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name) 
+   * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)   
    * Valhiem Dedicated Server  (896660) - "valhiem" (optional server folder name)   
    
    
