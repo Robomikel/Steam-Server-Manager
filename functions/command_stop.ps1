@@ -23,7 +23,8 @@ Function Get-StopServer {
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "Process ID: $($p.id)"
                 $wshell = New-Object -ComObject wscript.shell
-                if ($appid -eq 443030) {
+                if (@(443030, 896660 ) -contains $appid) {
+                    Write-log "Send CTL+C"
                     $r = $wshell.AppActivate("$($p.Id)")
                     $wshell.Sendkeys("^{c}")
                 }
