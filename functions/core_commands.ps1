@@ -72,10 +72,10 @@ Function Get-SSMMenu {
     Write-log "Function: Get-SSMMenu"
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-H', 'install I-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats','update-mods')
+    $command = Menu @('install A-E', 'install D-M', 'install N-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats','update-mods')
     clear-Host
     Set-Console  >$null 2>&1
-    If ($command -ne "install A-H" -and $command -ne "install I-Z") {
+    If ($command -ne "install A-E" -and $command -ne "install D-M" -and $command -ne "install N-Z") {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
     Choose Server: 
     loading..." -F Cyan
@@ -88,13 +88,21 @@ Function Get-SSMMenu {
             $serverfiles = $check
         }   
     }
-    If ($command -eq "install A-H") {
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
+    If ($command -eq "install A-E") {
+        # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
+        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[A-E]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
-    ElseIf ($command -eq "install I-Z") {
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 42" )
+    ElseIf ($command -eq "install D-M") {
+        # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
+        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[D-M]'" )
+        $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
+        $command = "install"
+    }
+    ElseIf ($command -eq "install N-Z") {
+        #$gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
+        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[N-Z]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
@@ -105,5 +113,3 @@ Function Get-SSMMenu {
         ./ssm.ps1 $command $serverfiles
     }
 }
-
-
