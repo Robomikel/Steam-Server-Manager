@@ -59,7 +59,7 @@ Function Get-Oxide {
 
 Function Get-undeadlegacy {
     Write-log "Function: Get-undead-legacy"
-    if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
+    # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
         $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
@@ -85,8 +85,8 @@ Function Get-undeadlegacy {
         DestinationPath = "$undeadurlfolder"
         Force           = $true
     }
-    #Expand-Archive @undeadurlzip
-    saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r") -Wait
+    Expand-Archive @undeadurlzip
+    # saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r") -Wait
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'undead-legacy'
         New-TryagainNew 
