@@ -231,7 +231,8 @@ Function Get-UserInput {
     Write-log "Function: Get-UserInput"
     If ($version -eq 0) {
         Set-Console
-        Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
+        # Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
+        Write-Host "Enter to Accept Default Value..." -F Y
         If ($ip) {
             $defaultip = "$ip"
             If (($global:IP = Read-Host -P(Write-Host "Enter Server IP, Press Enter to Accept default [$IP]: "-F CY -N )) -eq '') { $global:IP = "$defaultIP" }Else { $IP }
