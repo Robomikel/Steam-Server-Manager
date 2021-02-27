@@ -77,8 +77,7 @@ Function Get-SSMMenu {
     Set-Console  >$null 2>&1
     If ($command -ne "install A-E" -and $command -ne "install D-M" -and $command -ne "install N-Z") {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
-    Choose Server: 
-    loading..." -F Cyan
+        Choose Server: " -F Cyan
         $check = ((gci $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name )
         if ($check.count -gt 1) {
             $serverfiles = Menu (iex "(gci $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name")
