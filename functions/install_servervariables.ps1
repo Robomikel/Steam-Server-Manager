@@ -193,7 +193,7 @@ Function New-CreateVariables {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:RCONPASSWORD        = `"$global:RCONPASSWORD`""
     }
     If ($adminpassword) {
-        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            adminpassword  HERE "
+        Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            Admin Password "
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "`$global:adminpassword       = `"$global:adminpassword`""
     }
     If ($sv_pure) {
