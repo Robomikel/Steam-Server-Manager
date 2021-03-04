@@ -31,7 +31,7 @@ Function Get-StopServer {
                 Else {
                     [void]$p.CloseMainWindow()
                 }
-                Start-Sleep 3
+                Start-Sleep 5
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
                     #$wshell = New-Object -ComObject wscript.shell
@@ -44,7 +44,7 @@ Function Get-StopServer {
                     Get-Infomessage " smooth stop failed" 'warning'
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
-                    start-sleep 3
+                    Start-Sleep 5
                     $processstatus = Get-Process $process -ea SilentlyContinue
                     If ($processstatus) {
                         Get-warnmessage "stoppedfailed"
@@ -91,7 +91,7 @@ Function Get-StopServerInstall {
                 Else {
                     [void]$p.CloseMainWindow()
                 }
-                Start-Sleep 3
+                Start-Sleep 5
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
                     #$wshell = New-Object -ComObject wscript.shell
@@ -104,7 +104,7 @@ Function Get-StopServerInstall {
                     Get-Infomessage " smooth stop failed" 'warning'
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
-                    start-sleep 3
+                    Start-Sleep 5
                     $processstatus = Get-Process $process -ea SilentlyContinue
                     If ($processstatus) {
                         Get-warnmessage "stoppedfailed"
@@ -136,7 +136,7 @@ Function Get-StopMultiple {
             $p = get-process | Where-Object { $_.ProcessName -match $process }
             $p | foreach {
                 [void]$p.CloseMainWindow()
-                Start-Sleep 3
+                Start-Sleep 5
                 if (!$p.HasExited) {
                     Write-log "Waiting Process: $($p.Name) "
                     $wshell = New-Object -ComObject wscript.shell
@@ -149,7 +149,7 @@ Function Get-StopMultiple {
                     Get-Infomessage " smooth stop failed" 'warning'
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
-                    start-sleep 3
+                    Start-Sleep 5
                 }
                 Elseif (!$processstatus) {
                     Get-Infomessage "stopped" 
