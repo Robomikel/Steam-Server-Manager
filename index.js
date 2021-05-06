@@ -105,7 +105,32 @@ client.on('message', async message => {
                         console.log(obj.status);
                         //process.stdout.write(obj.ServerStatus)
                         if (obj.status) {
-                            message.reply(obj.status);
+                            // message.reply(obj.status);
+                            const m = obj.status
+                            const msg = JSON.parse(m);
+                            console.log(msg)
+                           // message.reply(obj.status);
+                           const exampleEmbed = new Discord.MessageEmbed()
+                               .setColor('#0099ff')
+                               .setTitle('SSM Query')
+                               // .setURL('https://discord.js.org/')
+                               // .setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+                               // .setDescription('Some description here')
+                               // .setThumbnail('https://i.imgur.com/wSTFkRM.png')
+                               .addFields(
+                                   { name: 'Server Name', value: msg.ServerName },
+                                   // { name: '\u200B', value: '\u200B' },
+                                   { name: 'Ping', value: msg.Ping, inline: true },
+                                   { name: 'Players', value: msg.Players, inline: true },
+                                //    { name: 'Connect', value: msg.Connect , inline: true },
+                               )
+                               // .addField('Inline field title', 'Some value here', true)
+                               // .setImage('https://i.imgur.com/wSTFkRM.png')
+                               .setTimestamp()
+                               // .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+
+                           // channel.send(exampleEmbed);
+                           message.reply(exampleEmbed);
                         } else {
                             message.reply(`stop failed`);
                         }
