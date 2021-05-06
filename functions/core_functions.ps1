@@ -53,11 +53,12 @@ Function Get-ClearVariables {
         $error > $ssmerrorlog
     }
     Write-log "Function: Get-ClearVariables"
-    $var = (Get-Variable * -scope global).Name
-    Write-log "Removing Variables $var" 
-    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
-    # Write-log " Variables $var"
-    
+    if ($disableclearvariable -ne $true) {
+        $var = (Get-Variable * -scope global).Name
+        Write-log "Removing Variables $var" 
+        Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
+        # Write-log " Variables $var"
+    }
 }
 Function Get-TestInterger {
     Write-log "Function: Get-TestInterger" 

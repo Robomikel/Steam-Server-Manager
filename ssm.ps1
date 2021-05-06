@@ -11,7 +11,8 @@ param(
     [Parameter(ParameterSetName = "steamer", Position = 0)]
     [string]$command,
     [Parameter(ParameterSetName = "steamer", Position = 1)]
-    [string]$serverfiles)
+    [string]$serverfiles,
+    [switch]$disableclearvariable)
 If ($serverfiles) {    
     if ($serverfiles.Contains('\')) {
         $serverfiles = Split-Path $serverfiles -Leaf
