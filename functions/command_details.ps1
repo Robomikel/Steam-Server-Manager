@@ -183,7 +183,13 @@ Function Get-Details {
     Write-Host "Host Storage"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
     $diskresults
-
+    $global:botdetails = @{
+        ServerName = $hostname;
+        CPU = $($window32processor.LoadPercentage);
+        TotalMemory = $totalmem ;
+        MemoryUsed = $totalusedmem ;
+        Steam_Master = $stats;
+    } | ConvertTo-Json
 }
 
 
