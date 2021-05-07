@@ -59,3 +59,15 @@ Function Add-gamedig {
          saps powershell -args ("npm install gamedig -g") -wait -nnw
     }
 }
+
+Function Add-discordjs {
+    Write-log "Function: Add-discordjs"
+    $n = npm ls discord.js
+    if ($n[1] -match "empty") {
+        # & "npm install gamedig"
+        # & "npm install gamedig -g"
+         saps powershell -args ("npm install discord.js") -wait -nnw
+        #  saps powershell -args ("npm install gamedig -g") -wait -nnw
+    }
+}
+

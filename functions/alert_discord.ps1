@@ -120,27 +120,27 @@ Function Send-DiscordAlert {
             $displayip = $extip
             
         }
-        $details =  [PSCustomObject]@{
-            Game = $game
-            ServerIP = "$displayip`:$port"
-            LocalBuild = $localbuild
+        $details = [PSCustomObject]@{
+            Game        = $game
+            ServerIP    = "$displayip`:$port"
+            LocalBuild  = $localbuild
             RemoteBuild = $remotebuild
         }        
         $detailss = @()
         $detailss += "Game:  $($details.Game)"
         $detailss += "`nServer IP: $($details.ServerIP)"
         If ($alert -eq "Backup") {
-        $detailss += "`nbackups: $backups"
+            $detailss += "`nbackups: $backups"
         }
         If ($alert -eq "update") {
-        $detailss += "`nLocal: $($details.LocalBuild)"
-        $detailss += "`nSteamDB: $($details.RemoteBuild)"
+            $detailss += "`nLocal: $($details.LocalBuild)"
+            $detailss += "`nSteamDB: $($details.RemoteBuild)"
         }
         $detailss += "`nsteam://connect/$displayip`:$port"
         #                               Discord Author Name 
-        $global:AuthorName              = "Notice - $hostname - $alerttype "
+        $global:AuthorName = "Notice - $hostname - $alerttype "
         #                               Discord Avatar Name 
-        $global:AavatarName              = "Steam-Server-Manager"
+        $global:AavatarName = "Steam-Server-Manager"
         $Fact = New-DiscordFact -Name "Info:" -Value "$detailss" -Inline $true
         $Author = New-DiscordAuthor -Name $AuthorName -IconUrl $AuthorIconURL
         $Thumbnail = New-DiscordThumbnail -Url $ThumbnailURL
@@ -154,5 +154,52 @@ Function Send-DiscordAlert {
             $global:InfoMessage = 
             Get-Infomessage "discord" 
         }    
+    }
+}
+
+Function get-pode {
+    write-log "Function: get-pode"
+    if (test-path "$podedirectory\Pode.psm1") {
+        Write-log "Pode module found"
+    }
+    Else {
+        Get-GithubRestAPI $Podesetupowner $Podesetuprepo
+        Write-log "Downloading Pode from github" 
+        $start_time = Get-Date
+        Get-Infomessage "downloading" 'Pode'
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        If (!$?) {
+            Write-Warning 'Downloading  Pode Failed'
+            Write-log "Downloading  Pode Failed"
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            Get-Infomessage "downloaded" 'Pode'
+            Write-log "Pode succeeded " 
+        }
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'Pode'
+        try {
+         Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force
+         write-log "Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force"
+        }
+        catch{
+            $e = $_
+            write-log "$e"
+        }
+        If (!$?) {
+            Write-Warning 'Extracting Pode Failed'
+            Write-log "Extracting Pode Failed " 
+            New-TryagainNew 
+        }
+        ElseIf ($?) { 
+            Get-Infomessage "Extracted" 'Pode'
+            Write-log "Extracting Pode succeeded  "  
+        }
+    }
+    Else {
+        Write-log "get-Pode Failed: $githubrepoziplink $githubrepozipname"
+
+        Exit
     }
 }

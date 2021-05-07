@@ -48,6 +48,7 @@ Function Select-Steamer {
         'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Test-VariablesNull; Get-ClearVariables; Break }
         'install-VcRedist' { Install-VisualCPlusPlus; Get-ClearVariables; Break }
         'update-mods' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-UpdateMods; Get-ClearVariables; Break }
+        'start-pode' { get-pode; Add-discordjs; start-pode; Break }
         'stats' { Measure-stats; Break }
         'menu' { Get-SSMMenu }
         'exit' { exit; Break }

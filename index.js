@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const config = require("./config.json");
 
-
-
 const client = new Discord.Client();
 const prefix = '!';
 
@@ -12,13 +10,10 @@ const trim = (str, max) => str.length > max ? `${str.slice(0, max - 3)}...` : st
 client.once('ready', () => {
     console.log('Ready!');
 });
-
 client.on('message', async message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
-
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
     if (args[1] == config.server.serverfile) {
         var servername = config.server.serverfile;
         var port = config.server.webport;
@@ -27,7 +22,6 @@ client.on('message', async message => {
         var port = config.server2.webport;
     }
     console.log(servername, port);
-
     if (command == 'ssm') {
         console.log(`command SSM`)
         if (args[0] == 'start') {
@@ -151,10 +145,7 @@ client.on('message', async message => {
                     method: 'GET'
                 }
                 message.reply(`Details server...`);
-                // inside a command, event listener, etc.
-
-
-
+                // 
                 const req = https.request(options, res => {
                     console.log(`statusCode: ${res.statusCode}`)
                     res.on('data', d => {
@@ -176,7 +167,7 @@ client.on('message', async message => {
                                 .addFields(
                                     { name: 'Server Name', value: msg.ServerName },
                                     // { name: '\u200B', value: '\u200B' },
-                                    { name: 'CPU', value: msg.CPU, inline: true },
+                                    { name: 'CPU%', value: msg.CPU, inline: true },
                                     { name: 'Memory Used', value: msg.MemoryUsed, inline: true },
                                     { name: 'Steam Master', value: msg.Steam_Master , inline: true },
                                 )
@@ -184,7 +175,6 @@ client.on('message', async message => {
                                 // .setImage('https://i.imgur.com/wSTFkRM.png')
                                 .setTimestamp()
                                 // .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
-
                             // channel.send(exampleEmbed);
                             message.reply(exampleEmbed);
                         } else {
@@ -200,5 +190,4 @@ client.on('message', async message => {
         }
     }
 });
-
 client.login(config.BOT_TOKEN);
