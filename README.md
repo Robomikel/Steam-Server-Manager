@@ -190,6 +190,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
  - ```./ssm details <serverFolder>``` - outputs host and server details.   
  - ```./ssm stats ``` - Graphical output of host CPU and Memory details.
+ - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop ![Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
 # Configure
 - change default variables for server in ```\config-local\*_default.ps1```. Appears during install. SSM will prompt for edit or change $version "0" in config-local\local_settings.ps1 to prompt for each variable   
