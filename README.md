@@ -278,3 +278,5 @@ https://github.com/splewis/csgo-pug-setup/releases
 https://github.com/KyleSanderson/SteamWorks
 # Pode
 https://github.com/Badgerati/Pode
+# DiscordJS
+https://github.com/discordjs/discord.js/
