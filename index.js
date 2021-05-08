@@ -113,9 +113,12 @@ client.on('message', async message => {
                                // .setThumbnail('https://i.imgur.com/wSTFkRM.png')
                                .addFields(
                                    { name: 'Server Name', value: msg.ServerName },
+                                   { name: 'Game', value: msg.Game },
                                    // { name: '\u200B', value: '\u200B' },
-                                   { name: 'Ping', value: msg.Ping, inline: true },
+                                   { name: 'Map', value: msg.Map, inline: false },
                                    { name: 'Players', value: msg.Players, inline: true },
+                                   { name: 'Max Players', value: msg.Maxplayers, inline: true },
+                                   { name: 'Ping', value: msg.Ping, inline: false },
                                 //    { name: 'Connect', value: msg.Connect , inline: true },
                                )
                                // .addField('Inline field title', 'Some value here', true)
@@ -167,9 +170,11 @@ client.on('message', async message => {
                                 .addFields(
                                     { name: 'Server Name', value: msg.ServerName },
                                     // { name: '\u200B', value: '\u200B' },
-                                    { name: 'CPU%', value: msg.CPU, inline: true },
+                                    { name: 'CPU %', value: msg.CPU, inline: true },
                                     { name: 'Memory Used', value: msg.MemoryUsed, inline: true },
-                                    { name: 'Steam Master', value: msg.Steam_Master , inline: true },
+                                    { name: 'Memory', value: msg.TotalMemory, inline: true },
+                                    { name: 'Backups', value: msg.Backups, inline: false },
+                                    { name: 'Steam Master', value: msg.Steam_Master , inline: false },
                                 )
                                 // .addField('Inline field title', 'Some value here', true)
                                 // .setImage('https://i.imgur.com/wSTFkRM.png')

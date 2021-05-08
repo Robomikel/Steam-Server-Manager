@@ -93,20 +93,23 @@ Function Get-GamedigServerv2 {
                 # $($queryOutput.raw.tags)
                 # set-location $currentdir
                 $name = $($query.name)
+                $game = $($query.raw.game)
                 $maxplayers = $($query.maxplayers)
                 $players = $($query.players)
                 $connect = $($query.connect)
                 $ping = $($query.ping)
+                $map = $($query.map)
                 if ($players -eq $null ) {
                     $players = 0
                 }
                 $global:status = @{
-                    ServerName = $hostname;
+                    ServerName = $name;
+                    Game = "$game"
                     Ping = "$ping";
                     Connect = "$connect";
                     Players = "$players";
                     Maxplayers = "$maxplayers";
-                    Name = "$name"
+                    Map = "$map"
                 } | ConvertTo-Json
             }
             Pop-location

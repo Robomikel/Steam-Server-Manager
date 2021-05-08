@@ -1437,6 +1437,20 @@ Function Compare-Modlist {
 }
 
 Function start-pode {
+    Write-log "Function: Start-Pode"
+    $config = (gc config.json) | ConvertFrom-Json 
+    $t = $null
+    Do {
+        $t++
+        Write-log "Waiting for Port $($config.server.webport) to become available"
+        start-sleep 3
+        If ($t -eq 10) {
+            Write-log "Failed: Port $($config.server.webport) not available. "
+            Write-log "Recommend Reboot "
+            return
+        }
+    } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
+   # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
     sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
         Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      
@@ -1445,12 +1459,12 @@ Function start-pode {
     }
 }
 # Function stop-pode {
-#     if ($(get-Job Pode)) {
+#     if ($(get-Job Pode).Name -eq 'Pode') {
 #         Receive-Job Pode
 #         stop-job Pode
 #         remove-job Pode
 #     }
-#     if ($(get-Job DiscordJS)) {
+#     if ($(get-Job DiscordJS).Name -eq 'DiscordJS') {
 #         Receive-Job DiscordJS
 #         stop-job DiscordJS
 #         remove-job DiscordJS

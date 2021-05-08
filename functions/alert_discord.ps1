@@ -197,9 +197,4 @@ Function get-pode {
             Write-log "Extracting Pode succeeded  "  
         }
     }
-    Else {
-        Write-log "get-Pode Failed: $githubrepoziplink $githubrepozipname"
-
-        Exit
-    }
 }
