@@ -22,7 +22,7 @@ Function New-DiscordAlert {
                             # GREEN
                             $global:alertmessagecolor = 'ForestGreen'
                             # Backup Count
-                            $global:backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
+                            $global:backups = ((Get-Childitem -Depth 1 $backupdir -recurse | Measure-Object).Count) 
                         }
                     }
                 }

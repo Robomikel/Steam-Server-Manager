@@ -8,6 +8,17 @@
 #
 Function Get-DriveSpace {
     Write-log "Function: Get-DriveSpace"
+    $t = Measure-Command { $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
+            $n = $($_.Name ) ;   
+            $u = $([Math]::Round($_.Used / 1GB));
+            $i = $( [Math]::Round($_.Free / 1GB));    
+            $r = $( [Math]::Round(($_.Free + $_.Used) / 1GB )) 
+        }
+    } 
+    write-log "Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
+}
+Function Get-DriveSpace_old {
+    Write-log "Function: Get-DriveSpace"
     If ($psSeven -eq $true ) { 
     $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
@@ -77,10 +88,10 @@ Function Get-Details {
     $totalfree = "{0:N2} GB" -f ($windows32.FreePhysicalMemory / 1MB)
     $totalmem = "{0:N2} GB" -f ($windows32.TotalVisibleMemorySize / 1MB)
     $totalusedmem = "{0:N2} GB" -f ( ( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB)
-    $backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
-    $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $backups = ((Get-Childitem -Depth 1 $backupdir -recurse | Measure-Object).Count) 
+    $backupssize = "{0:N2} GB" -f ((Get-Childitem -Depth 1 $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem -Depth 1 $sfwd\$serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $currentdir = "{0:N2} GB" -f ((Get-Childitem -Depth 1 $currentdir  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $gameservermem = "{0:N2} GB" -f ((Get-Process $process).WS / 1GB) 

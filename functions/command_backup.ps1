@@ -32,7 +32,7 @@ Function New-BackupServer {
             ElseIf ($Showbackupconsole -eq "off") {
                 Get-Infomessage "backupstart" 'start'
                 #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $serverdir\* -an > backup.log
-                Get-Childitem $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
+                Get-Childitem -Depth 1 $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
                 write-log "./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$serverfiles-$Date.log"
                 ./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
                 If (!$?) {
@@ -125,7 +125,7 @@ Function Limit-Backups {
         Get-Infomessage "purgebackup" 'info'
         Push-Location
         Set-Location $sevenzipdirectory
-        Get-Childitem $backupdir -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
             Get-warnmessage "limitbackupfailed"
         }
@@ -144,7 +144,7 @@ Function Limit-AppdataBackups {
         Get-Infomessage "purgeappdatabackup" 'info'
         push-location
         Set-Location $sevenzipdirectory
-        Get-Childitem $backupdir -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
             Get-warnmessage "limitbackupfailed"
         }  
