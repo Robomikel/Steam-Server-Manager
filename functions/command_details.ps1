@@ -89,10 +89,10 @@ Function Get-Details {
     $totalfree = "{0:N2} GB" -f ($windows32.FreePhysicalMemory / 1MB)
     $totalmem = "{0:N2} GB" -f ($windows32.TotalVisibleMemorySize / 1MB)
     $totalusedmem = "{0:N2} GB" -f ( ( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB)
-    $backups = ((Get-Childitem -Depth 1 $backupdir -recurse | Measure-Object).Count) 
+    $backups = ((Get-Childitem -Depth 1 $backupdir | Measure-Object).Count) 
     $backupssize = "{0:N2} GB" -f ((Get-Childitem -Depth 1 $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles -Recurse| Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir -Recurse  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles -Recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir -Recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $gameservermem = "{0:N2} GB" -f ((Get-Process $process).WS / 1GB) 
