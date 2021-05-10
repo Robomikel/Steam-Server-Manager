@@ -1,10 +1,10 @@
 {
-  "main": "./server.ps1",
+  "main": "./pode_server.ps1",
   "license": "MIT",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "./server.ps1",
+    "start": "./pode_server.ps1",
     "build": "psake",
     "test": "invoke-pester ./tests/*.ps1",
     "install": "yarn install --force --ignore-scripts --modules-folder pode_modules"

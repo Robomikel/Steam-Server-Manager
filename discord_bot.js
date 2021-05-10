@@ -174,6 +174,7 @@ client.on('message', async message => {
                                     { name: 'Memory Used', value: msg.MemoryUsed, inline: true },
                                     { name: 'Memory', value: msg.TotalMemory, inline: true },
                                     { name: 'Backups', value: msg.Backups, inline: false },
+                                    { name: 'Storage', value: msg.Storage, inline: true },
                                     { name: 'Steam Master', value: msg.Steam_Master , inline: false },
                                 )
                                 // .addField('Inline field title', 'Some value here', true)

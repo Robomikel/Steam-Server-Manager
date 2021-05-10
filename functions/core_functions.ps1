@@ -1455,7 +1455,7 @@ Function start-pode {
         Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      
     sajb -Name 'DiscordJS' -ScriptBlock {
-        Start-Process -FilePath PowerShell -ArgumentList "-Command node index.js "
+        Start-Process -FilePath PowerShell -ArgumentList "-Command node discord_bot.js "
     }
 }
 # Function stop-pode {
