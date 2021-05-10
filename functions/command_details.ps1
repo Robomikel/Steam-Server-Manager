@@ -200,6 +200,7 @@ Function Get-Details {
         MemoryUsed = $totalusedmem ;
         Steam_Master = $stats;
         Backups = $backups;
+        Storage      = $diskresults;
     } | ConvertTo-Json
 }
 
