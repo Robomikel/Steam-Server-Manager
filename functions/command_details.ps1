@@ -8,25 +8,35 @@
 #
 Function Get-DriveSpace {
     Write-log "Function: Get-DriveSpace"
+    $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
+            $n = $($_.Name ) ;   
+            $u = $([Math]::Round($_.Used / 1GB));
+            $i = $( [Math]::Round($_.Free / 1GB));    
+            $r = $( [Math]::Round(($_.Free + $_.Used) / 1GB ))
+            "$n`: $u / $r GB " 
+        }
+}
+Function Get-DriveSpace_old {
+    Write-log "Function: Get-DriveSpace"
     If ($psSeven -eq $true ) { 
-    $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+        $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
     Else {
-    $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+        $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
     $global:diskresults = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {
             $size = [math]::round($disk.Size / 1GB, 0)
             $free = [math]::round($disk.FreeSpace / 1GB, 0)
             [PSCustomObject]@{
-                Disk           = $disk.Name
-                Name            = $disk.VolumeName
+                Disk       = $disk.Name
+                Name       = $disk.VolumeName
                 "Total GB" = $size
                 "Free GB"  = "{0:N0} ({1:P0})" -f $free, ($free / $size)
             }
         }
     }
-}
+} 
 Function Get-Details {
     Write-log "Function: Get-Details"
     $host.UI.RawUI.ForegroundColor = "Cyan"
