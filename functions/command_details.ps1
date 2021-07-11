@@ -8,13 +8,15 @@
 #
 Function Get-DriveSpace {
     Write-log "Function: Get-DriveSpace"
-    $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
+    $t = Measure-Command { $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
             $n = $($_.Name ) ;   
             $u = $([Math]::Round($_.Used / 1GB));
             $i = $( [Math]::Round($_.Free / 1GB));    
-            $r = $( [Math]::Round(($_.Free + $_.Used) / 1GB ))
+            $r = $( [Math]::Round(($_.Free + $_.Used) / 1GB )) 
             "$n`: $u / $r GB " 
         }
+    } 
+    write-log "Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
 }
 Function Get-DriveSpace_old {
     Write-log "Function: Get-DriveSpace"

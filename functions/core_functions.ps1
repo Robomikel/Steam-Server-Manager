@@ -249,7 +249,7 @@ Function New-ServerLog {
         If ($consolelog  ) {
             If (Test-Path $logdirectory\$consolelog  ) {
                 Write-log "Found $consolelog"
-                $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
+                $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
@@ -274,21 +274,21 @@ Function Remove-backupLogs {
     Write-log "Function: Remove-backupLogs"
     Write-log "Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
-        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
     Write-log "Function: Remove-ServerconsoleLogs"
     Write-log "Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
-        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
     Write-log "Function: Remove-SteamerLogs"
     Write-log "Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
-        Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Send-Paste_OLD {
@@ -296,7 +296,7 @@ Function Send-Paste_OLD {
     If ($serverfiles) {
         If (Test-Path $currentdir\log\$serverfiles-*.log) {
             Set-Location $logdir
-            $paste = Get-Childitem $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+            $paste = Get-Childitem -Depth 1 $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
             Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
             Set-Location $currentdir
         }
@@ -306,12 +306,12 @@ Function Send-Paste_OLD {
 Function New-ServerBackupLog {
     Write-log "Function: New-ServerBackupLog"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
-    Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerAppDataBackupLog {
     Write-log "Function: New-ServerAppDataBackupLog"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[A]*.log", -Destination "$logdir\AppDatabackup_$serverfiles-$date.log" -ea SilentlyContinue }
-    Get-Childitem $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function Get-Appid {
     Write-log "Function: Get-Appid"
@@ -397,7 +397,7 @@ Function Get-Sourcemodwebrequest {
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
     If (Test-Path $serverdir\Variables-*.ps1) {
-        $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+        $check = (Get-Childitem -Depth 1 $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
             Get-createdvaribles
             If ( $process ) {

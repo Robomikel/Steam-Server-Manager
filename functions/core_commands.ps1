@@ -112,3 +112,4 @@ Function Get-SSMMenu {
         ./ssm.ps1 $command $serverfiles
     }
 }
+
