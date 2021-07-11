@@ -53,11 +53,12 @@ Function Get-ClearVariables {
         $error > $ssmerrorlog
     }
     Write-log "Function: Get-ClearVariables"
-    $var = (Get-Variable * -scope global).Name
-    Write-log "Removing Variables $var" 
-    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
-    # Write-log " Variables $var"
-    
+    if ($disableclearvariable -ne $true) {
+        $var = (Get-Variable * -scope global).Name
+        Write-log "Removing Variables $var" 
+        Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
+        # Write-log " Variables $var"
+    }
 }
 Function Get-TestInterger {
     Write-log "Function: Get-TestInterger" 
@@ -97,7 +98,7 @@ Function Set-Console {
             Get-Logo
         }
     }
-    Else{
+    Else {
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
         [console]::BackgroundColor = "Black"
@@ -363,8 +364,8 @@ Function Get-MetaModWebrequest {
     $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
     $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
-    $global:metamodlatestlisturl  = $metamodlatestlist[0]
-    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip','')
+    $global:metamodlatestlisturl = $metamodlatestlist[0]
+    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip', '')
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
@@ -382,7 +383,7 @@ Function Get-Sourcemodwebrequest {
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
     $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
     $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
-    $global:sourcemodmversionfolder  = $sourcemodmversionzip.Replace('.zip','') 
+    $global:sourcemodmversionfolder = $sourcemodmversionzip.Replace('.zip', '') 
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
@@ -1276,14 +1277,59 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux"| select -Index 0).Line
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     }
     Else {
         Write-log "Get-GithubRestAPI: No zip download link found"
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux" | select -Index 0).Line
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
+    } 
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download file found"
+        return
+    }
+    If ($githubrepozipname) {
+        $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip file found"
+        return
+    }
+    #    iwr $githubrepoziplink -O $githubrepozipname
+    #If (!$?) {
+    #    Write-log "Get-GithubRestAPI: Repo WebRequest failed"
+    #    return
+    #}
+}
+Function Get-GithubRestAPI {
+    param ($owner, $repo) 
+    Write-log "Function Get-GithubRestAPI"
+    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
+    If (!$?) {
+        Write-log "Get-GithubRestAPI: Repo Request failed"
+        return
+    }
+    If ($githubrepo) {
+        $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
+    }
+    Else {
+        Write-log "Get-GithubRestAPI: Repo convert from json failed"
+        return
+    }
+    if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
+    }
+    # if ( $githubrepoJSON | select zipball_url) {
+    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    # }
+    Else {
+        Write-log "Get-GithubRestAPI: No zip download link found"
+        return
+    }
+    if ($githubrepoJSON.assets.name) {
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     } 
     Else {
         Write-log "Get-GithubRestAPI: No zip download file found"
@@ -1310,7 +1356,7 @@ Function Add-Modtolist {
         #$installedmods = @()
         $script:installedmods = New-Object -TypeName psobject
     }
-   # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
+    # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
     Write-log "Add Object $modname = $modfile"
     $installedmods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
     
@@ -1347,8 +1393,8 @@ Function Edit-Modlist {
     Write-log "Function: Edit-Modlist"
     If (Test-Path $serverdir\mods.json) {
         If ($installedmods) {
-#            If ($($installedmods.Mods) -like "*$modname*") {
-#                $($installedmods.Mods).$modname = "$modfile"
+            #            If ($($installedmods.Mods) -like "*$modname*") {
+            #                $($installedmods.Mods).$modname = "$modfile"
             If ($installedmods.Mods -like "*$modname*") {
                 $installedmods.Mods.$modname = "$modfile"
                 write-log "Edit-Member $($installedmods.Mods).$modname"
@@ -1390,3 +1436,37 @@ Function Compare-Modlist {
     }
 }
 
+Function start-pode {
+    Write-log "Function: Start-Pode"
+    $config = (gc config.json) | ConvertFrom-Json 
+    $t = $null
+    Do {
+        $t++
+        Write-log "Waiting for Port $($config.server.webport) to become available"
+        start-sleep 3
+        If ($t -eq 10) {
+            Write-log "Failed: Port $($config.server.webport) not available. "
+            Write-log "Recommend Reboot "
+            return
+        }
+    } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
+   # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
+    sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
+        Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
+    } -ArgumentList $podedirectory      
+    sajb -Name 'DiscordJS' -ScriptBlock {
+        Start-Process -FilePath PowerShell -ArgumentList "-Command node discord_bot.js "
+    }
+}
+# Function stop-pode {
+#     if ($(get-Job Pode).Name -eq 'Pode') {
+#         Receive-Job Pode
+#         stop-job Pode
+#         remove-job Pode
+#     }
+#     if ($(get-Job DiscordJS).Name -eq 'DiscordJS') {
+#         Receive-Job DiscordJS
+#         stop-job DiscordJS
+#         remove-job DiscordJS
+#     }
+# }
