@@ -138,6 +138,7 @@ Install miscreated server ```./ssm install misserver```
    * BadLads Dedicated Server  (1203110) - "blserver" (optional server folder name)  
    * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)   
    * Valhiem Dedicated Server  (896660) - "valhiem" (optional server folder name)   
+   * Beyond the Wire Dedicated Server  (1064780) - "btwserver" (optional server folder name)   
    
    
    -----   
