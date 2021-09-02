@@ -1,5 +1,5 @@
 # Steam Server Manager
-![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Details.gif)
+![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Details.gif)
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
 
@@ -28,7 +28,7 @@ PS Commands:
 Displays in console menu. Interactive Console Menu for SSM.   
 ```./ssm.ps1 menu```   
 
-![Menu Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Menu3.gif)   
+![Menu Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Menu.gif)   
 # Install Server
 open PowerShell as user NOT Admin   
 ssm accepts 1 or 2 parameters. first param specifies ssm command and the second is server folder name. if server folder name does not exist it creates it.   ```.\ssm.ps1 install insserver```   
@@ -219,9 +219,9 @@ Install miscreated server ```./ssm install misserver```
  * Use used to Rcon to servers.
  
 # Graphical Stats 
- ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/pre-release/stabilizing/Steamer%20-%20Stats.gif)
+ ![stats Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Stats.gif)
 # Discord Alert
- ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Bot.png)
+ ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Alert.png)
 # Restore
 ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/RestoreMenu.jpg)
 - - - -  
