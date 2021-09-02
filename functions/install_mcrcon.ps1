@@ -16,15 +16,18 @@ Function install-mcrcon {
         Write-log "Downloading MCRCon from github" 
         $start_time = Get-Date
         Get-Infomessage "downloading" 'MCRCon'
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
-        If (!$?) {
+        try { 
+            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            If ($?) {
+                Get-Infomessage "downloaded" 'MCRCon'
+                Write-log "MCRCon succeeded " 
+            }
+        }
+        catch { 
+            Write-log "$($_.Exception.Message)" 
             Write-Warning 'Downloading  MCRCon Failed'
             Write-log "Downloading  MCRCon Failed"
             New-TryagainNew 
-        }
-        ElseIf ($?) {
-            Get-Infomessage "downloaded" 'MCRCon'
-            Write-log "MCRCon succeeded " 
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'MCRCon'

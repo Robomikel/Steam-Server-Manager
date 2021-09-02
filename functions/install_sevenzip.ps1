@@ -12,18 +12,21 @@ Function Add-Sevenzip {
         $start_time = Get-Date
         Get-Infomessage "Downloading" '7ZIP'
         #(New-Object Net.WebClient).DownloadFile("$sevenzipurl", "$currentdir\7za920.zip")
-        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         $sevenzip = @{
-            Uri = $sevenzipurl
+            Uri     = $sevenzipurl
             OutFile = $sevenzipoutput
         }
-        Invoke-WebRequest @sevenzip
-        If (!$?) {
+        try {
+            # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+            Invoke-WebRequest @sevenzip 
+            If ($?) {
+                Get-Infomessage "Downloaded" '7ZIP'
+            }
+        }
+        catch { 
+            Write-log "$($_.Exception.Message)" 
             Get-WarnMessage 'Downloadfailed' '7ZIP'
             New-TryagainNew 
-        }
-        ElseIf ($?) {
-            Get-Infomessage "Downloaded" '7ZIP'
         }
         Get-Infomessage "downloadtime"
         Expand-Archive $sevenzipoutput $sevenzipdirectory -Force

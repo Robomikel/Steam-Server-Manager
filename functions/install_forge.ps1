@@ -28,10 +28,17 @@ Function Get-InstallForge {
             return
         }
         Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
-        Invoke-WebRequest -Uri $forgeWebResponse -OutFile $currentdir\forge-$forgeversion-installer.jar
-        If ($?){
-            Get-Infomessage "Downloading" 'Minecraft Forge'
-        } 
+        try { 
+            Invoke-WebRequest -Uri $forgeWebResponse -OutFile $currentdir\forge-$forgeversion-installer.jar 
+            If ($?) {
+                Get-Infomessage "Downloading" 'Minecraft Forge'
+            } 
+        }
+        catch { 
+            Write-log "$($_.Exception.Message)" 
+            Get-WarnMessage 'Downloadfailed' 'Minecraft Forge'
+            New-TryagainNew 
+        }
         Move-Item $currentdir\forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
         Push-location
         Set-Location $serverdir

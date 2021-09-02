@@ -20,15 +20,18 @@ Function Add-NodeJS {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Nodejs'
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
-        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
-        If (!$?) {
+        try {
+            #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+            Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
+            If ($?) {
+                Get-Infomessage "Downloaded" 'Nodejs'
+            }     
+        }
+        catch {
+            Write-log "$($_.Exception.Message)"
             Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
         }
-        ElseIf ($?) {
-            Get-Infomessage "Downloaded" 'Nodejs'
-        } 
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Nodejs'
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\latest-v12.x\" -Force
@@ -55,18 +58,18 @@ Function Add-gamedig {
     if (!($(test-path $env:APPDATA\npm\gamedig))) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-         saps powershell -args ("npm install gamedig") -wait -nnw
-         saps powershell -args ("npm install gamedig -g") -wait -nnw
+        saps powershell -args ("npm install gamedig") -wait -nnw
+        saps powershell -args ("npm install gamedig -g") -wait -nnw
     }
 }
 
 Function Add-discordjs {
     Write-log "Function: Add-discordjs"
     $n = npm ls discord.js
-    if (($n[1] -match "empty") -or ($n -match "ERR!")){
+    if (($n[1] -match "empty") -or ($n -match "ERR!")) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-         saps powershell -args ("npm install discord.js") -wait -nnw
+        saps powershell -args ("npm install discord.js") -wait -nnw
         #  saps powershell -args ("npm install gamedig -g") -wait -nnw
     }
 }
