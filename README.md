@@ -139,6 +139,7 @@ Install miscreated server ```./ssm install misserver```
    * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)   
    * Valhiem Dedicated Server  (896660) - "valhiem" (optional server folder name)   
    * Beyond the Wire Dedicated Server  (1064780) - "btwserver" (optional server folder name)   
+   * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
    
    
    -----   
