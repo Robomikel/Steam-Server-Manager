@@ -1295,48 +1295,6 @@ Function Get-GithubRestAPI {
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
         $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     }
-    Else {
-        Write-log "Get-GithubRestAPI: No zip download link found"
-        return
-    }
-    if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
-    } 
-    Else {
-        Write-log "Get-GithubRestAPI: No zip download file found"
-        return
-    }
-    If ($githubrepozipname) {
-        $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
-    }
-    Else {
-        Write-log "Get-GithubRestAPI: No zip file found"
-        return
-    }
-    #    iwr $githubrepoziplink -O $githubrepozipname
-    #If (!$?) {
-    #    Write-log "Get-GithubRestAPI: Repo WebRequest failed"
-    #    return
-    #}
-}
-Function Get-GithubRestAPI {
-    param ($owner, $repo) 
-    Write-log "Function Get-GithubRestAPI"
-    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
-    If (!$?) {
-        Write-log "Get-GithubRestAPI: Repo Request failed"
-        return
-    }
-    If ($githubrepo) {
-        $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
-    }
-    Else {
-        Write-log "Get-GithubRestAPI: Repo convert from json failed"
-        return
-    }
-    if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
-    }
     # if ( $githubrepoJSON | select zipball_url) {
     #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
     # }
