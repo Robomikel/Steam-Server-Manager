@@ -376,6 +376,7 @@ Function Get-MCWebrequest {
 }
 Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
     $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
@@ -394,6 +395,7 @@ Function Get-MetaModWebrequest {
 }
 
 Function Get-Sourcemodwebrequest {
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
     $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
