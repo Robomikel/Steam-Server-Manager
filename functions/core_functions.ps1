@@ -344,20 +344,34 @@ Function Get-Appid {
 Function Get-MCBRWebrequest {
     Write-log "Function: Get-MCBRWebrequest"
     # get latest download
-    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
-    If (!$? -or !$mcbrWebResponse) {
-        Write-log "Failed: Get-MCBRWebrequest"
-        Exit
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+        if ($?) {
+            # Get-Infomessage "Downloaded" 'SteamCMD'
+        }
+    }
+    catch {
+        If (!$? -or !$mcbrWebResponse) {
+            Write-log "$($_.Exception.Message)"
+            Write-log "Failed: Get-MCBRWebrequest"
+            Exit
+        }
     }
 }
 Function Get-MCWebrequest {
     Write-log "Function: Get-MCWebrequest"
     # check latest version
-    $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
-    $global:mcvWebResponse = $mcvWebResponse.Latest.release
-    If (!$? -or !$mcvWebResponse) {
-        Write-log "Failed: Get-MCWebrequest"
-        Exit
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
+        $global:mcvWebResponse = $mcvWebResponse.Latest.release
+    }
+    catch {
+        If (!$? -or !$mcvWebResponse) {
+            Write-log "Failed: Get-MCWebrequest"
+            Exit
+        }
     }
 }
 Function Get-MetaModWebrequest {
