@@ -1282,6 +1282,7 @@ Function Get-ExtIP {
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
     Write-log "Function Get-GithubRestAPI"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
         Write-log "Get-GithubRestAPI: Repo Request failed"
