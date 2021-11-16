@@ -137,6 +137,16 @@ Function Get-Savelocation {
         Write-log "No saves located in App Data" 
     }
     Else {
+        if ($saves) {
+            if (test-path $($env:APPDATA + '\' + $saves)) {
+                Write-log "Info: Found Appdata Roaming save"
+                $script:savedata = $env:APPDATA
+            }
+            ElseIf (test-path $($env:LOCALAPPDATA + '\' + $saves)) {
+                Write-log "Info: Found Appdata local save"
+                $script:savedata = $env:LOCALAPPDATA
+            }
+        }
         If ($command -eq "restore") {
             Get-AppdataBackupMenu
         }
