@@ -76,8 +76,8 @@ Function New-BackupServer {
 Function New-backupAppdata {
     Write-log "Function: New-backupAppdata"
     if ($(Test-Path $sevenzipprogramexecutable)) {
-        Write-Log "& $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
-        & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
+        Write-Log "& $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
+        & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
     }
     Else {   
         Push-location
@@ -86,16 +86,16 @@ Function New-backupAppdata {
             $appdatabackuplogopen = 'off'
             Write-log "Disabled: open appdata backup log. show backup console on"
             Get-Infomessage "appdatabackupstart" 'start'
-            Write-Log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\*`") -Wait"
-            Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\*") -Wait
+            Write-Log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*`") -Wait"
+            Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
         }
         ElseIf ($Showbackupconsole -eq "Off") {
             Get-Infomessage "appdatabackupstart" 'start'
-            Write-Log "./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
-            ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $env:APPDATA\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
+            Write-Log "./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
+            ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
@@ -255,9 +255,9 @@ Function Get-AppdataBackupMenu {
 Function New-backupAppdatarestore {
     Set-Console
     Write-Warning "Deleting Current $saves files"
-    gci $env:APPDATA\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+    gci $savedata\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: New-backupAppdatarestore"
-    Expand-Archive -Path $backupdir\$restore -DestinationPath $env:APPDATA\$saves -Force
+    Expand-Archive -Path $backupdir\$restore -DestinationPath $savedata\$saves -Force
     If (!$?) {
         Write-Warning "AppData Restore Failed" -InformationAction Stop
         exit
