@@ -14,7 +14,6 @@ Server install in the location of ssm. before install change directory to the lo
 
 
 # Install SSM
-=======
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
