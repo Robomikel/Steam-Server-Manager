@@ -23,6 +23,10 @@ Function Get-StartServer {
             Start-Process CMD "/c start $launchParams"
             Write-Log "Start-Process CMD /c start $launchParams  "
         }
+        ElseIf ($appid -eq 1180760){
+            Start-Process CMD "/c $launchParams"
+            Write-Log "Start-Process CMD /c $launchParams"
+        } 
         Else {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
             Write-Log "Start-Process CMD /c start $launchParams  -NoNewWindow"

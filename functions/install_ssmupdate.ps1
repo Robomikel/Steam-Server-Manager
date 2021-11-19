@@ -10,7 +10,7 @@ Function Get-UpdateSteamer {
     Get-UpdateSteamerCSV
     # Get-UpdateSteamerConfigDefault
     Get-UpdateSteamerSSM
-    $getlocalssm = $(Get-ChildItem $currentdir\functions\ -Force)
+    $getlocalssm = $(Get-ChildItem -Depth 1 $currentdir\functions\ -Force)
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
@@ -86,7 +86,7 @@ Function Get-UpdateSteamerSSM {
     }
 }
 Function Get-UpdateSteamerCSV {
-    $getlocalssm = Get-ChildItem $currentdir\data\ -Force
+    $getlocalssm = Get-ChildItem -Depth 1 $currentdir\data\ -Force
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name

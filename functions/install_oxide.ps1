@@ -23,16 +23,19 @@ Function Get-Oxide {
         }
         Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
-        write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
-        If (!$?) {
+        try {
+            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+            #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
+            write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
+            iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+            If ($?) {
+                Get-Infomessage "Downloaded" 'Oxide'
+            }
+        }
+        catch {
+            Write-log "$($_.Exception.Message)"
             Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew
-        }
-        ElseIf ($?) {
-            Get-Infomessage "Downloaded" 'Oxide'
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Oxide'

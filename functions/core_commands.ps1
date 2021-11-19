@@ -25,7 +25,6 @@ Function Select-Steamer {
     Write-log "Function: Select-Steamer"
     Write-log "command:  $command $serverfiles"
     Set-Console  >$null 2>&1
-
     switch ($command) {
         { ($command -eq "ssm") -and ($serverfiles -eq "update") } { Get-UpdateSteamer; Break }
         'install' { Read-Param; Get-TestString; Get-PreviousInstall; Get-Appid; New-ServerFolder; Get-Steam; Set-SteamInfo; Read-AppID; New-CreateVariables; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
@@ -48,6 +47,7 @@ Function Select-Steamer {
         'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Test-VariablesNull; Get-ClearVariables; Break }
         'install-VcRedist' { Install-VisualCPlusPlus; Get-ClearVariables; Break }
         'update-mods' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-UpdateMods; Get-ClearVariables; Break }
+        'start-pode' { get-pode; Add-discordjs; start-pode; Break }
         'stats' { Measure-stats; Break }
         'menu' { Get-SSMMenu }
         'exit' { exit; Break }
@@ -111,3 +111,4 @@ Function Get-SSMMenu {
         ./ssm.ps1 $command $serverfiles
     }
 }
+

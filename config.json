@@ -1,0 +1,7 @@
+{
+    "server": {
+          "serverfile": "csgoserver",
+          "webport": "8080"
+       },
+    "BOT_TOKEN": "bot token here"
+ }

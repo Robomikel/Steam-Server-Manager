@@ -14,6 +14,7 @@ Server install in the location of ssm. before install change directory to the lo
 
 
 # Install SSM
+=======
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
@@ -137,6 +138,9 @@ Install miscreated server ```./ssm install misserver```
    * BadLads Dedicated Server  (1203110) - "blserver" (optional server folder name)  
    * ASTRONEER Dedicated Server  (728470) - "astroserver" (optional server folder name)   
    * Valhiem Dedicated Server  (896660) - "valhiem" (optional server folder name)   
+   * Beyond the Wire Dedicated Server  (1064780) - "btwserver" (optional server folder name)   
+   * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
+   * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
    
    
    -----   
@@ -190,6 +194,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
  - ```./ssm details <serverFolder>``` - outputs host and server details.   
  - ```./ssm stats ``` - Graphical output of host CPU and Memory details.
+ - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop ![Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
 # Configure
 - change default variables for server in ```\config-local\*_default.ps1```. Appears during install. SSM will prompt for edit or change $version "0" in config-local\local_settings.ps1 to prompt for each variable   
@@ -275,3 +280,8 @@ https://github.com/splewis/get5/releases
 https://github.com/splewis/csgo-pug-setup/releases
 # steamworks
 https://github.com/KyleSanderson/SteamWorks
+# Pode
+https://github.com/Badgerati/Pode
+# DiscordJS
+https://github.com/discordjs/discord.js/
+

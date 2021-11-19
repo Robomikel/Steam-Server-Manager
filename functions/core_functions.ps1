@@ -53,11 +53,12 @@ Function Get-ClearVariables {
         $error > $ssmerrorlog
     }
     Write-log "Function: Get-ClearVariables"
-    $var = (Get-Variable * -scope global).Name
-    Write-log "Removing Variables $var" 
-    Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
-    # Write-log " Variables $var"
-    
+    if ($disableclearvariable -ne $true) {
+        $var = (Get-Variable * -scope global).Name
+        Write-log "Removing Variables $var" 
+        Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
+        # Write-log " Variables $var"
+    }
 }
 Function Get-TestInterger {
     Write-log "Function: Get-TestInterger" 
@@ -97,7 +98,7 @@ Function Set-Console {
             Get-Logo
         }
     }
-    Else{
+    Else {
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
         [console]::ForegroundColor = "Green"
         [console]::BackgroundColor = "Black"
@@ -136,6 +137,16 @@ Function Get-Savelocation {
         Write-log "No saves located in App Data" 
     }
     Else {
+        if ($saves) {
+            if (test-path $($env:APPDATA + '\' + $saves)) {
+                Write-log "Info: Found Appdata Roaming save"
+                $script:savedata = $env:APPDATA
+            }
+            ElseIf (test-path $($env:LOCALAPPDATA + '\' + $saves)) {
+                Write-log "Info: Found Appdata local save"
+                $script:savedata = $env:LOCALAPPDATA
+            }
+        }
         If ($command -eq "restore") {
             Get-AppdataBackupMenu
         }
@@ -235,6 +246,8 @@ Function Set-ServerConfig {
             '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '1064780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '1180760' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
@@ -248,7 +261,7 @@ Function New-ServerLog {
         If ($consolelog  ) {
             If (Test-Path $logdirectory\$consolelog  ) {
                 Write-log "Found $consolelog"
-                $log = (Get-ChildItem $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
+                $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
@@ -273,21 +286,21 @@ Function Remove-backupLogs {
     Write-log "Function: Remove-backupLogs"
     Write-log "Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
-        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
     Write-log "Function: Remove-ServerconsoleLogs"
     Write-log "Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
-        Get-Childitem $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
     Write-log "Function: Remove-SteamerLogs"
     Write-log "Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
-        Get-Childitem $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+        Get-Childitem -Depth 1 $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Send-Paste_OLD {
@@ -295,7 +308,7 @@ Function Send-Paste_OLD {
     If ($serverfiles) {
         If (Test-Path $currentdir\log\$serverfiles-*.log) {
             Set-Location $logdir
-            $paste = Get-Childitem $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+            $paste = Get-Childitem -Depth 1 $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
             Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
             Set-Location $currentdir
         }
@@ -305,12 +318,12 @@ Function Send-Paste_OLD {
 Function New-ServerBackupLog {
     Write-log "Function: New-ServerBackupLog"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
-    Get-Childitem $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerAppDataBackupLog {
     Write-log "Function: New-ServerAppDataBackupLog"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[A]*.log", -Destination "$logdir\AppDatabackup_$serverfiles-$date.log" -ea SilentlyContinue }
-    Get-Childitem $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function Get-Appid {
     Write-log "Function: Get-Appid"
@@ -341,30 +354,45 @@ Function Get-Appid {
 Function Get-MCBRWebrequest {
     Write-log "Function: Get-MCBRWebrequest"
     # get latest download
-    $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
-    If (!$? -or !$mcbrWebResponse) {
-        Write-log "Failed: Get-MCBRWebrequest"
-        Exit
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+        if ($?) {
+            # Get-Infomessage "Downloaded" 'SteamCMD'
+        }
+    }
+    catch {
+        If (!$? -or !$mcbrWebResponse) {
+            Write-log "$($_.Exception.Message)"
+            Write-log "Failed: Get-MCBRWebrequest"
+            Exit
+        }
     }
 }
 Function Get-MCWebrequest {
     Write-log "Function: Get-MCWebrequest"
     # check latest version
-    $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
-    $global:mcvWebResponse = $mcvWebResponse.Latest.release
-    If (!$? -or !$mcvWebResponse) {
-        Write-log "Failed: Get-MCWebrequest"
-        Exit
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
+        $global:mcvWebResponse = $mcvWebResponse.Latest.release
+    }
+    catch {
+        If (!$? -or !$mcvWebResponse) {
+            Write-log "Failed: Get-MCWebrequest"
+            Exit
+        }
     }
 }
 Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
     $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
     $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
-    $global:metamodlatestlisturl  = $metamodlatestlist[0]
-    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip','')
+    $global:metamodlatestlisturl = $metamodlatestlist[0]
+    $global:metamodmversionfolder = $metamodmversionzip.Replace('.zip', '')
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
@@ -377,12 +405,13 @@ Function Get-MetaModWebrequest {
 }
 
 Function Get-Sourcemodwebrequest {
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
     $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
     $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
     $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
-    $global:sourcemodmversionfolder  = $sourcemodmversionzip.Replace('.zip','') 
+    $global:sourcemodmversionfolder = $sourcemodmversionzip.Replace('.zip', '') 
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
@@ -396,7 +425,7 @@ Function Get-Sourcemodwebrequest {
 Function Get-PreviousInstall {
     Write-log "Function: Get-PreviousInstall"
     If (Test-Path $serverdir\Variables-*.ps1) {
-        $check = (Get-Childitem $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
+        $check = (Get-Childitem -Depth 1 $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
             Get-createdvaribles
             If ( $process ) {
@@ -1263,6 +1292,7 @@ Function Get-ExtIP {
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
     Write-log "Function Get-GithubRestAPI"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
         Write-log "Get-GithubRestAPI: Repo Request failed"
@@ -1276,14 +1306,17 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink =  ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux"| select -Index 0).Line
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     }
+    # if ( $githubrepoJSON | select zipball_url) {
+    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    # }
     Else {
         Write-log "Get-GithubRestAPI: No zip download link found"
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip"|  Select-String -NotMatch "Linux" | select -Index 0).Line
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     } 
     Else {
         Write-log "Get-GithubRestAPI: No zip download file found"
@@ -1310,7 +1343,7 @@ Function Add-Modtolist {
         #$installedmods = @()
         $script:installedmods = New-Object -TypeName psobject
     }
-   # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
+    # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
     Write-log "Add Object $modname = $modfile"
     $installedmods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
     
@@ -1347,8 +1380,8 @@ Function Edit-Modlist {
     Write-log "Function: Edit-Modlist"
     If (Test-Path $serverdir\mods.json) {
         If ($installedmods) {
-#            If ($($installedmods.Mods) -like "*$modname*") {
-#                $($installedmods.Mods).$modname = "$modfile"
+            #            If ($($installedmods.Mods) -like "*$modname*") {
+            #                $($installedmods.Mods).$modname = "$modfile"
             If ($installedmods.Mods -like "*$modname*") {
                 $installedmods.Mods.$modname = "$modfile"
                 write-log "Edit-Member $($installedmods.Mods).$modname"
@@ -1390,3 +1423,37 @@ Function Compare-Modlist {
     }
 }
 
+Function start-pode {
+    Write-log "Function: Start-Pode"
+    $config = (gc config.json) | ConvertFrom-Json 
+    $t = $null
+    Do {
+        $t++
+        Write-log "Waiting for Port $($config.server.webport) to become available"
+        start-sleep 3
+        If ($t -eq 10) {
+            Write-log "Failed: Port $($config.server.webport) not available. "
+            Write-log "Recommend Reboot "
+            return
+        }
+    } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
+   # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
+    sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
+        Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
+    } -ArgumentList $podedirectory      
+    sajb -Name 'DiscordJS' -ScriptBlock {
+        Start-Process -FilePath PowerShell -ArgumentList "-Command node discord_bot.js "
+    }
+}
+# Function stop-pode {
+#     if ($(get-Job Pode).Name -eq 'Pode') {
+#         Receive-Job Pode
+#         stop-job Pode
+#         remove-job Pode
+#     }
+#     if ($(get-Job DiscordJS).Name -eq 'DiscordJS') {
+#         Receive-Job DiscordJS
+#         stop-job DiscordJS
+#         remove-job DiscordJS
+#     }
+# }

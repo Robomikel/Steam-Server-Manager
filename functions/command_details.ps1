@@ -8,25 +8,37 @@
 #
 Function Get-DriveSpace {
     Write-log "Function: Get-DriveSpace"
+    $t = Measure-Command { $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
+            $n = $($_.Name ) ;   
+            $u = $([Math]::Round($_.Used / 1GB));
+            $i = $( [Math]::Round($_.Free / 1GB));    
+            $r = $( [Math]::Round(($_.Free + $_.Used) / 1GB )) 
+            "$n`: $u / $r GB " 
+        }
+    } 
+    write-log "Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
+}
+Function Get-DriveSpace_old {
+    Write-log "Function: Get-DriveSpace"
     If ($psSeven -eq $true ) { 
-    $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+        $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
     Else {
-    $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
+        $disks = Get-WMIObject -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
     $global:diskresults = Foreach ($disk in $disks) {
         If ($disk.Size -gt 0) {
             $size = [math]::round($disk.Size / 1GB, 0)
             $free = [math]::round($disk.FreeSpace / 1GB, 0)
             [PSCustomObject]@{
-                Disk           = $disk.Name
-                Name            = $disk.VolumeName
+                Disk       = $disk.Name
+                Name       = $disk.VolumeName
                 "Total GB" = $size
                 "Free GB"  = "{0:N0} ({1:P0})" -f $free, ($free / $size)
             }
         }
     }
-}
+} 
 Function Get-Details {
     Write-log "Function: Get-Details"
     $host.UI.RawUI.ForegroundColor = "Cyan"
@@ -77,10 +89,10 @@ Function Get-Details {
     $totalfree = "{0:N2} GB" -f ($windows32.FreePhysicalMemory / 1MB)
     $totalmem = "{0:N2} GB" -f ($windows32.TotalVisibleMemorySize / 1MB)
     $totalusedmem = "{0:N2} GB" -f ( ( $windows32.TotalVisibleMemorySize - $windows32.FreePhysicalMemory) / 1MB)
-    $backups = ((Get-Childitem  $backupdir -recurse | Measure-Object).Count) 
-    $backupssize = "{0:N2} GB" -f ((Get-Childitem $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
-    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir  | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $backups = ((Get-Childitem -Depth 1 $backupdir | Measure-Object).Count) 
+    $backupssize = "{0:N2} GB" -f ((Get-Childitem -Depth 1 $backupdir | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $serverfilesdir = "{0:N2} GB" -f ((Get-Childitem $sfwd\$serverfiles -Recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
+    $currentdir = "{0:N2} GB" -f ((Get-Childitem $currentdir -Recurse | Measure-Object Length -Sum -ea silentlycontinue ).Sum / 1GB) 
     $directx = Get-ItemProperty "hklm:\Software\Microsoft\DirectX" 
     If ((Get-Process "$process" -ea SilentlyContinue)) {
         $gameservermem = "{0:N2} GB" -f ((Get-Process $process).WS / 1GB) 
@@ -183,7 +195,15 @@ Function Get-Details {
     Write-Host "Host Storage"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
     $diskresults
-
+    $global:botdetails = @{
+        ServerName = $hostname;
+        CPU = $($window32processor.LoadPercentage);
+        TotalMemory = $totalmem ;
+        MemoryUsed = $totalusedmem ;
+        Steam_Master = $stats;
+        Backups = $backups;
+        Storage      = $diskresults;
+    } | ConvertTo-Json
 }
 
 
