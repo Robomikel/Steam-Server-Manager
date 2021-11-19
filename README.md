@@ -140,6 +140,7 @@ Install miscreated server ```./ssm install misserver```
    * Beyond the Wire Dedicated Server  (1064780) - "btwserver" (optional server folder name)   
    * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
    * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
+   * Remnants Dedicated Server  (1141420) - "remnantsserver" (optional server folder name)  
    
    
    -----   
