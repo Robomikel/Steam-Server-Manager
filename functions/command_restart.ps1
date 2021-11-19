@@ -12,6 +12,7 @@ Function Get-RestartsServer {
     Get-StopServer
     Start-Countdown -Seconds 5 -Message "Restarting server"
     # Get-StopServer
+    Edit-ServerConfig
     Select-StartServer
     Get-CheckForError
 }
