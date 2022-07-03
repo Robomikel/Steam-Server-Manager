@@ -278,7 +278,7 @@ Function Get-BlackMesaSrcCoop {
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'bmdmsrccoop'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
-        Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $systemdir -Recurse -Force 
+        Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $systemdir -Recurse -Force 
         Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting bmdmsrccoop Failed'
