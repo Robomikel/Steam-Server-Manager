@@ -251,3 +251,48 @@ Function Receive-plugin {
     Get-installedplugins
     Edit-pluginlist $pluginname $updatecheck
 }
+
+Function Get-BlackMesaSrcCoop {
+    Write-log "Function: Get-BlackMesaSrcCoop"
+    If ($bmdmsrccoopowner -and $bmdmsrccooprepo ) {
+        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        #Invoke-WebRequest -Uri $bmdmsrccoopurl -OutFile $bmdmsrccoopoutput
+        Get-GithubRestAPI $bmdmsrccoopowner $bmdmsrccooprepo
+        Write-log "Downloading bmdmsrccoop from github" 
+        $start_time = Get-Date
+        Get-Infomessage "downloading" 'bmdmsrccoop'
+        try { 
+            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            If ($?) {
+                Get-Infomessage "downloaded" 'bmdmsrccoop'
+                Write-log "bmdmsrccoop succeeded " 
+            }
+        }
+        catch { 
+            Write-log "$($_.Exception.Message)" 
+            Write-Warning 'Downloading  bmdmsrccoop Failed'
+            Write-log "Downloading  bmdmsrccoop Failed"
+            New-TryagainNew 
+        }
+        Get-Infomessage "downloadtime"
+        Get-Infomessage "Extracting" 'bmdmsrccoop'
+        Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
+        Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $systemdir -Recurse -Force 
+        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        If (!$?) {
+            Write-Warning 'Extracting bmdmsrccoop Failed'
+            Write-log "Extracting bmdmsrccoop Failed " 
+            New-TryagainNew 
+        }
+        ElseIf ($?) { 
+            Get-Infomessage "Extracted" 'bmdmsrccoop'
+            Write-log "Extracting bmdmsrccoop succeeded  "  
+        }
+    }
+    Else {
+        Write-log "install-bmdmsrccoop Failed: $bmdmsrccoopurl $githubrepozipname"
+        Write-Warning 'fn_install-bmdmsrccoop Failed'
+        Exit
+    }
+}

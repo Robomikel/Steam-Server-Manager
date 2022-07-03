@@ -387,8 +387,15 @@ Function Get-MCWebrequest {
 Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
-    $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    if ($appid = 346680) {
+        $metamodlatest = iwr "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
+        $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 1143 | select-string -SimpleMatch 'windows.zip')
+    }
+    else {
+        $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
+        $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    }
+    
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
     $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
     $global:metamodlatestlisturl = $metamodlatestlist[0]
@@ -396,9 +403,9 @@ Function Get-MetaModWebrequest {
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
-    $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
-    $global:metamodurl = "${metamoddownloadurl}"
-    If (!$metamodurl) {
+    # $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
+    # $global:metamodurl = "${metamoddownloadurl}"
+    If (!$metamodlatestlisturl -or !$metamodmversionfolder) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -406,8 +413,14 @@ Function Get-MetaModWebrequest {
 
 Function Get-Sourcemodwebrequest {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
-    $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    if ($appid = 346680) {
+        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
+        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 6874 | select-string -SimpleMatch 'windows.zip')
+    }
+    else {
+        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
+        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    }
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
     $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
     $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
@@ -415,9 +428,9 @@ Function Get-Sourcemodwebrequest {
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
-    $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
-    $global:sourcemodurl = "${sourcemoddownloadurl}"
-    If ( !$sourcemodurl) {
+    # $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
+    # $global:sourcemodurl = "${sourcemoddownloadurl}"
+    If (!$sourcemodlatestlisturl -or !$sourcemodmversionfolder) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -1437,7 +1450,7 @@ Function start-pode {
             return
         }
     } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
-   # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
+    # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
     sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
         Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      

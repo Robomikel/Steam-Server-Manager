@@ -38,6 +38,7 @@ Function Get-ServerBuildCheck {
                             If (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
                                 $localbuild = get-content "$serverdir\steamapps\appmanifest_$appid.acf" | select-string $search
                                 $localbuild = $localbuild -replace '\s', ''
+                                $localbuild = $localbuild[0]
                             }
                             Else {
                                 $localbuild = $false

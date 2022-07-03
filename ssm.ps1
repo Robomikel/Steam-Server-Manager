@@ -58,6 +58,10 @@ $csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/bui
 $Pugsetupowner = 'splewis'
 $Pugsetuprepo = 'csgo-pug-setup'
 
+#Black Mesa DM SrcCoop
+$bmdmsrccoopowner = 'ampreeT'
+$bmdmsrccooprepo = 'SourceCoop'
+
 # SteamWorks
 $steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/"
 
