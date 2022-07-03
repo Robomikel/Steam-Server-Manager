@@ -8,14 +8,10 @@
 #
 Function Add-NodeJS {
     Write-log "Function: Add-NodeJS"
-    # NodeJs Version "12.13.1"
-    # $nodeversion = "12.15.0"
-    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest-v12.x/" -UseBasicParsing
+    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/$nodejslatest/" -UseBasicParsing
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
-    $nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
+    $nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
     $nodejsoutput = "$nodeversion"
-    $nodejsdirectory = "$currentdir\latest-v12.x"
-    $nodejsexecutable = "$nodejsdirectory\node.exe"
     If ($nodeversion) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'Nodejs'
@@ -34,10 +30,11 @@ Function Add-NodeJS {
         }
         Get-Infomessage "downloadtime"
         Get-Infomessage "Extracting" 'Nodejs'
-        Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\latest-v12.x\" -Force
+        Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
+        write-log "Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
         $nodeversionfolder = $nodeversion -replace '.zip', ''
-        Copy-Item  "$currentdir\latest-v12.x\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
-        Remove-Item "$currentdir\latest-v12.x\$nodeversionfolder" -Recurse -Force 
+        Copy-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
+        Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'Nodejs'
             New-TryagainNew
