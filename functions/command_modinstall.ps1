@@ -8,7 +8,7 @@
 #
 Function Get-Modinstall {
     Write-log "Function: Get-Modinstall"
-    $script:sourcemetainstall = @(17515, 237410, 232250, 276060, 346680, 228780, 475370, 383410, 238430, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
+    $script:sourcemetainstall = @(17515, 237410, 232250, 276060, 228780, 475370, 383410, 238430, 232290, 462310, 317800, 460040, 17585, 17555, 295230, 4020, 232370, 222860, 332670, 17505, 329710)
     If ($sourcemetainstall -contains $appid) {
         #Get-SourceMetaModQ
         Show-ModMenu
@@ -25,6 +25,9 @@ Function Get-Modinstall {
         Show-ModMenu
     }
     ElseIf ($appid -eq 294420){
+        Show-ModMenu
+    }
+    ElseIf ($appid -eq 346680){
         Show-ModMenu
     }
     Else {
@@ -54,6 +57,9 @@ Function Show-ModMenu {
     ElseIf ($appid -eq 294420){
         $command = Menu @('subquakes-undead-legacy')
     }
+    ElseIf ($appid -eq 346680){
+        $command = Menu @('bmdm-srccoop')
+    }
     Set-Console
     If ($command -eq 'SourceMod') {
         # Get-SourceMetaMod
@@ -82,6 +88,12 @@ Function Show-ModMenu {
     ElseIf ($command -eq 'subquakes-undead-legacy') {
         #Get-Oxide
         Get-undeadlegacy
+    }
+    ElseIf ($command -eq 'bmdm-srccoop') {
+        #Get-Oxide
+        Get-BlackMesaSrcCoop
+        Get-SourceMod
+        Get-MetaMod
     }
 }
 

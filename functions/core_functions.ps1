@@ -140,11 +140,19 @@ Function Get-Savelocation {
         if ($saves) {
             if (test-path $($env:APPDATA + '\' + $saves)) {
                 Write-log "Info: Found Appdata Roaming save"
-                $script:savedata = $env:APPDATA
+                $savedata = "$env:APPDATA"
             }
             ElseIf (test-path $($env:LOCALAPPDATA + '\' + $saves)) {
                 Write-log "Info: Found Appdata local save"
-                $script:savedata = $env:LOCALAPPDATA
+                $savedata = "$env:LOCALAPPDATA"
+            }
+            ElseIf (test-path $($env:LOCALAPPDATA + $saves)) {
+                Write-log "Info: Found Appdata locallow save?"
+                $savedata = "$env:LOCALAPPDATA"
+            }
+            else{
+                Write-log "could not find path for AppData roaming,local,locallow"
+                return
             }
         }
         If ($command -eq "restore") {
@@ -204,6 +212,7 @@ Function Edit-ServerConfig {
                 # '294420' { $line = 5; Set-ServerConfig }
                 # '237410' { $line = 10; Set-ServerConfig }
                 '407480' { $line = 1205; Set-ServerConfig }
+                '1670340' { $line = 2; Set-ServerConfig }
                 # '17515' { $line = 9; Set-ServerConfig }
                 # '376030' { $line = 97; Set-ServerConfig }
                 # '233780' { $line = 16; Set-ServerConfig }
@@ -216,7 +225,7 @@ Function Edit-ServerConfig {
 
 Function Set-ServerConfig {
     Write-log "Function: Set-ServerConfig"
-    $removelinenumber = @( 407480 )
+    $removelinenumber = @( 407480,1670340 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
         $deleteline = $readserverconfig[$line]
@@ -234,8 +243,8 @@ Function Set-ServerConfig {
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
-    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
+    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
+    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
         Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
@@ -248,6 +257,7 @@ Function Set-ServerConfig {
             '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '1064780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '1180760' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '1670340' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
@@ -387,8 +397,15 @@ Function Get-MCWebrequest {
 Function Get-MetaModWebrequest {
     Write-log "Function: Get-SourceMetaModWebrequest"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
-    $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    if ($appid = 346680) {
+        $metamodlatest = iwr "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
+        $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 1143 | select-string -SimpleMatch 'windows.zip')
+    }
+    else {
+        $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
+        $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    }
+    
     # $metamodmversion = $($metamodlatestlist -split '/')[4]
     $global:metamodmversionzip = $($metamodlatestlist -split '/')[5]
     $global:metamodlatestlisturl = $metamodlatestlist[0]
@@ -396,9 +413,9 @@ Function Get-MetaModWebrequest {
     # $mmWebResponse = Invoke-WebRequest "https://mms.alliedmods.net/mmsdrop/$metamodmversion/mmsource-latest-windows" -UseBasicParsing -ea SilentlyContinue
     # $mmWebResponse = $mmWebResponse.content
     # $global:metamodurl = "https://mms.alliedmods.net/mmsdrop/$metamodmversion/$mmWebResponse"
-    $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
-    $global:metamodurl = "${metamoddownloadurl}"
-    If (!$metamodurl) {
+    # $metamoddownloadurl = "https://www.metamodsource.net/latest.php?os=windows&version=${metamodmversion}"
+    # $global:metamodurl = "${metamoddownloadurl}"
+    If (!$metamodlatestlisturl -or !$metamodmversionfolder) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -406,8 +423,14 @@ Function Get-MetaModWebrequest {
 
 Function Get-Sourcemodwebrequest {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
-    $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    if ($appid = 346680) {
+        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
+        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 6874 | select-string -SimpleMatch 'windows.zip')
+    }
+    else {
+        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
+        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
+    }
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
     $global:sourcemodmversionzip = $($sourcemodlatestlist -split '/')[5]
     $global:sourcemodlatestlisturl = $sourcemodlatestlist[0]
@@ -415,9 +438,9 @@ Function Get-Sourcemodwebrequest {
     # $smWebResponse = Invoke-WebRequest "https://sm.alliedmods.net/smdrop/$sourcemodmversion/sourcemod-latest-windows" -UseBasicParsing -ErrorAction SilentlyContinue
     # $smWebResponse = $smWebResponse.content
     # $global:sourcemodurl = "https://sm.alliedmods.net/smdrop/$sourcemodmversion/$smWebResponse"
-    $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
-    $global:sourcemodurl = "${sourcemoddownloadurl}"
-    If ( !$sourcemodurl) {
+    # $sourcemoddownloadurl = "https://www.sourcemod.net/latest.php?os=windows&version=${sourcemodmversion}"
+    # $global:sourcemodurl = "${sourcemoddownloadurl}"
+    If (!$sourcemodlatestlisturl -or !$sourcemodmversionfolder) {
         Write-log "Failed: Get-SourceMetaModWebrequest"
         Exit
     }
@@ -1437,7 +1460,7 @@ Function start-pode {
             return
         }
     } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
-   # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
+    # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
     sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
         Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      

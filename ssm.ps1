@@ -31,9 +31,12 @@ $logDate = Get-Date -Format MM-dd-yyyy
 # Game-Server-configs
 $githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 
-# NodeJS 12 LTS
-$nodejsurl = "https://nodejs.org/download/release/latest-v12.x/$nodeversion"
-$nodejsdirectory = "$currentdir\latest-v12.x"
+# NodeJS
+# $nodejslatest = "latest-v12.x"
+$nodejslatest = "v14.16.1" # Max version for Gamedig currently
+# $nodejslatest = "latest-v16.x" # this version doesn't work for gamedig
+$nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
+$nodejsdirectory = "$currentdir\$nodejslatest"
 $nodejsexecutable = "$nodejsdirectory\node.exe"
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"
 
@@ -57,6 +60,10 @@ $csgoget5url = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/bui
 # CSGO Pug-setup
 $Pugsetupowner = 'splewis'
 $Pugsetuprepo = 'csgo-pug-setup'
+
+#Black Mesa DM SrcCoop
+$bmdmsrccoopowner = 'ampreeT'
+$bmdmsrccooprepo = 'SourceCoop'
 
 # SteamWorks
 $steamworksurl = "https://users.alliedmods.net/~kyles/builds/SteamWorks/"
