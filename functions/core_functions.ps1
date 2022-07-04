@@ -140,11 +140,19 @@ Function Get-Savelocation {
         if ($saves) {
             if (test-path $($env:APPDATA + '\' + $saves)) {
                 Write-log "Info: Found Appdata Roaming save"
-                $script:savedata = $env:APPDATA
+                $savedata = "$env:APPDATA"
             }
             ElseIf (test-path $($env:LOCALAPPDATA + '\' + $saves)) {
                 Write-log "Info: Found Appdata local save"
-                $script:savedata = $env:LOCALAPPDATA
+                $savedata = "$env:LOCALAPPDATA"
+            }
+            ElseIf (test-path $($env:LOCALAPPDATA + $saves)) {
+                Write-log "Info: Found Appdata locallow save?"
+                $savedata = "$env:LOCALAPPDATA"
+            }
+            else{
+                Write-log "could not find path for AppData roaming,local,locallow"
+                return
             }
         }
         If ($command -eq "restore") {
@@ -204,6 +212,7 @@ Function Edit-ServerConfig {
                 # '294420' { $line = 5; Set-ServerConfig }
                 # '237410' { $line = 10; Set-ServerConfig }
                 '407480' { $line = 1205; Set-ServerConfig }
+                '1670340' { $line = 2; Set-ServerConfig }
                 # '17515' { $line = 9; Set-ServerConfig }
                 # '376030' { $line = 97; Set-ServerConfig }
                 # '233780' { $line = 16; Set-ServerConfig }
@@ -216,7 +225,7 @@ Function Edit-ServerConfig {
 
 Function Set-ServerConfig {
     Write-log "Function: Set-ServerConfig"
-    $removelinenumber = @( 407480 )
+    $removelinenumber = @( 407480,1670340 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
         $deleteline = $readserverconfig[$line]
@@ -234,8 +243,8 @@ Function Set-ServerConfig {
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
-    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -and $deleteline -notmatch "$hostname"  ) {
+    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
+    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
         Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
@@ -248,6 +257,7 @@ Function Set-ServerConfig {
             '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '1064780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '1180760' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            '1670340' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             Default { Write-log "Failed: Edit ServerConfig Hostname" }
         }
     }
