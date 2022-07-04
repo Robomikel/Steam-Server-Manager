@@ -141,8 +141,8 @@ Install miscreated server ```./ssm install misserver```
    * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
    * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
    * Remnants Dedicated Server  (1141420) - "remnantsserver" (optional server folder name)  
-   * Craftopia Dedicated Server  (1670340) - "factoryserver" (optional server folder name)  
-   * Terraria Dedicated Server  (105600) - "remnantsserver" (optional server folder name)  
+   * Craftopia Dedicated Server  (1670340) - "craftserver" (optional server folder name)  
+   * Terraria Dedicated Server  (105600) - "terrariaserver" (optional server folder name)  
    
    -----   
  # Features  
@@ -286,4 +286,3 @@ https://github.com/KyleSanderson/SteamWorks
 https://github.com/Badgerati/Pode
 # DiscordJS
 https://github.com/discordjs/discord.js/
-
