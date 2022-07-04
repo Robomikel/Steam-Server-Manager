@@ -141,7 +141,8 @@ Install miscreated server ```./ssm install misserver```
    * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
    * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
    * Remnants Dedicated Server  (1141420) - "remnantsserver" (optional server folder name)  
-   
+   * Craftopia Dedicated Server  (1670340) - "craftserver" (optional server folder name)  
+   * Terraria Dedicated Server  (105600) - "terrariaserver" (optional server folder name)  
    
    -----   
  # Features  
@@ -212,6 +213,7 @@ Install miscreated server ```./ssm install misserver```
  * 7D2D - Undead-Legacy
  * Rust - Plugin Updater
  * CSGO - Get5, Pug-setup, and Steamworks 
+ * BlackMesa - Source Coop
 
 # Steam Workshop install
 * advanced configuration in *_default.ps1 (see Space Engineers for example)
@@ -284,4 +286,3 @@ https://github.com/KyleSanderson/SteamWorks
 https://github.com/Badgerati/Pode
 # DiscordJS
 https://github.com/discordjs/discord.js/
-
