@@ -163,6 +163,7 @@ Install miscreated server ```./ssm install misserver```
    * monitor server process
    * console and steamer logging - server console log to pastebin.
    * sourcemod/metamod and oxide install
+   * update mods
    * Steam Workshop install
    * Rcon to server (MCRcon supported servers)
    * Daily AutoRestart server process 
