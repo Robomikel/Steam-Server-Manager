@@ -163,6 +163,7 @@ Install miscreated server ```./ssm install misserver```
    * monitor server process
    * console and steamer logging - server console log to pastebin.
    * sourcemod/metamod and oxide install
+   * update mods
    * Steam Workshop install
    * Rcon to server (MCRcon supported servers)
    * Daily AutoRestart server process 
@@ -187,6 +188,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files.   
  - ```./ssm install-monitor <serverFolder>``` - Creates Scheduled Task to monitor server   
  - ```./ssm install-mod <serverFolder>```  - Install Sourcemod or Oxide for specified servers   
+ - ```./ssm update-mods <serverFolder>``` - updates mods and plugins for server     
  - ```./ssm install-ws <serverFolder>```  - Workshop Install   
  - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook in ```\config-local\local_settings.ps1```   
  - ```./ssm install-Restart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart   
