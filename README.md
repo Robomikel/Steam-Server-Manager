@@ -187,6 +187,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)   
  - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files.   
  - ```./ssm install-monitor <serverFolder>``` - Creates Scheduled Task to monitor server   
+ - ```./ssm install-restart <serverFolder>``` - create scheduled task to restart server daily.    
  - ```./ssm install-mod <serverFolder>```  - Install Sourcemod or Oxide for specified servers   
  - ```./ssm update-mods <serverFolder>``` - updates mods and plugins for server     
  - ```./ssm install-ws <serverFolder>```  - Workshop Install   
@@ -196,6 +197,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)   
  - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
  - ```./ssm details <serverFolder>``` - outputs host and server details.   
+ - ```./ssm discord <serverFolder>``` - test discord alert (webhook) for server.  
  - ```./ssm stats ``` - Graphical output of host CPU and Memory details.
  - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
