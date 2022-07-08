@@ -290,3 +290,5 @@ https://github.com/KyleSanderson/SteamWorks
 https://github.com/Badgerati/Pode
 # DiscordJS
 https://github.com/discordjs/discord.js/
+# SourceCoop
+https://github.com/ampreeT/SourceCoop
