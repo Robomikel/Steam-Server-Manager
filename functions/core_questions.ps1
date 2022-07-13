@@ -267,6 +267,14 @@ Function Get-UserInput {
             $defaultgslt = "$gslt"
             If (($global:GSLT = Read-Host -P(Write-Host "Enter Server GSLT, Press Enter to Accept  [$gslt]: "-F CY -N )) -eq '') { $global:gslt = "$defaultgslt" }Else { $gslt }
         }
+        If ($gst) {
+            $defaultgst = "$gst"
+            If (($global:gst = Read-Host -P(Write-Host "Enter Server gst, Press Enter to Accept  [$gst]: "-F CY -N )) -eq '') { $global:gst = "$defaultgst" }Else { $gst }
+        }
+        If ($oauthtoken) {
+            $defaultoauthtoken = "$oauthtoken"
+            If (($global:oauthtoken = Read-Host -P(Write-Host "Enter Server oauthtoken, Press Enter to Accept  [$oauthtoken]: "-F CY -N )) -eq '') { $global:oauthtoken = "$defaultoauthtoken" }Else { $oauthtoken }
+        }
         If ($defaultmap) {
             $defaultdefaultmap = "$defaultmap"
             If (($global:defaultmap = Read-Host -P(Write-Host "Enter Server DEFAULT MAP, Press Enter to Accept  [$defaultmap]: "-F CY -N )) -eq '') { $global:defaultmap = "$defaultdefaultmap" }Else { $defaultmap }
