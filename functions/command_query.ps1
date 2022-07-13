@@ -165,7 +165,7 @@ Function Get-GamedigServervMonitor {
                             $queryOutput = gamedig --type $querytype ${ip}:${queryport} --pretty
                         }
                     }
-                    #$queryOutput
+                    $queryOutput
                     $queryOutput = $queryOutput | ConvertFrom-Json
                     Write-log "Ping: $($queryOutput.ping)"
                     $global:pingstatus = $($queryOutput.ping)

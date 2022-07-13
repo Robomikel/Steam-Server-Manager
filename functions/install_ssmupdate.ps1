@@ -15,6 +15,7 @@ Function Get-UpdateSteamer {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
+                [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
