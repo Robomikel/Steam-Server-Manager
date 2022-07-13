@@ -141,7 +141,8 @@ Install miscreated server ```./ssm install misserver```
    * Risk of Rain 2 Dedicated Server  (1180760) - "ror2server" (optional server folder name)  
    * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
    * Remnants Dedicated Server  (1141420) - "remnantsserver" (optional server folder name)  
-   
+   * Craftopia Dedicated Server  (1670340) - "craftserver" (optional server folder name)  
+   * Terraria Dedicated Server  (105600) - "terrariaserver" (optional server folder name)  
    
    -----   
  # Features  
@@ -162,6 +163,7 @@ Install miscreated server ```./ssm install misserver```
    * monitor server process
    * console and steamer logging - server console log to pastebin.
    * sourcemod/metamod and oxide install
+   * update mods
    * Steam Workshop install
    * Rcon to server (MCRcon supported servers)
    * Daily AutoRestart server process 
@@ -185,7 +187,9 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm backup <serverFolder>``` - Creates zip folder of server files in backups folder, with  Discord alert. purge backups over specfic count. (Downloads portable 7Zip)   
  - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files.   
  - ```./ssm install-monitor <serverFolder>``` - Creates Scheduled Task to monitor server   
+ - ```./ssm install-restart <serverFolder>``` - create scheduled task to restart server daily.    
  - ```./ssm install-mod <serverFolder>```  - Install Sourcemod or Oxide for specified servers   
+ - ```./ssm update-mods <serverFolder>``` - updates mods and plugins for server     
  - ```./ssm install-ws <serverFolder>```  - Workshop Install   
  - ```./ssm discord <serverFolder>``` -  * Discord Alert * -command will send test alert. requires Discord webhook in ```\config-local\local_settings.ps1```   
  - ```./ssm install-Restart <serverFolder>``` - Creates Scheduled Task for Daily Auto Restart   
@@ -193,6 +197,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm query <serverFolder>``` -  runs gamedig on server (Downloads  NodeJS and installs Gamedig)   
  - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
  - ```./ssm details <serverFolder>``` - outputs host and server details.   
+ - ```./ssm discord <serverFolder>``` - test discord alert (webhook) for server.  
  - ```./ssm stats ``` - Graphical output of host CPU and Memory details.
  - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
@@ -212,6 +217,7 @@ Install miscreated server ```./ssm install misserver```
  * 7D2D - Undead-Legacy
  * Rust - Plugin Updater
  * CSGO - Get5, Pug-setup, and Steamworks 
+ * BlackMesa - Source Coop
 
 # Steam Workshop install
 * advanced configuration in *_default.ps1 (see Space Engineers for example)
@@ -284,4 +290,5 @@ https://github.com/KyleSanderson/SteamWorks
 https://github.com/Badgerati/Pode
 # DiscordJS
 https://github.com/discordjs/discord.js/
-
+# SourceCoop
+https://github.com/ampreeT/SourceCoop
