@@ -253,7 +253,8 @@ Function Get-UserInput {
             If (($global:rconpassword = Read-Host -P(Write-Host "Enter Server RCON PASSWORD, Press Enter to Accept  [$randompassword]: "-F CY -N )) -eq '') { $global:rconpassword = "$randompassword" }Else { $rconpassword }
         }
         If ($hostname) {
-            If (($global:hostname = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept  [SERVERNAME]: "-F CY -N )) -eq '') { $global:hostname = "SERVERNAME" }Else { $hostname }
+            $defaulthostname = "$hostname"
+            If (($global:hostname = Read-Host -P(Write-Host "Enter Server HOSTNAME, Press Enter to Accept  [$hostname]: "-F CY -N )) -eq '') { $global:hostname = "$defaulthostname" }Else { $hostname }
         }
         If ($serverpassword) {
             $defaultserverpassword = "$serverpassword"
