@@ -20,11 +20,10 @@ Function Install-SteamWS {
     Write-Host "Enter steam password" -F Cyan -B Black
     $securedpassword = Read-Host -AsSecureString
     $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
-    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-    If ($steamdirectory -and $username -and $password) {
+    If ($steamdirectory -and $username -and $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))) {
         Push-location
         Set-Location $steamdirectory
-        .\steamCMD +login $username $password +quit
+        .\steamCMD +login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)) +quit
         Pop-location
         New-TryagainSteamLogin
     }
@@ -37,7 +36,7 @@ Function Install-SteamWS {
             Write-Host "Validating / Downloading mod $mod ($ii of $modCount)..." -ForegroundColor Yellow
             Push-location
             Set-Location $steamdirectory
-            .\steamCMD +login $username $password +workshop_download_item $reg_appID $mod validate +quit | Out-File $ssmlogdir\wsmod.log
+            .\steamCMD +login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)) +workshop_download_item $reg_appID $mod validate +quit | Out-File $ssmlogdir\wsmod.log
             Pop-location
             $updateMods = Get-Content $ssmlogdir\wsmod.log
             if ($updateMods -like "Success. Downloaded item $mod to *") {

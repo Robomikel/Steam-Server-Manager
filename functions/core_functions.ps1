@@ -503,7 +503,7 @@ Function compare-SteamExit {
                 Get-Infomessage "****   Failed Logon Requires set_steam_guard_code ****" $false
                 push-location
                 Set-Location $steamdirectory
-                .\steamCMD +login $username $password +force_install_dir $serverdir +app_update $APPID $Branch +Exit
+                .\steamCMD +login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)) +force_install_dir $serverdir +app_update $APPID $Branch +Exit
                 pop-location
                 New-TryagainSteam
             }
