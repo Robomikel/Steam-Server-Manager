@@ -35,13 +35,12 @@ Function Install-ServerFiles {
                         $securedpassword = Read-Host -AsSecureString
                         If ($securedpassword) {
                             $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
-                            $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
                             # Set-Location $steamdirectory
-                            $steamcmdparams = @("+login $username $password", "+Exit")
+                            $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
                             & $steamexecutable $steamcmdparams
                             New-TryagainSteamLogin
                             Get-Infomessage "Please Wait: " 'info'
-                            $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
+                            $steamcmdparams = @( "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
                             & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                             compare-SteamExit
                         }

@@ -24,8 +24,7 @@ Function Get-UpdateServer {
             $securedpassword = Read-Host -AsSecureString
             If ($username -and $securedpassword) {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
-                $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-                $steamcmdparams = @( "+login", "$username", "$password", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
+                $steamcmdparams = @( "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+force_install_dir $serverdir", "+app_update $appid $branch", "+Exit")
                 & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                 compare-SteamExit
             }
