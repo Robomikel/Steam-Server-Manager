@@ -143,6 +143,7 @@ Install miscreated server ```./ssm install misserver```
    * Remnants Dedicated Server  (1141420) - "remnantsserver" (optional server folder name)  
    * Craftopia Dedicated Server  (1670340) - "craftserver" (optional server folder name)  
    * Terraria Dedicated Server  (105600) - "terrariaserver" (optional server folder name)  
+   * Isles of Yore Dedicated Server  (1827320) - "isleofyoreserver" (optional server folder name)
    
    -----   
  # Features  
