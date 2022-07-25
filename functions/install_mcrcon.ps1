@@ -36,8 +36,9 @@ Function install-mcrcon {
         clear-hostline 1
         Get-Infomessage "Extracting" 'MCRCon'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
-        Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $mcrcondirectory -Recurse -Force 
-        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        if (!(Test-Path $mcrcondirectory )) {New-Item $mcrcondirectory -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog}
+        Copy-Item -Path $currentdir\$githubrepofolder\* -Destination $mcrcondirectory -Recurse -Force -ErrorAction Stop
+        Remove-Item $currentdir\$githubrepofolder -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting MCRCon Failed'
             Write-log "Extracting MCRCon Failed " 
