@@ -24,8 +24,7 @@ PS Commands:
 
 - Servers install in the location of Steam-Server-Manager folder.  
 - Before install you can change the server install directory to the location you want. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Custom-Backup-and-ServerFiles-Directories)   
-- If you have an existing  Server folder. Put the Server Folder (Only Server files) in the Steam-Server-Manager Folder or use above method to point to directory.    
-- If you have an existing  steamcmd Folder. Remove the ServerFiles from SteamCMD and put SteamCMD folder in root of Steam-Server-Manager. Folder Named "SteamCMD" 
+- If you have an existing  Server folder or Steamcmd use [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Existing-Server-Files-and-Steamcmd-folder)
 
 # Console Menu   
 Displays in console menu. Interactive Console Menu for SSM.   
