@@ -14,11 +14,13 @@ Function Get-MetaMod {
             Compare-Modlist 'MetaMod' $metamodmversionzip
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No MetaMod updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
+            clear-hostline 1
             Get-Infomessage "Downloading" 'MetaMod'
             # (New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -33,9 +35,12 @@ Function Get-MetaMod {
                 Get-WarnMessage 'Downloadfailed' 'MetaMod'
             }
             ElseIf ($?) {
-                Get-Infomessage "Downloaded" 'MetaMod'
+                clear-hostline 1
+                Get-Infomessage "Downloaded" 'MetaMod' 
             } 
+            clear-hostline 1
             Get-Infomessage "downloadtime"
+            clear-hostline 1
             Get-Infomessage "Extracting" 'MetaMod'
             If ($metamodmversionzip -and $metamodmversionfolder) {
                 $metamodzip = @{
@@ -75,11 +80,13 @@ Function Get-SourceMod {
         Compare-Modlist 'Sourcemod' $sourcemodmversionzip
     }
     If ($nomodupdate -eq $true) {
+        clear-hostline 1
         Get-Infomessage "No Sourcemod updates" 'info'
         return
     }
     Else {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'SourceMod'
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -97,9 +104,12 @@ Function Get-SourceMod {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Downloaded" 'SourceMod'
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'SourceMod'
         $sourcemodzip = @{
             Path            = "$currentdir\$sourcemodmversionzip"
@@ -112,8 +122,10 @@ Function Get-SourceMod {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'SourceMod'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'SourceMod'
         If ($sourcemodmversionfolder -and $systemdir) { 
             $sourcemodaddons = @{
@@ -151,12 +163,14 @@ Function Get-CSGOGet5 {
         }
         If ($nomodupdate -eq $true) {
             Write-log "($nomodupdate -eq $true)"
+            clear-hostline 1
             Get-Infomessage "No CSGO-Get5 updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
-            Get-Infomessage "Downloading" 'CSGO-Get5'
+            clear-hostline 1
+            Get-Infomessage "Downloading" 'CSGO-Get5'  
             $get5zip = @{
                 Uri     = "$get5latestdl"
                 OutFile = "$currentdir\$get5latestzip"
@@ -169,8 +183,10 @@ Function Get-CSGOGet5 {
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'CSGO-Get5'
+        clear-hostline 1
+        Get-Infomessage "Downloaded" 'CSGO-Get5' 
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $csgoget5folder = $currentdir, $($get5latestzip.Replace('.zip', '')) -join '\'
     $get5zip = @{
@@ -184,8 +200,10 @@ Function Get-CSGOGet5 {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'CSGO-Get5'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'CSGO-Get5'
     $get5folderaddons = @{
         Path        = "$csgoget5folder\addons"
@@ -221,11 +239,13 @@ Function Get-CSGOcsgopugsetup {
         Compare-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
     If ($nomodupdate -eq $true) {
+        clear-hostline 1
         Get-Infomessage "No CSGO-pugsetup updates" 'info'
         return
     }
     Else {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'CSGO-pugsetup'
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) { 
@@ -233,8 +253,10 @@ Function Get-CSGOcsgopugsetup {
             New-TryagainNew 
         }
         ElseIf ($?) {
-            Get-Infomessage "Downloaded" 'CSGO-pugsetup'
+            clear-hostline 1
+            Get-Infomessage "Downloaded" 'CSGO-pugsetup'    
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
         $csgopugsetupfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
         $pugsetupzip = @{
@@ -248,8 +270,10 @@ Function Get-CSGOcsgopugsetup {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'CSGO-pugsetup'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'CSGO-pugsetup'
         $pugsetupaddons = @{
             Path        = "$csgopugsetupfolder\addons"
@@ -282,11 +306,13 @@ Function Get-CSGOsteamworks {
             Compare-Modlist 'SteamWorks' $steamworkslatestzip
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No SteamWorks updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
+            clear-hostline 1
             Get-Infomessage "Downloading" 'SteamWorks'
             $steamworkszip = @{
                 Uri     = "$steamworksurl$steamworkslatestzip"
@@ -300,8 +326,10 @@ Function Get-CSGOsteamworks {
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'SteamWorks'
+        clear-hostline 1
+        Get-Infomessage "Downloaded" 'SteamWorks'  
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $steamworksfolder = $currentdir, $steamworkslatestzip -Replace '.zip', '' -join '\'
     $steamworkszip = @{
@@ -315,8 +343,10 @@ Function Get-CSGOsteamworks {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'SteamWorks'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'SteamWorks'
     $steamworksaddon = @{
         Path        = "$steamworksfolder\addons"

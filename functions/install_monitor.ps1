@@ -17,8 +17,10 @@ Function New-MontiorJob {
     Get-Infomessage "Creating Task" 'start'
     Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
     If ($?){
+        clear-hostline 1
         Get-Infomessage "Creating Task" 'done'
     } Else{
+        clear-hostline 1
         Get-Infomessage "Creating Task" $false
     }
 }
@@ -38,8 +40,10 @@ Function New-MontiorJobBG {
             Get-Infomessage "Creating Task" 'start'
             Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$($Credentials.GetNetworkCredential().Password)" | Out-File -Append -Encoding Default  $ssmlog
             If ($?){
+                clear-hostline 1
                 Get-Infomessage "Creating Task" 'done'
             } Else{
+                clear-hostline 1
                 Get-Infomessage "Creating Task" $false
             }
 

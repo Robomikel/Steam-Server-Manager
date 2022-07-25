@@ -27,8 +27,10 @@ Function New-RestartJobBG {
                 Get-Infomessage "Creating Task" 'start'
                 Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" -ea SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                 If ($?){
+                    clear-hostline 1
                     Get-Infomessage "Creating Task" 'done'
                 } Else{
+                    clear-hostline 1
                     Get-Infomessage "Creating Task" $false
                 }
             }
@@ -49,8 +51,10 @@ Function New-RestartJob {
         Get-Infomessage "Creating Task" 'start'
         Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
         If ($?){
+            clear-hostline 1
             Get-Infomessage "Creating Task" 'done'
         } Else{
+            clear-hostline 1
             Get-Infomessage "Creating Task" $false
         }
     }

@@ -85,7 +85,7 @@ Function Set-Console {
     If ( $logo -ne "off") {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
-        [console]::ForegroundColor = "Green"
+        [console]::ForegroundColor = "White"
         [console]::BackgroundColor = "Black"
         $host.PrivateData.VerboseForegroundColor = 'White'
         # [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
@@ -361,6 +361,39 @@ Function Get-Appid {
         }        
     }
 }
+Function Get-MCBRWebrequest {
+    Write-log "Function: Get-MCBRWebrequest"
+    # get latest download
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+        if ($?) {
+            # Get-Infomessage "Downloaded" 'SteamCMD'
+        }
+    }
+    catch {
+        If (!$? -or !$mcbrWebResponse) {
+            Write-log "$($_.Exception.Message)"
+            Write-log "Failed: Get-MCBRWebrequest"
+            Exit
+        }
+    }
+}
+Function Get-MCWebrequest {
+    Write-log "Function: Get-MCWebrequest"
+    # check latest version
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
+        $global:mcvWebResponse = $mcvWebResponse.Latest.release
+    }
+    catch {
+        If (!$? -or !$mcvWebResponse) {
+            Write-log "Failed: Get-MCWebrequest"
+            Exit
+        }
+    }
+}
 Function Get-MetaModWebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -428,40 +461,7 @@ Function Get-PreviousInstall {
         Get-ExtIP
     }
 }
-function Receive-Information {
-    process { 
-        If ($package -eq $true ) {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        } 
-        ElseIf ($package -eq $false ) {
-            Write-Host $_ -ForegroundColor Red -NoNewline 
-        } 
-        ElseIf ($package -eq 'update' ) {
-            Write-Host $_ -ForegroundColor Cyan -NoNewline 
-        }
-        ElseIf ($package -eq 'warning' ) {
-            Write-Host $_ -ForegroundColor Magenta -NoNewline 
-        }
-        ElseIf ($package -eq 'info' ) {
-            Write-Host $_ -ForegroundColor Yellow -NoNewline 
-        } 
-        ElseIf ($package -eq 'start' ) {
-            Write-Host $_ -ForegroundColor Yellow -NoNewline 
-        }
-        ElseIf ($package -eq 'done' ) {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        }
-        Else {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        }   
-    }
-}
-function Receive-bracket {
-    process { Write-Host $_ -ForegroundColor White -NoNewline }
-}
-function Receive-Message {
-    process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
-}
+
 Function compare-SteamExit {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {

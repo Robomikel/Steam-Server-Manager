@@ -41,19 +41,24 @@ Function Get-StopServer {
                 }
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
+                    clear-hostline 1
                     Get-Infomessage " smooth stop failed" 'warning'
+                    clear-hostline 1
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
                     $processstatus = Get-Process $process -ea SilentlyContinue
                     If ($processstatus) {
+                        clear-hostline 1
                         Get-warnmessage "stoppedfailed"
                     }
                     Elseif (!$processstatus) {
+                        clear-hostline 1
                         Get-Infomessage "stopped" 
                     }
                 }
                 Elseif (!$processstatus) {
+                    clear-hostline 1
                     Get-Infomessage "stopped" 
                 }
                 If ($consolelogging -eq "on") { 

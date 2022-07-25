@@ -14,12 +14,14 @@ Function Add-NodeJS {
     $nodejsoutput = "$nodeversion"
     If ($nodeversion) {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Nodejs'
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
         try {
             #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" 'Nodejs'
             }     
         }
@@ -28,7 +30,9 @@ Function Add-NodeJS {
             Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Nodejs'
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
         write-log "Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
@@ -40,6 +44,7 @@ Function Add-NodeJS {
             New-TryagainNew
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Nodejs'
         }
         Push-location

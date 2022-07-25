@@ -152,6 +152,7 @@ Function Send-DiscordAlert {
         }
         Else {
             $global:InfoMessage = 
+            clear-hostline 1
             Get-Infomessage "discord" 
         }    
     }
@@ -166,6 +167,7 @@ Function get-pode {
         Get-GithubRestAPI $Podesetupowner $Podesetuprepo
         Write-log "Downloading Pode from github" 
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "downloading" 'Pode'
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
@@ -174,10 +176,13 @@ Function get-pode {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "downloaded" 'Pode'
             Write-log "Pode succeeded " 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Pode'
         try {
          Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force
@@ -193,6 +198,7 @@ Function get-pode {
             New-TryagainNew 
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Pode'
             Write-log "Extracting Pode succeeded  "  
         }

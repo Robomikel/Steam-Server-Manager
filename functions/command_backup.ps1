@@ -41,6 +41,7 @@ Function New-BackupServer {
             }
             pop-location
         }
+        clear-hostline 1
         Get-Infomessage "backupdone" 
        New-ServerBackupLog
         If ($backuplogopen -eq "on") {
@@ -64,6 +65,7 @@ Function New-BackupServer {
         }
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
+            clear-hostline 1
             Get-Infomessage "savecheck" 
         }
         Limit-Backups
@@ -85,6 +87,7 @@ Function New-backupAppdata {
         If ($Showbackupconsole -eq "on") {
             $appdatabackuplogopen = 'off'
             Write-log "Disabled: open appdata backup log. show backup console on"
+            clear-hostline 1
             Get-Infomessage "appdatabackupstart" 'start'
             Write-Log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*`") -Wait"
             Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*") -Wait
@@ -93,6 +96,7 @@ Function New-backupAppdata {
             }
         }
         ElseIf ($Showbackupconsole -eq "Off") {
+            clear-hostline 1
             Get-Infomessage "appdatabackupstart" 'start'
             Write-Log "./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
             ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
@@ -102,6 +106,7 @@ Function New-backupAppdata {
         }  
         Pop-location 
     }
+    clear-hostline 1
     Get-Infomessage "appdatabackupdone" 
     New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
@@ -125,6 +130,7 @@ Function New-backupAppdata {
 Function Limit-Backups {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $maxbackups ) {
+        clear-hostline 1
         Get-Infomessage "purgebackup" 'info'
         Push-Location
         Set-Location $sevenzipdirectory
@@ -133,6 +139,7 @@ Function Limit-Backups {
             Get-warnmessage "limitbackupfailed"
         }
         Else {
+            clear-hostline 1
             Get-Infomessage "purgebackup" 
         }
         Pop-Location
@@ -144,6 +151,7 @@ Function Limit-Backups {
 Function Limit-AppdataBackups {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $maxbackups ) {
+        clear-hostline 1
         Get-Infomessage "purgeappdatabackup" 'info'
         push-location
         Set-Location $sevenzipdirectory
@@ -152,6 +160,7 @@ Function Limit-AppdataBackups {
             Get-warnmessage "limitbackupfailed"
         }  
         Else {
+            clear-hostline 1
             Get-Infomessage "purgeappdatabackup" 
         }
         pop-location
@@ -221,7 +230,8 @@ Function New-BackupRestore {
             Write-Warning "Restore from Backup failed" -InformationAction Stop
             exit
         }
-        Get-Infomessage "Restore from Backup" 
+        clear-hostline 1
+        Get-Infomessage "Restored from Backup" 
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             # Get-Infomessage "savecheck" 

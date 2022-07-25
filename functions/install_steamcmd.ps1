@@ -10,6 +10,7 @@ Function Install-Steam {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamurl -and $steamoutput) {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'SteamCMD'
         #(New-Object Net.WebClient).DownloadFile("$steamurl", "steamcmd.zip")
         $steamcmdzip = @{
@@ -20,6 +21,7 @@ Function Install-Steam {
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             Invoke-WebRequest @steamcmdzip 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" 'SteamCMD'
             }
         }
@@ -28,7 +30,9 @@ Function Install-Steam {
             Get-WarnMessage 'Downloadfailed' 'SteamCMD'
             New-TryagainNew 
         }
+        clear-hostline 1
         Get-Infomessage  "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'SteamCMD'
         If ($steamoutput -and $steamdirectory) {
             $steamoutzip = @{
@@ -43,7 +47,8 @@ Function Install-Steam {
             New-TryagainNew 
         }
         ElseIf ($?) {
-            Get-Infomessage "Extracted" 'SteamCMD'
+            clear-hostline 1
+            Get-Infomessage "Extracted" 'SteamCMD'  
         }
     }
 }

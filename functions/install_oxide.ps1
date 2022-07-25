@@ -18,9 +18,11 @@ Function Get-Oxide {
             Compare-Modlist 'Oxide' "$oxideoutput"
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No Oxide updates" 'info'
             return
         }
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         try {
@@ -29,6 +31,7 @@ Function Get-Oxide {
             write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" 'Oxide'
             }
         }
@@ -37,7 +40,9 @@ Function Get-Oxide {
             Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Oxide'
         Write-Log "Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force"
         Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force
@@ -48,8 +53,10 @@ Function Get-Oxide {
             New-TryagainNew
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Oxide'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'Oxide'
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
@@ -67,6 +74,7 @@ Function Get-undeadlegacy {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
         $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'undead-legacy'
         $undeadurlzip = @{
             Uri     = "$undeadurllatestdl"
@@ -79,8 +87,10 @@ Function Get-undeadlegacy {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Downloaded" 'undead-legacy'
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $undeadurlfolder = $currentdir, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
     $undeadurlzip = @{
@@ -95,8 +105,10 @@ Function Get-undeadlegacy {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'undead-legacy'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
         Path        = "$undeadurlfolder\UndeadLegacy-master\*"
@@ -226,11 +238,13 @@ Function ping-pluginversion {
     }
     if ($update.StatusCode -eq 200) {
         Write-log "Plugin Update: $pluginname, $pluginfile"
+        clear-hostline 1
         Get-Infomessage "Plugin Update: $pluginname" 'update'
         Receive-plugin $pluginname $pluginfile $updatecheck
     }
     ElseIf ($wr) {
         Write-log "Plugin: No update"
+        clear-hostline 1
         Get-Infomessage "No Plugin Update: $pluginname"
     }
     $update = $null
@@ -261,10 +275,12 @@ Function Get-BlackMesaSrcCoop {
         Get-GithubRestAPI $bmdmsrccoopowner $bmdmsrccooprepo
         Write-log "Downloading bmdmsrccoop from github" 
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "downloading" 'bmdmsrccoop'
         try { 
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "downloaded" 'bmdmsrccoop'
                 Write-log "bmdmsrccoop succeeded " 
             }
@@ -275,7 +291,9 @@ Function Get-BlackMesaSrcCoop {
             Write-log "Downloading  bmdmsrccoop Failed"
             New-TryagainNew 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'bmdmsrccoop'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
         Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $systemdir -Recurse -Force 
@@ -286,6 +304,7 @@ Function Get-BlackMesaSrcCoop {
             New-TryagainNew 
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'bmdmsrccoop'
             Write-log "Extracting bmdmsrccoop succeeded  "  
         }

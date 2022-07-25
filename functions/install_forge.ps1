@@ -24,13 +24,16 @@ Function Get-InstallForge {
             Compare-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No Minecraft Forge updates" 'info'
             return
         }
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
         try { 
             Invoke-WebRequest -Uri $forgeWebResponse -OutFile $currentdir\forge-$forgeversion-installer.jar 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloading" 'Minecraft Forge'
             } 
         }
