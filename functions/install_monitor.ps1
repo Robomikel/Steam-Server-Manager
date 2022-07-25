@@ -8,7 +8,7 @@
 #
 #
 Function New-MontiorJob {
-    Write-log "Function: New-MontiorJob"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host "Run Task only when user is logged on"
     $Action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles }`"" -WorkingDirectory "$currentdir"
     $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
@@ -23,7 +23,7 @@ Function New-MontiorJob {
     }
 }
 Function New-MontiorJobBG {
-    Write-log "Function: New-MontiorJobBG"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($env:UserName -and $env:COMPUTERNAME) {  
         $UserName = "$env:COMPUTERNAME\$env:UserName"
         Write-Host "Run Task Whether user is logged on or not"

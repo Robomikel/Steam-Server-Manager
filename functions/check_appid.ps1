@@ -7,7 +7,7 @@
 #
 #
 Function Set-LaunchScript {
-    Write-log "Function: Set-LaunchScript"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     switch ($AppID) {
         302200 { New-LaunchScriptMiscreatedPS ; Break }
         294420 { New-LaunchScriptSdtdserverPS ; Break }
@@ -106,7 +106,7 @@ Function Set-LaunchScript {
 }
 
 Function Read-AppID {
-    Write-log "Function: Read-AppID"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     switch ($AppID) {
         { @(302200,294420,237410,581330,233780,258550,376030,462310,740,530870,443030,565060,232130,222860,454070,556450,17515,302550,582400,416880,985050,475370,232370,
             17585,346680, 232290, 343050, 4020, 232250, 317670, 228780, 295230, 380870, 276060, 805140, 1026340, 383410, 261140, 619960, 4940,332670, 17505, 403240, 1088320, 

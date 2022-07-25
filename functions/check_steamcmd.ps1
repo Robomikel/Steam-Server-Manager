@@ -7,7 +7,7 @@
 #
 #
 Function Get-Steam {
-    Write-log "Function: Get-Steam"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         If ($steamexecutable) {
             If (Test-Path $steamexecutable) { 

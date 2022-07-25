@@ -7,7 +7,7 @@
 #
 #
 Function Get-NodeJSCheck {
-    Write-log "Function: Get-NodeJSCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($nodejsexecutable -and $ssmlog -and $loggingdate) {
         If (!(test-path $nodejsprogramexecutable)) {
             Write-log "Checking NodeJS "     

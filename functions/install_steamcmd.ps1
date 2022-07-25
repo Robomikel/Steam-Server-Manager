@@ -7,7 +7,7 @@
 #
 #
 Function Install-Steam {
-    Write-log "Function: Install-Steam"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamurl -and $steamoutput) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" 'SteamCMD'

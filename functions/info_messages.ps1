@@ -8,6 +8,7 @@
 #
 Function Get-Infomessage {
     Param($infomessage, $package,$colors)
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($infomessage) {
         If ($infomessage -eq "discord") {
             $message = ' Sending Discord Alert' | Receive-Message
@@ -158,7 +159,7 @@ Function Get-Infomessage {
 }
 Function Get-WarnMessage {
     param ($warnmessage, $package)   
-    Write-log "Function:  Get-WarnMessage"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($warnmessage) {
         
         If ($warnmessage -eq 'missingwebhook') {

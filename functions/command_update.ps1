@@ -7,7 +7,7 @@
 #
 #
 Function Get-UpdateServer {
-    Write-log "Function:  Get-UpdateServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamexecutable) {
         Push-location
         Set-Location $steamdirectory

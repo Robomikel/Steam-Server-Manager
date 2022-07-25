@@ -7,7 +7,7 @@
 #
 #
 Function Get-Oxide {
-    Write-log "Function: Get-Oxide"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($oxiderustowner -and $oxiderustrepo) {
         Get-GithubRestAPI $oxiderustowner $oxiderustrepo
         $oxideversion = ($githubrepoziplink).split('/')[7]
@@ -61,7 +61,7 @@ Function Get-Oxide {
 }
 
 Function Get-undeadlegacy {
-    Write-log "Function: Get-undead-legacy"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
@@ -114,7 +114,7 @@ Function Get-undeadlegacy {
 
 Function Add-plugintolist {
     param($pluginname, $pluginfile)
-    Write-log "Function: Add-plugintolist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (!$installedplugins) {
         Write-log "Create plugins object"
         #$installedplugins = @()
@@ -126,7 +126,7 @@ Function Add-plugintolist {
     
 }
 Function Get-installedplugins {    
-    Write-log "Function: Get-installedplugins"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $installedpluginscount = Get-Content -Path $serverdir\plugins.json | select-string -SimpleMatch ".cs"
     if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
         write-log "Plugin removed"
@@ -140,7 +140,7 @@ Function Get-installedplugins {
     }
 }
 Function New-pluginlist {
-    Write-Log "Function: New-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($plugins.plugins) {
         $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
         Write-log "Edit plugins.plugins $($plugins.plugins) plugins.json"
@@ -157,7 +157,7 @@ Function New-pluginlist {
 }
 Function Edit-pluginlist {
     Param($pluginname, $pluginfile)
-    Write-log "Function: Edit-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\plugins.json) {
         If ($installedplugins) {
             If ($installedplugins.plugins -like "*$pluginname*") {
@@ -186,7 +186,7 @@ Function Edit-pluginlist {
 
 Function Compare-pluginlist {
     Param($pluginname, $pluginfile)
-    Write-log "Function: Compare-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\plugins.json) {
         Get-installedplugins
         $installedplugins | foreach {
@@ -197,7 +197,7 @@ Function Compare-pluginlist {
 }
 
 Function Initialize-plugins {
-    Write-log "Function: Initialize-plugins"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $script:pluginss = gci $serverdir\oxide\plugins | ? Name -like *.cs
     $pluginss |  foreach { 
         $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
@@ -212,7 +212,7 @@ Function Initialize-plugins {
 
 Function ping-pluginversion {
     param($pluginname, $pluginfile)
-    Write-log "Function: ping-pluginversion"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     [int]$version = $pluginfile.Split(".", 3)[2]
     $script:updatecheck = $version + 1
     $script:updatecheck = $pluginfile.Split(".", 3)[0] + '.' + $pluginfile.Split(".", 3)[1] + '.' + $updatecheck
@@ -239,7 +239,7 @@ Function ping-pluginversion {
 
 Function Receive-plugin {
     param($pluginname, $pluginfile, $updatecheck)
-    write-log "Function: Receive-plugin "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
     iwr $Uri -O $serverdir\oxide\plugins\$pluginname
     If (Test-Path $serverdir\oxide\plugins\$pluginname) {
@@ -253,7 +253,7 @@ Function Receive-plugin {
 }
 
 Function Get-BlackMesaSrcCoop {
-    Write-log "Function: Get-BlackMesaSrcCoop"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($bmdmsrccoopowner -and $bmdmsrccooprepo ) {
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;

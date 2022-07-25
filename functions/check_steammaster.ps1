@@ -7,7 +7,7 @@
 #
 #
 Function Test-SteamMaster {
-	Write-log "Function: Test-SteamMaster"
+	Write-log "Function: $($MyInvocation.Mycommand)"
 	If ($ssmlog -and $loggingdate) {
 		Write-log "Checking Steam Master"
 		if ($Useprivate = "off") { 

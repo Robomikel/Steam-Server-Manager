@@ -7,7 +7,7 @@
 #
 #
 Function Add-NodeJS {
-    Write-log "Function: Add-NodeJS"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/$nodejslatest/" -UseBasicParsing
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
     $nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
@@ -51,7 +51,7 @@ Function Add-NodeJS {
 }
 
 Function Add-gamedig {
-    Write-log "Function: Add-gamedig"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (!($(test-path $env:APPDATA\npm\gamedig))) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
@@ -61,7 +61,7 @@ Function Add-gamedig {
 }
 
 Function Add-discordjs {
-    Write-log "Function: Add-discordjs"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $n = npm ls discord.js
     if (($n[1] -match "empty") -or ($n -match "ERR!")) {
         # & "npm install gamedig"

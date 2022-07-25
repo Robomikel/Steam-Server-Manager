@@ -7,7 +7,7 @@
 #
 #
 Function Get-MetaMod {
-    Write-log "Function: Get-MetaMod"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-MetaModWebrequest
     If ($metamodlatestlisturl -and $metamodmversionzip) {
         If ($command -eq 'update-mods') {
@@ -69,7 +69,7 @@ Function Get-MetaMod {
     }
 }
 Function Get-SourceMod {
-    Write-log "Function: Get-SourceMod"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-Sourcemodwebrequest
     If ($command -eq 'update-mods') {
         Compare-Modlist 'Sourcemod' $sourcemodmversionzip
@@ -141,7 +141,7 @@ Function Get-SourceMod {
     }
 }
 Function Get-CSGOGet5 {
-    Write-log "Function: Get-CSGOGet5"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $csgoget5url -and $systemdir) {
         # This might work...
         $get5latestzip = $(($(iwr $csgoget5url).Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
@@ -210,7 +210,7 @@ Function Get-CSGOGet5 {
     Edit-Modlist 'CSGO-Get5' $get5latestzip
 }
 Function Get-CSGOcsgopugsetup {
-    Write-log "Function: Get-CSGOcsgopugsetup"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $systemdir) {
         # iwr $csgopugsetupurl -O $githubrepozipname
         if ($Pugsetupowner -and $Pugsetuprepo ) {
@@ -275,7 +275,7 @@ Function Get-CSGOcsgopugsetup {
     }
 }
 Function Get-CSGOsteamworks {
-    Write-log "Function: Get-CSGOsteamworks"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamworksurl -and $systemdir) {
         $steamworkslatestzip = $( ($(iwr $steamworksurl).Links.href | select-string -SimpleMatch windows.zip | select -First 1 ).Line) 
         If ($command -eq 'update-mods') {

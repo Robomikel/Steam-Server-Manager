@@ -22,7 +22,7 @@ Function Select-Steamer {
             Position = 1 
         )]$global:serverfiles
     )
-    Write-log "Function: Select-Steamer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     switch ($command) {
@@ -56,7 +56,7 @@ Function Select-Steamer {
 }
 
 Function Read-Param {
-    Write-log "Function Read-Param"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     switch ($serverfiles) {
         { (!$serverfiles) } { 
             Write-Host 'Input Server Folder Name: ' -F C -N
@@ -69,7 +69,7 @@ Function Read-Param {
     }
 }
 Function Get-SSMMenu {
-    Write-log "Function: Get-SSMMenu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
     $command = Menu @('install A-E', 'install D-M', 'install N-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats', 'update-mods')

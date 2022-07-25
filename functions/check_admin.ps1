@@ -7,7 +7,7 @@
 #
 #
 Function Get-AdminCheck {
-    Write-log "Function: Get-AdminCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $user = "$env:COMPUTERNAME\$env:USERNAME"
     $group = 'Administrators'
     $isInGroup = (Get-LocalGroupMember $group).Name -contains $user

@@ -7,7 +7,7 @@
 #
 #
 Function Get-ServerBuildCheck {
-    Write-log "Function: Get-ServerBuildCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         If ($appid) {
             If ($appid -eq 11500000 ) { 
@@ -84,7 +84,7 @@ Function Get-ServerBuildCheck {
     }
 }
 Function Get-SteamFix {
-    Write-log "Function: Get-SteamFix"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $appid -and "$serverdir") {
         If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
             Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue

@@ -7,7 +7,7 @@
 #
 #
 Function Get-StopServer {
-    Write-log "Function: Get-StopServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($appid -eq "996560") { 
         Get-StopMultiple 
     }
@@ -68,7 +68,7 @@ Function Get-StopServer {
     }
 }
 Function Get-StopServerInstall {
-    Write-log "Function: Get-StopServerInstall"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($appid -eq "996560") { 
         Get-StopMultiple 
     }
@@ -125,7 +125,7 @@ Function Get-StopServerInstall {
     }
 }   
 Function Get-StopMultiple {
-    Write-log "Function: Get-StopMultiple"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {

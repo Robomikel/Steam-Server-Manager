@@ -7,7 +7,7 @@
 #
 #
 Function Add-Sevenzip {
-    Write-log "Function: Add-Sevenzip"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($sevenzipurl -and $sevenzipoutput) {
         $start_time = Get-Date
         Get-Infomessage "Downloading" '7ZIP'

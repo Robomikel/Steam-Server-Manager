@@ -167,7 +167,7 @@ Function Get-UpdateSteamerConfigDefault {
 }
 
 Function Get-SteamerConfigDefault {
-    Write-log "Function: Get-SteamerConfigDefault "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'

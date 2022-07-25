@@ -17,7 +17,7 @@ Function Get-Forgeforge {
     java -jar forge-$forgeversion-installer.jar --installServer
 }
 Function Get-InstallForge {
-    Write-log "Function: Get-InstallForge"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($forgeversion) {
         $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
         If ($command -eq 'update-mods') {

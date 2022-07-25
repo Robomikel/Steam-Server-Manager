@@ -7,7 +7,7 @@
 #
 #
 Function install-mcrcon {
-    Write-log "Function: install-mcrcon"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($mcrconowner -and $mcrconrepo ) {
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;

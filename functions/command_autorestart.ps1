@@ -7,7 +7,7 @@
 #
 #
 Function New-RestartJobBG {
-    Write-log "Function: New-RestartJobBG"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($env:UserName -and $env:COMPUTERNAME) {
         $UserName = "$env:COMPUTERNAME\$env:UserName"
         Write-Host "Run Task Whether user is logged on or not" -F Cyan -NoNewline
@@ -36,7 +36,7 @@ Function New-RestartJobBG {
     }
 }
 Function New-RestartJob {
-    Write-log "Function: New-RestartJob"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host "Run Task only when user is logged on" -F Cyan -NoNewline
     Write-Host "Input AutoRestart Time. ie 3am: " -F Cyan -NoNewline
     $restartTime = Read-Host

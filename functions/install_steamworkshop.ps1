@@ -1,5 +1,5 @@
 Function Install-SteamWS {
-    Write-log "Function: Install-SteamWS"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     ######    Created by Archimedez   ######
     # https://steamcommunity.com/sharedfiles/filedetails/?id=939668540
     ######    Modified by Robomikel for SSM use   ######

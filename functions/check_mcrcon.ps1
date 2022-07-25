@@ -7,7 +7,7 @@
 #
 #
 Function Get-MCRconCheck {
-    Write-log "Function: Get-MCRconCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($mcrconexecutable -and $ssmlog -and $loggingdate) {
         If (Test-Path $mcrconexecutable) { 
             Write-log "McRcon already downloaded "

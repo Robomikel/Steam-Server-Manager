@@ -7,7 +7,7 @@
 #
 #
 Function Get-SevenZipCheck {
-    Write-log "Function: Get-SevenZipCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking for 7ZIP " 'info'
         If (!(Test-Path $sevenzipprogramexecutable)) {
