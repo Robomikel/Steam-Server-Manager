@@ -127,7 +127,7 @@ Function Get-Infomessage {
         Else {
             $message = "$infomessage" 
         }
-        $leftbracket = "...   [ " 
+        # $leftbracket = "...   [ " 
         If ($package -eq $false) {
             $info = "FAILED" 
         }
@@ -149,7 +149,7 @@ Function Get-Infomessage {
         Else {
             $info = "OK" 
         }
-        $rightbracket = " ]" 
+        # $rightbracket = " ]" 
         Send-Mess $message $info
         Start-Sleep -Seconds 1 
         # Write-Information "[info]" -InformationAction Continue
