@@ -139,6 +139,8 @@ Function Send-DiscordAlert {
             $detailss += "`nSteamDB: $($details.RemoteBuild)"
         }
         $detailss += "`nsteam://connect/$displayip`:$port"
+        # Gametracker link 
+        $detailss += "`nhttps://gametracker.com/server_info/$displayip`:$port"
         #                               Discord Author Name 
         $global:AuthorName = "Notice - $hostname - $alerttype "
         #                               Discord Avatar Name 
