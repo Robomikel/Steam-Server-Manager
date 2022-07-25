@@ -17,20 +17,23 @@ Function Get-Forgeforge {
     java -jar forge-$forgeversion-installer.jar --installServer
 }
 Function Get-InstallForge {
-    Write-log "Function: Get-InstallForge"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($forgeversion) {
         $forgeWebResponse = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar"
         If ($command -eq 'update-mods') {
             Compare-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No Minecraft Forge updates" 'info'
             return
         }
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Minecraft Forge' 'info'
         try { 
             Invoke-WebRequest -Uri $forgeWebResponse -OutFile $currentdir\forge-$forgeversion-installer.jar 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloading" 'Minecraft Forge'
             } 
         }

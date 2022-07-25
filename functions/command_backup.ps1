@@ -7,7 +7,7 @@
 #
 #
 Function New-BackupServer {
-    Write-log "Function: New-BackupServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$serverdir") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
@@ -22,6 +22,7 @@ Function New-BackupServer {
             If ($Showbackupconsole -eq "on") { 
                 $backuplogopen = 'off'
                 Write-log "Disabled: open backup log. show backup console on"
+                clear-hostline 1
                 Get-Infomessage "backupstart" 'start'
                 write-log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*`") -Wait"
                 Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
@@ -30,6 +31,7 @@ Function New-BackupServer {
                 }
             }
             ElseIf ($Showbackupconsole -eq "off") {
+                clear-hostline 1
                 Get-Infomessage "backupstart" 'start'
                 #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $serverdir\* -an > backup.log
                 Get-Childitem -Depth 1 $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
@@ -41,6 +43,7 @@ Function New-BackupServer {
             }
             pop-location
         }
+        clear-hostline 1
         Get-Infomessage "backupdone" 
        New-ServerBackupLog
         If ($backuplogopen -eq "on") {
@@ -64,6 +67,7 @@ Function New-BackupServer {
         }
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
+            clear-hostline 1
             Get-Infomessage "savecheck" 
         }
         Limit-Backups
@@ -74,7 +78,7 @@ Function New-BackupServer {
     }
 }
 Function New-backupAppdata {
-    Write-log "Function: New-backupAppdata"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if ($(Test-Path $sevenzipprogramexecutable)) {
         Write-Log "& $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
         & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
@@ -85,6 +89,7 @@ Function New-backupAppdata {
         If ($Showbackupconsole -eq "on") {
             $appdatabackuplogopen = 'off'
             Write-log "Disabled: open appdata backup log. show backup console on"
+            clear-hostline 1
             Get-Infomessage "appdatabackupstart" 'start'
             Write-Log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*`") -Wait"
             Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*") -Wait
@@ -93,6 +98,7 @@ Function New-backupAppdata {
             }
         }
         ElseIf ($Showbackupconsole -eq "Off") {
+            clear-hostline 1
             Get-Infomessage "appdatabackupstart" 'start'
             Write-Log "./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
             ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
@@ -102,6 +108,7 @@ Function New-backupAppdata {
         }  
         Pop-location 
     }
+    clear-hostline 1
     Get-Infomessage "appdatabackupdone" 
     New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
@@ -123,8 +130,9 @@ Function New-backupAppdata {
     Limit-AppdataBackups
 }
 Function Limit-Backups {
-    Write-log "Function: Limit-Backups"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $maxbackups ) {
+        clear-hostline 1
         Get-Infomessage "purgebackup" 'info'
         Push-Location
         Set-Location $sevenzipdirectory
@@ -133,6 +141,7 @@ Function Limit-Backups {
             Get-warnmessage "limitbackupfailed"
         }
         Else {
+            clear-hostline 1
             Get-Infomessage "purgebackup" 
         }
         Pop-Location
@@ -142,8 +151,9 @@ Function Limit-Backups {
     }
 }
 Function Limit-AppdataBackups {
-    Write-log "Function: Limit-AppdataBackups"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $maxbackups ) {
+        clear-hostline 1
         Get-Infomessage "purgeappdatabackup" 'info'
         push-location
         Set-Location $sevenzipdirectory
@@ -152,6 +162,7 @@ Function Limit-AppdataBackups {
             Get-warnmessage "limitbackupfailed"
         }  
         Else {
+            clear-hostline 1
             Get-Infomessage "purgeappdatabackup" 
         }
         pop-location
@@ -161,7 +172,7 @@ Function Limit-AppdataBackups {
     }
 }
 Function Get-BackupMenu {
-    Write-log "Function: Get-BackupMenu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Show-Menu
     Get-Menu
     # $selection = Read-Host "Please make a selection"
@@ -179,7 +190,7 @@ Function Get-BackupMenu {
     New-BackupRestore
 }
 Function Show-Menu {
-    Write-log "Function: Show-Menu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
@@ -197,7 +208,7 @@ Function Show-Menu {
     }
 }
 Function Get-Menu {
-    Write-log "Function: Get-Menu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:.
    `t Choose backup: " -F Cyan
     # Write-Host ".:.:.:.:.:.:.:.:  Press: <1-3>  .:.:.:.:.:.:.:."
@@ -207,7 +218,7 @@ Function Get-Menu {
     # Write-Host "Q: Press 'Q' to quit."
 }
 Function New-BackupRestore {
-    Write-log "Function: New-BackupRestore"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Set-Console
     If (($serverfiles) -and ($backupdir) -and ($Date) -and ("$serverdir") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
@@ -215,13 +226,15 @@ Function New-BackupRestore {
         }
         Write-Warning "Deleting Current $serverfiles files"
         gci $serverdir -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+        clear-hostline 1
         Get-Infomessage "Restore from Backup" 'start'
         Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$serverdir" -Force
         If (!$?) {
             Write-Warning "Restore from Backup failed" -InformationAction Stop
             exit
         }
-        Get-Infomessage "Restore from Backup" 
+        clear-hostline 1
+        Get-Infomessage "Restored from Backup" 
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             # Get-Infomessage "savecheck" 
@@ -235,7 +248,7 @@ Function New-BackupRestore {
 }
 
 Function Get-AppdataBackupMenu {
-    Write-log "Function: Get-AppdataBackupMenu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Show-AppdataMenu
     Get-Menu
     $restoreex = @'
@@ -256,7 +269,7 @@ Function New-backupAppdatarestore {
     Set-Console
     Write-Warning "Deleting Current $saves files"
     gci $savedata\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
-    Write-log "Function: New-backupAppdatarestore"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Expand-Archive -Path $backupdir\$restore -DestinationPath $savedata\$saves -Force
     If (!$?) {
         Write-Warning "AppData Restore Failed" -InformationAction Stop
@@ -264,7 +277,7 @@ Function New-backupAppdatarestore {
     }
 }
 Function Show-AppdataMenu {
-    Write-log "Function: Show-AppdataMenu"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option

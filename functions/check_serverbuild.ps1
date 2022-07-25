@@ -7,7 +7,7 @@
 #
 #
 Function Get-ServerBuildCheck {
-    Write-log "Function: Get-ServerBuildCheck"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         If ($appid) {
             If ($appid -eq 11500000 ) { 
@@ -55,10 +55,15 @@ Function Get-ServerBuildCheck {
                         Write-Warning 'Failed to retrieve Local build'
                         Write-log "Warning: Failed to retrieve Local build"
                     }
+                    clear-hostline 1
                     Write-Information "SteamDB: $remotebuild" -InformationAction Continue
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
+                    Write-Log "SteamDB: $remotebuild" -InformationAction Continue
+                    Write-Log "LocalBuild: $localbuild" -InformationAction Continue
+                    Start-Sleep -Seconds 2 
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
+                            clear-hostline 2
                             Get-Infomessage "availableupdates" 'update'
                             Get-SteamFix
                             If ($stoponupdateonstart -eq "on") {
@@ -68,7 +73,7 @@ Function Get-ServerBuildCheck {
                         }
                         Else {
                             Write-log "No $serverfiles Updates found"
-                            
+                            clear-hostline 2
                             Get-Infomessage "noupdates" 'info'
                         }
                     }
@@ -84,7 +89,7 @@ Function Get-ServerBuildCheck {
     }
 }
 Function Get-SteamFix {
-    Write-log "Function: Get-SteamFix"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $appid -and "$serverdir") {
         If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
             Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue

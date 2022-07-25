@@ -7,7 +7,7 @@
 #
 #
 Function Set-ConnectMCRcon {
-    Write-log "Function: Set-ConnectMCRcon"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         Write-log "Starting McRcon"
         If ($mcrconexecutable) {
@@ -41,7 +41,7 @@ Function Set-ConnectMCRcon {
     }
 }
 Function invoke-sourcerestart {
-    Write-log "Function: invoke-sourcerestart"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "Starting McRcon for source restart"
     If ($mcrconexecutable) {
         push-location

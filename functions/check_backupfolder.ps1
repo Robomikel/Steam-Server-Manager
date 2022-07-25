@@ -7,7 +7,7 @@
 #
 #
 Function New-BackupFolder {
-    Write-log "Function: Function New-BackupFolder"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $ssmlog  -and $loggingDate -and $bwd) {
         If (Test-Path $backupdir) { 
             Write-log "Backup folder exists! "

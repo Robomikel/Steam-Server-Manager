@@ -13,7 +13,7 @@ Function Get-StartServer {
         # [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)] 
         $launchParams
     )
-    Write-log "Function: Get-StartServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($launchParams -and $appid -and $executabledir) {
         Push-location
         Set-Location $executabledir
@@ -36,7 +36,7 @@ Function Get-StartServer {
     }
 }
 Function Select-StartServer {
-    Write-log "Function: Select-StartServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-Infomessage "starting" 'start'
     Get-StartServer $launchParams
     If ($?) {
@@ -44,7 +44,7 @@ Function Select-StartServer {
     }
 }
 Function Get-CheckServer {
-    Write-log "Function: Get-CheckServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         Write-log "Check Server process "
         If ($process) {
@@ -67,7 +67,7 @@ Function Get-CheckServer {
     }
 }
 Function Get-checkMultiple {
-    Write-log "Function: Get-checkMultiple"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
          Get-Infomessage "notrunning" "info"

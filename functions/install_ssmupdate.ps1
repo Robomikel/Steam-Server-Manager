@@ -30,12 +30,15 @@ Function Get-UpdateSteamer {
                             $ssmcontentlocaltrim = Get-Content $currentdir\functions\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                    clear-hostline 1
                                     Get-Infomessage 'ssmupdates' 'update'
                                     New-Item  "$currentdir\functions\$getlocalssmname" -Force >$null 2>&1
                                     Add-Content "$currentdir\functions\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
+                                    clear-hostline 1
                                     Get-Infomessage 'nossmupdates' 
+                                    
                                 }
                             }
                         }
@@ -69,12 +72,15 @@ Function Get-UpdateSteamerSSM {
                             $ssmcontentlocaltrim = Get-Content $currentdir\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                    clear-hostline 1
                                     Get-Infomessage 'ssmupdates' 'update'
                                     New-Item  "$currentdir\$getlocalssmname" -Force >$null 2>&1
                                     Add-Content "$currentdir\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
+                                    clear-hostline 1
                                     Get-Infomessage 'nossmupdates' 
+                                    
                                 }
                             }
                         }
@@ -105,12 +111,15 @@ Function Get-UpdateSteamerCSV {
                             $ssmcontentlocaltrim = Get-Content $currentdir\data\$getlocalssmname | Where-Object { $_ -notlike "" }
                             If ($ssmcontentlocaltrim ) {
                                 if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                    clear-hostline 1
                                     Get-Infomessage 'ssmupdates' 'update'
                                     New-Item  "$currentdir\data\$getlocalssmname" -Force >$null 2>&1
                                     Add-Content "$currentdir\data\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                 } 
                                 Else {
+                                    clear-hostline 1
                                     Get-Infomessage 'nossmupdates' 
+                                    
                                 }
                             }
                         }
@@ -142,17 +151,20 @@ Function Get-UpdateSteamerConfigDefault {
                                 $ssmcontentlocaltrim = Get-Content $currentdir\config-default\$getlocalssmname | Where-Object { $_ -notlike "" }
                                 If ($ssmcontentlocaltrim ) { 
                                     if (Compare-Object ($githubvarcontenttrim ) ($ssmcontentlocaltrim )) {
+                                        clear-hostline 1
                                         Get-Infomessage 'ssmupdates' 'update'
                                         New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
                                         Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
                                     } 
                                     Else {
+                                        clear-hostline 1
                                         Get-Infomessage 'nossmupdates' 
                                     }
                                 }
 
                             }
                             Else {
+                                clear-hostline 1
                                 Get-Infomessage 'ssmupdates' 'update'
                                 New-Item  "$currentdir\config-default\$getlocalssmname" -Force >$null 2>&1
                                 Add-Content "$currentdir\config-default\$getlocalssmname" $githubvarcontent -InformationAction  SilentlyContinue
@@ -167,7 +179,7 @@ Function Get-UpdateSteamerConfigDefault {
 }
 
 Function Get-SteamerConfigDefault {
-    Write-log "Function: Get-SteamerConfigDefault "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'

@@ -8,7 +8,7 @@
 #
 Function New-DiscordAlert {
     param ($alert)
-    Write-log "Function: New-DiscordAlert"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($DiscordAlert) {
         If ($DiscordAlert -eq "on") { 
             If (($discordwebhook)) {
@@ -70,10 +70,12 @@ Function New-DiscordAlert {
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
             }
             ElseIf (!$discordwebhook) {
+                clear-hostline 1
                 Get-warnmessage "missingwebhook"
             }
         }
         ElseIf ($DiscordAlert -eq "off") {
+            clear-hostline 1
             Get-warnmessage "discordnotenabled"
         }
     }
@@ -108,7 +110,7 @@ Function Send-DiscordAlert_old {
 }
 Function Send-DiscordAlert {
     $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
-    Write-log "Function: Send-DiscordAlert"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($alertmessage -and $alertmessagecolor) {
         # https://github.com/EvotecIT/PSDiscord
         $Uri = "$discordwebhook"
@@ -152,13 +154,14 @@ Function Send-DiscordAlert {
         }
         Else {
             $global:InfoMessage = 
+            clear-hostline 1
             Get-Infomessage "discord" 
         }    
     }
 }
 
 Function get-pode {
-    write-log "Function: get-pode"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (test-path "$podedirectory\Pode.psm1") {
         Write-log "Pode module found"
     }
@@ -166,6 +169,7 @@ Function get-pode {
         Get-GithubRestAPI $Podesetupowner $Podesetuprepo
         Write-log "Downloading Pode from github" 
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "downloading" 'Pode'
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
@@ -174,10 +178,13 @@ Function get-pode {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "downloaded" 'Pode'
             Write-log "Pode succeeded " 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Pode'
         try {
          Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force
@@ -193,6 +200,7 @@ Function get-pode {
             New-TryagainNew 
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Pode'
             Write-log "Extracting Pode succeeded  "  
         }

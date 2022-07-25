@@ -7,7 +7,7 @@
 #
 #
 Function New-ServerFolder {
-    Write-log "Function: New-ServerFolder"   
+    Write-log "Function: $($MyInvocation.Mycommand)"  
     ##-- Create Folder for Server -- In current folder
     If (!$serverfiles -or $serverfiles -eq " ") {
         Write-Warning ' You Enter a null or Empty '

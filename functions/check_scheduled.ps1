@@ -7,7 +7,7 @@
 #
 #
 Function Get-ChecktaskUnreg {
-    Write-log "Function: Get-ChecktaskUnreg"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles $command" >$null 2>&1
         If ($?) {
@@ -20,7 +20,7 @@ Function Get-ChecktaskUnreg {
     }
 }
 Function Get-ChecktaskDisable {
-    Write-log "Function: Get-ChecktaskDisable"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
@@ -35,7 +35,7 @@ Function Get-ChecktaskDisable {
     }
 }
 Function Get-ChecktaskEnable {
-    Write-log "Function: Get-ChecktaskEnable"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
@@ -50,7 +50,7 @@ Function Get-ChecktaskEnable {
     }
 }
 Function Get-ChecktaskDisabler {
-    Write-log "Function: Get-ChecktaskDisable"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
@@ -65,7 +65,7 @@ Function Get-ChecktaskDisabler {
     }
 }
 Function Get-ChecktaskEnabler {
-    Write-log "Function: Get-ChecktaskEnable"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if ($Checktask -eq "on") {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
@@ -80,7 +80,7 @@ Function Get-ChecktaskEnabler {
     }
 }
 Function Get-ChecktaskDetails {
-    Write-log "Function: Get-ChecktaskDetails"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
         If ($?) {
@@ -94,7 +94,7 @@ Function Get-ChecktaskDetails {
     }
 }
 Function Get-ChecktaskautorestartDetails {
-    Write-log "Function: Get-ChecktaskautorestartDetails"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
         Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
         If ($?) {

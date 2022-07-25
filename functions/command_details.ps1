@@ -7,7 +7,7 @@
 #
 #
 Function Get-DriveSpace {
-    Write-log "Function: Get-DriveSpace"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $t = Measure-Command { $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
             $n = $($_.Name ) ;   
             $u = $([Math]::Round($_.Used / 1GB));
@@ -19,7 +19,7 @@ Function Get-DriveSpace {
     write-log "Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
 }
 Function Get-DriveSpace_old {
-    Write-log "Function: Get-DriveSpace"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($psSeven -eq $true ) { 
         $disks = Get-CimInstance -class "Win32_LogicalDisk" -namespace "root\CIMV2" -computername $env:COMPUTERNAME
     }
@@ -40,7 +40,7 @@ Function Get-DriveSpace_old {
     }
 } 
 Function Get-Details {
-    Write-log "Function: Get-Details"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $host.UI.RawUI.ForegroundColor = "Cyan"
     Get-DriveSpace
     $portarrayname = @()
@@ -208,7 +208,7 @@ Function Get-Details {
 
 
 Function Get-Details_old {
-    Write-log "Function: Get-Details"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($psSeven -eq $true) { 
         $Cpu = (Get-CimInstance win32_processor | Measure-Object -property LoadPercentage -Average | Select-Object Average ).Average
         $CpuCores = (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors

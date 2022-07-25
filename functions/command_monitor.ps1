@@ -7,7 +7,7 @@
 #
 #
 Function Get-MonitorServer {
-    Write-log "Function: Get-MonitorServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($process) {
         If ($appid -eq "996560") { 
             Get-MonitorMultiple 
@@ -49,7 +49,7 @@ Function Get-MonitorServer {
     }
 }
 Function Get-MonitorMultiple {
-    Write-log "Function: Get-MonitorMultiple"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process 
     If (!$process) {
         Select-StartServer

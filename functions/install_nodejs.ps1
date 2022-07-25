@@ -7,19 +7,21 @@
 #
 #
 Function Add-NodeJS {
-    Write-log "Function: Add-NodeJS"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/$nodejslatest/" -UseBasicParsing
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
     $nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
     $nodejsoutput = "$nodeversion"
     If ($nodeversion) {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Nodejs'
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
         try {
             #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" 'Nodejs'
             }     
         }
@@ -28,7 +30,9 @@ Function Add-NodeJS {
             Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Nodejs'
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
         write-log "Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
@@ -40,6 +44,7 @@ Function Add-NodeJS {
             New-TryagainNew
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Nodejs'
         }
         Push-location
@@ -51,7 +56,7 @@ Function Add-NodeJS {
 }
 
 Function Add-gamedig {
-    Write-log "Function: Add-gamedig"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (!($(test-path $env:APPDATA\npm\gamedig))) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
@@ -61,7 +66,7 @@ Function Add-gamedig {
 }
 
 Function Add-discordjs {
-    Write-log "Function: Add-discordjs"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $n = npm ls discord.js
     if (($n[1] -match "empty") -or ($n -match "ERR!")) {
         # & "npm install gamedig"

@@ -10,7 +10,7 @@ Function Get-CreatedVaribles {
     If (!$serverfiles) {
         Param($serverfiles)
     }
-    Write-log "Function: Get-CreatedVaribles"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\Variables-$serverfiles.ps1 ) {
         . { 
             Invoke-Expression $serverdir\Variables-$serverfiles.ps1
@@ -22,7 +22,7 @@ Function Get-CreatedVaribles {
     }
 }
 Function Get-help {
-    Write-log "Function: Get-help"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host "Format:  ./ssm <Command> <serverFolderName>" -F Yellow -BackgroundColor Black
     Write-Host "IE:      ./ssm install  insserver" -F Yellow -BackgroundColor Black
     Write-Host "Command not found! Available Commands" -F Red -BackgroundColor Black
@@ -52,7 +52,7 @@ Function Get-ClearVariables {
         #$error | Out-File -Append -Encoding Default $ssmerrorlog
         $error > $ssmerrorlog
     }
-    Write-log "Function: Get-ClearVariables"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if ($disableclearvariable -ne $true) {
         $var = (Get-Variable * -scope global).Name
         Write-log "Removing Variables $var" 
@@ -61,7 +61,7 @@ Function Get-ClearVariables {
     }
 }
 Function Get-TestInterger {
-    Write-log "Function: Get-TestInterger" 
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($APPID) {
         If ( $APPID -notmatch '^[0-9]+$') { 
             Get-warnmessage "invalidnumbers"
@@ -70,7 +70,7 @@ Function Get-TestInterger {
     }
 }
 Function Get-TestString {
-    Write-log "Function: Get-TestString"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($serverfiles) {
         If ( $serverfiles -notmatch "[a-z,A-Z]") { 
             Get-warnmessage "invalidCharacters"  
@@ -81,11 +81,11 @@ Function Get-TestString {
     }
 }
 Function Set-Console {
-    Write-log "Function: Set-Console"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $logo -ne "off") {
         Clear-Host
         $host.ui.RawUi.WindowTitle = "...::: Steam-Server-Manager :::..."
-        [console]::ForegroundColor = "Green"
+        [console]::ForegroundColor = "White"
         [console]::BackgroundColor = "Black"
         $host.PrivateData.VerboseForegroundColor = 'White'
         # [console]::WindowWidth = 150; [console]::WindowHeight = 125; [console]::BufferWidth = [console]::WindowWidth
@@ -106,7 +106,7 @@ Function Set-Console {
     }
 }
 Function Get-Logo {
-    Write-log "Function: Get-Logo"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host " 
      _________ __                          _________              _____                 
     /   _____//  |_  ____ _____    _____  /   _____/_________  __/     \    ___________ 
@@ -117,7 +117,7 @@ Function Get-Logo {
 " -F C
 }
 Function Set-Steamer {
-    Write-log "Function: Set-Steamer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (!$command) {
         Select-Steamer 
     }
@@ -126,13 +126,13 @@ Function Set-Steamer {
     }
 }
 Function Set-VariablesPS {
-    Write-log "Function: Set-VariablesPS"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-Infomessage "creating" 'info'
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }
 
 Function Get-Savelocation {
-    Write-log "Function: Get-Savelocation"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( !$saves ) {
         Write-log "No saves located in App Data" 
     }
@@ -165,14 +165,14 @@ Function Get-Savelocation {
     }
 }
 Function Select-RenameSource {
-    Write-log "Function: Select-RenameSource"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     # Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
     Write-log "Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
     Rename-Item  "$executabledir\srcds.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
     Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable-x64.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
-    Write-log "Function: Select-EditSourceCFG"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
@@ -185,7 +185,7 @@ Function Select-EditSourceCFG {
     }
 }
 Function Select-EditSourceCFG_OLD {
-    Write-log "Function: Select-EditSourceCFG"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
         Write-log "Editing Default server.cfg"
@@ -220,11 +220,11 @@ Function Edit-ServerConfig {
             }
         }
     }
-    Write-log "Function: Edit-ServerConfig"
+    Write-log "Function: $($MyInvocation.Mycommand)"
 }
 
 Function Set-ServerConfig {
-    Write-log "Function: Set-ServerConfig"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $removelinenumber = @( 407480,1670340 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
@@ -266,7 +266,7 @@ Function Set-ServerConfig {
     }
 }
 Function New-ServerLog {
-    Write-log "Function: New-ServerLog"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($consolelogging -eq "on") { 
         If ($consolelog  ) {
             If (Test-Path $logdirectory\$consolelog  ) {
@@ -293,28 +293,28 @@ Function New-ServerLog {
     Remove-backupLogs
 }
 Function Remove-backupLogs {
-    Write-log "Function: Remove-backupLogs"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
         Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
-    Write-log "Function: Remove-ServerconsoleLogs"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
         Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
-    Write-log "Function: Remove-SteamerLogs"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
         Get-Childitem -Depth 1 $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Send-Paste_OLD {
-    Write-log "Function: "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($serverfiles) {
         If (Test-Path $currentdir\log\$serverfiles-*.log) {
             Set-Location $logdir
@@ -326,17 +326,17 @@ Function Send-Paste_OLD {
     }
 }
 Function New-ServerBackupLog {
-    Write-log "Function: New-ServerBackupLog"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like backup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function New-ServerAppDataBackupLog {
-    Write-log "Function: New-ServerAppDataBackupLog"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[A]*.log", -Destination "$logdir\AppDatabackup_$serverfiles-$date.log" -ea SilentlyContinue }
     Get-Childitem -Depth 1 $logdir -Recurse | where-object name -like AppDatabackup_$serverfiles-*.log | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
 }
 Function Get-Appid {
-    Write-log "Function: Get-Appid"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($serverfiles) {
         $global:AppID = Get-Content -path $serverlistdir\serverlist.csv | Select-String  -Pattern "\b$serverfiles\b"
         If ($Appid) {
@@ -395,7 +395,7 @@ Function Get-MCWebrequest {
     }
 }
 Function Get-MetaModWebrequest {
-    Write-log "Function: Get-SourceMetaModWebrequest"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     if ($appid = 346680) {
         $metamodlatest = iwr "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
@@ -446,7 +446,7 @@ Function Get-Sourcemodwebrequest {
     }
 }
 Function Get-PreviousInstall {
-    Write-log "Function: Get-PreviousInstall"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\Variables-*.ps1) {
         $check = (Get-Childitem -Depth 1 $serverdir | Where-Object { $_.Name -like 'Variables-*' } -ea SilentlyContinue)
         If ($check) {
@@ -461,42 +461,9 @@ Function Get-PreviousInstall {
         Get-ExtIP
     }
 }
-function Receive-Information {
-    process { 
-        If ($package -eq $true ) {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        } 
-        ElseIf ($package -eq $false ) {
-            Write-Host $_ -ForegroundColor Red -NoNewline 
-        } 
-        ElseIf ($package -eq 'update' ) {
-            Write-Host $_ -ForegroundColor Cyan -NoNewline 
-        }
-        ElseIf ($package -eq 'warning' ) {
-            Write-Host $_ -ForegroundColor Magenta -NoNewline 
-        }
-        ElseIf ($package -eq 'info' ) {
-            Write-Host $_ -ForegroundColor Yellow -NoNewline 
-        } 
-        ElseIf ($package -eq 'start' ) {
-            Write-Host $_ -ForegroundColor Yellow -NoNewline 
-        }
-        ElseIf ($package -eq 'done' ) {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        }
-        Else {
-            Write-Host $_ -ForegroundColor Green -NoNewline 
-        }   
-    }
-}
-function Receive-bracket {
-    process { Write-Host $_ -ForegroundColor White -NoNewline }
-}
-function Receive-Message {
-    process { Write-Host $_ -ForegroundColor $textcolor -NoNewline }
-}
+
 Function compare-SteamExit {
-    Write-log "Function: compare-SteamExit"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         If ($appinstalllog) {
             If ($appinstalllog -Like "Steam Guard code:FAILED*") {
@@ -533,7 +500,7 @@ Function compare-SteamExit {
     }
 }
 Function Test-PSversion {
-    Write-Log "Function: Test-PSversion"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $global:psSeven = ( $PSVersionTable.PSVersion.Major -eq 7 ) 
     If ($psSeven -eq $true ) {
         $psSeven = 1
@@ -543,7 +510,7 @@ Function Test-PSversion {
     }
 }
 Function Set-SteamerSettingLog {
-    Write-log "Function: Set-SteamerSettingLog"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "Setting: Show Backup Console = $Showbackupconsole "
     Write-log "Setting: backup log open = $backuplogopen"
     Write-log "Setting: backup logs  = $backuplogs "
@@ -587,7 +554,7 @@ Function Set-SteamerSettingLog {
     Write-Log "Settings: Backups Directory = $bwd\backups"
 }
 Function Test-VariablesNull {
-    Write-Log "Function: Get-VariablesNull"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $testvariable -eq "on" ) {
         Get-Variable | Where-Object Value -Like $null | ForEach-Object { if ($_.Name -notlike "ConsoleFileName" -and $_.Name -notlike "null" -and $_.Name -notlike "PSCommandPath" -and $_.Name -notlike "PSEmailServer" -and $_.Name -notlike "PSScriptRoot" -and $_.Name -notlike "discorddisplayip" -and $_.Name -notlike "discordwebhook" -and $_.Name -notlike "PastebinDeveloperKey" -and $_.Name -notlike "PastebinPassword" -and $_.Name -notlike "PastebinUsername" -and $_.Name -notlike "steamcmdparmas" -and $_.Name -notlike "`$" -and $_.Name -notlike "`^" -and $_.Name -notlike "StackTrace" -and $_.Name -notlike "option3" -and $_.Name -notlike "option2") { 
                 $name = $_.Name ; Write-log "WARNING: $name is empty variable"
@@ -596,7 +563,7 @@ Function Test-VariablesNull {
     }
 }
 Function Get-CustomSettings {
-    Write-Log "Function Get-CustomSettings"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     New-LocalFolder
     Write-log "Test-Path $currentdir\$configlocal\local_settings.ps1"
 
@@ -611,7 +578,7 @@ Function Get-CustomSettings {
     }
 }
 Function Set-Customsettings {
-    Write-Log "Function Set-Customsettings"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     New-Item "$currentdir\$configlocal\local_settings.ps1" -Force | Out-File -Append -Encoding Default  $ssmlog
     Add-Content "$currentdir\$configlocal\local_settings.ps1" `
         "Function Import-CustomSetting {
@@ -712,7 +679,7 @@ Function Set-Customsettings {
 }
 
 Function Import-localConfig {
-    Write-log "Function: Import-localConfig"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($getlocalssmname) {
         If ((Test-Path $currentdir\config-local\$getlocalssmname)) {
             Write-log "Import:  .$currentdir\config-local\$getlocalssmname"
@@ -733,7 +700,7 @@ Function Import-localConfig {
     }
 }
 Function Measure-stats {
-    Write-log "Function: Measure-stats"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $startTime = get-date
     $endTime = $startTime.addMinutes(1.0)
     $timeSpan = new-timespan $startTime $endTime
@@ -1309,12 +1276,12 @@ Function Write-Graph($YAxisLabelAlphabet, $YAxisLabel, $Row, $RowColor, $LabelCo
 }
 #################################################################################################################################################################
 Function Get-ExtIP {
-    Write-Log "Function: Get-ExtIP "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
 }
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
-    Write-log "Function Get-GithubRestAPI"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
@@ -1360,7 +1327,7 @@ Function Get-GithubRestAPI {
 }
 Function Add-Modtolist {
     param($modname, $modfile)
-    Write-log "Function: Add-Modtolist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (!$installedmods) {
         Write-log "Create Mods object"
         #$installedmods = @()
@@ -1372,7 +1339,7 @@ Function Add-Modtolist {
     
 }
 Function Get-installedMods {    
-    Write-log "Function: Get-installedMods"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path "$serverdir\mods.json") {
         $script:installedmods = Get-Content -Path $serverdir\mods.json | ConvertFrom-Json
     }
@@ -1381,7 +1348,7 @@ Function Get-installedMods {
     }
 }
 Function New-modlist {
-    Write-Log "Function: New-modlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($installedmods) {
         If ($mods.Mods) {
             $mods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
@@ -1400,7 +1367,7 @@ Function New-modlist {
 }
 Function Edit-Modlist {
     Param($modname, $modfile)
-    Write-log "Function: Edit-Modlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\mods.json) {
         If ($installedmods) {
             #            If ($($installedmods.Mods) -like "*$modname*") {
@@ -1431,7 +1398,7 @@ Function Edit-Modlist {
 
 Function Compare-Modlist {
     Param($modname, $modfile)
-    Write-log "Function: Compare-Modlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log " Param($modname, $modfile)"
     If (Test-Path $serverdir\mods.json) {
         Get-installedMods
@@ -1447,7 +1414,7 @@ Function Compare-Modlist {
 }
 
 Function start-pode {
-    Write-log "Function: Start-Pode"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $config = (gc config.json) | ConvertFrom-Json 
     $t = $null
     Do {

@@ -7,7 +7,7 @@
 #
 #
 Function New-RestartJobBG {
-    Write-log "Function: New-RestartJobBG"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($env:UserName -and $env:COMPUTERNAME) {
         $UserName = "$env:COMPUTERNAME\$env:UserName"
         Write-Host "Run Task Whether user is logged on or not" -F Cyan -NoNewline
@@ -27,8 +27,10 @@ Function New-RestartJobBG {
                 Get-Infomessage "Creating Task" 'start'
                 Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task -User "$UserName" -Password "$Password" -ea SilentlyContinue | Out-File -Append -Encoding Default  $ssmlog
                 If ($?){
+                    clear-hostline 1
                     Get-Infomessage "Creating Task" 'done'
                 } Else{
+                    clear-hostline 1
                     Get-Infomessage "Creating Task" $false
                 }
             }
@@ -36,7 +38,7 @@ Function New-RestartJobBG {
     }
 }
 Function New-RestartJob {
-    Write-log "Function: New-RestartJob"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host "Run Task only when user is logged on" -F Cyan -NoNewline
     Write-Host "Input AutoRestart Time. ie 3am: " -F Cyan -NoNewline
     $restartTime = Read-Host
@@ -49,8 +51,10 @@ Function New-RestartJob {
         Get-Infomessage "Creating Task" 'start'
         Register-ScheduledTask -TaskName "$serverfiles $command" -InputObject $Task | Out-File -Append -Encoding Default  $ssmlog
         If ($?){
+            clear-hostline 1
             Get-Infomessage "Creating Task" 'done'
         } Else{
+            clear-hostline 1
             Get-Infomessage "Creating Task" $false
         }
     }

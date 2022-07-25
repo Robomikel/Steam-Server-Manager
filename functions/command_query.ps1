@@ -7,7 +7,7 @@
 #
 #
 Function Get-GamedigServerv2 {
-    Write-log "Function: Get-GamedigServerv2"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         If ($nodejsdirectory) {
             Write-log "Starting gamedig on Server  "
@@ -120,7 +120,7 @@ Function Get-GamedigServerv2 {
 Function Get-GamedigServervMonitor {
     IF ($monquery -eq 'on') {
         Get-NodeJSCheck
-        Write-log "Function: Get-GamedigServervMonitor"
+        Write-log "Function: $($MyInvocation.Mycommand)"
         If ($ssmlog -and $loggingdate) {
             If ($nodejsdirectory) {
                 Write-log "Starting gamedig Monitor on Server  "

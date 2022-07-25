@@ -7,7 +7,7 @@
 #
 #
 Function Get-ValidateServer {
-    Write-log "Function: Get-ValidateServer"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamexecutable) {
         Push-location
         Set-Location $steamdirectory

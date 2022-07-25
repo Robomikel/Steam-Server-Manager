@@ -7,7 +7,7 @@
 #
 #
 Function Get-CheckNonSteam {
-    Write-log "Function: Get-CheckNonSteam"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($APPID -eq 11421000 -or $APPID -eq 11500000 ) {
         If ($command -eq "ForceUpdate" ) {
             Get-WarnMessage "ForceUpdate not available for this server" 'warning'

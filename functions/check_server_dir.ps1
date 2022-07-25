@@ -7,7 +7,7 @@
 #
 #
 Function Get-FolderNames {
-    Write-log "Function: Get-FolderNames"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking Folder Names "
         If ("$serverdir") {
@@ -25,7 +25,7 @@ Function Get-FolderNames {
 }
 
 Function New-LocalFolder {
-    Write-log "Function: New-LocalFolder"   
+    Write-log "Function: $($MyInvocation.Mycommand)" 
     ##-- 
     $global:configlocal = "config-local"
     If (Test-Path $currentdir\$configlocal ) {
@@ -42,7 +42,7 @@ Function New-LocalFolder {
 }
 
 Function New-defaultFolder {
-    Write-log "Function: New-defaultFolder"   
+    Write-log "Function: $($MyInvocation.Mycommand)"  
     ##-- 
     $global:configdefault = "config-default"
     If (Test-Path $currentdir\$configdefault) {

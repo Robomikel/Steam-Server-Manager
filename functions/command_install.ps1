@@ -8,7 +8,7 @@
 #
 #
 Function Install-ServerFiles {
-    Write-log "Function: Install-ServerFiles"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($APPID -eq 11421000) {
         Write-log "11421000 $true"
     }

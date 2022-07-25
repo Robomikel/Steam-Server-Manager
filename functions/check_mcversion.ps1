@@ -7,7 +7,7 @@
 #
 #
 Function Get-MCbrversion {
-    Write-log "Function: Get-MCbrversion"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $mcversion) {
         $localbuild = Get-Content $mcversion
         Get-MCBRWebrequest
@@ -30,7 +30,7 @@ Function Get-MCbrversion {
     }
 }
 Function Get-MCversion {
-    Write-log "Function: Get-MCversion"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $mcversion) {
         $localbuild = Get-Content $mcversion
         Get-MCWebrequest

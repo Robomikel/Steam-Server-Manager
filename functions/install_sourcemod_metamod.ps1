@@ -7,18 +7,20 @@
 #
 #
 Function Get-MetaMod {
-    Write-log "Function: Get-MetaMod"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-MetaModWebrequest
     If ($metamodlatestlisturl -and $metamodmversionzip) {
         If ($command -eq 'update-mods') {
             Compare-Modlist 'MetaMod' $metamodmversionzip
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No MetaMod updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
+            clear-hostline 1
             Get-Infomessage "Downloading" 'MetaMod'
             # (New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -33,9 +35,12 @@ Function Get-MetaMod {
                 Get-WarnMessage 'Downloadfailed' 'MetaMod'
             }
             ElseIf ($?) {
-                Get-Infomessage "Downloaded" 'MetaMod'
+                clear-hostline 1
+                Get-Infomessage "Downloaded" 'MetaMod' 
             } 
+            clear-hostline 1
             Get-Infomessage "downloadtime"
+            clear-hostline 1
             Get-Infomessage "Extracting" 'MetaMod'
             If ($metamodmversionzip -and $metamodmversionfolder) {
                 $metamodzip = @{
@@ -69,17 +74,19 @@ Function Get-MetaMod {
     }
 }
 Function Get-SourceMod {
-    Write-log "Function: Get-SourceMod"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-Sourcemodwebrequest
     If ($command -eq 'update-mods') {
         Compare-Modlist 'Sourcemod' $sourcemodmversionzip
     }
     If ($nomodupdate -eq $true) {
+        clear-hostline 1
         Get-Infomessage "No Sourcemod updates" 'info'
         return
     }
     Else {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'SourceMod'
         #(New-Object Net.WebClient).DownloadFile("$sourcemodurl", "$currentdir\sourcemod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -97,9 +104,12 @@ Function Get-SourceMod {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Downloaded" 'SourceMod'
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'SourceMod'
         $sourcemodzip = @{
             Path            = "$currentdir\$sourcemodmversionzip"
@@ -112,8 +122,10 @@ Function Get-SourceMod {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'SourceMod'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'SourceMod'
         If ($sourcemodmversionfolder -and $systemdir) { 
             $sourcemodaddons = @{
@@ -141,7 +153,7 @@ Function Get-SourceMod {
     }
 }
 Function Get-CSGOGet5 {
-    Write-log "Function: Get-CSGOGet5"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $csgoget5url -and $systemdir) {
         # This might work...
         $get5latestzip = $(($(iwr $csgoget5url).Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
@@ -151,12 +163,14 @@ Function Get-CSGOGet5 {
         }
         If ($nomodupdate -eq $true) {
             Write-log "($nomodupdate -eq $true)"
+            clear-hostline 1
             Get-Infomessage "No CSGO-Get5 updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
-            Get-Infomessage "Downloading" 'CSGO-Get5'
+            clear-hostline 1
+            Get-Infomessage "Downloading" 'CSGO-Get5'  
             $get5zip = @{
                 Uri     = "$get5latestdl"
                 OutFile = "$currentdir\$get5latestzip"
@@ -169,8 +183,10 @@ Function Get-CSGOGet5 {
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'CSGO-Get5'
+        clear-hostline 1
+        Get-Infomessage "Downloaded" 'CSGO-Get5' 
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $csgoget5folder = $currentdir, $($get5latestzip.Replace('.zip', '')) -join '\'
     $get5zip = @{
@@ -184,8 +200,10 @@ Function Get-CSGOGet5 {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'CSGO-Get5'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'CSGO-Get5'
     $get5folderaddons = @{
         Path        = "$csgoget5folder\addons"
@@ -210,7 +228,7 @@ Function Get-CSGOGet5 {
     Edit-Modlist 'CSGO-Get5' $get5latestzip
 }
 Function Get-CSGOcsgopugsetup {
-    Write-log "Function: Get-CSGOcsgopugsetup"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $systemdir) {
         # iwr $csgopugsetupurl -O $githubrepozipname
         if ($Pugsetupowner -and $Pugsetuprepo ) {
@@ -221,11 +239,13 @@ Function Get-CSGOcsgopugsetup {
         Compare-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
     If ($nomodupdate -eq $true) {
+        clear-hostline 1
         Get-Infomessage "No CSGO-pugsetup updates" 'info'
         return
     }
     Else {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'CSGO-pugsetup'
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) { 
@@ -233,8 +253,10 @@ Function Get-CSGOcsgopugsetup {
             New-TryagainNew 
         }
         ElseIf ($?) {
-            Get-Infomessage "Downloaded" 'CSGO-pugsetup'
+            clear-hostline 1
+            Get-Infomessage "Downloaded" 'CSGO-pugsetup'    
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
         $csgopugsetupfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
         $pugsetupzip = @{
@@ -248,8 +270,10 @@ Function Get-CSGOcsgopugsetup {
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'CSGO-pugsetup'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'CSGO-pugsetup'
         $pugsetupaddons = @{
             Path        = "$csgopugsetupfolder\addons"
@@ -275,18 +299,20 @@ Function Get-CSGOcsgopugsetup {
     }
 }
 Function Get-CSGOsteamworks {
-    Write-log "Function: Get-CSGOsteamworks"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamworksurl -and $systemdir) {
         $steamworkslatestzip = $( ($(iwr $steamworksurl).Links.href | select-string -SimpleMatch windows.zip | select -First 1 ).Line) 
         If ($command -eq 'update-mods') {
             Compare-Modlist 'SteamWorks' $steamworkslatestzip
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No SteamWorks updates" 'info'
             return
         }
         Else {
             $start_time = Get-Date
+            clear-hostline 1
             Get-Infomessage "Downloading" 'SteamWorks'
             $steamworkszip = @{
                 Uri     = "$steamworksurl$steamworkslatestzip"
@@ -300,8 +326,10 @@ Function Get-CSGOsteamworks {
         New-TryagainNew 
     }
     ElseIf ($?) {
-        Get-Infomessage "Downloaded" 'SteamWorks'
+        clear-hostline 1
+        Get-Infomessage "Downloaded" 'SteamWorks'  
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $steamworksfolder = $currentdir, $steamworkslatestzip -Replace '.zip', '' -join '\'
     $steamworkszip = @{
@@ -315,8 +343,10 @@ Function Get-CSGOsteamworks {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'SteamWorks'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'SteamWorks'
     $steamworksaddon = @{
         Path        = "$steamworksfolder\addons"

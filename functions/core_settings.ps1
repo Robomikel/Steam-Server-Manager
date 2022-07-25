@@ -7,7 +7,7 @@
 #
 #
 Function Set-SteamerSetting {
-    # Write-log "Function: Set-SteamerSetting"
+    # Write-log "Function: $($MyInvocation.Mycommand)"
     #                               ####  Steamer Settings #######
     #                               Show Backup Console
     $global:Showbackupconsole       = "on"

@@ -7,7 +7,7 @@
 #
 #
 Function install-mcrcon {
-    Write-log "Function: install-mcrcon"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($mcrconowner -and $mcrconrepo ) {
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -15,10 +15,12 @@ Function install-mcrcon {
         Get-GithubRestAPI $mcrconowner $mcrconrepo
         Write-log "Downloading MCRCon from github" 
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "downloading" 'MCRCon'
         try { 
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "downloaded" 'MCRCon'
                 Write-log "MCRCon succeeded " 
             }
@@ -29,17 +31,21 @@ Function install-mcrcon {
             Write-log "Downloading  MCRCon Failed"
             New-TryagainNew 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'MCRCon'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
-        Copy-Item  "$currentdir\$githubrepofolder\$githubrepofolder" -Destination $mcrcondirectory -Recurse -Force 
-        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        if (!(Test-Path $mcrcondirectory )) {New-Item $mcrcondirectory -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog}
+        Copy-Item -Path $currentdir\$githubrepofolder\* -Destination $mcrcondirectory -Recurse -Force -ErrorAction Stop
+        Remove-Item $currentdir\$githubrepofolder -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting MCRCon Failed'
             Write-log "Extracting MCRCon Failed " 
             New-TryagainNew 
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'MCRCon'
             Write-log "Extracting MCRCon succeeded  "  
         }

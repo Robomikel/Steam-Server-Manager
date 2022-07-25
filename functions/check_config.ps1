@@ -7,7 +7,7 @@
 #
 #
 Function Get-CheckForVars {
-    Write-log "Function: Get-CheckForVars"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
         Write-log "Checking Server Variables"
         If ($command) {

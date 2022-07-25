@@ -7,7 +7,7 @@
 #
 #
 Function Get-MCBRBinaries {
-    Write-log "Function: Get-MCBRBinaries"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     #################### MineCraftBedrock Install ################
     Get-MCBRWebrequest 
     Get-Infomessage "Downloading" 'Minecraft Bedrock'
@@ -21,7 +21,7 @@ Function Get-MCBRBinaries {
     ##############################################################
 }
 Function Get-MCjavaBinaries {
-    Write-log "Function: Get-MCjavaBinaries"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     #################### MineCraft Java Install ################
     java -version
         if ($?) {
@@ -49,5 +49,38 @@ Function Get-MCjavaBinaries {
     Else {
         Write-log "Failed: Java not Installed"
         Write-Warning "Java not Installed" -WarningAction Stop
+    }
+}
+Function Get-MCBRWebrequest {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    # get latest download
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+        if ($?) {
+            # Get-Infomessage "Downloaded" 'SteamCMD'
+        }
+    }
+    catch {
+        If (!$? -or !$mcbrWebResponse) {
+            Write-log "$($_.Exception.Message)"
+            Write-log "Failed: Get-MCBRWebrequest"
+            Exit
+        }
+    }
+}
+Function Get-MCWebrequest {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    # check latest version
+    try {
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
+        $global:mcvWebResponse = $mcvWebResponse.Latest.release
+    }
+    catch {
+        If (!$? -or !$mcvWebResponse) {
+            Write-log "Failed: Get-MCWebrequest"
+            Exit
+        }
     }
 }

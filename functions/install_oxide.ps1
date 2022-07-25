@@ -7,7 +7,7 @@
 #
 #
 Function Get-Oxide {
-    Write-log "Function: Get-Oxide"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($oxiderustowner -and $oxiderustrepo) {
         Get-GithubRestAPI $oxiderustowner $oxiderustrepo
         $oxideversion = ($githubrepoziplink).split('/')[7]
@@ -18,9 +18,11 @@ Function Get-Oxide {
             Compare-Modlist 'Oxide' "$oxideoutput"
         }
         If ($nomodupdate -eq $true) {
+            clear-hostline 1
             Get-Infomessage "No Oxide updates" 'info'
             return
         }
+        clear-hostline 1
         Get-Infomessage "Downloading" 'Oxide'
         #(New-Object Net.WebClient).DownloadFile("$oxiderustlatestlink", "$currentdir\oxide.zip")
         try {
@@ -29,6 +31,7 @@ Function Get-Oxide {
             write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" 'Oxide'
             }
         }
@@ -37,7 +40,9 @@ Function Get-Oxide {
             Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'Oxide'
         Write-Log "Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force"
         Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force
@@ -48,8 +53,10 @@ Function Get-Oxide {
             New-TryagainNew
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" 'Oxide'
         }
+        clear-hostline 1
         Get-Infomessage "copying-installing" 'Oxide'
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
@@ -61,12 +68,13 @@ Function Get-Oxide {
 }
 
 Function Get-undeadlegacy {
-    Write-log "Function: Get-undead-legacy"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
         $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" 'undead-legacy'
         $undeadurlzip = @{
             Uri     = "$undeadurllatestdl"
@@ -79,8 +87,10 @@ Function Get-undeadlegacy {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Downloaded" 'undead-legacy'
     }
+    clear-hostline 1
     Get-Infomessage "downloadtime"
     $undeadurlfolder = $currentdir, $($undeadurllatestzip.Replace('.zip', '')) -join '\'
     $undeadurlzip = @{
@@ -95,8 +105,10 @@ Function Get-undeadlegacy {
         New-TryagainNew 
     }
     ElseIf ($?) {
+        clear-hostline 1
         Get-Infomessage "Extracted" 'undead-legacy'
     }
+    clear-hostline 1
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
         Path        = "$undeadurlfolder\UndeadLegacy-master\*"
@@ -114,7 +126,7 @@ Function Get-undeadlegacy {
 
 Function Add-plugintolist {
     param($pluginname, $pluginfile)
-    Write-log "Function: Add-plugintolist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     if (!$installedplugins) {
         Write-log "Create plugins object"
         #$installedplugins = @()
@@ -126,7 +138,7 @@ Function Add-plugintolist {
     
 }
 Function Get-installedplugins {    
-    Write-log "Function: Get-installedplugins"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $installedpluginscount = Get-Content -Path $serverdir\plugins.json | select-string -SimpleMatch ".cs"
     if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
         write-log "Plugin removed"
@@ -140,7 +152,7 @@ Function Get-installedplugins {
     }
 }
 Function New-pluginlist {
-    Write-Log "Function: New-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($plugins.plugins) {
         $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
         Write-log "Edit plugins.plugins $($plugins.plugins) plugins.json"
@@ -157,7 +169,7 @@ Function New-pluginlist {
 }
 Function Edit-pluginlist {
     Param($pluginname, $pluginfile)
-    Write-log "Function: Edit-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\plugins.json) {
         If ($installedplugins) {
             If ($installedplugins.plugins -like "*$pluginname*") {
@@ -186,7 +198,7 @@ Function Edit-pluginlist {
 
 Function Compare-pluginlist {
     Param($pluginname, $pluginfile)
-    Write-log "Function: Compare-pluginlist"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\plugins.json) {
         Get-installedplugins
         $installedplugins | foreach {
@@ -197,7 +209,7 @@ Function Compare-pluginlist {
 }
 
 Function Initialize-plugins {
-    Write-log "Function: Initialize-plugins"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $script:pluginss = gci $serverdir\oxide\plugins | ? Name -like *.cs
     $pluginss |  foreach { 
         $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
@@ -212,7 +224,7 @@ Function Initialize-plugins {
 
 Function ping-pluginversion {
     param($pluginname, $pluginfile)
-    Write-log "Function: ping-pluginversion"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     [int]$version = $pluginfile.Split(".", 3)[2]
     $script:updatecheck = $version + 1
     $script:updatecheck = $pluginfile.Split(".", 3)[0] + '.' + $pluginfile.Split(".", 3)[1] + '.' + $updatecheck
@@ -226,11 +238,13 @@ Function ping-pluginversion {
     }
     if ($update.StatusCode -eq 200) {
         Write-log "Plugin Update: $pluginname, $pluginfile"
+        clear-hostline 1
         Get-Infomessage "Plugin Update: $pluginname" 'update'
         Receive-plugin $pluginname $pluginfile $updatecheck
     }
     ElseIf ($wr) {
         Write-log "Plugin: No update"
+        clear-hostline 1
         Get-Infomessage "No Plugin Update: $pluginname"
     }
     $update = $null
@@ -239,7 +253,7 @@ Function ping-pluginversion {
 
 Function Receive-plugin {
     param($pluginname, $pluginfile, $updatecheck)
-    write-log "Function: Receive-plugin "
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
     iwr $Uri -O $serverdir\oxide\plugins\$pluginname
     If (Test-Path $serverdir\oxide\plugins\$pluginname) {
@@ -253,7 +267,7 @@ Function Receive-plugin {
 }
 
 Function Get-BlackMesaSrcCoop {
-    Write-log "Function: Get-BlackMesaSrcCoop"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($bmdmsrccoopowner -and $bmdmsrccooprepo ) {
         #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -261,10 +275,12 @@ Function Get-BlackMesaSrcCoop {
         Get-GithubRestAPI $bmdmsrccoopowner $bmdmsrccooprepo
         Write-log "Downloading bmdmsrccoop from github" 
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "downloading" 'bmdmsrccoop'
         try { 
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "downloaded" 'bmdmsrccoop'
                 Write-log "bmdmsrccoop succeeded " 
             }
@@ -275,7 +291,9 @@ Function Get-BlackMesaSrcCoop {
             Write-log "Downloading  bmdmsrccoop Failed"
             New-TryagainNew 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
+        clear-hostline 1
         Get-Infomessage "Extracting" 'bmdmsrccoop'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
         Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $systemdir -Recurse -Force 
@@ -286,6 +304,7 @@ Function Get-BlackMesaSrcCoop {
             New-TryagainNew 
         }
         ElseIf ($?) { 
+            clear-hostline 1
             Get-Infomessage "Extracted" 'bmdmsrccoop'
             Write-log "Extracting bmdmsrccoop succeeded  "  
         }

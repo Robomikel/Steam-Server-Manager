@@ -7,7 +7,7 @@
 #
 #
 Function Set-SteamInfo {
-    Write-log "Function: Set-SteamInfo"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Install Steam server with Anonymous login'
     $question = 'Use Anonymous Login?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -28,7 +28,7 @@ Function Set-SteamInfo {
     }
 }
 Function New-TryagainNew {
-    Write-log "Function: New-TryagainNew"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Try again?'
     $question = "$command $serverfiles ?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -47,7 +47,7 @@ Function New-TryagainNew {
     }
 }
 Function New-TryagainSteam {
-    Write-log "Function: New-TryagainSteam"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = ' Install Successful?'
     $question = "Was the Install Successful?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -65,7 +65,7 @@ Function New-TryagainSteam {
     }
 }
 Function New-TryagainSteamLogin {
-    Write-log "Function: New-TryagainSteamLogin"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = ' Login Successful?'
     $question = "Was the Login Successful?"
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -83,7 +83,7 @@ Function New-TryagainSteamLogin {
     }
 }
 Function New-ServerFolderq {
-    Write-log "Function: New-ServerFolderq"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Server Folder Name does not exist!'
     $question = 'Would you like to to create new Server Folder Name?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -101,7 +101,7 @@ Function New-ServerFolderq {
     }
 }
 Function Get-OxideQ {
-    Write-log "Function: Get-OxideQ"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Download Oxide'
     $question = 'Download Oxide and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -117,7 +117,7 @@ Function Get-OxideQ {
     }
 }
 Function Get-SourceMetaModQ {
-    Write-log "Function: Get-SourceMetaModQ"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Download MetaMod and SourceMod'
     $question = 'Download MetaMod, SourceMod and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -135,7 +135,7 @@ Function Get-SourceMetaModQ {
     }
 }
 Function Get-InstallForgeQ {
-    Write-log "Function: Get-InstallForgeQ"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Download Forge'
     $question = 'Download Forge and install?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -151,7 +151,7 @@ Function Get-InstallForgeQ {
     }
 }
 Function Set-MonitorJob {
-    Write-log "Function: Set-MonitorJob"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Create Monitor Task Job'
     $question = 'Run Task Whether user is logged on or not?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -170,7 +170,7 @@ Function Set-MonitorJob {
     }
 }
 Function Set-RestartJob {
-    Write-log "Function: Set-RestartJob"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Create Restart Task Job'
     $question = 'Run Task Whether user is logged on or not?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -189,7 +189,7 @@ Function Set-RestartJob {
     }
 } 
 Function New-AppDataSave {
-    Write-log "Function: New-AppDataSave"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $title = 'Game has Saves located in AppData'
     $question = 'Backup Appdata for server?'
     $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -207,7 +207,7 @@ Function New-AppDataSave {
 }
 Function New-LocalConfig {
     If ($Version -eq 1) {
-        Write-log "Function: New-localConfig"
+        Write-log "Function: $($MyInvocation.Mycommand)"
         $title = 'New config-local Created'
         $question = 'Pause to edit config-local?'
         $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
@@ -228,7 +228,7 @@ Function New-LocalConfig {
     }
 }
 Function Get-UserInput {
-    Write-log "Function: Get-UserInput"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($version -eq 0) {
         Set-Console
         # Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y

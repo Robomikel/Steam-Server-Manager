@@ -7,9 +7,10 @@
 #
 #
 Function Add-Sevenzip {
-    Write-log "Function: Add-Sevenzip"
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($sevenzipurl -and $sevenzipoutput) {
         $start_time = Get-Date
+        clear-hostline 1
         Get-Infomessage "Downloading" '7ZIP'
         #(New-Object Net.WebClient).DownloadFile("$sevenzipurl", "$currentdir\7za920.zip")
         $sevenzip = @{
@@ -20,6 +21,7 @@ Function Add-Sevenzip {
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             Invoke-WebRequest @sevenzip 
             If ($?) {
+                clear-hostline 1
                 Get-Infomessage "Downloaded" '7ZIP'
             }
         }
@@ -28,14 +30,17 @@ Function Add-Sevenzip {
             Get-WarnMessage 'Downloadfailed' '7ZIP'
             New-TryagainNew 
         }
+        clear-hostline 1
         Get-Infomessage "downloadtime"
         Expand-Archive $sevenzipoutput $sevenzipdirectory -Force
+        clear-hostline 1
         Get-Infomessage "Extracting" '7ZIP'
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' '7ZIP'
             New-TryagainNew 
         }
         ElseIf ($?) {
+            clear-hostline 1
             Get-Infomessage "Extracted" '7ZIP'
         }
     }
