@@ -22,6 +22,7 @@ Function New-BackupServer {
             If ($Showbackupconsole -eq "on") { 
                 $backuplogopen = 'off'
                 Write-log "Disabled: open backup log. show backup console on"
+                clear-hostline 1
                 Get-Infomessage "backupstart" 'start'
                 write-log "Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*`") -Wait"
                 Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
@@ -30,6 +31,7 @@ Function New-BackupServer {
                 }
             }
             ElseIf ($Showbackupconsole -eq "off") {
+                clear-hostline 1
                 Get-Infomessage "backupstart" 'start'
                 #./7za a $currentdir\backups\Backup_$serverfiles-$BackupDate.zip $serverdir\* -an > backup.log
                 Get-Childitem -Depth 1 $sevenzipdirectory | Where-Object { $_ -like '*.log' } | Remove-item 
@@ -224,6 +226,7 @@ Function New-BackupRestore {
         }
         Write-Warning "Deleting Current $serverfiles files"
         gci $serverdir -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+        clear-hostline 1
         Get-Infomessage "Restore from Backup" 'start'
         Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$serverdir" -Force
         If (!$?) {

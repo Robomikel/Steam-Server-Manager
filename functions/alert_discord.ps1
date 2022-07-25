@@ -70,10 +70,12 @@ Function New-DiscordAlert {
                 # Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'  
             }
             ElseIf (!$discordwebhook) {
+                clear-hostline 1
                 Get-warnmessage "missingwebhook"
             }
         }
         ElseIf ($DiscordAlert -eq "off") {
+            clear-hostline 1
             Get-warnmessage "discordnotenabled"
         }
     }
