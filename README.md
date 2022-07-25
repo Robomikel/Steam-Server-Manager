@@ -5,15 +5,14 @@ PowerShell Steam Server Manager
 
  
 Install Any location:
-Download, Extract, and Open PowerShell and Change Directory to ssm.ps1
-Server install in the location of ssm. before install change directory to the location you want the server.   
-
-> Windows 10 may require to unblock Downloaded files.in the Directoy Use ```gci -r | Unblock-File``` command   
+Download, Extract, and Open PowerShell and Change Directory to ssm.ps1 to run script. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM)      
+> Windows 10 may require to unblock Downloaded files. In the Steam-Manager-Folder. Use ```gci -r | Unblock-File``` command   
 
 > Add SSM to Path to use `ssm` command in any directory without `./` [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM-to-PATH)
 
 
-# Install SSM
+# Install SSM   
+ 
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
@@ -21,7 +20,12 @@ PS Commands:
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
 ```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
 ```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
-```Set-Location Steam-Server-Manager```   
+```Set-Location Steam-Server-Manager```  
+
+- Servers install in the location of Steam-Server-Manager folder.  
+- Before install you can change the server install directory to the location you want. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Custom-Backup-and-ServerFiles-Directories)   
+- If you have an existing  Server folder. Put the Server Folder (Only Server files) in the Steam-Server-Manager Folder or use above method to point to directory.    
+- If you have an existing  steamcmd Folder. Remove the ServerFiles from SteamCMD and put SteamCMD folder in root of Steam-Server-Manager. Folder Named "SteamCMD" 
 
 # Console Menu   
 Displays in console menu. Interactive Console Menu for SSM.   
@@ -38,7 +42,7 @@ During server install will download and copy `default-config\*_default.ps1` to `
 ```\Steam-Server-Manager\config-local\*_default.ps1```   
 Change any vars like port/s or server name.  
 
-If Optional name is used, will grab APP ID   
+Recommned using Optional name, It will automatically grab APP ID   
 
 Example:          
 Install miscreated server ```./ssm install misserver```   
@@ -204,8 +208,8 @@ Install miscreated server ```./ssm install misserver```
  - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
 # Configure
-- change default variables for server in ```\config-local\*_default.ps1```. Appears during install. SSM will prompt for edit or change $version "0" in config-local\local_settings.ps1 to prompt for each variable   
-- After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params.   
+- change default variables for server in ```\config-local\*_default.ps1```. Appears during install. SSM will prompt for edit.     
+- After install can edit ```\ServerFolder\variables-*.ps1``` to change launch vars or edit Launch Params. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Changing-Per-instance-variables)     
 - ```\config-local\local_settings.ps1``` change some of the default features. Discord Webhook Goes here. local_settings.ps1 will be created on first run.   
 -  "core_settings.ps1" and "default-config" will be overwritten during update. Use config-local for changes..   
 - Server console log to pastebin ```\functions\core_pastebin.ps1 ``` (dev key and creds in local_settings.ps1 and enable)   
