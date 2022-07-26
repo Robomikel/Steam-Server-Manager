@@ -206,25 +206,16 @@ Function New-AppDataSave {
     }
 }
 Function New-LocalConfig {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     If ($advanced -eq 'on') {
-        Write-log "Function: $($MyInvocation.Mycommand)"
-        $title = 'New config-local Created'
-        $question = 'Pause to edit config-local?'
-        $choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
-        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
-        $choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
-        $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
-        If ($decision -eq 0) {
-            Write-Information "Edit config-local in $currentdir\config-local\$getlocalssmname. Save and Press Enter..."
-            pause 
-            Import-localConfig       
-        } 
-        Else {
-            Import-localConfig
-        }
-    } 
-    Else {
-        Import-localConfig
+        Write-Host "Edit config-local in                      " -ForegroundColor Black -BackgroundColor White
+        Write-Host " $currentdir\config-local\$getlocalssmname"  -ForegroundColor Black -BackgroundColor White
+        Write-Host "Save file and Press Enter...              " -ForegroundColor Black -BackgroundColor White
+        $null = Read-Host
+        Import-localConfig       
+    }
+    Else{
+        Import-localConfig   
     }
 }
 Function Get-UserInput {
@@ -275,6 +266,10 @@ Function Get-UserInput {
         If ($oauthtoken) {
             $defaultoauthtoken = "$oauthtoken"
             If (($global:oauthtoken = Read-Host -P(Write-Host "Enter Server oauthtoken, Press Enter to Accept  [$oauthtoken]: "-F CY -N )) -eq '') { $global:oauthtoken = "$defaultoauthtoken" }Else { $oauthtoken }
+        }
+        If ($modsenabled) {
+            $defaultmodsenabled = "$modsenabled"
+            If (($global:modsenabled = Read-Host -P(Write-Host "Enter Server modsenabled, Press Enter to Accept  [$modsenabled]: "-F CY -N )) -eq '') { $global:modsenabled = "$defaultmodsenabled" }Else { $modsenabled }
         }
         If ($defaultmap) {
             $defaultdefaultmap = "$defaultmap"
