@@ -206,7 +206,7 @@ Function New-AppDataSave {
     }
 }
 Function New-LocalConfig {
-    If ($Version -eq 1) {
+    If ($advanced -eq 'on') {
         Write-log "Function: $($MyInvocation.Mycommand)"
         $title = 'New config-local Created'
         $question = 'Pause to edit config-local?'
@@ -229,7 +229,7 @@ Function New-LocalConfig {
 }
 Function Get-UserInput {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    If ($version -eq 0) {
+    If ($advanced-eq 'off') {
         Set-Console
         # Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
         Write-Host "Enter to Accept Default Value..." -F Y

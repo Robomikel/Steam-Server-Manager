@@ -37,9 +37,8 @@ ssm accepts 1 or 2 parameters. first param specifies ssm command and the second 
 
 Configure during install :     
 During server install will download and copy `default-config\*_default.ps1` to `config-local\*_default.ps1`. Will Prompt for input to change default variables like ports and servername. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Configure-Default-Variables-during-Game-Server-install) 
->change $version "1" in config-local\local_settings before run to disable prompt for input to change default variables.  
-```\Steam-Server-Manager\config-local\*_default.ps1```   
-Change any vars like port/s or server name.  
+>change "$advanced = 1" in config-local\local_settings before run to disable prompt for input to change default variables. Pauses to allow manual edit of 
+```\Steam-Server-Manager\config-local\*_default.ps1``` change any vars like port/s or server name.    
 
 Recommned using Optional name, It will automatically grab APP ID   
 

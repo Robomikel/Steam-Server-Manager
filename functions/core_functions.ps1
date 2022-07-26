@@ -535,7 +535,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: ssmlogging  = $ssmlogging   "
     Write-log "Setting: ssmlogging count   = $ssmlogcount   "
     Write-log "Setting: Console Text Color   = $textcolor  "
-    Write-log "Setting: Version  = $Version  "
+    Write-log "Setting: advanced  = $advanced "
     Write-log "Setting: Server List Directory   = $serverlistdir"
     Write-log "Setting: SSM Directory  = $currentdir "
     Write-log "Setting: Backup Directory  = $bwd "
@@ -632,8 +632,8 @@ Function Set-Customsettings {
     `$global:ssmlogcount             = `"$ssmlogcount`"
     #                               Console Text Color 
     `$global:textcolor               = `"$textcolor`" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
-    #                               Version  0 prompt for input, 1 no prompt during install
-    `$global:Version                 = `"$Version`"
+    #                               Advanced Mode: Pauses during Install to allow a manual edit of config-local\*_default.ps1 
+    `$global:advanced                = `"$advanced`"
     #                               Server List Directory
     `$global:serverlistdir           = `"$serverlistdir`"
     #                               ssm log Directory
