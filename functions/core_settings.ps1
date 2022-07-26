@@ -58,7 +58,7 @@ Function Set-SteamerSetting {
     #                               Console Text Color 
     $global:textcolor               = "White" # DarkBlue DarkGreen DarkCyan DarkRed DarkMagenta DarkYellow Gray DarkGray Blue Green Cyan Red Magenta Yellow White
     #                               Advanced Mode: Pauses during Install to allow Manual Edit of config-local\*_default.ps1 
-    $global:advanced                = "0ff"
+    $global:advanced                = "off"
     #                               Server List Directory
     $global:serverlistdir           = "$currentdir\data"
     #                               ssm log Directory

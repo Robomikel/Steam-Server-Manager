@@ -229,7 +229,7 @@ Function New-LocalConfig {
 }
 Function Get-UserInput {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    If ($advanced-eq 'off') {
+    If ($advanced -eq 'off') {
         Set-Console
         # Write-Host "$SMILEY_BLACK Need More Input... $SMILEY_BLACK" -F Y
         Write-Host "Enter to Accept Default Value..." -F Y
