@@ -148,6 +148,7 @@ Install miscreated server ```./ssm install misserver```
    * Isles of Yore Dedicated Server  (1827320) - "isleofyoreserver" (optional server folder name)
    * V Rising Dedicated Server  (1829350) - "vrisingserver" (optional server folder name)
    * Arma Reforger Server  (1874900) - "armareforgerserver" (optional server folder name)
+   * Crafting Dead Server  (685100) - "craftingdeadserver" (optional server folder name)
    
    -----   
  # Features  
