@@ -24,11 +24,13 @@ Function Get-MonitorServer {
                     If ($null -ne $pingstatus) {
                         # get-process $process
                         if ($?) {
+                            clear-hostline 1
                             Get-Infomessage "running" 
                         }
                     }
                     Else{
                         Write-log "Monitor: Cannot Query Server"
+                        clear-hostline 1
                         Get-Infomessage "running" $false
                         Get-RestartsServer
                         New-DiscordAlert "query-restart"
@@ -37,6 +39,7 @@ Function Get-MonitorServer {
                 Else {
                     get-process $process
                     if ($?) {
+                        clear-hostline 1
                         Get-Infomessage "running" 
                     }
 
@@ -58,9 +61,11 @@ Function Get-MonitorMultiple {
     Else {
         get-process $process 
         If ($?) {
+            clear-hostline 1
             Get-Infomessage "running" 
         } 
         Else {
+            clear-hostline 1
             Get-Infomessage "running" $false
         }
         Get-ClearVariables 

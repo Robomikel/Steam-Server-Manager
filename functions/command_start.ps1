@@ -37,9 +37,11 @@ Function Get-StartServer {
 }
 Function Select-StartServer {
     Write-log "Function: $($MyInvocation.Mycommand)"
+    clear-hostline 1
     Get-Infomessage "starting" 'start'
     Get-StartServer $launchParams
     If ($?) {
+        clear-hostline 1
         Get-Infomessage "starting" 
     }
 }
@@ -53,9 +55,11 @@ Function Get-CheckServer {
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                    clear-hostline 1
                     Get-Infomessage "notrunning" 'info'
                 }
                 Else {
+                    clear-hostline 1
                     Get-Infomessage "running" 'info'
                     # $process
                     Get-ClearVariables
@@ -70,9 +74,11 @@ Function Get-checkMultiple {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
+        clear-hostline 1
          Get-Infomessage "notrunning" "info"
     }
     Else {
+        clear-hostline 1
         Get-Infomessage "running" 
         # $process
         Get-ClearVariables 
