@@ -149,6 +149,7 @@ Install miscreated server ```./ssm install misserver```
    * V Rising Dedicated Server  (1829350) - "vrisingserver" (optional server folder name)
    * Arma Reforger Server  (1874900) - "armareforgerserver" (optional server folder name)
    * Crafting Dead Server  (685100) - "craftingdeadserver" (optional server folder name)
+   * StickyBots Dedicated Server  (974130) - "stickybotsserver" (optional server folder name)
    
    -----   
  # Features  
