@@ -60,6 +60,9 @@ Function Show-ModMenu {
     ElseIf ($appid -eq 346680){
         $command = Menu @('bmdm-srccoop')
     }
+    ElseIf ($appid -eq 403240){
+        $command = Menu @('GC-Server-Conf-Template')
+    }
     Set-Console
     If ($command -eq 'SourceMod') {
         # Get-SourceMetaMod
@@ -84,6 +87,9 @@ Function Show-ModMenu {
     }
     ElseIf ($command -eq 'Oxide') {
         Get-Oxide
+    }
+    ElseIf ($command -eq 'GC-Server-Conf-Template') {
+        Get-GCServerConfTemplate 
     }
     ElseIf ($command -eq 'subquakes-undead-legacy') {
         #Get-Oxide

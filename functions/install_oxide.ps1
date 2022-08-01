@@ -315,3 +315,52 @@ Function Get-BlackMesaSrcCoop {
         Exit
     }
 }
+Function Get-GCServerConfTemplate  {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ($gcserverconfowner -and $gcserverconfrepo ) {
+        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        #Invoke-WebRequest -Uri $bmdmsrccoopurl -OutFile $bmdmsrccoopoutput
+        Get-GithubRestAPI $gcserverconfowner $gcserverconfrepo
+        Write-log "Downloading GC-Server-Conf-Template from github" 
+        $start_time = Get-Date
+        clear-hostline 1
+        Get-Infomessage "downloading" 'GC-Server-Conf-Template'
+        try { 
+            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            If ($?) {
+                clear-hostline 1
+                Get-Infomessage "downloaded" 'GC-Server-Conf-Template'
+                Write-log "GC-Server-Conf-Template succeeded " 
+            }
+        }
+        catch { 
+            Write-log "$($_.Exception.Message)" 
+            Write-Warning 'Downloading  GC-Server-Conf-Template Failed'
+            Write-log "Downloading  GC-Server-Conf-Template Failed"
+            New-TryagainNew 
+        }
+        clear-hostline 1
+        Get-Infomessage "downloadtime"
+        clear-hostline 1
+        Get-Infomessage "Extracting" 'GC-Server-Conf-Template'
+        Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
+        Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $servercfgdir -Recurse -Force 
+        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        If (!$?) {
+            Write-Warning 'Extracting GC-Server-Conf-Template Failed'
+            Write-log "Extracting GC-Server-Conf-Template Failed " 
+            New-TryagainNew 
+        }
+        ElseIf ($?) { 
+            clear-hostline 1
+            Get-Infomessage "Extracted" 'GC-Server-Conf-Template'
+            Write-log "Extracting GC-Server-Conf-Template succeeded  "  
+        }
+    }
+    Else {
+        Write-log "install-GC-Server-Conf-Template Failed: $bmdmsrccoopurl $githubrepozipname"
+        Write-Warning 'fn_install-GC-Server-Conf-Template Failed'
+        Exit
+    }
+}

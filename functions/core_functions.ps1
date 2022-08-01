@@ -127,6 +127,7 @@ Function Set-Steamer {
 }
 Function Set-VariablesPS {
     Write-log "Function: $($MyInvocation.Mycommand)"
+    clear-hostline 1
     Get-Infomessage "creating" 'info'
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force
 }

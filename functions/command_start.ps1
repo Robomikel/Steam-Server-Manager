@@ -28,6 +28,10 @@ Function Get-StartServer {
             Start-Process CMD "/c $launchParams"
             Write-Log "Start-Process CMD /c $launchParams"
         } 
+        ElseIf ($appid -eq 685100){
+            Start-Process CMD -ArgumentList $launchParams
+            Write-Log "Start-Process CMD $launchParams"
+        } 
         Else {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
             Write-Log "Start-Process CMD /c start $launchParams  -NoNewWindow"
@@ -37,9 +41,11 @@ Function Get-StartServer {
 }
 Function Select-StartServer {
     Write-log "Function: $($MyInvocation.Mycommand)"
+    clear-hostline 1
     Get-Infomessage "starting" 'start'
     Get-StartServer $launchParams
     If ($?) {
+        clear-hostline 1
         Get-Infomessage "starting" 
     }
 }
@@ -53,9 +59,11 @@ Function Get-CheckServer {
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                    clear-hostline 1
                     Get-Infomessage "notrunning" 'info'
                 }
                 Else {
+                    clear-hostline 1
                     Get-Infomessage "running" 'info'
                     # $process
                     Get-ClearVariables
@@ -70,9 +78,11 @@ Function Get-checkMultiple {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
+        clear-hostline 1
          Get-Infomessage "notrunning" "info"
     }
     Else {
+        clear-hostline 1
         Get-Infomessage "running" 
         # $process
         Get-ClearVariables 

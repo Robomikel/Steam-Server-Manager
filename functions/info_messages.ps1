@@ -160,24 +160,16 @@ Function Get-Infomessage {
 }
 Function clear-hostline {
     Param (
-
-	[Parameter(Position=1)]
-	[int32]$Count=1
-
-)
-
-$CurrentLine  = $Host.UI.RawUI.CursorPosition.Y
-$ConsoleWidth = $Host.UI.RawUI.BufferSize.Width
-
-$i = 1
-for ($i; $i -le $Count; $i++) {
-	
-	[Console]::SetCursorPosition(0,($CurrentLine - $i))
-	[Console]::Write("{0,-$ConsoleWidth}" -f " ")
-
-}
-
-[Console]::SetCursorPosition(0,($CurrentLine - $Count))
+        [Parameter(Position = 1)]
+        [int32]$Count = 1)
+    $CurrentLine = $Host.UI.RawUI.CursorPosition.Y
+    $ConsoleWidth = $Host.UI.RawUI.BufferSize.Width
+    $i = 1
+    for ($i; $i -le $Count; $i++) {
+        [Console]::SetCursorPosition(0, ($CurrentLine - $i))
+        [Console]::Write("{0,-$ConsoleWidth}" -f " ")
+    }
+    [Console]::SetCursorPosition(0, ($CurrentLine - $Count))
 }
 Function Send-Mess {
     param($message,$info)

@@ -14,9 +14,11 @@ Function Get-StopServer {
     Else {
         If ($process) {
             If ( !(Get-Process $process -ea SilentlyContinue)) {
+                clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
             Else { 
+                clear-hostline 1
                 Get-Infomessage "stopping" 'start'
                 #Stop-Process -Name $process -Force 
                 Write-log "Stop Process: $process"
@@ -80,9 +82,11 @@ Function Get-StopServerInstall {
     Else {
         If ($process) {
             If (! (Get-Process $process -ea SilentlyContinue)) {
+                clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
             Else {
+                clear-hostline 1
                 Get-Infomessage "stopping" 'start'
                 #Stop-Process -Name "$process" -Force
                 Write-log "Stop Process: $process"
@@ -106,7 +110,9 @@ Function Get-StopServerInstall {
                 }
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
+                    clear-hostline 1
                     Get-Infomessage " smooth stop failed" 'warning'
+                    clear-hostline 1
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
@@ -115,10 +121,12 @@ Function Get-StopServerInstall {
                         Get-warnmessage "stoppedfailed"
                     }
                     Elseif (!$processstatus) {
+                        clear-hostline 1
                         Get-Infomessage "stopped" 
                     }
                 }
                 Elseif (!$processstatus) {
+                    clear-hostline 1
                     Get-Infomessage "stopped" 
                 }
                 If ($consolelogging -eq "on") { 
@@ -134,9 +142,11 @@ Function Get-StopMultiple {
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {
+            clear-hostline 1
             Get-Infomessage "notrunning" 'info'
         }
         Else {
+            clear-hostline 1
             Get-Infomessage "stopping" 'start'
             $p = get-process | Where-Object { $_.ProcessName -match $process }
             $p | foreach {
@@ -151,21 +161,26 @@ Function Get-StopMultiple {
                 }
                 $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
                 If ($mprocess) {
+                    clear-hostline 1
                     Get-Infomessage " smooth stop failed" 'warning'
+                    clear-hostline 1
                     Get-Infomessage " force stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
                 }
                 Elseif (!$processstatus) {
+                    clear-hostline 1
                     Get-Infomessage "stopped" 
                 }
             }
             $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
             If ($mprocess) {
+                clear-hostline 1
                 Get-warnmessage "stoppedfailed"
                 
             }
             Elseif (!$processstatus) {
+                clear-hostline 1
                 Get-Infomessage "stopped" 
             }
             If ($consolelogging -eq "on") { 
