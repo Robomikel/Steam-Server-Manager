@@ -150,6 +150,7 @@ Install miscreated server ```./ssm install misserver```
    * Arma Reforger Server  (1874900) - "armareforgerserver" (optional server folder name)
    * Crafting Dead Server  (685100) - "craftingdeadserver" (optional server folder name)
    * StickyBots Dedicated Server  (974130) - "stickybotsserver" (optional server folder name)
+   * Unfortunate Spacemen Dedicated Server  (824240) - "spacemanserver" (optional server folder name)
    
    -----   
  # Features  
