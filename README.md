@@ -151,6 +151,7 @@ Install miscreated server ```./ssm install misserver```
    * Crafting Dead Server  (685100) - "craftingdeadserver" (optional server folder name)
    * StickyBots Dedicated Server  (974130) - "stickybotsserver" (optional server folder name)
    * Unfortunate Spacemen Dedicated Server  (824240) - "spacemanserver" (optional server folder name)
+   * DayZ Server  (223350) - "dayzserver" (optional server folder name)
    
    -----   
  # Features  
