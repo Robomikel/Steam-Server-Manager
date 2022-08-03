@@ -197,6 +197,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm restore <serverFolder>``` - Lists zip folder backups of server files in backups folder and overwrites serverfiles with backup files.   
  - ```./ssm install-monitor <serverFolder>``` - Creates Scheduled Task to monitor server   
  - ```./ssm install-restart <serverFolder>``` - create scheduled task to restart server daily.    
+ - ```./ssm install-backup <serverFolder>``` - create scheduled task to backup server daily.    
  - ```./ssm install-mod <serverFolder>```  - Install Sourcemod or Oxide for specified servers   
  - ```./ssm update-mods <serverFolder>``` - updates mods and plugins for server     
  - ```./ssm install-ws <serverFolder>```  - Workshop Install   
