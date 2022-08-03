@@ -15,7 +15,7 @@ Function New-RestartJobBG {
         $restartTime = Read-Host
         If ($restartTime) {
             Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
-            $SecurePassword = Read-Host "Password:" -AsSecureString
+            $SecurePassword = Read-Host "Password" -AsSecureString
             # C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
             If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
                 $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"

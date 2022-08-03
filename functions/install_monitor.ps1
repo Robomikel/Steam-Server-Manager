@@ -34,7 +34,7 @@ Function New-MontiorJobBG {
         $UserName = "$env:COMPUTERNAME\$env:UserName"
         Write-Host "Run Task Whether user is logged on or not"
         Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
-        $SecurePassword = Read-Host "Password: " -AsSecureString
+        $SecurePassword = Read-Host "Password" -AsSecureString
         If ($UserName -and $SecurePassword) {
             If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
                 $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
