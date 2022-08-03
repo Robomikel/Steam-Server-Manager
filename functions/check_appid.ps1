@@ -105,6 +105,7 @@ Function Set-LaunchScript {
         685100 { New-LaunchScriptCraftingDeadPS  ; Break }
         974130 { New-LaunchScriptStickyBotsPS  ; Break }
         824240 { New-LaunchScriptUnfortunateSpacemenPS ; Break }
+        223350 { New-LaunchScriptDayZserverPS; Break }
         Default { Get-warnmessage "nolaunchscript" }
     }
 }
@@ -116,7 +117,7 @@ Function Read-AppID {
             17585,346680, 232290, 343050, 4020, 232250, 317670, 228780, 295230, 380870, 276060, 805140, 1026340, 383410, 261140, 619960, 4940,332670, 17505, 403240, 1088320, 
             541790, 568880, 298740, 824360, 667230, 460040, 42750, 11421000, 11500000, 600760, 400300, 1017070, 996560, 770340, 367970, 1247090, 897590, 1110390, 299310, 748090, 
             1222650, 336400,423410,238430, 361580, 412680, 629800, 407480, 317800, 419790, 17555, 405100, 261020, 329710, 1420710,418480,696120,1203110,728470,896660,1690800, 1180760, 
-            1064780, 1141420 , 105600, 1670340, 1827320, 1829350, 1874900, 685100, 974130, 824240
+            1064780, 1141420 , 105600, 1670340, 1827320, 1829350, 1874900, 685100, 974130, 824240, 223350
             ) -contains $_ } { Get-SteamerConfigDefault }     
         # {($localappid -contains $appid) }{ Get-SteamerConfigDefault}
         Default { Get-warnmessage "nolaunchscript" }
