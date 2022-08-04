@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist', 'stats', 'menu', 'exit', 'ssm', 'update-mods','start-pode')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'install-backup', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist', 'stats', 'menu', 'exit', 'ssm', 'update-mods','start-pode')]    
     [Parameter(ParameterSetName = "steamer", Position = 0)]
     [string]$command,
     [Parameter(ParameterSetName = "steamer", Position = 1)]
