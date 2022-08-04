@@ -107,7 +107,7 @@ Function Set-Console {
 }
 Function Get-Logo {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $color = "Yellow", "Magenta", "Red", "Cyan", "Green", "Blue", "Gray", "White","DarkYellow", "DarkMagenta", "DarkRed", "DarkCyan", "DarkGreen", "DarkBlue", "DarkGray" | Get-Random
+    $color = "Yellow", "Magenta", "Red", "Cyan", "Green", "Blue", "Gray", "White" | Get-Random
     $lo = 1, 2, 3, 4, 5, 6 | Get-Random
     if ($lo -eq 1) {
         Get-Logo0 $color
