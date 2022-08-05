@@ -79,6 +79,36 @@ Function Get-ChecktaskEnabler {
         }
     }
 }
+Function Get-ChecktaskDisablerb {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ($Checktask -eq "on") {
+        If ($ssmlog -and $loggingdate -and $serverfiles) {
+            Get-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
+            If ($?) {
+                Write-log "info: Disabling scheduled task "
+                Disable-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
+            }
+            ElseIf (!$?) {
+                Write-log "info: Scheduled Task does not exist "
+            }
+        }
+    }
+}
+Function Get-ChecktaskEnablerb {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    if ($Checktask -eq "on") {
+        If ($ssmlog -and $loggingdate -and $serverfiles) {
+            Get-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
+            If ($?) {
+                Write-log "info: Enabling scheduled task "
+                Enable-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
+            }
+            ElseIf (!$?) {
+                Write-log "info: Scheduled Task does not exist "
+            }
+        }
+    }
+}
 Function Get-ChecktaskDetails {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate -and $serverfiles -and $command) {
