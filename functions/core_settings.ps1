@@ -33,7 +33,7 @@ Function Set-SteamerSetting {
     $global:checkupdateonstart      = "on"
     #                               Stop on "Update on start" 
     $global:stoponupdateonstart     = "on"
-    #                               check scheduled Task
+    #                               disable/enable scheduled Tasks on stop/start
     $global:Checktask               = "on"
     #                               Discord Alert
     $global:DiscordAlert            = "on"
