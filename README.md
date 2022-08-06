@@ -188,7 +188,7 @@ Install miscreated server ```./ssm install misserver```
  
    
  # Commands:
- - ```./ssm menu ```  - Use Interactive SSM console Menu  
+ - ```./ssm menu ```  - Use Interactive SSM console Menu [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Menu-command)    
  - ```./ssm install <serverFolder>```  - install server   
  - ```./ssm start <serverFolder>```  - Starts  server process   
  - ```./ssm stop <serverFolder>``` - stop process server   
