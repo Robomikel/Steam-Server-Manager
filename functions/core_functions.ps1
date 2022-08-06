@@ -444,7 +444,7 @@ Function Get-Appid {
         ElseIf (!$AppID) {
             Write-Host 'Input Steam Server App ID: ' -F C -N 
             $global:AppID = Read-host
-            Write-Host 'Add Argument?, -beta... or leave Blank for none: ' -F C -N 
+            Write-Host 'Branch Arg: ' -F C -N 
             $global:Branch = Read-host  
             Get-TestInterger
         }
