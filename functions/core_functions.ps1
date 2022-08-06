@@ -831,7 +831,7 @@ Function Measure-stats {
         }
         cls
         [console]::CursorVisible = $false
-        Get-Logo
+        Get-Logo3 Cyan
         $bar++
         $bar | % { if ($_ % 2 -eq 0 ) { Write-Host "Fetch stats 1Min...[-]       " } }
         $bar | % { if ($_ % 2 -eq 1 ) { Write-Host "Fetch stats 1Min...[x]       " } }
@@ -853,7 +853,7 @@ Function Measure-stats {
     # $data = 1..100 | Get-Random -Count 50
     # Show-Graph -Datapoints $Data -GraphTitle 'CPU'
     cls
-    Get-logo
+    Get-Logo3 Cyan
     Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
     # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
     Show-Graph -Datapoints $memorylast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "Memory"
