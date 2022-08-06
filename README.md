@@ -154,6 +154,7 @@ Install miscreated server ```./ssm install misserver```
    * DayZ Server  (223350) - "dayzserver" (optional server folder name)
    * Vox Machinae  (944490) - "voxserver" (optional server folder name)
    * Serious Sam 3 Dedicated Server (41080) - "ss3server" (optional server folder name)
+   * Serious Sam 2017 Dedicated Server (564390) - "ss2017server" (optional server folder name)
    
    -----   
  # Features  
