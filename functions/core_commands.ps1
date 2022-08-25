@@ -73,7 +73,7 @@ Function Get-SSMMenu {
     Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-E', 'install D-M', 'install N-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats', 'update-mods')
+    $command = Menu @('install A-E', 'install D-M', 'install N-Z', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'install-backup', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats', 'update-mods')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -ne "install A-E" -and $command -ne "install D-M" -and $command -ne "install N-Z") {
