@@ -157,7 +157,7 @@ Function Get-StopMultiple {
                     $wshell = New-Object -ComObject wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
-                    $p | Wait-Process -Timeout 3 -ErrorAction SilentlyContinue
+                    $p | Wait-Process -Timeout 10 -ErrorAction SilentlyContinue
                 }
                 $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
                 If ($mprocess) {
