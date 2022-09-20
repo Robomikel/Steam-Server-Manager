@@ -38,6 +38,7 @@ Function Get-help {
     Write-Host "query"
     Write-Host "monitor"
     Write-Host "install-monitor"
+    Write-Host "install-backup"
     Write-Host "install-mod - SourceMod and Oxide Install"
     Write-Host "install-ws  - WorkShop Install"
     Write-Host "mcrcon"
@@ -320,7 +321,7 @@ Function Edit-ServerConfig {
     Write-log "Function: $($MyInvocation.Mycommand)"
 }
 
-Function Set-ServerConfig {
+Function Set-ServerConfig_OLD {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $removelinenumber = @( 407480,1670340 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
@@ -341,13 +342,13 @@ Function Set-ServerConfig {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
     Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
-    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
+    If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*ServerName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
         Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             { @( '407480', '443030', '232130', '629800', '412680', '1420710', '728470' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-            { @( '403240', '261020', '418480', '696120', '1141420' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
+            { @( '403240', '261020', '418480', '696120', '1141420', '416880' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break }
             '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
@@ -360,6 +361,69 @@ Function Set-ServerConfig {
     }
     Else {
         Write-log "Failed: Edit ServerConfig Hostname" 
+    }
+}
+Function Set-ServerConfig {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    $removelinenumber = @( 407480,1670340 )
+    $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
+    If ( $removelinenumber -contains $appid ) {
+        $deleteline = $readserverconfig[$line]
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "SessionName") ) {
+        Write-log "SessionName"
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
+         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf(($readserverconfig | Select-String -SimpleMatch "sv_hostname") ) {
+        Write-log "sv_hostname"
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "sv_hostname" | Where Line -NotMatch '//'  )
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname `"")) {
+        Write-log "hostname `""
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname `"" | Where Line -NotMatch '//'  )
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    } 
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname = `"")) {
+        Write-log "hostname = `""
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname = `"" | Where Line -NotMatch '//'  )
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=`"")) { 
+        Write-log "ServerName=`""
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=`"")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=")) { 
+        Write-log "ServerName="
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")) {
+        Write-log "SERVERNAME="
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "cluster_name =")) {
+        Write-log "cluster_name ="
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "cluster_name =")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")) {
+        Write-log "<property name=`"ServerName`""
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}"   
+        $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"
+    }
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "name=")) {
+        Write-log "name="
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "name=")
+        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+    }
+    Else{
+        Write-log "Failed: Edit ServerConfig Hostname"
     }
 }
 Function New-ServerLog {
@@ -1544,3 +1608,55 @@ Function start-pode {
 #         remove-job DiscordJS
 #     }
 # }
+
+# Tool for finding port binds for process: Get-ProcPortBind $ProcessName
+# Not all ports are inbound, doesn't need a firewall or portforward sec policy
+Function Get-ProcPortBind {
+    param($objs)
+    $pross = $(Get-Process $objs)
+    if ($pross) { 
+        $x = $($pross).Id
+        foreach ($x in $x ) { 
+            $t = Get-NetTCPConnection -OwningProcess $x -ErrorAction SilentlyContinue
+            $u = Get-NetUDPEndpoint -OwningProcess $x -ErrorAction SilentlyContinue
+
+            if ($t) {
+                $properties = ($t | Get-Member -MemberType Properties).Name
+                [hashtable]$table = @{
+                    PSTypeName = "$objs TCP Ports"
+            
+                }
+                ForEach ($property in $properties) {
+                    If ($t.$property) {
+                        $n = $property + ": " + $t."$property"
+                        $table.Add($property, $t."$property")
+                    }
+                }
+                if ($table) {
+                    $htable = New-Object -TypeName psobject -Property $table
+                    Write-Host "$($table.PSTypeName)"
+                    $htable | Format-List
+                }
+            }
+            if ($u) {
+                $properties = ($u | Get-Member -MemberType Properties).Name
+                [hashtable]$table = @{
+                    PSTypeName = "$objs UDP Ports"
+                }
+                ForEach ($property in $properties) {
+                    If ($u.$property -ne $null) {
+                        $v = $property + ": " + $u."$property"
+                        $table.Add($property, $u."$property")
+                    }
+                }
+                if ($table) {
+                    $utable = New-Object -TypeName psobject -Property $table
+                    Write-Host "$($table.PSTypeName)"
+                    $utable | Format-List
+                }
+            }
+        }
+    }
+    # Get-NetFirewallRule  -Action Allow -Direction Inbound | Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | select *
+    # Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | Get-NetFirewallRule  -Action Allow -Direction Inbound 
+}
