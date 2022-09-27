@@ -89,25 +89,25 @@ Function Get-SSMMenu {
     }
     If ($command -eq "install A-E") {
         # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[A-E]'" )
+        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[A-E]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install D-M") {
         # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[D-M]'" )
+        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[D-M]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install N-Z") {
         #$gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[N-Z]'" )
+        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[N-Z]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install 0-9") {
         #$gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-String  '^[0-9]'" )
+        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[0-9]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
