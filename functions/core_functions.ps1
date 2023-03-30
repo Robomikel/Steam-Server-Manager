@@ -140,7 +140,9 @@ Function Get-Logo0 {
     /        \|  | \  ___/ / __ \|  Y Y  \/        \|  | \/\   /    Y    \/ /_/  >  | \/
    /_______  /|__|  \___  >____  /__|_|  /_______  /|__|    \_/\____|__  /\___  /|__|   
            \/           \/     \/      \/        \/                    \//_____/                           
-" -F $color
+
+
+           " -F $color
 }
 Function Get-Logo1 {
     param($color)
@@ -153,6 +155,8 @@ Function Get-Logo1 {
    |_____  |  |   |  |    ___||       ||       ||_____  ||    __  ||       ||       ||   ||  ||    __  |
     _____| |  |   |  |   |___ |   _   || ||_|| | _____| ||   |  | | |     | | ||_|| ||   |_| ||   |  | |
    |_______|  |___|  |_______||__| |__||_|   |_||_______||___|  |_|  |___|  |_|   |_||_______||___|  |_|
+   
+   
    " -F $color
 }
 Function Get-Logo2 {
@@ -166,7 +170,9 @@ Function Get-Logo2 {
    \    |  |  |  |     ||  |  ||   |   |\    | \   / |  .  \|   |   ||     ||  .  \
     \___|  |__|  |_____||__|__||___|___| \___|  \_/  |__|\_||___|___||___,_||__|\_|
                                                                                    
-" -F $color
+
+
+    " -F $color
 }
 Function Get-Logo3 {
     param($color)
@@ -177,7 +183,9 @@ Function Get-Logo3 {
    |__   |  _| -_| .'|     |__   | | |  _| | | | . |  _|
    |_____|_| |___|__,|_|_|_|_____|\_/|_| |_|_|_|_  |_|  
                                                |___|    
-" -F $color
+
+
+                                               " -F $color
 }
 Function Get-Logo3 {
     param($color)
@@ -188,7 +196,9 @@ Function Get-Logo3 {
   ___/ / /_/  __/ /_/ / / / / / /__/ / |/ / /  / /  / / /_/ / /    
  /____/\__/\___/\__,_/_/ /_/ /_/____/|___/_/  /_/  /_/\__, /_/     
                                                      /____/        
- " -F $color
+ 
+ 
+                                                     " -F $color
 }
 Function Get-Logo4 {
     param($color)
@@ -198,7 +208,9 @@ Function Get-Logo4 {
    \__ \  | | / ._><_> || ' ' |\__ \| | || '_>|     |/ . || '_>
    <___/  |_| \___.<___||_|_|_|<___/|__/ |_|  |_|_|_|\_. ||_|  
                                                      <___'     
-   " -F $color
+   
+   
+                                                     " -F $color
 }
 Function Get-Logo5 {
     param($color)
@@ -211,7 +223,9 @@ Function Get-Logo5 {
    |::.. . |                         |::.. . |          |::.|:. |           
    `-------'                         `-------'          `--- ---'           
                                                                             
-  " -F $color
+  
+  
+   " -F $color
 }
 Function Set-Steamer {
     Write-log "Function: $($MyInvocation.Mycommand)"
@@ -244,9 +258,9 @@ Function Get-Savelocation {
                 Write-log "Info: Found Appdata local save"
                 $savedata = "$env:LOCALAPPDATA"
             }
-            ElseIf (test-path $($env:LOCALAPPDATA + $saves)) {
+            ElseIf (test-path $($env:LOCALAPPDATA +'Low' + '\' +  $saves)) {
                 Write-log "Info: Found Appdata locallow save?"
-                $savedata = "$env:LOCALAPPDATA"
+                $savedata = "$env:LOCALAPPDATA" +'Low'
             }
             else{
                 Write-log "could not find path for AppData roaming,local,locallow"

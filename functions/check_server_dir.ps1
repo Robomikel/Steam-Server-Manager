@@ -56,4 +56,30 @@ Function New-defaultFolder {
         }
     }
 }
+Function Test-Serverdir {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    if ($executabledir) {
+        if (Test-path "$executabledir") {
+            Write-log "Found Executable directory"
+            if (Test-Path "$executabledir\$executable.*") {
+                Write-log "Found Executable path"
+                if (Test-Path "$servercfgdir\$servercfg") {
+                    Write-log "Found server config"
+                }
+                Else {
+                    Write-log "Check Variables-$serverfiles.ps1"
+                    Get-warnmessage "Check Variables-$serverfiles.ps1"
+                }
+            }
+            Else {
+                Write-log "Check Variables-$serverfiles.ps1"
+                Get-warnmessage "Check Variables-$serverfiles.ps1"
+            }
+        }
+        Else {
+            Write-log "Check Variables-$serverfiles.ps1"
+            Get-warnmessage "Check Variables-$serverfiles.ps1"
+        }
+    }
+}
 
