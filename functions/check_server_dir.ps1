@@ -42,7 +42,6 @@ Function New-LocalFolder {
 
 Function New-defaultFolder {
     Write-log "Function: $($MyInvocation.Mycommand)"  
-    ##-- 
     $global:configdefault = "config-default"
     If (Test-Path $currentdir\$configdefault) {
         Write-log "config-default Folder Already Created!   "
