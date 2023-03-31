@@ -68,16 +68,19 @@ Function Test-Serverdir {
                 }
                 Else {
                     Write-log "Check Variables-$serverfiles.ps1"
+                    Write-log "variables servercfgdir\servercfg failed"
                     Get-warnmessage "Check Variables-$serverfiles.ps1"
                 }
             }
             Else {
                 Write-log "Check Variables-$serverfiles.ps1"
+                Write-log "variables executabledir\executable failed"
                 Get-warnmessage "Check Variables-$serverfiles.ps1"
             }
         }
         Else {
             Write-log "Check Variables-$serverfiles.ps1"
+            Write-log "variable executabledir failed"
             Get-warnmessage "Check Variables-$serverfiles.ps1"
         }
     }
