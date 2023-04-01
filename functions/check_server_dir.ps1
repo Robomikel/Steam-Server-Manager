@@ -33,7 +33,7 @@ Function New-LocalFolder {
     Else {
         Write-log "Creating: config-local Folder  "
         New-Item $currentdir -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
-        If(!$?){
+        If (!$?) {
             Write-log "Failed: Creating config-local Folder  "
         }
     }
@@ -49,7 +49,7 @@ Function New-defaultFolder {
     Else {
         Write-log "Creating: config-default Folder  "
         New-Item $currentdir -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
-        If(!$?){
+        If (!$?) {
             Write-log "Failed: Creating config-default Folder  "
         }
     }
@@ -59,21 +59,28 @@ Function Test-Serverdir {
     if ($executabledir) {
         if (Test-path "$executabledir") {
             Write-log "Found Executable directory"
-            if (Test-Path "$executabledir\$executable.*") {
-                Write-log "Found Executable path"
-                if (Test-Path "$servercfgdir\$servercfg") {
-                    Write-log "Found server config"
+            if ($executable) {
+                if (Test-Path "$executabledir\$executable.*") {
+                    Write-log "Found Executable path"
+                    if ($servercfg) {
+                        Write-log "Found server config"
+                        if ($servercfgdir) {
+                            if (Test-Path "$servercfgdir\$servercfg") {
+                                Write-log "Found server config path"
+                            }
+                            Else {
+                                Write-log "Check Variables-$serverfiles.ps1"
+                                Write-log "variables servercfgdir\servercfg failed"
+                                Get-warnmessage "Check Variables-$serverfiles.ps1"
+                            }
+                        }
+                    }
                 }
                 Else {
                     Write-log "Check Variables-$serverfiles.ps1"
-                    Write-log "variables servercfgdir\servercfg failed"
+                    Write-log "variables executabledir\executable failed"
                     Get-warnmessage "Check Variables-$serverfiles.ps1"
                 }
-            }
-            Else {
-                Write-log "Check Variables-$serverfiles.ps1"
-                Write-log "variables executabledir\executable failed"
-                Get-warnmessage "Check Variables-$serverfiles.ps1"
             }
         }
         Else {
