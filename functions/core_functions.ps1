@@ -380,7 +380,7 @@ Function Set-ServerConfig_OLD {
 }
 Function Set-ServerConfig {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $removelinenumber = @( 407480,361580 )
+    $removelinenumber = @( 407480, 361580 )
     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
     If ( $removelinenumber -contains $appid ) {
         $deleteline = $readserverconfig[$line]
@@ -390,7 +390,7 @@ Function Set-ServerConfig {
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
          ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
-    ElseIf(($readserverconfig | Select-String -SimpleMatch "sv_hostname") ) {
+    ElseIf (($readserverconfig | Select-String -SimpleMatch "sv_hostname") ) {
         Write-log "sv_hostname"
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "sv_hostname" | Where Line -NotMatch '//'  )
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
@@ -412,9 +412,7 @@ Function Set-ServerConfig {
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=")) { 
         Write-log "ServerName="
-        if ($deleteline) {
-        
-        } Else {
+        if (!($deleteline)) {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
         }
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
@@ -438,9 +436,7 @@ Function Set-ServerConfig {
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "server_name=")) {
         Write-log "server_name="
-        if ($deleteline) {
-        
-        } Else {
+        if (!($deleteline)) {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
         }
         #$deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
@@ -451,7 +447,7 @@ Function Set-ServerConfig {
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "name=")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
-    Else{
+    Else {
         Write-log "Failed: Edit ServerConfig Hostname"
     }
 }
