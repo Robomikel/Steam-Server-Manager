@@ -484,6 +484,10 @@ Function Remove-backupLogs {
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
         Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
+    If (Test-Path "${logdirectory}\Backup -*") {
+        Write-log "Removing logs over $consolelogcount ${logdirectory}\Backup - * - $log}"
+        Get-Childitem -Depth 1 "${logdirectory}\Backup -*" -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
+    }
 }
 Function Remove-ServerconsoleLogs {
     Write-log "Function: $($MyInvocation.Mycommand)"
