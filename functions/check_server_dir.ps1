@@ -71,7 +71,7 @@ Function Test-Serverdir {
                             Else {
                                 Write-log "Check Variables-$serverfiles.ps1"
                                 Write-log "variables servercfgdir\servercfg failed"
-                                Get-warnmessage "Check Variables-$serverfiles.ps1"
+                                Get-Infomessage "Check Variables-$serverfiles.ps1"
                             }
                         }
                     }
