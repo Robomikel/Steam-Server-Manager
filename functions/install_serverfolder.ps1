@@ -18,10 +18,10 @@ Function New-ServerFolder {
         Select-Steamer
     }
     ElseIf (Test-Path "$sfwd\$serverfiles" ) {
-        Write-log "Server Folder Already Created!   "
+        Write-log "info: Server Folder Already Created!   "
     }
     Else {
-        Write-log "Creating Server Folder  "
+        Write-log "info: Creating Server Folder  "
         New-Item  $sfwd -Name "$serverfiles" -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
             Write-log "Failed: Creating Server Folder  "

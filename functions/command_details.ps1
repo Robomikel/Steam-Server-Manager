@@ -16,7 +16,7 @@ Function Get-DriveSpace {
             "$n`: $u / $r GB " 
         }
     } 
-    write-log "Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
+    write-log "info: Get-DriveSpace $($t.Seconds)`:$($t.Milliseconds)"
 }
 Function Get-DriveSpace_old {
     Write-log "Function: $($MyInvocation.Mycommand)"

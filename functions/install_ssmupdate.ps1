@@ -7,6 +7,7 @@
 #
 #
 Function Get-UpdateSteamer {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     Get-UpdateSteamerCSV
     # Get-UpdateSteamerConfigDefault
     Get-UpdateSteamerSSM
@@ -53,6 +54,7 @@ Function Get-UpdateSteamer {
     }
 }
 Function Get-UpdateSteamerSSM {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $getlocalssm = $([pscustomobject]@{ Name = 'ssm.ps1' })
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
@@ -92,6 +94,7 @@ Function Get-UpdateSteamerSSM {
     }
 }
 Function Get-UpdateSteamerCSV {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     $getlocalssm = Get-ChildItem -Depth 1 $currentdir\data\ -Force
     If ($getlocalssm) {
         ForEach ($getlocalssm in $getlocalssm ) {  
@@ -131,6 +134,7 @@ Function Get-UpdateSteamerCSV {
     }
 }
 Function Get-UpdateSteamerConfigDefault {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     # $getlocalssm = $((Import-Csv $currentdir\data\serverlist.csv)."Default-Config")
     $getlocalssmname = gci $currentdir\config-default\
     If ($getlocalssmname) {
@@ -183,10 +187,10 @@ Function Get-SteamerConfigDefault {
     $getlocalssm = Import-Csv $currentdir\data\serverlist.csv
     If ($getlocalssm) {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
-        write-log "Default-Config: $getlocalssmname"
+        write-log "info: Default-Config: $getlocalssmname"
         If ($getlocalssmname) {
             $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
-            Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
+            # Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
             If ($githubvarcontent) {
                 $githubvarcontent = ($githubvarcontent).Content
                 If ($githubvarcontent) {

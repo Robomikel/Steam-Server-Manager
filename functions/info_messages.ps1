@@ -155,7 +155,7 @@ Function Get-Infomessage {
         # Write-Information "[info]" -InformationAction Continue
         # Write-Information "$message" -InformationAction Continue
         #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
-        Write-log "Message: $infomessage"
+        Write-log "Info: $infomessage"
     }
 }
 Function clear-hostline {
@@ -548,7 +548,7 @@ Function Write-log {
     If ($ssmlog) {
         If ($loggingdate) {
             If ($logmessage) {
-                Add-Content $ssmlog "[$loggingdate] $logmessage " 2>$null
+                Add-Content $ssmlog "[$loggingdate] [$serverfiles] $logmessage " 2>$null
                 write-verbose "$logmessage"
             }
         }

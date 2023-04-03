@@ -10,10 +10,10 @@ Function New-BackupFolder {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($backupdir -and $ssmlog  -and $loggingDate -and $bwd) {
         If (Test-Path $backupdir) { 
-            Write-log "Backup folder exists! "
+            Write-log "info: Backup folder exists! "
         } 
         ElseIf (!(Test-Path $backupdir)) {  
-            Write-log "Creating backup folder "
+            Write-log "info: Creating backup folder "
             New-Item  $bwd -Name "backups" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
             If (!$?) {
                 Get-warnmessage "createfolderfailed"

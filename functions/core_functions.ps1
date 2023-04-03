@@ -56,7 +56,8 @@ Function Get-ClearVariables {
     Write-log "Function: $($MyInvocation.Mycommand)"
     if ($disableclearvariable -ne $true) {
         $var = (Get-Variable * -scope global).Name
-        Write-log "Removing Variables $var" 
+        Write-log "info: Removing Variables"
+        # Write-log "info: Removing Variables $var" 
         Remove-Variable * -Scope Global  -ea SilentlyContinue -Force
         # Write-log " Variables $var"
     }
@@ -246,24 +247,24 @@ Function Set-VariablesPS {
 Function Get-Savelocation {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ( !$saves ) {
-        Write-log "No saves located in App Data" 
+        Write-log "info: No saves located in App Data" 
     }
     Else {
         if ($saves) {
             if (test-path $($env:APPDATA + '\' + $saves)) {
-                Write-log "Info: Found Appdata Roaming save"
+                Write-log "info: Found Appdata Roaming save"
                 $savedata = "$env:APPDATA"
             }
             ElseIf (test-path $($env:LOCALAPPDATA + '\' + $saves)) {
-                Write-log "Info: Found Appdata local save"
+                Write-log "info: Found Appdata local save"
                 $savedata = "$env:LOCALAPPDATA"
             }
             ElseIf (test-path $($env:LOCALAPPDATA +'Low' + '\' +  $saves)) {
-                Write-log "Info: Found Appdata locallow save?"
+                Write-log "info: Found Appdata locallow save?"
                 $savedata = "$env:LOCALAPPDATA" +'Low'
             }
             else{
-                Write-log "could not find path for AppData roaming,local,locallow"
+                Write-log "Warning: could not find path for AppData roaming,local,locallow"
                 return
             }
         }
@@ -279,7 +280,7 @@ Function Get-Savelocation {
 Function Select-RenameSource {
     Write-log "Function: $($MyInvocation.Mycommand)"
     # Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
-    Write-log "Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
+    Write-log "info: Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
     Rename-Item  "$executabledir\srcds.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
     Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable-x64.exe" >$null 2>&1
 }
@@ -287,7 +288,7 @@ Function Select-EditSourceCFG {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-        Write-log "Editing Default server.cfg"
+        Write-log "info: Editing Default source server.cfg"
         if ($HOSTNAME) {
             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
         }
@@ -300,7 +301,7 @@ Function Select-EditSourceCFG_OLD {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If (($servercfgdir) -and ($servercfg )) {
         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-        Write-log "Editing Default server.cfg"
+        Write-log "info: Editing Default source server.cfg"
         #  -and ($appid -ne 17505) -and ($appid -ne 232250) -and ($appid -ne 276060) -and ($appid -ne 222860) -and ($appid -ne 317670) -and ($appid -ne 232370) -and ($appid -ne 985050) -and ($appid -ne 346680) -and ($appid -ne 228780) -and ($appid -ne 475370) -and ($appid -ne 383410) -and ($appid -ne 238430) -and ($appid -ne 740) -and ($appid -ne 232290) -and ($appid -ne 17585) -and ($appid -ne 295230) -and ($appid -ne 4020)
         $servercfgcomment = @(237410, 462310 )
         If ($servercfgcomment -contains $appid) {
@@ -356,9 +357,9 @@ Function Set-ServerConfig_OLD {
     If ($deleteline.Count -gt 1 ) {
         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
     }
-    Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
+    # Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
     If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*ServerName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
-        Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
+        # Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
         switch ($appid) {
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"; Break }
@@ -386,56 +387,56 @@ Function Set-ServerConfig {
         $deleteline = $readserverconfig[$line]
     }
     If (($readserverconfig | Select-String -SimpleMatch "SessionName") ) {
-        Write-log "SessionName"
+        Write-log "info: Edit SessionName"
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
          ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "sv_hostname") ) {
-        Write-log "sv_hostname"
+        Write-log "info: Edit sv_hostname"
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "sv_hostname" | Where Line -NotMatch '//'  )
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname `"")) {
-        Write-log "hostname `""
+        Write-log "info: Edit hostname `""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname `"" | Where Line -NotMatch '//'  )
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     } 
     ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname = `"")) {
-        Write-log "hostname = `""
+        Write-log "info: Edit hostname = `""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname = `"" | Where Line -NotMatch '//'  )
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=`"")) { 
-        Write-log "ServerName=`""
+        Write-log "info: Edit ServerName=`""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=`"")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=")) { 
-        Write-log "ServerName="
+        Write-log "info: Edit ServerName="
         if (!($deleteline)) {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
         }
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")) {
-        Write-log "SERVERNAME="
+        Write-log "info: Edit SERVERNAME="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "cluster_name =")) {
-        Write-log "cluster_name ="
+        Write-log "info: Edit cluster_name ="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "cluster_name =")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")) {
-        Write-log "<property name=`"ServerName`""
+        Write-log "info: Edit <property name=`"ServerName`""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}"   
         $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "server_name=")) {
-        Write-log "server_name="
+        Write-log "info: Edit server_name="
         if (!($deleteline)) {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
         }
@@ -443,7 +444,7 @@ Function Set-ServerConfig {
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "server_name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "name=")) {
-        Write-log "name="
+        Write-log "info: Edit name="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "name=")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
@@ -456,19 +457,19 @@ Function New-ServerLog {
     If ($consolelogging -eq "on") { 
         If ($consolelog  ) {
             If (Test-Path $logdirectory\$consolelog  ) {
-                Write-log "Found $consolelog"
+                Write-log "info: Found $consolelog"
                 $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
                         Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn $pastebinexpires -Visibility Unlisted
-                        Write-log "Sent Pastebin"
+                        Write-log "info: Sent Pastebin"
                     }
                     if ($log) {
                         Rename-Item -Path $logdirectory\$log -NewName ("Backup" + " - " + $date + " - " + $log) -Force -ea SilentlyContinue
                     }
                     If (!$?) {
-                        Write-log "Rename-Item Failed"
+                        Write-log "Failed: Backup server log Rename-Item"
                     }
                 }
             }
@@ -480,25 +481,25 @@ Function New-ServerLog {
 }
 Function Remove-backupLogs {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "Removing logs over $consolelogcount backup_$serverfiles-*.log"
+    Write-log "info: Removing logs over $consolelogcount backup_$serverfiles-*.log"
     If (Test-Path $logdir\backup_$serverfiles-*.log) {
         Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
     If (Test-Path "${logdirectory}\Backup -*") {
-        Write-log "Removing logs over $consolelogcount ${logdirectory}\Backup - * - $log}"
+        Write-log "info: Removing logs over $consolelogcount ${logdirectory}\Backup -*"
         Get-Childitem -Depth 1 "${logdirectory}\Backup -*" -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-ServerconsoleLogs {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "Removing logs over $consolelogcount $serverfiles-*.log"
+    Write-log "info: Removing logs over $consolelogcount $serverfiles-*.log"
     If (Test-Path $logdir\$serverfiles-*.log) {
         Get-Childitem -Depth 1 $logdir\$serverfiles-*.log -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
 Function Remove-SteamerLogs {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
+    Write-log "info: Removing logs over $consolelogcount $ssmlogdir\ssm-*.log"
     If (Test-Path $ssmlogdir\*.log) {
         Get-Childitem -Depth 1 $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
@@ -542,8 +543,8 @@ Function Get-Appid {
             Get-TestInterger
         }
         If ($AppID -eq 985050 -or $AppID -eq 233780) {
-            Get-Infomessage "****   Requires Steam Login    *****"'warning'
-            Write-log "Requires Steam Login"
+            Get-Infomessage "****   Requires Steam Login    *****" 'warning'
+            Write-log "Warning: Requires Steam Login"
         }
         Else {
             Write-Host "        App Name: $game" -F Y 
@@ -666,21 +667,21 @@ Function compare-SteamExit {
             }
             ElseIf ($appinstalllog -Like "*Invalid Password*") {
                 Get-Infomessage "****   Failed Password   ****" $false
-                Write-log "Failed Password"
+                Write-log "Failed: steam login Password"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*No subscription*") {
                 Get-Infomessage "****  No subscription, Requires steamcmd login   ****" $false
-                Write-log "No subscription, Requires steamcmd login"
+                Write-log "Failed: No subscription, Requires steamcmd login"
                 New-TryagainNew 
             }
             ElseIf ($appinstalllog -Like "*Success*") {
                 Get-Infomessage "****   Downloading  server succeeded   ****" 
-                Write-log "Downloading  server succeeded"
+                Write-log "info: Downloading  server succeeded"
             }   
             ElseIf (($appinstalllog -Like "* Failed *") -or ($appinstalllog -Like "*FAILED*")) {
                 Get-Infomessage "****   Downloading  server Failed   ****" $false
-                Write-log "Downloading  server Failed"
+                Write-log "Failed: Downloading  server Failed"
                 New-TryagainNew 
             }
             Else {
@@ -719,7 +720,7 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Discord Update Alert  = $DiscordUpdateAlert "
     Write-log "Setting: Discord Restart Alert  = $DiscordRestartAlert"
     Write-log "Setting: Use private IP for Query and mcrcon  = $Useprivate  "
-    Write-Log "Settings: Monitor Query  = $monquery"
+    Write-Log "Setting: Monitor Query  = $monquery"
     Write-log "Setting: consolelogging   = $consolelogging "
     Write-log "Setting: consolelogging count  = $consolelogcount "
     Write-log "Setting: ssmlogging  = $ssmlogging   "
@@ -738,10 +739,10 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Pastebin  = $pastebinconsolelog"
     Write-log "Setting: Discord Webhook    = $discordwebhook  "
     Write-log "Setting: Discord Display IP  = $discorddisplayip  "
-    Write-Log "Settings: Backup Directory   = $currentdir "
-    Write-Log "Settings: Serverfiles Directory = $currentdir"
-    Write-Log "Settings: Serverdir = $sfwd\$serverfiles"
-    Write-Log "Settings: Backups Directory = $bwd\backups"
+    Write-Log "Setting: Backup Directory   = $currentdir "
+    Write-Log "Setting: Serverfiles Directory = $currentdir"
+    Write-Log "Setting: Serverdir = $sfwd\$serverfiles"
+    Write-Log "Setting: Backups Directory = $bwd\backups"
 }
 Function Test-VariablesNull {
     Write-log "Function: $($MyInvocation.Mycommand)"
@@ -755,7 +756,7 @@ Function Test-VariablesNull {
 Function Get-CustomSettings {
     Write-log "Function: $($MyInvocation.Mycommand)"
     New-LocalFolder
-    Write-log "Test-Path $currentdir\$configlocal\local_settings.ps1"
+    Write-log "info: Test-Path $currentdir\$configlocal\local_settings.ps1"
 
     If (Test-Path "$currentdir\$configlocal\local_settings.ps1") {
         .$currentdir\$configlocal\local_settings.ps1
@@ -872,17 +873,17 @@ Function Import-localConfig {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($getlocalssmname) {
         If ((Test-Path $currentdir\config-local\$getlocalssmname)) {
-            Write-log "Import:  .$currentdir\config-local\$getlocalssmname"
+            Write-log "info: Import:  .$currentdir\config-local\$getlocalssmname"
             .$currentdir\config-local\$getlocalssmname
             Set-LaunchScript
         }
         ElseIf (Test-Path $currentdir\config-default\$getlocalssmname) {
-            Write-log "Import: .$currentdir\config-default\$getlocalssmname"
+            Write-log "info: Import: .$currentdir\config-default\$getlocalssmname"
             .$currentdir\config-default\$getlocalssmname
             Set-LaunchScript
         }
         Else {
-            Write-log "ERROR: No Config found to Import" ; Break
+            Write-log "Failed: No local-Config found to Import" ; Break
         }
     } 
     Else {
@@ -1475,14 +1476,14 @@ Function Get-GithubRestAPI {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
-        Write-log "Get-GithubRestAPI: Repo Request failed"
+        Write-log "Failed: Get-GithubRestAPI: Repo Request "
         return
     }
     If ($githubrepo) {
         $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
     }
     Else {
-        Write-log "Get-GithubRestAPI: Repo convert from json failed"
+        Write-log "Failed: Get-GithubRestAPI: Repo convert from json "
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
@@ -1492,21 +1493,21 @@ Function Get-GithubRestAPI {
     #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
     # }
     Else {
-        Write-log "Get-GithubRestAPI: No zip download link found"
+        Write-log "Failed: Get-GithubRestAPI: No zip download link found"
         return
     }
     if ($githubrepoJSON.assets.name) {
         $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
     } 
     Else {
-        Write-log "Get-GithubRestAPI: No zip download file found"
+        Write-log "Failed: Get-GithubRestAPI: No zip download file found"
         return
     }
     If ($githubrepozipname) {
         $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
     }
     Else {
-        Write-log "Get-GithubRestAPI: No zip file found"
+        Write-log "Failed: Get-GithubRestAPI: No zip file found"
         return
     }
     #    iwr $githubrepoziplink -O $githubrepozipname
@@ -1519,12 +1520,12 @@ Function Add-Modtolist {
     param($modname, $modfile)
     Write-log "Function: $($MyInvocation.Mycommand)"
     if (!$installedmods) {
-        Write-log "Create Mods object"
+        Write-log "info: Create Mods object"
         #$installedmods = @()
         $script:installedmods = New-Object -TypeName psobject
     }
     # $installedmods += New-Object pscustomobject -Property @{"$modname" = "$modfile" }
-    Write-log "Add Object $modname = $modfile"
+    Write-log "info: Add Object $modname = $modfile"
     $installedmods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
     
 }
@@ -1534,7 +1535,7 @@ Function Get-installedMods {
         $script:installedmods = Get-Content -Path $serverdir\mods.json | ConvertFrom-Json
     }
     Else {
-        Write-log "No $serverfiles\mod.json found"
+        Write-log "Warning: No $serverfiles\mod.json found"
     }
 }
 Function New-modlist {
@@ -1542,16 +1543,16 @@ Function New-modlist {
     If ($installedmods) {
         If ($mods.Mods) {
             $mods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
-            Write-log "Edit mods.mods $($mods.Mods) mods.json"
+            Write-log "info: Edit mods.mods $($mods.Mods) mods.json"
         }
         ElseIf ($installedmods.Mods) {
             $installedmods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
-            Write-log "Edit mods.mods $($installedmods.Mods) mods.json"
+            Write-log "info: Edit mods.mods $($installedmods.Mods) mods.json"
         }
         Else {
             $script:mods = @{ Mods = $installedmods };
             $mods | ConvertTo-Json | Set-Content -Path $serverdir\mods.json -Force
-            Write-log "New $mods mods.json"
+            Write-log "info: New $mods mods.json"
         }
     }
 }
@@ -1564,17 +1565,17 @@ Function Edit-Modlist {
             #                $($installedmods.Mods).$modname = "$modfile"
             If ($installedmods.Mods -like "*$modname*") {
                 $installedmods.Mods.$modname = "$modfile"
-                write-log "Edit-Member $($installedmods.Mods).$modname"
+                write-log "info: Edit-Member $($installedmods.Mods).$modname"
             }
             Else {
                 if ($mods.Mods) {
                     $mods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
-                    write-log "Add-Member $($script:mods.Mods)"
+                    write-log "info: Add-Member $($script:mods.Mods)"
                 }
                 Else {
                     if ($installedmods.Mods) {
                         $installedmods.Mods | Add-Member -MemberType NoteProperty -Name $modname -Value $modfile
-                        write-log "Add-Member $($script:installedmods.Mods)"
+                        write-log "info: Add-Member $($script:installedmods.Mods)"
                     }
                 }
             }
@@ -1589,12 +1590,12 @@ Function Edit-Modlist {
 Function Compare-Modlist {
     Param($modname, $modfile)
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log " Param($modname, $modfile)"
+    # Write-log "info: Param($modname, $modfile)"
     If (Test-Path $serverdir\mods.json) {
         Get-installedMods
-        Write-log "($($installedmods.Mods.$modname) -eq $modfile)"
+        # Write-log "info: ($($installedmods.Mods.$modname) -eq $modfile)"
         If ($installedmods.Mods.$modname -eq $modfile) {
-            write-log "No Mod udpate"
+            write-log "info: No Mod udpate"
             $script:nomodupdate = $true
         } 
         ELse {
@@ -1609,11 +1610,11 @@ Function start-pode {
     $t = $null
     Do {
         $t++
-        Write-log "Waiting for Port $($config.server.webport) to become available"
+        Write-log "info: Waiting for Port $($config.server.webport) to become available"
         start-sleep 3
         If ($t -eq 10) {
             Write-log "Failed: Port $($config.server.webport) not available. "
-            Write-log "Recommend Reboot "
+            Write-log "info: Recommend Reboot "
             return
         }
     } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))

@@ -31,8 +31,8 @@ Function Get-Modinstall {
         Show-ModMenu
     }
     Else {
-        Get-Infomessage "No Mods Available " 'warning'
-        Write-log "No Mods Available"
+        Get-Infomessage "No Mods Available " 'info'
+        Write-log "info: No Mods Available"
     }
 
 }

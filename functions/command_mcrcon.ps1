@@ -9,27 +9,27 @@
 Function Set-ConnectMCRcon {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
-        Write-log "Starting McRcon"
+        Write-log "info: Starting McRcon"
         If ($mcrconexecutable) {
             Push-location
             set-location $mcrcondirectory
             If ($Useprivate -eq "off") {
                 If (!( ${rconport} )) {
-                    Write-log "Using Port ${extip} -P ${port} -p $rconpassword"
+                    Write-log "info: Using Port ${extip} -P ${port} -p $rconpassword"
                     & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
                 }
                 Else {
-                    Write-log "Using RconPort ${extip} -P ${rconport} -p $rconpassword"
+                    Write-log "info: Using RconPort ${extip} -P ${rconport} -p $rconpassword"
                     & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
                 }
             }
             Else {
                 If (!( ${rconport} )) {
-                    Write-log "Using Port ${ip} -P ${port} -p $rconpassword"
+                    Write-log "info: Using Port ${ip} -P ${port} -p $rconpassword"
                     & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
                 }
                 Else {
-                    Write-log "Using Port ${ip} -P ${rconport} -p $rconpassword"
+                    Write-log "info: Using Port ${ip} -P ${rconport} -p $rconpassword"
                     & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
                 }
             }
@@ -42,18 +42,18 @@ Function Set-ConnectMCRcon {
 }
 Function invoke-sourcerestart {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "Starting McRcon for source restart"
+    Write-log "info: Starting McRcon for source restart"
     If ($mcrconexecutable) {
         push-location
         set-location $mcrcondirectory
         If ($Useprivate -eq "off") {
             If (!${rconport}) {
-                Write-log "Using Port ${extip} -P ${port} -p $rconpassword _restart"
+                Write-log "info: Using Port ${extip} -P ${port} -p $rconpassword _restart"
                 & $mcrconexecutable -c -H ${extip} -P ${port} -p $rconpassword "_restart"
                 # & $mcrconexecutable -t -H ${extip} -P ${port} -p $rconpassword
             }
             Else {
-                Write-log "Using RconPort ${extip} -P ${rconport} -p $rconpassword _restart"
+                Write-log "info: Using RconPort ${extip} -P ${rconport} -p $rconpassword _restart"
                 # & $mcrconexecutable -t -H ${extip} -P ${rconport} -p $rconpassword
                 & $mcrconexecutable -c -H ${extip} -P ${rconport} -p $rconpassword "_restart"
                 
@@ -61,12 +61,12 @@ Function invoke-sourcerestart {
         }
         Else {
             If (!${rconport}) {
-                Write-log "Using Port ${ip} -P ${port} -p $rconpassword _restart"
+                Write-log "info: Using Port ${ip} -P ${port} -p $rconpassword _restart"
                 # & $mcrconexecutable -t -H ${ip} -P ${port} -p $rconpassword
                 & $mcrconexecutable -c -H ${ip} -P ${port} -p $rconpassword "_restart"
             }
             Else {
-                Write-log "Using Port ${ip} -P ${rconport} -p $rconpassword _restart"
+                Write-log "info: Using Port ${ip} -P ${rconport} -p $rconpassword _restart"
                 # & $mcrconexecutable -t -H ${ip} -P ${rconport} -p $rconpassword
                 & $mcrconexecutable -c -H ${ip} -P ${rconport} -p $rconpassword "_restart"
             }

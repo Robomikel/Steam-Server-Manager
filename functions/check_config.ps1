@@ -9,7 +9,7 @@
 Function Get-CheckForVars {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
-        Write-log "Checking Server Variables"
+        Write-log "info: Checking Server Variables"
         If ($command) {
             If ($command -eq "mcrcon") {
                 $missingvars = $port, $rconpassword, ${extip}, ${ip}

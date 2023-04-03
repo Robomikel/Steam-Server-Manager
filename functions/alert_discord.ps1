@@ -165,24 +165,24 @@ Function Send-DiscordAlert {
 Function get-pode {
     Write-log "Function: $($MyInvocation.Mycommand)"
     if (test-path "$podedirectory\Pode.psm1") {
-        Write-log "Pode module found"
+        Write-log "info: Pode module found"
     }
     Else {
         Get-GithubRestAPI $Podesetupowner $Podesetuprepo
-        Write-log "Downloading Pode from github" 
+        Write-log "info: Downloading Pode from github" 
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "downloading" 'Pode'
         iwr $githubrepoziplink -O $currentdir\$githubrepozipname
         If (!$?) {
-            Write-Warning 'Downloading  Pode Failed'
-            Write-log "Downloading  Pode Failed"
+            Write-Warning 'Downloading Pode Failed'
+            Write-log "Failed: Downloading Pode Failed"
             New-TryagainNew 
         }
         ElseIf ($?) {
             clear-hostline 1
             Get-Infomessage "downloaded" 'Pode'
-            Write-log "Pode succeeded " 
+            Write-log "info: Downloading Pode succeeded " 
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -190,21 +190,21 @@ Function get-pode {
         Get-Infomessage "Extracting" 'Pode'
         try {
          Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force
-         write-log "Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force"
+         write-log "info: Expand-Archive $currentdir\$githubrepozipname $podedirectory -Force"
         }
         catch{
             $e = $_
-            write-log "$e"
+            write-log "Error: $e"
         }
         If (!$?) {
             Write-Warning 'Extracting Pode Failed'
-            Write-log "Extracting Pode Failed " 
+            Write-log "Failed: Extracting Pode Failed " 
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
             Get-Infomessage "Extracted" 'Pode'
-            Write-log "Extracting Pode succeeded  "  
+            Write-log "info: Extracting Pode succeeded  "  
         }
     }
 }

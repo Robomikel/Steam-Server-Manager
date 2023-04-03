@@ -26,7 +26,7 @@ Function Install-Steam {
             }
         }
         catch { 
-            Write-log "$($_.Exception.Message)"
+            Write-log "Warning: $($_.Exception.Message)"
             Get-WarnMessage 'Downloadfailed' 'SteamCMD'
             New-TryagainNew 
         }

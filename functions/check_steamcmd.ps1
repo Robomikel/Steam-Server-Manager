@@ -11,9 +11,10 @@ Function Get-Steam {
     If ($ssmlog -and $loggingdate) {
         If ($steamexecutable) {
             If (Test-Path $steamexecutable) { 
-                Write-log "steamCMD already downloaded! "
+                Write-log "info: steamCMD already downloaded! "
             } 
-            ElseIf (!(Test-Path $steamexecutable)) {  
+            ElseIf (!(Test-Path $steamexecutable)) { 
+                Write-log "Warning: SteamCMD not found! " 
                 Install-Steam
             }
         }
