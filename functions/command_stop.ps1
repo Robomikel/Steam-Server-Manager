@@ -14,6 +14,7 @@ Function Get-StopServer {
     Else {
         If ($process) {
             If ( !(Get-Process $process -ea SilentlyContinue)) {
+                Write-log "Warning: Process: $process not found"
                 clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
@@ -82,6 +83,7 @@ Function Get-StopServerInstall {
     Else {
         If ($process) {
             If (! (Get-Process $process -ea SilentlyContinue)) {
+                Write-log "Warning: Process: $process not found"
                 clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
@@ -142,6 +144,7 @@ Function Get-StopMultiple {
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {
+            Write-log "Warning: Process: $mprocess not found"
             clear-hostline 1
             Get-Infomessage "notrunning" 'info'
         }

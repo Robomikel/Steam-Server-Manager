@@ -59,6 +59,7 @@ Function Get-CheckServer {
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                    Write-log "Warning: Process: $process not found"
                     clear-hostline 1
                     Get-Infomessage "notrunning" 'info'
                 }
@@ -78,6 +79,7 @@ Function Get-checkMultiple {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
+        Write-log "Warning: Process: $process not found"
         clear-hostline 1
          Get-Infomessage "notrunning" "info"
     }
