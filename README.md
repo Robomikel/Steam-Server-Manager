@@ -254,6 +254,8 @@ Install miscreated server ```./ssm install misserver```
  
  Does not install Dependencies like Direct X  
  https://www.microsoft.com/en-us/download/details.aspx?id=35
+ offline installer
+ https://www.microsoft.com/en-us/download/details.aspx?id=8109
  
  Does not install Dependencies like Java   
  https://www.java.com/en/download/   
