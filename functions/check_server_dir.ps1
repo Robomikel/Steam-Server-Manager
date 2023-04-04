@@ -9,10 +9,10 @@
 Function Get-FolderNames {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
-        Write-log "Checking Folder Names "
+        Write-log "info: Checking Folder Names "
         If ("$serverdir") {
             If (Test-Path "$serverdir") {
-                Write-log "Folder Name Exists   $serverdir "
+                Write-log "info: Folder Name Exists   $serverdir "
             }
             ElseIf (!(Test-Path "$serverdir")) {
                 New-ServerFolderq
@@ -28,10 +28,10 @@ Function New-LocalFolder {
     Write-log "Function: $($MyInvocation.Mycommand)" 
     $global:configlocal = "config-local"
     If (Test-Path $currentdir\$configlocal ) {
-        Write-log "config-local Folder Already Created!   "
+        Write-log "info: config-local Folder Already Created!   "
     }
     Else {
-        Write-log "Creating: config-local Folder  "
+        Write-log "info: Creating: config-local Folder  "
         New-Item $currentdir -Name "$configlocal" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If (!$?) {
             Write-log "Failed: Creating config-local Folder  "
@@ -44,10 +44,10 @@ Function New-defaultFolder {
     Write-log "Function: $($MyInvocation.Mycommand)"  
     $global:configdefault = "config-default"
     If (Test-Path $currentdir\$configdefault) {
-        Write-log "config-default Folder Already Created!   "
+        Write-log "info: config-default Folder Already Created!   "
     }
     Else {
-        Write-log "Creating: config-default Folder  "
+        Write-log "info: Creating: config-default Folder  "
         New-Item $currentdir -Name "$configdefault" -ItemType "directory" | Out-File -Append -Encoding Default  $ssmlog
         If (!$?) {
             Write-log "Failed: Creating config-default Folder  "
@@ -58,35 +58,81 @@ Function Test-Serverdir {
     Write-log "Function: $($MyInvocation.Mycommand)"
     if ($executabledir) {
         if (Test-path "$executabledir") {
-            Write-log "Found Executable directory"
+            Write-log "info: Found Executable directory"
             if ($executable) {
                 if (Test-Path "$executabledir\$executable.*") {
-                    Write-log "Found Executable path"
+                    Write-log "info: Found Executable path"
                     if ($servercfg) {
-                        Write-log "Found server config"
                         if ($servercfgdir) {
                             if (Test-Path "$servercfgdir\$servercfg") {
-                                Write-log "Found server config path"
+                                Write-log "info: Found server config path"
                             }
                             Else {
-                                Write-log "Check Variables-$serverfiles.ps1"
-                                Write-log "variables servercfgdir\servercfg failed"
+                                Write-log "Warning: Check Variables-$serverfiles.ps1"
+                                Write-log "Failed: server cfg Path $servercfgdir\$servercfg "
                                 Get-Infomessage "Check Variables-$serverfiles.ps1" "warning"
                             }
+                        }
+                        Else {
+                            Write-log "Warning: Check Variables-$serverfiles.ps1"
+                            Write-log "Failed: Server cfg Dir $servercfgdir"
+                            Get-Infomessage "Check Variables-$serverfiles.ps1" "warning"
                         }
                     }
                 }
                 Else {
-                    Write-log "Check Variables-$serverfiles.ps1"
-                    Write-log "variables executabledir\executable failed"
+                    Write-log "Warning: Check Variables-$serverfiles.ps1"
+                    Write-log "Failed: Executable Path $executabledir\$executable "
                     Get-warnmessage "Check Variables-$serverfiles.ps1"
                 }
             }
         }
         Else {
-            Write-log "Check Variables-$serverfiles.ps1"
-            Write-log "variable executabledir failed"
+            Write-log "Warning: Check Variables-$serverfiles.ps1"
+            Write-log "Failed: Executable Dir $executabledir"
             Get-warnmessage "Check Variables-$serverfiles.ps1"
+        }
+    }
+    Get-CheckSteamAPI
+}
+Function Get-CheckSteamAPI {
+    If ($serverdir) {
+        if (Test-Path $serverdir\steamclient.dll){
+            if (Test-Path $serverdir\steamclient64.dll){
+                if (Test-Path $serverdir\tier0_s.dll) {
+                    if (Test-Path $serverdir\tier0_s64.dll) {
+                        if (Test-Path $serverdir\vstdlib_s.dll ) {
+                            if (Test-Path $serverdir\vstdlib_s64.dll) {
+                                Write-log "info: Found Steam APIs DLLs"
+                            }Else{
+                                Write-log "Warning: Missing vstdlib_s64.dll in $serverdir"
+                                clear-hostline 1
+                                Get-Infomessage "Steam services maybe unavailable" "warning"
+                            }
+                        }Else{
+                            Write-log "Warning: Missing vstdlib_s.dll is $serverdir"
+                            clear-hostline 1
+                            Get-Infomessage "Steam services maybe unavailable" "warning"
+                        }
+                    }Else{
+                        Write-log "Warning: Missing tier0_s64.dll in $serverdir"
+                        clear-hostline 1
+                        Get-Infomessage "Steam services maybe unavailable" "warning"
+                    }
+                }Else{
+                    Write-log "Warning: Missing tier0_s.dll in $serverdir"
+                    clear-hostline 1
+                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                }
+            }Else{
+                Write-log "Warning: Missing steamclient64.dll in $serverdir"
+                clear-hostline 1
+                Get-Infomessage "Steam services maybe unavailable" "warning"
+            }
+        }Else{
+            Write-log "Warning: Missing steamclient.dll in $serverdir"
+            clear-hostline 1
+            Get-Infomessage "Steam services maybe unavailable" "warning"
         }
     }
 }

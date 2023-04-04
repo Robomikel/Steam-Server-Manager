@@ -12,10 +12,10 @@ Function Get-ServerBuildCheck {
         If ($appid) {
             If ($appid -eq 11500000 ) { 
                 Get-MCversion
-                Write-log "Non-steam Game"
+                Write-log "info: Non-steam Game"
             }
             ElseIf ($appid -eq 11421000 ) { 
-                Write-log "Non-steam Game"
+                Write-log "info: Non-steam Game"
                 Get-MCbrversion
             }
             Else {
@@ -49,17 +49,17 @@ Function Get-ServerBuildCheck {
                     #$localbuild
                     if (!$remotebuild ) {
                         Write-Warning 'Failed to retrieve remote build'
-                        Write-log "Warning: Failed to retrieve remote build"
+                        Write-log "Failed: to retrieve remote build"
                     }
                     if (!$localbuild ) {
                         Write-Warning 'Failed to retrieve Local build'
-                        Write-log "Warning: Failed to retrieve Local build"
+                        Write-log "Failed: to retrieve Local build"
                     }
                     clear-hostline 1
                     Write-Information "SteamDB: $remotebuild" -InformationAction Continue
                     Write-Information "LocalBuild: $localbuild" -InformationAction Continue
-                    Write-Log "SteamDB: $remotebuild" -InformationAction Continue
-                    Write-Log "LocalBuild: $localbuild" -InformationAction Continue
+                    Write-Log "info: SteamDB: $remotebuild" -InformationAction Continue
+                    Write-Log "info: LocalBuild: $localbuild" -InformationAction Continue
                     Start-Sleep -Seconds 2 
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
@@ -72,14 +72,14 @@ Function Get-ServerBuildCheck {
                             Get-UpdateServer 
                         }
                         Else {
-                            Write-log "No $serverfiles Updates found"
+                            Write-log "info: No $serverfiles Updates found"
                             clear-hostline 2
                             Get-Infomessage "noupdates" 'info'
                         }
                     }
                 }
                 Else {
-                    Write-log " Updates on start off"
+                    Write-log "info: Updates on start off"
                 }
             }
         }
@@ -93,19 +93,19 @@ Function Get-SteamFix {
     If ($ssmlog -and $loggingdate -and $appid -and "$serverdir") {
         If ((Test-Path "$serverdir\steamapps\appmanifest_$appid.acf.bak") -and (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) ) {
             Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf.bak" "appmanifest_$appid.acf"  -Force -ErrorAction SilentlyContinue
-            Write-log "Restore appmanifest_$appid.acf "
+            Write-log "info: Restore appmanifest_$appid.acf "
         }
         ElseIf (Test-Path "$serverdir\steamapps\appmanifest_$appid.acf") {
             Rename-Item "$serverdir\steamapps\appmanifest_$appid.acf" "appmanifest_$appid.acf.bak"  -Force -ErrorAction SilentlyContinue
-            Write-log "Rename appmanifest_$appid.acf "
+            Write-log "info: Rename appmanifest_$appid.acf "
             If (Test-Path "$serverdir\steamapps\appmanifest_228980.acf") {
                 Rename-Item "$serverdir\steamapps\appmanifest_228980.acf" "appmanifest_228980.acf.bak" -Force -ErrorAction SilentlyContinue
-                Write-log "Rename Steamworks Common Redistributables appmanifest_228980.acf"
+                Write-log "info: Rename Steamworks Common Redistributables appmanifest_228980.acf"
             }
         }
         ElseIf (!(Test-Path "$serverdir\steamapps\appmanifest_$appid.acf")) {
             Write-warning "No app Manifests found. Recommend Validate"
-            Write-log "Warining: No app Manifests found. Recommend Validate"
+            Write-log "Warning: No app Manifests found. Recommend Validate"
         }
     }
 }

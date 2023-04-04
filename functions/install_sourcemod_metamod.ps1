@@ -54,7 +54,7 @@ Function Get-MetaMod {
                 Get-WarnMessage 'ExtractFailed' 'MetaMod'
                 New-TryagainNew
             }
-            Write-log "Copying/installing Meta Mod"
+            Write-log "info: Copying/installing Meta Mod"
             If ($metamodmversionfolder -and $systemdir) { 
                 $metamodfolder = @{
                     Path        = "$currentdir\$metamodmversionfolder\addons"
@@ -62,11 +62,11 @@ Function Get-MetaMod {
                     Force       = $true
                     Recurse     = $true
                 }
-                Write-log "Copy-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
+                Write-log "info: Copy-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
                 Copy-Item @metamodfolder >$null 2>&1
             }
             If (!$?) { 
-                Write-log "Copying Meta Mod Failed"
+                Write-log "Failed: Copying Meta Mod "
                 New-TryagainNew 
             }
             Edit-Modlist 'MetaMod' $metamodmversionzip
@@ -140,13 +140,13 @@ Function Get-SourceMod {
                 Force       = $true
                 Recurse     = $true
             }
-            write-log "$currentdir\$sourcemodmversionfolder\addons $systemdir"
+            write-log "info: Copy $currentdir\$sourcemodmversionfolder\addons $systemdir"
             Copy-Item @sourcemodaddons >$null 2>&1
-            write-log "$currentdir\$sourcemodmversionfolder\cfg $systemdir"
+            write-log "info: Copy $currentdir\$sourcemodmversionfolder\cfg $systemdir"
             Copy-Item  @sourcemodcfg >$null 2>&1
         }
         If (!$?) { 
-            Write-log "Copying SourceMod Faileds "
+            Write-log "Failed: Copying SourceMod "
             New-TryagainNew 
         }
         Edit-Modlist 'Sourcemod' $sourcemodmversionzip
@@ -162,7 +162,7 @@ Function Get-CSGOGet5 {
             Compare-Modlist 'CSGO-Get5' $get5latestzip
         }
         If ($nomodupdate -eq $true) {
-            Write-log "($nomodupdate -eq $true)"
+            # Write-log "($nomodupdate -eq $true)"
             clear-hostline 1
             Get-Infomessage "No CSGO-Get5 updates" 'info'
             return
@@ -217,12 +217,12 @@ Function Get-CSGOGet5 {
         Force       = $true
         Recurse     = $true
     }
-    Write-Log "Copy-Item $csgoget5folder\addons $systemdir"
+    Write-Log "info: Copy-Item $csgoget5folder\addons $systemdir"
     Copy-Item  @get5folderaddons >$null 2>&1
-    Write-Log "Copy-item $csgoget5folder\cfg $systemdir"
+    Write-Log "info: Copy-item $csgoget5folder\cfg $systemdir"
     Copy-Item  @get5foldercfg >$null 2>&1
     If (!$?) { 
-        Write-log "Copying CSGO-Get5 Failed "
+        Write-log "Failed: Copying CSGO-Get5 "
         New-TryagainNew 
     }
     Edit-Modlist 'CSGO-Get5' $get5latestzip
@@ -287,12 +287,12 @@ Function Get-CSGOcsgopugsetup {
             Force       = $true
             Recurse     = $true
         }
-        Write-Log "$csgopugsetupfolder\addons $systemdir"
+        Write-Log "info: Copy $csgopugsetupfolder\addons $systemdir"
         Copy-Item  @pugsetupaddons >$null 2>&1
-        Write-Log "$csgopugsetupfolder\cfg $systemdir"
+        Write-Log "info: Copy $csgopugsetupfolder\cfg $systemdir"
         Copy-Item  @pugsetupcfg >$null 2>&1
         If (!$?) { 
-            Write-log "Copying CSGOcsgopugsetup Failed "
+            Write-log "Failed: Copying CSGOcsgopugsetup "
             New-TryagainNew 
         }
         Edit-Modlist 'CSGO-pugsetup' $githubrepozipname
@@ -354,10 +354,10 @@ Function Get-CSGOsteamworks {
         Force       = $true
         Recurse     = $true
     }
-    Write-Log "Copy-Item $steamworksfolder\addons $systemdir"
+    Write-Log "info: Copy-Item $steamworksfolder\addons $systemdir"
     Copy-Item @steamworksaddon >$null 2>&1
     If (!$?) { 
-        Write-log "Copying SteamWorks Failed "
+        Write-log "Failed: Copying SteamWorks "
         New-TryagainNew 
     }
     Edit-Modlist 'SteamWorks' $steamworkslatestzip

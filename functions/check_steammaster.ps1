@@ -9,12 +9,12 @@
 Function Test-SteamMaster {
 	Write-log "Function: $($MyInvocation.Mycommand)"
 	If ($ssmlog -and $loggingdate) {
-		Write-log "Checking Steam Master"
+		Write-log "info: Checking Steam Master"
 		if ($Useprivate = "off") { 
 			if ( ${extip} -and ${queryport}) { 
 				if ( ${steammastercheck} -eq "on" ) {
 					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport} "
+					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport} "
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -23,7 +23,7 @@ Function Test-SteamMaster {
 			Elseif (${extip} -and ${port} ) { 
 				if ( ${steammastercheck} -eq "on" ) {
 					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port} "
+					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port} "
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -35,7 +35,7 @@ Function Test-SteamMaster {
 			if ( ${ip} -and ${queryport} ) { 
 				if ( ${steammastercheck} -eq "on" ) { 
 					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport} "
+					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport} "
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -44,13 +44,13 @@ Function Test-SteamMaster {
 			Elseif ( ${ip} -and ${port}) { 
 				if ( ${steammastercheck} -eq "on" ) { 
 					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port} "
+					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port} "
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
 				}
 			}		
 		}
-		Write-log "Test-SteamMaster $masterserver ${steammastercheck}"
+		# Write-log "info: Test-SteamMaster $masterserver ${steammastercheck}"
 	}
 }

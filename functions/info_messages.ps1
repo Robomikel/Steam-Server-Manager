@@ -548,7 +548,7 @@ Function Write-log {
     If ($ssmlog) {
         If ($loggingdate) {
             If ($logmessage) {
-                Add-Content $ssmlog "[$loggingdate] $logmessage " 2>$null
+                Add-Content $ssmlog "[$loggingdate] [$serverfiles] $logmessage " 2>$null
                 write-verbose "$logmessage"
             }
         }

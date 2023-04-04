@@ -13,7 +13,7 @@ Function install-mcrcon {
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         #Invoke-WebRequest -Uri $mcrconurl -OutFile $mcrconoutput
         Get-GithubRestAPI $mcrconowner $mcrconrepo
-        Write-log "Downloading MCRCon from github" 
+        Write-log "info: Downloading MCRCon from github" 
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "downloading" 'MCRCon'
@@ -22,13 +22,13 @@ Function install-mcrcon {
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'MCRCon'
-                Write-log "MCRCon succeeded " 
+                Write-log "info: MCRCon succeeded " 
             }
         }
         catch { 
-            Write-log "$($_.Exception.Message)" 
+            Write-log "Warning: $($_.Exception.Message)" 
             Write-Warning 'Downloading  MCRCon Failed'
-            Write-log "Downloading  MCRCon Failed"
+            Write-log "Failed: Downloading  MCRCon "
             New-TryagainNew 
         }
         clear-hostline 1
@@ -41,17 +41,17 @@ Function install-mcrcon {
         Remove-Item $currentdir\$githubrepofolder -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting MCRCon Failed'
-            Write-log "Extracting MCRCon Failed " 
+            Write-log "Failed: Extracting MCRCon " 
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
             Get-Infomessage "Extracted" 'MCRCon'
-            Write-log "Extracting MCRCon succeeded  "  
+            Write-log "info: Extracting MCRCon succeeded  "  
         }
     }
     Else {
-        Write-log "install-mcrcon Failed: $mcrconurl $githubrepozipname"
+        Write-log "Failed: install-mcrcon $mcrconurl $githubrepozipname"
         Write-Warning 'fn_install-mcrcon Failed'
         Exit
     }

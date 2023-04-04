@@ -63,7 +63,7 @@ Function Get-MCBRWebrequest {
     }
     catch {
         If (!$? -or !$mcbrWebResponse) {
-            Write-log "$($_.Exception.Message)"
+            Write-log "Warning: $($_.Exception.Message)"
             Write-log "Failed: Get-MCBRWebrequest"
             Exit
         }

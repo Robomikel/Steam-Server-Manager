@@ -14,6 +14,7 @@ Function Get-StopServer {
     Else {
         If ($process) {
             If ( !(Get-Process $process -ea SilentlyContinue)) {
+                Write-log "Warning: Process: $process not found"
                 clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
@@ -21,12 +22,12 @@ Function Get-StopServer {
                 clear-hostline 1
                 Get-Infomessage "stopping" 'start'
                 #Stop-Process -Name $process -Force 
-                Write-log "Stop Process: $process"
+                Write-log "info: Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
-                Write-log "Process ID: $($p.id)"
+                Write-log "info: Process ID: $($p.id)"
                 $wshell = New-Object -ComObject wscript.shell
                 if (@(443030, 896660 ) -contains $appid) {
-                    Write-log "Send CTL+C"
+                    Write-log "info: Send CTL+C"
                     $r = $wshell.AppActivate("$($p.Id)")
                     $wshell.Sendkeys("^{c}")
                 }
@@ -35,7 +36,7 @@ Function Get-StopServer {
                 }
                 Start-Sleep 5
                 if (!$p.HasExited) {
-                    Write-log "Waiting Process: $($p.Name) "
+                    Write-log "info: Waiting Process: $($p.Name) "
                     #$wshell = New-Object -ComObject wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
@@ -82,6 +83,7 @@ Function Get-StopServerInstall {
     Else {
         If ($process) {
             If (! (Get-Process $process -ea SilentlyContinue)) {
+                Write-log "Warning: Process: $process not found"
                 clear-hostline 1
                 Get-Infomessage "notrunning" 'info'
             }
@@ -89,9 +91,9 @@ Function Get-StopServerInstall {
                 clear-hostline 1
                 Get-Infomessage "stopping" 'start'
                 #Stop-Process -Name "$process" -Force
-                Write-log "Stop Process: $process"
+                Write-log "info: Stop Process: $process"
                 $p = Get-Process $process -ErrorAction SilentlyContinue
-                Write-log "Process ID:  $($p.id)"
+                Write-log "info: Process ID:  $($p.id)"
                 $wshell = New-Object -ComObject wscript.shell
                 if ($appid -eq 443030) {
                     $r = $wshell.AppActivate("$($p.Id)")
@@ -102,7 +104,7 @@ Function Get-StopServerInstall {
                 }
                 Start-Sleep 5
                 if (!$p.HasExited) {
-                    Write-log "Waiting Process: $($p.Name) "
+                    Write-log "info: Waiting Process: $($p.Name) "
                     #$wshell = New-Object -ComObject wscript.shell
                     $r = $wshell.AppActivate("$($p.Id)"); $wshell.Sendkeys("%(Y)")
                     #$p.WaitForExit()
@@ -142,6 +144,7 @@ Function Get-StopMultiple {
     If ($process ) {
         $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
         If (!$mprocess) {
+            Write-log "Warning: Process: $mprocess not found"
             clear-hostline 1
             Get-Infomessage "notrunning" 'info'
         }

@@ -28,7 +28,7 @@ Function Get-Oxide {
         try {
             [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
-            write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
+            write-log "info: iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
             iwr $githubrepoziplink -O $currentdir\$githubrepozipname
             If ($?) {
                 clear-hostline 1
@@ -36,7 +36,7 @@ Function Get-Oxide {
             }
         }
         catch {
-            Write-log "$($_.Exception.Message)"
+            Write-log "Warning: $($_.Exception.Message)"
             Get-WarnMessage 'Downloadfailed' 'Oxide'
             New-TryagainNew
         }
@@ -44,9 +44,9 @@ Function Get-Oxide {
         Get-Infomessage "downloadtime"
         clear-hostline 1
         Get-Infomessage "Extracting" 'Oxide'
-        Write-Log "Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force"
+        Write-Log "info: Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force"
         Rename-Item $currentdir\$githubrepozipname $currentdir\$oxideoutput -Force
-        Write-log " Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force"
+        Write-log "info: Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force"
         Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force
         If (!$?) { 
             Get-WarnMessage 'ExtractFailed' 'Oxide'
@@ -60,7 +60,7 @@ Function Get-Oxide {
         Get-Infomessage "copying-installing" 'Oxide'
         Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
         If (!$?) { 
-            Write-log "Copying Oxide Failed"
+            Write-log "Failed: Copying Oxide "
             New-TryagainNew
         }
         Edit-Modlist 'Oxide' $oxideoutput
@@ -118,7 +118,7 @@ Function Get-undeadlegacy {
     }
     Copy-Item  @undeadurlfolderaddons >$null 2>&1
     If (!$?) { 
-        Write-log "Copying undead-legacy Failed "
+        Write-log "Failed: Copying undead-legacy "
         New-TryagainNew 
     }
     Edit-Modlist 'undead-legacy' $undeadurllatestzip
@@ -128,12 +128,12 @@ Function Add-plugintolist {
     param($pluginname, $pluginfile)
     Write-log "Function: $($MyInvocation.Mycommand)"
     if (!$installedplugins) {
-        Write-log "Create plugins object"
+        Write-log "info: Create plugins object"
         #$installedplugins = @()
         $script:installedplugins = New-Object -TypeName psobject
     }
     # $installedplugins += New-Object pscustomobject -Property @{"$pluginname" = "$pluginfile" }
-    Write-log "Add Object $pluginname = $pluginfile"
+    Write-log "info: Add Object $pluginname = $pluginfile"
     $installedplugins | Add-Member -MemberType NoteProperty -Name $pluginname -Value $pluginfile
     
 }
@@ -141,30 +141,30 @@ Function Get-installedplugins {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $installedpluginscount = Get-Content -Path $serverdir\plugins.json | select-string -SimpleMatch ".cs"
     if ($($pluginss.count) -ne $($installedpluginscount.count) ) {
-        write-log "Plugin removed"
+        write-log "info: Plugin removed"
         Remove-item "$serverdir\plugins.json" -Force
     }
     If (Test-Path "$serverdir\plugins.json") {
         $script:installedplugins = Get-Content -Path $serverdir\plugins.json | ConvertFrom-Json
     }
     Else {
-        Write-log "No $serverfiles\plugins.json found"
+        Write-log "Warning: No $serverfiles\plugins.json found"
     }
 }
 Function New-pluginlist {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($plugins.plugins) {
         $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
-        Write-log "Edit plugins.plugins $($plugins.plugins) plugins.json"
+        Write-log "info: Edit plugins.plugins $($plugins.plugins) plugins.json"
     }
     ElseIf ($installedplugins.plugins) {
         $installedplugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
-        Write-log "Edit plugins.plugins $($installedplugins.plugins) plugins.json"
+        Write-log "info: Edit plugins.plugins $($installedplugins.plugins) plugins.json"
     }
     Else {
         $script:plugins = @{ plugins = $installedplugins };
         $plugins | ConvertTo-Json | Set-Content -Path $serverdir\plugins.json -Force
-        Write-log "New $plugins plugins.json"
+        Write-log "info: New $plugins plugins.json"
     }
 }
 Function Edit-pluginlist {
@@ -174,17 +174,17 @@ Function Edit-pluginlist {
         If ($installedplugins) {
             If ($installedplugins.plugins -like "*$pluginname*") {
                 $installedplugins.plugins.$pluginname = "$pluginfile"
-                write-log "Edit-Member $($installedplugins.plugins).$pluginname"
+                write-log "info: Edit-Member $($installedplugins.plugins).$pluginname"
             }
             Else {
                 if ($plugins.plugins) {
                     $plugins.plugins | Add-Member -MemberType NoteProperty -Name $pluginname -Value $pluginfile
-                    write-log "Add-Member $($script:plugins.plugins)"
+                    write-log "info: Add-Member $($script:plugins.plugins)"
                 }
                 Else {
                     if ($installedplugins.plugins) {
                         $installedplugins.plugins | Add-Member -MemberType NoteProperty -Name $pluginname -Value $pluginfile
-                        write-log "Add-Member $($script:installedplugins.plugins)"
+                        write-log "info: Add-Member $($script:installedplugins.plugins)"
                     }
                 }
             }
@@ -215,7 +215,7 @@ Function Initialize-plugins {
         $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
         $script:pluginname = $_.Name
         $script:pluginversion = $plugin[2]
-        Write-log "Current Version: $pluginname $pluginversion"
+        Write-log "info: Current Version: $pluginname $pluginversion"
         Get-installedplugins
         Edit-pluginlist $pluginname $pluginversion
         ping-pluginversion $pluginname $pluginversion
@@ -230,20 +230,20 @@ Function ping-pluginversion {
     $script:updatecheck = $pluginfile.Split(".", 3)[0] + '.' + $pluginfile.Split(".", 3)[1] + '.' + $updatecheck
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
     try {
-        write-log "$pluginname $updatecheck"
+        write-log "info: $pluginname $updatecheck"
         $update = iwr $Uri
     }
     catch {
         $wr = $_
     }
     if ($update.StatusCode -eq 200) {
-        Write-log "Plugin Update: $pluginname, $pluginfile"
+        Write-log "info: Plugin Update: $pluginname, $pluginfile"
         clear-hostline 1
         Get-Infomessage "Plugin Update: $pluginname" 'update'
         Receive-plugin $pluginname $pluginfile $updatecheck
     }
     ElseIf ($wr) {
-        Write-log "Plugin: No update"
+        Write-log "info: Plugin: No update"
         clear-hostline 1
         Get-Infomessage "No Plugin Update: $pluginname"
     }
@@ -257,10 +257,10 @@ Function Receive-plugin {
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
     iwr $Uri -O $serverdir\oxide\plugins\$pluginname
     If (Test-Path $serverdir\oxide\plugins\$pluginname) {
-        Write-log "$pluginname installed"
+        Write-log "info: $pluginname installed"
     }
     Else {
-        Write-log "$pluginname failed"
+        Write-log "Failed: $pluginname "
     }
     Get-installedplugins
     Edit-pluginlist $pluginname $updatecheck
@@ -273,7 +273,7 @@ Function Get-BlackMesaSrcCoop {
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         #Invoke-WebRequest -Uri $bmdmsrccoopurl -OutFile $bmdmsrccoopoutput
         Get-GithubRestAPI $bmdmsrccoopowner $bmdmsrccooprepo
-        Write-log "Downloading bmdmsrccoop from github" 
+        Write-log "info: Downloading bmdmsrccoop from github" 
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "downloading" 'bmdmsrccoop'
@@ -282,13 +282,13 @@ Function Get-BlackMesaSrcCoop {
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'bmdmsrccoop'
-                Write-log "bmdmsrccoop succeeded " 
+                Write-log "info: bmdmsrccoop succeeded " 
             }
         }
         catch { 
-            Write-log "$($_.Exception.Message)" 
+            Write-log "Warning: $($_.Exception.Message)" 
             Write-Warning 'Downloading  bmdmsrccoop Failed'
-            Write-log "Downloading  bmdmsrccoop Failed"
+            Write-log "Failed: Downloading  bmdmsrccoop"
             New-TryagainNew 
         }
         clear-hostline 1
@@ -300,17 +300,17 @@ Function Get-BlackMesaSrcCoop {
         Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting bmdmsrccoop Failed'
-            Write-log "Extracting bmdmsrccoop Failed " 
+            Write-log "Failed: Extracting bmdmsrccoop " 
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
             Get-Infomessage "Extracted" 'bmdmsrccoop'
-            Write-log "Extracting bmdmsrccoop succeeded  "  
+            Write-log "info: Extracting bmdmsrccoop succeeded  "  
         }
     }
     Else {
-        Write-log "install-bmdmsrccoop Failed: $bmdmsrccoopurl $githubrepozipname"
+        Write-log "Failed: install-bmdmsrccoop $bmdmsrccoopurl $githubrepozipname"
         Write-Warning 'fn_install-bmdmsrccoop Failed'
         Exit
     }
@@ -322,7 +322,7 @@ Function Get-GCServerConfTemplate  {
         #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
         #Invoke-WebRequest -Uri $bmdmsrccoopurl -OutFile $bmdmsrccoopoutput
         Get-GithubRestAPI $gcserverconfowner $gcserverconfrepo
-        Write-log "Downloading GC-Server-Conf-Template from github" 
+        Write-log "info: Downloading GC-Server-Conf-Template from github" 
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "downloading" 'GC-Server-Conf-Template'
@@ -331,13 +331,13 @@ Function Get-GCServerConfTemplate  {
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'GC-Server-Conf-Template'
-                Write-log "GC-Server-Conf-Template succeeded " 
+                Write-log "info: GC-Server-Conf-Template succeeded " 
             }
         }
         catch { 
-            Write-log "$($_.Exception.Message)" 
+            Write-log "Warning: $($_.Exception.Message)" 
             Write-Warning 'Downloading  GC-Server-Conf-Template Failed'
-            Write-log "Downloading  GC-Server-Conf-Template Failed"
+            Write-log "Failed: Downloading  GC-Server-Conf-Template "
             New-TryagainNew 
         }
         clear-hostline 1
@@ -349,18 +349,18 @@ Function Get-GCServerConfTemplate  {
         Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
             Write-Warning 'Extracting GC-Server-Conf-Template Failed'
-            Write-log "Extracting GC-Server-Conf-Template Failed " 
+            Write-log "Failed: Extracting GC-Server-Conf-Template " 
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
             Get-Infomessage "Extracted" 'GC-Server-Conf-Template'
-            Write-log "Extracting GC-Server-Conf-Template succeeded  "  
+            Write-log "info: Extracting GC-Server-Conf-Template succeeded  "  
         }
     }
     Else {
         Write-log "install-GC-Server-Conf-Template Failed: $bmdmsrccoopurl $githubrepozipname"
-        Write-Warning 'fn_install-GC-Server-Conf-Template Failed'
+        Write-Warning 'Failed: fn_install-GC-Server-Conf-Template '
         Exit
     }
 }

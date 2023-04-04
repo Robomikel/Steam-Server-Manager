@@ -17,24 +17,24 @@ Function Get-StartServer {
     If ($launchParams -and $appid -and $executabledir) {
         Push-location
         Set-Location $executabledir
-        Write-log "Location: $executabledir"
+        # Write-log "Location: $executabledir"
         # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
         If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {
             Start-Process CMD "/c start $launchParams"
-            Write-Log "Start-Process CMD /c start $launchParams  "
+            Write-Log "info: Start-Process CMD /c start $launchParams  "
         }
         ElseIf ($appid -eq 1180760){
             Start-Process CMD "/c $launchParams"
-            Write-Log "Start-Process CMD /c $launchParams"
+            Write-Log "info: Start-Process CMD /c $launchParams"
         } 
         ElseIf ($appid -eq 685100){
             Start-Process CMD -ArgumentList $launchParams
-            Write-Log "Start-Process CMD $launchParams"
+            Write-Log "info: Start-Process CMD $launchParams"
         } 
         Else {
             Start-Process CMD "/c start $launchParams"  -NoNewWindow
-            Write-Log "Start-Process CMD /c start $launchParams  -NoNewWindow"
+            Write-Log "info: Start-Process CMD /c start $launchParams  -NoNewWindow"
         }
         Pop-Location
     }
@@ -52,13 +52,14 @@ Function Select-StartServer {
 Function Get-CheckServer {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($ssmlog -and $loggingdate) {
-        Write-log "Check Server process "
+        Write-log "info: Check Server process "
         If ($process) {
             If ($appid -eq "996560") { 
                 Get-checkMultiple 
             }
             Else {
                 If (!(Get-Process "$process" -ea SilentlyContinue)) {
+                    Write-log "Warning: Process: $process not found"
                     clear-hostline 1
                     Get-Infomessage "notrunning" 'info'
                 }
@@ -78,6 +79,7 @@ Function Get-checkMultiple {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $process = get-process | Where-Object { $_.ProcessName -match $process } | get-process
     If (!$process) {
+        Write-log "Warning: Process: $process not found"
         clear-hostline 1
          Get-Infomessage "notrunning" "info"
     }

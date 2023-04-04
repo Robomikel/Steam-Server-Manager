@@ -10,10 +10,10 @@
 Function Install-ServerFiles {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($APPID -eq 11421000) {
-        Write-log "11421000 $true"
+        # Write-log "info: 11421000 $true"
     }
     ElseIf ($APPID -eq 11500000) {
-        Write-log  "11500000 $true"
+        # Write-log  "info: 11500000 $true"
     }
     Else {
         If ($anon) {

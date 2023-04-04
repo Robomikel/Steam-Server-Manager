@@ -26,7 +26,7 @@ Function Add-NodeJS {
             }     
         }
         catch {
-            Write-log "$($_.Exception.Message)"
+            Write-log "Warning: $($_.Exception.Message)"
             Get-WarnMessage  'Downloadfailed' 'Nodejs'
             New-TryagainNew
         }
@@ -35,7 +35,7 @@ Function Add-NodeJS {
         clear-hostline 1
         Get-Infomessage "Extracting" 'Nodejs'
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
-        write-log "Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
+        write-log "info: Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
         $nodeversionfolder = $nodeversion -replace '.zip', ''
         Copy-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
         Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 

@@ -13,7 +13,7 @@ Function Get-MonitorServer {
             Get-MonitorMultiple 
         }
         Else {
-            Write-log "Monitor  Server process" 
+            Write-log "info: Monitor  Server process" 
             If (!(Get-Process $process -ea SilentlyContinue)) {
                 Select-StartServer
                 New-DiscordAlert "restart"
@@ -29,7 +29,7 @@ Function Get-MonitorServer {
                         }
                     }
                     Else{
-                        Write-log "Monitor: Cannot Query Server"
+                        Write-log "info: Monitor Cannot Query Server"
                         clear-hostline 1
                         Get-Infomessage "running" $false
                         Get-RestartsServer

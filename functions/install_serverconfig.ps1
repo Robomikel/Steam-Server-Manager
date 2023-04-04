@@ -24,18 +24,18 @@ Function Get-Servercfg {
         }
         Else { $servercfg = "$servercfg", "$config2", "$config3", "$config4", "$config5" }
         Foreach ($servercfg in $servercfg) {
-            Write-log "Retrieve server config GSM "
+            Write-log "info: Retrieve server config GSM "
             If ($githuburl -and $gamedirname) {
                 try {
                     # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
                     $WebResponse = Invoke-WebRequest "$githuburl/$gamedirname/$servercfg" -UseBasicParsing 
                     If ($?) { 
-                        Write-log "Retrieved server config " 
+                        Write-log "info: Retrieved server config " 
                     }
                 }
                 catch { 
-                    Write-log "$($_.Exception.Message)" 
-                    Write-log "Array Failed !! Did NOT Retrieve server config"
+                    Write-log "Warning: $($_.Exception.Message)" 
+                    Write-log "Failed: Array Failed !! Did NOT Retrieve server config"
                     Exit 
                 }
                 New-Item $servercfgdir\$servercfg -Force | Out-File -Append -Encoding Default  $ssmlog

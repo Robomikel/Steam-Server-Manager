@@ -23,7 +23,7 @@ Function Select-Steamer {
         )]$global:serverfiles
     )
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "command:  $command $serverfiles"
+    Write-log "info: command:  $command $serverfiles"
     Set-Console  >$null 2>&1
     switch ($command) {
         { ($command -eq "ssm") -and ($serverfiles -eq "update") } { Get-UpdateSteamer; Break }
