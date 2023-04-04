@@ -194,7 +194,7 @@ Function get-pode {
         }
         catch{
             $e = $_
-            write-log "Error: $e"
+            write-log "Warning: $e"
         }
         If (!$?) {
             Write-Warning 'Extracting Pode Failed'
