@@ -69,27 +69,27 @@ Function Test-Serverdir {
                             }
                             Else {
                                 Write-log "Warning: Check Variables-$serverfiles.ps1"
-                                Write-log "Failed: Path $servercfgdir\$servercfg "
+                                Write-log "Failed: server cfg Path $servercfgdir\$servercfg "
                                 Get-Infomessage "Check Variables-$serverfiles.ps1" "warning"
                             }
                         }
                         Else {
                             Write-log "Warning: Check Variables-$serverfiles.ps1"
-                            Write-log "Failed: Dir $servercfgdir"
+                            Write-log "Failed: Server cfg Dir $servercfgdir"
                             Get-Infomessage "Check Variables-$serverfiles.ps1" "warning"
                         }
                     }
                 }
                 Else {
                     Write-log "Warning: Check Variables-$serverfiles.ps1"
-                    Write-log "Failed: Path $executabledir\$executable "
+                    Write-log "Failed: Executable Path $executabledir\$executable "
                     Get-warnmessage "Check Variables-$serverfiles.ps1"
                 }
             }
         }
         Else {
             Write-log "Warning: Check Variables-$serverfiles.ps1"
-            Write-log "Failed: Dir $executabledir"
+            Write-log "Failed: Executable Dir $executabledir"
             Get-warnmessage "Check Variables-$serverfiles.ps1"
         }
     }
