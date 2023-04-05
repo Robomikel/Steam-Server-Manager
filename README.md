@@ -253,7 +253,9 @@ Install miscreated server ```./ssm install misserver```
  https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/
  
  Does not install Dependencies like Direct X  
- https://www.microsoft.com/en-us/download/details.aspx?id=35
+ https://www.microsoft.com/en-us/download/details.aspx?id=35     
+ Direct X offline installer if above fails       
+ https://www.microsoft.com/en-us/download/details.aspx?id=8109   
  
  Does not install Dependencies like Java   
  https://www.java.com/en/download/   
