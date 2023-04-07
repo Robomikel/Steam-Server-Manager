@@ -457,8 +457,9 @@ Function New-ServerLog {
     If ($consolelogging -eq "on") { 
         If ($consolelog  ) {
             If (Test-Path $logdirectory\$consolelog  ) {
-                Write-log "info: Found $consolelog"
+                # Write-log "info: Found $consolelog"
                 $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
+                Write-log "info: Found $log"
                 Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 

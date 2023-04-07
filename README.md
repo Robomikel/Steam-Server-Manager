@@ -92,6 +92,7 @@ Install miscreated server ```./ssm install misserver```
    * Days of War Dedicated Server (541790) "dowserver" (optional server folder name)   
    * Day of Infamy Dedicated Server (462310)- “doiserver" (optional server folder name)   
    * Don't Starve Together Dedicated Server (343050) "dstserver" (optional server folder name)   
+   * Dark N Light Dedicated Server (630230) "dnlserver" (optional server folder name)   
    * Dystopia Dedicated Server (17585) "dysserver" (optional server folder name)   
    * Empires Dedicated Server (460040) - "emserver" (optional server folder name)   
    * Empyrion - Galactic Survival Dedicated Server (530870) "empserver" (optional server folder name)   

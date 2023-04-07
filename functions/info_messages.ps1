@@ -175,7 +175,7 @@ Function Send-Mess {
     param($message,$info)
     $string = $message + '...   [ ' + $info + ' ]'
     # write-host "`r  $string" | trace-word -words 'update' 
-    $string | Select-ColorString "UPDATE | OK | FAILED | WARN | START | DONE | INFO" -MultiColorsForSimplePattern -CaseSensitive
+    $string | Select-ColorString " UPDATE | OK | FAILED | WARN | START | DONE | INFO " -MultiColorsForSimplePattern -CaseSensitive
 }
 
 function Select-ColorString {
