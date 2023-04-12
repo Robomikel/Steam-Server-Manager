@@ -80,34 +80,34 @@ Function New-DiscordAlert {
         }
     }
 }
-Function Send-DiscordAlert_old {
-    $thumbnailObject = [PSCustomObject]@{
-        url = "https://i.imgur.com/tTrtYMe.png"
-    }
-    $webHookUrl = "$discordwebhook"
-    [System.Collections.ArrayList]$embedArray = @()
-    $title = "Server Name:  $HOSTNAME   "
-    $description = "Alert:  $alertmessage    "
-    $color = "$alertmessagecolor"
-    $embedObject = [PSCustomObject]@{
-        title       = $title       
-        description = $description  
-        color       = $color
-        thumbnail   = $thumbnailObject
-    }                              
-    $embedArray.Add($embedObject) | Out-Null
-    $payload = [PSCustomObject]@{
-        embeds = $embedArray
-    }
-    Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
-    If (!$?) {
-        Get-warnmessage "AlertFailed"
-    } 
-    Else {
-        $global:InfoMessage = "discord"
-        Get-Infomessage 
-    }
-}
+# Function Send-DiscordAlert_old {
+#     $thumbnailObject = [PSCustomObject]@{
+#         url = "https://i.imgur.com/tTrtYMe.png"
+#     }
+#     $webHookUrl = "$discordwebhook"
+#     [System.Collections.ArrayList]$embedArray = @()
+#     $title = "Server Name:  $HOSTNAME   "
+#     $description = "Alert:  $alertmessage    "
+#     $color = "$alertmessagecolor"
+#     $embedObject = [PSCustomObject]@{
+#         title       = $title       
+#         description = $description  
+#         color       = $color
+#         thumbnail   = $thumbnailObject
+#     }                              
+#     $embedArray.Add($embedObject) | Out-Null
+#     $payload = [PSCustomObject]@{
+#         embeds = $embedArray
+#     }
+#     Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType 'application/json'
+#     If (!$?) {
+#         Get-warnmessage "AlertFailed"
+#     } 
+#     Else {
+#         $global:InfoMessage = "discord"
+#         Get-Infomessage 
+#     }
+# }
 Function Send-DiscordAlert {
     $game = Import-Csv $currentdir\data\serverlist.csv | where-object appid -like $appid | Select-Object -ExpandProperty Game
     Write-log "Function: $($MyInvocation.Mycommand)"

@@ -6,16 +6,6 @@
 #  "YMmMY"     MMM     """"YUMMMYMM   ""` MMM  M'  "MMM "YMmMY" MMMM   "W"   MP       MMM  M'  "MMM  `'YMUP"YMMMMMM   "W" 
 #
 #
-Function Get-Forgeforge {
-    $forgeversion = "*"
-    $forgeWebResponse = ((Invoke-WebRequest "http://files.minecraftforge.net/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://adfoc.us/serve/sitelinks/?id=271228&amp;url=https:///maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar" })
-    $forgeWebResponse = $forgeWebResponse.href | Get-Unique
-    $forgeWebResponse = $forgeWebResponse -replace ".*;url="
-    $forgeWebResponse = $forgeWebResponse -replace 'https:///', 'https://files.minecraftforge.net/'
-    # $forgeWebResponse
-    Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
-    java -jar forge-$forgeversion-installer.jar --installServer
-}
 Function Get-InstallForge {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($forgeversion) {
@@ -53,3 +43,13 @@ Function Get-InstallForge {
         Edit-Modlist 'Minecraft Forge' "forge-$forgeversion-installer.jar"
     }
 }
+# Function Get-Forgeforge_OLD {
+#     $forgeversion = "*"
+#     $forgeWebResponse = ((Invoke-WebRequest "http://files.minecraftforge.net/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://adfoc.us/serve/sitelinks/?id=271228&amp;url=https:///maven/net/minecraftforge/forge/$forgeversion/forge-$forgeversion-installer.jar" })
+#     $forgeWebResponse = $forgeWebResponse.href | Get-Unique
+#     $forgeWebResponse = $forgeWebResponse -replace ".*;url="
+#     $forgeWebResponse = $forgeWebResponse -replace 'https:///', 'https://files.minecraftforge.net/'
+#     # $forgeWebResponse
+#     Invoke-WebRequest -Uri $forgeWebResponse -OutFile forge-$forgeversion-installer.jar
+#     java -jar forge-$forgeversion-installer.jar --installServer
+# }
