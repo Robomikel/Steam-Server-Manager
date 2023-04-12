@@ -7,157 +7,214 @@
 #
 #
 Function Get-Infomessage {
-    Param($infomessage, $package,$colors)
+    Param($infomessage, $package, $colors)
     Write-log "Function: $($MyInvocation.Mycommand)"
-    If ($infomessage) {
-        If ($infomessage -eq "discord") {
-            $message = ' Sending Discord Alert' 
-        }
-        ElseIf ($infomessage -eq "stop") {
-            $message = ' Stopping Server Process' 
-        }
-        ElseIf ($infomessage -eq "stopped") {
-            $message = ' Server Process Stopped' 
-        }       
-        ElseIf ($infomessage -eq "notrunning") {
-            $message = ' Server Not Running' 
-        }
-        ElseIf ($infomessage -eq "running") {
-            $message = ' Server Running' 
-        }
-        ElseIf ($infomessage -eq "Starting") {
-            $message = ' Starting Server' 
-        }
-        ElseIf ($infomessage -eq "stopping") {
-            $message = ' Stopping Server' 
-        }
-        ElseIf ($infomessage -eq "done") {
-            $message = 'Server Install is done' 
-        }
-        ElseIf ($infomessage -eq "backupstart") {
-            $message = ' Server Backup Started ' 
-        }
-        ElseIf ($infomessage -eq "backupdone") {
-            $message = ' Server Backup is Done ' 
-        }
-        ElseIf ($infomessage -eq "savecheck") {
-            $message = ' Checking Save location(appData)' 
-        }
-        ElseIf ($infomessage -eq "appdatabackupstart") {
-            $message = ' Server AppData Backup Started' 
-        }
-        ElseIf ($infomessage -eq "appdatabackupdone") {
-            $message = ' Server AppData Backup is Done' 
-        }
-        ElseIf ($infomessage -eq "purgebackup") {
-            $message = ' Purging Backups' 
-        }
-        ElseIf ($infomessage -eq "purgeappdatabackup") {
-            $message = ' Purging AppData Backups' 
-        }
-        ElseIf ($infomessage -eq "finished") {
-            $infomessage = @( " Server $command is done"," ./ssm start $serverfiles " )
-            $message = " Server $command is done ./ssm start $serverfiles " 
-        }
-        ElseIf ($infomessage -eq "Downloading") {
-            $infomessage = @( " Downloading"," $package" )
-            $message = " Downloading $package" 
-        }
-        ElseIf ($infomessage -eq "Downloaded") {
-            $infomessage = @( " Downloaded"," $package" )
-            $message = " Downloaded $package" 
-        }
-        ElseIf ($infomessage -eq "Extracting") {
-            $infomessage = @( " Extracting"," $package" )
-            $message = " Extracting $package" 
-        }
-        ElseIf ($infomessage -eq "Extracted") {
-            $infomessage = @( " Extracted"," $package" )
-            $message = " Extracted $package" 
-        }
-        ElseIf ($infomessage -eq "copying-installing") {
-            $infomessage = @( " copying-installing"," $package" )
-            $message = " Copying-Installing $package" 
-        }
-        ElseIf ($infomessage -eq "copied-installed") {
-            $infomessage = @( " copied-installed"," $package" )
-            $message = " Copied-Installed $package" 
-        }
-        ElseIf ($infomessage -eq "getting") {
-            $message = ' Getting Server Variables' 
-        }
-        ElseIf ($infomessage -eq "clearing") {
-            $message = " Clearing Variables" 
-        }
-        ElseIf ($infomessage -eq "creating") {
-            $message = " Creating Variables and Adding Launch Params" 
-        }
-        ElseIf ($infomessage -eq "downloadtime") {
-            $infomessage = @( " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) ")
-            $message = " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) " 
-        }
-        ElseIf ($infomessage -eq "validating") {
-            $infomessage = @(" Validating Server ","$serverfiles")
-            $message = " Validating Server $serverfiles" 
-        }
-        ElseIf ($infomessage -eq "updating") {
-            $infomessage = @(" Updating Server ","$serverfiles")
-            $message = " Updating Server $serverfiles" 
-        }
-        ElseIf ($infomessage -eq "installing") {
-            $infomessage = @(" Installing Server"," $serverfiles")
-            $message = " Installing Server $serverfiles" 
-        }
-        ElseIf ($infomessage -eq "availableupdates") {
-            $infomessage = @(" Avaiable Updates on ","$serverfiles")
-            $message = " Avaiable Updates on $serverfiles" 
-        }
-        ElseIf ($infomessage -eq "noupdates") {
-            $infomessage = @(" No Updates found for"," $serverfiles")
-            $message = " No Updates Found for $serverfiles" 
-        }
-        ElseIf ($infomessage -eq "ssmupdates") {
-            $infomessage = @(" SSM Updates found for"," $getlocalssmname")
-            $message = " SSM Updates Found for $getlocalssmname" 
-        }
-        ElseIf ($infomessage -eq "nossmupdates") {
-            $infomessage = @(" No SSM Updates found for"," $getlocalssmname")
-            $message = " No SSM Updates Found for $getlocalssmname" 
-        }
-        Else {
-            $message = "$infomessage" 
-        }
-        # $leftbracket = "...   [ " 
-        If ($package -eq $false) {
-            $info = "FAILED" 
-        }
-        ElseIf ($package -eq 'warning') {
-            $info = "WARN" 
-        }
-        Elseif ($package -eq 'update') {
-            $info = "UPDATE" 
-        }
-        Elseif ($package -eq 'info') {
-            $info = "INFO" 
-        }
-        Elseif ($package -eq 'start') {
-            $info = "START" 
-        }
-        Elseif ($package -eq 'done') {
-            $info = "DONE" 
-        }
-        Else {
-            $info = "OK" 
-        }
-        # $rightbracket = " ]" 
-        Send-Mess $message $info
-        Start-Sleep -Seconds 1 
-        # Write-Information "[info]" -InformationAction Continue
-        # Write-Information "$message" -InformationAction Continue
-        #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
-        Write-log "Message: $infomessage"
+    switch ($infomessage) { 
+        'discord' { $message = ' Sending Discord Alert' }
+        'stop' { $message = ' Stopping Server Process' }
+        'stopped' { $message = ' Server Process Stopped' }
+        'notrunning' { $message = ' Server Not Running' }
+        'running' { $message = ' Server Running' }
+        'Starting' { $message = ' Starting Server' }
+        'stopping' { $message = ' Stopping Server' }
+        'done' { $message = 'Server Install is done' }
+        'backupstart' { $message = ' Server Backup Started ' }
+        'backupdone' { $message = ' Server Backup is Done ' }
+        'savecheck' { $message = ' Checking Save location(appData)' }
+        'appdatabackupstart' { $message = ' Server AppData Backup Started' }
+        'appdatabackupdone' { $message = ' Server AppData Backup is Done' }
+        'purgebackup' { $message = ' Purging Backups' }
+        'purgeappdatabackup' { $message = ' Purging AppData Backups' }
+        'finished' { $infomessage = @( " Server $command is done", " ./ssm start $serverfiles " ); $message = " Server $command is done ./ssm start $serverfiles " }
+        'Downloading' { $infomessage = @( " Downloading", " $package" ); $message = " Downloading $package" }
+        'Downloaded' { $infomessage = @( " Downloaded", " $package" ); $message = " Downloaded $package" }
+        'Extracting' { $infomessage = @( " Extracting", " $package" ); $message = " Extracting $package" }
+        'Extracted' { $infomessage = @( " Extracted", " $package" ); $message = " Extracted $package" }
+        'copying-installing' { $infomessage = @( " copying-installing", " $package" ); $message = " Copying-Installing $package" }
+        'copied-installed' { $infomessage = @( " copied-installed", " $package" ); $message = " Copied-Installed $package" }
+        'getting' { $message = ' Getting Server Variables' }
+        'clearing' { $message = " Clearing Variables" }
+        'creating' { $message = " Creating Variables and Adding Launch Params" }
+        'downloadtime' { $infomessage = @( " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) "); $message = " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) " }
+        'validating' { $infomessage = @(" Validating Server ", "$serverfiles"); $message = " Validating Server $serverfiles" }
+        'updating' { $infomessage = @(" Updating Server ", "$serverfiles"); $message = " Updating Server $serverfiles" }
+        'installing' { $infomessage = @(" Installing Server", " $serverfiles"); $message = " Installing Server $serverfiles" }
+        'availableupdates' { $infomessage = @(" Avaiable Updates on ", "$serverfiles"); $message = " Avaiable Updates on $serverfiles" }
+        'noupdates' { $infomessage = @(" No Updates found for", " $serverfiles"); $message = " No Updates Found for $serverfiles" }
+        'ssmupdates' { $infomessage = @(" SSM Updates found for", " $getlocalssmname"); $message = " SSM Updates Found for $getlocalssmname" }
+        'nossmupdates' { $infomessage = @(" No SSM Updates found for", " $getlocalssmname"); $message = " No SSM Updates Found for $getlocalssmname" }
+        Default { $message = "$infomessage" }
     }
+    switch ($package) {
+        $false { $info = "FAILED" }
+        'warning' { $info = "WARN" }
+        'update' { $info = "UPDATE" }
+        'info' { $info = "INFO" }
+        'start' { $info = "START" }
+        'done' { $info = "DONE" }
+        default { $info = "OK" }
+    }
+    # $leftbracket = "...   [ " 
+    # $rightbracket = " ]" 
+    Send-Mess $message $info
+    Start-Sleep -Seconds 1 
+    # Write-Information "[info]" -InformationAction Continue
+    # Write-Information "$message" -InformationAction Continue
+    #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+    Write-log "Message: $infomessage"
 }
+# Function Get-Infomessage_OLD {
+#     Param($infomessage, $package,$colors)
+#     Write-log "Function: $($MyInvocation.Mycommand)"
+#     If ($infomessage) {
+#         If ($infomessage -eq "discord") {
+#             $message = ' Sending Discord Alert' 
+#         }
+#         ElseIf ($infomessage -eq "stop") {
+#             $message = ' Stopping Server Process' 
+#         }
+#         ElseIf ($infomessage -eq "stopped") {
+#             $message = ' Server Process Stopped' 
+#         }       
+#         ElseIf ($infomessage -eq "notrunning") {
+#             $message = ' Server Not Running' 
+#         }
+#         ElseIf ($infomessage -eq "running") {
+#             $message = ' Server Running' 
+#         }
+#         ElseIf ($infomessage -eq "Starting") {
+#             $message = ' Starting Server' 
+#         }
+#         ElseIf ($infomessage -eq "stopping") {
+#             $message = ' Stopping Server' 
+#         }
+#         ElseIf ($infomessage -eq "done") {
+#             $message = 'Server Install is done' 
+#         }
+#         ElseIf ($infomessage -eq "backupstart") {
+#             $message = ' Server Backup Started ' 
+#         }
+#         ElseIf ($infomessage -eq "backupdone") {
+#             $message = ' Server Backup is Done ' 
+#         }
+#         ElseIf ($infomessage -eq "savecheck") {
+#             $message = ' Checking Save location(appData)' 
+#         }
+#         ElseIf ($infomessage -eq "appdatabackupstart") {
+#             $message = ' Server AppData Backup Started' 
+#         }
+#         ElseIf ($infomessage -eq "appdatabackupdone") {
+#             $message = ' Server AppData Backup is Done' 
+#         }
+#         ElseIf ($infomessage -eq "purgebackup") {
+#             $message = ' Purging Backups' 
+#         }
+#         ElseIf ($infomessage -eq "purgeappdatabackup") {
+#             $message = ' Purging AppData Backups' 
+#         }
+#         ElseIf ($infomessage -eq "finished") {
+#             $infomessage = @( " Server $command is done"," ./ssm start $serverfiles " )
+#             $message = " Server $command is done ./ssm start $serverfiles " 
+#         }
+#         ElseIf ($infomessage -eq "Downloading") {
+#             $infomessage = @( " Downloading"," $package" )
+#             $message = " Downloading $package" 
+#         }
+#         ElseIf ($infomessage -eq "Downloaded") {
+#             $infomessage = @( " Downloaded"," $package" )
+#             $message = " Downloaded $package" 
+#         }
+#         ElseIf ($infomessage -eq "Extracting") {
+#             $infomessage = @( " Extracting"," $package" )
+#             $message = " Extracting $package" 
+#         }
+#         ElseIf ($infomessage -eq "Extracted") {
+#             $infomessage = @( " Extracted"," $package" )
+#             $message = " Extracted $package" 
+#         }
+#         ElseIf ($infomessage -eq "copying-installing") {
+#             $infomessage = @( " copying-installing"," $package" )
+#             $message = " Copying-Installing $package" 
+#         }
+#         ElseIf ($infomessage -eq "copied-installed") {
+#             $infomessage = @( " copied-installed"," $package" )
+#             $message = " Copied-Installed $package" 
+#         }
+#         ElseIf ($infomessage -eq "getting") {
+#             $message = ' Getting Server Variables' 
+#         }
+#         ElseIf ($infomessage -eq "clearing") {
+#             $message = " Clearing Variables" 
+#         }
+#         ElseIf ($infomessage -eq "creating") {
+#             $message = " Creating Variables and Adding Launch Params" 
+#         }
+#         ElseIf ($infomessage -eq "downloadtime") {
+#             $infomessage = @( " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) ")
+#             $message = " Download Time:  $((Get-Date).Subtract($start_time).Seconds) second(s) " 
+#         }
+#         ElseIf ($infomessage -eq "validating") {
+#             $infomessage = @(" Validating Server ","$serverfiles")
+#             $message = " Validating Server $serverfiles" 
+#         }
+#         ElseIf ($infomessage -eq "updating") {
+#             $infomessage = @(" Updating Server ","$serverfiles")
+#             $message = " Updating Server $serverfiles" 
+#         }
+#         ElseIf ($infomessage -eq "installing") {
+#             $infomessage = @(" Installing Server"," $serverfiles")
+#             $message = " Installing Server $serverfiles" 
+#         }
+#         ElseIf ($infomessage -eq "availableupdates") {
+#             $infomessage = @(" Avaiable Updates on ","$serverfiles")
+#             $message = " Avaiable Updates on $serverfiles" 
+#         }
+#         ElseIf ($infomessage -eq "noupdates") {
+#             $infomessage = @(" No Updates found for"," $serverfiles")
+#             $message = " No Updates Found for $serverfiles" 
+#         }
+#         ElseIf ($infomessage -eq "ssmupdates") {
+#             $infomessage = @(" SSM Updates found for"," $getlocalssmname")
+#             $message = " SSM Updates Found for $getlocalssmname" 
+#         }
+#         ElseIf ($infomessage -eq "nossmupdates") {
+#             $infomessage = @(" No SSM Updates found for"," $getlocalssmname")
+#             $message = " No SSM Updates Found for $getlocalssmname" 
+#         }
+#         Else {
+#             $message = "$infomessage" 
+#         }
+#         # $leftbracket = "...   [ " 
+#         If ($package -eq $false) {
+#             $info = "FAILED" 
+#         }
+#         ElseIf ($package -eq 'warning') {
+#             $info = "WARN" 
+#         }
+#         Elseif ($package -eq 'update') {
+#             $info = "UPDATE" 
+#         }
+#         Elseif ($package -eq 'info') {
+#             $info = "INFO" 
+#         }
+#         Elseif ($package -eq 'start') {
+#             $info = "START" 
+#         }
+#         Elseif ($package -eq 'done') {
+#             $info = "DONE" 
+#         }
+#         Else {
+#             $info = "OK" 
+#         }
+#         # $rightbracket = " ]" 
+#         Send-Mess $message $info
+#         Start-Sleep -Seconds 1 
+#         # Write-Information "[info]" -InformationAction Continue
+#         # Write-Information "$message" -InformationAction Continue
+#         #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
+#         Write-log "Message: $infomessage"
+#     }
+# }
 Function clear-hostline {
     Param (
         [Parameter(Position = 1)]
@@ -438,98 +495,139 @@ function Receive-Message {
 Function Get-WarnMessage {
     param ($warnmessage, $package)   
     Write-log "Function: $($MyInvocation.Mycommand)"
-    If ($warnmessage) {
-        
-        If ($warnmessage -eq 'missingwebhook') {
-            $message = ' Missing Discord Webhook'
-        }
-        ElseIf ($warnmessage -eq 'AlertFailed') {
-            $message = ' Discord Alert Failed'
-        }
-        ElseIf ($warnmessage -eq 'createfolderfailed') {
-            $message = ' Creating backup folder Failed'
-        }
-        ElseIf ($warnmessage -eq 'backupfnfailed') {
-            $message = ' Fn_New-BackupFolder Failed'
-        }
-        ElseIf ($warnmessage -eq 'backupfailed') {
-            $message = " Server Backup Failed: :  $LASTEXITCODE"
-        }
-        ElseIf ($warnmessage -eq 'limitbackupfailed') {
-            $message = " Limit-Backups Failed:  $backupdir $maxbackups"
-        }
-        ElseIf ($warnmessage -eq 'missingvars') {
-            $message = ' Missing Variables'
-        }
-        ElseIf ($warnmessage -eq 'missingVariables') {
-            $message = " Missing $serverdir\Variables-$serverfiles.ps1"
-        }
-        ElseIf ($warnmessage -eq 'chkvarsfailed') {
-            $message = ' Fn_Get-CheckForVars Failed'
-        }
-        ElseIf ($warnmessage -eq 'fnmcrconfailed') {
-            $message = ' Fn_Get-MCRconCheck Failed'
-        }
-        ElseIf ($warnmessage -eq 'stoppedfailed') {
-            $message = ' Process stopping Failed'
-        }
-        ElseIf ($warnmessage -eq 'invalidnumbers') {
-            $message = ' Input Valid AppID  Numbers only'
-        }
-        ElseIf ($warnmessage -eq 'invalidCharacters') {
-            $message = ' Input Alpha Characters only'
-        }
-        ElseIf ($warnmessage -eq 'readappidfailed') {
-            $message = ' Read-AppID Failed'
-        }
-        ElseIf ($warnmessage -eq 'fnnodejsfailed') {
-            $message = ' Fn_Get-NodeJSCheck Failed'
-        }
-        ElseIf ($warnmessage -eq 'fngetfoldersfailed') {
-            $message = ' Fn_Get-FolderNames Failed'
-        }
-        ElseIf ($warnmessage -eq 'fnssevenzipfailed') {
-            $message = ' Fn_Get-SevenZipCheck Failed'
-        }
-        ElseIf ($warnmessage -eq 'fngetsteamfailed') {
-            $message = ' Fn_Get-Steam Failed'
-        }
-        ElseIf ($warnmessage -eq 'Fn_InstallServerFiles') {
-            $message = ' Failed: Install-ServerFiles: Try Install command'
-        }
-        ElseIf ($warnmessage -eq 'Fn_Set-ConnectMCRcon') {
-            $message = " Set-ConnectMCRcon Failed: $serverdir"
-        }
-        ElseIf ($warnmessage -eq 'Fn_Get-StopServer') {
-            $message = " Failed: Get-StopServer null $process"
-        }
-        ElseIf ($warnmessage -eq 'Fn_Get-StopServerintall') {
-            $message = " Failed: Get-StopServerIntall null $process"
-        }
-        ElseIf ($warnmessage -eq 'Downloadfailed') {
-            $message = " Downloading  $package Failed"
-        }
-        ElseIf ($warnmessage -eq 'ExtractFailed') {
-            $message = " Extracting $package Failed"
-        }
-        ElseIf ($warnmessage -eq 'nolaunchscript') {
-            $message = ' No Launch Script Found for this server'
-        }
-        ElseIf ($warnmessage -eq 'discordnotenabled') {
-            $message = ' Discord alerts not enabled'
-        }Else{
-            $message = "$warnmessage"
-        }
-        Start-Sleep 0.3
-        Write-Warning "$message"
-        #Add-Content $ssmlog "[$loggingdate] Warning: $message"
-        Write-Log "Warning: $message"
-        Pop-Location
-        if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
-            Exit
-        }
+    switch ($warnmessage) {
+        'missingwebhook' { $message = ' Missing Discord Webhook' }
+        'AlertFailed' { $message = ' Discord Alert Failed' }
+        'createfolderfailed' { $message = ' Creating backup folder Failed' }
+        'backupfnfailed' { $message = ' Fn_New-BackupFolder Failed' }
+        'backupfailed' { $message = " Server Backup Failed: :  $LASTEXITCODE" }
+        'limitbackupfailed' { $message = " Limit-Backups Failed:  $backupdir $maxbackups" }
+        'missingvars' { $message = ' Missing Variables' }
+        'missingVariables' { $message = " Missing $serverdir\Variables-$serverfiles.ps1" }
+        'chkvarsfailed' { $message = ' Fn_Get-CheckForVars Failed' }
+        'fnmcrconfailed' { $message = ' Fn_Get-MCRconCheck Failed' }
+        'stoppedfailed' { $message = ' Process stopping Failed' }
+        'invalidnumbers' { $message = ' Input Valid AppID  Numbers only' }
+        'invalidCharacters' { $message = ' Input Alpha Characters only' }
+        'readappidfailed' { $message = ' Read-AppID Failed' }
+        'fnnodejsfailed' { $message = ' Fn_Get-NodeJSCheck Failed' }
+        'fngetfoldersfailed' { $message = ' Fn_Get-FolderNames Failed' }
+        'fnssevenzipfailed' { $message = ' Fn_Get-SevenZipCheck Failed' }
+        'fngetsteamfailed' { $message = ' Fn_Get-Steam Failed' }
+        'Fn_InstallServerFiles' { $message = ' Failed: Install-ServerFiles: Try Install command' }
+        'Fn_Set-ConnectMCRcon' { $message = " Set-ConnectMCRcon Failed: $serverdir" }
+        'Fn_Get-StopServer' { $message = " Failed: Get-StopServer null $process" }
+        'Fn_Get-StopServerintall' { $message = " Failed: Get-StopServerIntall null $process" }
+        'Downloadfailed' { $message = " Downloading  $package Failed" }
+        'ExtractFailed' { $message = " Extracting $package Failed" }
+        'nolaunchscript' { $message = ' No Launch Script Found for this server' }
+        'discordnotenabled' { $message = ' Discord alerts not enabled' }
+        Default { $message = "$warnmessage" }
+    }
+    Start-Sleep 0.3
+    Write-Warning "$message"
+    #Add-Content $ssmlog "[$loggingdate] Warning: $message"
+    Write-Log "Warning: $message"
+    Pop-Location
+    if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
+        Exit
     }
 }
+# Function Get-WarnMessage_OLD {
+#     param ($warnmessage, $package)   
+#     Write-log "Function: $($MyInvocation.Mycommand)"
+#     If ($warnmessage) {
+        
+#         If ($warnmessage -eq 'missingwebhook') {
+#             $message = ' Missing Discord Webhook'
+#         }
+#         ElseIf ($warnmessage -eq 'AlertFailed') {
+#             $message = ' Discord Alert Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'createfolderfailed') {
+#             $message = ' Creating backup folder Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'backupfnfailed') {
+#             $message = ' Fn_New-BackupFolder Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'backupfailed') {
+#             $message = " Server Backup Failed: :  $LASTEXITCODE"
+#         }
+#         ElseIf ($warnmessage -eq 'limitbackupfailed') {
+#             $message = " Limit-Backups Failed:  $backupdir $maxbackups"
+#         }
+#         ElseIf ($warnmessage -eq 'missingvars') {
+#             $message = ' Missing Variables'
+#         }
+#         ElseIf ($warnmessage -eq 'missingVariables') {
+#             $message = " Missing $serverdir\Variables-$serverfiles.ps1"
+#         }
+#         ElseIf ($warnmessage -eq 'chkvarsfailed') {
+#             $message = ' Fn_Get-CheckForVars Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'fnmcrconfailed') {
+#             $message = ' Fn_Get-MCRconCheck Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'stoppedfailed') {
+#             $message = ' Process stopping Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'invalidnumbers') {
+#             $message = ' Input Valid AppID  Numbers only'
+#         }
+#         ElseIf ($warnmessage -eq 'invalidCharacters') {
+#             $message = ' Input Alpha Characters only'
+#         }
+#         ElseIf ($warnmessage -eq 'readappidfailed') {
+#             $message = ' Read-AppID Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'fnnodejsfailed') {
+#             $message = ' Fn_Get-NodeJSCheck Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'fngetfoldersfailed') {
+#             $message = ' Fn_Get-FolderNames Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'fnssevenzipfailed') {
+#             $message = ' Fn_Get-SevenZipCheck Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'fngetsteamfailed') {
+#             $message = ' Fn_Get-Steam Failed'
+#         }
+#         ElseIf ($warnmessage -eq 'Fn_InstallServerFiles') {
+#             $message = ' Failed: Install-ServerFiles: Try Install command'
+#         }
+#         ElseIf ($warnmessage -eq 'Fn_Set-ConnectMCRcon') {
+#             $message = " Set-ConnectMCRcon Failed: $serverdir"
+#         }
+#         ElseIf ($warnmessage -eq 'Fn_Get-StopServer') {
+#             $message = " Failed: Get-StopServer null $process"
+#         }
+#         ElseIf ($warnmessage -eq 'Fn_Get-StopServerintall') {
+#             $message = " Failed: Get-StopServerIntall null $process"
+#         }
+#         ElseIf ($warnmessage -eq 'Downloadfailed') {
+#             $message = " Downloading  $package Failed"
+#         }
+#         ElseIf ($warnmessage -eq 'ExtractFailed') {
+#             $message = " Extracting $package Failed"
+#         }
+#         ElseIf ($warnmessage -eq 'nolaunchscript') {
+#             $message = ' No Launch Script Found for this server'
+#         }
+#         ElseIf ($warnmessage -eq 'discordnotenabled') {
+#             $message = ' Discord alerts not enabled'
+#         }Else{
+#             $message = "$warnmessage"
+#         }
+#         Start-Sleep 0.3
+#         Write-Warning "$message"
+#         #Add-Content $ssmlog "[$loggingdate] Warning: $message"
+#         Write-Log "Warning: $message"
+#         Pop-Location
+#         if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
+#             Exit
+#         }
+#     }
+# }
 Function Get-adminMessage {
     Write-warning " Running with an Adminstrator account"
 }
