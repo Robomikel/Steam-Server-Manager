@@ -33,7 +33,7 @@ $githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-C
 
 # NodeJS
 # $nodejslatest = "latest-v12.x"
-$nodejslatest = "v14.16.1" # Max version for Gamedig currently
+$nodejslatest = "v14.21.3" # Max version for Gamedig currently
 # $nodejslatest = "latest-v16.x" # this version doesn't work for gamedig
 $nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
 $nodejsdirectory = "$currentdir\$nodejslatest"
@@ -100,7 +100,7 @@ $mcrconowner = "Tiiffi"
 $mcrconrepo = "mcrcon"
 
 # Forge
-$forgeversion = "1.16.4-35.1.4"
+$forgeversion = "1.19.3-44.1.0"
 
 # Pode
 $Podesetupowner = 'Badgerati'
