@@ -133,6 +133,7 @@ Install miscreated server ```./ssm install misserver```
    * Rising Storm 2 - Dedicated Server  (418480) - "rs2server" (optional server folder name)   
    * Satisfactory Dedicated Server  (1690800) - "factoryserver" (optional server folder name)  
    * StickyBots Dedicated Server  (974130) - "stickybotsserver" (optional server folder name)  
+   * SCP: 5K Dedicated Server (884110) "scp5kserver" (optional server folder name)   
    * SCP: Secret Laboratory Dedicated Server (996560) "scpserver" (optional server folder name)   
    * Space Engineers Dedicated Server (298740) "seserver" (optional server folder name)   
    * Sniper Elite 4 Dedicated Server (568880) "se4server" (optional server folder name)   
