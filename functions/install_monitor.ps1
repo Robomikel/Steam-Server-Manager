@@ -12,7 +12,7 @@ Function New-MontiorJob {
     Write-Host "Run Task only when user is logged on"
     If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
         $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
-        $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles }`"" -WorkingDirectory "$currentdir"
+        $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "$currentdir\ssm.ps1 monitor $serverfiles" -WorkingDirectory "$currentdir"
         $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
         $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
         $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
@@ -39,7 +39,7 @@ Function New-MontiorJobBG {
             If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
                 $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
                 $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword 
-                $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "`"If (!(Get-Process '$process')) {$currentdir\ssm.ps1 monitor $serverfiles  }`"" -WorkingDirectory "$currentdir"
+                $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "$currentdir\ssm.ps1 monitor $serverfiles" -WorkingDirectory "$currentdir"
                 $Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Minutes 5) 
                 $Settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit '00:00:00'
                 $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
