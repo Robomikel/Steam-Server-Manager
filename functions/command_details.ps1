@@ -135,6 +135,8 @@ Function Get-Details {
     Write-Host "Serverfiles:       $serverfilesdir"
     Write-Host "Backups:           $backups"
     Write-Host "Backups Size:      $backupssize"
+    Write-Host "Monitor:           $monitorjob"
+    Write-Host "AutoRestart:       $restartjob"
     Write-Host " "
     Write-Host "Server details"
     Write-Host ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."
