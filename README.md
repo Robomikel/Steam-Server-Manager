@@ -99,6 +99,7 @@ Install miscreated server ```./ssm install misserver```
    * Eden Star Dedicated Server (419790) - "esserver" (optional server folder name)   
    * Eternal Silence Dedicated Server (17555) - "esmodserver" (optional server folder name)  
    * Fortress Forever Dedicated Server  (329710) - "ffserver" (optional server folder name)   
+   * Frozen Flame Dedicated Server  (1348640) - "frozenflame" (optional server folder name)   
    * Fistful of Frags Dedicated Server (295230) "fofserver" (optional server folder name)   
    * Garry's Mod Dedicated Server (4020) "gmodserver"  (optional server folder name)  
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)   
