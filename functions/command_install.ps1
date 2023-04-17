@@ -39,7 +39,9 @@ Function Install-ServerFiles {
                             # $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
                             # & $steamexecutable $steamcmdparams
                             # New-TryagainSteamLogin
-                            # Get-Infomessage "Please Wait: " 'info'
+                            Get-Infomessage "+force_install_dir $serverdir" 'info'
+                            Get-Infomessage "+app_update $appid $branch validate " 'info'
+                            Get-Infomessage "Use Steamcmd to login for download " 'info'
                             $steamcmdparams = @("+force_install_dir $serverdir", "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+app_update $appid $branch validate", "+Exit")
                             # & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                             & $steamexecutable $steamcmdparams
