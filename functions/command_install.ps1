@@ -21,7 +21,7 @@ Function Install-ServerFiles {
                 push-location
                 Set-Location $steamdirectory
                 If ($ANON -eq "yes") {
-                    $steamcmdparams = @("+@NoPromptForPassword 1", "+login", "anonymous", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
+                    $steamcmdparams = @("+@NoPromptForPassword 1", "+force_install_dir $serverdir", "+login", "anonymous", "+app_update $appid $branch validate", "+Exit")
                     Get-Infomessage "Please Wait: Will Display console in a moment" 'info'
                     & $steamexecutable $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                     # Write-log "$appinstalllog"
@@ -36,13 +36,16 @@ Function Install-ServerFiles {
                         If ($securedpassword) {
                             $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
                             # Set-Location $steamdirectory
-                            $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
+                            # $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
+                            # & $steamexecutable $steamcmdparams
+                            # New-TryagainSteamLogin
+                            Get-Infomessage "+force_install_dir $serverdir" 'info'
+                            Get-Infomessage "+app_update $appid $branch validate " 'info'
+                            Get-Infomessage "Use Steamcmd to login for download " 'info'
+                            $steamcmdparams = @("+force_install_dir $serverdir", "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+app_update $appid $branch validate", "+Exit")
+                            # & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
                             & $steamexecutable $steamcmdparams
-                            New-TryagainSteamLogin
-                            Get-Infomessage "Please Wait: " 'info'
-                            $steamcmdparams = @( "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+force_install_dir $serverdir", "+app_update $appid $branch validate", "+Exit")
-                            & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
-                            compare-SteamExit
+                            # compare-SteamExit
                         }
                     }
                 }
