@@ -36,13 +36,14 @@ Function Install-ServerFiles {
                         If ($securedpassword) {
                             $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securedpassword)
                             # Set-Location $steamdirectory
-                            $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
-                            & $steamexecutable $steamcmdparams
-                            New-TryagainSteamLogin
-                            Get-Infomessage "Please Wait: " 'info'
+                            # $steamcmdparams = @("+login $username $([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+Exit")
+                            # & $steamexecutable $steamcmdparams
+                            # New-TryagainSteamLogin
+                            # Get-Infomessage "Please Wait: " 'info'
                             $steamcmdparams = @("+force_install_dir $serverdir", "+login", "$username", "$([System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr))", "+app_update $appid $branch validate", "+Exit")
-                            & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
-                            compare-SteamExit
+                            # & $steamexecutable  $steamcmdparams | Tee-Object -Variable 'appinstalllog'
+                            & $steamexecutable $steamcmdparams
+                            # compare-SteamExit
                         }
                     }
                 }
