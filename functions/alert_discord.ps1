@@ -122,15 +122,15 @@ Function Send-DiscordAlert {
         $Thumbnail = New-DiscordThumbnail -Url $ThumbnailURL
         $Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
         # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
-        clear-hostline 1
+        clear-hostline 2
         Get-Infomessage "discord"
         Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName $AavatarName -AvatarUrl $AvatarUrl
         If (!$?) {
             Get-warnmessage "AlertFailed"
         }
         Else {
-            $global:InfoMessage = 
-            clear-hostline 1
+            $global:InfoMessage = ""
+            clear-hostline 2
             Get-Infomessage "discord" 'done'
         }    
     }

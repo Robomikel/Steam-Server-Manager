@@ -95,13 +95,15 @@ Function Get-StopServerInstall {
                 $p = Get-Process $process -ErrorAction SilentlyContinue
                 Write-log "info: Process ID:  $($p.id)"
                 $wshell = New-Object -ComObject wscript.shell
-                if ($appid -eq 443030) {
-                    $r = $wshell.AppActivate("$($p.Id)")
-                    $wshell.Sendkeys("^{c}")
-                }
-                Else {
+                # This only works if process is in foreground. 
+                # fails with SSM monitor commands
+                # if ($appid -eq 443030, 896660) {
+                #     $r = $wshell.AppActivate("$($p.Id)")
+                #     $wshell.Sendkeys("^{c}")
+                # }
+                # Else {
                     [void]$p.CloseMainWindow()
-                }
+                # }
                 Start-Sleep 5
                 if (!$p.HasExited) {
                     Write-log "info: Waiting Process: $($p.Name) "
