@@ -33,19 +33,23 @@ Function Get-help {
     Write-Host "start"
     Write-Host "stop"
     Write-Host "restart"
-    Write-Host "backup"
-    Write-Host "exit"
-    Write-Host "query"
     Write-Host "monitor"
+    Write-Host "backup"
+    Write-Host "restore"
     Write-Host "install-monitor"
-    Write-Host "install-backup"
     Write-Host "install-mod - SourceMod and Oxide Install"
     Write-Host "install-ws  - WorkShop Install"
-    Write-Host "mcrcon"
     Write-Host "install-Restart"
+    Write-Host "install-backup"
+    Write-Host "query"
+    Write-Host "mcrcon"
     Write-Host "discord"
     Write-Host "details"
+    Write-Host "update-mods"
     Write-Host "ssm update"
+    Write-Host "stats"
+    Write-Host "menu"
+    Write-Host "exit"
     break
 }
 Function Get-ClearVariables {
@@ -297,27 +301,6 @@ Function Select-EditSourceCFG {
         }    
     }
 }
-# Function Select-EditSourceCFG_OLD {
-#     Write-log "Function: $($MyInvocation.Mycommand)"
-#     If (($servercfgdir) -and ($servercfg )) {
-#         # Write-Host "***  Editing Default server.cfg  ***" -F M -B Black
-#         Write-log "info: Editing Default source server.cfg"
-#         #  -and ($appid -ne 17505) -and ($appid -ne 232250) -and ($appid -ne 276060) -and ($appid -ne 222860) -and ($appid -ne 317670) -and ($appid -ne 232370) -and ($appid -ne 985050) -and ($appid -ne 346680) -and ($appid -ne 228780) -and ($appid -ne 475370) -and ($appid -ne 383410) -and ($appid -ne 238430) -and ($appid -ne 740) -and ($appid -ne 232290) -and ($appid -ne 17585) -and ($appid -ne 295230) -and ($appid -ne 4020)
-#         $servercfgcomment = @(237410, 462310 )
-#         If ($servercfgcomment -contains $appid) {
-#             if ($HOSTNAME) {
-#                 ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
-#                 ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bhostname\b", '//hostname') | Set-Content  $servercfgdir\$servercfg            
-#             } 
-#         }
-#         Else {
-#             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bSERVERNAME\b", "$HOSTNAME") | Set-Content  $servercfgdir\$servercfg
-#         }
-#         If ($RCONPASSWORD) {
-#             ((Get-Content  $servercfgdir\$servercfg -Raw) -replace "\bADMINPASSWORD\b", "$RCONPASSWORD") | Set-Content  $servercfgdir\$servercfg
-#         }    
-#     }
-# }
 Function Edit-ServerConfig {
     If (${servercfg}) {
         If (${servercfgdir}) {
@@ -337,48 +320,6 @@ Function Edit-ServerConfig {
     Write-log "Function: $($MyInvocation.Mycommand)"
 }
 
-# Function Set-ServerConfig_OLD {
-#     Write-log "Function: $($MyInvocation.Mycommand)"
-#     $removelinenumber = @( 407480,1670340 )
-#     $readserverconfig = Get-Content ${servercfgdir}\${servercfg}
-#     If ( $removelinenumber -contains $appid ) {
-#         $deleteline = $readserverconfig[$line]
-#     }
-#     ElseIf (($readserverconfig | Select-String -SimpleMatch "SessionName")) {
-#         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
-#     }
-#     ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname")) {
-#         $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname" | Where Line -NotMatch '//'  )
-#     } 
-#     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName")) {
-#         $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName")
-#         $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
-#     }
-#     If ($deleteline.Count -gt 1 ) {
-#         Write-log "Failed: Edit ServerConfig Hostname. Multiple Lines"
-#     }
-#     # Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -or $deleteline -like `"*name*`" -and $deleteline -notmatch `"$hostname`""
-#     If ($deleteline -like "*hostname*" -or $deleteline -like "*SERVERNAME*" -or $deleteline -like "*SessionName*" -or $deleteline -like "*ServerName*" -or $deleteline -like "*name*" -and $deleteline -notmatch "$hostname"  ) {
-#         # Write-log "$deleteline -like `"*hostname*`" -or $deleteline -like `"*SERVERNAME*`" -and $deleteline -notmatch `"$hostname`""
-#         switch ($appid) {
-#             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}" }
-#             '294420' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             { @( '407480', '443030', '232130', '629800', '412680', '1420710', '728470' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             { @( '403240', '261020', '418480', '696120', '1141420', '416880' ) -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             { @('17515', '237410', '232250', '276060', '346680', '228780', '475370', '383410', '238430', '740', '232290', '462310', '317800', '460040', '17585', '17555', '295230', '4020', '232370', '222860', '332670', '17505', '329710') -contains $_ } { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '233780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '343050' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '376030' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '1064780' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '1180760' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             '1670340' { ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break }
-#             Default { Write-log "Failed: Edit ServerConfig Hostname" }
-#         }
-#     }
-#     Else {
-#         Write-log "Failed: Edit ServerConfig Hostname" 
-#     }
-# }
 Function Set-ServerConfig {
     Write-log "Function: $($MyInvocation.Mycommand)"
     $removelinenumber = @( 407480, 361580 )
@@ -505,18 +446,6 @@ Function Remove-SteamerLogs {
         Get-Childitem -Depth 1 $ssmlogdir -Recurse | Sort-Object CreationTime -desc | Select-Object -Skip "$consolelogcount" | Remove-Item -Force -ea SilentlyContinue
     }
 }
-# Function Send-Paste_OLD {
-#     Write-log "Function: $($MyInvocation.Mycommand)"
-#     If ($serverfiles) {
-#         If (Test-Path $currentdir\log\$serverfiles-*.log) {
-#             Set-Location $logdir
-#             $paste = Get-Childitem -Depth 1 $logdir -Filter $serverfiles-*.log | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-#             Out-Pastebin  -InputObject $(Get-Content "$paste") -PasteTitle "$serverfiles" -ExpiresIn 10M -Visibility Unlisted
-#             Set-Location $currentdir
-#         }
-
-#     }
-# }
 Function New-ServerBackupLog {
     Write-log "Function: $($MyInvocation.Mycommand)"
     #If ($backuplogs -eq "on") { Copy-Item "$sevenzipdirectory\[b]*.log", -Destination "$logdir\backup_$serverfiles-$date.log" -ea SilentlyContinue }

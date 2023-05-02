@@ -107,6 +107,11 @@ $Podesetupowner = 'Badgerati'
 $Podesetuprepo = 'Pode'
 $podedirectory = "$currentdir\pode"
 
+# AssettoServer
+$AssettoServerowner = 'compujuckel'
+$AssettoServersetuprepo = 'AssettoServer'
+$AssettoServerdirectory = "$currentdir\AssettoServer"
+
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
 $SMILEY_WHITE = ([char]9786)

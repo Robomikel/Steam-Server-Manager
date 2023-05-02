@@ -40,11 +40,15 @@ Function New-BackupServer {
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
+                Else {
+                    clear-hostline 1
+                    Get-Infomessage "backupstart" 'done'
+                }
             }
             pop-location
         }
         clear-hostline 1
-        Get-Infomessage "backupdone" 
+        Get-Infomessage "backupdone" 'Done'
        New-ServerBackupLog
         If ($backuplogopen -eq "on") {
             Push-Location
@@ -105,11 +109,15 @@ Function New-backupAppdata {
             If (!$?) {
                 Get-warnmessage "backupfailed"
             }
+            Else{
+                clear-hostline 1
+                Get-Infomessage "appdatabackupstart" 'done'
+            }
         }  
         Pop-location 
     }
     clear-hostline 1
-    Get-Infomessage "appdatabackupdone" 
+    Get-Infomessage "appdatabackupdone" 'done'
     New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
         $lastlog = (gci $logdir | sort LastWriteTime | select -First 1).Name
@@ -142,7 +150,7 @@ Function Limit-Backups {
         }
         Else {
             clear-hostline 1
-            Get-Infomessage "purgebackup" 
+            Get-Infomessage "purgebackup" 'done'
         }
         Pop-Location
     }
@@ -157,13 +165,13 @@ Function Limit-AppdataBackups {
         Get-Infomessage "purgeappdatabackup" 'info'
         push-location
         Set-Location $sevenzipdirectory
-        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
             Get-warnmessage "limitbackupfailed"
         }  
         Else {
             clear-hostline 1
-            Get-Infomessage "purgeappdatabackup" 
+            Get-Infomessage "purgeappdatabackup" 'done'
         }
         pop-location
     }
@@ -234,7 +242,7 @@ Function New-BackupRestore {
             exit
         }
         clear-hostline 1
-        Get-Infomessage "Restored from Backup" 
+        Get-Infomessage "Restored from Backup" 'done'
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             # Get-Infomessage "savecheck" 

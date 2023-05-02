@@ -57,12 +57,12 @@ Function Get-StopServer {
                     }
                     Elseif (!$processstatus) {
                         clear-hostline 1
-                        Get-Infomessage "stopped" 
+                        Get-Infomessage "stopped" 'done'
                     }
                 }
                 Elseif (!$processstatus) {
                     clear-hostline 1
-                    Get-Infomessage "stopped" 
+                    Get-Infomessage "stopped" 'done'
                 }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
@@ -124,12 +124,12 @@ Function Get-StopServerInstall {
                     }
                     Elseif (!$processstatus) {
                         clear-hostline 1
-                        Get-Infomessage "stopped" 
+                        Get-Infomessage "stopped" 'done'
                     }
                 }
                 Elseif (!$processstatus) {
                     clear-hostline 1
-                    Get-Infomessage "stopped" 
+                    Get-Infomessage "stopped" 'done'
                 }
                 If ($consolelogging -eq "on") { 
                     New-ServerLog
