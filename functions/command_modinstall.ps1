@@ -30,6 +30,9 @@ Function Get-Modinstall {
     ElseIf ($appid -eq 346680){
         Show-ModMenu
     }
+    ElseIf ($appid -eq 302550){
+        Show-ModMenu
+    }
     Else {
         Get-Infomessage "No Mods Available " 'info'
         Write-log "info: No Mods Available"
@@ -62,6 +65,9 @@ Function Show-ModMenu {
     }
     ElseIf ($appid -eq 403240){
         $command = Menu @('GC-Server-Conf-Template')
+    }
+    ElseIf ($appid -eq 302550){
+        $command = Menu @('AssettoServer')
     }
     Set-Console
     If ($command -eq 'SourceMod') {
@@ -100,6 +106,9 @@ Function Show-ModMenu {
         Get-BlackMesaSrcCoop
         Get-SourceMod
         Get-MetaMod
+    }
+    ElseIf ($command -eq 'AssettoServer') {
+        Get-AssettoServer
     }
 }
 

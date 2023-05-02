@@ -362,3 +362,66 @@ Function Get-CSGOsteamworks {
     }
     Edit-Modlist 'SteamWorks' $steamworkslatestzip
 }
+Function Get-AssettoServer {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ( $systemdir) {
+        # iwr $csgopugsetupurl -O $githubrepozipname
+        if ($AssettoServerowner -and $AssettoServersetuprepo) {
+            Get-GithubRestAPI $AssettoServerowner $AssettoServersetuprepo
+        }
+    }
+    If ($command -eq 'update-mods') {
+        Compare-Modlist 'AssettoServer' $githubrepozipname
+    }
+    If ($nomodupdate -eq $true) {
+        clear-hostline 1
+        Get-Infomessage "No AssettoServer updates" 'info'
+        return
+    }
+    Else {
+        $start_time = Get-Date
+        clear-hostline 1
+        Get-Infomessage "Downloading" 'AssettoServer'
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        If (!$?) { 
+            Get-WarnMessage 'Downloadfailed' 'AssettoServer'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Downloaded" 'AssettoServer'    
+        }
+        clear-hostline 1
+        Get-Infomessage "downloadtime"
+        $AssettoServerfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
+        $AssettoServerZip = @{
+            Path            = "$currentdir\$githubrepozipname"
+            DestinationPath = "$AssettoServerfolder"
+            Force           = $true
+        }
+        Expand-Archive @AssettoServerzip
+        If (!$?) {
+            Get-WarnMessage 'ExtractFailed' 'AssettoServer'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Extracted" 'AssettoServer'
+        }
+        clear-hostline 1
+        Get-Infomessage "copying-installing" 'AssettoServer'
+        $AssettoServerfolder = @{
+            Path        = "$AssettoServerfolder\*"
+            Destination = "$systemdir"
+            Force       = $true
+            Recurse     = $true
+        }
+        Write-Log "info: Copy $AssettoServerfolder $systemdir"
+        Copy-Item  @AssettoServerfolder >$null 2>&1
+        If (!$?) { 
+            Write-log "Failed: Copying AssettoServer "
+            New-TryagainNew 
+        }
+        Edit-Modlist 'AssettoServer' $githubrepozipname
+    }
+}
