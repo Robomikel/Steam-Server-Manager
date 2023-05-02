@@ -40,6 +40,10 @@ Function New-BackupServer {
                 If (!$?) {
                     Get-warnmessage "backupfailed"
                 }
+                Else {
+                    clear-hostline 1
+                    Get-Infomessage "backupstart" 'done'
+                }
             }
             pop-location
         }
@@ -104,6 +108,10 @@ Function New-backupAppdata {
             ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
             If (!$?) {
                 Get-warnmessage "backupfailed"
+            }
+            Else{
+                clear-hostline 1
+                Get-Infomessage "appdatabackupstart" 'done'
             }
         }  
         Pop-location 

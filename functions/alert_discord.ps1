@@ -122,6 +122,8 @@ Function Send-DiscordAlert {
         $Thumbnail = New-DiscordThumbnail -Url $ThumbnailURL
         $Section = New-DiscordSection -Title "$hostname" -Description "$alertmessage" -Facts $Fact -Color $alertmessagecolor -Author $Author -Thumbnail $Thumbnail # -Image $Thumbnail
         # $global:Section = New-DiscordSection -Title 'Everybody panic!' -Description '' -Facts $Fact, $Fact, $Fact -Color DeepSkyBlue -Author $Author -Thumbnail $Thumbnail -Image $Thumbnail
+        clear-hostline 1
+        Get-Infomessage "discord"
         Send-DiscordMessage -WebHookUrl $Uri -Sections $Section -AvatarName $AavatarName -AvatarUrl $AvatarUrl
         If (!$?) {
             Get-warnmessage "AlertFailed"
@@ -129,7 +131,7 @@ Function Send-DiscordAlert {
         Else {
             $global:InfoMessage = 
             clear-hostline 1
-            Get-Infomessage "discord" 
+            Get-Infomessage "discord" 'done'
         }    
     }
 }
@@ -153,7 +155,7 @@ Function get-pode {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "downloaded" 'Pode'
+            Get-Infomessage "downloaded" 'Pode' 'done'
             Write-log "info: Downloading Pode succeeded " 
         }
         clear-hostline 1
@@ -175,7 +177,7 @@ Function get-pode {
         }
         ElseIf ($?) { 
             clear-hostline 1
-            Get-Infomessage "Extracted" 'Pode'
+            Get-Infomessage "Extracted" 'Pode' 'done'
             Write-log "info: Extracting Pode succeeded  "  
         }
     }
