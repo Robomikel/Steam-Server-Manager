@@ -11,6 +11,7 @@ Function New-BackupServer {
     If (($sevenzipdirectory) -and ($serverfiles) -and ($backupdir) -and ($Date) -and ("$serverdir") -and ($logdate)) { 
         If ($stoponbackup -eq "on") { 
             Get-StopServer 
+            clear-hostline 1
         }
         if ($(Test-Path $sevenzipprogramexecutable)) {
             Write-Log "info: & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log"
