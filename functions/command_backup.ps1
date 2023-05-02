@@ -157,7 +157,7 @@ Function Limit-AppdataBackups {
         Get-Infomessage "purgeappdatabackup" 'info'
         push-location
         Set-Location $sevenzipdirectory
-        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup__$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
+        Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
             Get-warnmessage "limitbackupfailed"
         }  
