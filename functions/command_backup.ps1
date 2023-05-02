@@ -142,7 +142,7 @@ Function Limit-Backups {
         }
         Else {
             clear-hostline 1
-            Get-Infomessage "purgebackup" 
+            Get-Infomessage "purgebackup" 'done'
         }
         Pop-Location
     }
@@ -163,7 +163,7 @@ Function Limit-AppdataBackups {
         }  
         Else {
             clear-hostline 1
-            Get-Infomessage "purgeappdatabackup" 
+            Get-Infomessage "purgeappdatabackup" 'done'
         }
         pop-location
     }
@@ -234,7 +234,7 @@ Function New-BackupRestore {
             exit
         }
         clear-hostline 1
-        Get-Infomessage "Restored from Backup" 
+        Get-Infomessage "Restored from Backup" 'done'
         If ($appdatabackup -eq "on") { 
             Get-Savelocation
             # Get-Infomessage "savecheck" 

@@ -46,7 +46,7 @@ Function Select-StartServer {
     Get-StartServer $launchParams
     If ($?) {
         clear-hostline 1
-        Get-Infomessage "starting" 
+        Get-Infomessage "starting" 'done'
     }
 }
 Function Get-CheckServer {
