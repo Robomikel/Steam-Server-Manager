@@ -44,7 +44,7 @@ Function New-BackupServer {
             pop-location
         }
         clear-hostline 1
-        Get-Infomessage "backupdone" 
+        Get-Infomessage "backupdone" 'Done'
        New-ServerBackupLog
         If ($backuplogopen -eq "on") {
             Push-Location
@@ -109,7 +109,7 @@ Function New-backupAppdata {
         Pop-location 
     }
     clear-hostline 1
-    Get-Infomessage "appdatabackupdone" 
+    Get-Infomessage "appdatabackupdone" 'done'
     New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
         $lastlog = (gci $logdir | sort LastWriteTime | select -First 1).Name
