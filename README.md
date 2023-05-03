@@ -1,5 +1,5 @@
 # Steam Server Manager   
-![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/w/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.2/master?style=plastic)     
+![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/y/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.2/master?style=plastic)     
 
 ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Details.gif)   
 
@@ -236,7 +236,9 @@ Install miscreated server ```./ssm install misserver```
  * Rust - Plugin Updater
  * CSGO - Get5, Pug-setup, and Steamworks 
  * BlackMesa - Source Coop
-
+ * Asseto Corsa - AssetoServer
+ * Terraria - TShock
+ 
 # Steam Workshop install
 * advanced configuration in *_default.ps1 (see Space Engineers for example)
  
@@ -312,3 +314,7 @@ https://github.com/Badgerati/Pode
 https://github.com/discordjs/discord.js/
 # SourceCoop
 https://github.com/ampreeT/SourceCoop
+# AssetoServer
+https://github.com/compujuckel/AssettoServer
+# TShock
+https://github.com/Pryaxis/TShock

@@ -45,9 +45,9 @@ Function Get-StopServer {
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
                     clear-hostline 1
-                    Get-Infomessage " smooth stop failed" 'warning'
+                    Get-Infomessage " Smooth Stop Failed" 'warning'
                     clear-hostline 1
-                    Get-Infomessage " force stopping" 'info'
+                    Get-Infomessage " Force Stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
                     $processstatus = Get-Process $process -ea SilentlyContinue
@@ -113,9 +113,9 @@ Function Get-StopServerInstall {
                 $processstatus = Get-Process $process -ea SilentlyContinue
                 If ($processstatus) {
                     clear-hostline 1
-                    Get-Infomessage " smooth stop failed" 'warning'
+                    Get-Infomessage " Smooth Stop Failed" 'warning'
                     clear-hostline 1
-                    Get-Infomessage " force stopping" 'info'
+                    Get-Infomessage " Force Stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
                     $processstatus = Get-Process $process -ea SilentlyContinue
@@ -165,9 +165,9 @@ Function Get-StopMultiple {
                 $mprocess = get-process | Where-Object { $_.ProcessName -match $process }
                 If ($mprocess) {
                     clear-hostline 1
-                    Get-Infomessage " smooth stop failed" 'warning'
+                    Get-Infomessage " Smooth Stop Failed" 'warning'
                     clear-hostline 1
-                    Get-Infomessage " force stopping" 'info'
+                    Get-Infomessage " Force Stopping" 'info'
                     Stop-Process -Name $process -Force
                     Start-Sleep 5
                 }

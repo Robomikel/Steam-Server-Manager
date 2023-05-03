@@ -33,6 +33,9 @@ Function Get-Modinstall {
     ElseIf ($appid -eq 302550){
         Show-ModMenu
     }
+    ElseIf ($appid -eq 105600){
+        Show-ModMenu
+    }
     Else {
         Get-Infomessage "No Mods Available " 'info'
         Write-log "info: No Mods Available"
@@ -68,6 +71,9 @@ Function Show-ModMenu {
     }
     ElseIf ($appid -eq 302550){
         $command = Menu @('AssettoServer')
+    }
+    ElseIf ($appid -eq 105600){
+        $command = Menu @('TShock')
     }
     Set-Console
     If ($command -eq 'SourceMod') {
@@ -109,6 +115,9 @@ Function Show-ModMenu {
     }
     ElseIf ($command -eq 'AssettoServer') {
         Get-AssettoServer
+    }
+    ElseIf ($command -eq 'TShock') {
+        Get-TShock
     }
 }
 
