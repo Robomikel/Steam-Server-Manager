@@ -36,18 +36,19 @@ Function Get-MetaMod {
             }
             ElseIf ($?) {
                 clear-hostline 1
-                Get-Infomessage "Downloaded" 'MetaMod' 'done'
+                Get-Infomessage 'Downloaded MetaMod' 'done'
             } 
             clear-hostline 1
             Get-Infomessage "downloadtime"
-            clear-hostline 1
-            Get-Infomessage "Extracting" 'MetaMod'
+
             If ($metamodmversionzip -and $metamodmversionfolder) {
                 $metamodzip = @{
                     Path            = "$currentdir\$metamodmversionzip"
                     DestinationPath = "$currentdir\$metamodmversionfolder"
                     Force           = $true
                 }
+                clear-hostline 1
+                Get-Infomessage "Extracting" 'MetaMod'
                 Expand-Archive @metamodzip >$null 2>&1
             }
             If (!$?) { 
@@ -56,7 +57,7 @@ Function Get-MetaMod {
             }
             ElseIf ($?) {
                 clear-hostline 1
-                Get-Infomessage "Extracted" 'MetaMod' 'done'
+                Get-Infomessage 'Extracted MetaMod' 'done'
             } 
             Write-log "info: Copying/installing Meta Mod"
             If ($metamodmversionfolder -and $systemdir) { 
@@ -75,7 +76,7 @@ Function Get-MetaMod {
             }
             ElseIf ($?) {
                 clear-hostline 1
-                Get-Infomessage "Copied" 'MetaMod' 'done'
+                Get-Infomessage 'copied-installed MetaMod' 'done'
             } 
             Edit-Modlist 'MetaMod' $metamodmversionzip
         }
@@ -113,17 +114,17 @@ Function Get-SourceMod {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'SourceMod' 'done'
+            Get-Infomessage 'Downloaded SourceMod' 'done'
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
-        clear-hostline 1
-        Get-Infomessage "Extracting" 'SourceMod'
         $sourcemodzip = @{
             Path            = "$currentdir\$sourcemodmversionzip"
             DestinationPath = "$currentdir\$sourcemodmversionfolder"
             Force           = $true
         }
+        clear-hostline 1
+        Get-Infomessage "Extracting" 'SourceMod'
         Expand-Archive @sourcemodzip >$null 2>&1
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'SourceMod'
@@ -131,7 +132,7 @@ Function Get-SourceMod {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'SourceMod' 'done'
+            Get-Infomessage 'Extracted SourceMod' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'SourceMod'
@@ -159,7 +160,7 @@ Function Get-SourceMod {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Copied" 'SourceMod' 'done'
+            Get-Infomessage 'copied-installed SourceMod' 'done'
         }
         Edit-Modlist 'Sourcemod' $sourcemodmversionzip
     }
@@ -196,7 +197,7 @@ Function Get-CSGOGet5 {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Downloaded" 'CSGO-Get5' 'done'
+        Get-Infomessage 'Downloaded CSGO-Get5' 'done'
     }
     clear-hostline 1
     Get-Infomessage "downloadtime"
@@ -206,6 +207,8 @@ Function Get-CSGOGet5 {
         DestinationPath = "$csgoget5folder"
         Force           = $true
     }
+    clear-hostline 1
+    Get-Infomessage "Extracting" 'CSGO-Get5'
     Expand-Archive @get5zip
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'CSGO-Get5'
@@ -213,10 +216,10 @@ Function Get-CSGOGet5 {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Extracted" 'CSGO-Get5' 'done'
+        Get-Infomessage 'Extracted CSGO-Get5' 'done'
     }
     clear-hostline 1
-    Get-Infomessage "copying-installing" 'CSGO-Get5'
+    Get-Infomessage 'copying-installing CSGO-Get5'
     $get5folderaddons = @{
         Path        = "$csgoget5folder\addons"
         Destination = "$systemdir"
@@ -239,7 +242,7 @@ Function Get-CSGOGet5 {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Copied" 'CSGO-Get5' 'done'
+        Get-Infomessage 'copied-installed CSGO-Get5' 'done'
     }
     Edit-Modlist 'CSGO-Get5' $get5latestzip
 }
@@ -270,7 +273,7 @@ Function Get-CSGOcsgopugsetup {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'CSGO-pugsetup' 'done'   
+            Get-Infomessage 'Downloaded CSGO-pugsetup' 'done'   
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -280,6 +283,8 @@ Function Get-CSGOcsgopugsetup {
             DestinationPath = "$csgopugsetupfolder"
             Force           = $true
         }
+        clear-hostline 1
+        Get-Infomessage "Extracting" 'CSGO-pugsetup'
         Expand-Archive @pugsetupzip
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'CSGO-pugsetup'
@@ -287,7 +292,7 @@ Function Get-CSGOcsgopugsetup {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'CSGO-pugsetup' 'done'
+            Get-Infomessage 'Extracted CSGO-pugsetup' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'CSGO-pugsetup'
@@ -313,7 +318,7 @@ Function Get-CSGOcsgopugsetup {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Copied" 'CSGO-pugsetup' 'done'
+            Get-Infomessage 'copied-installed CSGO-pugsetup' 'done'
         }
         Edit-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
@@ -347,7 +352,7 @@ Function Get-CSGOsteamworks {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Downloaded" 'SteamWorks' 'done'  
+        Get-Infomessage 'Downloaded SteamWorks' 'done'  
     }
     clear-hostline 1
     Get-Infomessage "downloadtime"
@@ -357,6 +362,8 @@ Function Get-CSGOsteamworks {
         DestinationPath = "$steamworksfolder"
         Force           = $true
     }
+    clear-hostline 1
+    Get-Infomessage "Extracting" 'SteamWorks'
     Expand-Archive @steamworkszip
     If (!$?) {
         Get-WarnMessage 'ExtractFailed' 'SteamWorks'
@@ -364,7 +371,7 @@ Function Get-CSGOsteamworks {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Extracted" 'SteamWorks' 'done'
+        Get-Infomessage 'Extracted SteamWorks' 'done'
     }
     clear-hostline 1
     Get-Infomessage "copying-installing" 'SteamWorks'
@@ -382,7 +389,7 @@ Function Get-CSGOsteamworks {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Copied" 'SteamWorks' 'done'
+        Get-Infomessage 'copied-installed SteamWorks' 'done'
     }
     Edit-Modlist 'SteamWorks' $steamworkslatestzip
 }
@@ -413,7 +420,7 @@ Function Get-AssettoServer {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'AssettoServer' 'done'    
+            Get-Infomessage 'Downloaded AssettoServer' 'done'    
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -423,6 +430,8 @@ Function Get-AssettoServer {
             DestinationPath = "$AssettoServerfolder"
             Force           = $true
         }
+        clear-hostline 1
+        Get-Infomessage "Extracting" 'AssettoServer'
         Expand-Archive @AssettoServerzip
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'AssettoServer'
@@ -430,7 +439,7 @@ Function Get-AssettoServer {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'AssettoServer' 'done'
+            Get-Infomessage 'Extracted AssettoServer' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'AssettoServer'
@@ -448,7 +457,7 @@ Function Get-AssettoServer {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Copied" 'AssettoServer' 'done'
+            Get-Infomessage 'copied-installed AssettoServer' 'done'
         }
         Edit-Modlist 'AssettoServer' $githubrepozipname
     }
@@ -480,7 +489,7 @@ Function Get-TShock {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'TShock' 'done'   
+            Get-Infomessage 'Downloaded TShock' 'done'   
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -490,6 +499,8 @@ Function Get-TShock {
             DestinationPath = "$TShockfolder"
             Force           = $true
         }
+        clear-hostline 1
+        Get-Infomessage "Extracting" 'TShock'
         Expand-Archive @TShockzip
         If (!$?) {
             Get-WarnMessage 'ExtractFailed' 'TShock'
@@ -497,7 +508,7 @@ Function Get-TShock {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'TShock' 'done'
+            Get-Infomessage 'Extracted TShock' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'TShock'
@@ -515,7 +526,7 @@ Function Get-TShock {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Copied" 'TShock' 'done'
+            Get-Infomessage 'copied-installed TShock' 'done'
         }
         Edit-Modlist 'TShock' $githubrepozipname
     }
