@@ -84,8 +84,8 @@ Function Get-GamedigServerv2 {
                 }
                 If ($query.players) {
                     # write-host "players $($query.players)" -F R
-                    $test = ($query.players | Get-Member -MemberType Properties).Name
-                    ForEach ($property in $test) {
+                    $q = ($query.players | Get-Member -MemberType Properties).Name
+                    ForEach ($property in $q) {
                         # write-host "$property" -F C
                         If ($query.players."$property") {
                             $n = $property + ": " + $query.players."$property" 
@@ -97,8 +97,8 @@ Function Get-GamedigServerv2 {
                 }
                 If ($query.raw) {
                     # write-host "raw $($query.raw)" -F R
-                    $test = ($query.raw | Get-Member -MemberType Properties).Name
-                    ForEach ($property in $test) {
+                    $q = ($query.raw | Get-Member -MemberType Properties).Name
+                    ForEach ($property in $q) {
                         # write-host "$property" -F C
                         If ($query.raw."$property") {
                             $n = $property + ": " + $query.raw."$property" 
