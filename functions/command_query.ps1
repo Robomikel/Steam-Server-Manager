@@ -18,14 +18,14 @@ Function Get-GamedigServerv2 {
                     Write-log "info: Using port $querytype ${extip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
                         $query =  (.\gamedig --type $querytype ${extip}:${port} --pretty)
-                        $queryOutput = ((((( $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = ((((( $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                     }
                     Else {
                         # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
                         # $queryOutput = saps powershell -args ("gamedig --type $querytype ${extip}:${port} --pretty") -wait -nnw
                         # $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                         $query =  (gamedig --type $querytype ${extip}:${port} --pretty) 
-                        $queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
 
                     }
                 }
@@ -33,14 +33,14 @@ Function Get-GamedigServerv2 {
                     Write-log "info: Using queryport $querytype ${extip}:${queryport}"
                     If (!(test-path $nodejsprogramexecutable)) {
                         $query =  (.\gamedig --type $querytype ${extip}:${queryport} --pretty)
-                        $queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
+                        #$queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
                     }
                     Else {
                         # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
                         # $queryOutput = saps powershell -args ("gamedig --type $querytype ${extip}:${queryport} --pretty") -wait -nnw
                         # $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                         $query =  (gamedig --type $querytype ${extip}:${queryOutput} --pretty)
-                        $queryOutput = ((((( $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = ((((( $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
 
                     }
                 }
@@ -50,14 +50,14 @@ Function Get-GamedigServerv2 {
                     Write-log "info: Using port $querytype ${ip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
                         $query = (.\gamedig --type $querytype ${ip}:${port} --pretty)
-                        $queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                     }
                     Else {
                         # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
                         # $queryOutput = saps powershell -args ("gamedig --type $querytype ${ip}:${port} --pretty") -wait -nnw
                         # $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                         $query = (gamedig --type $querytype ${ip}:${port} --pretty) 
-                        $queryOutput = (((((  $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = (((((  $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
 
                     }
                 }
@@ -65,20 +65,60 @@ Function Get-GamedigServerv2 {
                     Write-log "info: Using queryport $querytype ${ip}:${queryport}"
                     If (!(test-path $nodejsprogramexecutable)) {
                         $query = (.\gamedig --type $querytype ${ip}:${queryport} --pretty)
-                        $queryOutput = ((((( $query   ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
+                        #$queryOutput = ((((( $query   ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
                     }
                     Else {
                         # saps powershell -args ("  $queryOutput = (((((  gamedig --type $querytype ${extip}:${port} --pretty  ).trim()).replace(`'`"`',`'`')).replace(`'{`',`'`')).replace(`',`',`'`')).replace(`'}`',`'`') ; $queryOutput")
                         # $queryOutput = saps powershell -args ("gamedig --type $querytype ${ip}:${queryport} --pretty") -wait -nnw
                         # $queryOutput = ((((($queryOutput).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                         $query = (gamedig --type $querytype ${ip}:${queryport} --pretty)
-                        $queryOutput = (((((  $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
+                        #$queryOutput = (((((  $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
 
                     }
                 }
                 #$queryOutput
                 $query =  $query | ConvertFrom-Json
+                $properties = ($query | Get-Member -MemberType Properties).Name
+                [hashtable]$table = @{
+                    PSTypeName = "GAMEDIG"
+                }
+                If ($query.players) {
+                    # write-host "players $($query.players)" -F R
+                    $test = ($query.players | Get-Member -MemberType Properties).Name
+                    ForEach ($property in $test) {
+                        # write-host "$property" -F C
+                        If ($query.players."$property") {
+                            $n = $property + ": " + $query.players."$property" 
+                            $table.Add($property, $query.players."$property")
+                            Write-log "[GAMEDIG] $n"
+                        }
 
+                    }
+                }
+                If ($query.raw) {
+                    # write-host "raw $($query.raw)" -F R
+                    $test = ($query.raw | Get-Member -MemberType Properties).Name
+                    ForEach ($property in $test) {
+                        # write-host "$property" -F C
+                        If ($query.raw."$property") {
+                            $n = $property + ": " + $query.raw."$property" 
+                            $table.Add($property, $query.raw."$property")
+                            Write-log "[GAMEDIG] $n"
+                        }
+
+                    }
+                }
+                ForEach ($property in $properties) {
+                    If ($query."$property") {
+                        $n = $property + ": " + $query."$property" 
+                        $table.Add($property, $query."$property")
+                        Write-log "[GAMEDIG] $n"
+                    }
+                }
+                if ($table) {
+                    $htable = New-Object -TypeName psobject -Property $table
+                    $htable | Format-List
+                }
                 # Write-Host "Name: $($queryOutput.name)"
                 # Write-Host "Map: $($queryOutput.map)"
                 # Write-Host "Password: $($queryOutput.password)"
