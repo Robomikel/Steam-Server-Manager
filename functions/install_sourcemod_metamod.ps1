@@ -36,7 +36,7 @@ Function Get-MetaMod {
             }
             ElseIf ($?) {
                 clear-hostline 1
-                Get-Infomessage "Downloaded" 'MetaMod' 
+                Get-Infomessage "Downloaded" 'MetaMod' 'done'
             } 
             clear-hostline 1
             Get-Infomessage "downloadtime"
@@ -54,6 +54,10 @@ Function Get-MetaMod {
                 Get-WarnMessage 'ExtractFailed' 'MetaMod'
                 New-TryagainNew
             }
+            ElseIf ($?) {
+                clear-hostline 1
+                Get-Infomessage "Extracted" 'MetaMod' 'done'
+            } 
             Write-log "info: Copying/installing Meta Mod"
             If ($metamodmversionfolder -and $systemdir) { 
                 $metamodfolder = @{
@@ -69,6 +73,10 @@ Function Get-MetaMod {
                 Write-log "Failed: Copying Meta Mod "
                 New-TryagainNew 
             }
+            ElseIf ($?) {
+                clear-hostline 1
+                Get-Infomessage "Copied" 'MetaMod' 'done'
+            } 
             Edit-Modlist 'MetaMod' $metamodmversionzip
         }
     }
@@ -105,7 +113,7 @@ Function Get-SourceMod {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'SourceMod'
+            Get-Infomessage "Downloaded" 'SourceMod' 'done'
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -123,7 +131,7 @@ Function Get-SourceMod {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'SourceMod'
+            Get-Infomessage "Extracted" 'SourceMod' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'SourceMod'
@@ -148,6 +156,10 @@ Function Get-SourceMod {
         If (!$?) { 
             Write-log "Failed: Copying SourceMod "
             New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Copied" 'SourceMod' 'done'
         }
         Edit-Modlist 'Sourcemod' $sourcemodmversionzip
     }
@@ -184,7 +196,7 @@ Function Get-CSGOGet5 {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Downloaded" 'CSGO-Get5' 
+        Get-Infomessage "Downloaded" 'CSGO-Get5' 'done'
     }
     clear-hostline 1
     Get-Infomessage "downloadtime"
@@ -201,7 +213,7 @@ Function Get-CSGOGet5 {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Extracted" 'CSGO-Get5'
+        Get-Infomessage "Extracted" 'CSGO-Get5' 'done'
     }
     clear-hostline 1
     Get-Infomessage "copying-installing" 'CSGO-Get5'
@@ -224,6 +236,10 @@ Function Get-CSGOGet5 {
     If (!$?) { 
         Write-log "Failed: Copying CSGO-Get5 "
         New-TryagainNew 
+    }
+    ElseIf ($?) {
+        clear-hostline 1
+        Get-Infomessage "Copied" 'CSGO-Get5' 'done'
     }
     Edit-Modlist 'CSGO-Get5' $get5latestzip
 }
@@ -254,7 +270,7 @@ Function Get-CSGOcsgopugsetup {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'CSGO-pugsetup'    
+            Get-Infomessage "Downloaded" 'CSGO-pugsetup' 'done'   
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -271,7 +287,7 @@ Function Get-CSGOcsgopugsetup {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'CSGO-pugsetup'
+            Get-Infomessage "Extracted" 'CSGO-pugsetup' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'CSGO-pugsetup'
@@ -294,6 +310,10 @@ Function Get-CSGOcsgopugsetup {
         If (!$?) { 
             Write-log "Failed: Copying CSGOcsgopugsetup "
             New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Copied" 'CSGO-pugsetup' 'done'
         }
         Edit-Modlist 'CSGO-pugsetup' $githubrepozipname
     }
@@ -327,7 +347,7 @@ Function Get-CSGOsteamworks {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Downloaded" 'SteamWorks'  
+        Get-Infomessage "Downloaded" 'SteamWorks' 'done'  
     }
     clear-hostline 1
     Get-Infomessage "downloadtime"
@@ -344,7 +364,7 @@ Function Get-CSGOsteamworks {
     }
     ElseIf ($?) {
         clear-hostline 1
-        Get-Infomessage "Extracted" 'SteamWorks'
+        Get-Infomessage "Extracted" 'SteamWorks' 'done'
     }
     clear-hostline 1
     Get-Infomessage "copying-installing" 'SteamWorks'
@@ -359,6 +379,10 @@ Function Get-CSGOsteamworks {
     If (!$?) { 
         Write-log "Failed: Copying SteamWorks "
         New-TryagainNew 
+    }
+    ElseIf ($?) {
+        clear-hostline 1
+        Get-Infomessage "Copied" 'SteamWorks' 'done'
     }
     Edit-Modlist 'SteamWorks' $steamworkslatestzip
 }
@@ -389,7 +413,7 @@ Function Get-AssettoServer {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Downloaded" 'AssettoServer'    
+            Get-Infomessage "Downloaded" 'AssettoServer' 'done'    
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -406,7 +430,7 @@ Function Get-AssettoServer {
         }
         ElseIf ($?) {
             clear-hostline 1
-            Get-Infomessage "Extracted" 'AssettoServer'
+            Get-Infomessage "Extracted" 'AssettoServer' 'done'
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'AssettoServer'
@@ -422,6 +446,77 @@ Function Get-AssettoServer {
             Write-log "Failed: Copying AssettoServer "
             New-TryagainNew 
         }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Copied" 'AssettoServer' 'done'
+        }
         Edit-Modlist 'AssettoServer' $githubrepozipname
+    }
+}
+Function Get-TShock {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ( $systemdir) {
+        # iwr $csgopugsetupurl -O $githubrepozipname
+        if ($TShockowner -and $TShocksetuprepo) {
+            Get-GithubRestAPI $TShockowner $TShocksetuprepo
+        }
+    }
+    If ($command -eq 'update-mods') {
+        Compare-Modlist 'TShock' $githubrepozipname
+    }
+    If ($nomodupdate -eq $true) {
+        clear-hostline 1
+        Get-Infomessage "No TShock updates" 'info'
+        return
+    }
+    Else {
+        $start_time = Get-Date
+        clear-hostline 1
+        Get-Infomessage "Downloading" 'TShock'
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        If (!$?) { 
+            Get-WarnMessage 'Downloadfailed' 'TShock'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Downloaded" 'TShock' 'done'   
+        }
+        clear-hostline 1
+        Get-Infomessage "downloadtime"
+        $TShockfolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
+        $TShockZip = @{
+            Path            = "$currentdir\$githubrepozipname"
+            DestinationPath = "$TShockfolder"
+            Force           = $true
+        }
+        Expand-Archive @TShockzip
+        If (!$?) {
+            Get-WarnMessage 'ExtractFailed' 'TShock'
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Extracted" 'TShock' 'done'
+        }
+        clear-hostline 1
+        Get-Infomessage "copying-installing" 'TShock'
+        $TShockfolder = @{
+            Path        = "$TShockfolder\*"
+            Destination = "$systemdir"
+            Force       = $true
+            Recurse     = $true
+        }
+        Write-Log "info: Copy $TShockfolder $systemdir"
+        Copy-Item  @TShockfolder >$null 2>&1
+        If (!$?) { 
+            Write-log "Failed: Copying TShock "
+            New-TryagainNew 
+        }
+        ElseIf ($?) {
+            clear-hostline 1
+            Get-Infomessage "Copied" 'TShock' 'done'
+        }
+        Edit-Modlist 'TShock' $githubrepozipname
     }
 }
