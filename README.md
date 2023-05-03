@@ -1,7 +1,8 @@
 # Steam Server Manager   
-![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/w/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.2/master?style=plastic) ![commits difference](https://img.shields.io/github/commits-difference/robomikel/steam-server-manager?base=pre-release%2Fstabilizing&head=master&label=commits%20branch%20difference&style=plastic)   
+![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/w/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.2/master?style=plastic)     
 
-![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Details.gif)
+![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Details.gif)   
+
 PowerShell Steam Server Manager
 - Install and Manage Steam Servers with Powershell.
 
