@@ -1417,7 +1417,7 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
     }
     # if ( $githubrepoJSON | select zipball_url) {
     #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
@@ -1427,7 +1427,7 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux" | select -Index 0).Line
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
     } 
     Else {
         Write-log "Failed: Get-GithubRestAPI: No zip download file found"
