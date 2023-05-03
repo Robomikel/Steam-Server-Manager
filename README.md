@@ -1,5 +1,5 @@
 # Steam Server Manager   
-![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/y/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.3?color=green&style=plastic)     
+![last commit](https://img.shields.io/github/last-commit/robomikel/steam-server-manager?color=blue&style=plastic)  ![commit activity](https://img.shields.io/github/commit-activity/y/Robomikel/steam-server-manager?style=plastic) ![commits since](https://img.shields.io/github/commits-since/robomikel/steam-server-manager/1.9.3?&style=plastic)     
 
 ![Details Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Steamer%20-%20Details.gif)   
 
