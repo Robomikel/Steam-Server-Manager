@@ -379,7 +379,7 @@ Function Set-ServerConfig {
     ElseIf (($readserverconfig | Select-String -SimpleMatch "server_name=")) {
         Write-log "info: Edit server_name="
         if (!($deleteline)) {
-            $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
+            $deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
         }
         #$deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "server_name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
@@ -480,39 +480,6 @@ Function Get-Appid {
             Write-Host "        App Name: $game" -F Y 
             Write-Host "        App ID: $AppID" -F Y
         }        
-    }
-}
-Function Get-MCBRWebrequest {
-    Write-log "Function: Get-MCBRWebrequest"
-    # get latest download
-    try {
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
-        if ($?) {
-            # Get-Infomessage "Downloaded" 'SteamCMD'
-        }
-    }
-    catch {
-        If (!$? -or !$mcbrWebResponse) {
-            Write-log "$($_.Exception.Message)"
-            Write-log "Failed: Get-MCBRWebrequest"
-            Exit
-        }
-    }
-}
-Function Get-MCWebrequest {
-    Write-log "Function: Get-MCWebrequest"
-    # check latest version
-    try {
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        $mcvWebResponse = Invoke-WebRequest "https://launchermeta.mojang.com/mc/game/version_manifest.json" -UseBasicParsing | ConvertFrom-Json
-        $global:mcvWebResponse = $mcvWebResponse.Latest.release
-    }
-    catch {
-        If (!$? -or !$mcvWebResponse) {
-            Write-log "Failed: Get-MCWebrequest"
-            Exit
-        }
     }
 }
 Function Get-MetaModWebrequest {

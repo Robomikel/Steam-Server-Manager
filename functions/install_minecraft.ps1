@@ -24,28 +24,47 @@ Function Get-MCjavaBinaries {
     Write-log "Function: $($MyInvocation.Mycommand)"
     #################### MineCraft Java Install ################
     java -version
-        if ($?) {
-            Get-MCWebrequest 
-            $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server" -UseBasicParsing ).Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
-            Get-Infomessage  "Downloading" 'Minecraft Java'
-            Invoke-WebRequest -uri $mcWebResponse.href -O $currentdir\server.jar 
-            # $mcWebResponse.outerText
-            # Expand-Archive "bedrock-server.zip" "bedrock-server" -Force -ea SilentlyContinue
-            Move-Item $currentdir\server.jar $serverdir -Force -ea SilentlyContinue
-            New-Item $serverdir\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
-            Add-Content $serverdir\version.txt $mcvWebResponse -Force
-            Push-location
-            Set-Location $serverdir
-            If (!(Test-Path eula.txt )) {
-                Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
-                Start-Sleep 3
-                ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
-            }
-            Pop-Location
-            # Add-Content $serverdir\eula.txt 'eula=true' -Force
-            # Remove-Item bedrock-server -Recurse -Force -ea SilentlyContinue
-            ##############################################################
+    if ($?) {
+        #Get-MCWebrequest 
+        $mcversion = "1.9.4"
+        If ($mcversion) {
+            $defaultmcversion = "$mcversion"
+            If (($mcversion = Read-Host -P(Write-Host "Enter Minecraft Version, Press Enter to Accept default [$mcversion]: "-F CY -N )) -eq '') { $mcversion = "$defaultmcversion" }Else { $mcversion }
         }
+        # Can no longer scrape the offical site.
+        # $mcWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server" -UseBasicParsing ).Links | Where-Object { $_.href -like "https://launcher.mojang.com/v1/objects/*/server.jar" })
+        
+        # $mcversionrequest = Invoke-WebRequest "https://mcversions.net/" -UseBasicParsing
+        # $mcdownloadversion = $mcversionrequest.links.href |  where {$_ -like '*download/[1-9].[1-9].[1-9]' -and $_ -like "*$mcversion" }
+        # $mcurlrequest = iwr "https://mcversions.net" + $mcdownloadversion -UseBasicParsing    
+        $url = $("https://mcversions.net/download/" + $mcversion)
+        try {
+            $mcurlrequest = iwr "$url" -UseBasicParsing
+        }
+        catch {
+            write-log "Warning: $_"
+        }
+        $mcdownloadurl = $mcurlrequest.Links.href -like '*server.jar*'
+        try {
+            Get-Infomessage  "Downloading" 'Minecraft Java'
+            Invoke-WebRequest -uri "$mcdownloadurl" -O $currentdir\server.jar
+        }
+        catch {
+            Write-log "Warning: $_"
+        }
+        Move-Item $currentdir\server.jar $serverdir -Force -ea SilentlyContinue
+        New-Item $serverdir\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog
+        Add-Content $serverdir\version.txt $mcversion -Force
+        Push-location
+        Set-Location $serverdir
+        If (!(Test-Path eula.txt )) {
+            Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
+            Start-Sleep 3
+                ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
+        }
+        Pop-Location
+        ##############################################################
+    }
     Else {
         Write-log "Failed: Java not Installed"
         Write-Warning "Java not Installed" -WarningAction Stop
@@ -56,7 +75,7 @@ Function Get-MCBRWebrequest {
     # get latest download
     try {
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock/" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
+        $global:mcbrWebResponse = ((Invoke-WebRequest "https://www.minecraft.net/en-us/download/server/bedrock" -UseBasicParsing).Links | Where-Object { $_.href -like "https://minecraft.azureedge.net/bin-win/*" })
         if ($?) {
             # Get-Infomessage "Downloaded" 'SteamCMD'
         }
