@@ -14,8 +14,17 @@ Function New-BackupServer {
             clear-hostline 1
         }
         if ($(Test-Path $sevenzipprogramexecutable)) {
+            clear-hostline 1
+            Get-Infomessage "backupstart" 'start'
             Write-Log "info: & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log"
             & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
+            If (!$?) {
+                Get-warnmessage "backupfailed"
+            }
+            Else {
+                clear-hostline 1
+                Get-Infomessage "backupstart" 'done'
+            }
         }
         ELse {
             push-location
@@ -29,6 +38,10 @@ Function New-BackupServer {
                 Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
                 If (!$?) {
                     Get-warnmessage "backupfailed"
+                }
+                Else {
+                    clear-hostline 1
+                    Get-Infomessage "backupstart" 'done'
                 }
             }
             ElseIf ($Showbackupconsole -eq "off") {
@@ -48,8 +61,8 @@ Function New-BackupServer {
             }
             pop-location
         }
-        clear-hostline 1
-        Get-Infomessage "backupdone" 'Done'
+        # clear-hostline 1
+        # Get-Infomessage "backupdone" 'Done'
        New-ServerBackupLog
         If ($backuplogopen -eq "on") {
             Push-Location
@@ -85,8 +98,17 @@ Function New-BackupServer {
 Function New-backupAppdata {
     Write-log "Function: $($MyInvocation.Mycommand)"
     if ($(Test-Path $sevenzipprogramexecutable)) {
+        clear-hostline 1
+        Get-Infomessage "backupstart" 'start'
         Write-Log "info: & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
         & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
+        If (!$?) {
+            Get-warnmessage "backupfailed"
+        }
+        Else {
+            clear-hostline 1
+            Get-Infomessage "backupstart" 'done'
+        }
     }
     Else {   
         Push-location
@@ -100,6 +122,10 @@ Function New-backupAppdata {
             Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*") -Wait
             If (!$?) {
                 Get-warnmessage "backupfailed"
+            }
+            Else{
+                clear-hostline 1
+                Get-Infomessage "appdatabackupstart" 'done'
             }
         }
         ElseIf ($Showbackupconsole -eq "Off") {
