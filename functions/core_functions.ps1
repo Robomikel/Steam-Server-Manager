@@ -379,7 +379,7 @@ Function Set-ServerConfig {
     ElseIf (($readserverconfig | Select-String -SimpleMatch "server_name=")) {
         Write-log "info: Edit server_name="
         if (!($deleteline)) {
-            $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
+            $deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
         }
         #$deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "server_name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
