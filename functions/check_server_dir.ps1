@@ -96,7 +96,7 @@ Function Test-Serverdir {
     Get-CheckSteamAPI
 }
 Function Get-CheckSteamAPI {
-    If ($APPID -ne 11421000 -or $APPID -ne 11500000 ) {
+    If ($APPID -ne 11421000 -and $APPID -ne 11500000 ) {
         If ($serverdir) {
             if ($executabledir) {
                 if ((Test-Path $serverdir\steamclient.dll) -or (Test-Path $executabledir\steamclient.dll)) {
