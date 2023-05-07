@@ -60,7 +60,7 @@ Function Test-Serverdir {
         if (Test-path "$executabledir") {
             Write-log "info: Found Executable directory"
             if ($executable) {
-                if (Test-Path "$executabledir\$executable.*") {
+                if ((Test-Path "$executabledir\$executable.*") -or (Test-Path "$executabledir\$executable.")) {
                     Write-log "info: Found Executable path"
                     if ($servercfg) {
                         if ($servercfgdir) {
