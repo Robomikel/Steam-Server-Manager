@@ -9,7 +9,7 @@ PowerShell Steam Server Manager
  
 Install Any location:
 Download, Extract, and Open PowerShell and Change Directory to ssm.ps1 to run script. [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM)      
-> Windows 10 may require to unblock Downloaded files. In the Steam-Manager-Folder. Use ```gci -r | Unblock-File``` command   
+> Windows 10 may require to unblock downloaded files. In the Steam-Server-Manager folder. Use ```gci -r | Unblock-File``` command   
 
 > Add SSM to Path to use `ssm` command in any directory without `./` [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM-to-PATH)
 
@@ -236,7 +236,7 @@ Install miscreated server ```./ssm install misserver```
  * Rust - Plugin Updater
  * CSGO - Get5, Pug-setup, and Steamworks 
  * BlackMesa - Source Coop
- * Asseto Corsa - AssetoServer
+ * Assetto Corsa - AssettoServer
  * Terraria - TShock
  
 # Steam Workshop install
@@ -314,7 +314,7 @@ https://github.com/Badgerati/Pode
 https://github.com/discordjs/discord.js/
 # SourceCoop
 https://github.com/ampreeT/SourceCoop
-# AssetoServer
+# AssettoServer
 https://github.com/compujuckel/AssettoServer
 # TShock
 https://github.com/Pryaxis/TShock
