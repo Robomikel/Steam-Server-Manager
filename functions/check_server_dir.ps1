@@ -107,8 +107,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     Write-log "Warning: Missing steamclient.dll/steamclient64.dll"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
                 if ((Test-Path $executabledir\steamclient64.dll) -and (Test-Path $executabledir\$executable.exe)) {
                     write-log "info: Found steamclient64.dll in same dir as executable"
@@ -118,8 +118,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     write-log "Warning: steamclient.dll/steamclient64.dll not in same dir as executable"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
                 if ((Test-Path $serverdir\tier0_s.dll) -or (Test-Path $executabledir\tier0_s.dll)) {
                     write-log "info: Found tier0_s.dll"
@@ -129,8 +129,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     Write-log "Warning: Missing tier0_s.dll/tier0_s64.dll"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
                 if ((Test-Path $executabledir\tier0_s64.dll) -and (Test-Path $executabledir\$executable.exe)) {
                     write-log "info: Found tier0_s64.dll in same dir as executable"
@@ -140,8 +140,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     write-log "Warning: tier0_s.dll/tier0_s64.dll not in same dir as executable"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
                 if ((Test-Path $serverdir\vstdlib_s.dll) -or (Test-Path $executabledir\vstdlib_s.dll)) {
                     write-log "info: Found vstdlib_s.dll"
@@ -151,8 +151,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     Write-log "Warning: Missing vstdlib_s.dll/vstdlib_s64.dll"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
                 if ((Test-Path $executabledir\vstdlib_s64.dll) -and (Test-Path $executabledir\$executable.exe)) {
                     write-log "info: Found vstdlib_s64.dll in same dir as executable"
@@ -162,8 +162,8 @@ Function Get-CheckSteamAPI {
                 }
                 Else {
                     write-log "Warning: vstdlib_s.dll/vstdlib_s64.dll not in same dir as executable"
-                    clear-hostline 1
-                    Get-Infomessage "Steam services maybe unavailable" "warning"
+                   # clear-hostline 1
+                   # Get-Infomessage "Steam services maybe unavailable" "warning"
                 }
             }
         }
