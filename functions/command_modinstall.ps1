@@ -36,6 +36,9 @@ Function Get-Modinstall {
     ElseIf ($appid -eq 105600){
         Show-ModMenu
     }
+    ElseIf([switch]$module){
+        Show-ModMenu
+    }
     Else {
         Get-Infomessage "No Mods Available " 'info'
         Write-log "info: No Mods Available"
@@ -74,6 +77,9 @@ Function Show-ModMenu {
     }
     ElseIf ($appid -eq 105600){
         $command = Menu @('TShock')
+    }
+    ElseIf([switch]$module){
+        $command = Menu @('PsIni')
     }
     Set-Console
     If ($command -eq 'SourceMod') {
@@ -118,6 +124,9 @@ Function Show-ModMenu {
     }
     ElseIf ($command -eq 'TShock') {
         Get-TShock
+    }
+    ElseIf ($command -eq 'PsIni') {
+        Install-PSini
     }
 }
 

@@ -56,3 +56,84 @@ Function Install-VisualCPlusPlus {
     $installdirectory = "$currentdir"
     Start-Process -FilePath PowerShell -verb runas -ArgumentList "-Command & {$chunk Install-AllVC('$installdirectory')}"
 }
+Function Install-PSini {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ( $currentdir) {
+        # iwr $csgopugsetupurl -O $githubrepozipname
+        if ($PsIniowner -and $PsInisetuprepo) {
+            Get-GithubRestAPI $PsIniowner $PsInisetuprepo
+        }
+    }
+    $start_time = Get-Date
+    clear-hostline 1
+    Get-Infomessage "Downloading" 'PsIni'
+    try {
+        write-log "iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
+        iwr $githubrepoziplink -O $currentdir\$githubrepozipname.zip
+    }
+    Catch {
+        Write-log "$_"
+    }
+    If (!$?) { 
+        Get-WarnMessage 'Downloadfailed' 'PsIni'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        clear-hostline 1
+        Get-Infomessage 'Downloaded PsIni' 'done'   
+    }
+    clear-hostline 1
+    Get-Infomessage "downloadtime"
+    $PsInifolder = $currentdir, $githubrepozipname.Replace('.zip', '') -join '\'
+    $PsIniZip = @{
+        Path            = "$currentdir\$githubrepozipname.zip"
+        DestinationPath = "$PsInifolder"
+        Force           = $true
+    }
+    clear-hostline 1
+    Get-Infomessage "Extracting" 'PsIni'
+    Expand-Archive @PsInizip
+    If (!$?) {
+        Get-WarnMessage 'ExtractFailed' 'PsIni'
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        clear-hostline 1
+        Get-Infomessage 'Extracted PsIni' 'done'
+    }
+    clear-hostline 1
+    Get-Infomessage "copying-installing" 'PsIni'
+    $PsInifolderht = @{
+        Path        = "$PsInifolder\*\*"
+        Destination = "$currendir"
+        Force       = $true
+        Recurse     = $true
+    }
+    Write-Log "info: Copy $PsInifolder $currendir"
+    Copy-Item  @PsInifolderht >$null 2>&1
+    If (!$?) { 
+        Write-log "Failed: Copying PsIni "
+        New-TryagainNew 
+    }
+    ElseIf ($?) {
+        clear-hostline 1
+        Get-Infomessage 'copied PsIni' 'done'
+    }
+    push-loction
+    Set-Location PsIni
+    if (Test-path PsIni.psm1) {
+        Write-log "info: Found PsIni module"
+        $PsInimodule = @{
+            Name = "PsIni.psm1"
+            # Destination = "$currendir"
+            # Force       = $true
+            # Recurse     = $true
+        }
+        Install-Module @PsInimodule
+        if ($(Get-Module -Name PsIni)) {
+            clear-hostline 1
+            Get-Infomessage 'Installed PsIni' 'done'
+        }
+    }
+    pop-location
+}

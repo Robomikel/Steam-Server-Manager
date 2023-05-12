@@ -117,6 +117,11 @@ $TShockowner = 'Pryaxis'
 $TShocksetuprepo = 'TShock'
 $TShockdirectory = "$currentdir\TShock"
 
+# PsIni
+$TShockowner = 'lipkau'
+$TShocksetuprepo = 'PsIni'
+$TShockdirectory = "$currentdir\PsIni"
+
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
 $SMILEY_WHITE = ([char]9786)

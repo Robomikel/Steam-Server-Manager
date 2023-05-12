@@ -1373,39 +1373,38 @@ Function Get-GithubRestAPI {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
-        Write-log "Failed: Get-GithubRestAPI: Repo Request "
-        return
+        Write-warning "Failed: Get-GithubRestAPI: Repo Request "
     }
     If ($githubrepo) {
         $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
     }
     Else {
-        Write-log "Failed: Get-GithubRestAPI: Repo convert from json "
-        return
+        Write-warning "Failed: Get-GithubRestAPI: Repo convert from json "
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+        write-log "info: github download link: $githubrepoziplink"
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line 
     }
-    # if ( $githubrepoJSON | select zipball_url) {
-    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
-    # }
+    Elseif ( $githubrepoJSON | select zipball_url) {
+        $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    }
     Else {
-        Write-log "Failed: Get-GithubRestAPI: No zip download link found"
-        return
+        Write-warning "Failed: Get-GithubRestAPI: No zip download link found"
     }
     if ($githubrepoJSON.assets.name) {
         $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+    }
+    ElseIf($githubrepoJSON[0].tag_name){
+        $global:githubrepozipname = $githubrepoJSON[0].tag_name
     } 
     Else {
-        Write-log "Failed: Get-GithubRestAPI: No zip download file found"
-        return
+        Write-warning "Failed: Get-GithubRestAPI: No zip download file found"
     }
     If ($githubrepozipname) {
         $global:githubrepofolder = $githubrepozipname.Replace('.zip', '')
     }
     Else {
-        Write-log "Failed: Get-GithubRestAPI: No zip file found"
-        return
+        Write-warning "Failed: Get-GithubRestAPI: No zip file found"
     }
     #    iwr $githubrepoziplink -O $githubrepozipname
     #If (!$?) {

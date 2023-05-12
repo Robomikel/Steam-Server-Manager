@@ -25,6 +25,10 @@ Function Select-Steamer {
     Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "info: command:  $command $serverfiles"
     Set-Console  >$null 2>&1
+    if([switch]$module){
+        Get-Modinstall
+        return
+    }
     switch ($command) {
         { ($command -eq "ssm") -and ($serverfiles -eq "update") } { Get-UpdateSteamer; Break }
         'install' { Read-Param; Get-TestString; Get-PreviousInstall; Get-Appid; New-ServerFolder; Get-Steam; Set-SteamInfo; Read-AppID; New-CreateVariables; Get-Finished; Test-VariablesNull; Get-ClearVariables; Break }
