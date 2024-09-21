@@ -49,8 +49,11 @@ Function Add-NodeJS {
         }
         Push-location
         Set-Location $nodejsdirectory  
-        .\npm install gamedig
-        .\npm install gamedig -g
+        Write-log "info: $env:path += ;$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+        $env:path +=  ";$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+        npm install npm
+        npm install gamedig
+        npm install gamedig -g
         Pop-Location
     }
 }

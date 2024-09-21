@@ -17,7 +17,7 @@ Function Get-GamedigServerv2 {
                 If (!${queryport}) {
                     Write-log "info: Using port $querytype ${extip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
-                        $query =  (.\gamedig --type $querytype ${extip}:${port} --pretty)
+                        $query =  (gamedig --type $querytype ${extip}:${port} --pretty)
                         #$queryOutput = ((((( $query  ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                     }
                     Else {
@@ -32,7 +32,7 @@ Function Get-GamedigServerv2 {
                 Else {
                     Write-log "info: Using queryport $querytype ${extip}:${queryport}"
                     If (!(test-path $nodejsprogramexecutable)) {
-                        $query =  (.\gamedig --type $querytype ${extip}:${queryport} --pretty)
+                        $query =  (gamedig --type $querytype ${extip}:${queryport} --pretty)
                         #$queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
                     }
                     Else {
@@ -49,7 +49,7 @@ Function Get-GamedigServerv2 {
                 If (!${queryport}) {
                     Write-log "info: Using port $querytype ${ip}:${port} "
                     If (!(test-path $nodejsprogramexecutable)) {
-                        $query = (.\gamedig --type $querytype ${ip}:${port} --pretty)
+                        $query = (gamedig --type $querytype ${ip}:${port} --pretty)
                         #$queryOutput = ((((( $query ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput
                     }
                     Else {
@@ -64,7 +64,7 @@ Function Get-GamedigServerv2 {
                 Else {
                     Write-log "info: Using queryport $querytype ${ip}:${queryport}"
                     If (!(test-path $nodejsprogramexecutable)) {
-                        $query = (.\gamedig --type $querytype ${ip}:${queryport} --pretty)
+                        $query = (gamedig --type $querytype ${ip}:${queryport} --pretty)
                         #$queryOutput = ((((( $query   ).trim()).replace('"', '')).replace('{', '')).replace(',', '')).replace('}', '') ; $queryOutput 
                     }
                     Else {
@@ -170,7 +170,7 @@ Function Get-GamedigServervMonitor {
                     If (!${queryport}) {
                         Write-log "info: Using port $querytype ${extip}:${port} "
                         If (!(test-path $nodejsprogramexecutable)) {
-                            $queryOutput = .\gamedig --type $querytype ${extip}:${port} --pretty
+                            $queryOutput = gamedig --type $querytype ${extip}:${port} --pretty
                         }
                         Else {
                             $queryOutput = gamedig --type $querytype ${extip}:${port} --pretty
@@ -179,7 +179,7 @@ Function Get-GamedigServervMonitor {
                     Else {
                         Write-log "info: Using queryport $querytype ${extip}:${queryport}"
                         If (!(test-path $nodejsprogramexecutable)) {
-                            $queryOutput = .\gamedig --type $querytype ${extip}:${queryport} --pretty
+                            $queryOutput = gamedig --type $querytype ${extip}:${queryport} --pretty
                         }
                         Else {
                             $queryOutput = gamedig --type $querytype ${extip}:${queryport} --pretty
@@ -190,7 +190,7 @@ Function Get-GamedigServervMonitor {
                     If (!${queryport}) {
                         Write-log "info: Using port $querytype ${ip}:${port} "
                         If (!(test-path $nodejsprogramexecutable)) {
-                            $queryOutput = .\gamedig --type $querytype ${ip}:${port} --pretty
+                            $queryOutput = gamedig --type $querytype ${ip}:${port} --pretty
                         }
                         Else {
                             $queryOutput = gamedig --type $querytype ${ip}:${port} --pretty
@@ -199,7 +199,7 @@ Function Get-GamedigServervMonitor {
                     Else {
                         Write-log "info: Using queryport $querytype ${ip}:${queryport}"
                         If (!(test-path $nodejsprogramexecutable)) {
-                            $queryOutput = .\gamedig --type $querytype ${ip}:${queryport} --pretty
+                            $queryOutput = gamedig --type $querytype ${ip}:${queryport} --pretty
                         }
                         Else {
                             $queryOutput = gamedig --type $querytype ${ip}:${queryport} --pretty
