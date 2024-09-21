@@ -13,6 +13,8 @@ Function Get-NodeJSCheck {
             Write-log "info: Checking NodeJS "     
             If (Test-Path $nodejsexecutable) { 
                 Write-log "info: NodeJS already downloaded "
+                Write-log "info: $env:path += ;$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+                $env:path +=  ";$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
             }
             ElseIf (!(Test-Path $nodejsexecutable)) {
                 Write-log "Warning: NodeJS not found "
