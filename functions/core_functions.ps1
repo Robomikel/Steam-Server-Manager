@@ -485,7 +485,7 @@ Function Get-Appid {
 Function Get-MetaModWebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    if ($appid = 346680) {
+    if ($appid -eq 346680) {
         $metamodlatest = iwr "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
         $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 1155 | select-string -SimpleMatch 'windows.zip')
     }
@@ -510,8 +510,9 @@ Function Get-MetaModWebrequest {
 }
 
 Function Get-Sourcemodwebrequest {
+    Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    if ($appid = 346680) {
+    if ($appid -eq 346680) {
         $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
         $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 6968 | select-string -SimpleMatch 'windows.zip')
     }
@@ -636,6 +637,8 @@ Function Set-SteamerSettingLog {
     Write-log "Setting: Pastebin  = $pastebinconsolelog"
     Write-log "Setting: Discord Webhook    = $discordwebhook  "
     Write-log "Setting: Discord Display IP  = $discorddisplayip  "
+    Write-log "Setting: SourceMod Version  = $smversion   "
+    Write-log "Setting: MetaMod Version  = $mmversion  "
     Write-Log "Setting: Backup Directory   = $currentdir "
     Write-Log "Setting: Serverfiles Directory = $currentdir"
     Write-Log "Setting: Serverdir = $sfwd\$serverfiles"
