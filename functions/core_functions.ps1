@@ -286,7 +286,7 @@ Function Select-RenameSource {
     # Write-Host "***  Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server  ***" -F M -B Black
     Write-log "info: Renaming srcds.exe to $executable to avoid conflict with local source Engine (srcds.exe) server"
     Rename-Item  "$executabledir\srcds.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
-    Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable-x64.exe" >$null 2>&1
+    Rename-Item  "$executabledir\srcds_x64.exe" -NewName "$executabledir\$executable.exe" >$null 2>&1
 }
 Function Select-EditSourceCFG {
     Write-log "Function: $($MyInvocation.Mycommand)"
