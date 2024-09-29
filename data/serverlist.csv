@@ -1,107 +1,107 @@
-Shortname,ServerFolder,Game,AppID,Default-config,
-7d2d,7d2dserver,7 Days to Die,294420,7days2die_default.ps1,
-aff,affserver,Angels Fall First,407480,AngelsFallFirst_default.ps1,
-ahl2,ahl2server,Action Source,985050,ActionSource_default.ps1,
-aoc,aocserver, Age of Chivalry,17515,AgeofChivalry_default.ps1,
-asrd,asrdserver,Alien Swarm Reactive Drop Dedicated,582400,AlienSwarm_default.ps1,
-ark,arkserver,ARK Survival Evolved,376030,ArkSE_default.ps1,
-arma3,arma3server,ARMA 3,233780,Arma3_default.ps1,
-armareforger,armareforgerserver,Arma Reforger,1874900,ArmaReforger_default.ps1,
-ac,acserver,Assetto Corsa,302550,AssettoCorsa_default.ps1,
-astro,astroserver,ASTRONEER,728470,Astro_default.ps1,
-avorion,avorionserver,Avorion,565060,Avorion_default.ps1,
-btw,btwserver,Beyond the Wire,1064780,BeyondtheWire_default.ps1,
-bmdm,bmdmserver,Black Mesa Deathmatch,346680,BlackMesa_default.ps1,
-bo,boserver,Ballistic Overkill,416880,BallisticOverkill_default.ps1,
-bs,bsserver,Blade Symphony,228780,BladeSymphony_default.ps1,
-bl,blserver,BadLads ,1203110,BadLads_default.ps1,
-boundel,boundelserver,Boundel ,454070,Boundel_default.ps1,
-bb2,bb2server,BrainBread 2,475370,BrainBread2_default.ps1,
-bt,btserver,Barotrauma,1026340,Barotrauma_default.ps1,
-bt1944,bt1944server,Battalion 1944,805140,Battalion1944_default.ps1,
-bw,bwserver,Blackwake,423410,Blackwake_default.ps1,
-caspa,caspaserver,Capsa,667230,Caspa_default.ps1,
-cc,ccserver,Codename CURE,383410,CodenameCURE_default.ps1,
-cd,craftingdeadserver,Crafting Dead,685100,CraftingDead_default.ps1,
-ce,ceserver,Conan Exiles,443030,ConanExiles_default.ps1,
-ct,craftserver,Craftopia,1670340,Craftopia_default.ps1,
-cod3mw,cod3mwserver,Call of Duty Modern Warfare 3,42750,CallofDuty3MW_default.ps1,
-contagion,contagionserver,Conatagion Dedicated,238430,ContagionDS_default.ps1,
-cs,csserver,Colony Survival,748090,ColonySurvival_default.ps1,
-csgo,csgoserver,Counter-Strike Global Offensive,740,CSGO_default.ps1,
-da,daserver,Double Action,317800,DoubleAction_default.ps1,
-dayofdragons,dayofdragonsserver,Day of Dragons,1088320,DayofDragons_default.ps1,
-dayz,dayzserver,DayZ Server,223350,DayZ_default.ps1,
-dod,dodserver,Day of Defeat,232290,DayofDefeat_default.ps1,
-dow,dowserver,Days of War,541790,DaysofWar_default.ps1,
-doi,doiserver,Day of Infamy,462310,DOI_default.ps1,
-dnl,dnlserver,Dark N light,630230,DNL_default.ps1,
-dst,dstserver,Don't Starve Together,343050,DontStarveTogether_default.ps1,
-dys,dysserver,Dystopia,17585,Dystopia_default.ps1,
-em,emserver,Empires,460040,Empires_default.ps1,
-emp,empserver,Empyrion,530870,Empyrion_default.ps1,
-es,esserver,Eden Star,419790,EdenStart_default.ps1,
-esmod,esmodserver,Eternal Silence,17555,EternalSilence_default.ps1,
-ff,ffserver,Fortress Forever,329710,FortressForever_default.ps1,
-frozenflame,frozenflameserver,Frozen Flame,1348640,FrozenFlame_default.ps1,
-fof,fofserver,Fistful of Frags,295230,FistfulofFrags_default.ps1,
-gmod,gmodserver,Garrys Mod,4020,GarrysMod_default.ps1,
-gs,gsserver,GearStorm,696120,GearStorm_default.ps1,
-hl2dm,hl2dmserver,Half-Life 2 Deathmatch,232370,HalfLife2_default.ps1,
-hw,hwserver,Hurtworld,405100,Hurtworld_default.ps1,
-iron,ironarmada,Iron Armada,770340,IronArmada_default.ps1,
-isleofyore,isleofyoreserver,Isles of Yore,1827320,IsleofYore_default.ps1,
-ins,insserver,Insurgency,237410,Insurgency_default.ps1,
-inss,inssserver,Insurgency Sandstorm,581330,Sandstorm_default.ps1,
-jc2,jc2server,Just Cause 2,261140,JustCause2_default.ps1,
-jc3,jc3server,Just Cause 3,619960,JustCause3_default.ps1,
-kf2,kf2server,Killing Floor 2,232130,Killingfloor2_default.ps1,
-l4d2,l4d2server,Left 4 Dead 2,222860,Left4dead2_default.ps1,
-mcv,mcvserver,Military Conflict Vietnam,1136190,MCV_default.ps1,
-me,meserver,Medieval Engineers,367970,MedievalEngineers_default.ps1,
-mis,misserver,Miscreated,302200,Miscreated_default.ps1,
-mom,momserver,Memories of Mars,897590,MemoriesofMars_default.ps1,
-mcbr,mcbrserver,minecraft bedrock,11421000,MinecraftBedrock_default.ps1,
-mc,mcserver,minecraft ,11500000,Minecraft_default.ps1,
-ms,mserver,MORDHAU ,629800,MORDHAU_default.ps1,
-nmrih,nmrihserver,No More Room in Hell,317670,NoMoreRoominHell_default.ps1,
-notd,notdserver,Night of the Dead,1420710,NightoftheDead_default.ps1,
-ns2,ns2server,Natural Selection 2,4940,NaturalSelection2_default.ps1,
-onset,onsetserver,Onset,1204170,Onset_default.ps1,
-pc,pcserver,Project Cars,332670,ProjectCars_default.ps1,
-pced,pcedserver,Primal Carnage,336400,PrimalCarnageExtinction.ps1,
-pixark,pixarkserver,PixARK ,824360,PixARK_default.ps1,
-pz,pzserver,Project Zomboid,380870,ProjectZomboid_default.ps1,
-re,remnantsserver,Remnants,1141420,Remnants_default.ps1,
-ror2,ror2server,Risk of Rain 2,1180760,RiskofRain2_default.ps1,
-rust,rustserver,Rust,258550,Rust_default.ps1,
-rFactor2,rFactor2server,rFactor 2,400300,rFactor2_default.ps1,
-rs2,rs2server,Rising Storm 2,418480,RisingStorm2_default.ps1,
-sat,factoryserver,Satisfactory,1690800,Satisfactory_default.ps1,
-sb,stickybotsserver,Sticky Bots,974130,StickyBots_default.ps1, 
-scp5k,scp5kserver,SCP: 5K Dedicated Server,884110,SCP5K_default.ps1,
-scp,scpserver,SCP Secret Laboratory,996560,SCPSecretLaboratory_default.ps1,
-se,seserver,Space Engineers,298740,SpaceEngineers_default.ps1,
-se4,se4server,Sniper Elite 4,568880,SniperElite4_default.ps1,
-si,siserver,Space Impossible,1222650,SpaceImpossible_default.ps1,
-ss2017,ss2017server,Serious Sam 2017,564390,SeriousSam2017_default.ps1,
-ss3,ss3server,Serious Sam 3,41080,SeriousSam3_default.ps1,
-sscr,sscrserver,Serious Sam Classics Revolution,299310,SeriousSamClassicsRevolution_default.ps1,
-sshd,sshdserver,Serious Sam HD,41005,SeriousSamHD.ps1,
-sw,swserver,Stormworks ,1247090,StormWorks_default.ps1,
-stationeers,stationeersserver,Stationeers ,600760,Stationeers_default.ps1,
-squad,squadserver,Squad ,403240,Squad_default.ps1,
-sven,svenserver,Sven Co-op,276060,SvenCoop_default.ps1,
-terr,terrariaserver,terraria,105600,Terraria_default.ps1,
-trs,trsserver,Takedown: Red Sabre,261020,Takedown_default.ps1,
-tf2,tf2server,Team Fortress 2,232250,TeamFortress2_default.ps1,
-ti,tiserver,The Isle Dedicated Server,412680,TheIsle_default.ps1,
-unturned,unturnedserver,Unturned,1110390,Unturned_default.ps1,
-usserver,spacemanserver,Unfortunate Spacemen,824240,UnfortunateSpacemen_default.ps1,
-forest,forestserver,The Forest,556450,TheForest_default.ps1,
-valheim,valheimserver,Valheim,896660,Valheim_default.ps1,
-vanguard,vanguardserver,Vanguard Normandy 1944,1017070,VanguardNormandy1944_default.ps1,
-vrising,vrisingserver,V Rising,1829350,VRising_default.ps1,
-vox,voxserver,Vox Machinae,944490,VoxMachinae_default.ps1,
-wfs,wfserver,Wreckfest,361580,Wreckfest_default.ps1,
-zps,zpsserver,Zombie Panic! Source,17505,ZombiePanicSource_default.ps1,
+Shortname,ServerFolder,Game,AppID,Default-config
+7d2d,7d2dserver,7 Days to Die,294420,7days2die_default.ps1
+aff,affserver,Angels Fall First,407480,AngelsFallFirst_default.ps1
+ahl2,ahl2server,Action Source,985050,ActionSource_default.ps1
+aoc,aocserver, Age of Chivalry,17515,AgeofChivalry_default.ps1
+asrd,asrdserver,Alien Swarm Reactive Drop Dedicated,582400,AlienSwarm_default.ps1
+ark,arkserver,ARK Survival Evolved,376030,ArkSE_default.ps1
+arma3,arma3server,ARMA 3,233780,Arma3_default.ps1
+armareforger,armareforgerserver,Arma Reforger,1874900,ArmaReforger_default.ps1
+ac,acserver,Assetto Corsa,302550,AssettoCorsa_default.ps1
+astro,astroserver,ASTRONEER,728470,Astro_default.ps1
+avorion,avorionserver,Avorion,565060,Avorion_default.ps1
+btw,btwserver,Beyond the Wire,1064780,BeyondtheWire_default.ps1
+bmdm,bmdmserver,Black Mesa Deathmatch,346680,BlackMesa_default.ps1
+bo,boserver,Ballistic Overkill,416880,BallisticOverkill_default.ps1
+bs,bsserver,Blade Symphony,228780,BladeSymphony_default.ps1
+bl,blserver,BadLads ,1203110,BadLads_default.ps1
+boundel,boundelserver,Boundel ,454070,Boundel_default.ps1
+bb2,bb2server,BrainBread 2,475370,BrainBread2_default.ps1
+bt,btserver,Barotrauma,1026340,Barotrauma_default.ps1
+bt1944,bt1944server,Battalion 1944,805140,Battalion1944_default.ps1
+bw,bwserver,Blackwake,423410,Blackwake_default.ps1
+caspa,caspaserver,Capsa,667230,Caspa_default.ps1
+cc,ccserver,Codename CURE,383410,CodenameCURE_default.ps1
+cd,craftingdeadserver,Crafting Dead,685100,CraftingDead_default.ps1
+ce,ceserver,Conan Exiles,443030,ConanExiles_default.ps1
+ct,craftserver,Craftopia,1670340,Craftopia_default.ps1
+cod3mw,cod3mwserver,Call of Duty Modern Warfare 3,42750,CallofDuty3MW_default.ps1
+contagion,contagionserver,Conatagion Dedicated,238430,ContagionDS_default.ps1
+cs,csserver,Colony Survival,748090,ColonySurvival_default.ps1
+csgo,csgoserver,Counter-Strike Global Offensive,740,CSGO_default.ps1
+da,daserver,Double Action,317800,DoubleAction_default.ps1
+dayofdragons,dayofdragonsserver,Day of Dragons,1088320,DayofDragons_default.ps1
+dayz,dayzserver,DayZ Server,223350,DayZ_default.ps1
+dod,dodserver,Day of Defeat,232290,DayofDefeat_default.ps1
+dow,dowserver,Days of War,541790,DaysofWar_default.ps1
+doi,doiserver,Day of Infamy,462310,DOI_default.ps1
+dnl,dnlserver,Dark N light,630230,DNL_default.ps1
+dst,dstserver,Don't Starve Together,343050,DontStarveTogether_default.ps1
+dys,dysserver,Dystopia,17585,Dystopia_default.ps1
+em,emserver,Empires,460040,Empires_default.ps1
+emp,empserver,Empyrion,530870,Empyrion_default.ps1
+es,esserver,Eden Star,419790,EdenStart_default.ps1
+esmod,esmodserver,Eternal Silence,17555,EternalSilence_default.ps1
+ff,ffserver,Fortress Forever,329710,FortressForever_default.ps1
+frozenflame,frozenflameserver,Frozen Flame,1348640,FrozenFlame_default.ps1
+fof,fofserver,Fistful of Frags,295230,FistfulofFrags_default.ps1
+gmod,gmodserver,Garrys Mod,4020,GarrysMod_default.ps1
+gs,gsserver,GearStorm,696120,GearStorm_default.ps1
+hl2dm,hl2dmserver,Half-Life 2 Deathmatch,232370,HalfLife2_default.ps1
+hw,hwserver,Hurtworld,405100,Hurtworld_default.ps1
+iron,ironarmada,Iron Armada,770340,IronArmada_default.ps1
+isleofyore,isleofyoreserver,Isles of Yore,1827320,IsleofYore_default.ps1
+ins,insserver,Insurgency,237410,Insurgency_default.ps1
+inss,inssserver,Insurgency Sandstorm,581330,Sandstorm_default.ps1
+jc2,jc2server,Just Cause 2,261140,JustCause2_default.ps1
+jc3,jc3server,Just Cause 3,619960,JustCause3_default.ps1
+kf2,kf2server,Killing Floor 2,232130,Killingfloor2_default.ps1
+l4d2,l4d2server,Left 4 Dead 2,222860,Left4dead2_default.ps1
+mcv,mcvserver,Military Conflict Vietnam,1136190,MilitaryConflict_default.ps1
+me,meserver,Medieval Engineers,367970,MedievalEngineers_default.ps1
+mis,misserver,Miscreated,302200,Miscreated_default.ps1
+mom,momserver,Memories of Mars,897590,MemoriesofMars_default.ps1
+mcbr,mcbrserver,minecraft bedrock,11421000,MinecraftBedrock_default.ps1
+mc,mcserver,minecraft ,11500000,Minecraft_default.ps1
+ms,mserver,MORDHAU ,629800,MORDHAU_default.ps1
+nmrih,nmrihserver,No More Room in Hell,317670,NoMoreRoominHell_default.ps1
+notd,notdserver,Night of the Dead,1420710,NightoftheDead_default.ps1
+ns2,ns2server,Natural Selection 2,4940,NaturalSelection2_default.ps1
+onset,onsetserver,Onset,1204170,Onset_default.ps1
+pc,pcserver,Project Cars,332670,ProjectCars_default.ps1
+pced,pcedserver,Primal Carnage,336400,PrimalCarnageExtinction.ps1
+pixark,pixarkserver,PixARK ,824360,PixARK_default.ps1
+pz,pzserver,Project Zomboid,380870,ProjectZomboid_default.ps1
+re,remnantsserver,Remnants,1141420,Remnants_default.ps1
+ror2,ror2server,Risk of Rain 2,1180760,RiskofRain2_default.ps1
+rust,rustserver,Rust,258550,Rust_default.ps1
+rFactor2,rFactor2server,rFactor 2,400300,rFactor2_default.ps1
+rs2,rs2server,Rising Storm 2,418480,RisingStorm2_default.ps1
+sat,factoryserver,Satisfactory,1690800,Satisfactory_default.ps1
+sb,stickybotsserver,Sticky Bots,974130,StickyBots_default.ps1
+scp5k,scp5kserver,SCP: 5K Dedicated Server,884110,SCP5K_default.ps1
+scp,scpserver,SCP Secret Laboratory,996560,SCPSecretLaboratory_default.ps1
+se,seserver,Space Engineers,298740,SpaceEngineers_default.ps1
+se4,se4server,Sniper Elite 4,568880,SniperElite4_default.ps1
+si,siserver,Space Impossible,1222650,SpaceImpossible_default.ps1
+ss2017,ss2017server,Serious Sam 2017,564390,SeriousSam2017_default.ps1
+ss3,ss3server,Serious Sam 3,41080,SeriousSam3_default.ps1
+sscr,sscrserver,Serious Sam Classics Revolution,299310,SeriousSamClassicsRevolution_default.ps1
+sshd,sshdserver,Serious Sam HD,41005,SeriousSamHD.ps1
+sw,swserver,Stormworks ,1247090,StormWorks_default.ps1
+stationeers,stationeersserver,Stationeers ,600760,Stationeers_default.ps1
+squad,squadserver,Squad ,403240,Squad_default.ps1
+sven,svenserver,Sven Co-op,276060,SvenCoop_default.ps1
+terr,terrariaserver,terraria,105600,Terraria_default.ps1
+trs,trsserver,Takedown: Red Sabre,261020,Takedown_default.ps1
+tf2,tf2server,Team Fortress 2,232250,TeamFortress2_default.ps1
+ti,tiserver,The Isle Dedicated Server,412680,TheIsle_default.ps1
+unturned,unturnedserver,Unturned,1110390,Unturned_default.ps1
+usserver,spacemanserver,Unfortunate Spacemen,824240,UnfortunateSpacemen_default.ps1
+forest,forestserver,The Forest,556450,TheForest_default.ps1
+valheim,valheimserver,Valheim,896660,Valheim_default.ps1
+vanguard,vanguardserver,Vanguard Normandy 1944,1017070,VanguardNormandy1944_default.ps1
+vrising,vrisingserver,V Rising,1829350,VRising_default.ps1
+vox,voxserver,Vox Machinae,944490,VoxMachinae_default.ps1
+wfs,wfserver,Wreckfest,361580,Wreckfest_default.ps1
+zps,zpsserver,Zombie Panic! Source,17505,ZombiePanicSource_default.ps1

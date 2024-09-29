@@ -26,7 +26,7 @@ Function Get-MCjavaBinaries {
     java -version
     if ($?) {
         #Get-MCWebrequest 
-        $mcversion = "1.9.4"
+        $mcversion = "1.21.1"
         If ($mcversion) {
             $defaultmcversion = "$mcversion"
             If (($mcversion = Read-Host -P(Write-Host "Enter Minecraft Version, Press Enter to Accept default [$mcversion]: "-F CY -N )) -eq '') { $mcversion = "$defaultmcversion" }Else { $mcversion }
@@ -59,7 +59,7 @@ Function Get-MCjavaBinaries {
         Set-Location $serverdir
         If (!(Test-Path eula.txt )) {
             Start-Process CMD "/c start java -Xms1024M -Xmx1024M -jar server.jar nogui" -Wait
-            Start-Sleep 3
+            Start-Sleep 15
                 ((Get-Content -path eula.txt -Raw) -replace "false", "true") | Set-Content -Path eula.txt
         }
         Pop-Location
