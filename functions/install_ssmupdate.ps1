@@ -17,7 +17,13 @@ Function Get-UpdateSteamer {
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
                 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
+                Try {
+                    $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
+                }
+                Catch {
+                    Write-log "Warning: $_"
+                    #Write-log $_.Exception.Message
+                }
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -60,7 +66,13 @@ Function Get-UpdateSteamerSSM {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
+                Try {
+                    $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
+                }
+                Catch {
+                    Write-log "Warning: $_"
+                    #Write-log $_.Exception.Message
+                }
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -100,7 +112,13 @@ Function Get-UpdateSteamerCSV {
         ForEach ($getlocalssm in $getlocalssm ) {  
             $global:getlocalssmname = $getlocalssm.Name
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/data/$getlocalssmname" -UseBasicParsing
+                Try {
+                    $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/data/$getlocalssmname" -UseBasicParsing
+                }
+                Catch {
+                    Write-log "Warning: $_"
+                    #Write-log $_.Exception.Message
+                }
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -140,7 +158,13 @@ Function Get-UpdateSteamerConfigDefault {
     If ($getlocalssmname) {
         ForEach ($getlocalssmname in $getlocalssmname ) {
             If ($getlocalssmname) {
-                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
+                Try {
+                    $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
+                }
+                Catch {
+                    Write-log "Warning: $_"
+                    #Write-log $_.Exception.Message
+                }
                 If ($githubvarcontent) {
                     $githubvarcontent = ($githubvarcontent).Content
                     If ($githubvarcontent) {
@@ -182,7 +206,13 @@ Function Get-SteamerConfigDefault {
         $global:getlocalssmname = ($getlocalssm | ? AppID -like $AppID).'Default-config'
         write-log "info: Default-Config: $getlocalssmname"
         If ($getlocalssmname) {
-            $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
+            Try {
+                $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
+            }
+            Catch {
+                Write-log "Warning: $_"
+                #Write-log $_.Exception.Message
+            }
             # Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"
             If ($githubvarcontent) {
                 $githubvarcontent = ($githubvarcontent).Content
