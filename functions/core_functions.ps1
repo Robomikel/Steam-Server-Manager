@@ -1557,7 +1557,7 @@ Function Get-ProcPortBind {
             
                 }
                 ForEach ($property in $properties) {
-                    If ($t.$property) {
+                    If ($null -ne $t.$property) {
                         $n = $property + ": " + $t."$property"
                         $table.Add($property, $t."$property")
                     }
@@ -1574,7 +1574,7 @@ Function Get-ProcPortBind {
                     PSTypeName = "$objs UDP Ports"
                 }
                 ForEach ($property in $properties) {
-                    If ($u.$property -ne $null) {
+                    If ($null -ne $u.$property) {
                         $v = $property + ": " + $u."$property"
                         $table.Add($property, $u."$property")
                     }
