@@ -109,6 +109,7 @@ Install miscreated server ```./ssm install misserver```
    * GearStorm Dedicated Server  (696120) - "gsserver" (optional server folder name)   
    * Half-Life 2: Deathmatch Dedicated Server (232370) "hl2dmserver" (optional server folder name)   
    * Hurtworld Dedicated Server (405100) - "hwserver" (optional server folder name)   
+   * Icarus Dedicated Server (2089300) - "icarusserver" (optional server folder name)   
    * Iron Armada Dedicated Server (770340) - "ironarmada" (optional server folder name)   
    * Isles of Yore Dedicated Server  (1827320) - "isleofyoreserver" (optional server folder name)   
    * Insurgency Server (237410) - "insserver" (optional server folder name)   
