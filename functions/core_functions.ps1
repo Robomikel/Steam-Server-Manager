@@ -401,7 +401,12 @@ Function New-ServerLog {
                 # Write-log "info: Found $consolelog"
                 $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Write-log "info: Found $log"
-                Copy-Item  $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log" -Force
+                try {
+                    Copy-Item -Path "$logdirectory\$log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force
+                }
+                Catch {
+                    Write-log $_.Exception.Message
+                }
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
                         Out-Pastebin  -InputObject $(Get-Content "$logdirectory\$log") -PasteTitle "$serverfiles" -ExpiresIn $pastebinexpires -Visibility Unlisted
