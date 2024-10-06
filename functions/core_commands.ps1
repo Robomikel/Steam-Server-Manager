@@ -47,6 +47,7 @@ Function Select-Steamer {
         'discord' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-CheckForVars; New-DiscordAlert; Test-VariablesNull; Get-ClearVariables; Break }
         'details' { Read-Param; Get-FolderNames; Get-createdvaribles ; Get-CheckForVars; Test-PSversion; Get-details; Test-VariablesNull; Get-ClearVariables; Break }
         'install-VcRedist' { Install-VisualCPlusPlus; Get-ClearVariables; Break }
+        'install-Ntop' { Get-NTop; Get-ClearVariables; Break }
         'update-mods' { Read-Param; Get-FolderNames; Get-createdvaribles; Get-UpdateMods; Get-ClearVariables; Break }
         'start-pode' { get-pode; Add-discordjs; start-pode; Break }
         'stats' { Measure-stats; Break }
@@ -73,7 +74,7 @@ Function Get-SSMMenu {
     Write-log "Function: $($MyInvocation.Mycommand)"
     Write-Host ".:.:.:.:.:.:.:. SSM Command Menu .:.:.:.:.:.:.:.
     Choose Command: " -F Cyan
-    $command = Menu @('install A-D', 'install E-M', 'install N-Z','install 0-9', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'install-backup', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats', 'update-mods')
+    $command = Menu @('install A-D', 'install E-M', 'install N-Z','install 0-9', 'start', 'stop', 'update', 'restart', 'monitor', 'backup', 'restore', 'validate', 'install-monitor', 'install-mod', 'install-ws', 'install-backup', 'force-update', 'install-Restart', 'query', 'mcrcon', 'discord', 'details', 'exit', 'stats','install-Ntop', 'update-mods')
     clear-Host
     Set-Console  >$null 2>&1
     If ($command -ne "install A-D" -and $command -ne "install E-M" -and $command -ne "install N-Z"-and $command -ne "install 0-9") {

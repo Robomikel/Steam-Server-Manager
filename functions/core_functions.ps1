@@ -1595,3 +1595,87 @@ Function Get-ProcPortBind {
     # Get-NetFirewallRule  -Action Allow -Direction Inbound | Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | select *
     # Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | Get-NetFirewallRule  -Action Allow -Direction Inbound 
 }
+Function Get-NTop {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If ($NTopowner -and $NTopsetuprepo ) {
+        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+        #Invoke-WebRequest -Uri $NTopurl -OutFile $NTopoutput
+        Get-GithubRestAPIntop $NTopowner $NTopsetuprepo
+        Write-log "info: Downloading NTop from github"
+        $start_time = Get-Date
+        clear-hostline 1
+        Get-Infomessage "downloading" 'NTop'
+        try {
+            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepoexename
+            If ($?) {
+                clear-hostline 1
+                Get-Infomessage "downloaded" 'NTop'
+                Write-log "info: NTop succeeded "
+            }
+        }
+        catch {
+            Write-log "Warning: $($_.Exception.Message)"
+            Write-Warning 'Downloading  NTop Failed'
+            Write-log "Failed: Downloading  NTop"
+            New-TryagainNew
+        }
+        clear-hostline 1
+        Get-Infomessage "downloadtime"
+        clear-hostline 1
+        # Get-Infomessage "Extracting" 'NTop'
+        # Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force
+        # Copy-Item  "$currentdir\*" -Destination $systemdir -Recurse -Force
+        # Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force
+        # If (!$?) {
+        #     Write-Warning 'Extracting NTop Failed'
+        #     Write-log "Failed: Extracting NTop "
+        #     New-TryagainNew
+        # }
+        # ElseIf ($?) {
+        #     clear-hostline 1
+        #     Get-Infomessage "Extracted" 'NTop'
+        #     Write-log "info: Extracting NTop succeeded  "
+        # }
+    }
+    Else {
+        Write-log "Failed: install-NTop $NTopurl $githubrepozipname"
+        Write-Warning 'fn_install-NTop Failed'
+        Exit
+    }
+}
+Function Get-GithubRestAPIntop {
+    param ($owner, $repo)
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
+    If (!$?) {
+        Write-log "Failed: Get-GithubRestAPI: Repo Request "
+        return
+    }
+    If ($githubrepo) {
+        $githubrepoJSON = $githubrepo.Content | ConvertFrom-Json
+    }
+    Else {
+        Write-log "Failed: Get-GithubRestAPI: Repo convert from json "
+        return
+    }
+    if ($githubrepoJSON.assets.browser_download_url -like "*exe*" ) {
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+    }
+    # if ( $githubrepoJSON | select zipball_url) {
+    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    # }
+    Else {
+        Write-log "Failed: Get-GithubRestAPI: No download link found"
+        return
+    }
+    if ($githubrepoJSON.assets.name) {
+        $global:githubrepoexename = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+    }
+    Else {
+        Write-log "Failed: Get-GithubRestAPI: No download file found"
+        return
+    }
+}
+
