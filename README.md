@@ -222,6 +222,7 @@ Install miscreated server ```./ssm install misserver```
  - ```./ssm ssm update``` -  Downloads and overwrites ssm github files   
  - ```./ssm details <serverFolder>``` - outputs host and server details.   
  - ```./ssm stats ``` - Graphical output of host CPU and Memory details.
+ - ```./ssm install-ntop ``` - htop-like system-monitor with Vi-emulation for Windows. command ```./ntop``` or ```ntop``` [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/Installing-SSM-to-PATH)
  - ```ssm start-pode``` - will download Pode. start pode and Discord bot. Use ctl-C to stop [Wiki](https://github.com/Robomikel/Steam-Server-Manager/wiki/DiscordJS-Bot-and-Pode-API-for-SSM)
 
 # Configure
@@ -256,6 +257,8 @@ Install miscreated server ```./ssm install misserver```
  ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Discord-Alert.png)
 # Restore
 ![monitor Command](https://github.com/Robomikel/Steam-Server-Manager/blob/master/RestoreMenu.jpg)
+# Ntop
+![Ntop](https://github.com/Robomikel/Steam-Server-Manager/blob/master/Ntop.png)
 - - - -  
  When creating a Schedule task to run Monitor script in background.  
  - If using a user windows account. May need to add user to the "log on as batch job" to run the task in background under that account  
@@ -322,3 +325,5 @@ https://github.com/ampreeT/SourceCoop
 https://github.com/compujuckel/AssettoServer
 # TShock
 https://github.com/Pryaxis/TShock
+# NTop
+https://github.com/gsass1/NTop

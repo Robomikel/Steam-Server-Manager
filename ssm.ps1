@@ -7,7 +7,7 @@
 #
 #
 param(
-    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'install-backup', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist', 'stats', 'menu', 'exit', 'ssm', 'update-mods','start-pode')]    
+    [ValidateSet('install', 'update', 'force-update', 'validate', 'start', 'stop', 'restart', 'monitor', 'backup', 'restore', 'install-monitor', 'install-mod', 'install-ws', 'install-restart', 'install-backup', 'query', 'mcrcon', 'discord', 'details', 'install-vcredist','install-Ntop',  'stats', 'menu', 'exit', 'ssm', 'update-mods','start-pode')]
     [Parameter(ParameterSetName = "steamer", Position = 0)]
     [string]$command,
     [Parameter(ParameterSetName = "steamer", Position = 1)]
@@ -116,6 +116,10 @@ $AssettoServerdirectory = "$currentdir\AssettoServer"
 $TShockowner = 'Pryaxis'
 $TShocksetuprepo = 'TShock'
 $TShockdirectory = "$currentdir\TShock"
+
+# NTop
+$NTopowner = 'gsass1'
+$NTopsetuprepo = 'NTop'
 
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
