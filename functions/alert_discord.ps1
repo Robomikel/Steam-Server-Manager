@@ -147,7 +147,7 @@ Function get-pode {
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "downloading" 'Pode'
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) {
             Write-Warning 'Downloading Pode Failed'
             Write-log "Failed: Downloading Pode Failed"

@@ -68,14 +68,14 @@ Function New-BackupServer {
             Push-Location
             set-location $logdir
             if ($(Test-Path $sevenzipprogramexecutable)) {
-                $lastlog = (gci | sort LastWriteTime -Descending | select -First 1).Name
+                $lastlog = (Get-ChildItem | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Invoke-Item $lastlog
                 If (!$?) {
                     Write-Warning "Failed: Backup Log open"
                 } 
             }
             ELse {
-                $lastlog = (gci | sort LastWriteTime -Descending | select -First 1).Name
+                $lastlog = (Get-ChildItem  | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Invoke-Item $lastlog
                 If (!$?) {
                     Write-Warning "Failed: Backup Log open"
@@ -147,7 +147,7 @@ Function New-backupAppdata {
     Get-Infomessage "appdatabackupdone" 'done'
     New-ServerAppDataBackupLog
     if ($(Test-Path $sevenzipprogramexecutable)) {
-        $lastlog = (gci $logdir | sort LastWriteTime | select -First 1).Name
+        $lastlog = (Get-ChildItem  $logdir | Sort-Object LastWriteTime | Select-Object -First 1).Name
         Invoke-Item $lastlog
         If (!$?) {
             Write-Warning "Failed: AppData Backup Log open"
@@ -155,7 +155,7 @@ Function New-backupAppdata {
     }
     Else {  
         If ($appdatabackuplogopen -eq "on") {
-            $lastlog = (gci $logdir | sort LastWriteTime | select -First 1).Name
+            $lastlog = (Get-ChildItem  $logdir | Sort-Object LastWriteTime | Select-Object -First 1).Name
             Invoke-Item $lastlog
             If (!$?) {
                 Write-Warning "Failed: AppData Backup Log open"
@@ -212,9 +212,9 @@ Function Get-BackupMenu {
     Get-Menu
     # $selection = Read-Host "Please make a selection"
     $restoreex = @'
-    (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
+    (Get-ChildItem  $backupdir | Where-Object Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | Select-Object @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
 '@
-    $selection = Menu (iex "$restoreex")
+    $selection = Menu (Invoke-Expression "$restoreex")
     $global:restore = ($selection).Split()[0]
     # switch ($selection) {
     #    '1' { $global:restore = $option1 } 
@@ -226,7 +226,7 @@ Function Get-BackupMenu {
 }
 Function Show-Menu {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $option = (gci $backupdir | Where Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
+    $option = (Get-ChildItem  $backupdir | Where-Object Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
         #Get-Menu
@@ -260,7 +260,7 @@ Function New-BackupRestore {
             Get-StopServer 
         }
         Write-Warning "Deleting Current $serverfiles files"
-        gci $serverdir -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+        Get-ChildItem  $serverdir -Exclude "Variables-*.ps1" | Remove-Item -Recurse
         clear-hostline 1
         Get-Infomessage "Restore from Backup" 'start'
         Expand-Archive -Path "$backupdir\$restore" -DestinationPath  "$serverdir" -Force
@@ -287,9 +287,9 @@ Function Get-AppdataBackupMenu {
     Show-AppdataMenu
     Get-Menu
     $restoreex = @'
-    (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | select @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} MB' -f ($_.Length / 1MB))}}).Name
+    (Get-ChildItem  $backupdir | Where-Object Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | Select-Object @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} MB' -f ($_.Length / 1MB))}}).Name
 '@
-    $selection = Menu (iex "$restoreex")
+    $selection = Menu (Invoke-Expression "$restoreex")
     $global:restore = ($selection).Split()[0]
     #    $selection = Read-Host "Please make a selection"
     ##    switch ($selection) {
@@ -303,7 +303,7 @@ Function Get-AppdataBackupMenu {
 Function New-backupAppdatarestore {
     Set-Console
     Write-Warning "Deleting Current $saves files"
-    gci $savedata\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
+    Get-ChildItem  $savedata\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: $($MyInvocation.Mycommand)"
     Expand-Archive -Path $backupdir\$restore -DestinationPath $savedata\$saves -Force
     If (!$?) {
@@ -313,7 +313,7 @@ Function New-backupAppdatarestore {
 }
 Function Show-AppdataMenu {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $option = (gci $backupdir | Where Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
+    $option = (Get-ChildItem  $backupdir | Where-Object Name -Like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -Descending ).Name
     If ($option.Count -eq 1 ) {
         $global:option1 = $option
     }

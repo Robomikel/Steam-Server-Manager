@@ -39,7 +39,7 @@ Function Get-MCjavaBinaries {
         # $mcurlrequest = iwr "https://mcversions.net" + $mcdownloadversion -UseBasicParsing    
         $url = $("https://mcversions.net/download/" + $mcversion)
         try {
-            $mcurlrequest = iwr "$url" -UseBasicParsing
+            $mcurlrequest = Invoke-WebRequest -Uri "$url" -UseBasicParsing
         }
         catch {
             write-log "Warning: $_"

@@ -80,7 +80,7 @@ Function Install-SteamWS {
         #copy over mods to the SE dedicated server mods folder from SE workshop content download storage folder
         Write-Host "Copying all mods to $moddir" -F Y
         If ($AppID -eq 443030) {
-         gci $contentFolder | foreach ($_.Name) {$wsname = $_.Name ;  robocopy $contentFolder\$wsname $moddir /E /r:0 /log:$ssmlogdir\WScopy-$serverfiles-$date.log  }
+         Get-ChildItem $contentFolder | Foreach-Object ($_.Name) {$wsname = $_.Name ;  robocopy $contentFolder\$wsname $moddir /E /r:0 /log:$ssmlogdir\WScopy-$serverfiles-$date.log  }
         } 
         Else {
             robocopy $contentFolder $moddir /E /r:0 /log:$ssmlogdir\WScopy-$serverfiles-$date.log
@@ -93,7 +93,7 @@ Function Install-SteamWS {
         If ($AppID -eq 443030) {
             $modfiletext = "$moddir\modlist.txt"
             Write-Host "Copy text to $modfiletext" -F Y
-            gci $moddir\*.pak | ForEach-Object { Add-content $modfiletext ("*" + $_.Name) -Force }
+            Get-ChildItem $moddir\*.pak | ForEach-Object { Add-content $modfiletext ("*" + $_.Name) -Force }
         }
     }
     Pop-Location

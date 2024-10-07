@@ -28,8 +28,8 @@ Function Get-Oxide {
         try {
             [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             #Invoke-WebRequest -Uri $oxiderustlatestlink -OutFile $oxideoutput
-            write-log "info: iwr $githubrepoziplink -O $currentdir\$githubrepozipname"
-            iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+            write-log "info: Invoke-WebRequest $githubrepoziplink -OutFile $currentdir\$githubrepozipname"
+            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "Downloaded" 'Oxide'
@@ -201,7 +201,7 @@ Function Compare-pluginlist {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If (Test-Path $serverdir\plugins.json) {
         Get-installedplugins
-        $installedplugins | foreach {
+        $installedplugins | ForEach-Object {
             ping-pluginversion $installedplugins.plugins 
         
         }
@@ -210,9 +210,9 @@ Function Compare-pluginlist {
 
 Function Initialize-plugins {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $script:pluginss = gci $serverdir\oxide\plugins | ? Name -like *.cs
-    $pluginss |  foreach { 
-        $script:plugin = ((gc $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
+    $script:pluginss = Get-ChildItem $serverdir\oxide\plugins | Where-Object Name -like *.cs
+    $pluginss |  ForEach-Object { 
+        $script:plugin = ((Get-Content $_.FullName | select-string -SimpleMatch '[info(').Line -replace '\[info\(', '' -replace '\)\]', '') -split ',' -replace '\s', '' -replace '"', ''
         $script:pluginname = $_.Name
         $script:pluginversion = $plugin[2]
         Write-log "info: Current Version: $pluginname $pluginversion"
@@ -231,7 +231,7 @@ Function ping-pluginversion {
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
     try {
         write-log "info: $pluginname $updatecheck"
-        $update = iwr $Uri
+        $update = Invoke-WebRequest $Uri
     }
     catch {
         $wr = $_
@@ -255,7 +255,7 @@ Function Receive-plugin {
     param($pluginname, $pluginfile, $updatecheck)
     Write-log "Function: $($MyInvocation.Mycommand)"
     $Uri = "https://umod.org/plugins/" + "$pluginname" + "?version=$updatecheck"
-    iwr $Uri -O $serverdir\oxide\plugins\$pluginname
+    Invoke-WebRequest -Uri $Uri -OutFile $serverdir\oxide\plugins\$pluginname
     If (Test-Path $serverdir\oxide\plugins\$pluginname) {
         Write-log "info: $pluginname installed"
     }
@@ -278,7 +278,7 @@ Function Get-BlackMesaSrcCoop {
         clear-hostline 1
         Get-Infomessage "downloading" 'bmdmsrccoop'
         try { 
-            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname 
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'bmdmsrccoop'
@@ -327,7 +327,7 @@ Function Get-GCServerConfTemplate  {
         clear-hostline 1
         Get-Infomessage "downloading" 'GC-Server-Conf-Template'
         try { 
-            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname 
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'GC-Server-Conf-Template'

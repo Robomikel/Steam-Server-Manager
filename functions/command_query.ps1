@@ -139,7 +139,7 @@ Function Get-GamedigServerv2 {
                 $connect = $($query.connect)
                 $ping = $($query.ping)
                 $map = $($query.map)
-                if ($players -eq $null ) {
+                if ($null -eq $players ) {
                     $players = 0
                 }
                 $global:status = @{
