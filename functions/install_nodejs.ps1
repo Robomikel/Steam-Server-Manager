@@ -48,9 +48,11 @@ Function Add-NodeJS {
             Get-Infomessage "Extracted" 'Nodejs'
         }
         Push-location
-        Set-Location $nodejsdirectory  
-        Write-log "info: $env:path += ;$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
-        $env:path +=  ";$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+        Set-Location $nodejsdirectory
+        if ($env:path -notmatch "$nodejslatest"){
+            Write-log "info: $env:path += ;$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+            $env:path +=  ";$nodejsdirectory;$nodejsdirectory\node_modules\.bin"
+        }
         npm install npm
         npm install gamedig
         npm install gamedig -g
