@@ -1597,51 +1597,57 @@ Function Get-ProcPortBind {
 }
 Function Get-NTop {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    If ($NTopowner -and $NTopsetuprepo ) {
-        #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
-        #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-        #Invoke-WebRequest -Uri $NTopurl -OutFile $NTopoutput
-        Get-GithubRestAPIntop $NTopowner $NTopsetuprepo
-        Write-log "info: Downloading NTop from github"
-        $start_time = Get-Date
-        clear-hostline 1
-        Get-Infomessage "downloading" 'NTop'
-        try {
-            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepoexename
-            If ($?) {
-                clear-hostline 1
-                Get-Infomessage "downloaded" 'NTop'
-                Write-log "info: NTop succeeded "
+    if (!$NTopdirectory) {
+        If ($NTopowner -and $NTopsetuprepo ) {
+            #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
+            #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+            #Invoke-WebRequest -Uri $NTopurl -OutFile $NTopoutput
+            Get-GithubRestAPIntop $NTopowner $NTopsetuprepo
+            Write-log "info: Downloading NTop from github"
+            $start_time = Get-Date
+            clear-hostline 1
+            Get-Infomessage "downloading" 'NTop'
+            try {
+                Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepoexename
+                If ($?) {
+                    clear-hostline 1
+                    Get-Infomessage "downloaded" 'NTop'
+                    Write-log "info: NTop succeeded "
+                }
             }
+            catch {
+                Write-log "Warning: $($_.Exception.Message)"
+                Write-Warning 'Downloading  NTop Failed'
+                Write-log "Failed: Downloading  NTop"
+                New-TryagainNew
+            }
+            clear-hostline 1
+            Get-Infomessage "downloadtime"
+            clear-hostline 1
+            # Get-Infomessage "Extracting" 'NTop'
+            # Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force
+            # Copy-Item  "$currentdir\*" -Destination $systemdir -Recurse -Force
+            # Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force
+            # If (!$?) {
+            #     Write-Warning 'Extracting NTop Failed'
+            #     Write-log "Failed: Extracting NTop "
+            #     New-TryagainNew
+            # }
+            # ElseIf ($?) {
+            #     clear-hostline 1
+            #     Get-Infomessage "Extracted" 'NTop'
+            #     Write-log "info: Extracting NTop succeeded  "
+            # }
         }
-        catch {
-            Write-log "Warning: $($_.Exception.Message)"
-            Write-Warning 'Downloading  NTop Failed'
-            Write-log "Failed: Downloading  NTop"
-            New-TryagainNew
+        Else {
+            Write-log "Failed: install-NTop $NTopurl $githubrepozipname"
+            Write-Warning 'fn_install-NTop Failed'
+            Exit
         }
-        clear-hostline 1
-        Get-Infomessage "downloadtime"
-        clear-hostline 1
-        # Get-Infomessage "Extracting" 'NTop'
-        # Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force
-        # Copy-Item  "$currentdir\*" -Destination $systemdir -Recurse -Force
-        # Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force
-        # If (!$?) {
-        #     Write-Warning 'Extracting NTop Failed'
-        #     Write-log "Failed: Extracting NTop "
-        #     New-TryagainNew
-        # }
-        # ElseIf ($?) {
-        #     clear-hostline 1
-        #     Get-Infomessage "Extracted" 'NTop'
-        #     Write-log "info: Extracting NTop succeeded  "
-        # }
+
     }
     Else {
-        Write-log "Failed: install-NTop $NTopurl $githubrepozipname"
-        Write-Warning 'fn_install-NTop Failed'
-        Exit
+        Write-log "info: NTop already  installed"
     }
 }
 Function Get-GithubRestAPIntop {

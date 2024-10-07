@@ -120,6 +120,7 @@ $TShockdirectory = "$currentdir\TShock"
 # NTop
 $NTopowner = 'gsass1'
 $NTopsetuprepo = 'NTop'
+$NTopdirectory = "$currentdir\NTop.exe"
 
 $RANDOMPASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 14 | ForEach-Object { [char]$_ })
 
