@@ -18,7 +18,7 @@ Function install-mcrcon {
         clear-hostline 1
         Get-Infomessage "downloading" 'MCRCon'
         try { 
-            iwr $githubrepoziplink -O $currentdir\$githubrepozipname 
+            Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname 
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'MCRCon'

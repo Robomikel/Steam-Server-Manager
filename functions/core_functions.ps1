@@ -330,51 +330,51 @@ Function Set-ServerConfig {
     If (($readserverconfig | Select-String -SimpleMatch "SessionName") ) {
         Write-log "info: Edit SessionName"
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SessionName")
-         ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+         ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SessionName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "sv_hostname") ) {
         Write-log "info: Edit sv_hostname"
-        $deleteline = ($readserverconfig | Select-String -SimpleMatch "sv_hostname" | Where Line -NotMatch '//'  )
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "sv_hostname" | Where-Object Line -NotMatch '//'  )
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "sv_hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname `"")) {
         Write-log "info: Edit hostname `""
-        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname `"" | Where Line -NotMatch '//'  )
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname `"" | Where-Object Line -NotMatch '//'  )
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname `"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     } 
     ElseIf (($readserverconfig | Select-String -SimpleMatch "hostname = `"")) {
         Write-log "info: Edit hostname = `""
-        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname = `"" | Where Line -NotMatch '//'  )
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        $deleteline = ($readserverconfig | Select-String -SimpleMatch "hostname = `"" | Where-Object Line -NotMatch '//'  )
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "hostname = `"$hostname`";" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=`"")) { 
         Write-log "info: Edit ServerName=`""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=`"")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=`"$hostname`"" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "ServerName=")) { 
         Write-log "info: Edit ServerName="
         if (!($deleteline)) {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "ServerName=")
         }
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "ServerName=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")) {
         Write-log "info: Edit SERVERNAME="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "SERVERNAME=")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "SERVERNAME=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "cluster_name =")) {
         Write-log "info: Edit cluster_name ="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "cluster_name =")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "cluster_name = $hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")) {
         Write-log "info: Edit <property name=`"ServerName`""
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerName`"")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}"   
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "`t<property name=`"ServerName`"						value=`"$hostname`"`/>" | Set-Content "${servercfgdir}\${servercfg}"   
         $deleteline2 = ($readserverconfig | Select-String -SimpleMatch "<property name=`"ServerPort`"")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline2", "`t<property name=`"ServerPort`"						value=`"$port`"`/>" | Set-Content "${servercfgdir}\${servercfg}"
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "server_name=")) {
         Write-log "info: Edit server_name="
@@ -382,12 +382,12 @@ Function Set-ServerConfig {
             $deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
         }
         #$deleteline = ($readserverconfig | Select-String -SimpleMatch "server_name=")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "server_name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "server_name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     ElseIf (($readserverconfig | Select-String -SimpleMatch "name=")) {
         Write-log "info: Edit name="
         $deleteline = ($readserverconfig | Select-String -SimpleMatch "name=")
-        ( gc ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
+        ( Get-Content ${servercfgdir}\${servercfg} ) -replace "$deleteline", "name=$hostname" | Set-Content "${servercfgdir}\${servercfg}"; Break 
     }
     Else {
         Write-log "Failed: Edit ServerConfig Hostname"
@@ -491,11 +491,11 @@ Function Get-MetaModWebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     if ($appid -eq 346680) {
-        $metamodlatest = iwr "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
+        $metamodlatest = Invoke-WebRequest "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
         $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 1155 | select-string -SimpleMatch 'windows.zip')
     }
     else {
-        $metamodlatest = iwr "http://www.metamodsource.net/downloads.php?branch=$mmversion"
+        $metamodlatest = Invoke-WebRequest "http://www.metamodsource.net/downloads.php?branch=$mmversion"
         $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     }
     
@@ -518,11 +518,11 @@ Function Get-Sourcemodwebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     if ($appid -eq 346680) {
-        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
+        $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
         $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 6968 | select-string -SimpleMatch 'windows.zip')
     }
     else {
-        $sourcemodlatest = iwr "https://www.sourcemod.net/downloads.php?branch=$smversion"
+        $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=$smversion"
         $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 'windows.zip')
     }
     # $sourcemodmversion = $($sourcemodlatestlist -split '/')[4]
@@ -811,12 +811,12 @@ Function Measure-stats {
         if ($psSeven -eq $true ) {
             $window32processor = Get-CimInstance Win32_processor
             $windows32 = Get-CimInstance Win32_OperatingSystem
-            #      $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+            #      $colInterfaces = Get-CimInstance -class Win32_PerfFormattedData_Tcpip_NetworkInterface | Select-Object BytesTotalPersec, CurrentBandwidth, PacketsPersec | Where-Object { $_.PacketsPersec -gt 0 }
         }
         Else {
             $window32processor = Get-WmiObject Win32_processor
             $windows32 = Get-WmiObject Win32_OperatingSystem
-            #      $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | select BytesTotalPersec, CurrentBandwidth, PacketsPersec | where { $_.PacketsPersec -gt 0 }
+            #      $colInterfaces = Get-WmiObject -class Win32_PerfFormattedData_Tcpip_NetworkInterface | Select-Object BytesTotalPersec, CurrentBandwidth, PacketsPersec | Where-Object { $_.PacketsPersec -gt 0 }
             # }
             #  foreach ($interface in $colInterfaces) {
             #     $bitsPerSec = $interface.BytesTotalPersec * 8
@@ -828,12 +828,12 @@ Function Measure-stats {
             #         $count++
             #     }
         }
-        cls
+        Clear-Host
         [console]::CursorVisible = $false
         Get-Logo3 Cyan
         $bar++
-        $bar | % { if ($_ % 2 -eq 0 ) { Write-Host "Fetch stats 1Min...[-]       " } }
-        $bar | % { if ($_ % 2 -eq 1 ) { Write-Host "Fetch stats 1Min...[x]       " } }
+        $bar | Foreach-Object { if ($_ % 2 -eq 0 ) { Write-Host "Fetch stats 1Min...[-]       " } }
+        $bar | Foreach-Object { if ($_ % 2 -eq 1 ) { Write-Host "Fetch stats 1Min...[x]       " } }
         #     $averageBandwidth = $totalBandwidth / $count
         #  $NetaverageBandwidth += $averageBandwidth
         $cpulast2min += $window32processor.LoadPercentage
@@ -851,7 +851,7 @@ Function Measure-stats {
     # > uncomment next two lines for test show-graph
     # $data = 1..100 | Get-Random -Count 50
     # Show-Graph -Datapoints $Data -GraphTitle 'CPU'
-    cls
+    Clear-Host
     Get-Logo3 Cyan
     Show-Graph -Datapoints $cpulast2min -YAxisTitle "Percentage" -XAxistitle "Seconds" -GraphTitle "CPU"
     # Show-Graph -Datapoints $cpucookedlast2min -YAxisTitle "Percentage" -XAxistitle "Time" -GraphTitle "CPU Cooked"
@@ -883,7 +883,7 @@ function DrawMenu {
     param ($menuItems, $menuPosition, $Multiselect, $selection)
     $l = $menuItems.length
     for ($i = 0; $i -le $l; $i++) {
-        if ($menuItems[$i] -ne $null) {
+        if ($null -ne $menuItems[$i]) {
             $item = $menuItems[$i]
             if ($Multiselect) {
                 if ($selection -contains $i) {
@@ -905,7 +905,7 @@ function DrawMenu {
 function Toggle-Selection {
     param ($pos, [array]$selection)
     if ($selection -contains $pos) { 
-        $result = $selection | where { $_ -ne $pos }
+        $result = $selection | Where-Object { $_ -ne $pos }
     }
     else {
         $selection += $pos
@@ -943,7 +943,7 @@ function Menu {
     }
     [console]::CursorVisible = $true
 
-    if ($ReturnIndex -eq $false -and $pos -ne $null) {
+    if ($ReturnIndex -eq $false -and $null -ne $pos) {
         if ($Multiselect) {
             return $menuItems[$selection]
         }
@@ -1249,7 +1249,7 @@ Function Get-BarPlot {
     $Array = New-Object 'object[,]' $NumOfRows, $NumOfDatapoints
 
     For ($i = 0; $i -lt $Datapoints.count; $i++) {
-        # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
+        # Fit datapoint in a row, Where-Object, a row's data range = Total Datapoints / Step
         $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step)
         # use a half marker is datapoint falls in less than equals half of the step
         $HalfMark = $Datapoints[$i] % $Step -in $(1..$HalfStep)
@@ -1293,7 +1293,7 @@ Function Get-LinePlot {
     $Line = [char] 9616
 
     For ($i = 0; $i -lt $Datapoints.count; $i++) {
-        # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
+        # Fit datapoint in a row, Where-Object, a row's data range = Total Datapoints / Step
         $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step) 
         $RowIndexNextItem = [Math]::Ceiling($($Datapoints[$i + 1] - $StartOfRange) / $Step)
 
@@ -1334,7 +1334,7 @@ Function Get-ScatterPlot {
 
 
     For ($i = 0; $i -lt $Datapoints.count; $i++) {
-        # Fit datapoint in a row, where, a row's data range = Total Datapoints / Step
+        # Fit datapoint in a row, Where-Object, a row's data range = Total Datapoints / Step
         $RowIndex = [Math]::Ceiling($($Datapoints[$i] - $StartOfRange) / $Step) 
 
         # use a half marker is datapoint falls in less than equals half of the step
@@ -1379,7 +1379,7 @@ Function Get-GithubRestAPI {
     param ($owner, $repo) 
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
+    $githubrepo = Invoke-WebRequest "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
         Write-log "Failed: Get-GithubRestAPI: Repo Request "
         return
@@ -1392,17 +1392,17 @@ Function Get-GithubRestAPI {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*zip*" ) {
-        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | Select-Object -Index 0).Line
     }
-    # if ( $githubrepoJSON | select zipball_url) {
-    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    # if ( $githubrepoJSON | Select-Object zipball_url) {
+    #     $global:githubrepoziplink = ($githubrepoJSON | Select-Object zipball_url | Select-Object -Index 0).zipball_url
     # }
     Else {
         Write-log "Failed: Get-GithubRestAPI: No zip download link found"
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+        $global:githubrepozipname = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "zip" |  Select-String -NotMatch "Linux", "OSX" | Select-Object -Index 0).Line
     } 
     Else {
         Write-log "Failed: Get-GithubRestAPI: No zip download file found"
@@ -1415,7 +1415,7 @@ Function Get-GithubRestAPI {
         Write-log "Failed: Get-GithubRestAPI: No zip file found"
         return
     }
-    #    iwr $githubrepoziplink -O $githubrepozipname
+    #    Invoke-WebRequest $githubrepoziplink -O $githubrepozipname
     #If (!$?) {
     #    Write-log "Get-GithubRestAPI: Repo WebRequest failed"
     #    return
@@ -1511,7 +1511,7 @@ Function Compare-Modlist {
 
 Function start-pode {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $config = (gc config.json) | ConvertFrom-Json 
+    $config = (Get-Content config.json) | ConvertFrom-Json 
     $t = $null
     Do {
         $t++
@@ -1524,10 +1524,10 @@ Function start-pode {
         }
     } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
     # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
-    sajb -Name 'Pode' -ScriptBlock { param($podedirectory)
+    Start-Job -Name 'Pode' -ScriptBlock { param($podedirectory)
         Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      
-    sajb -Name 'DiscordJS' -ScriptBlock {
+    Start-Job -Name 'DiscordJS' -ScriptBlock {
         Start-Process -FilePath PowerShell -ArgumentList "-Command node discord_bot.js "
     }
 }
@@ -1592,8 +1592,8 @@ Function Get-ProcPortBind {
             }
         }
     }
-    # Get-NetFirewallRule  -Action Allow -Direction Inbound | Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | select *
-    # Get-NetFirewallPortFilter | Where { $_.LocalPort -Like '27015' } | Get-NetFirewallRule  -Action Allow -Direction Inbound 
+    # Get-NetFirewallRule  -Action Allow -Direction Inbound | Get-NetFirewallPortFilter | Where-Object { $_.LocalPort -Like '27015' } | Select-Object *
+    # Get-NetFirewallPortFilter | Where-Object { $_.LocalPort -Like '27015' } | Get-NetFirewallRule  -Action Allow -Direction Inbound 
 }
 Function Get-NTop {
     Write-log "Function: $($MyInvocation.Mycommand)"
@@ -1654,7 +1654,7 @@ Function Get-GithubRestAPIntop {
     param ($owner, $repo)
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    $githubrepo = iwr "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
+    $githubrepo = Invoke-WebRequest "https://api.github.com/repos/$owner/$repo/releases" -Method Get -Headers @{'Accept' = 'application/vnd.github.v3+json' }
     If (!$?) {
         Write-log "Failed: Get-GithubRestAPI: Repo Request "
         return
@@ -1667,17 +1667,17 @@ Function Get-GithubRestAPIntop {
         return
     }
     if ($githubrepoJSON.assets.browser_download_url -like "*exe*" ) {
-        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+        $global:githubrepoziplink = ($githubrepoJSON.assets.browser_download_url | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | Select-Object -Index 0).Line
     }
-    # if ( $githubrepoJSON | select zipball_url) {
-    #     $global:githubrepoziplink = ($githubrepoJSON | select zipball_url | select -Index 0).zipball_url
+    # if ( $githubrepoJSON | Select-Object zipball_url) {
+    #     $global:githubrepoziplink = ($githubrepoJSON | Select-Object zipball_url | Select-Object -Index 0).zipball_url
     # }
     Else {
         Write-log "Failed: Get-GithubRestAPI: No download link found"
         return
     }
     if ($githubrepoJSON.assets.name) {
-        $global:githubrepoexename = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | select -Index 0).Line
+        $global:githubrepoexename = ($githubrepoJSON.assets.name  | select-string -SimpleMatch "exe" |  Select-String -NotMatch "Linux", "OSX" | Select-Object -Index 0).Line
     }
     Else {
         Write-log "Failed: Get-GithubRestAPI: No download file found"

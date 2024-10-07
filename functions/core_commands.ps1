@@ -80,35 +80,35 @@ Function Get-SSMMenu {
     If ($command -ne "install A-D" -and $command -ne "install E-M" -and $command -ne "install N-Z"-and $command -ne "install 0-9") {
         Write-Host ".:.:.:.:.:.:.:. SSM Server Menu .:.:.:.:.:.:.:.
         Choose Server: " -F Cyan
-        $check = ((gci $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name )
+        $check = ((Get-ChildItem $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name )
         if ($check.count -gt 1) {
-            $serverfiles = Menu (iex "(gci $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name")
+            $serverfiles = Menu (Invoke-Expression "(Get-ChildItem $sfwd -Depth 1 -Filter Variables-*.ps1).Directory.Name")
         }
         Elseif ($check.count -eq 1) {
             $serverfiles = $check
         }   
     }
     If ($command -eq "install A-D") {
-        # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
-        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[A-D]'" )
+        # $gamename = Menu (Invoke-Expression "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -First 42" )
+        $gamename = Menu (Invoke-Expression "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[A-D]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install E-M") {
-        # $gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[E-M]'" )
+        # $gamename = Menu (Invoke-Expression "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
+        $gamename = Menu (Invoke-Expression "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[E-M]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install N-Z") {
-        #$gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[N-Z]'" )
+        #$gamename = Menu (Invoke-Expression "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
+        $gamename = Menu (Invoke-Expression "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[N-Z]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }
     ElseIf ($command -eq "install 0-9") {
-        #$gamename = Menu (iex "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
-        $gamename = Menu (iex "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[0-9]'" )
+        #$gamename = Menu (Invoke-Expression "Import-Csv $currentdir\data\serverlist.csv | Select-Object -ExpandProperty Game | Select-Object -Last 43" )
+        $gamename = Menu (Invoke-Expression "Import-Csv `"$currentdir\data\serverlist.csv`" | Select-Object -ExpandProperty Game | Select-String  '^[0-9]'" )
         $serverfiles = Import-Csv $currentdir\data\serverlist.csv | where-object Game -like "$gamename" | Select-Object -ExpandProperty ServerFolder 
         $command = "install"
     }

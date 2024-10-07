@@ -169,7 +169,7 @@ Function Get-CSGOGet5 {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $csgoget5url -and $systemdir) {
         # This might work...
-        $get5latestzip = $(($(iwr $csgoget5url).Links.href | ? { $_ -match "get5-" } | select-string -NotMatch /).Line)
+        $get5latestzip = $(($(Invoke-WebRequest $csgoget5url).Links.href | Where-Object { $_ -match "get5-" } | select-string -NotMatch /).Line)
         $get5latestdl = "https://ci.splewis.net/job/get5/lastSuccessfulBuild/artifact/builds/get5/$get5latestzip"
         If ($command -eq 'update-mods') {
             Compare-Modlist 'CSGO-Get5' $get5latestzip
@@ -249,7 +249,7 @@ Function Get-CSGOGet5 {
 Function Get-CSGOcsgopugsetup {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $systemdir) {
-        # iwr $csgopugsetupurl -O $githubrepozipname
+        # Invoke-WebRequest $csgopugsetupurl -O $githubrepozipname
         if ($Pugsetupowner -and $Pugsetuprepo ) {
             Get-GithubRestAPI $Pugsetupowner $Pugsetuprepo 
         }
@@ -266,7 +266,7 @@ Function Get-CSGOcsgopugsetup {
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'CSGO-pugsetup'
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
             New-TryagainNew 
@@ -326,7 +326,7 @@ Function Get-CSGOcsgopugsetup {
 Function Get-CSGOsteamworks {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($steamworksurl -and $systemdir) {
-        $steamworkslatestzip = $( ($(iwr $steamworksurl).Links.href | select-string -SimpleMatch windows.zip | select -First 1 ).Line) 
+        $steamworkslatestzip = $( ($(Invoke-WebRequest $steamworksurl).Links.href | select-string -SimpleMatch windows.zip | Select-Object -First 1 ).Line) 
         If ($command -eq 'update-mods') {
             Compare-Modlist 'SteamWorks' $steamworkslatestzip
         }
@@ -396,7 +396,7 @@ Function Get-CSGOsteamworks {
 Function Get-AssettoServer {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $systemdir) {
-        # iwr $csgopugsetupurl -O $githubrepozipname
+        # Invoke-WebRequest $csgopugsetupurl -O $githubrepozipname
         if ($AssettoServerowner -and $AssettoServersetuprepo) {
             Get-GithubRestAPI $AssettoServerowner $AssettoServersetuprepo
         }
@@ -413,7 +413,7 @@ Function Get-AssettoServer {
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'AssettoServer'
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'AssettoServer'
             New-TryagainNew 
@@ -465,7 +465,7 @@ Function Get-AssettoServer {
 Function Get-TShock {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ( $systemdir) {
-        # iwr $csgopugsetupurl -O $githubrepozipname
+        # Invoke-WebRequest $csgopugsetupurl -O $githubrepozipname
         if ($TShockowner -and $TShocksetuprepo) {
             Get-GithubRestAPI $TShockowner $TShocksetuprepo
         }
@@ -482,7 +482,7 @@ Function Get-TShock {
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'TShock'
-        iwr $githubrepoziplink -O $currentdir\$githubrepozipname
+        Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             Get-WarnMessage 'Downloadfailed' 'TShock'
             New-TryagainNew 

@@ -8,7 +8,7 @@
 #
 Function Get-DriveSpace {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $t = Measure-Command { $global:diskresults = (Get-PSDrive) | ? Name -like "[A-Z]" | foreach { 
+    $t = Measure-Command { $global:diskresults = (Get-PSDrive) | Where-Object Name -like "[A-Z]" | Foreach-Object { 
             $n = $($_.Name ) ;   
             $u = $([Math]::Round($_.Used / 1GB));
             $i = $( [Math]::Round($_.Free / 1GB));    
@@ -30,30 +30,30 @@ Function Get-Details {
     $portarraytcpOwningProcess = @()
     $portarrayudpOwningProcess = @()
     $visualcpackages = @()
-    ($array = (Get-Variable | ? name -like "*port")) | foreach { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} 
-    $array |  foreach { if ($tcpstatus = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess, State)) { $portarraytcpstatus+="$($tcpstatus.State)" ; $portarraytcpOwningProcess+= "`nTCPPort: " + $_.Value + "` `tOwning Process: " + ((GPS -Id $tcpstatus.OwningProcess).ProcessName) }Else{$portarraytcpstatus+="$false"}}
-    $array |  foreach { if ($udpstatus = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess)) {$portarrayudpstatus+="Listen"  ; $portarrayudpOwningProcess+= "`nUDPPort: " + $_.Value + "` `tOwning Process: " + ((Get-Process -Id $udpstatus.OwningProcess).ProcessName) }Else{$portarrayudpstatus+="$false"}}
+    ($array = (Get-Variable | Where-Object name -like "*port")) | Foreach-Object { $portarrayvalue += "$($_.value)" ; $portarrayname += "$($_.name)"} 
+    $array |  Foreach-Object { if ($tcpstatus = (Get-NetTCPConnection -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess, State)) { $portarraytcpstatus+="$($tcpstatus.State)" ; $portarraytcpOwningProcess+= "`nTCPPort: " + $_.Value + "` `tOwning Process: " + ((Get-Process -Id $tcpstatus.OwningProcess).ProcessName) }Else{$portarraytcpstatus+="$false"}}
+    $array |  Foreach-Object { if ($udpstatus = (Get-NetUDPEndpoint -LocalPort $_.Value -ErrorAction SilentlyContinue | Select-Object OwningProcess)) {$portarrayudpstatus+="Listen"  ; $portarrayudpOwningProcess+= "`nUDPPort: " + $_.Value + "` `tOwning Process: " + ((Get-Process -Id $udpstatus.OwningProcess).ProcessName) }Else{$portarrayudpstatus+="$false"}}
   #  if ($psSeven -eq $true) {
-  #      $array |  foreach { if (($status = (Test-Connection $extip -TcpPort $_.Value)) -eq $true ) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
+  #      $array |  Foreach-Object { if (($status = (Test-Connection $extip -TcpPort $_.Value)) -eq $true ) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
   #  }
   #  Else{
   #      $global:ProgressPreference = 'SilentlyContinue'
   #      $global:WarningPreference = 'SilentlyContinue'
-  #      $array |  foreach { if (($status = (Test-NetConnection $extip -Port $_.Value -ErrorAction SilentlyContinue).TcpTestSucceeded) -eq $true) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
+  #      $array |  Foreach-Object { if (($status = (Test-NetConnection $extip -Port $_.Value -ErrorAction SilentlyContinue).TcpTestSucceeded) -eq $true) {$openportarraytcpstatus+="$true"}Else{$openportarraytcpstatus+="$false"}}
   #  }
     If ($psSeven -eq $true) { 
         $windows32 = Get-CimInstance Win32_OperatingSystem
         $window32processor = Get-CimInstance Win32_processor
         $windows32computer = Get-CimInstance Win32_ComputerSystem
         $uptime = (Get-Date) - ($windows32.lastbootuptime)
-        $visualc = Get-CimInstance -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | foreach { $visualcpackages += "`n " + $_.Name }
+        $visualc = Get-CimInstance -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | Foreach-Object { $visualcpackages += "`n " + $_.Name }
     }
     Else {
         $windows32 = Get-WmiObject Win32_OperatingSystem
         $window32processor = Get-WMIObject Win32_processor
         $windows32computer = Get-WMIObject Win32_ComputerSystem
         $uptime = (Get-Date) - ($windows32.ConvertToDateTime($windows32.lastbootuptime))
-        $visualc = Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | foreach { $visualcpackages += "`n " + $_.Name }
+        $visualc = Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | Foreach-Object { $visualcpackages += "`n " + $_.Name }
     }
     Get-ChecktaskDetails
     Get-ChecktaskautorestartDetails
@@ -63,7 +63,7 @@ Function Get-Details {
     # $masterserver = $masterserver.addr
     New-BackupFolder
     $netinterface = Get-NetAdapter
-    $netip = (Get-NetIPConfiguration | ? InterfaceAlias -like "$($netinterface.Name[0])").IPv4Address.IPAddress
+    $netip = (Get-NetIPConfiguration | Where-Object InterfaceAlias -like "$($netinterface.Name[0])").IPv4Address.IPAddress
     $uptime = "uptime:    " + $Uptime.Days + " days, " + $Uptime.Hours + " hours, " + $Uptime.Minutes + " minutes" 
     $totalfree = "{0:N2} GB" -f ($windows32.FreePhysicalMemory / 1MB)
     $totalmem = "{0:N2} GB" -f ($windows32.TotalVisibleMemorySize / 1MB)

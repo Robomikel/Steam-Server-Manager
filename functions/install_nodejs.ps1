@@ -63,8 +63,8 @@ Function Add-gamedig {
     if (!($(test-path $env:APPDATA\npm\gamedig))) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-        saps powershell -args ("npm install gamedig") -wait -nnw
-        saps powershell -args ("npm install gamedig -g") -wait -nnw
+        Start-Process powershell -args ("npm install gamedig") -wait -nnw
+        Start-Process powershell -args ("npm install gamedig -g") -wait -nnw
     }
 }
 
@@ -74,8 +74,8 @@ Function Add-discordjs {
     if (($n[1] -match "empty") -or ($n -match "ERR!")) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-        saps powershell -args ("npm install discord.js") -wait -nnw
-        #  saps powershell -args ("npm install gamedig -g") -wait -nnw
+        Start-Process powershell -args ("npm install discord.js") -wait -nnw
+        #  Start-Process powershell -args ("npm install gamedig -g") -wait -nnw
     }
 }
 

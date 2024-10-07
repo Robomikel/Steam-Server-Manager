@@ -152,7 +152,7 @@ Function Get-StopMultiple {
             clear-hostline 1
             Get-Infomessage "stopping" 'start'
             $p = get-process | Where-Object { $_.ProcessName -match $process }
-            $p | foreach {
+            $p | Foreach-Object {
                 [void]$p.CloseMainWindow()
                 Start-Sleep 5
                 if (!$p.HasExited) {

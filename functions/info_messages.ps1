@@ -258,7 +258,7 @@ function Select-ColorString {
                     + "which is $colorCount, so rotation color list will be used." `
                     -ForegroundColor Yellow
             }
-            0..($expectedMatchesCount - 1) | % {
+            0..($expectedMatchesCount - 1) | ForEach-Object {
                 $patternToColorMapping.($expectedMatches[$_]) = $colorList[$_ % $colorCount]
             }
 
