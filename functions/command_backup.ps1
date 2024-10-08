@@ -208,20 +208,22 @@ Function Limit-AppdataBackups {
 }
 Function Get-BackupMenu {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Show-Menu
-    Get-Menu
-    # $selection = Read-Host "Please make a selection"
-    $restoreex = @'
+    if (!$restore) {
+        Show-Menu
+        Get-Menu
+        # $selection = Read-Host "Please make a selection"
+        $restoreex = @'
     (Get-ChildItem  $backupdir | Where-Object Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | Select-Object @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
 '@
-    $selection = Menu (Invoke-Expression "$restoreex")
-    $global:restore = ($selection).Split()[0]
-    # switch ($selection) {
-    #    '1' { $global:restore = $option1 } 
-    #    '2' { $global:restore = $option2 } 
-    #     '3' { $global:restore = $option3 } 
-    #    'q' { exit }
-    # }
+        $selection = Menu (Invoke-Expression "$restoreex")
+        $global:restore = ($selection).Split()[0]
+        # switch ($selection) {
+        #    '1' { $global:restore = $option1 }
+        #    '2' { $global:restore = $option2 }
+        #     '3' { $global:restore = $option3 }
+        #    'q' { exit }
+        # }
+    }
     New-BackupRestore
 }
 Function Show-Menu {
@@ -303,6 +305,7 @@ Function Get-AppdataBackupMenu {
 Function New-backupAppdatarestore {
     Set-Console
     Write-Warning "Deleting Current $saves files"
+    clear-hostline 1
     Get-ChildItem  $savedata\$saves -Exclude "Variables-*.ps1" | Remove-Item -Recurse
     Write-log "Function: $($MyInvocation.Mycommand)"
     Expand-Archive -Path $backupdir\$restore -DestinationPath $savedata\$saves -Force
@@ -332,4 +335,54 @@ Function Show-AppdataMenu {
     #  Write-Host "2: $option2"
     #  Write-Host "3: $option3"
     #  Write-Host "Q: Press 'Q' to quit."
+}
+Function Restore-Emptyserver {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    If (!$serverfiles -or $serverfiles -eq " ") {
+        Write-Warning 'Restore Command Requires original server folder name'
+        write-log "Warning: Restore Command Requires original server folder name"
+    }
+    ElseIf (Test-Path "$sfwd\$serverfiles" ) {
+        Write-log "info: Restore Folder Already Created!   "
+    }
+    Else {
+        Write-log "info: Restore Creating Server Folder  "
+        New-Item  $sfwd -Name "$serverfiles" -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog
+        If(!$?){
+            Write-log "Failed: Restore Creating Server Folder  "
+        }
+    }
+    Show-Menu
+    Write-Host ".:.:.:.:.:.:.:. SSM Restore Menu .:.:.:.:.:.:.:.
+   `t Choose backup: " -F Cyan
+    # $selection = Read-Host "Please make a selection"
+    $restoreex = @'
+    (Get-ChildItem  $backupdir | Where-Object Name -Like Backup_$serverfiles-*.zip | Sort-Object CreationTime -Descending | Select-Object @{ n='Name'; e={$($_.Name) + ' '  + $('{0:F2} GB' -f ($_.Length / 1Gb))}}).Name
+'@
+    $selection = Menu (Invoke-Expression "$restoreex")
+    $global:restore = ($selection).Split()[0]
+    Get-SevenZipCheck
+    # .\7za920\7za.exe x 'E:\backups\Backup_valheimserver-20230806T0500020916.zip' -aoa -oE:\servers\valheimserver Variables-valheimserver.ps1
+    If (!(Test-Path $sevenzipprogramexecutable)) {
+        If ($sevenzipexecutable) {
+            If (Test-Path $sevenzipexecutable ) {
+                Write-log "info: 7Zip Portable already downloaded! "
+                # & $sevenzipexecutable x "$backupdir\Backup_$serverfiles-20230806T0500020916.zip" -aoa -o$serverdir\$serverfiles Variables-$serverfiles.ps1
+                write-log "& $sevenzipexecutable x $backupdir\$restore -aoa -o$serverdir Variables-$serverfiles.ps1"
+                & $sevenzipexecutable x "$backupdir\$restore" -aoa -o"$serverdir" "Variables-$serverfiles.ps1" > $logdir\restore_$serverfiles-$Date.log
+            }
+            ElseIf (!(Test-Path $sevenzipexecutable)) {
+                Write-log "Warning: 7Zip Portable not found! $sevenzipexecutable "
+
+            }
+        }
+    }
+    ElseIf (Test-Path $sevenzipprogramexecutable) {
+        Write-log "& $sevenzipprogramexecutable x $backupdir\$restore -aoa -o$serverdir Variables-$serverfiles.ps1"
+        & $sevenzipprogramexecutable x "$backupdir\$restore" -aoa -o"$serverdir" "Variables-$serverfiles.ps1" > $logdir\restore_$serverfiles-$Date.log
+    }
+    Else{
+        Write-log "Warning: 7Zip not found! $sevenzipprogramexecutable "
+    }
+    Get-createdvaribles
 }

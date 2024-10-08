@@ -92,8 +92,10 @@ Function New-ServerFolderq {
     $decision = $Host.UI.PromptForChoice($title, $question, $choices, 0)
     If ($decision -eq 0) {
         Write-Host 'Entered Y'
-        Set-Variable -Name Command -Value install
-        Select-Steamer install $serverfiles
+        if(!($command -eq 'restore')){
+            Set-Variable -Name Command -Value install
+            Select-Steamer install $serverfiles
+        }
         Get-createdvaribles
     }
     Else {
