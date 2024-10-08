@@ -50,7 +50,7 @@ gmod,gmodserver,Garrys Mod,4020,GarrysMod_default.ps1
 gs,gsserver,GearStorm,696120,GearStorm_default.ps1
 hl2dm,hl2dmserver,Half-Life 2 Deathmatch,232370,HalfLife2_default.ps1
 hw,hwserver,Hurtworld,405100,Hurtworld_default.ps1
-icarus,icarusserver,Icarus Dedicated Server,2089300,Icarus_default.ps1
+icaruss,icarusserver,Icarus,2089300,Icarus_default.ps1
 iron,ironarmada,Iron Armada,770340,IronArmada_default.ps1
 isleofyore,isleofyoreserver,Isles of Yore,1827320,IsleofYore_default.ps1
 ins,insserver,Insurgency,237410,Insurgency_default.ps1
