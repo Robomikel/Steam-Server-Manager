@@ -17,6 +17,9 @@ Function Get-CreatedVaribles {
 
         } 
     }
+    ElseIf($command -eq 'restore'){
+        Restore-Emptyserver
+    }
     Else {
         Get-warnmessage "fn_InstallServerFiles"
     }
