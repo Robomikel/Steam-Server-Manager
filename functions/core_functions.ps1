@@ -404,11 +404,16 @@ Function New-ServerLog {
                 # Write-log "info: Found $consolelog"
                 $log = (Get-ChildItem -Depth 1 $logdirectory -Filter $consolelog | Sort-Object LastWriteTime -Descending | Select-Object -First 1).Name
                 Write-log "info: Found $log"
-                try {
-                    Copy-Item -Path "$logdirectory\$log" -Destination "$currentdir\log\$serverfiles-$date.log" -Force
-                }
-                Catch {
-                    Write-log $_.Exception.Message
+                Copy-Item -Path $logdirectory\$log -Destination "$currentdir\log\$serverfiles-$date.log"
+                If (!(Test-Path "$currentdir\log\$serverfiles-$date.log") ) {
+                    New-Item -Path "$currentdir\log\$serverfiles-$date.log"  >$null 2>&1
+                    $slog = Get-Content -Path $logdirectory\$log
+                    If ($slog) {
+                        Add-Content -Value $slog -Path "$currentdir\log\$serverfiles-$date.log"
+                    }
+                    Else {
+                        Write-log "Warning: Failed Copy serverlog and Create New serverlog"
+                    }
                 }
                 If ($?) {
                     If ($pastebinconsolelog -eq "on") { 
@@ -1687,4 +1692,31 @@ Function Get-GithubRestAPIntop {
         return
     }
 }
+Function Set-ProcessPriority {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, ParameterSetName = 'ProcessName')]
+        [ValidateScript({ (Get-CimInstance -ClassName Win32_Process).Name -contains $PSItem })]
+        [string] $Name,
+        [Parameter(Mandatory = $true, ParameterSetName = 'ProcessName')]
+        [ValidateSet('Idle', 'BelowNormal', 'AboveNormal', 'High', 'Realtime')]
+        [string] $Priority
+    )
+    # https://www.powershellgallery.com/packages/ProcessPriority/0.2.3
+    # Documentation here: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
+    $PriorityMapping = @{
+        Idle = 64
+        BelowNormal = 16384
+        Normal = 32
+        AboveNormal = 32768
+        High = 128
+        Realtime = 256
+    }
 
+    $ProcessList = Get-CimInstance -ClassName Win32_Process -Filter "Name = '$Name'"
+
+    foreach ($Process in $ProcessList) {
+        Invoke-CimMethod -InputObject $Process -MethodName SetPriority -Arguments @{ Priority = $PriorityMapping.$Priority } >$null 2>&1
+        Write-Verbose -Message ('Set process priority to {0} for process ID {1}' -f $Priority, $Process.ProcessId)
+    }
+}
