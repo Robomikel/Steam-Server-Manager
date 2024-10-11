@@ -37,14 +37,6 @@ Function Get-StartServer {
             Write-Log "info: Start-Process CMD /c start $launchParams  -NoNewWindow"
         }
         # Get-WmiObject Win32_process -filter 'name = `"valheim_server`"' | foreach-object { $_.SetPriority(256) }
-        #Priority Level ID	Priority Level Name
-        # 256	Realtime
-        # 128	High
-        # 32768	Above normal
-        # 32	Normal
-        # 16384	Below normal
-        # 64	Low
-
         # Get-WmiObject Win32_process | ? { $_.Name -like "*valheim_server*"}| foreach-object { $_.SetPriority(256) }
         # Write-Log "info: Get-WmiObject Win32_process -filter 'name = `"$process`"' | foreach-object { $_.SetPriority(256) }"
         If ($psSeven -eq $true) {
