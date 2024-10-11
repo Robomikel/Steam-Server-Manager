@@ -1702,7 +1702,7 @@ Function Set-ProcessPriority {
         [ValidateSet('Idle', 'BelowNormal', 'AboveNormal', 'High', 'Realtime')]
         [string] $Priority
     )
-
+    # https://www.powershellgallery.com/packages/ProcessPriority/0.2.3
     # Documentation here: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
     $PriorityMapping = @{
         Idle = 64
