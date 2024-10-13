@@ -13,8 +13,12 @@ Function Test-SteamMaster {
 		if ($Useprivate = "off") { 
 			if ( ${extip} -and ${queryport}) { 
 				if ( ${steammastercheck} -eq "on" ) {
-					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport} "
+					Try {
+						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
+					}
+					Catch {
+						Write-log $_.Exception.Message
+					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -22,8 +26,12 @@ Function Test-SteamMaster {
 			}
 			Elseif (${extip} -and ${port} ) { 
 				if ( ${steammastercheck} -eq "on" ) {
-					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port} "
+					Try {
+						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
+					}
+					Catch {
+						Write-log $_.Exception.Message
+					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -34,8 +42,12 @@ Function Test-SteamMaster {
 		Else {
 			if ( ${ip} -and ${queryport} ) { 
 				if ( ${steammastercheck} -eq "on" ) { 
-					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport} "
+					Try {
+						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
+					}
+					Catch {
+						Write-log $_.Exception.Message
+					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
@@ -43,8 +55,12 @@ Function Test-SteamMaster {
 			}
 			Elseif ( ${ip} -and ${port}) { 
 				if ( ${steammastercheck} -eq "on" ) { 
-					$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
-					Write-log "info: https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port} "
+					Try {
+						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
+					}
+					Catch {
+						Write-log $_.Exception.Message
+					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
 					# | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
