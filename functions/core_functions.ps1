@@ -1381,7 +1381,8 @@ Function Write-Graph($YAxisLabelAlphabet, $YAxisLabel, $Row, $RowColor, $LabelCo
 #################################################################################################################################################################
 Function Get-ExtIP {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    ${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
+    #${global:EXTIP} = If ((((${global:EXTIP} = (Resolve-DnsName -Name o-o.myaddr.l.google.com  -Server 8.8.8.8 -DnsOnly TXT).Strings).Count) -gt 1) -or ($extip -notmatch $ipv4)) { (Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content } Else { $extip[0] }
+    $global:EXTIP = ((Invoke-WebRequest "http://ifconfig.me/ip" -UseBasicParsing -ea SilentlyContinue ).Content)
 }
 Function Get-GithubRestAPI {
     param ($owner, $repo) 
