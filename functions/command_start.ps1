@@ -20,21 +20,48 @@ Function Get-StartServer {
         # Write-log "Location: $executabledir"
         # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
-        If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {
-            Start-Process CMD "/c start $launchParams"
-            Write-Log "info: Start-Process CMD /c start $launchParams  "
+        if ($env:SSH_CLIENT) {
+            Write-log "SSH Client Detected"
+            $processCreateParams = @{
+                ClassName  = "Win32_Process"
+                MethodName = "Create"
+                Arguments  = @{
+                    CommandLine = "powershell $currentdir\ssm $command $serverfiles"
+                }
+            }
+            $procInfo = Invoke-CimMethod @processCreateParams
+            if ($procInfo.ReturnValue -ne 0) {
+                $msg = switch ($procInfo.ReturnValue) {
+                    2 { "Access denied" }
+                    3 { "Insufficient privilege" }
+                    8 { "Unknown failure" }
+                    9 { "Path not found" }
+                    21 { "Invalid parameter" }
+                    default { "Other" }
+                }
+                Write-Error -Message "Failed to start process: $($procInfo.ReturnValue) ($msg)"
+            }
+            $proc = Get-Process -Id $procInfo.ProcessId
+            write-log "process start $($proc.Name)"
         }
-        ElseIf ($appid -eq 1180760){
-            Start-Process CMD "/c $launchParams"
-            Write-Log "info: Start-Process CMD /c $launchParams"
-        } 
-        ElseIf ($appid -eq 685100){
-            Start-Process CMD -ArgumentList $launchParams
-            Write-Log "info: Start-Process CMD $launchParams"
-        } 
         Else {
-            Start-Process CMD "/c start $launchParams"  -NoNewWindow
-            Write-Log "info: Start-Process CMD /c start $launchParams  -NoNewWindow"
+            If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {
+                Start-Process CMD "/c start $launchParams"
+                Write-Log "info: Start-Process CMD /c start $launchParams  "
+            }
+            ElseIf ($appid -eq 1180760) {
+                Start-Process CMD "/c $launchParams"
+                Write-Log "info: Start-Process CMD /c $launchParams"
+            }
+            ElseIf ($appid -eq 685100) {
+                Start-Process CMD -ArgumentList $launchParams
+                Write-Log "info: Start-Process CMD $launchParams"
+            }
+            Else {
+
+                Start-Process CMD "/c start $launchParams"  -NoNewWindow
+                Write-Log "info: Start-Process CMD /c start $launchParams  -NoNewWindow"
+            }
         }
         # Get-WmiObject Win32_process -filter 'name = `"valheim_server`"' | foreach-object { $_.SetPriority(256) }
         # Get-WmiObject Win32_process | ? { $_.Name -like "*valheim_server*"}| foreach-object { $_.SetPriority(256) }
