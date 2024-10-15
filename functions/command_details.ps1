@@ -51,7 +51,7 @@ Function Get-Details {
   clear-hostline 1
   Get-Infomessage "Getting Server TCP/UDP status" 'done'
   clear-hostline 1
-  Get-Infomessage "Getting CPU, Uptime, Visual C++" 'info'
+  Get-Infomessage "Getting CPU, Visual C++" 'info'
   If ($psSeven -eq $true) {
     $windows32 = Get-CimInstance Win32_OperatingSystem
     $window32processor = Get-CimInstance Win32_processor
@@ -67,7 +67,7 @@ Function Get-Details {
     $visualc = Get-WMIObject -Class Win32_Product -Filter "Name LIKE '%Visual C++ %'" | Foreach-Object { $visualcpackages += "`n " + $_.Name }
   }
   clear-hostline 1
-  Get-Infomessage "Getting CPU, Uptime, Visual C++" 'done'
+  Get-Infomessage "Getting CPU, Visual C++" 'done'
   clear-hostline 1
   Get-Infomessage "Getting Steam Master, SSM, Direct X, Memory and Uptime" 'info'
   Get-info
