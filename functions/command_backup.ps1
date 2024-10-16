@@ -368,7 +368,7 @@ Function Restore-Emptyserver {
             If (Test-Path $sevenzipexecutable ) {
                 Write-log "info: 7Zip Portable already downloaded! "
                 # & $sevenzipexecutable x "$backupdir\Backup_$serverfiles-20230806T0500020916.zip" -aoa -o$serverdir\$serverfiles Variables-$serverfiles.ps1
-                write-log "& $sevenzipexecutable x $backupdir\$restore -aoa -o$serverdir Variables-$serverfiles.ps1"
+                write-log "info: & $sevenzipexecutable x $backupdir\$restore -aoa -o$serverdir Variables-$serverfiles.ps1"
                 & $sevenzipexecutable x "$backupdir\$restore" -aoa -o"$serverdir" "Variables-$serverfiles.ps1" > $logdir\restore_$serverfiles-$Date.log
             }
             ElseIf (!(Test-Path $sevenzipexecutable)) {

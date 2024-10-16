@@ -168,7 +168,7 @@ Function get-pode {
         }
         catch{
             $e = $_
-            write-log "Warning: $e"
+            write-log "Warning: $($e.Exception.Message)"
         }
         If (!$?) {
             Write-Warning 'Extracting Pode Failed'
