@@ -21,7 +21,7 @@ Function Get-UpdateSteamer {
                     $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/functions/$getlocalssmname" -UseBasicParsing
                 }
                 Catch {
-                    Write-log "Warning: $_"
+                    Write-log "Warning: $($_.Exception.Message)"
                     #Write-log $_.Exception.Message
                 }
                 If ($githubvarcontent) {
@@ -70,7 +70,7 @@ Function Get-UpdateSteamerSSM {
                     $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/$getlocalssmname" -UseBasicParsing
                 }
                 Catch {
-                    Write-log "Warning: $_"
+                    Write-log "Warning: $($_.Exception.Message)"
                     #Write-log $_.Exception.Message
                 }
                 If ($githubvarcontent) {
@@ -116,7 +116,7 @@ Function Get-UpdateSteamerCSV {
                     $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/Steam-Server-Manager/master/data/$getlocalssmname" -UseBasicParsing
                 }
                 Catch {
-                    Write-log "Warning: $_"
+                    Write-log "Warning: $($_.Exception.Message)"
                     #Write-log $_.Exception.Message
                 }
                 If ($githubvarcontent) {
@@ -162,7 +162,7 @@ Function Get-UpdateSteamerConfigDefault {
                     $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
                 }
                 Catch {
-                    Write-log "Warning: $_"
+                    Write-log "Warning: $($_.Exception.Message)"
                     #Write-log $_.Exception.Message
                 }
                 If ($githubvarcontent) {
@@ -210,7 +210,7 @@ Function Get-SteamerConfigDefault {
                 $githubvarcontent = Invoke-WebRequest "https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname" -UseBasicParsing
             }
             Catch {
-                Write-log "Warning: $_"
+                Write-log "Warning: $($_.Exception.Message)"
                 #Write-log $_.Exception.Message
             }
             # Write-log "Invoke-WebRequest https://raw.githubusercontent.com/Robomikel/config-default/master/$getlocalssmname"

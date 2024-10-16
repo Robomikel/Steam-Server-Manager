@@ -17,7 +17,7 @@ Function Test-SteamMaster {
 						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
 					}
 					Catch {
-						Write-log $_.Exception.Message
+						Write-log "Warning: $($_.Exception.Message)"
 					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
@@ -30,7 +30,7 @@ Function Test-SteamMaster {
 						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${extip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
 					}
 					Catch {
-						Write-log $_.Exception.Message
+						Write-log "Warning: $($_.Exception.Message)"
 					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
@@ -46,7 +46,7 @@ Function Test-SteamMaster {
 						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${queryport}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
 					}
 					Catch {
-						Write-log $_.Exception.Message
+						Write-log "Warning: $($_.Exception.Message)"
 					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 
@@ -59,7 +59,7 @@ Function Test-SteamMaster {
 						$global:masterserver = Invoke-Webrequest "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v0001?addr=${ip}:${port}" -UseBasicParsing | ConvertFrom-Json | Select-Object -ExpandProperty response | Select-Object -ExpandProperty Servers
 					}
 					Catch {
-						Write-log $_.Exception.Message
+						Write-log "Warning: $($_.Exception.Message)"
 					}
 					# $masterserver = $masterserver.response.success
 					# $global:masterresponse = $masterserver 

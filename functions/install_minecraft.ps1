@@ -42,7 +42,7 @@ Function Get-MCjavaBinaries {
             $mcurlrequest = Invoke-WebRequest -Uri "$url" -UseBasicParsing
         }
         catch {
-            write-log "Warning: $_"
+            Write-log "Warning: $($_.Exception.Message)"
         }
         $mcdownloadurl = $mcurlrequest.Links.href -like '*server.jar*'
         try {
@@ -50,7 +50,7 @@ Function Get-MCjavaBinaries {
             Invoke-WebRequest -uri "$mcdownloadurl" -O $currentdir\server.jar
         }
         catch {
-            Write-log "Warning: $_"
+            Write-log "Warning: $($_.Exception.Message)"
         }
         Move-Item $currentdir\server.jar $serverdir -Force -ea SilentlyContinue
         New-Item $serverdir\version.txt -Force | Out-File -Append -Encoding Default  $ssmlog

@@ -21,7 +21,7 @@ Function Get-StartServer {
         # If ($appid -eq 343050) { Set-Location $serverdir\$executabledir }
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
         if ($env:SSH_CLIENT) {
-            Write-log "SSH Client Detected"
+            Write-log "info: SSH Client Detected"
             $processCreateParams = @{
                 ClassName  = "Win32_Process"
                 MethodName = "Create"
@@ -42,7 +42,7 @@ Function Get-StartServer {
                 Write-Error -Message "Failed to start process: $($procInfo.ReturnValue) ($msg)"
             }
             $proc = Get-Process -Id $procInfo.ProcessId
-            write-log "process start $($proc.Path)"
+            write-log "info: process: start $($proc.Path)"
         }
         Else {
             If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {

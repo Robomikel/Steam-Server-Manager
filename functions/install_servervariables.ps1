@@ -8,7 +8,7 @@
 #
 Function New-CreateVariables {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    Write-log "Creating Variables Script"
+    Write-log "info: Creating Variables Script"
     New-Item $serverdir\Variables-$serverfiles.ps1 -Force | Out-File -Append -Encoding Default  $ssmlog
     If ($appid) {
         Add-Content  $serverdir\Variables-$serverfiles.ps1  "#                            App ID  "
