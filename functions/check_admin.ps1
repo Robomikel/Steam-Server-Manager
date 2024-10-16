@@ -137,3 +137,24 @@ Function Install-PSini {
     }
     pop-location
 }
+Function Edit-inifile {
+    param($inifile)
+    $ini = Get-IniContent $inifile
+    if ($ini) {
+        ForEach ($k in $ini.Keys) {
+            #    $inifile.$k.Values
+            # Write $k
+            # pause
+            ForEach ($v in $ini.$k) {
+                # Write $v
+                # pause
+                Foreach ($va in $($ini.$k.Keys)) {
+                    Write-Host "$va : $($v.$va)"
+                    Write-host "Enter new Value"
+                    $ini.$k.$va = Read-Host
+                    $ini | out-inifile $inifile -force
+                }
+            }
+        }
+    }
+}
