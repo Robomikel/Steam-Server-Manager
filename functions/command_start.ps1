@@ -42,7 +42,7 @@ Function Get-StartServer {
                 Write-Error -Message "Failed to start process: $($procInfo.ReturnValue) ($msg)"
             }
             $proc = Get-Process -Id $procInfo.ProcessId
-            write-log "process start $($proc.Name)"
+            write-log "process start $($proc.Path)"
         }
         Else {
             If ($appid -eq 258550 -or $appid -eq 294420 -or $appid -eq 302550 -or $appid -eq 361580 ) {
