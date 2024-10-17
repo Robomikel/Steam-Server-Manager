@@ -168,6 +168,7 @@ Install miscreated server ```./ssm install misserver```
    * Vox Machinae  (944490) - "voxserver" (optional server folder name)    
    * Wreckfest Dedicated Server (361580) - "wfserver" (optional server folder name)    
    * Zombie Panic! Source Dedicated Server (17505) "zpsserver" (optional server folder name)   
+   * ZSGO Dedicated Server (2536350) "zsgoserver" (optional server folder name)   
 
    -----   
  # Features  
