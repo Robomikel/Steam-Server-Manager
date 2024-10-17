@@ -117,6 +117,7 @@ Function Set-LaunchScript {
         2465200 {  New-LaunchScriptsofserverPS ; Break }
         2915550 {  New-LaunchScriptFOUNDRYPS ; Break }
         2089300 {  New-LaunchScriptIcarusPS ; Break }
+        2394010 {  New-LaunchScriptPalworldPS ; Break }
         Default { Get-warnmessage "nolaunchscript" }
     }
 }
@@ -129,7 +130,7 @@ Function Read-AppID {
             541790, 568880, 298740, 824360, 667230, 460040, 42750, 11421000, 11500000, 600760, 400300, 1017070, 996560, 770340, 367970, 1247090, 897590, 1110390, 299310, 748090, 
             1222650, 336400,423410,238430, 361580, 412680, 629800, 407480, 317800, 419790, 17555, 405100, 261020, 329710, 1420710,418480,696120,1203110,728470,896660,1690800, 1180760, 
             1064780, 1141420 , 105600, 1670340, 1827320, 1829350, 1874900, 685100, 974130, 824240, 223350, 944490, 41080, 564390, 41005, 630230, 884110, 1348640, 1136190, 2465200,2915550,
-            2089300
+            2089300, 2394010
             ) -contains $_ } { Get-SteamerConfigDefault }     
         # {($localappid -contains $appid) }{ Get-SteamerConfigDefault}
         Default { Get-warnmessage "nolaunchscript" }

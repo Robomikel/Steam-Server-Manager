@@ -129,6 +129,7 @@ Install miscreated server ```./ssm install misserver```
    * Night of the Dead Dedicated Server  (1420710) - "notdserver" (optional server folder name)   
    * Natural Selection 2 Dedicated Server (4940) "ns2server" (optional server folder name)   
    * Onset Dedicated Server (1204170) - "onsetserver" (optional server folder name)   
+   * Palworld Dedicated Server (2394010) - "palserver" (optional server folder name)   
    * Project CARS - Dedicated Server (332670) "pcserver" (optional server folder name)   
    * Primal Carnage: Extinction Dedicated Server (336400) - "pcedserver" (optional server folder name)   
    * PixARK Dedicated Server (824360)- “pixarkserver" (optional server folder name)   
