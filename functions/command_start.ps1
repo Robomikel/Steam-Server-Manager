@@ -68,11 +68,11 @@ Function Get-StartServer {
         # Write-Log "info: Get-WmiObject Win32_process -filter 'name = `"$process`"' | foreach-object { $_.SetPriority(256) }"
         If ($psSeven -eq $true) {
             Set-ProcessPriority -Name ($process + '.exe') -Priority High
-            Write-Log "info: Set-ProcessPriority -Name ($process + '.exe') -Priority High"
+            Write-Log "info: Set Priority $process High"
         }
         Else {
             Get-WmiObject Win32_process | ? { $_.Name -like "*$process*" } | foreach-object { $_.SetPriority(256) }
-            Write-Log "info: Get-WmiObject Win32_process | ? { $_.Name -like "*$process*"}| foreach-object { $_.SetPriority(256) }"
+            Write-Log "info: Set Priority $process SetPriority(256)"
         }
         Pop-Location
     }
