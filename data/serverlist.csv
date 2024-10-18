@@ -66,6 +66,7 @@ mom,momserver,Memories of Mars,897590,MemoriesofMars_default.ps1
 mcbr,mcbrserver,minecraft bedrock,11421000,MinecraftBedrock_default.ps1
 mc,mcserver,minecraft ,11500000,Minecraft_default.ps1
 ms,mserver,MORDHAU ,629800,MORDHAU_default.ps1
+nienix,nienixserver,Nienix,2320610,Nienix_default.ps1
 nmrih,nmrihserver,No More Room in Hell,317670,NoMoreRoominHell_default.ps1
 notd,notdserver,Night of the Dead,1420710,NightoftheDead_default.ps1
 ns2,ns2server,Natural Selection 2,4940,NaturalSelection2_default.ps1
@@ -97,6 +98,7 @@ stationeers,stationeersserver,Stationeers ,600760,Stationeers_default.ps1
 squad,squadserver,Squad ,403240,Squad_default.ps1
 sven,svenserver,Sven Co-op,276060,SvenCoop_default.ps1
 terr,terrariaserver,terraria,105600,Terraria_default.ps1
+front,frontserver,The Front Dedicated Server,2612550,TheFront_default.ps1
 trs,trsserver,Takedown: Red Sabre,261020,Takedown_default.ps1
 tf2,tf2server,Team Fortress 2,232250,TeamFortress2_default.ps1
 ti,tiserver,The Isle Dedicated Server,412680,TheIsle_default.ps1
