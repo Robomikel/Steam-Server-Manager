@@ -258,6 +258,10 @@ Function Get-UserInput {
             $defaultquery = "$queryport"
             If (($global:queryport = Read-Host -P(Write-Host "Enter Server QUERY PORT, Press Enter to Accept  [$queryport]: "-F CY -N )) -eq '') { $global:queryport = "$defaultquery" }Else { $queryport }
         }
+        If ($beaconport) {
+            $defaultbeaconport = "$beaconport"
+            If (($global:beaconport = Read-Host -P(Write-Host "Enter Server BEACON PORT, Press Enter to Accept  [$beaconport]: "-F CY -N )) -eq '') { $global:beaconport = "$defaultbeaconport" }Else { $beaconport }
+        }
         If ($rconport) {
             $defaultrconport = "$rconport"
             If (($global:rconport = Read-Host -P(Write-Host "Enter Server RCON PORT, Press Enter to Accept  [$rconport]: "-F CY -N )) -eq '') { $global:rconport = "$defaultrconport" }Else { $rconport }
