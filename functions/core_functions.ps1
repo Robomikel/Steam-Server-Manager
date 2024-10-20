@@ -1719,6 +1719,7 @@ Function Set-ProcessPriority {
 
     foreach ($Process in $ProcessList) {
         Invoke-CimMethod -InputObject $Process -MethodName SetPriority -Arguments @{ Priority = $PriorityMapping.$Priority } >$null 2>&1
-        Write-Verbose -Message ('Set process priority to {0} for process ID {1}' -f $Priority, $Process.ProcessId)
+        #Write-Verbose -Message ('Set process priority to {0} for process ID {1}' -f $Priority, $Process.ProcessId)
+        Write-Log "Set process priority to $Priority for process ID $($Process.ProcessId)"
     }
 }
