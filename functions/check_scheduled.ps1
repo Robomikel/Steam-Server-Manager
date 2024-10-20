@@ -15,7 +15,7 @@ Function Get-ChecktaskUnreg {
             Unregister-ScheduledTask -TaskName "$serverfiles $command" >$null 2>&1
         }
         ElseIf (!$?) {
-            Write-log "info: Scheduled Task does not exist "
+            Write-log "info:  Scheduled Task $serverfiles $command does not exist "
         }
     }
 }
@@ -25,11 +25,11 @@ Function Get-ChecktaskDisable {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             If ($?) {
-                Write-log "info: Disabling scheduled task "
+                Write-log "info: Disabling $serverfiles install-monitor scheduled task "
                 Disable-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled $serverfiles install-monitor Task does not exist "
             }
         }
     }
@@ -40,11 +40,11 @@ Function Get-ChecktaskEnable {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             If ($?) {
-                Write-log "info: Enabling scheduled task "
+                Write-log "info: Enabling $serverfiles install-monitor scheduled task "
                 Enable-ScheduledTask -TaskName "$serverfiles install-monitor" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled Task $serverfiles install-monitor does not exist "
             }
         }
     }
@@ -55,11 +55,11 @@ Function Get-ChecktaskDisabler {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
             If ($?) {
-                Write-log "info: Disabling scheduled task "
+                Write-log "info: Disabling $serverfiles install-restart scheduled task "
                 Disable-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled Task $serverfiles install-restart does not exist "
             }
         }
     }
@@ -70,11 +70,11 @@ Function Get-ChecktaskEnabler {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
             If ($?) {
-                Write-log "info: Enabling scheduled task "
+                Write-log "info: Enabling $serverfiles install-restart scheduled task "
                 Enable-ScheduledTask -TaskName "$serverfiles install-restart" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled Task $serverfiles install-restart does not exist "
             }
         }
     }
@@ -85,11 +85,11 @@ Function Get-ChecktaskDisablerb {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
             If ($?) {
-                Write-log "info: Disabling scheduled task "
+                Write-log "info: Disabling $serverfiles install-backup scheduled task "
                 Disable-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled Task $serverfiles install-backup does not exist "
             }
         }
     }
@@ -100,11 +100,11 @@ Function Get-ChecktaskEnablerb {
         If ($ssmlog -and $loggingdate -and $serverfiles) {
             Get-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
             If ($?) {
-                Write-log "info: Enabling scheduled task "
+                Write-log "info: Enabling $serverfiles install-backups cheduled task "
                 Enable-ScheduledTask -TaskName "$serverfiles install-backup" >$null 2>&1
             }
             ElseIf (!$?) {
-                Write-log "info: Scheduled Task does not exist "
+                Write-log "info: Scheduled Task $serverfiles install-backup does not exist "
             }
         }
     }
