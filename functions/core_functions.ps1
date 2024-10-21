@@ -320,6 +320,7 @@ Function Edit-ServerConfig {
             }
         }
     }
+    Set-ServerIniConfig
     Write-log "Function: $($MyInvocation.Mycommand)"
 }
 
@@ -394,6 +395,15 @@ Function Set-ServerConfig {
     }
     Else {
         Write-log "Failed: Edit ServerConfig Hostname"
+    }
+}
+Function Set-ServerIniConfig {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    if ((Test-Path $servercfgdir\$servercfg)) {
+        If ($servercfg -match ".ini") {
+            Write-log "info: Found .ini"
+            Edit-inifile $servercfgdir\$servercfg
+        }
     }
 }
 Function New-ServerLog {
