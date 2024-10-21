@@ -22,11 +22,17 @@ Function Get-StartServer {
         #Start-Process -FilePath CMD -ArgumentList ("/c $launchParams") -NoNewWindow
         if ($env:SSH_CLIENT) {
             Write-log "info: SSH Client Detected"
+            Write-log "Psversion: $($PSVersionTable.PSVersion) "
+            $s = switch -Regex ([string]$ps = $($pSVersionTable.PSVersion)) {
+                ("7.4") {"C:\Program Files\PowerShell\7\pwsh"}
+                ("7.5") {"C:\Program Files (x86)\PowerShell\7-preview\pwsh"}
+                Default {"powershell"}
+            }
             $processCreateParams = @{
                 ClassName  = "Win32_Process"
                 MethodName = "Create"
                 Arguments  = @{
-                    CommandLine = "powershell $currentdir\ssm $command $serverfiles"
+                    CommandLine = "$s $currentdir\ssm.ps1 $command $serverfiles"
                 }
             }
             $procInfo = Invoke-CimMethod @processCreateParams
@@ -66,6 +72,7 @@ Function Get-StartServer {
         # Get-WmiObject Win32_process -filter 'name = `"valheim_server`"' | foreach-object { $_.SetPriority(256) }
         # Get-WmiObject Win32_process | ? { $_.Name -like "*valheim_server*"}| foreach-object { $_.SetPriority(256) }
         # Write-Log "info: Get-WmiObject Win32_process -filter 'name = `"$process`"' | foreach-object { $_.SetPriority(256) }"
+        Write-log "Psversion: $($PSVersionTable.PSVersion) "
         If ($psSeven -eq $true) {
             Set-ProcessPriority -Name ($process + '.exe') -Priority High
             Write-Log "info: Set Priority $process High"
