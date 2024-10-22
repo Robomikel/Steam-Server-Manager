@@ -72,7 +72,7 @@ Function Get-undeadlegacy {
     # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
-        $undeadurllatestdl = "https://ul.subquake.com/dl?v=2.6.17"
+        $undeadurllatestdl = "https://ul.subquake.com/dl?v=stable"
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'undead-legacy'
