@@ -72,7 +72,7 @@ Function Get-undeadlegacy {
     # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
-        $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
+        $undeadurllatestdl = "https://ul.subquake.com/dl?v=2.6.17"
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'undead-legacy'
@@ -111,7 +111,7 @@ Function Get-undeadlegacy {
     clear-hostline 1
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
-        Path        = "$undeadurlfolder\UndeadLegacy-master\*"
+        Path        = "$undeadurlfolder\UndeadLegacyStable-main\*"
         Destination = "$serverdir"
         Force       = $true
         Recurse     = $true
