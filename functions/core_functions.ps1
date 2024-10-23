@@ -1534,10 +1534,10 @@ Function start-pode {
     } While ( $((Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess))
     # (Get-NetTCPConnection -LocalPort $config.server.webport).OwningProcess
     Start-Job -Name 'Pode' -ScriptBlock { param($podedirectory)
-        Start-Process -FilePath PowerShell -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
+        Start-Process -FilePath $posh -ArgumentList "-Command Import-Module $podedirectory\Pode.psm1; pode start  "
     } -ArgumentList $podedirectory      
     Start-Job -Name 'DiscordJS' -ScriptBlock {
-        Start-Process -FilePath PowerShell -ArgumentList "-Command node discord_bot.js "
+        Start-Process -FilePath $posh -ArgumentList "-Command node discord_bot.js "
     }
 }
 # Function stop-pode {
@@ -1625,9 +1625,7 @@ Function Get-NTop {
                 }
             }
             catch {
-                Write-log "Warning: $($_.Exception.Message)"
-                Write-Warning 'Downloading  NTop Failed'
-                Write-log "Failed: Downloading  NTop"
+                Write-Warning "Downloading  NTop Failed $($_.Exception.Message)"
                 New-TryagainNew
             }
             clear-hostline 1
@@ -1649,8 +1647,7 @@ Function Get-NTop {
             # }
         }
         Else {
-            Write-log "Failed: install-NTop $NTopurl $githubrepozipname"
-            Write-Warning 'fn_install-NTop Failed'
+            Get-WarnMessage 'fn_install-NTop Failed'
             Exit
         }
 

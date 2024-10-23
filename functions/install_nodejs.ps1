@@ -26,8 +26,7 @@ Function Add-NodeJS {
             }     
         }
         catch {
-            Write-log "Warning: $($_.Exception.Message)"
-            Get-WarnMessage  'Downloadfailed' 'Nodejs'
+            Get-WarnMessage  "Downloadfailed $($_.Exception.Message)" 'Nodejs'
             New-TryagainNew
         }
         clear-hostline 1
@@ -37,9 +36,10 @@ Function Add-NodeJS {
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
         write-log "info: Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
         $nodeversionfolder = $nodeversion -replace '.zip', ''
-        Copy-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
-        Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
+        Move-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Force 
+        # Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'Nodejs'
             New-TryagainNew
         }
@@ -65,8 +65,8 @@ Function Add-gamedig {
     if (!($(test-path $env:APPDATA\npm\gamedig))) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-        Start-Process powershell -args ("npm install gamedig") -wait -nnw
-        Start-Process powershell -args ("npm install gamedig -g") -wait -nnw
+        Start-Process $posh -args ("npm install gamedig") -wait -nnw
+        Start-Process $posh -args ("npm install gamedig -g") -wait -nnw
     }
 }
 
@@ -76,8 +76,8 @@ Function Add-discordjs {
     if (($n[1] -match "empty") -or ($n -match "ERR!")) {
         # & "npm install gamedig"
         # & "npm install gamedig -g"
-        Start-Process powershell -args ("npm install discord.js") -wait -nnw
-        #  Start-Process powershell -args ("npm install gamedig -g") -wait -nnw
+        Start-Process $posh -args ("npm install discord.js") -wait -nnw
+        #  Start-Process $posh -args ("npm install gamedig -g") -wait -nnw
     }
 }
 

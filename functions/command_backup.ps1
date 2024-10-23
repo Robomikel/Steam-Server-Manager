@@ -19,6 +19,7 @@ Function New-BackupServer {
             Write-Log "info: & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log"
             & $sevenzipprogramexecutable a -bsp2 -bb $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
             If (!$?) {
+                clear-hostline 1
                 Get-warnmessage "backupfailed"
             }
             Else {
@@ -37,6 +38,7 @@ Function New-BackupServer {
                 write-log "info: Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*`") -Wait"
                 Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\*") -Wait
                 If (!$?) {
+                    clear-hostline 1
                     Get-warnmessage "backupfailed"
                 }
                 Else {
@@ -52,6 +54,7 @@ Function New-BackupServer {
                 write-log "info: ./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > backup_$serverfiles-$Date.log"
                 ./7za a $backupdir\Backup_$serverfiles-$Date.zip $serverdir\* > $logdir\backup_$serverfiles-$Date.log
                 If (!$?) {
+                    clear-hostline 1
                     Get-warnmessage "backupfailed"
                 }
                 Else {
@@ -103,6 +106,7 @@ Function New-backupAppdata {
         Write-Log "info: & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
         & $sevenzipprogramexecutable a -bsp2 $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
         If (!$?) {
+            clear-hostline 1
             Get-warnmessage "backupfailed"
         }
         Else {
@@ -121,6 +125,7 @@ Function New-backupAppdata {
             Write-Log "info: Start-Process $sevenzipexecutable -ArgumentList (`"a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*`") -Wait"
             Start-Process $sevenzipexecutable -ArgumentList ("a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\*") -Wait
             If (!$?) {
+                clear-hostline 1
                 Get-warnmessage "backupfailed"
             }
             Else{
@@ -134,6 +139,7 @@ Function New-backupAppdata {
             Write-Log "info: ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log"
             ./7za a $backupdir\AppDataBackup_$serverfiles-$Date.zip $savedata\$saves\* > $logdir\AppDatabackup_$serverfiles-$date.log
             If (!$?) {
+                clear-hostline 1
                 Get-warnmessage "backupfailed"
             }
             Else{
@@ -173,6 +179,7 @@ Function Limit-Backups {
         Set-Location $sevenzipdirectory
         Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like Backup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
+            clear-hostline 1
             Get-warnmessage "limitbackupfailed"
         }
         Else {
@@ -194,6 +201,7 @@ Function Limit-AppdataBackups {
         Set-Location $sevenzipdirectory
         Get-Childitem -Depth 1 $backupdir -Recurse | where-object name -like AppDataBackup_$serverfiles-*.zip | Sort-Object CreationTime -desc | Select-Object -Skip $maxbackups | Remove-Item -Force 
         If (!$?) {
+            clear-hostline 1
             Get-warnmessage "limitbackupfailed"
         }  
         Else {
@@ -339,8 +347,7 @@ Function Show-AppdataMenu {
 Function Restore-Emptyserver {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If (!$serverfiles -or $serverfiles -eq " ") {
-        Write-Warning 'Restore Command Requires original server folder name'
-        write-log "Warning: Restore Command Requires original server folder name"
+        Get-WarnMessage "Warning: Restore Command Requires original server folder name"
     }
     ElseIf (Test-Path "$sfwd\$serverfiles" ) {
         Write-log "info: Restore Folder Already Created!   "
@@ -349,7 +356,7 @@ Function Restore-Emptyserver {
         Write-log "info: Restore Creating Server Folder  "
         New-Item  $sfwd -Name "$serverfiles" -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog
         If(!$?){
-            Write-log "Failed: Restore Creating Server Folder  "
+            Get-WarnMessage "Failed: Restore Creating Server Folder  "
         }
     }
     Show-Menu
@@ -372,7 +379,7 @@ Function Restore-Emptyserver {
                 & $sevenzipexecutable x "$backupdir\$restore" -aoa -o"$serverdir" "Variables-$serverfiles.ps1" > $logdir\restore_$serverfiles-$Date.log
             }
             ElseIf (!(Test-Path $sevenzipexecutable)) {
-                Write-log "Warning: 7Zip Portable not found! $sevenzipexecutable "
+                Get-WarnMessage "Warning: 7Zip Portable not found! $sevenzipexecutable "
 
             }
         }

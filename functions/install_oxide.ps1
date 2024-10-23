@@ -36,8 +36,8 @@ Function Get-Oxide {
             }
         }
         catch {
-            Write-log "Warning: $($_.Exception.Message)"
-            Get-WarnMessage 'Downloadfailed' 'Oxide'
+            clear-hostline 1
+            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" 'Oxide'
             New-TryagainNew
         }
         clear-hostline 1
@@ -49,6 +49,7 @@ Function Get-Oxide {
         Write-log "info: Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force"
         Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force
         If (!$?) { 
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'Oxide'
             New-TryagainNew
         }
@@ -58,9 +59,10 @@ Function Get-Oxide {
         }
         clear-hostline 1
         Get-Infomessage "copying-installing" 'Oxide'
-        Copy-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force -Recurse
+        Move-Item  $currentdir\oxide\RustDedicated_Data\* -Destination $systemdir -Force
         If (!$?) { 
-            Write-log "Failed: Copying Oxide "
+            clear-hostline 1
+            Get-WarnMessage "Failed: Moving Oxide "
             New-TryagainNew
         }
         Edit-Modlist 'Oxide' $oxideoutput
@@ -72,7 +74,7 @@ Function Get-undeadlegacy {
     # if ( "$env:Path" -notmatch "7za920") { $env:Path += ";$currentdir\\7za920" }
     If ( $systemdir) {
         $undeadurllatestzip = 'UndeadLegacy-master.zip'
-        $undeadurllatestdl = "https://gitlab.com/Subquake/UndeadLegacy/-/archive/master/UndeadLegacy-master.zip"
+        $undeadurllatestdl = "https://ul.subquake.com/dl?v=stable"
         $start_time = Get-Date
         clear-hostline 1
         Get-Infomessage "Downloading" 'undead-legacy'
@@ -83,6 +85,7 @@ Function Get-undeadlegacy {
         Invoke-WebRequest @undeadurlzip
     }
     If (!$?) { 
+        clear-hostline 1
         Get-WarnMessage 'Downloadfailed' 'undead-legacy'
         New-TryagainNew 
     }
@@ -101,6 +104,7 @@ Function Get-undeadlegacy {
     Expand-Archive @undeadurlzip
     # saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r") -Wait
     If (!$?) {
+        clear-hostline 1
         Get-WarnMessage 'ExtractFailed' 'undead-legacy'
         New-TryagainNew 
     }
@@ -111,14 +115,15 @@ Function Get-undeadlegacy {
     clear-hostline 1
     Get-Infomessage "copying-installing" 'undead-legacy'
     $undeadurlfolderaddons = @{
-        Path        = "$undeadurlfolder\UndeadLegacy-master\*"
+        Path        = "$undeadurlfolder\UndeadLegacyStable-main\*"
         Destination = "$serverdir"
         Force       = $true
-        Recurse     = $true
+        # Recurse     = $true
     }
-    Copy-Item  @undeadurlfolderaddons >$null 2>&1
+    Move-Item  @undeadurlfolderaddons >$null 2>&1
     If (!$?) { 
-        Write-log "Failed: Copying undead-legacy "
+        clear-hostline 1
+        Get-WarnMessage "Failed: Moving undead-legacy "
         New-TryagainNew 
     }
     Edit-Modlist 'undead-legacy' $undeadurllatestzip
@@ -286,9 +291,8 @@ Function Get-BlackMesaSrcCoop {
             }
         }
         catch { 
-            Write-log "Warning: $($_.Exception.Message)" 
-            Write-Warning 'Downloading  bmdmsrccoop Failed'
-            Write-log "Failed: Downloading  bmdmsrccoop"
+            clear-hostline 1
+            Get-WarnMessage "Downloading  bmdmsrccoop Failed $($_.Exception.Message)"
             New-TryagainNew 
         }
         clear-hostline 1
@@ -296,11 +300,11 @@ Function Get-BlackMesaSrcCoop {
         clear-hostline 1
         Get-Infomessage "Extracting" 'bmdmsrccoop'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
-        Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $systemdir -Recurse -Force 
-        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        Move-Item  "$currentdir\$githubrepofolder\*" -Destination $systemdir -Force 
+        # Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
-            Write-Warning 'Extracting bmdmsrccoop Failed'
-            Write-log "Failed: Extracting bmdmsrccoop " 
+            clear-hostline 1
+            Get-WarnMessage 'Extracting bmdmsrccoop Failed'
             New-TryagainNew 
         }
         ElseIf ($?) { 
@@ -310,8 +314,7 @@ Function Get-BlackMesaSrcCoop {
         }
     }
     Else {
-        Write-log "Failed: install-bmdmsrccoop $bmdmsrccoopurl $githubrepozipname"
-        Write-Warning 'fn_install-bmdmsrccoop Failed'
+        Get-WarnMessage 'fn_install-bmdmsrccoop Failed'
         Exit
     }
 }
@@ -331,13 +334,11 @@ Function Get-GCServerConfTemplate  {
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "downloaded" 'GC-Server-Conf-Template'
-                Write-log "info: GC-Server-Conf-Template succeeded " 
             }
         }
         catch { 
-            Write-log "Warning: $($_.Exception.Message)" 
-            Write-Warning 'Downloading  GC-Server-Conf-Template Failed'
-            Write-log "Failed: Downloading  GC-Server-Conf-Template "
+            clear-hostline 1
+            Get-WarnMessage "Downloading  GC-Server-Conf-Template Failed $($_.Exception.Message)"
             New-TryagainNew 
         }
         clear-hostline 1
@@ -345,22 +346,20 @@ Function Get-GCServerConfTemplate  {
         clear-hostline 1
         Get-Infomessage "Extracting" 'GC-Server-Conf-Template'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
-        Copy-Item  "$currentdir\$githubrepofolder\*" -Destination $servercfgdir -Recurse -Force 
-        Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
+        Move-Item  "$currentdir\$githubrepofolder\*" -Destination $servercfgdir -Force 
+        # Remove-Item "$currentdir\$githubrepofolder" -Recurse -Force 
         If (!$?) {
-            Write-Warning 'Extracting GC-Server-Conf-Template Failed'
-            Write-log "Failed: Extracting GC-Server-Conf-Template " 
+            clear-hostline 1
+            Get-WarnMessage 'Extracting GC-Server-Conf-Template Failed'
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
             Get-Infomessage "Extracted" 'GC-Server-Conf-Template'
-            Write-log "info: Extracting GC-Server-Conf-Template succeeded  "  
         }
     }
     Else {
-        Write-log "install-GC-Server-Conf-Template Failed: $bmdmsrccoopurl $githubrepozipname"
-        Write-Warning 'Failed: fn_install-GC-Server-Conf-Template '
+        Get-WarnMessage 'Failed: fn_install-GC-Server-Conf-Template '
         Exit
     }
 }

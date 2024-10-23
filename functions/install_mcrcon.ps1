@@ -26,9 +26,7 @@ Function install-mcrcon {
             }
         }
         catch { 
-            Write-log "Warning: $($_.Exception.Message)" 
-            Write-Warning 'Downloading  MCRCon Failed'
-            Write-log "Failed: Downloading  MCRCon "
+            Get-WarnMessage "Downloading  MCRCon Failed $($_.Exception.Message)"
             New-TryagainNew 
         }
         clear-hostline 1
@@ -37,11 +35,11 @@ Function install-mcrcon {
         Get-Infomessage "Extracting" 'MCRCon'
         Expand-Archive $currentdir\$githubrepozipname $currentdir\$githubrepofolder -Force 
         if (!(Test-Path $mcrcondirectory )) {New-Item $mcrcondirectory -ItemType Directory | Out-File -Append -Encoding Default  $ssmlog}
-        Copy-Item -Path $currentdir\$githubrepofolder\* -Destination $mcrcondirectory -Recurse -Force -ErrorAction Stop
-        Remove-Item $currentdir\$githubrepofolder -Recurse -Force 
+        Move-Item -Path $currentdir\$githubrepofolder\* -Destination $mcrcondirectory -Force -ErrorAction Stop
+        # Remove-Item $currentdir\$githubrepofolder -Recurse -Force 
         If (!$?) {
-            Write-Warning 'Extracting MCRCon Failed'
-            Write-log "Failed: Extracting MCRCon " 
+            clear-hostline 1
+            Get-WarnMessage 'Extracting MCRCon Failed'
             New-TryagainNew 
         }
         ElseIf ($?) { 
@@ -51,8 +49,7 @@ Function install-mcrcon {
         }
     }
     Else {
-        Write-log "Failed: install-mcrcon $mcrconurl $githubrepozipname"
-        Write-Warning 'fn_install-mcrcon Failed'
+        Get-WarnMessage 'fn_install-mcrcon Failed'
         Exit
     }
 }

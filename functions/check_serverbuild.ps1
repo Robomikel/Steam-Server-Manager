@@ -56,10 +56,8 @@ Function Get-ServerBuildCheck {
                         Write-log "Failed: to retrieve Local build"
                     }
                     clear-hostline 1
-                    Write-Information "SteamDB: $remotebuild" -InformationAction Continue
-                    Write-Information "LocalBuild: $localbuild" -InformationAction Continue
-                    Write-Log "info: SteamDB: $remotebuild" -InformationAction Continue
-                    Write-Log "info: LocalBuild: $localbuild" -InformationAction Continue
+                    Get-Infomessage "SteamDB: $remotebuild" 'info'
+                    Get-Infomessage "LocalBuild: $localbuild" 'info'
                     Start-Sleep -Seconds 2 
                     If (($command -eq 'update') -or ($updateonstart -eq "on") ) {
                         If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {

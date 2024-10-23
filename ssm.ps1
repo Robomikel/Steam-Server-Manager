@@ -136,6 +136,14 @@ $NOTE1 = ([char]9834)
 $NOTE2 = ([char]9835)
 $CHECKMARK = ([char]8730) 
 
+# Runs better on PowerShell 5
+# $posh = switch -Regex ([string]$ps = $($pSVersionTable.PSVersion)) {
+#     ("7.4") {"C:\Program Files\PowerShell\7\pwsh"}
+#     ("7.5") {"C:\Program Files (x86)\PowerShell\7-preview\pwsh"}
+#     Default {"powershell"}
+# }
+$posh = "powershell"
+
 If (!(Test-Path $currentdir\log\ssm)) { mkdir $currentdir\log\ssm >$null 2>&1 }
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 # Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
