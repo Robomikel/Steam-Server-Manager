@@ -61,7 +61,7 @@ Function Get-Infomessage {
     # Write-Information "[info]" -InformationAction Continue
     # Write-Information "$message" -InformationAction Continue
     #Add-Content $ssmlog "[$loggingdate] Message: $infomessage"
-    Write-log "Message: $infomessage"
+    Write-log "Message: $infomessage $info"
 }
 Function clear-hostline {
     Param (
