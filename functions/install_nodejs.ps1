@@ -36,7 +36,7 @@ Function Add-NodeJS {
         Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
         write-log "info: Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
         $nodeversionfolder = $nodeversion -replace '.zip', ''
-        Move-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Recurse -Force 
+        Move-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Force 
         # Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
             clear-hostline 1
