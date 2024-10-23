@@ -38,7 +38,6 @@ Function Get-Modinstall {
     }
     Else {
         Get-Infomessage "No Mods Available " 'info'
-        Write-log "info: No Mods Available"
     }
 
 }

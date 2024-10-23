@@ -17,8 +17,8 @@ Function New-RestartJobBG {
             Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
             $SecurePassword = Read-Host "Password" -AsSecureString
             # C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-            If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
-                $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+            If ($posh) {
+                # $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
                 If ($UserName -and $SecurePassword) {
                     $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
                     $Password = $Credentials.GetNetworkCredential().Password  
@@ -48,8 +48,8 @@ Function New-RestartJob {
     Write-Host "Input AutoRestart Time. i.e. 3am: " -F Cyan -NoNewline
     $restartTime = Read-Host
     If ($restartTime) {
-        If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
-            $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+        If ($posh) {
+            # $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
             $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "$currentdir\ssm.ps1 restart $serverfiles" -WorkingDirectory "$currentdir"
             #$Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Hours $restartTime)
             $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime

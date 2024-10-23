@@ -10,13 +10,11 @@ Function New-ServerFolder {
     Write-log "Function: $($MyInvocation.Mycommand)"  
     ##-- Create Folder for Server -- In current folder
     If (!$serverfiles -or $serverfiles -eq " ") {
-        Write-Warning 'Entered a null or Empty value'
-        write-log "Warning: Entered null or Empty value"
+        Get-WarnMessage 'Entered a null or Empty value'
         Select-Steamer
     }
     ElseIf (!$appid -or $appid -eq " ") {
-        Write-Warning 'Entered a space or Empty value '
-        write-log "Warning: Entered space or Empty value"
+        Get-WarnMessage 'Entered a space or Empty value '
         Select-Steamer
     }
     ElseIf (Test-Path "$sfwd\$serverfiles" ) {

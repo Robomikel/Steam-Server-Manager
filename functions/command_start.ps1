@@ -23,16 +23,16 @@ Function Get-StartServer {
         if ($env:SSH_CLIENT) {
             Write-log "info: SSH Client Detected"
             Write-log "Psversion: $($PSVersionTable.PSVersion) "
-            $s = switch -Regex ([string]$ps = $($pSVersionTable.PSVersion)) {
-                ("7.4") {"C:\Program Files\PowerShell\7\pwsh"}
-                ("7.5") {"C:\Program Files (x86)\PowerShell\7-preview\pwsh"}
-                Default {"powershell"}
-            }
+            # $s = switch -Regex ([string]$ps = $($pSVersionTable.PSVersion)) {
+            #     ("7.4") {"C:\Program Files\PowerShell\7\pwsh"}
+            #     ("7.5") {"C:\Program Files (x86)\PowerShell\7-preview\pwsh"}
+            #     Default {"powershell"}
+            # }
             $processCreateParams = @{
                 ClassName  = "Win32_Process"
                 MethodName = "Create"
                 Arguments  = @{
-                    CommandLine = "$s $currentdir\ssm.ps1 $command $serverfiles"
+                    CommandLine = "$posh $currentdir\ssm.ps1 $command $serverfiles"
                 }
             }
             $procInfo = Invoke-CimMethod @processCreateParams

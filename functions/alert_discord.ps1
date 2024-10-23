@@ -149,14 +149,12 @@ Function get-pode {
         Get-Infomessage "downloading" 'Pode'
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) {
-            Write-Warning 'Downloading Pode Failed'
-            Write-log "Failed: Downloading Pode Failed"
+            Get-WarnMessage 'Downloading Pode Failed'
             New-TryagainNew 
         }
         ElseIf ($?) {
             clear-hostline 1
             Get-Infomessage "downloaded" 'Pode' 'done'
-            Write-log "info: Downloading Pode succeeded " 
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -171,14 +169,12 @@ Function get-pode {
             write-log "Warning: $($e.Exception.Message)"
         }
         If (!$?) {
-            Write-Warning 'Extracting Pode Failed'
-            Write-log "Failed: Extracting Pode Failed " 
+            Get-WarnMessage 'Extracting Pode Failed'
             New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
-            Get-Infomessage "Extracted" 'Pode' 'done'
-            Write-log "info: Extracting Pode succeeded  "  
+            Get-Infomessage "Extracted" 'Pode' 'done'  
         }
     }
 }

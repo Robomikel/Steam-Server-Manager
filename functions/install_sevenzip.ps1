@@ -26,8 +26,7 @@ Function Add-Sevenzip {
             }
         }
         catch { 
-            Write-log "Warning: $($_.Exception.Message)" 
-            Get-WarnMessage 'Downloadfailed' '7ZIP'
+            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" '7ZIP'
             New-TryagainNew 
         }
         clear-hostline 1
@@ -36,6 +35,7 @@ Function Add-Sevenzip {
         clear-hostline 1
         Get-Infomessage "Extracting" '7ZIP'
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' '7ZIP'
             New-TryagainNew 
         }

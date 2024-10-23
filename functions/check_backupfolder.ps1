@@ -35,8 +35,8 @@ Function New-BackupJobBG {
             Write-Host "Username: $env:COMPUTERNAME\$env:UserName"
             $SecurePassword = Read-Host "Password" -AsSecureString
             If ($UserName -and $SecurePassword) {
-                If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
-                    $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+                If ($posh) {
+                    # $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
                     $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
                     $Password = $Credentials.GetNetworkCredential().Password  
                     $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "$currentdir\ssm.ps1 backup $serverfiles" -WorkingDirectory "$currentdir"
@@ -65,8 +65,8 @@ Function New-BackupJob {
     Write-Host "Input Daily Backup Time. i.e. 3am: " -F Cyan -NoNewline
     $restartTime = Read-Host
     If ($restartTime) {
-        If ((Test-Path "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")) {
-            $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+        If ($posh) {
+            # $posh = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
             $Action = New-ScheduledTaskAction -Execute "$posh" -Argument "$currentdir\ssm.ps1 backup $serverfiles" -WorkingDirectory "$currentdir"
             #$Trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date -RepetitionInterval (New-TimeSpan -Hours $restartTime)
             $Trigger = New-ScheduledTaskTrigger -Daily -At $restartTime

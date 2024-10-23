@@ -26,12 +26,13 @@ Function Get-MetaMod {
             # [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
             $metamod = @{
                 Wait     = $true
-                FilePath = 'PowerShell.exe' 
+                FilePath = $posh 
                 Arg      = "Invoke-WebRequest $metamodlatestlisturl -O $currentdir\$metamodmversionzip"
                 nnw      = $true
             }
             Start-Process @metamod
             If (!$?) { 
+                clear-hostline 1
                 Get-WarnMessage 'Downloadfailed' 'MetaMod'
             }
             ElseIf ($?) {
@@ -52,6 +53,7 @@ Function Get-MetaMod {
                 Expand-Archive @metamodzip >$null 2>&1
             }
             If (!$?) { 
+                clear-hostline 1
                 Get-WarnMessage 'ExtractFailed' 'MetaMod'
                 New-TryagainNew
             }
@@ -59,19 +61,19 @@ Function Get-MetaMod {
                 clear-hostline 1
                 Get-Infomessage 'Extracted MetaMod' 'done'
             } 
-            Write-log "info: Copying/installing Meta Mod"
+            Write-log "info: Moving/installing Meta Mod"
             If ($metamodmversionfolder -and $systemdir) { 
                 $metamodfolder = @{
                     Path        = "$currentdir\$metamodmversionfolder\addons"
                     Destination = $systemdir
                     Force       = $true
-                    Recurse     = $true
+                    # Recurse     = $true
                 }
-                Write-log "info: Copy-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
-                Copy-Item @metamodfolder >$null 2>&1
+                Write-log "info: Move-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
+                Move-Item @metamodfolder >$null 2>&1
             }
             If (!$?) { 
-                Write-log "Failed: Copying Meta Mod "
+                Write-log "Failed: Moving Meta Mod "
                 New-TryagainNew 
             }
             ElseIf ($?) {
@@ -102,13 +104,14 @@ Function Get-SourceMod {
         If ($sourcemodlatestlisturl -and $sourcemodmversionzip) {
             $sourcemodzip = @{
                 Wait     = $true
-                FilePath = 'powershell.exe'
+                FilePath = $posh
                 Arg      = "Invoke-WebRequest -Uri $sourcemodlatestlisturl -OutFile $currentdir\$sourcemodmversionzip"
                 nnw      = $true
             }
             Start-Process @sourcemodzip
         }
         If (!$?) { 
+            clear-hostline 1
             Get-WarnMessage 'Downloadfailed' 'SourceMod'
             New-TryagainNew 
         }
@@ -127,6 +130,7 @@ Function Get-SourceMod {
         Get-Infomessage "Extracting" 'SourceMod'
         Expand-Archive @sourcemodzip >$null 2>&1
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'SourceMod'
             New-TryagainNew 
         }
@@ -141,21 +145,21 @@ Function Get-SourceMod {
                 Path        = "$currentdir\$sourcemodmversionfolder\addons"
                 Destination = "$systemdir"
                 Force       = $true
-                Recurse     = $true
+                # Recurse     = $true
             }
             $sourcemodcfg = @{
                 Path        = "$currentdir\$sourcemodmversionfolder\cfg"
                 Destination = "$systemdir"
                 Force       = $true
-                Recurse     = $true
+                # Recurse     = $true
             }
-            write-log "info: Copy $currentdir\$sourcemodmversionfolder\addons $systemdir"
-            Copy-Item @sourcemodaddons >$null 2>&1
-            write-log "info: Copy $currentdir\$sourcemodmversionfolder\cfg $systemdir"
-            Copy-Item  @sourcemodcfg >$null 2>&1
+            write-log "info: Move $currentdir\$sourcemodmversionfolder\addons $systemdir"
+            Move-Item @sourcemodaddons >$null 2>&1
+            write-log "info: Move $currentdir\$sourcemodmversionfolder\cfg $systemdir"
+            Move-Item  @sourcemodcfg >$null 2>&1
         }
         If (!$?) { 
-            Write-log "Failed: Copying SourceMod "
+            Write-log "Failed: Moving SourceMod "
             New-TryagainNew 
         }
         ElseIf ($?) {
@@ -192,6 +196,7 @@ Function Get-CSGOGet5 {
         }
     }
     If (!$?) { 
+        clear-hostline 1
         Get-WarnMessage 'Downloadfailed' 'CSGO-Get5'
         New-TryagainNew 
     }
@@ -211,6 +216,7 @@ Function Get-CSGOGet5 {
     Get-Infomessage "Extracting" 'CSGO-Get5'
     Expand-Archive @get5zip
     If (!$?) {
+        clear-hostline 1
         Get-WarnMessage 'ExtractFailed' 'CSGO-Get5'
         New-TryagainNew 
     }
@@ -224,20 +230,20 @@ Function Get-CSGOGet5 {
         Path        = "$csgoget5folder\addons"
         Destination = "$systemdir"
         Force       = $true
-        Recurse     = $true
+        # Recurse     = $true
     }
     $get5foldercfg = @{
         Path        = "$csgoget5folder\cfg"
         Destination = "$systemdir"
         Force       = $true
-        Recurse     = $true
+        # Recurse     = $true
     }
-    Write-Log "info: Copy-Item $csgoget5folder\addons $systemdir"
-    Copy-Item  @get5folderaddons >$null 2>&1
-    Write-Log "info: Copy-item $csgoget5folder\cfg $systemdir"
-    Copy-Item  @get5foldercfg >$null 2>&1
+    Write-Log "info: Move-Item $csgoget5folder\addons $systemdir"
+    Move-Item  @get5folderaddons >$null 2>&1
+    Write-Log "info: Move-Item $csgoget5folder\cfg $systemdir"
+    Move-Item  @get5foldercfg >$null 2>&1
     If (!$?) { 
-        Write-log "Failed: Copying CSGO-Get5 "
+        Write-log "Failed: Moving CSGO-Get5 "
         New-TryagainNew 
     }
     ElseIf ($?) {
@@ -268,6 +274,7 @@ Function Get-CSGOcsgopugsetup {
         Get-Infomessage "Downloading" 'CSGO-pugsetup'
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
+            clear-hostline 1
             Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
             New-TryagainNew 
         }
@@ -287,6 +294,7 @@ Function Get-CSGOcsgopugsetup {
         Get-Infomessage "Extracting" 'CSGO-pugsetup'
         Expand-Archive @pugsetupzip
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'CSGO-pugsetup'
             New-TryagainNew 
         }
@@ -300,20 +308,20 @@ Function Get-CSGOcsgopugsetup {
             Path        = "$csgopugsetupfolder\addons"
             Destination = "$systemdir"
             Force       = $true
-            Recurse     = $true
+            # Recurse     = $true
         }
         $pugsetupcfg = @{
             Path        = "$csgopugsetupfolder\cfg"
             Destination = "$systemdir"
             Force       = $true
-            Recurse     = $true
+            # Recurse     = $true
         }
-        Write-Log "info: Copy $csgopugsetupfolder\addons $systemdir"
-        Copy-Item  @pugsetupaddons >$null 2>&1
-        Write-Log "info: Copy $csgopugsetupfolder\cfg $systemdir"
-        Copy-Item  @pugsetupcfg >$null 2>&1
+        Write-Log "info: Move $csgopugsetupfolder\addons $systemdir"
+        Move-Item  @pugsetupaddons >$null 2>&1
+        Write-Log "info: Move $csgopugsetupfolder\cfg $systemdir"
+        Move-Item  @pugsetupcfg >$null 2>&1
         If (!$?) { 
-            Write-log "Failed: Copying CSGOcsgopugsetup "
+            Write-log "Failed: Moving CSGOcsgopugsetup "
             New-TryagainNew 
         }
         ElseIf ($?) {
@@ -347,6 +355,7 @@ Function Get-CSGOsteamworks {
         }
     }
     If (!$?) { 
+        clear-hostline 1
         Get-WarnMessage 'Downloadfailed' 'SteamWorks'
         New-TryagainNew 
     }
@@ -366,6 +375,7 @@ Function Get-CSGOsteamworks {
     Get-Infomessage "Extracting" 'SteamWorks'
     Expand-Archive @steamworkszip
     If (!$?) {
+        clear-hostline 1
         Get-WarnMessage 'ExtractFailed' 'SteamWorks'
         New-TryagainNew 
     }
@@ -379,12 +389,12 @@ Function Get-CSGOsteamworks {
         Path        = "$steamworksfolder\addons"
         Destination = "$systemdir"
         Force       = $true
-        Recurse     = $true
+        # Recurse     = $true
     }
-    Write-Log "info: Copy-Item $steamworksfolder\addons $systemdir"
-    Copy-Item @steamworksaddon >$null 2>&1
+    Write-Log "info: Move-Item $steamworksfolder\addons $systemdir"
+    Move-Item @steamworksaddon >$null 2>&1
     If (!$?) { 
-        Write-log "Failed: Copying SteamWorks "
+        Write-log "Failed: Moving SteamWorks "
         New-TryagainNew 
     }
     ElseIf ($?) {
@@ -415,6 +425,7 @@ Function Get-AssettoServer {
         Get-Infomessage "Downloading" 'AssettoServer'
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
+            clear-hostline 1
             Get-WarnMessage 'Downloadfailed' 'AssettoServer'
             New-TryagainNew 
         }
@@ -434,6 +445,7 @@ Function Get-AssettoServer {
         Get-Infomessage "Extracting" 'AssettoServer'
         Expand-Archive @AssettoServerzip
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'AssettoServer'
             New-TryagainNew 
         }
@@ -447,12 +459,12 @@ Function Get-AssettoServer {
             Path        = "$AssettoServerfolder\*"
             Destination = "$systemdir"
             Force       = $true
-            Recurse     = $true
+            # Recurse     = $true
         }
-        Write-Log "info: Copy $AssettoServerfolder $systemdir"
-        Copy-Item  @AssettoServerfolder >$null 2>&1
+        Write-Log "info: Move $AssettoServerfolder $systemdir"
+        Move-Item  @AssettoServerfolder >$null 2>&1
         If (!$?) { 
-            Write-log "Failed: Copying AssettoServer "
+            Write-log "Failed: Moving AssettoServer "
             New-TryagainNew 
         }
         ElseIf ($?) {
@@ -484,6 +496,7 @@ Function Get-TShock {
         Get-Infomessage "Downloading" 'TShock'
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
+            clear-hostline 1
             Get-WarnMessage 'Downloadfailed' 'TShock'
             New-TryagainNew 
         }
@@ -503,6 +516,7 @@ Function Get-TShock {
         Get-Infomessage "Extracting" 'TShock'
         Expand-Archive @TShockzip
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'TShock'
             New-TryagainNew 
         }
@@ -516,12 +530,12 @@ Function Get-TShock {
             Path        = "$TShockfolder\*"
             Destination = "$systemdir"
             Force       = $true
-            Recurse     = $true
+            # Recurse     = $true
         }
-        Write-Log "info: Copy $TShockfolder $systemdir"
-        Copy-Item  @TShockfolder >$null 2>&1
+        Write-Log "info: Move $TShockfolder $systemdir"
+        Move-Item  @TShockfolder >$null 2>&1
         If (!$?) { 
-            Write-log "Failed: Copying TShock "
+            Write-log "Failed: Moving TShock "
             New-TryagainNew 
         }
         ElseIf ($?) {

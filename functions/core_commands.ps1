@@ -24,6 +24,7 @@ Function Select-Steamer {
     )
     Write-log "Function: $($MyInvocation.Mycommand)"
     Write-log "info: command:  $command $serverfiles"
+    Write-log "Psversion: $($PSVersionTable.PSVersion) "
     Set-Console  >$null 2>&1
     switch ($command) {
         { ($command -eq "ssm") -and ($serverfiles -eq "update") } { Get-UpdateSteamer; Break }

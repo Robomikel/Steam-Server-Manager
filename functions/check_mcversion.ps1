@@ -13,8 +13,8 @@ Function Get-MCbrversion {
         Get-MCBRWebrequest
         $remotebuild = $mcbrWebResponse.href
         If ($localbuild -and $remotebuild) {
-            Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
-            Write-Information "LocalBuild: $localbuild" -InformationAction Continue
+            Get-Infomessage "RemoteBuild: $remotebuild" 'info'
+            Get-Infomessage "LocalBuild: $localbuild" 'info'
             If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                 
                 Get-Infomessage "availableupdates" 'update'
@@ -36,8 +36,8 @@ Function Get-MCversion {
         Get-MCWebrequest
         $remotebuild = $mcvWebResponse
         If ($localbuild -and $remotebuild) {
-            Write-Information "RemoteBuild: $remotebuild" -InformationAction Continue
-            Write-Information "LocalBuild: $localbuild" -InformationAction Continue
+            Get-Infomessage "RemoteBuild: $remotebuild" 'info'
+            Get-Infomessage "LocalBuild: $localbuild" 'infor'
             If (Compare-Object $remotebuild.ToString() $localbuild.ToString()) {
                 Get-Infomessage "availableupdates" 'update'
             }

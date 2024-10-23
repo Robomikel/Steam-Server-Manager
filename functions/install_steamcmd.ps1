@@ -26,8 +26,7 @@ Function Install-Steam {
             }
         }
         catch { 
-            Write-log "Warning: $($_.Exception.Message)"
-            Get-WarnMessage 'Downloadfailed' 'SteamCMD'
+            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" 'SteamCMD'
             New-TryagainNew 
         }
         clear-hostline 1
@@ -43,6 +42,7 @@ Function Install-Steam {
             Expand-Archive @steamoutzip
         }
         If (!$?) {
+            clear-hostline 1
             Get-WarnMessage 'ExtractFailed' 'SteamCMD'
             New-TryagainNew 
         }

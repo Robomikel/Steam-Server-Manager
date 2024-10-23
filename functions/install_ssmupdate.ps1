@@ -54,7 +54,7 @@ Function Get-UpdateSteamer {
             }
         }
         Remove-Item "$currentdir\tmp" -Recurse -Force
-        Write-Information 'Press Enter to Close this session' -InformationAction Continue
+        Get-Infomessage 'Press Enter to Close this session' 'info'
         Pause  
         Stop-Process -Id $PID
     }
