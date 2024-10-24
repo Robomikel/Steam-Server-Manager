@@ -378,6 +378,7 @@ Function Get-WarnMessage {
     Write-Log "Warning: $message"
     Pop-Location
     if ($warnmessage -ne 'missingwebhook' -and $warnmessage -ne 'discordnotenabled') {
+        Get-ClearVariables
         Exit
     }
 }

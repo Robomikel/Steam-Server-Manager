@@ -26,8 +26,7 @@ Function install-mcrcon {
             }
         }
         catch { 
-            Get-WarnMessage "Downloading  MCRCon Failed $($_.Exception.Message)"
-            New-TryagainNew 
+            Get-WarnMessage "Downloading  MCRCon Failed: $($_.Exception.Message)"
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -40,7 +39,6 @@ Function install-mcrcon {
         If (!$?) {
             clear-hostline 1
             Get-WarnMessage 'Extracting MCRCon Failed'
-            New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1

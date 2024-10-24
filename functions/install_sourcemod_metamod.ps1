@@ -33,7 +33,7 @@ Function Get-MetaMod {
             Start-Process @metamod
             If (!$?) { 
                 clear-hostline 1
-                Get-WarnMessage 'Downloadfailed' 'MetaMod'
+                Get-WarnMessage 'Download Failed MetaMod'
             }
             ElseIf ($?) {
                 clear-hostline 1
@@ -54,8 +54,7 @@ Function Get-MetaMod {
             }
             If (!$?) { 
                 clear-hostline 1
-                Get-WarnMessage 'ExtractFailed' 'MetaMod'
-                New-TryagainNew
+                Get-WarnMessage 'Extract Failed MetaMod'
             }
             ElseIf ($?) {
                 clear-hostline 1
@@ -73,8 +72,7 @@ Function Get-MetaMod {
                 Move-Item @metamodfolder >$null 2>&1
             }
             If (!$?) { 
-                Write-log "Failed: Moving Meta Mod "
-                New-TryagainNew 
+                Get-WarnMessage "Failed: Moving Meta Mod "
             }
             ElseIf ($?) {
                 clear-hostline 1
@@ -112,8 +110,7 @@ Function Get-SourceMod {
         }
         If (!$?) { 
             clear-hostline 1
-            Get-WarnMessage 'Downloadfailed' 'SourceMod'
-            New-TryagainNew 
+            Get-WarnMessage 'Download Failed SourceMod'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -131,8 +128,7 @@ Function Get-SourceMod {
         Expand-Archive @sourcemodzip >$null 2>&1
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'SourceMod'
-            New-TryagainNew 
+            Get-WarnMessage 'Extract Failed SourceMod'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -197,8 +193,7 @@ Function Get-CSGOGet5 {
     }
     If (!$?) { 
         clear-hostline 1
-        Get-WarnMessage 'Downloadfailed' 'CSGO-Get5'
-        New-TryagainNew 
+        Get-WarnMessage 'Download Failed CSGO-Get5'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -217,8 +212,7 @@ Function Get-CSGOGet5 {
     Expand-Archive @get5zip
     If (!$?) {
         clear-hostline 1
-        Get-WarnMessage 'ExtractFailed' 'CSGO-Get5'
-        New-TryagainNew 
+        Get-WarnMessage 'Extract Failed CSGO-Get5'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -275,8 +269,7 @@ Function Get-CSGOcsgopugsetup {
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             clear-hostline 1
-            Get-WarnMessage 'Downloadfailed' 'CSGO-pugsetup'
-            New-TryagainNew 
+            Get-WarnMessage 'Download Failed CSGO-pugsetup' 
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -295,8 +288,7 @@ Function Get-CSGOcsgopugsetup {
         Expand-Archive @pugsetupzip
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'CSGO-pugsetup'
-            New-TryagainNew 
+            Get-WarnMessage 'Extract Failed CSGO-pugsetup'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -356,8 +348,7 @@ Function Get-CSGOsteamworks {
     }
     If (!$?) { 
         clear-hostline 1
-        Get-WarnMessage 'Downloadfailed' 'SteamWorks'
-        New-TryagainNew 
+        Get-WarnMessage 'Download Failed SteamWorks'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -376,8 +367,7 @@ Function Get-CSGOsteamworks {
     Expand-Archive @steamworkszip
     If (!$?) {
         clear-hostline 1
-        Get-WarnMessage 'ExtractFailed' 'SteamWorks'
-        New-TryagainNew 
+        Get-WarnMessage 'Extract Failed SteamWorks'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -394,8 +384,7 @@ Function Get-CSGOsteamworks {
     Write-Log "info: Move-Item $steamworksfolder\addons $systemdir"
     Move-Item @steamworksaddon >$null 2>&1
     If (!$?) { 
-        Write-log "Failed: Moving SteamWorks "
-        New-TryagainNew 
+        Get-WarnMessage "Failed: Moving SteamWorks "
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -426,8 +415,7 @@ Function Get-AssettoServer {
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             clear-hostline 1
-            Get-WarnMessage 'Downloadfailed' 'AssettoServer'
-            New-TryagainNew 
+            Get-WarnMessage 'Download failed AssettoServer'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -446,8 +434,7 @@ Function Get-AssettoServer {
         Expand-Archive @AssettoServerzip
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'AssettoServer'
-            New-TryagainNew 
+            Get-WarnMessage 'Extract Failed AssettoServer'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -497,8 +484,7 @@ Function Get-TShock {
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) { 
             clear-hostline 1
-            Get-WarnMessage 'Downloadfailed' 'TShock'
-            New-TryagainNew 
+            Get-WarnMessage 'Download failed TShock'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -517,8 +503,7 @@ Function Get-TShock {
         Expand-Archive @TShockzip
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'TShock'
-            New-TryagainNew 
+            Get-WarnMessage 'Extract Failed TShock'
         }
         ElseIf ($?) {
             clear-hostline 1

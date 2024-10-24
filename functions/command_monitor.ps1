@@ -37,7 +37,7 @@ Function Get-MonitorServer {
                     }
                 }
                 Else {
-                    get-process $process
+                    get-process $process  >$null 2>&1
                     if ($?) {
                         clear-hostline 1
                         Get-Infomessage "running" 

@@ -26,8 +26,7 @@ Function Install-Steam {
             }
         }
         catch { 
-            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" 'SteamCMD'
-            New-TryagainNew 
+            Get-WarnMessage "Download failed SteamCMD: $($_.Exception.Message)"
         }
         clear-hostline 1
         Get-Infomessage  "downloadtime"
@@ -43,8 +42,7 @@ Function Install-Steam {
         }
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'SteamCMD'
-            New-TryagainNew 
+            Get-WarnMessage 'Extract Failed SteamCMD'
         }
         ElseIf ($?) {
             clear-hostline 1
