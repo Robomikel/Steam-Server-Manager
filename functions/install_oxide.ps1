@@ -79,15 +79,17 @@ Function Get-undeadlegacy {
             Uri     = "$undeadurllatestdl"
             OutFile = "$currentdir\$undeadurllatestzip"
         }
-        Invoke-WebRequest @undeadurlzip
-    }
-    If (!$?) { 
-        clear-hostline 1
-        Get-WarnMessage 'Download Failed undead-legacy'
-    }
-    ElseIf ($?) {
-        clear-hostline 1
-        Get-Infomessage "Downloaded" 'undead-legacy'
+        Try {
+            Invoke-WebRequest @undeadurlzip
+            If ($?) {
+                clear-hostline 1
+                Get-Infomessage "Downloaded" 'undead-legacy'
+            }
+        }
+        Catch {
+            clear-hostline 1
+            Get-WarnMessage "Download Failed undead-legacy: $($_.Exception.Message)"
+        }
     }
     clear-hostline 1
     Get-Infomessage "downloadtime"
