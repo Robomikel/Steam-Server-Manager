@@ -28,8 +28,7 @@ Function Get-InstallForge {
             } 
         }
         catch { 
-            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" 'Minecraft Forge'
-            New-TryagainNew 
+            Get-WarnMessage "Download Failed Minecraft Forge:  $($_.Exception.Message)"
         }
         Move-Item $currentdir\forge-$forgeversion-installer.jar $serverdir -Force -ea SilentlyContinue
         Push-location

@@ -26,8 +26,7 @@ Function Add-NodeJS {
             }     
         }
         catch {
-            Get-WarnMessage  "Downloadfailed $($_.Exception.Message)" 'Nodejs'
-            New-TryagainNew
+            Get-WarnMessage  "Download Failed Nodejs: $($_.Exception.Message)"
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -40,8 +39,7 @@ Function Add-NodeJS {
         # Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'Nodejs'
-            New-TryagainNew
+            Get-WarnMessage 'Extract Failed Nodejs'
         }
         ElseIf ($?) { 
             clear-hostline 1

@@ -10,16 +10,10 @@ Function Get-CheckNonSteam {
     Write-log "Function: $($MyInvocation.Mycommand)"
     If ($APPID -eq 11421000 -or $APPID -eq 11500000 ) {
         If ($command -eq "ForceUpdate" ) {
-            Get-WarnMessage "ForceUpdate not available for this server" 'warning'
-            Get-WarnMessage "Try Install Command to download and overwrite files" 'warning'
-            Pause
-            Exit
+            Get-WarnMessage "Force-Update not available for this server"
         }
         ElseIf ($command -eq "validate" ) {
-            Get-WarnMessage "validate not available for this server" 'warning'
-            Get-WarnMessage "Try Install Command to download and overwrite files" 'warning'
-            Pause
-            Exit
+            Get-WarnMessage "validate not available for this server"
         }
     }
 }

@@ -37,8 +37,7 @@ Function Get-Oxide {
         }
         catch {
             clear-hostline 1
-            Get-WarnMessage "Downloadfailed $($_.Exception.Message)" 'Oxide'
-            New-TryagainNew
+            Get-WarnMessage "Download Failed Oxide:  $($_.Exception.Message)"
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -50,8 +49,7 @@ Function Get-Oxide {
         Expand-Archive $currentdir\$oxideoutput $oxidedirectory -Force
         If (!$?) { 
             clear-hostline 1
-            Get-WarnMessage 'ExtractFailed' 'Oxide'
-            New-TryagainNew
+            Get-WarnMessage 'Extract Failed Oxide'
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -63,7 +61,6 @@ Function Get-Oxide {
         If (!$?) { 
             clear-hostline 1
             Get-WarnMessage "Failed: Moving Oxide "
-            New-TryagainNew
         }
         Edit-Modlist 'Oxide' $oxideoutput
     }
@@ -86,8 +83,7 @@ Function Get-undeadlegacy {
     }
     If (!$?) { 
         clear-hostline 1
-        Get-WarnMessage 'Downloadfailed' 'undead-legacy'
-        New-TryagainNew 
+        Get-WarnMessage 'Download Failed undead-legacy'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -105,8 +101,7 @@ Function Get-undeadlegacy {
     # saps 7za -args("x -o$undeadurlfolder $currentdir\$undeadurllatestzip -r") -Wait
     If (!$?) {
         clear-hostline 1
-        Get-WarnMessage 'ExtractFailed' 'undead-legacy'
-        New-TryagainNew 
+        Get-WarnMessage 'Extract Failed undead-legacy'
     }
     ElseIf ($?) {
         clear-hostline 1
@@ -124,7 +119,6 @@ Function Get-undeadlegacy {
     If (!$?) { 
         clear-hostline 1
         Get-WarnMessage "Failed: Moving undead-legacy "
-        New-TryagainNew 
     }
     Edit-Modlist 'undead-legacy' $undeadurllatestzip
 }
@@ -292,8 +286,7 @@ Function Get-BlackMesaSrcCoop {
         }
         catch { 
             clear-hostline 1
-            Get-WarnMessage "Downloading  bmdmsrccoop Failed $($_.Exception.Message)"
-            New-TryagainNew 
+            Get-WarnMessage "Downloading  bmdmsrccoop Failed: $($_.Exception.Message)" 
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -305,7 +298,6 @@ Function Get-BlackMesaSrcCoop {
         If (!$?) {
             clear-hostline 1
             Get-WarnMessage 'Extracting bmdmsrccoop Failed'
-            New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
@@ -315,7 +307,6 @@ Function Get-BlackMesaSrcCoop {
     }
     Else {
         Get-WarnMessage 'fn_install-bmdmsrccoop Failed'
-        Exit
     }
 }
 Function Get-GCServerConfTemplate  {
@@ -338,8 +329,7 @@ Function Get-GCServerConfTemplate  {
         }
         catch { 
             clear-hostline 1
-            Get-WarnMessage "Downloading  GC-Server-Conf-Template Failed $($_.Exception.Message)"
-            New-TryagainNew 
+            Get-WarnMessage "Downloading  GC-Server-Conf-Template Failed:  $($_.Exception.Message)"
         }
         clear-hostline 1
         Get-Infomessage "downloadtime"
@@ -351,7 +341,6 @@ Function Get-GCServerConfTemplate  {
         If (!$?) {
             clear-hostline 1
             Get-WarnMessage 'Extracting GC-Server-Conf-Template Failed'
-            New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
@@ -360,6 +349,5 @@ Function Get-GCServerConfTemplate  {
     }
     Else {
         Get-WarnMessage 'Failed: fn_install-GC-Server-Conf-Template '
-        Exit
     }
 }

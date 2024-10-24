@@ -150,7 +150,6 @@ Function get-pode {
         Invoke-WebRequest -Uri $githubrepoziplink -OutFile $currentdir\$githubrepozipname
         If (!$?) {
             Get-WarnMessage 'Downloading Pode Failed'
-            New-TryagainNew 
         }
         ElseIf ($?) {
             clear-hostline 1
@@ -170,7 +169,6 @@ Function get-pode {
         }
         If (!$?) {
             Get-WarnMessage 'Extracting Pode Failed'
-            New-TryagainNew 
         }
         ElseIf ($?) { 
             clear-hostline 1
