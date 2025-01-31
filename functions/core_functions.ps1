@@ -610,6 +610,7 @@ Function Test-PSversion {
     Else {
         $psSeven = $null
     }
+    Write-log "PSVersion: $($pSVersionTable.PSVersion)"
 }
 Function Set-SteamerSettingLog {
     Write-log "Function: $($MyInvocation.Mycommand)"
