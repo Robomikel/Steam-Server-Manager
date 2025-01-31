@@ -123,7 +123,7 @@ Function Get-IniContent {
 
         $commentRegex = "^\s*([$($CommentChar -join '')].*)$"
         $sectionRegex = "^\s*\[(.+)\]\s*$"
-        $keyRegex     = "^\s*(.+?)\s*=\s*(['`"]?)(.*)\2\s*$"
+        $keyRegex = "^\s*(.+?)\s*=\s*(['`"]?)(.*)\2\s*$"
 
         Write-Debug ("commentRegex is {0}." -f $commentRegex)
     }
@@ -281,7 +281,7 @@ Function Out-IniFile {
 
         # Specifies the path to the output file.
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {Test-Path $_ -IsValid} )]
+        [ValidateScript( { Test-Path $_ -IsValid } )]
         [Parameter( Position = 0, Mandatory = $true )]
         [String]
         $FilePath,
@@ -333,7 +333,7 @@ Function Out-IniFile {
                 $Encoding = "UTF8",
 
                 [ValidateNotNullOrEmpty()]
-                [ValidateScript( {Test-Path $_ -IsValid})]
+                [ValidateScript( { Test-Path $_ -IsValid })]
                 [Parameter( Mandatory, ValueFromPipelineByPropertyName )]
                 [Alias("Path")]
                 [string]
@@ -358,8 +358,8 @@ Function Out-IniFile {
                     else {
                         Write-Verbose "$($MyInvocation.MyCommand.Name):: Writing key: $key"
                         $InputObject[$key] |
-                            ForEach-Object { "$key$delimiter$_" } |
-                            Out-File -Encoding $Encoding -FilePath $FilePath -Append
+                        ForEach-Object { "$key$delimiter$_" } |
+                        Out-File -Encoding $Encoding -FilePath $FilePath -Append
                     }
                 }
             }
@@ -390,7 +390,7 @@ Function Out-IniFile {
             $outFile = New-Item -ItemType file -Path $Filepath -Force:$Force
         }
 
-        if (!(Test-Path $outFile.FullName)) {Throw "Could not create File"}
+        if (!(Test-Path $outFile.FullName)) { Throw "Could not create File" }
 
         Write-Verbose "$($MyInvocation.MyCommand.Name):: Writing to file: $Filepath"
         foreach ($i in $InputObject.get_keys()) {
@@ -608,72 +608,89 @@ Function Edit-inifile {
                 # Write $v
                 # pause
                 Foreach ($va in $($ini.$k.Keys)) {
-                    if ($va -match "servername"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $hostname
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "servername") {
+                        if ($hostname) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $hostname
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "sessionname"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $hostname
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "sessionname") {
+                        if ($hostname) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $hostname
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "serverpassword"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $serverpassword
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "serverpassword") {
+                        if ($serverpassword) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $serverpassword
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "serverport"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $port
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "serverport") {
+                        If ($port) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $port
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "queryport"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $queryport
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "queryport") {
+                        If ($queryport) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $queryport
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "rconport"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $rconport
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "rconport") {
+                        If ($rconport) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $rconport
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "rconpassword"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $RCONPASSWORD
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "rconpassword") {
+                        If ($RCONPASSWORD) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $RCONPASSWORD
+                            $ini | out-inifile $inifile -force
+                        }
                     }
-                    if ($va -match "adminpassword"){
-                        #Write-Host "$va : $($v.$va)"
-                        # Write-Log "Enter new Value"
-                        # $ini.$k.$va = Read-Host
-                        Write-Log "Info: Updated $servercfg $va : $($v.$va)"
-                        $ini.$k.$va = $adminpassword
-                        $ini | out-inifile $inifile -force
+                    if ($va -match "adminpassword") {
+                        If ($adminpassword) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $adminpassword
+                            $ini | out-inifile $inifile -force
+                        }
                     }
                 }
             }
         }
     }
 }
+

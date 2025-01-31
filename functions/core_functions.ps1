@@ -307,20 +307,24 @@ Function Select-EditSourceCFG {
 Function Edit-ServerConfig {
     If (${servercfg}) {
         If (${servercfgdir}) {
-            switch ($appid) {
-                # '294420' { $line = 5; Set-ServerConfig }
-                # '237410' { $line = 10; Set-ServerConfig }
-                '407480' { $line = 1206; Set-ServerConfig }
-                # '1670340' { $line = 2; Set-ServerConfig }
-                '361580' { $line = 11; Set-ServerConfig }
-                # '17515' { $line = 9; Set-ServerConfig }
-                # '376030' { $line = 97; Set-ServerConfig }
-                # '233780' { $line = 16; Set-ServerConfig }
-                Default { Set-ServerConfig }
+            If ( "${servercfgdir}\${servercfg}" -like "*.ini") {
+                Edit-inifile $servercfgdir\$servercfg
+                Else {
+                    switch ($appid) {
+                        # '294420' { $line = 5; Set-ServerConfig }
+                        # '237410' { $line = 10; Set-ServerConfig }
+                        '407480' { $line = 1206; Set-ServerConfig }
+                        # '1670340' { $line = 2; Set-ServerConfig }
+                        '361580' { $line = 11; Set-ServerConfig }
+                        # '17515' { $line = 9; Set-ServerConfig }
+                        # '376030' { $line = 97; Set-ServerConfig }
+                        # '233780' { $line = 16; Set-ServerConfig }
+                        Default { Set-ServerConfig }
+                    }
+                }
             }
         }
     }
-    Set-ServerIniConfig
     Write-log "Function: $($MyInvocation.Mycommand)"
 }
 
