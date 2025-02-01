@@ -307,16 +307,21 @@ Function Select-EditSourceCFG {
 Function Edit-ServerConfig {
     If (${servercfg}) {
         If (${servercfgdir}) {
-            switch ($appid) {
-                # '294420' { $line = 5; Set-ServerConfig }
-                # '237410' { $line = 10; Set-ServerConfig }
-                '407480' { $line = 1206; Set-ServerConfig }
-                # '1670340' { $line = 2; Set-ServerConfig }
-                '361580' { $line = 11; Set-ServerConfig }
-                # '17515' { $line = 9; Set-ServerConfig }
-                # '376030' { $line = 97; Set-ServerConfig }
-                # '233780' { $line = 16; Set-ServerConfig }
-                Default { Set-ServerConfig }
+            If ( "${servercfgdir}\${servercfg}" -like "*.ini") {
+                Edit-inifile $servercfgdir\$servercfg
+                Else {
+                    switch ($appid) {
+                        # '294420' { $line = 5; Set-ServerConfig }
+                        # '237410' { $line = 10; Set-ServerConfig }
+                        '407480' { $line = 1206; Set-ServerConfig }
+                        # '1670340' { $line = 2; Set-ServerConfig }
+                        '361580' { $line = 11; Set-ServerConfig }
+                        # '17515' { $line = 9; Set-ServerConfig }
+                        # '376030' { $line = 97; Set-ServerConfig }
+                        # '233780' { $line = 16; Set-ServerConfig }
+                        Default { Set-ServerConfig }
+                    }
+                }
             }
         }
     }
@@ -394,6 +399,15 @@ Function Set-ServerConfig {
     }
     Else {
         Write-log "Failed: Edit ServerConfig Hostname"
+    }
+}
+Function Set-ServerIniConfig {
+    Write-log "Function: $($MyInvocation.Mycommand)"
+    if ((Test-Path $servercfgdir\$servercfg)) {
+        If ($servercfg -match ".ini") {
+            Write-log "info: Found .ini"
+            Edit-inifile $servercfgdir\$servercfg
+        }
     }
 }
 Function New-ServerLog {
@@ -610,6 +624,7 @@ Function Test-PSversion {
     Else {
         $psSeven = $null
     }
+    Write-log "PSVersion: $($pSVersionTable.PSVersion)"
 }
 Function Set-SteamerSettingLog {
     Write-log "Function: $($MyInvocation.Mycommand)"

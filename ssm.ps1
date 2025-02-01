@@ -144,7 +144,7 @@ $CHECKMARK = ([char]8730)
 # }
 $posh = "powershell"
 
-If (!(Test-Path $currentdir\log\ssm)) { mkdir $currentdir\log\ssm >$null 2>&1 }
+If (!(Test-Path $currentdir\log\ssm)) { New-Item -ItemType Directory $currentdir\log\ssm >$null 2>&1 }
 Get-ChildItem -Path $currentdir\functions -Filter *.ps1 | ForEach-Object { . $_.FullName }
 # Get-ChildItem -Path $currentdir\config-default -Filter *.ps1 | ForEach-Object { . $_.FullName }
 Set-SteamerSetting
