@@ -1621,7 +1621,7 @@ Function Get-ProcPortBind {
 }
 Function Get-NTop {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    if (!$NTopdirectory) {
+    if (!(Test-Path $NTopdirectory)) {
         If ($NTopowner -and $NTopsetuprepo ) {
             #(New-Object Net.WebClient).DownloadFile("$metamodurl", "$currentdir\metamod.zip")
             #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
