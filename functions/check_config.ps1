@@ -638,6 +638,16 @@ Function Edit-inifile {
                             $ini | out-inifile $inifile -force
                         }
                     }
+                    if ($va -match "password") {
+                        if ($serverpassword) {
+                            #Write-Host "$va : $($v.$va)"
+                            # Write-Log "Enter new Value"
+                            # $ini.$k.$va = Read-Host
+                            Write-Log "Info: Updated $servercfg $va : $($v.$va)"
+                            $ini.$k.$va = $serverpassword
+                            $ini | out-inifile $inifile -force
+                        }
+                    }
                     if ($va -match "serverport") {
                         If ($port) {
                             #Write-Host "$va : $($v.$va)"
