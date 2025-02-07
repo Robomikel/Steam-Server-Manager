@@ -78,7 +78,7 @@ Function Get-StartServer {
             Write-Log "info: Set Priority $process High"
         }
         Else {
-            Get-WmiObject Win32_process | ? { $_.Name -like "*$process*" } | foreach-object { $_.SetPriority(256) }
+            Get-WmiObject Win32_process | ? { $_.Name -like "*$process*" } | foreach-object { $_.SetPriority(256) } >$null 2>&1
             Write-Log "info: Set Priority $process SetPriority(256)"
         }
         Pop-Location
