@@ -540,7 +540,7 @@ Function Get-Sourcemodwebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     if ($appid -eq 346680) {
-        $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
+        $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=1.12-dev&all=1"
         $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 7163 | select-string -SimpleMatch 'windows.zip')
     }
     else {
