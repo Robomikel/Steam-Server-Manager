@@ -512,7 +512,7 @@ Function Get-Appid {
 Function Get-MetaModWebrequest {
     Write-log "Function: $($MyInvocation.Mycommand)"
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-    if ($appid -eq 346680) {
+    if ($appid -eq 0) {
         $metamodlatest = Invoke-WebRequest "https://www.sourcemm.net/downloads.php?branch=1.11-dev&all=1"
         $metamodlatestlist = ($metamodlatest.Links.href | Get-Unique | select-string -SimpleMatch 1155 | select-string -SimpleMatch 'windows.zip')
     }
@@ -541,7 +541,7 @@ Function Get-Sourcemodwebrequest {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
     if ($appid -eq 346680) {
         $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=1.11-dev&all=1"
-        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 6968 | select-string -SimpleMatch 'windows.zip')
+        $sourcemodlatestlist = ($sourcemodlatest.Links.href | Get-Unique | select-string -SimpleMatch 7163 | select-string -SimpleMatch 'windows.zip')
     }
     else {
         $sourcemodlatest = Invoke-WebRequest "https://www.sourcemod.net/downloads.php?branch=$smversion"
