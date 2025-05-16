@@ -66,10 +66,10 @@ Function Get-MetaMod {
                     Path        = "$currentdir\$metamodmversionfolder\addons"
                     Destination = $systemdir
                     Force       = $true
-                    # Recurse     = $true
+                    Recurse     = $true
                 }
                 Write-log "info: Move-Item $currentdir\$metamodmversionfolder\addons $systemdir" 
-                Move-Item @metamodfolder >$null 2>&1
+                Copy-Item @metamodfolder >$null 2>&1
             }
             If (!$?) { 
                 Get-WarnMessage "Failed: Moving Meta Mod "
@@ -141,18 +141,18 @@ Function Get-SourceMod {
                 Path        = "$currentdir\$sourcemodmversionfolder\addons"
                 Destination = "$systemdir"
                 Force       = $true
-                # Recurse     = $true
+                Recurse     = $true
             }
             $sourcemodcfg = @{
                 Path        = "$currentdir\$sourcemodmversionfolder\cfg"
                 Destination = "$systemdir"
                 Force       = $true
-                # Recurse     = $true
+                Recurse     = $true
             }
             write-log "info: Move $currentdir\$sourcemodmversionfolder\addons $systemdir"
-            Move-Item @sourcemodaddons >$null 2>&1
+            Copy-Item @sourcemodaddons >$null 2>&1
             write-log "info: Move $currentdir\$sourcemodmversionfolder\cfg $systemdir"
-            Move-Item  @sourcemodcfg >$null 2>&1
+            Copy-Item  @sourcemodcfg >$null 2>&1
         }
         If (!$?) { 
             Write-log "Failed: Moving SourceMod "
