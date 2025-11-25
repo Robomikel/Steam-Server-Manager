@@ -19,7 +19,7 @@ Download, Extract, and Open PowerShell and Change Directory to ssm.ps1 to run sc
 PS Commands:   
 
 ```[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;```   
-```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -O Steam-Server-Manager.zip```   
+```Invoke-WebRequest "https://github.com/Robomikel/Steam-Server-Manager/archive/master.zip" -OutFile Steam-Server-Manager.zip```   
 ```Expand-Archive "Steam-Server-Manager.zip" "Steam-Server-Manager" ```   
 ```Copy-Item Steam-Server-Manager\Steam-Server-Manager-master\* Steam-Server-Manager\ -Recurse -Force```   
 ```Remove-Item Steam-Server-Manager\Steam-Server-Manager-master -Recurse -Force```   
