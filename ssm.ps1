@@ -34,9 +34,9 @@ $githuburl = "https://raw.githubusercontent.com/GameServerManagers/Game-Server-C
 
 # NodeJS
 # $nodejslatest = "latest-v12.x"
-$nodejslatest = "v20.17.0" # Max version for Gamedig currently
+$nodejslatest = "v25.9.0" # Max version for Gamedig currently
 # $nodejslatest = "latest-v16.x" # this version doesn't work for gamedig
-$nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
+# nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
 $nodejsdirectory = "$currentdir\$nodejslatest"
 $nodejsexecutable = "$nodejsdirectory\node.exe"
 $nodejsprogramexecutable = "C:\Program Files\nodejs\node.exe"

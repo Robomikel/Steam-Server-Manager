@@ -8,10 +8,12 @@
 #
 Function Add-NodeJS {
     Write-log "Function: $($MyInvocation.Mycommand)"
-    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/$nodejslatest/" -UseBasicParsing
+    $nodejscurrentlink = Invoke-WebRequest -Uri "https://nodejs.org/download/release/latest/" -UseBasicParsing
     $nodeversion = $nodejscurrentlink.Links.href | Select-String -Pattern win-x64.zip
-    $nodejsurl = "https://nodejs.org/download/release/$nodejslatest/$nodeversion"
-    $nodejsoutput = "$nodeversion"
+    $nodejszip = $nodeversion.line.split("/")[4]
+    $nodejsurl = "https://nodejs.org/$nodeversion"
+    write-log "$nodeversion"
+    # $nodejsoutput = "$nodeversion"
     If ($nodeversion) {
         $start_time = Get-Date
         clear-hostline 1
@@ -19,7 +21,7 @@ Function Add-NodeJS {
         #(New-Object Net.WebClient).DownloadFile("$nodejsurl", "$currentdir\$nodeversion")
         try {
             #[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-            Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejsoutput
+            Invoke-WebRequest -Uri $nodejsurl -OutFile $currentdir\$nodejszip
             If ($?) {
                 clear-hostline 1
                 Get-Infomessage "Downloaded" 'Nodejs'
@@ -32,9 +34,9 @@ Function Add-NodeJS {
         Get-Infomessage "downloadtime"
         clear-hostline 1
         Get-Infomessage "Extracting" 'Nodejs'
-        Expand-Archive "$currentdir\$nodejsoutput" "$currentdir\$nodejslatest\" -Force
-        write-log "info: Expand-Archive $currentdir\$nodejsoutput $currentdir\$nodejslatest\ -Force"
-        $nodeversionfolder = $nodeversion -replace '.zip', ''
+        Expand-Archive "$currentdir\$nodejszip" "$currentdir\$nodejslatest\" -Force
+        write-log "info: Expand-Archive $currentdir\$nodejszip $currentdir\$nodejslatest\ -Force"
+        $nodeversionfolder = $nodejszip -replace '.zip', ''
         Move-Item  "$currentdir\$nodejslatest\$nodeversionfolder\*" -Destination $nodejsdirectory -Force 
         # Remove-Item "$currentdir\$nodejslatest\$nodeversionfolder" -Recurse -Force 
         If (!$?) {
@@ -78,4 +80,5 @@ Function Add-discordjs {
         #  Start-Process $posh -args ("npm install gamedig -g") -wait -nnw
     }
 }
+
 
